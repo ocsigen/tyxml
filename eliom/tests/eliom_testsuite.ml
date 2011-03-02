@@ -372,7 +372,7 @@ let _ = Eliom_output.Xhtml5compact.register Eliom_testsuite3.main
               a gotowithoutclient [pcdata "A page that links to a service that belongs to the application but do not launch the application if it is already launched"] ();
               br ();
               a on_load [pcdata "A service using on_unload and on_load"] ();
-              br ();
+            br ();
             ];
             h4 [pcdata "Comet"];
             p [
