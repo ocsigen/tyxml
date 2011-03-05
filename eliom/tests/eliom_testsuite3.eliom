@@ -64,7 +64,7 @@ open Eliom_services
 }}
 
 (* This is server only because there are no delimiters. *)
-module Eliom_appl =
+module My_appl =
   Eliom_output.Eliom_appl (
     struct
       let application_name = "eliom_testsuite3"
@@ -87,11 +87,11 @@ module Eliom_appl =
 (*wiki* Now I can define my first service belonging to that application: *wiki*)
 
 {server{ (* note that {server{ ... }} is optionnal. *)
-open Eliom_appl
+open My_appl
 }}
 
 let eliomclient1 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["plop"; "eliomclient1"]
     ~get_params:unit
     (fun () () ->
@@ -138,7 +138,7 @@ let item () = li [pcdata Sys.ocaml_version]
 }} ;;
 
 let _ =
-  Eliom_appl.register
+  My_appl.register
     eliomclient2
     (fun () () ->
       Lwt.return
@@ -324,12 +324,13 @@ where and {{{id}}} an identifier for the value.
                             ~service:coucou
                             [pcdata "An external link generated client side"]
                             ();
-                          pcdata " and ";
+                          pcdata ", ";
                           Eliom_output.Xhtml5.a
                             (*zap* *)~a:[a_class ["clickable"]](* *zap*)
                             ~service:eliomclient1
-                            [pcdata "another, inside the application. "]
+                            [pcdata "another, inside the application, but wrongly created with Eliom_output.Xhtml5 (what module to use client side? how to avoid using Eliom_output.Xhtml5?). "]
                             ();
+                          pcdata " and ";
                           span
                             ~a:[a_class ["clickable"];
                                 a_onclick (fun () -> Dom_html.window##alert(Js.string "clicked!"))]
@@ -355,7 +356,7 @@ To do that, use the {{{Eliom_parameters.caml}}} function:
 type ec3 = (int * string * string list) deriving (Json)
 
 let eliomclient3' =
-  Eliom_appl.register_post_coservice'
+  My_appl.register_post_coservice'
     ~post_params:(caml "isb" Json.t<ec3>)
     (fun () (i, s, l) ->
       Lwt.return
@@ -365,7 +366,7 @@ let eliomclient3' =
 
 
 let eliomclient3 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["eliomclient3"]
     ~get_params:unit
     (fun () () ->
@@ -390,7 +391,7 @@ let eliomclient4' =
 
 
 let eliomclient4 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["eliomclient4"]
     ~get_params:unit
     (fun () () ->
@@ -428,7 +429,7 @@ let gotowithoutclient =
 
 
 let _ =
-  Eliom_appl.register
+  My_appl.register
     ~options:{Eliom_output.default_appl_service_options
               with Eliom_output.do_not_launch = true}
     ~service:withoutclient
@@ -448,7 +449,7 @@ let _ =
                [pcdata "Same link with ";
                 code [pcdata "a"]; pcdata "."] ()];
          ]);
-  Eliom_appl.register
+  My_appl.register
     ~service:gotowithoutclient
     (fun () () ->
        Lwt.return
@@ -472,7 +473,7 @@ let _ =
 
 
 let on_load =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["onload"]
     ~get_params:unit
     (fun () () ->
@@ -499,7 +500,7 @@ let on_load =
     )
 
 let uri_test =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["uritest"]
     ~get_params:unit
     (fun () () ->
@@ -553,7 +554,7 @@ let stream1 = Lwt_stream.from rand_tick
 let _ = Lwt_stream.iter (fun _ -> ()) stream1
 
 let comet1 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["comet1"]
     ~get_params:unit
     (fun () () ->
@@ -601,7 +602,7 @@ let comet1 =
  *wiki*)
 
 let comet2 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["comet2"]
     ~get_params:unit
     (fun () () ->
@@ -641,7 +642,7 @@ let comet2 =
  *wiki*)
 
 let comet3 =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["comet3"]
     ~get_params:unit
     (fun () () ->
@@ -694,7 +695,7 @@ let _ =
     (Eliom_bus.stream message_bus)
 
 let comet_message_board =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["message_board"]
     ~get_params:unit
     (fun () () ->
@@ -753,7 +754,7 @@ open Event_arrows
 }}
 
 let event_service =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["events"]
     ~get_params:Eliom_parameters.unit
     (fun () () ->
@@ -915,16 +916,16 @@ let tsession_data_example_handler _ _  =
         | Eliom_state.Data name ->
           p [pcdata ("Hello "^name);
              br ();
-             Eliom_appl.a
+             My_appl.a
                tsession_data_example_close
                [pcdata "close session"] ()]
         | Eliom_state.Data_session_expired
         | Eliom_state.No_data ->
-          Eliom_appl.post_form
+          My_appl.post_form
             tsession_data_example_with_post_params
             (fun login ->
               [p [pcdata "login: ";
-                  Eliom_appl.string_input
+                  My_appl.string_input
                     ~input_type:`Text ~name:login ()]]) ()
     ]
 
@@ -941,7 +942,7 @@ let tsession_data_example_with_post_params_handler _ login =
   return
     [p [pcdata ("Welcome " ^ login ^ ". You are now connected.");
         br ();
-        Eliom_appl.a tsession_data_example [pcdata "Try again"] ()
+        My_appl.a tsession_data_example [pcdata "Try again"] ()
        ]]
 
 
@@ -961,7 +962,7 @@ let tsession_data_example_close_handler () () =
         | Eliom_state.Data_session_expired -> p [pcdata "Your session has expired."]
         | Eliom_state.No_data -> p [pcdata "You were not connected."]
         | Eliom_state.Data _ -> p [pcdata "You have been disconnected."]);
-      p [Eliom_appl.a tsession_data_example [pcdata "Retry"] () ]]
+      p [My_appl.a tsession_data_example [pcdata "Retry"] () ]]
 
 
 
@@ -969,11 +970,11 @@ let tsession_data_example_close_handler () () =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register
+  My_appl.register
     tsession_data_example_close tsession_data_example_close_handler;
-  Eliom_appl.register
+  My_appl.register
     tsession_data_example tsession_data_example_handler;
-  Eliom_appl.register
+  My_appl.register
     tsession_data_example_with_post_params
     tsession_data_example_with_post_params_handler
 
@@ -1018,7 +1019,7 @@ let tsession_services_example_close =
 
 let tsession_services_example_handler () () =
   let f =
-    Eliom_appl.post_form
+    My_appl.post_form
       tsession_services_example_with_post_params
       (fun login ->
         [p [pcdata "login: ";
@@ -1063,14 +1064,14 @@ let tlaunch_session () login =
 
   (* Now we register new versions of main services in the
      session service table: *)
-  Eliom_appl.register (*zap* *) ~state_name (* *zap*)
+  My_appl.register (*zap* *) ~state_name (* *zap*)
     ~scope:`Client_process
     ~service:tsession_services_example
     (* service is any public service already registered,
        here the main page of our site *)
     new_main_page;
 
-  Eliom_appl.register (*zap* *) ~state_name (* *zap*)
+  My_appl.register (*zap* *) ~state_name (* *zap*)
     ~scope:`Client_process
     ~service:eliomclient1
     (fun () () ->
@@ -1086,13 +1087,13 @@ let tlaunch_session () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register
+  My_appl.register
     ~service:tsession_services_example
     tsession_services_example_handler;
-  Eliom_appl.register
+  My_appl.register
     ~service:tsession_services_example_close
     tsession_services_example_close_handler;
-  Eliom_appl.register
+  My_appl.register
     ~service:tsession_services_example_with_post_params
     tlaunch_session
 
@@ -1131,13 +1132,13 @@ let tcoservices_example_get =
 let _ =
   let c = ref 0 in
   let page () () =
-    let l3 = Eliom_appl.post_form tcoservices_example_post
-        (fun _ -> [p [Eliom_appl.string_input
+    let l3 = My_appl.post_form tcoservices_example_post
+        (fun _ -> [p [My_appl.string_input
                         ~input_type:`Submit
                         ~value:"incr i (post)" ()]]) ()
     in
-    let l4 = Eliom_appl.get_form tcoservices_example_get
-        (fun _ -> [p [Eliom_appl.string_input
+    let l4 = My_appl.get_form tcoservices_example_get
+        (fun _ -> [p [My_appl.string_input
                         ~input_type:`Submit
                         ~value:"incr i (get)" ()]])
     in
@@ -1150,10 +1151,10 @@ let _ =
        l3;
        l4]
   in
-  Eliom_appl.register tcoservices_example page;
+  My_appl.register tcoservices_example page;
   let f () () = c := !c + 1; page () () in
-  Eliom_appl.register tcoservices_example_post f;
-  Eliom_appl.register tcoservices_example_get f
+  My_appl.register tcoservices_example_post f;
+  My_appl.register tcoservices_example_get f
 
 
 
@@ -1192,11 +1193,11 @@ let tcalc_i =
 let tcalc_handler () () =
   let create_form intname =
     [p [pcdata "Write a number: ";
-        Eliom_appl.int_input ~input_type:`Text ~name:intname ();
+        My_appl.int_input ~input_type:`Text ~name:intname ();
         br ();
-        Eliom_appl.string_input ~input_type:`Submit ~value:"Send" ()]]
+        My_appl.string_input ~input_type:`Submit ~value:"Send" ()]]
   in
-  let f = Eliom_appl.get_form tcalc_i create_form in
+  let f = My_appl.get_form tcalc_i create_form in
   return [f]
 
 
@@ -1218,7 +1219,7 @@ let tcalc_i_handler i () =
   in
   let is = string_of_int i in
   let tcalc_result =
-    Eliom_appl.register_coservice
+    My_appl.register_coservice
       ~scope:`Client_process
       ~fallback:tcalc
       ~get_params:(int "j")
@@ -1236,8 +1237,8 @@ let tcalc_i_handler i () =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register tcalc   tcalc_handler;
-  Eliom_appl.register tcalc_i tcalc_i_handler
+  My_appl.register tcalc   tcalc_handler;
+  My_appl.register tcalc_i tcalc_i_handler
 
 
 
@@ -1277,16 +1278,16 @@ let tdisconnect_action =
 (* login ang logout boxes:                                  *)
 
 let tdisconnect_box s =
-  Eliom_appl.post_form tdisconnect_action
-    (fun _ -> [p [Eliom_appl.string_input
+  My_appl.post_form tdisconnect_action
+    (fun _ -> [p [My_appl.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 let tlogin_box () =
-  Eliom_appl.post_form tconnect_action
+  My_appl.post_form tconnect_action
     (fun loginname ->
       [p
          (let l = [pcdata "login: ";
-                   Eliom_appl.string_input
+                   My_appl.string_input
                      ~input_type:`Text ~name:loginname ()]
          in l)
      ])
@@ -1324,7 +1325,7 @@ let tconnect_action_handler () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register ~service:tconnect_example3 tconnect_example3_handler;
+  My_appl.register ~service:tconnect_example3 tconnect_example3_handler;
   Eliom_output.Action.register ~service:tconnect_action tconnect_action_handler
 
 
@@ -1380,8 +1381,8 @@ let tdisconnect_action =
 
 
 let tdisconnect_box s =
-  Eliom_appl.post_form tdisconnect_action
-    (fun _ -> [p [Eliom_appl.string_input
+  My_appl.post_form tdisconnect_action
+    (fun _ -> [p [My_appl.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 
@@ -1394,7 +1395,7 @@ let get_bad_user table =
 (* new login box:                                           *)
 
 let tlogin_box session_expired action =
-  Eliom_appl.post_form action
+  My_appl.post_form action
     (fun loginname ->
       let l =
         [pcdata "login: ";
@@ -1431,7 +1432,7 @@ let tpersist_session_example_handler () () =
                  [pcdata "I am a coservice with timeout."; br ();
                   pcdata "Try to reload the page!"; br ();
                   pcdata "I will disappear after 5 seconds of inactivity.";
-                  pcdata "Pour l'instant c'est un Eliom_output.Xhtml5 au lieu de Eliom_appl parce qu'il y a un bug à corriger dans ce cas. Remettre Eliom_appl ici et ajouter un test pour ce bug." ];
+                  pcdata "Pour l'instant c'est un Eliom_output.Xhtml5 au lieu de My_appl parce qu'il y a un bug à corriger dans ce cas. Remettre My_appl ici et ajouter un test pour ce bug." ];
                  ])))
 (*            [p [pcdata "I am a coservice with timeout."; br ();
                 a timeoutcoserv [pcdata "Try again"] (); br ();
@@ -1472,7 +1473,7 @@ let tpersist_session_connect_action_handler () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register
+  My_appl.register
     ~service:tpersist_session_example
     tpersist_session_example_handler;
   Eliom_output.Action.register
@@ -1519,8 +1520,8 @@ let tdisconnect_action =
 
 
 let tdisconnect_box s =
-  Eliom_appl.post_form tdisconnect_action
-    (fun _ -> [p [Eliom_appl.string_input
+  My_appl.post_form tdisconnect_action
+    (fun _ -> [p [My_appl.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 
@@ -1535,7 +1536,7 @@ let get_bad_user table =
 (* new login box:                                           *)
 
 let tlogin_box session_expired action =
-  Eliom_appl.post_form action
+  My_appl.post_form action
     (fun loginname ->
       let l =
         [pcdata "login: ";
@@ -1595,7 +1596,7 @@ let tconnect_action_handler () login =
 (* Registration of main services:                           *)
 
 let () =
-  Eliom_appl.register ~service:tconnect_example6 tconnect_example6_handler;
+  My_appl.register ~service:tconnect_example6 tconnect_example6_handler;
   Eliom_output.Action.register ~service:tconnect_action tconnect_action_handler
 
 *)
@@ -1629,8 +1630,8 @@ let tcsrfsafe_example_post =
 
 let _ =
   let page () () =
-    let l3 = Eliom_appl.post_form tcsrfsafe_example_post
-        (fun _ -> [p [Eliom_appl.string_input
+    let l3 = My_appl.post_form tcsrfsafe_example_post
+        (fun _ -> [p [My_appl.string_input
                          ~input_type:`Submit
                          ~value:"Click" ()]]) ()
     in
@@ -1638,8 +1639,8 @@ let _ =
       [p [pcdata "A new coservice will be created each time this form is displayed"];
        l3]
   in
-  Eliom_appl.register tcsrfsafe_example page;
-  Eliom_appl.register tcsrfsafe_example_post
+  My_appl.register tcsrfsafe_example page;
+  My_appl.register tcsrfsafe_example_post
     (fun () () ->
       Lwt.return [p [pcdata "This is a CSRF safe service"]])
 
@@ -1652,7 +1653,7 @@ let cookiename = "mycookie"
 let tcookies = service ["tcookies"] unit ()
 
 
-let _ = Eliom_appl.register tcookies
+let _ = My_appl.register tcookies
   (fun () () ->
     Eliom_state.set_cookie
       ~cookie_scope:`Client_process
@@ -1684,7 +1685,7 @@ let coucouaction =
 
 
 let actionoutside =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["actionoutside"]
     ~get_params:unit
     (fun () () ->
@@ -1741,7 +1742,7 @@ let _ =
         ~fallback:ttimeout ~get_params:unit ~timeout:5. ()
     in
     let _ =
-      Eliom_appl.register ~service:timeoutcoserv
+      My_appl.register ~service:timeoutcoserv
         ~scope:`Client_process
         (fun _ _ ->
           Lwt.return
@@ -1756,7 +1757,7 @@ let _ =
           a timeoutcoserv [pcdata "Try it"] (); ];
       ]
   in
-  Eliom_appl.register ttimeout page
+  My_appl.register ttimeout page
 
 
 
@@ -1780,8 +1781,8 @@ let _ =
                                     (body [p [pcdata "It works"]])))
     in
     Lwt.return
-      [h2 [pcdata "Client process service not registered with Eliom_appl"];
-       p [pcdata "I just created two coservices with scope `Client_process but not registered with Eliom_appl."; br ();
+      [h2 [pcdata "Client process service not registered with My_appl"];
+       p [pcdata "I just created two coservices with scope `Client_process but not registered with My_appl."; br ();
           span ~a:[a_class ["clickable"];
                    a_onclick
                      {{let body = Dom_html.document##body in
@@ -1796,19 +1797,19 @@ let _ =
           br ();
           pcdata "It works, because we send tab cookies with Eliom_client.call_service or Eliom_client.call_caml_service.";
           br ();
-          Eliom_appl.a ~service:serv2 [pcdata "Here a link to an client process service outside the application."] ();
-          pcdata " For now it does not work, because we do not send tab cookies for non Eliom_appl services ... How to solve this?";
+          My_appl.a ~service:serv2 [pcdata "Here a link to an client process service outside the application."] ();
+          pcdata " For now it does not work, because we do not send tab cookies for non My_appl services ... How to solve this?";
           br ();
           pcdata "Add a test of link to another application."
          ]
       ]
   in
-  Eliom_appl.register nonapplprocessservice page
+  My_appl.register nonapplprocessservice page
 
 
 
 (*****************************************************************************)
-(* Session + Eliom_appl *)
+(* Session + My_appl *)
 let state_name = "session_appl"
 
 let connect_example789 =
@@ -1827,8 +1828,8 @@ let disconnect_action789 =
     (fun () () -> Eliom_state.close_session (*~state_name*) ())
 
 let disconnect_box s =
-  Eliom_appl.post_form disconnect_action789
-    (fun _ -> [p [Eliom_appl.string_input
+  My_appl.post_form disconnect_action789
+    (fun _ -> [p [My_appl.string_input
                     ~input_type:`Submit ~value:s ()]]) ()
 
 let bad_user = Eliom_references.eref (*~state_name*) ~scope:`Request false
@@ -1836,11 +1837,11 @@ let bad_user = Eliom_references.eref (*~state_name*) ~scope:`Request false
 let user = Eliom_references.eref (*~state_name*) ~scope:`Session None
 
 let login_box session_expired bad_u action =
-  Eliom_appl.post_form action
+  My_appl.post_form action
     (fun loginname ->
       let l =
         [pcdata "login: ";
-         Eliom_appl.string_input ~input_type:`Text ~name:loginname ()]
+         My_appl.string_input ~input_type:`Text ~name:loginname ()]
       in
       [p (if bad_u
         then (pcdata "Wrong user")::(br ())::l
@@ -1875,13 +1876,13 @@ let connect_action_handler () login =
   else Eliom_references.set bad_user true
 
 let () =
-  Eliom_appl.register ~service:connect_example789 connect_example_handler;
+  My_appl.register ~service:connect_example789 connect_example_handler;
   Eliom_output.Action.register ~service:connect_action789 connect_action_handler
 
 (*****************************************************************************)
 (* Form towards internal suffix service *)
 let isuffixc =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["isuffixc"]
     ~get_params:(suffix_prod (int "suff" ** all_suffix "endsuff") (int "i"))
     (fun ((suff, endsuff), i) () ->
@@ -1926,7 +1927,7 @@ let appl_redir2 =
     (fun () () -> Lwt.return Eliom_testsuite1.coucou)
 
 let appl_redir =
-  Eliom_appl.register_service
+  My_appl.register_service
     ~path:["applredir"]
     ~get_params:unit
     (fun () () ->
@@ -1936,11 +1937,11 @@ let appl_redir =
           br ();
           a ~service:appl_redir2 [ pcdata "Link to a redirection outside the Eliom application"] ();
          ];
-         Eliom_appl.get_form ~service:appl_redir1
+         My_appl.get_form ~service:appl_redir1
             (fun () ->
               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Form to a redirection inside the Eliom application" ()]
             );
-         Eliom_appl.get_form ~service:appl_redir2
+         My_appl.get_form ~service:appl_redir2
             (fun () ->
               [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Form to a redirection outside the Eliom application" ()]
             )
@@ -1959,46 +1960,46 @@ let applvoid_redir =
 (*****************************************************************************)
 (* Form examples: *)
 let postformc =
-  Eliom_appl.register_post_service
+  My_appl.register_post_service
     ~fallback:Eliom_testsuite1.coucou
     ~post_params:(Eliom_parameters.string "zzz")
     (fun () s -> Lwt.return [p [pcdata "Yo man. ";
                                 pcdata s]])
 
-let formc = Eliom_appl.register_service ["formc"] unit
+let formc = My_appl.register_service ["formc"] unit
   (fun () () -> 
     Lwt.return
       [
-        Eliom_appl.get_form ~service:Eliom_testsuite1.coucou
+        My_appl.get_form ~service:Eliom_testsuite1.coucou
           (fun () ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to a service outside the Eliom application" ()]
           );
         
-        Eliom_appl.post_form ~service:Eliom_testsuite1.my_service_with_post_params
+        My_appl.post_form ~service:Eliom_testsuite1.my_service_with_post_params
           (fun s ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Hidden ~name:s ~value:"plop" ();
              Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"POST form to a service outside the Eliom application" ()]
           )
           ();
         
-        Eliom_appl.get_form ~service:eliomclient1
+        My_appl.get_form ~service:eliomclient1
           (fun () ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"GET form to a service inside the Eliom application" ()]
           );
         
-        Eliom_appl.post_form ~service:postformc
+        My_appl.post_form ~service:postformc
           (fun s ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~name:s ~value:"POST form to a service inside the Eliom application" ()]
           )
           ();
         
         
-        Eliom_appl.get_form isuffixc create_suffixformc;
+        My_appl.get_form isuffixc create_suffixformc;
 
         h3 [pcdata "POST form towards action with void service redirection"];
         p [pcdata "Random value in the content: ";
            pcdata (string_of_int (Random.int 1000))];
-        Eliom_appl.post_form ~service:applvoid_redir
+        My_appl.post_form ~service:applvoid_redir
           (fun () ->
             [Eliom_output.Xhtml5.string_input ~input_type:`Submit ~value:"Click to send POST form to myself." ()]
           )
