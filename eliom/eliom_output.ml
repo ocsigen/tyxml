@@ -3330,7 +3330,8 @@ redir ();"))::
 
                           "var eliom_data = \'" ;
                           (Eliom_client_types.jsmarshal
-                             ((Ocsigen_lib.Left
+                             (Ocsigen_wrap.wrap
+				((Ocsigen_lib.Left
                                  (XML.make_ref_tree (XHTML5.M.toelt body)),
                             (* Warning: due to right_to_left evaluation,
                                make_ref_tree is called before the previous
@@ -3344,7 +3345,7 @@ redir ();"))::
                                Eliommod_cli.client_si sp.Eliom_common.sp_si
                               ) :
                                  Eliom_client_types.eliom_data_type
-                             )
+                             ))
                           ) ; "\'; \n" ;
 
 			  "var comet_service = \'" ;

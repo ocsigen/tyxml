@@ -194,3 +194,6 @@ type sess_info =
 (*204FORMS*     si_internal_form: bool; *)
    }
 
+(************ unwrapping identifiers *********************)
+
+let react_up_unwrap_id_int = 1
