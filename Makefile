@@ -1,4 +1,4 @@
-include ../Makefile.config
+include Makefile.config
 
 byte:
 	$(MAKE) -C xhtml byte

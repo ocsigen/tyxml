@@ -1,4 +1,4 @@
-include ../../Makefile.config
+include ../Makefile.config
 
 #FILES = xhtmlpretty.ml xhtmlcompact.ml \
 #	xhtmlpretty_streams.ml xhtmlcompact_streams.ml \

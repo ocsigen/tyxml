@@ -17,7 +17,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 ########################################################################
-include ../../Makefile.config
+include ../Makefile.config
 
 
 FILES=uri.ml xML.ml svgtypes.ml sVG.ml xhtml5types.ml xHTML5.ml xhtmltypes.ml xHTML.ml

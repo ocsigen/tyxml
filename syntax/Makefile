@@ -1,4 +1,4 @@
-include ../../Makefile.config
+include ../Makefile.config
 
 FILES = basicTypes.ml xhtmlsyntax.ml xhtmlparser.ml 
 CAMLC = $(OCAMLFIND) $(CAMLCNAME) $(DBG) $(LIB) 
