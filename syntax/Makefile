@@ -1,86 +1,65 @@
 include ../Makefile.config
 
-FILES = basicTypes.ml xhtmlsyntax.ml xhtmlparser.ml 
-CAMLC = $(OCAMLFIND) $(CAMLCNAME) $(DBG) $(LIB) 
-CAMLOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIB) 
-CAMLDEP = $(OCAMLFIND) ocamldep
-LIB = -I `$(CAMLP4) -where` -I +camlp4/Camlp4Parsers $(LIBDIRS2)
-PP = -pp "camlp4rf -- -loc loc"
-PPLEXER = -pp "camlp4of -- -loc loc"
+FILES   := xmllexer.ml camllexer.ml
+RFILES  := basicTypes.ml \
+	   simplexmlparser.ml simplexmlparser.mli \
+	   xhtmlparser.ml xhtmlsyntax.ml
 
+PREDEP  := xmllexer.ml camllexer.ml
 
-predep: pp/simplexmlparser.mli 
+LIB     := -package camlp4
+PP      := -pp "camlp4of -loc loc"
+PPR     := -pp "camlp4rf -loc loc"
 
-byte: ../xhtmlsyntax.cma ../simplexmlparser.cmo 
-	cp -f $(FILES:.ml=.cmi) xmllexer.cmo ..
+OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
+OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
+OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
 
-opt: ../xhtmlsyntax.cmxa ../simplexmlparser.cmx 
-	cp -f $(FILES:.ml=.cmi) xmllexer.cmx xmllexer.o $(FILES:.ml=.o) ..
+byte: basicTypes.cmo xhtmlsyntax.cma simplexmlparser.cmo
+opt: basicTypes.cmx xhtmlsyntax.cmxa simplexmlparser.cmx
 
+xhtmlsyntax.cma: xmllexer.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
+	$(OCAMLC) -a -o $@ $^
 
-../simplexmlparser.cmi: simplexmlparser.mli
-	$(CAMLC) -c simplexmlparser.mli  -pp camlp4r
-	mv simplexmlparser.cmi $@
-
-../simplexmlparser.cmo: ../simplexmlparser.cmi simplexmlparser.ml
-	$(CAMLC) -c simplexmlparser.ml -o $@ $(PP)
-
-
-../simplexmlparser.cmx: ../simplexmlparser.cmi simplexmlparser.ml
-	$(CAMLOPT) -c simplexmlparser.ml -o $@ $(PP)
-
-../xhtmlsyntax.cma: basicTypes.cmo xmllexer.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
-	$(CAMLC) -a -o $@ xmllexer.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
-
-../xhtmlsyntax.cmxa: basicTypes.cmx xmllexer.cmx camllexer.cmx xhtmlparser.cmx xhtmlsyntax.cmx
-	$(CAMLOPT) -a -o $@ xmllexer.cmx camllexer.cmx xhtmlparser.cmx xhtmlsyntax.cmx
-
-
-
-pp/simplexmlparser.mli: simplexmlparser.mli
-	camlp4r $^ -printer o > $@
-
-xmllexer.cmo: xmllexer.ml
-	$(CAMLC) $(PPLEXER) -c $<
-
-xmllexer.cmx: xmllexer.ml
-	$(CAMLOPT) $(PPLEXER) -c $<
-
-xmllexer.ml: xmllexer.mll
-	$(CAMLLEX) $<
-
-
-camllexer.cmo: camllexer.ml
-	$(CAMLC) $(PPLEXER) -c $<
-
-camllexer.cmx: camllexer.ml
-	$(CAMLOPT) $(PPLEXER) -c $<
-
-camllexer.ml: camllexer.mll
-	$(CAMLLEX) $<
-
+xhtmlsyntax.cmxa: xmllexer.cmx camllexer.cmx xhtmlparser.cmx xhtmlsyntax.cmx
+	$(OCAMLOPT) -a -o $@ $^
 
 # Common rules
-.SUFFIXES: .ml .mli .cmo .cmi .cmx
 
-.ml.cmo:
-	$(CAMLC) $(PP) -c $<
-.mli.cmi:
-	$(CAMLC) $(PP) -c $<
-.ml.cmx:
-	$(CAMLOPT) $(PP) -c $<
+ML   := $(filter %.ml,${FILES})
+MLI  := $(filter %.mli,${FILES})
+MLR  := $(filter %.ml,${RFILES})
+MLIR := $(filter %.mli,${RFILES})
 
+${MLI:.mli=.cmi}: %.cmi: %.mli
+	$(OCAMLC) $(PP) -c $<
+${ML:.ml=.cmo}: %.cmo: %.ml
+	$(OCAMLC) $(PP) -c $<
+${ML:.ml=.cmx}: %.cmx: %.ml
+	$(OCAMLOPT) $(PP) -c $<
+
+${MLIR:.mli=.cmi}: %.cmi: %.mli
+	$(OCAMLC) $(PPR) -c $<
+${MLR:.ml=.cmo}: %.cmo: %.ml
+	$(OCAMLC) $(PPR) -c $<
+${MLR:.ml=.cmx}: %.cmx: %.ml
+	$(OCAMLOPT) $(PPR) -c $<
+
+%.ml: %.mll
+	$(OCAMLLEX) $<
 
 # Clean up
 clean:
-	-rm -f xmllexer.ml camllexer.ml *.cm[ioax] *.cmxa *~ *.annot *.a *.o
-
+	-rm -f ${PREDEP}
+	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
+distclean: clean
+	-rm -f .depend
+	-rm -f *~ \#* .\#*
 
 # Dependencies
-depend: *.mli *.ml
-	-rm -f xmllexer.ml camllexer.ml
-# Fails because some files are in revised syntax
-#	$(CAMLDEP) $(PP) $(LIBDIRS2) *.mli *.ml > .depend
+depend: ${PREDEP}
+	$(OCAMLDEP) $(PP) ${FILES} > .depend
+	$(OCAMLDEP) $(PPR) ${RFILES} >> .depend
 
 FORCE:
 

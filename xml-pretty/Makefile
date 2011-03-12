@@ -1,65 +1,45 @@
 include ../Makefile.config
 
-#FILES = xhtmlpretty.ml xhtmlcompact.ml \
-#	xhtmlpretty_streams.ml xhtmlcompact_streams.ml \
-#	xhtml5pretty.ml xhtml5compact.ml \
-#	xhtml5pretty_streams.ml xhtml5compact_streams.ml
-
 FILES = xhtml_format.ml xhtml_mkcompact.ml xhtml_mkpretty.ml \
 	xhtmlpretty.ml xhtmlcompact.ml \
 	xhtml5pretty.ml xhtml5compact.ml
 
-FILES_STREAM = xhtml_mkpretty_streams.ml xhtml_mkcompact_streams.ml \
+FILES_STREAM = \
+        xhtml_mkpretty_streams.ml xhtml_mkcompact_streams.ml \
 	xhtmlpretty_streams.ml xhtmlcompact_streams.ml \
 	xhtml5pretty_streams.ml xhtml5compact_streams.ml
 
+LIB      := -package camlp4 -I ../xhtml
 
-CAMLC = $(OCAMLFIND) $(CAMLCNAME) $(DBG) $(LIB) -package camlp4 -I ..
-CAMLOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIB) -package camlp4 -I ..
-CAMLDEP = $(OCAMLFIND) ocamldep $(LIB) -package camlp4
-LIB = -I ../../baselib
+OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
+OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
+OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
 
-OBJS = $(FILES:.ml=.cmo)
-CMIS = $(FILES:.ml=.cmi) $(FILES_STREAM:.ml=.cmi)
-OBJSOPT = $(FILES:.ml=.cmx)
+byte: xhtmlpretty.cma $(FILES_STREAM:.ml=.cmo)
+opt: xhtmlpretty.cmxa $(FILES_STREAM:.ml=.cmx)
 
-
-byte: ../xhtmlpretty.cma $(FILES_STREAM:.ml=.cmo)
-	cp $(CMIS) $(FILES_STREAM:.ml=.cmo)  .. 
-
-opt: ../xhtmlpretty.cmxa $(FILES_STREAM:.ml=.cmx)
-	cp $(CMIS) $(FILES_STREAM:.ml=.cmx) $(FILES_STREAM:.ml=.o) ..
-
-../xhtmlpretty.cma: $(CMIS) $(OBJS)
-	$(CAMLC) -a -o $@ $(OBJS)
-
-../xhtmlpretty.cmxa: $(CMIS) $(OBJSOPT)
-	$(CAMLOPT) -a -o $@ $(OBJSOPT)
+xhtmlpretty.cma: $(FILES:.ml=.cmo)
+	$(OCAMLC) -a -o $@ $^
+xhtmlpretty.cmxa: $(FILES:.ml=.cmx)
+	$(OCAMLOPT) -a -o $@ $^
 
 # Common rules
 .SUFFIXES: .ml .mli .cmo .cmi .cmx
-
-
 .ml.cmo:
-	$(CAMLC) $(PP) -c $<
+	$(OCAMLC) -c $<
 .mli.cmi:
-	$(CAMLC) $(PP) -c $<
+	$(OCAMLC) -c $<
 .ml.cmx:
-	$(CAMLOPT) $(PP) -c $<
+	$(OCAMLOPT) -c $<
 
-
-
+# Clean up
 clean:
-#	touch oldocaml/.depend
-#	touch newocaml/.depend
-	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *~ *.annot
-
+	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
+distclean: clean
+	-rm -f .depend
+	-rm -f *~ \#* .\#*
 
 depend:
-#	touch oldocaml/.depend
-#	touch newocaml/.depend
-	$(CAMLDEP) $(PP) $(FILES) > .depend
-
-
+	$(OCAMLDEP) $(FILES) $(FILES_STREAM) > .depend
 
 -include .depend

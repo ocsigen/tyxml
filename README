@@ -1,7 +1,6 @@
 xmlp4 is a pre-processor and pretty-printer for xml.
 =====================================================
 
-
 - Directory "xhtml" :
   XHTML typing using Thorsten Ohl's xHTML library to validate
   xml tree at compile-time, adapted to support XHTML5
@@ -10,6 +9,22 @@ xmlp4 is a pre-processor and pretty-printer for xml.
 - Directory "xml-pretty" :
   A prettyprinter for XML
 
+Requirements:
+=============
+
+ * ocaml and camlp4
+ * findlib
+ * ocamlnet
+ * sed
+ * diff
+
+Build intructions:
+==================
+
+ $ ${EDITOR} Makefile.config
+ $ make depend
+ $ make
+ # make install
 
 Examples:
 =========

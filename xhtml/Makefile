@@ -17,29 +17,29 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 ########################################################################
+
 include ../Makefile.config
 
+FILES := uri.ml \
+         xML.ml \
+	 svgtypes.ml sVG.ml \
+	 xhtml5types.ml xHTML5.ml \
+	 xhtmltypes.ml xHTML.ml
 
-FILES=uri.ml xML.ml svgtypes.ml sVG.ml xhtml5types.ml xHTML5.ml xhtmltypes.ml xHTML.ml
+LIB      := -package netstring
 
-LIB = -package netstring
-OCAMLC = $(OCAMLFIND) $(CAMLCNAME2) $(DBG) $(LIB)
-OCAMLOPT = $(OCAMLFIND) $(CAMLOPTNAME) $(DBG) $(LIB)
-SED=sed
-RM=rm
-MV=mv
-DIFF=diff
-DOLLAR=$$
-byte: ../xhtml.cma
-	cp -f $(FILES:.ml=.cmi) ..
+DOLLAR   :=$$
+OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
+OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
+OCAMLDEP := $(OCAMLFIND) ocamldep
 
-opt: ../xhtml.cmxa
-	cp -f $(FILES:.ml=.cmi) $(FILES:.ml=.o) ..
+byte: xhtml.cma
+opt: xhtml.cmxa
 
-../xhtml.cma: $(FILES:.ml=.cmo)
+xhtml.cma: $(FILES:.ml=.cmo)
 	$(OCAMLC) -a $^ -o $@
 
-../xhtml.cmxa: $(FILES:.ml=.cmx)
+xhtml.cmxa: $(FILES:.ml=.cmx)
 	$(OCAMLOPT) -a $^ -o $@
 
 xML.cmo: xML.cmi xML.ml
@@ -48,7 +48,7 @@ xML.cmo: xML.cmi xML.ml
 xML.cmx: xML.cmi xML.ml
 	$(OCAMLOPT) -c xML.ml
 
-%.cmi: %.mli	
+%.cmi: %.mli
 	$(OCAMLC) -c $<
 
 xML.mli: xML.ml
@@ -86,9 +86,9 @@ xHTML.cmo: xHTML.cmi xHTML.ml
 xHTML.cmx: xHTML.cmi xHTML.ml
 	$(OCAMLOPT) -c xHTML.ml
 
-uri.cmo: uri.cmi uri.ml	
+uri.cmo: uri.cmi uri.ml
 	$(OCAMLC) uri.ml -c
-uri.cmx: uri.cmi uri.ml	
+uri.cmx: uri.cmi uri.ml
 	$(OCAMLOPT) uri.ml -c
 
 uri.cmi: uri.mli
@@ -112,21 +112,27 @@ xhtml5types.cmx: xhtml5types.cmi xhtml5types.ml
 xHTML.mli: xHTML.ml
 	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
 	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
-	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then $(RM) $@.new; else $(MV) $@.new $@; fi
+	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then rm $@.new; else mv $@.new $@; fi
 sVG.mli: sVG.ml svgtypes.cmi
 	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
 	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
-	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then $(RM) $@.new; else $(MV) $@.new $@; fi
+	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then rm $@.new; else mv $@.new $@; fi
 
-xHTML5.mli: xHTML5.ml xhtml5types.cmi 
+xHTML5.mli: xHTML5.ml xhtml5types.cmi
 	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
 	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
-	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then $(RM) $@.new; else $(MV) $@.new $@; fi
+	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then rm $@.new; else mv $@.new $@; fi
+
+# Clean up
 clean:
-	rm -f *cm* xHTML5.mli xHTML.mli xhtmltypes.mli xhtml5types.mli
+	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
+	-rm -f xHTML5.mli xHTML.mli xhtmltypes.mli xhtml5types.mli
+distclean: clean
+	-rm -f .depend
+	-rm -f *~ \#* .\#*
 
 depend: *.mli *.ml
-	ocamldep *.mli *.ml > .depend
+	$(OCAMLDEP) *.mli *.ml > .depend
 
 FORCE:
 
