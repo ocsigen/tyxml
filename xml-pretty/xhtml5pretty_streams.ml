@@ -21,5 +21,4 @@ open Format
 open XML
 
 module Pretty = Xhtml_mkpretty_streams.MakePretty (Xhtml_format.Xhtml5Info)
-include Pretty
 

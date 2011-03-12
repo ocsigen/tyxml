@@ -18,125 +18,98 @@
 
 open Format
 open XML
-module MakeCompact (F : Xhtml_format.Info) = struct
-  open F
-  include F
+module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.STREAM) = struct
 
 (*****************************************************************************)
-(* print to Ocsigen's streams *)
+(* print to streams *)
 
-  let x_stream, xh_stream =
+  let (>>) m f = S.bind m (fun () -> f)
+  let (<<) f m = S.bind m (fun () -> f)
 
-    let aux ~width ~encode ?(html_compat = false) arbre cont =
-      let endemptytag = if html_compat then ">" else " />" in
-      let rec xh_print_attrs encode attrs cont = match attrs with
-        | [] -> cont ();
-        | attr::queue ->
-          (Ocsigen_stream.cont (" "^XML.attrib_to_string encode attr)) (fun () ->
-            xh_print_attrs encode queue cont)
+  let aux ~width ~encode ?(html_compat = false) arbre =
+    let endemptytag = if html_compat then ">" else " />" in
+    let rec xh_print_attrs encode attrs = match attrs with
+    | [] -> S.return ()
+    | attr::queue ->
+        S.put (" "^XML.attrib_to_string encode attr)
+	  >> xh_print_attrs encode queue
 
-      and xh_print_text texte cont =
-        (Ocsigen_stream.cont texte) cont
+    and xh_print_text texte = S.put texte
 
-      and xh_print_closedtag encode tag attrs cont =
-        if List.mem tag emptytags
-        then
-          (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-            xh_print_attrs encode attrs (fun () ->
-              (Ocsigen_stream.cont endemptytag) cont))
-        else
-          (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-            xh_print_attrs encode attrs (fun () ->
-              (Ocsigen_stream.cont ("></"^tag^">")) cont))
+    and xh_print_closedtag encode tag attrs =
+      if List.mem tag F.emptytags
+      then
+        (S.put ("<"^tag)
+	   >> xh_print_attrs encode attrs
+	   >> S.put endemptytag)
+      else
+        (S.put ("<"^tag)
+           >> xh_print_attrs encode attrs
+           >> S.put ("></"^tag^">"))
 
-      and xh_print_tag encode tag attrs taglist cont =
-        if taglist = []
-        then xh_print_closedtag encode tag attrs cont
-        else begin
-          (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-            xh_print_attrs encode attrs (fun () ->
-              (Ocsigen_stream.cont ">") (fun () ->
-                xh_print_taglist taglist (fun () ->
-                  (Ocsigen_stream.cont ("</"^tag^">") cont)))))
-        end
+    and xh_print_tag encode tag attrs taglist =
+      if taglist = []
+      then xh_print_closedtag encode tag attrs
+      else
+        (S.put ("<"^tag)
+           >> xh_print_attrs encode attrs
+           >> S.put ">"
+           >> xh_print_taglist taglist
+           >> S.put ("</"^tag^">"))
 
-      and print_nodes name xh_attrs xh_taglist queue cont =
-        xh_print_tag encode name xh_attrs xh_taglist (fun () ->
-          xh_print_taglist queue cont)
+    and print_nodes name xh_attrs xh_taglist queue =
+      xh_print_tag encode name xh_attrs xh_taglist
+        >> xh_print_taglist queue
 
-      and xh_print_taglist taglist cont =
-        match taglist with
+    and xh_print_taglist taglist =
+      match taglist with
 
-          | [] -> cont ()
+      | [] -> S.return ()
 
-          | { elt = Comment texte }::queue ->
-            xh_print_text ("<!--"^(encode texte)^"-->")
-              (fun () -> xh_print_taglist queue cont)
+      | { elt = Comment texte }::queue ->
+          xh_print_text ("<!--"^(encode texte)^"-->")
+            >> xh_print_taglist queue
 
-          | { elt = Entity e }::queue ->
-            xh_print_text ("&"^e^";") (* no encoding *)
-              (fun () -> xh_print_taglist queue cont)
+      | { elt = Entity e }::queue ->
+          xh_print_text ("&"^e^";") (* no encoding *)
+            >> xh_print_taglist queue
 
-          | { elt = PCDATA texte }::queue ->
-            xh_print_text (encode texte)
-              (fun () -> xh_print_taglist queue cont)
+      | { elt = PCDATA texte }::queue ->
+          xh_print_text (encode texte)
+            >> xh_print_taglist queue
 
-          | { elt = EncodedPCDATA texte }::queue ->
-            xh_print_text texte
-              (fun () -> xh_print_taglist queue cont)
+      | { elt = EncodedPCDATA texte }::queue ->
+          xh_print_text texte
+            >> xh_print_taglist queue
 
       (* Nodes and Leafs *)
-          | { elt = Node (name, xh_attrs, xh_taglist )}::queue ->
-            print_nodes name xh_attrs xh_taglist queue cont
+      | { elt = Node (name, xh_attrs, xh_taglist )}::queue ->
+          print_nodes name xh_attrs xh_taglist queue
 
-          | { elt = Leaf (name,xh_attrs )}::queue ->
-            print_nodes name xh_attrs [] queue cont
+      | { elt = Leaf (name,xh_attrs )}::queue ->
+          print_nodes name xh_attrs [] queue
 
-          | { elt = Empty }::queue ->
-            xh_print_taglist queue cont
-
-
+      | { elt = Empty }::queue ->
+          xh_print_taglist queue
 
       in
-      xh_print_taglist [arbre] cont
-    in
-    ((fun ?(width = 132) ?(encode = encode_unsafe)
-      ?html_compat doctype foret ->
-
-        (List.fold_right
-           (fun arbre cont () ->
-             aux ?width ?encode ?html_compat arbre cont)
-           foret
-
-           (fun () -> Ocsigen_stream.empty None))),
-
-
-     (fun ?(width = 132) ?(encode = encode_unsafe)
-       ?html_compat doctype arbre ->
-
-         Ocsigen_stream.cont doctype
-           (fun () -> Ocsigen_stream.cont F.ocsigenadv
-             (fun () ->
-
-               aux ?width ?encode ?html_compat arbre
-
-                 (fun () -> Ocsigen_stream.empty None)))))
+      xh_print_taglist [arbre]
 
   let opt_default x = function
     | Some x -> x
     | _ -> x
-  let xhtml_stream ?version ?width ?encode ?html_compat arbre =
-    let version = opt_default default_doctype version in
-    Ocsigen_stream.make
-      (fun () ->
-        xh_stream ?width ?encode ?html_compat
-          (F.doctype version) (F.toelt arbre))
 
-  let xhtml_list_stream ?version
-      ?width ?encode ?html_compat foret =
-    let version = opt_default default_doctype version in
-    Ocsigen_stream.make
-      (fun () ->
-        x_stream ?width ?encode ?html_compat
-          (F.doctype version) (F.toeltl foret) ())
+
+  let xhtml_stream ?version ?(width=132) ?(encode = encode_unsafe) ?html_compat arbre =
+    let version = opt_default F.default_doctype version in
+    S.put (F.doctype version)
+      >> S.put F.ocsigenadv
+      >> aux ?width ?encode ?html_compat (F.toelt arbre)
+
+  let xhtml_list_stream
+      ?(width=132) ?(encode = encode_unsafe) ?html_compat foret =
+    List.fold_right (<<)
+      (List.map (fun arbre -> aux ?width ?encode ?html_compat (F.toelt arbre)) foret)
+      (S.return ())
+
 end

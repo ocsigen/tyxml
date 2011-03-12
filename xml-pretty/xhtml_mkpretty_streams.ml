@@ -21,188 +21,136 @@ open Format
 open XML
 open Xhtml_format
 
-module MakePretty (F : Info) = struct
+module MakePretty (F : Info)(S : Xhtml_streams.STREAM) = struct
   let id x = x
   open F
   let taille_tab = 2
 
+  let (>>) m f = S.bind m (fun () -> f)
+  let (<<) f m = S.bind m (fun () -> f)
+
 (*****************************************************************************)
-(* print to Ocsigen's streams *)
-    
-  let x_stream, xh_stream =
+(* print to streams *)
 
-    let aux ~width ~encode ?(html_compat = false) arbre cont =
-      let endemptytag = if html_compat then ">" else " />" in
-      let rec xh_print_attrs encode attrs cont = match attrs with
-    | [] -> cont ();
+  let aux ~width ~encode ?(html_compat = false) arbre =
+
+    let endemptytag = if html_compat then ">" else " />" in
+    let rec xh_print_attrs encode attrs = match attrs with
+    | [] -> S.return ()
     | attr::queue ->
-        (Ocsigen_stream.cont (" "^XML.attrib_to_string encode attr)) (fun () ->
-        xh_print_attrs encode queue cont)
+        S.put (" "^XML.attrib_to_string encode attr)
+	  >> xh_print_attrs encode queue
 
-    and xh_print_text texte i is_first cont =
-      (Ocsigen_stream.cont texte) cont
+    and xh_print_text texte i is_first = S.put texte
 
-    and xh_print_closedtag encode tag attrs i is_first cont =
+    and xh_print_closedtag encode tag attrs i is_first =
       if List.mem tag emptytags
       then
-        (if (i > 0) || is_first then
-          Ocsigen_stream.cont (String.make (taille_tab*i) ' ')
-        else (fun cont -> cont ())) (fun () ->
-          (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-          xh_print_attrs encode attrs (fun () ->
-          (Ocsigen_stream.cont endemptytag) cont)))
+	(S.put (if (i > 0) || is_first then String.make (taille_tab*i) ' ' else "")
+           >> S.put ("<"^tag)
+           >> xh_print_attrs encode attrs
+	   >> S.put endemptytag)
       else
-        (if (i > 0) || is_first then
-          Ocsigen_stream.cont (String.make (taille_tab*i) ' ')
-        else (fun cont -> cont ())) (fun () ->
-          (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-          xh_print_attrs encode attrs (fun () ->
-          (Ocsigen_stream.cont ("></"^tag^">")) cont)))
+	(S.put (if (i > 0) || is_first then String.make (taille_tab*i) ' ' else "")
+	   >> S.put ("<"^tag)
+	   >> xh_print_attrs encode attrs
+	   >> S.put ("></"^tag^">"))
 
-    and xh_print_inlinetag encode tag attrs taglist i is_first cont =
+    and xh_print_inlinetag encode tag attrs taglist i is_first =
       if taglist = []
-      then xh_print_closedtag encode tag attrs i true cont
-      else begin
-        (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-        xh_print_attrs encode attrs (fun () ->
-        (Ocsigen_stream.cont ">") (fun () ->
-        xh_print_taglist taglist 0 false false (fun () ->
-        (Ocsigen_stream.cont ("</"^tag^">") cont)))))
-      end
+      then xh_print_closedtag encode tag attrs i true
+      else
+        (S.put ("<"^tag)
+           >> xh_print_attrs encode attrs
+           >> S.put ">"
+           >> xh_print_taglist taglist 0 false false
+           >> S.put ("</"^tag^">"))
 
-    and xh_print_blocktag encode tag attrs taglist i cont =
+    and xh_print_blocktag encode tag attrs taglist i =
       if taglist = []
-      then xh_print_closedtag encode tag attrs i true cont
-      else begin
-        (if i > 0 then
-          (Ocsigen_stream.cont ("\n"^String.make (taille_tab*i) ' '))
-        else (Ocsigen_stream.cont "\n")) (fun () ->
-        (Ocsigen_stream.cont ("<"^tag)) (fun () ->
-        xh_print_attrs encode attrs (fun () ->
-        (Ocsigen_stream.cont ">") (fun () ->
+      then xh_print_closedtag encode tag attrs i true
+      else
+        (S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
+	  >> S.put ("<"^tag)
+	  >> xh_print_attrs encode attrs
+          >> S.put  ">"
+	  >> xh_print_taglist_removews taglist (i+1) true
+	  >> S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
+	  >> S.put ("</"^tag^">"))
 
-        xh_print_taglist_removews taglist (i+1) true (fun () ->
-
-        (if i > 0 then
-          (Ocsigen_stream.cont ("\n"^String.make (taille_tab*i) ' '))
-        else (Ocsigen_stream.cont "\n")) (fun () ->
-        (Ocsigen_stream.cont ("</"^tag^">") cont)))))))
-
-      end
-
-    and xh_print_semiblocktag encode tag attrs taglist i cont =
+    and xh_print_semiblocktag encode tag attrs taglist i =
       (* New line before and after but not inside, for ex for <pre> *)
       if taglist = []
-      then xh_print_closedtag encode tag attrs i true cont
-      else begin
-        (if i > 0 then
-          (Ocsigen_stream.cont ("\n"^String.make (taille_tab*i) ' '))
-        else (Ocsigen_stream.cont "\n")) (fun () ->
-        (Ocsigen_stream.cont ("<"^tag)) (fun () ->
+      then xh_print_closedtag encode tag attrs i true
+      else
+        (S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
+	   >> S.put ("<"^tag)
+	   >> xh_print_attrs encode attrs
+           >> S.put ">"
+	   >> xh_print_taglist taglist 0 false false
+	   >> S.put ("</"^tag^">"))
 
-        xh_print_attrs encode attrs (fun () ->
-        (Ocsigen_stream.cont ">") (fun () ->
+    and xh_print_taglist_removews taglist i is_first =
+      xh_print_taglist taglist i is_first true
 
-        xh_print_taglist taglist 0 false false (fun () ->
+    and print_nodes ws1 name xh_attrs xh_taglist ws2 queue i is_first removetailingws =
+      (if List.mem name blocktags
+       then xh_print_blocktag encode name xh_attrs xh_taglist i
+       else if List.mem name semiblocktags
+       then xh_print_semiblocktag encode name xh_attrs xh_taglist i
+       else (xh_print_text (encode ws1) i is_first
+	       >> xh_print_inlinetag encode name xh_attrs xh_taglist i is_first
+               >> xh_print_text (encode ws2) i is_first))
+       >> xh_print_taglist queue i false removetailingws
 
-        (Ocsigen_stream.cont ("</"^tag^">") cont))))))
-
-      end
-
-    and xh_print_taglist_removews taglist i is_first cont =
-        xh_print_taglist taglist i is_first true cont
-
-
-    and print_nodes ws1 name xh_attrs xh_taglist ws2 queue i is_first removetailingws cont =
-      (fun cont ->
-        if (List.mem name blocktags)
-        then xh_print_blocktag encode name xh_attrs xh_taglist i cont
-        else
-          (if (List.mem name semiblocktags)
-          then xh_print_semiblocktag encode name xh_attrs xh_taglist i cont
-          else begin
-            xh_print_text (encode ws1) i is_first (fun () ->
-            xh_print_inlinetag encode name xh_attrs xh_taglist i is_first (fun () ->
-            xh_print_text (encode ws2) i is_first cont))
-          end))
-        (fun () -> xh_print_taglist queue i false removetailingws cont)
-
-    and xh_print_taglist taglist i is_first removetailingws cont =
+    and xh_print_taglist taglist i is_first removetailingws =
       match taglist with
 
-      | [] -> cont ()
+      | [] -> S.return ()
 
       | { elt = Comment texte }::queue ->
           xh_print_text ("<!--"^(encode texte)^"-->") i is_first
-          (fun () -> xh_print_taglist queue i false removetailingws cont)
+          >> xh_print_taglist queue i false removetailingws
 
       | { elt = Entity e }::queue ->
           xh_print_text ("&"^e^";") i is_first (* no encoding *)
-          (fun () -> xh_print_taglist queue i false removetailingws cont)
+          >> xh_print_taglist queue i false removetailingws
 
       | { elt = PCDATA texte }::queue ->
           xh_print_text (encode texte) i is_first
-          (fun () -> xh_print_taglist queue i false removetailingws cont)
+          >> xh_print_taglist queue i false removetailingws
 
       | { elt = EncodedPCDATA texte }::queue ->
           xh_print_text texte i is_first
-          (fun () -> xh_print_taglist queue i false removetailingws cont)
+          >> xh_print_taglist queue i false removetailingws
 
       | { elt = Node (name,xh_attrs,xh_taglist )}::queue ->
-          print_nodes "" name xh_attrs xh_taglist "" queue i is_first removetailingws cont
+          print_nodes "" name xh_attrs xh_taglist "" queue i is_first removetailingws
 
       | { elt = Leaf (name,xh_attrs )}::queue ->
-          print_nodes "" name xh_attrs [] "" queue i is_first removetailingws cont
+          print_nodes "" name xh_attrs [] "" queue i is_first removetailingws
 
       | { elt = Empty }::queue ->
-          xh_print_taglist queue i false removetailingws cont
-
-
+          xh_print_taglist queue i false removetailingws
 
     in
-    xh_print_taglist [arbre] 0 true false cont
-  in
-  ((fun ?(width = 132) ?(encode = encode_unsafe)
-      ?html_compat doctype foret ->
-
-         (List.fold_right
-             (fun arbre cont () ->
-               aux ?width ?encode ?html_compat arbre cont)
-             foret
-
-         (fun () -> Ocsigen_stream.empty None))),
-
-
-   (fun ?(width = 132) ?(encode = encode_unsafe)
-       ?html_compat doctype arbre ->
-
-        Ocsigen_stream.cont doctype
-        (fun () -> Ocsigen_stream.cont ocsigenadv
-        (fun () ->
-
-          aux ?width ?encode ?html_compat arbre
-
-           (fun () -> Ocsigen_stream.empty None)))))
+    xh_print_taglist [arbre] 0 true false
 
   let opt_default x = function
     | Some x -> x
     | _ -> x
 
-  let xhtml_stream ?version ?width ?encode ?html_compat arbre =
+  let xhtml_stream ?version ?(width=132) ?(encode = encode_unsafe) ?html_compat arbre =
     let version = opt_default default_doctype version in
-    Ocsigen_stream.make
-      (fun () ->
-        xh_stream ?width ?encode ?html_compat
-          (doctype version) (toelt arbre))
-      
-  let xhtml_list_stream ?version ?width ?encode ?html_compat foret =
-    let version = opt_default default_doctype version in
-    Ocsigen_stream.make
-      (fun () ->
-        x_stream ?width ?encode ?html_compat
-          (doctype version) (toeltl foret) ())
+    S.put (F.doctype version)
+      >> S.put ocsigenadv
+      >> aux ?width ?encode ?html_compat (F.toelt arbre)
 
-
+  let xhtml_list_stream
+      ?(width=132) ?(encode = encode_unsafe) ?html_compat foret =
+    List.fold_right (<<)
+      (List.map (fun arbre -> aux ?width ?encode ?html_compat (F.toelt arbre)) foret)
+      (S.return ())
 end
 
 
