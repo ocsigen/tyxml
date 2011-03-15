@@ -17,22 +17,7 @@
  *)
 
 (** XHTML "compact printing" (no pretty printing, no line breaks added) *)
-module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.STREAM) : sig
-(** Ocsigen's compact printer for xhtml. [html_compat] is an option to set
-   if you want to print with a syntax closer to html (not xml).
-*)
-  val xhtml_stream :
-    ?version:F.doctypes ->
-    ?width:int -> ?encode:(string -> string) ->
-        ?html_compat:bool ->
-          [ `Html ] F.elt -> unit S.t
-
-(** Ocsigen's compact printer for xhtml portions.
-    [html_compat] is an option to set
-    if you want to print with a syntax closer to html (not xml). *)
-  val xhtml_list_stream :
-    ?width:int -> ?encode:(string -> string) ->
-    ?html_compat:bool ->
-    'a F.elt list -> unit S.t
-
-end
+module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.Stream)
+    : Xhtml_streams.Printer with type s = S.s
+                                 and type 'a elt = 'a F.elt
+				 and type doctypes = F.doctypes

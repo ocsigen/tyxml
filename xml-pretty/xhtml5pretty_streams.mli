@@ -18,23 +18,7 @@
 
 (** XHTML pretty printing *)
 
-module Pretty (S : Xhtml_streams.STREAM) : sig
-
-(** Ocsigen's pretty printer for xhtml. [html_compat] is an option to set
-   if you want to print with a syntax closer to html (not xml).
- *)
-  val xhtml_stream :
-      ?version:XHTML5.M.doctypes ->
-      ?width:int -> ?encode:(string -> string) ->
-      ?html_compat:bool ->
-      [ `Html ] XHTML5.M.elt -> unit S.t
-
-(** Ocsigen's pretty printer for xhtml portions.
-   [html_compat] is an option to set
-   if you want to print with a syntax closer to html (not xml). *)
-  val xhtml_list_stream :
-      ?width:int -> ?encode:(string -> string) ->
-      ?html_compat:bool ->
-      'a XHTML5.M.elt list -> unit S.t
-
-end
+module Pretty (S : Xhtml_streams.Stream)
+    : Xhtml_streams.Printer with type s = S.s
+                                 and type 'a elt = 'a XHTML5.M.elt
+				 and type doctypes = XHTML5.M.doctypes

@@ -18,21 +18,24 @@
 
 open Format
 open XML
-module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.STREAM) = struct
+module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.Stream) = struct
+
+  type s = S.s
+  include F
+
+  let (++) = S.concat
+  let (<<) f m = S.concat m f
 
 (*****************************************************************************)
 (* print to streams *)
 
-  let (>>) m f = S.bind m (fun () -> f)
-  let (<<) f m = S.bind m (fun () -> f)
-
   let aux ~width ~encode ?(html_compat = false) arbre =
     let endemptytag = if html_compat then ">" else " />" in
     let rec xh_print_attrs encode attrs = match attrs with
-    | [] -> S.return ()
+    | [] -> S.empty ()
     | attr::queue ->
         S.put (" "^XML.attrib_to_string encode attr)
-	  >> xh_print_attrs encode queue
+	  ++ xh_print_attrs encode queue
 
     and xh_print_text texte = S.put texte
 
@@ -40,47 +43,47 @@ module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.STREAM) = struct
       if List.mem tag F.emptytags
       then
         (S.put ("<"^tag)
-	   >> xh_print_attrs encode attrs
-	   >> S.put endemptytag)
+	   ++ xh_print_attrs encode attrs
+	   ++ S.put endemptytag)
       else
         (S.put ("<"^tag)
-           >> xh_print_attrs encode attrs
-           >> S.put ("></"^tag^">"))
+           ++ xh_print_attrs encode attrs
+           ++ S.put ("></"^tag^">"))
 
     and xh_print_tag encode tag attrs taglist =
       if taglist = []
       then xh_print_closedtag encode tag attrs
       else
         (S.put ("<"^tag)
-           >> xh_print_attrs encode attrs
-           >> S.put ">"
-           >> xh_print_taglist taglist
-           >> S.put ("</"^tag^">"))
+           ++ xh_print_attrs encode attrs
+           ++ S.put ">"
+           ++ xh_print_taglist taglist
+           ++ S.put ("</"^tag^">"))
 
     and print_nodes name xh_attrs xh_taglist queue =
       xh_print_tag encode name xh_attrs xh_taglist
-        >> xh_print_taglist queue
+        ++ xh_print_taglist queue
 
     and xh_print_taglist taglist =
       match taglist with
 
-      | [] -> S.return ()
+      | [] -> S.empty ()
 
       | { elt = Comment texte }::queue ->
           xh_print_text ("<!--"^(encode texte)^"-->")
-            >> xh_print_taglist queue
+            ++ xh_print_taglist queue
 
       | { elt = Entity e }::queue ->
           xh_print_text ("&"^e^";") (* no encoding *)
-            >> xh_print_taglist queue
+            ++ xh_print_taglist queue
 
       | { elt = PCDATA texte }::queue ->
           xh_print_text (encode texte)
-            >> xh_print_taglist queue
+            ++ xh_print_taglist queue
 
       | { elt = EncodedPCDATA texte }::queue ->
           xh_print_text texte
-            >> xh_print_taglist queue
+            ++ xh_print_taglist queue
 
       (* Nodes and Leafs *)
       | { elt = Node (name, xh_attrs, xh_taglist )}::queue ->
@@ -102,14 +105,16 @@ module MakeCompact (F : Xhtml_format.Info)(S : Xhtml_streams.STREAM) = struct
 
   let xhtml_stream ?version ?(width=132) ?(encode = encode_unsafe) ?html_compat arbre =
     let version = opt_default F.default_doctype version in
-    S.put (F.doctype version)
-      >> S.put F.ocsigenadv
-      >> aux ?width ?encode ?html_compat (F.toelt arbre)
+    S.make
+      (S.put (F.doctype version)
+	 ++ S.put F.ocsigenadv
+	 ++ aux ?width ?encode ?html_compat (F.toelt arbre))
 
   let xhtml_list_stream
       ?(width=132) ?(encode = encode_unsafe) ?html_compat foret =
-    List.fold_right (<<)
-      (List.map (fun arbre -> aux ?width ?encode ?html_compat (F.toelt arbre)) foret)
-      (S.return ())
+    S.make
+      (List.fold_right (<<)
+	 (List.map (fun arbre -> aux ?width ?encode ?html_compat (F.toelt arbre)) foret)
+	 (S.empty ()))
 
 end

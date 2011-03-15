@@ -21,13 +21,16 @@ open Format
 open XML
 open Xhtml_format
 
-module MakePretty (F : Info)(S : Xhtml_streams.STREAM) = struct
+module MakePretty (F : Info)(S : Xhtml_streams.Stream) = struct
   let id x = x
-  open F
   let taille_tab = 2
 
-  let (>>) m f = S.bind m (fun () -> f)
-  let (<<) f m = S.bind m (fun () -> f)
+  type s = S.s
+  include F
+
+  let (++) = S.concat
+  let (<<) f m = S.concat m f
+
 
 (*****************************************************************************)
 (* print to streams *)
@@ -36,47 +39,47 @@ module MakePretty (F : Info)(S : Xhtml_streams.STREAM) = struct
 
     let endemptytag = if html_compat then ">" else " />" in
     let rec xh_print_attrs encode attrs = match attrs with
-    | [] -> S.return ()
+    | [] -> S.empty ()
     | attr::queue ->
         S.put (" "^XML.attrib_to_string encode attr)
-	  >> xh_print_attrs encode queue
+	  ++ xh_print_attrs encode queue
 
     and xh_print_text texte i is_first = S.put texte
 
     and xh_print_closedtag encode tag attrs i is_first =
-      if List.mem tag emptytags
+      if List.mem tag F.emptytags
       then
 	(S.put (if (i > 0) || is_first then String.make (taille_tab*i) ' ' else "")
-           >> S.put ("<"^tag)
-           >> xh_print_attrs encode attrs
-	   >> S.put endemptytag)
+           ++ S.put ("<"^tag)
+           ++ xh_print_attrs encode attrs
+	   ++ S.put endemptytag)
       else
 	(S.put (if (i > 0) || is_first then String.make (taille_tab*i) ' ' else "")
-	   >> S.put ("<"^tag)
-	   >> xh_print_attrs encode attrs
-	   >> S.put ("></"^tag^">"))
+	   ++ S.put ("<"^tag)
+	   ++ xh_print_attrs encode attrs
+	   ++ S.put ("></"^tag^">"))
 
     and xh_print_inlinetag encode tag attrs taglist i is_first =
       if taglist = []
       then xh_print_closedtag encode tag attrs i true
       else
         (S.put ("<"^tag)
-           >> xh_print_attrs encode attrs
-           >> S.put ">"
-           >> xh_print_taglist taglist 0 false false
-           >> S.put ("</"^tag^">"))
+           ++ xh_print_attrs encode attrs
+           ++ S.put ">"
+           ++ xh_print_taglist taglist 0 false false
+           ++ S.put ("</"^tag^">"))
 
     and xh_print_blocktag encode tag attrs taglist i =
       if taglist = []
       then xh_print_closedtag encode tag attrs i true
       else
         (S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
-	  >> S.put ("<"^tag)
-	  >> xh_print_attrs encode attrs
-          >> S.put  ">"
-	  >> xh_print_taglist_removews taglist (i+1) true
-	  >> S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
-	  >> S.put ("</"^tag^">"))
+	  ++ S.put ("<"^tag)
+	  ++ xh_print_attrs encode attrs
+          ++ S.put  ">"
+	  ++ xh_print_taglist_removews taglist (i+1) true
+	  ++ S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
+	  ++ S.put ("</"^tag^">"))
 
     and xh_print_semiblocktag encode tag attrs taglist i =
       (* New line before and after but not inside, for ex for <pre> *)
@@ -84,45 +87,45 @@ module MakePretty (F : Info)(S : Xhtml_streams.STREAM) = struct
       then xh_print_closedtag encode tag attrs i true
       else
         (S.put (if i > 0 then "\n"^String.make (taille_tab*i) ' ' else "\n")
-	   >> S.put ("<"^tag)
-	   >> xh_print_attrs encode attrs
-           >> S.put ">"
-	   >> xh_print_taglist taglist 0 false false
-	   >> S.put ("</"^tag^">"))
+	   ++ S.put ("<"^tag)
+	   ++ xh_print_attrs encode attrs
+           ++ S.put ">"
+	   ++ xh_print_taglist taglist 0 false false
+	   ++ S.put ("</"^tag^">"))
 
     and xh_print_taglist_removews taglist i is_first =
       xh_print_taglist taglist i is_first true
 
     and print_nodes ws1 name xh_attrs xh_taglist ws2 queue i is_first removetailingws =
-      (if List.mem name blocktags
+      (if List.mem name F.blocktags
        then xh_print_blocktag encode name xh_attrs xh_taglist i
-       else if List.mem name semiblocktags
+       else if List.mem name F.semiblocktags
        then xh_print_semiblocktag encode name xh_attrs xh_taglist i
        else (xh_print_text (encode ws1) i is_first
-	       >> xh_print_inlinetag encode name xh_attrs xh_taglist i is_first
-               >> xh_print_text (encode ws2) i is_first))
-       >> xh_print_taglist queue i false removetailingws
+	       ++ xh_print_inlinetag encode name xh_attrs xh_taglist i is_first
+               ++ xh_print_text (encode ws2) i is_first))
+       ++ xh_print_taglist queue i false removetailingws
 
     and xh_print_taglist taglist i is_first removetailingws =
       match taglist with
 
-      | [] -> S.return ()
+      | [] -> S.empty ()
 
       | { elt = Comment texte }::queue ->
           xh_print_text ("<!--"^(encode texte)^"-->") i is_first
-          >> xh_print_taglist queue i false removetailingws
+          ++ xh_print_taglist queue i false removetailingws
 
       | { elt = Entity e }::queue ->
           xh_print_text ("&"^e^";") i is_first (* no encoding *)
-          >> xh_print_taglist queue i false removetailingws
+          ++ xh_print_taglist queue i false removetailingws
 
       | { elt = PCDATA texte }::queue ->
           xh_print_text (encode texte) i is_first
-          >> xh_print_taglist queue i false removetailingws
+          ++ xh_print_taglist queue i false removetailingws
 
       | { elt = EncodedPCDATA texte }::queue ->
           xh_print_text texte i is_first
-          >> xh_print_taglist queue i false removetailingws
+          ++ xh_print_taglist queue i false removetailingws
 
       | { elt = Node (name,xh_attrs,xh_taglist )}::queue ->
           print_nodes "" name xh_attrs xh_taglist "" queue i is_first removetailingws
@@ -140,17 +143,22 @@ module MakePretty (F : Info)(S : Xhtml_streams.STREAM) = struct
     | Some x -> x
     | _ -> x
 
-  let xhtml_stream ?version ?(width=132) ?(encode = encode_unsafe) ?html_compat arbre =
-    let version = opt_default default_doctype version in
-    S.put (F.doctype version)
-      >> S.put ocsigenadv
-      >> aux ?width ?encode ?html_compat (F.toelt arbre)
+  let xhtml_stream
+      ?version ?(width=132) ?(encode = encode_unsafe) ?html_compat arbre =
+    let version = opt_default F.default_doctype version in
+    S.make
+      (S.put (F.doctype version)
+	 ++ S.put F.ocsigenadv
+	 ++ aux ?width ?encode ?html_compat (F.toelt arbre))
 
   let xhtml_list_stream
       ?(width=132) ?(encode = encode_unsafe) ?html_compat foret =
-    List.fold_right (<<)
-      (List.map (fun arbre -> aux ?width ?encode ?html_compat (F.toelt arbre)) foret)
-      (S.return ())
+    S.make
+      (List.fold_right (<<)
+	 (List.map
+	    (fun arbre -> aux ?width ?encode ?html_compat (F.toelt arbre))
+	    foret)
+	 (S.empty ()))
 end
 
 

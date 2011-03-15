@@ -17,4 +17,4 @@
  *)
 
 
-module Pretty = Xhtml_mkcompact_streams.MakeCompact (Xhtml_format.Xhtml5Info)
+module Compact = Xhtml_mkcompact_streams.MakeCompact (Xhtml_format.Xhtml5Info)
