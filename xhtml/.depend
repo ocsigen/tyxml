@@ -1,0 +1,24 @@
+sVG.cmi: xML.cmi svgtypes.cmi
+svgtypes.cmi:
+uri.cmi:
+xHTML.cmi: xhtmltypes.cmi xML.cmi uri.cmi
+xHTML5.cmi: xhtml5types.cmi xML.cmi uri.cmi sVG.cmi
+xML.cmi:
+xhtml5types.cmi: uri.cmi svgtypes.cmi
+xhtmltypes.cmi: uri.cmi
+sVG.cmo: xML.cmi uri.cmi svgtypes.cmi sVG.cmi
+sVG.cmx: xML.cmx uri.cmx svgtypes.cmx sVG.cmi
+svgtypes.cmo: svgtypes.cmi
+svgtypes.cmx: svgtypes.cmi
+uri.cmo: uri.cmi
+uri.cmx: uri.cmi
+xHTML.cmo: xhtmltypes.cmi xML.cmi uri.cmi xHTML.cmi
+xHTML.cmx: xhtmltypes.cmx xML.cmx uri.cmx xHTML.cmi
+xHTML5.cmo: xhtml5types.cmi xML.cmi uri.cmi sVG.cmi xHTML5.cmi
+xHTML5.cmx: xhtml5types.cmx xML.cmx uri.cmx sVG.cmx xHTML5.cmi
+xML.cmo: xML.cmi
+xML.cmx: xML.cmi
+xhtml5types.cmo: uri.cmi svgtypes.cmi xhtml5types.cmi
+xhtml5types.cmx: uri.cmx svgtypes.cmx xhtml5types.cmi
+xhtmltypes.cmo: uri.cmi xhtmltypes.cmi
+xhtmltypes.cmx: uri.cmx xhtmltypes.cmi

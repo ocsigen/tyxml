@@ -15,13 +15,14 @@ OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
 OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
 OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
 
-byte: basicTypes.cmo xhtmlsyntax.cma simplexmlparser.cmo
-opt: basicTypes.cmx xhtmlsyntax.cmxa simplexmlparser.cmx
+byte: xmllexer.cmo xhtmlsyntax.cma simplexmlparser.cmo
+opt: xmllexer.cmx xhtmlsyntax.cmxa simplexmlparser.cmx
 
-xhtmlsyntax.cma: xmllexer.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
+OBJS := basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
+
+xhtmlsyntax.cma: ${OBJS}
 	$(OCAMLC) -a -o $@ $^
-
-xhtmlsyntax.cmxa: xmllexer.cmx camllexer.cmx xhtmlparser.cmx xhtmlsyntax.cmx
+xhtmlsyntax.cmxa: ${OBJS:.cmo=.cmx}
 	$(OCAMLOPT) -a -o $@ $^
 
 # Common rules
@@ -53,7 +54,6 @@ clean:
 	-rm -f ${PREDEP}
 	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
 distclean: clean
-	-rm -f .depend
 	-rm -f *~ \#* .\#*
 
 # Dependencies

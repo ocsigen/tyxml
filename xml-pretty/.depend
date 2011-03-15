@@ -1,0 +1,60 @@
+xhtml5compact.cmo: xhtml_mkcompact.cmi ../xhtml/xML.cmi ../xhtml/xHTML5.cmi \
+    xhtml5compact.cmi
+xhtml5compact.cmx: xhtml_mkcompact.cmx ../xhtml/xML.cmx ../xhtml/xHTML5.cmx \
+    xhtml5compact.cmi
+xhtml5compact_streams.cmo: xhtml_mkcompact_streams.cmi xhtml_format.cmi \
+    xhtml5compact_streams.cmi
+xhtml5compact_streams.cmx: xhtml_mkcompact_streams.cmx xhtml_format.cmx \
+    xhtml5compact_streams.cmi
+xhtml5pretty.cmo: xhtml_mkpretty.cmi xhtml_format.cmi ../xhtml/xML.cmi \
+    xhtml5pretty.cmi
+xhtml5pretty.cmx: xhtml_mkpretty.cmx xhtml_format.cmx ../xhtml/xML.cmx \
+    xhtml5pretty.cmi
+xhtml5pretty_streams.cmo: xhtml_mkpretty_streams.cmi xhtml_format.cmi \
+    ../xhtml/xML.cmi xhtml5pretty_streams.cmi
+xhtml5pretty_streams.cmx: xhtml_mkpretty_streams.cmx xhtml_format.cmx \
+    ../xhtml/xML.cmx xhtml5pretty_streams.cmi
+xhtml_format.cmo: ../xhtml/xML.cmi ../xhtml/xHTML5.cmi ../xhtml/xHTML.cmi \
+    xhtml_format.cmi
+xhtml_format.cmx: ../xhtml/xML.cmx ../xhtml/xHTML5.cmx ../xhtml/xHTML.cmx \
+    xhtml_format.cmi
+xhtml_mkcompact.cmo: ../xhtml/xML.cmi xhtml_mkcompact.cmi
+xhtml_mkcompact.cmx: ../xhtml/xML.cmx xhtml_mkcompact.cmi
+xhtml_mkcompact_streams.cmo: xhtml_streams.cmi xhtml_format.cmi \
+    ../xhtml/xML.cmi xhtml_mkcompact_streams.cmi
+xhtml_mkcompact_streams.cmx: xhtml_streams.cmi xhtml_format.cmx \
+    ../xhtml/xML.cmx xhtml_mkcompact_streams.cmi
+xhtml_mkpretty.cmo: ../xhtml/xML.cmi xhtml_mkpretty.cmi
+xhtml_mkpretty.cmx: ../xhtml/xML.cmx xhtml_mkpretty.cmi
+xhtml_mkpretty_streams.cmo: xhtml_streams.cmi xhtml_format.cmi \
+    ../xhtml/xML.cmi xhtml_mkpretty_streams.cmi
+xhtml_mkpretty_streams.cmx: xhtml_streams.cmi xhtml_format.cmx \
+    ../xhtml/xML.cmx xhtml_mkpretty_streams.cmi
+xhtmlcompact.cmo: xhtml_mkcompact.cmi xhtml_format.cmi xhtmlcompact.cmi
+xhtmlcompact.cmx: xhtml_mkcompact.cmx xhtml_format.cmx xhtmlcompact.cmi
+xhtmlcompact_streams.cmo: xhtml_mkcompact_streams.cmi xhtml_format.cmi \
+    xhtmlcompact_streams.cmi
+xhtmlcompact_streams.cmx: xhtml_mkcompact_streams.cmx xhtml_format.cmx \
+    xhtmlcompact_streams.cmi
+xhtmlpretty.cmo: xhtml_mkpretty.cmi xhtml_format.cmi ../xhtml/xML.cmi \
+    xhtmlpretty.cmi
+xhtmlpretty.cmx: xhtml_mkpretty.cmx xhtml_format.cmx ../xhtml/xML.cmx \
+    xhtmlpretty.cmi
+xhtmlpretty_streams.cmo: xhtml_mkpretty_streams.cmi xhtml_format.cmi \
+    ../xhtml/xML.cmi xhtmlpretty_streams.cmi
+xhtmlpretty_streams.cmx: xhtml_mkpretty_streams.cmx xhtml_format.cmx \
+    ../xhtml/xML.cmx xhtmlpretty_streams.cmi
+xhtml5compact.cmi: ../xhtml/xHTML5.cmi
+xhtml5compact_streams.cmi: xhtml_streams.cmi ../xhtml/xHTML5.cmi
+xhtml5pretty.cmi: ../xhtml/xHTML5.cmi
+xhtml5pretty_streams.cmi: xhtml_streams.cmi ../xhtml/xHTML5.cmi
+xhtml_format.cmi: ../xhtml/xML.cmi ../xhtml/xHTML5.cmi ../xhtml/xHTML.cmi
+xhtml_mkcompact.cmi: ../xhtml/xML.cmi
+xhtml_mkcompact_streams.cmi: xhtml_streams.cmi xhtml_format.cmi
+xhtml_mkpretty.cmi: ../xhtml/xML.cmi
+xhtml_mkpretty_streams.cmi: xhtml_streams.cmi xhtml_format.cmi
+xhtml_streams.cmi: xhtml_format.cmi
+xhtmlcompact.cmi: ../xhtml/xHTML.cmi
+xhtmlcompact_streams.cmi: xhtml_streams.cmi ../xhtml/xHTML.cmi
+xhtmlpretty.cmi: ../xhtml/xHTML.cmi
+xhtmlpretty_streams.cmi: xhtml_streams.cmi ../xhtml/xHTML.cmi

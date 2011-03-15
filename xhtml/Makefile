@@ -130,7 +130,6 @@ clean:
 	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
 	-rm -f ${PREDEP}
 distclean: clean
-	-rm -f .depend
 	-rm -f *~ \#* .\#*
 
 depend: ${PREDEP}
