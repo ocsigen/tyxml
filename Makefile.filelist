@@ -1,0 +1,37 @@
+INTF := xhtml/xHTML.cmi \
+        xhtml/xHTML5.cmi \
+        xhtml/sVG.cmi \
+        xhtml/svgtypes.cmi \
+        xhtml/xML.cmi \
+        xhtml/xhtmltypes.cmi \
+        xhtml/xhtml5types.cmi \
+        xhtml/uri.cmi \
+        syntax/simplexmlparser.cmi \
+        xml-pretty/xhtml_streams.cmi \
+        xml-pretty/xhtmlpretty.cmi \
+        xml-pretty/xhtmlpretty_streams.cmi \
+        xml-pretty/xhtmlcompact.cmi \
+        xml-pretty/xhtmlcompact_streams.cmi \
+        xml-pretty/xhtml5pretty.cmi \
+        xml-pretty/xhtml5pretty_streams.cmi \
+        xml-pretty/xhtml5compact.cmi \
+        xml-pretty/xhtml5compact_streams.cmi \
+
+IMPL := xhtml/xhtml.cma \
+        syntax/xhtmlsyntax.cma \
+        syntax/xmllexer.cmo \
+        syntax/simplexmlparser.cmo \
+        xml-pretty/xhtmlpretty.cma \
+        xml-pretty/xhtmlpretty_streams.cma
+
+NATIMPL := xhtml/xhtml.cmxa \
+           syntax/xhtmlsyntax.cmxa \
+           syntax/xmllexer.cmx \
+      	   syntax/simplexmlparser.cmx \
+	   xml-pretty/xhtmlpretty.cmxa \
+	   xml-pretty/xhtmlpretty_streams.cmxa
+
+NATIMPL += ${patsubst %.cmxa,%.a,${NATIMPL:.cmx=.o}}
+
+DOC := ${INTF:.cmi=.mli} ./xml-pretty/xhtml_format.mli
+

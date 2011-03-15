@@ -1,0 +1,37 @@
+description = "XHTML pages typed with polymorphic variants"
+version = "dev"
+requires = "netstring"
+archive(byte) = "xhtml.cma xhtmlpretty.cma"
+archive(native) = "xhtml.cmxa xhtmlpretty.cmxa"
+
+package "syntax" (
+    description = "XHTML syntax extension"
+    version = "(distributed with xmlp4)"
+    requires = "xmlp4,xmlp4.lexer,camlp4"
+    archive(syntax,preprocessor) = "xhtmlsyntax.cma"
+    archive(syntax,toploop) = "xhtmlsyntax.cma"
+)
+
+package "streams" (
+    description = "XHTML pages typed with polymorphic variants (output to streams)"
+    version = "(distributed with xmlp4)"
+    requires = "xmlp4"
+    archive(byte) = "xhtmlpretty_streams.cma"
+    archive(native) = "xhtmlpretty_streams.cmxa"
+)
+
+package "lexer" (
+    description = "Simple XML parser"
+    requires = "camlp4.lib"
+    version = "(distributed with xmlp4)"
+    archive(byte) = "xmllexer.cmo"
+    archive(native) = "xmllexer.cmx"
+)
+
+package "parser" (
+    description = "Simple XML parser"
+    requires = "camlp4.lib,xmlp4.lexer"
+    version = "(distributed with xmlp4)"
+    archive(byte) = "simplexmlparser.cmo"
+    archive(native) = "simplexmlparser.cmx"
+)

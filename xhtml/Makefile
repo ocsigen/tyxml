@@ -26,6 +26,8 @@ FILES := uri.ml \
 	 xhtml5types.ml xHTML5.ml \
 	 xhtmltypes.ml xHTML.ml
 
+PREDEP := xHTML5.mli xHTML.mli xhtmltypes.mli xhtml5types.mli
+
 LIB      := -package netstring
 
 DOLLAR   :=$$
@@ -126,12 +128,12 @@ xHTML5.mli: xHTML5.ml xhtml5types.cmi
 # Clean up
 clean:
 	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
-	-rm -f xHTML5.mli xHTML.mli xhtmltypes.mli xhtml5types.mli
+	-rm -f ${PREDEP}
 distclean: clean
 	-rm -f .depend
 	-rm -f *~ \#* .\#*
 
-depend: *.mli *.ml
+depend: ${PREDEP}
 	$(OCAMLDEP) *.mli *.ml > .depend
 
 FORCE:

@@ -18,11 +18,11 @@
  *)
 (** Basic camlp4 parser for xml *)
 type xml =
-  [ Element of (string * (list (string * string)) * (list xml))
-  | PCData of string ];
+  | Element of (string * ((string * string) list) * (xml list))
+  | PCData of string
 
-exception Xml_parser_error of string;
-value xmlparser_string : string -> list xml;
-value xmlparser_file : string -> list xml;
+exception Xml_parser_error of string
+val xmlparser_string : string -> xml list
+val xmlparser_file : string -> xml list
 
 

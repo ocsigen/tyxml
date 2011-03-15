@@ -1,0 +1,22 @@
+{1 Xmlp4 - API reference}
+
+{!modules:
+XHTML
+XHTML5
+SVG
+Svgtypes
+XML
+Xhtmltypes
+Xhtml5types
+Uri
+Simplexmlparser
+Xhtml_streams
+Xhtmlpretty
+Xhtmlpretty_streams
+Xhtmlcompact
+Xhtmlcompact_streams
+Xhtml5pretty
+Xhtml5pretty_streams
+Xhtml5compact
+Xhtml5compact_streams
+}

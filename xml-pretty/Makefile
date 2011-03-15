@@ -40,6 +40,6 @@ distclean: clean
 	-rm -f *~ \#* .\#*
 
 depend:
-	$(OCAMLDEP) $(FILES) $(FILES_STREAM) > .depend
+	$(OCAMLDEP) *.ml *.mli > .depend
 
 -include .depend

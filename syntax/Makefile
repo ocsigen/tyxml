@@ -1,8 +1,8 @@
 include ../Makefile.config
 
-FILES   := xmllexer.ml camllexer.ml
+FILES   := xmllexer.ml camllexer.ml simplexmlparser.mli
 RFILES  := basicTypes.ml \
-	   simplexmlparser.ml simplexmlparser.mli \
+	   simplexmlparser.ml \
 	   xhtmlparser.ml xhtmlsyntax.ml
 
 PREDEP  := xmllexer.ml camllexer.ml
