@@ -245,7 +245,7 @@ type iri
 (** An IRI reference is an Internationalized Resource Identifier with an optional fragment identifier, as defined in Internationalized Resource Identifiers [RFC3987]. An IRI reference serves as a reference to a resource or (with a fragment identifier) to a secondary resource. See References and the ‘defs’ element.. *)
 
 val string_of_iri : iri -> string
-  
+
 (** {2 Units} *)
 (** SVG defines several units to measure time, length, angles. *)
 type number = float
@@ -256,27 +256,27 @@ val string_of_number_optional_number : number_optional_number -> string
 
 type percentage = int
 val string_of_percentage : percentage -> string
-  
+
 type strings = string list
 val string_of_strings : strings -> string
-  
+
 type pcdata = [ `PCDATA ]
 
 type spacestrings = string list
 val string_of_spacestrings : spacestrings -> string
-  
+
 type commastrings = string list
 val string_of_commastrings : commastrings -> string
-  
+
 type fourfloats = (float * float * float * float)
 val string_of_fourfloats : fourfloats -> string
-  
+
 type numbers = float list
 val string_of_numbers : numbers -> string
-  
+
 type numbers_semicolon = float list
 val string_of_numbers_semicolon : numbers_semicolon -> string
-  
+
 type rotate = float list
 
 module Unit : sig
@@ -328,7 +328,7 @@ val string_of_coord : coord -> string
 
 type coords = (float * float) list
 val string_of_coords : coords -> string
-  
+
 (* Transformation *)
 type transform =
   | Matrix of (float * float * float * float * float * float)
@@ -342,7 +342,7 @@ val string_of_transform : transform -> string
 
 type transforms = transform list
 val string_of_transforms : transforms -> string
-  
+
 
 (** {1 Element} *)
 (*-ELEMENTS-*)

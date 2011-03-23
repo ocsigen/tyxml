@@ -1,4 +1,4 @@
-(* _fun prefix are the types that must be used 
+(* _fun prefix are the types that must be used
    in XHTML5.M. They are more restrictive as
    some param are already taken as seperate argument,
    to ensure better compatibility.
@@ -27,11 +27,11 @@
   -> noscript (a [a []]) should not be typed.
 *)
 (** This file contains type definition for the
-    markup language XHTML5. 
+    markup language XHTML5.
     For more information concerning XHTML5,
     confer http://dev.w3.org/html5/spec/Overview.html
 *)
-  
+
 
 (** {1 Attribute types.} *)
 type cdata = string
@@ -229,7 +229,7 @@ type mediadesc =
         ["print"].}}
 
         Note. Style sheets may include media-dependent variations within them
-        (e.g., the [CSS \@media] construct). In such cases it may be appropriate
+        (e.g., the [CSS \@media] consig). In such cases it may be appropriate
         to use ["media=all"]. *)
 type multilength = [ | length | `Relative of int ]
 
@@ -278,11 +278,8 @@ type script_ = string
 type text = string
 
 (** Arbitrary textual data, likely meant to be human-readable. *)
-include Uri
-(*I type uri = Uri.uri *)
-(*I type uris = Uri.uris *)
-(*I val string_of_uri: uri -> string *)
-(*I val uri_of_string: string -> uri *)
+ type uri = Uri.uri
+ type uris = Uri.uris
 
 (** A space-separated list of Uniform Resource Identifiers, as per RFC2396.
         @see <http://www.ietf.org/rfc/rfc2396.txt> RFC2396 *)
@@ -408,11 +405,11 @@ type listed = [ | resetable | submitable | `Fieldset ]
 type formassociated = [ | listed | `Progress | `Meter | `Label ]
 
 
-(** Transparent elements. 
-        Such elements have a part of they children in their dataconstructor,
+(** Transparent elements.
+        Such elements have a part of they children in their dataconsigor,
         and behaves like them. We could do something like [=a: 'a elt list -> 'a elt]
         but the information about the node name would be forgotten and would allow
-        things like that : [=p [a [a []]]]. 
+        things like that : [=p [a [a []]]].
         This system allow to build non-conforming terms such as [a [a []]] but when passed
         to a standard element (such as [p]), it will yield an error.
         Exception to that : if you embdedd the element in another transparent (of an
@@ -430,7 +427,7 @@ type ('interactive, 'noscript, 'regular, 'media) transparent =
     | `Object_interactive of 'regular
     | `Audio_interactive of 'media
     | `Video_interactive of 'media
-    | `Audio of 'media 
+    | `Audio of 'media
     | `Video of 'media
   ]
 (* _interactive variants are not used for now *)
@@ -488,7 +485,7 @@ type metadata_without_title =
 (** Metadata contents. Used specially in <head> *)
 type metadata = [ | metadata_without_title | `Title ]
 
-(** Interactive contents : contents that require user-interaction 
+(** Interactive contents : contents that require user-interaction
         (Forms, link, etc.) *)
 (** Core element types are element types without transparent. *)
 type core_interactive =
@@ -507,7 +504,7 @@ type core_interactive =
   ]
 
 type interactive =
-  [ 
+  [
     core_interactive | (interactive, interactive, interactive) transparent_without_interactive
   ]
 
@@ -594,14 +591,14 @@ type core_phrasing_without_interactive =
     | `Strong
     | `Span
     | `Small
-    | `Script    
+    | `Script
     | `Svg
     | `Samp
     | `Ruby
     | `Q
     | `Mark
     | `Kbd
-    | `Img 
+    | `Img
     | `I
     | `Em
     | `Dfn
@@ -617,7 +614,7 @@ type core_phrasing_without_interactive =
   ]
 
 type core_phrasing_without_media =
-  [  
+  [
     | labelable
     | submitable
     | `Img | `Img_interactive
@@ -654,8 +651,8 @@ type core_phrasing_without_media =
     | `PCDATA
   ]
 
-type phrasing_without_noscript = 
-    (phrasing_without_interactive, 
+type phrasing_without_noscript =
+    (phrasing_without_interactive,
      phrasing,
      phrasing_without_media) transparent_without_noscript
 
@@ -670,7 +667,7 @@ and phrasing_without_media =
 and phrasing_without_interactive =
   [
     | core_phrasing_without_interactive
-    | (phrasing_without_media, phrasing, phrasing_without_media) 
+    | (phrasing_without_media, phrasing, phrasing_without_media)
         transparent_without_interactive
   ]
 
@@ -937,9 +934,9 @@ type core_flow5_without_media =
   ]
 
 type flow5_without_interactive =
-  [ 
-    core_flow5_without_interactive 
-  | (flow5_without_noscript, flow5, flow5_without_media) 
+  [
+    core_flow5_without_interactive
+  | (flow5_without_noscript, flow5, flow5_without_media)
       transparent_without_interactive
   ]
 
@@ -950,7 +947,7 @@ and flow5_without_noscript =
      flow5) transparent_without_noscript
   ]
 
-and flow5_without_media = 
+and flow5_without_media =
   [ core_flow5_without_media
   | (flow5_without_interactive,
      flow5_without_noscript,
@@ -1042,7 +1039,7 @@ type flow5_without_sectioning_heading_header_footer_address =
   ]
 
 (*
-  Type for XHTML5 for elements 
+  Type for XHTML5 for elements
 *)
 type pcdata = [ | `PCDATA ]
 
@@ -2096,5 +2093,3 @@ type link_content_fun = notag
 type link_attrib =
   [ | common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
   ]
-
-

@@ -11,7 +11,3 @@
 ^doc/api-html
 ^syntax/xmllexer.ml$
 ^syntax/camllexer.ml$
-^xhtml/xHTML5.mli$
-^xhtml/xHTML.mli$
-^xhtml/xhtml5types.mli$
-^xhtml/xhtmltypes.mli$

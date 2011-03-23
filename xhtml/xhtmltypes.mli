@@ -297,89 +297,83 @@ type events =
 
 type common = [ | core | i18n | events | `Style_Attr ]
 
-include Uri
-(*I type uri = Uri.uri *)
-(*I type uris = Uri.uris *)
-(*I val string_of_uri: uri -> string *)
-(*I val uri_of_string: string -> uri *)
+type uri = Uri.uri
+type uris = Uri.uris
 (** A space-separated list of Uniform Resource Identifiers, as per RFC2396.
     @see <http://www.ietf.org/rfc/rfc2396.txt> RFC2396 *)
 
 
-module HYPERTEXT = 
-struct 
+module HYPERTEXT :
+sig
   type inline = [ | `A ]
   type flow = inline
 end
-  
-module LIST =
-  struct
+
+module LIST :
+  sig
     type list = [ | `Dl | `Ol | `Ul ]
-    
+
     type t = [ | `Dd | `Dt | `Li ]
-    
+
     type flow = list
-    
+
   end
-  
-module PRESENTATION =
-  struct
+
+module PRESENTATION :
+  sig
     type block = [ | `Hr ]
-    
+
     type inline = [ | `B | `Big | `I | `Small | `Sub | `Sup | `Tt ]
-    
+
     type flow = [ | inline | block ]
-    
+
   end
-  
-module FORMS =
-  struct
+
+module FORMS :
+  sig
     type t = [ | `Option ]
-    
+
     type form = [ | `Form ]
-    
+
     type formctrl_sans_label = [ | `Input | `Select | `Textarea | `Button ]
-    
+
     type formctrl = [ | formctrl_sans_label | `Label ]
-    
+
     type block = form
-    
+
     type inline_sans_label = formctrl_sans_label
-    
+
     type inline = formctrl
-    
+
     type flow_sans_label = [ | block | inline_sans_label ]
-    
+
     type flow = [ | block | inline ]
-    
+
   end
-  
-module TABLES =
-  struct
+
+module TABLES :
+  sig
     type t = [ | `Caption | `Td | `Th | `Tr ]
-    
+
     type block = [ | `Table ]
-    
+
     type flow = block
-    
+
   end
-  
-module STYLE_SHEET = struct type t = [ | `Style ]
-                             end
-  
-module LINK = struct type t = [ | `Link ]
-                      end
-  
+
+module STYLE_SHEET : sig type t = [ | `Style ] end
+
+module LINK : sig type t = [ | `Link ] end
+
 (** {2 5.20. Base Module} *)
-module BASE = struct type t = [ | `Base ]
-                      end
-  
-module TEXT =
-  struct
+module BASE : sig type t = [ | `Base ] end
+
+module TEXT :
+  sig
     type heading = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
-    
+
     type block = [ | `Address | `Blockquote | `Div | `P | `Pre ]
-    
+
     type inline =
       [
         | `Abbr
@@ -396,37 +390,37 @@ module TEXT =
         | `Strong
         | `Var
       ]
-    
+
     type flow = [ | heading | block | inline ]
-    
+
   end
-  
+
 type edit = [ | `Ins | `Del ]
 
 type scripttag = [ | `Script | `Noscript ]
 
 type misc = [ | edit | scripttag ]
 
-module SPECIAL =
-  struct
+module SPECIAL :
+  sig
     type inline = [ | `Img | `Map | `Object ]
-    
+
     type block = [ | `Table | `Form | `Fieldset ]
-    
+
     type flow = [ | inline | block ]
-    
+
   end
-  
+
 type i18nclass = [ | `Bdo ]
 
-module RUBY =
-  struct
+module RUBY :
+  sig
     type inline = [ | `Ruby_simple1 | `Ruby_simple2 | `Ruby_complex ]
-    
+
     type flow = inline
-    
+
   end
-  
+
 type no_ruby_inline =
   [
     | TEXT.

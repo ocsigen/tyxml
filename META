@@ -4,10 +4,16 @@ requires = "netstring"
 archive(byte) = "xhtml.cma xhtmlpretty.cma"
 archive(native) = "xhtml.cmxa xhtmlpretty.cmxa"
 
+package "functor" (
+  description = "XHTML pages typed with polymorphic variants (Functor version)"
+  archive(byte) = "xhtml_f.cma xhtmlpretty.cma"
+  archive(native) = "xhtml_f.cmxa xhtmlpretty.cmxa"
+)
+
 package "syntax" (
     description = "XHTML syntax extension"
     version = "(distributed with xmlp4)"
-    requires = "xmlp4,xmlp4.lexer,camlp4"
+    requires = "xmlp4,xmlp4.lexer"
     archive(syntax,preprocessor) = "xhtmlsyntax.cma"
     archive(syntax,toploop) = "xhtmlsyntax.cma"
 )
@@ -22,7 +28,7 @@ package "streams" (
 
 package "lexer" (
     description = "Simple XML parser"
-    requires = "camlp4.lib"
+    requires = "camlp4"
     version = "(distributed with xmlp4)"
     archive(byte) = "xmllexer.cmo"
     archive(native) = "xmllexer.cmx"

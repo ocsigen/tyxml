@@ -1,8 +1,15 @@
-INTF := xhtml/xHTML.cmi \
+INTF := xhtml/xML.cmi \
+        xhtml/xML_defs.cmi \
+        xhtml/xHTML.cmi \
+        xhtml/xHTML_f.cmi \
+        xhtml/xHTML_defs.cmi \
         xhtml/xHTML5.cmi \
+        xhtml/xHTML5_f.cmi \
+        xhtml/xHTML5_defs.cmi \
         xhtml/sVG.cmi \
+        xhtml/sVG_f.cmi \
+        xhtml/sVG_defs.cmi \
         xhtml/svgtypes.cmi \
-        xhtml/xML.cmi \
         xhtml/xhtmltypes.cmi \
         xhtml/xhtml5types.cmi \
         xhtml/uri.cmi \
@@ -18,6 +25,7 @@ INTF := xhtml/xHTML.cmi \
         xml-pretty/xhtml5compact_streams.cmi \
 
 IMPL := xhtml/xhtml.cma \
+        xhtml/xhtml_f.cma \
         syntax/xhtmlsyntax.cma \
         syntax/xmllexer.cmo \
         syntax/simplexmlparser.cmo \
@@ -25,6 +33,7 @@ IMPL := xhtml/xhtml.cma \
         xml-pretty/xhtmlpretty_streams.cma
 
 NATIMPL := xhtml/xhtml.cmxa \
+           xhtml/xhtml_f.cmxa \
            syntax/xhtmlsyntax.cmxa \
            syntax/xmllexer.cmx \
       	   syntax/simplexmlparser.cmx \

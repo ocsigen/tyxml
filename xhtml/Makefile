@@ -3,13 +3,13 @@
 # Copyright (C) 2004 by Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
 #
 # XHTML is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by 
+# under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
 # XHTML is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -20,23 +20,23 @@
 
 include ../Makefile.config
 
-FILES := uri.ml \
-         xML.ml \
-	 svgtypes.ml sVG.ml \
-	 xhtml5types.ml xHTML5.ml \
-	 xhtmltypes.ml xHTML.ml
+FILES_F := uri.ml    \
+	   svgtypes.ml sVG_f.ml \
+	   xHTML5_f.ml \
+	   xHTML_f.ml \
 
-PREDEP := xHTML5.mli xHTML.mli xhtmltypes.mli xhtml5types.mli
+FILES := ${FILES_F} xML.ml sVG.ml xHTML5.ml xHTML.ml
 
-LIB      := -package netstring
+LIBS     := -package netstring
 
-DOLLAR   :=$$
-OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
-OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
+OCAMLC   := $(OCAMLFIND) ocamlc
+OCAMLOPT := $(OCAMLFIND) ocamlopt
 OCAMLDEP := $(OCAMLFIND) ocamldep
 
-byte: xhtml.cma
-opt: xhtml.cmxa
+all: byte opt
+
+byte: xhtml.cma xhtml_f.cma
+opt: xhtml.cmxa xhtml_f.cmxa
 
 xhtml.cma: $(FILES:.ml=.cmo)
 	$(OCAMLC) -a $^ -o $@
@@ -44,95 +44,28 @@ xhtml.cma: $(FILES:.ml=.cmo)
 xhtml.cmxa: $(FILES:.ml=.cmx)
 	$(OCAMLOPT) -a $^ -o $@
 
-xML.cmo: xML.cmi xML.ml
-	$(OCAMLC) -c xML.ml
+xhtml_f.cma: $(FILES_F:.ml=.cmo)
+	$(OCAMLC) -a $^ -o $@
 
-xML.cmx: xML.cmi xML.ml
-	$(OCAMLOPT) -c xML.ml
+xhtml_f.cmxa: $(FILES_F:.ml=.cmx)
+	$(OCAMLOPT) -a $^ -o $@
+
+##########
 
 %.cmi: %.mli
-	$(OCAMLC) -c $<
-
-xML.mli: xML.ml
-	@true
-
-svgtypes.mli: svgtypes.ml
-	@true
-
-xhtml5types.mli: xhtml5types.ml
-	awk ' BEGIN { ok = 1; } /^include/ { next; } /\(\*I/ { $$1=""; $$NF=""; } \
-	 /= struct/ { ok = 0; } ok == 1; /end/ { ok = 1; }' $< | sed -e s/struct/sig/g -e 's/module \(.*\) =/module \1 :/g'> $@
-xhtmltypes.mli: xhtmltypes.ml
-	awk ' BEGIN { ok = 1; } /^include/ { next; } /\(\*I/ { $$1=""; $$NF=""; } \
-	 /= struct/ { ok = 0; } ok == 1; /end/ { ok = 1; }' $< | sed -e s/struct/sig/g -e 's/module \(.*\) =/module \1 :/g'> $@
-
-sVG.cmo: sVG.cmi sVG.ml
-	$(OCAMLC) -c sVG.ml
-sVG.cmx: sVG.cmi sVG.ml
-	$(OCAMLOPT) -c sVG.ml
-
-svgtypes.cmo: xHTML5.cmi svgtypes.ml
-	$(OCAMLC) -c svgtypes.ml
-svgtypes.cmx: xHTML5.cmi svgtypes.ml
-	$(OCAMLOPT) -c svgtypes.ml
-
-xHTML5.cmo: xHTML5.cmi xHTML5.ml
-	$(OCAMLC) -c xHTML5.ml
-
-xHTML5.cmx: xHTML5.cmi xHTML5.ml
-	$(OCAMLOPT) -c xHTML5.ml
-
-xHTML.cmo: xHTML.cmi xHTML.ml
-	$(OCAMLC) -c xHTML.ml
-
-xHTML.cmx: xHTML.cmi xHTML.ml
-	$(OCAMLOPT) -c xHTML.ml
-
-uri.cmo: uri.cmi uri.ml
-	$(OCAMLC) uri.ml -c
-uri.cmx: uri.cmi uri.ml
-	$(OCAMLOPT) uri.ml -c
-
-uri.cmi: uri.mli
-	$(OCAMLC) -c $<
-
-xhtmltypes.mli:
-xhtml5types.mli: sVG.cmi
-
-xhtmltypes.cmx: xhtmltypes.cmi xhtmltypes.ml
-	$(OCAMLOPT) -c xhtmltypes.ml
-
-xhtmltypes.cmo: xhtmltypes.cmi xhtmltypes.ml
-	$(OCAMLC) -c xhtmltypes.ml
-
-xhtml5types.cmo: xhtml5types.cmi xhtml5types.ml
-	$(OCAMLC) -c xhtml5types.ml
-
-xhtml5types.cmx: xhtml5types.cmi xhtml5types.ml
-	$(OCAMLOPT) -c xhtml5types.ml
-
-xHTML.mli: xHTML.ml
-	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
-	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
-	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then rm $@.new; else mv $@.new $@; fi
-sVG.mli: sVG.ml svgtypes.cmi
-	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
-	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
-	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then rm $@.new; else mv $@.new $@; fi
-
-xHTML5.mli: xHTML5.ml xhtml5types.cmi
-	@$(SED) -n '/BEGIN INTERFACE/,/END INTERFACE/p' $< \
-	  | $(SED) -e '/BEGIN INTERFACE/d' -e '/END INTERFACE/d' > $@.new
-	@if [ -e $@ ] && $(DIFF) -q -I'\$(DOLLAR)Id: ' $@.new $@; then rm $@.new; else mv $@.new $@; fi
+	$(OCAMLC) ${LIBS} -c $<
+%.cmo: %.ml
+	$(OCAMLC) ${LIBS} -c $<
+%.cmx: %.ml
+	$(OCAMLOPT) ${LIBS} -c $<
 
 # Clean up
 clean:
 	-rm -f *.cm[ioax] *.cmxa *.cmxs *.o *.a *.annot
-	-rm -f ${PREDEP}
 distclean: clean
 	-rm -f *~ \#* .\#*
 
-depend: ${PREDEP}
+depend:
 	$(OCAMLDEP) *.mli *.ml > .depend
 
 FORCE:
