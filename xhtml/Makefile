@@ -21,11 +21,11 @@
 include ../Makefile.config
 
 FILES_F := uri.ml    \
-	   svgtypes.ml sVG_f.ml \
-	   xHTML5_f.ml \
-	   xHTML_f.ml \
+	   svgtypes.ml SVG_f.ml \
+	   XHTML5_f.ml \
+	   XHTML_f.ml \
 
-FILES := ${FILES_F} xML.ml sVG.ml xHTML5.ml xHTML.ml
+FILES := ${FILES_F} XML.ml SVG.ml XHTML5.ml XHTML.ml
 
 LIBS     := -package netstring
 

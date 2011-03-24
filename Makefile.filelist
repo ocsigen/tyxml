@@ -1,14 +1,14 @@
-INTF := xhtml/xML.cmi \
-        xhtml/xML_defs.cmi \
-        xhtml/xHTML.cmi \
-        xhtml/xHTML_f.cmi \
-        xhtml/xHTML_defs.cmi \
-        xhtml/xHTML5.cmi \
-        xhtml/xHTML5_f.cmi \
-        xhtml/xHTML5_defs.cmi \
-        xhtml/sVG.cmi \
-        xhtml/sVG_f.cmi \
-        xhtml/sVG_defs.cmi \
+INTF := xhtml/XML.cmi \
+        xhtml/XML_defs.cmi \
+        xhtml/XHTML.cmi \
+        xhtml/XHTML_f.cmi \
+        xhtml/XHTML_defs.cmi \
+        xhtml/XHTML5.cmi \
+        xhtml/XHTML5_f.cmi \
+        xhtml/XHTML5_defs.cmi \
+        xhtml/SVG.cmi \
+        xhtml/SVG_f.cmi \
+        xhtml/SVG_defs.cmi \
         xhtml/svgtypes.cmi \
         xhtml/xhtmltypes.cmi \
         xhtml/xhtml5types.cmi \
