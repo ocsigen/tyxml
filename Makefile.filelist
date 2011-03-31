@@ -1,46 +1,42 @@
-INTF := xhtml/XML.cmi \
-        xhtml/XML_defs.cmi \
-        xhtml/XHTML.cmi \
-        xhtml/XHTML_f.cmi \
-        xhtml/XHTML_defs.cmi \
-        xhtml/XHTML5.cmi \
-        xhtml/XHTML5_f.cmi \
-        xhtml/XHTML5_defs.cmi \
-        xhtml/SVG.cmi \
-        xhtml/SVG_f.cmi \
-        xhtml/SVG_defs.cmi \
-        xhtml/svgtypes.cmi \
-        xhtml/xhtmltypes.cmi \
-        xhtml/xhtml5types.cmi \
-        xhtml/uri.cmi \
+INTF := lib/uri.cmi \
+        \
+        lib/XML_sigs.cmi \
+        lib/XML_print.cmi \
+        lib/XML_iter.cmi \
+	\
+        lib/XHTML_types.cmi \
+        lib/XHTML_sigs.cmi \
+        lib/XHTML_f.cmi \
+	\
+        lib/SVG_types.cmi \
+        lib/SVG_sigs.cmi \
+        lib/SVG_f.cmi \
+	\
+        lib/HTML5_types.cmi \
+        lib/HTML5_sigs.cmi \
+        lib/HTML5_f.cmi \
+	\
+        lib/XML.cmi \
+        lib/XHTML.cmi \
+        lib/SVG.cmi \
+        lib/HTML5.cmi \
+	\
         syntax/simplexmlparser.cmi \
-        xml-pretty/xhtml_streams.cmi \
-        xml-pretty/xhtmlpretty.cmi \
-        xml-pretty/xhtmlpretty_streams.cmi \
-        xml-pretty/xhtmlcompact.cmi \
-        xml-pretty/xhtmlcompact_streams.cmi \
-        xml-pretty/xhtml5pretty.cmi \
-        xml-pretty/xhtml5pretty_streams.cmi \
-        xml-pretty/xhtml5compact.cmi \
-        xml-pretty/xhtml5compact_streams.cmi \
 
-IMPL := xhtml/xhtml.cma \
-        xhtml/xhtml_f.cma \
+IMPL := lib/${LIBNAME}_f.cma \
+        lib/${LIBNAME}.cma \
         syntax/xhtmlsyntax.cma \
         syntax/xmllexer.cmo \
         syntax/simplexmlparser.cmo \
-        xml-pretty/xhtmlpretty.cma \
-        xml-pretty/xhtmlpretty_streams.cma
 
-NATIMPL := xhtml/xhtml.cmxa \
-           xhtml/xhtml_f.cmxa \
+NATIMPL := lib/${LIBNAME}.cmxa \
+           lib/${LIBNAME}_f.cmxa \
            syntax/xhtmlsyntax.cmxa \
            syntax/xmllexer.cmx \
       	   syntax/simplexmlparser.cmx \
-	   xml-pretty/xhtmlpretty.cmxa \
-	   xml-pretty/xhtmlpretty_streams.cmxa
 
-NATIMPL += ${patsubst %.cmxa,%.a,${NATIMPL:.cmx=.o}}
+NATIMPL += $(patsubst %.cmxa,%.a,$(filter %.cmxa,${NATIMPL})) \
+           $(patsubst %.cmx,%.o,$(filter %.cmx,${NATIMPL}))   \
 
-DOC := ${INTF:.cmi=.mli} ./xml-pretty/xhtml_format.mli
+DOC := ${INTF:.cmi=.mli}
 

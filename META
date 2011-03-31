@@ -1,13 +1,14 @@
 description = "XHTML pages typed with polymorphic variants"
 version = "dev"
 requires = "netstring"
-archive(byte) = "xhtml.cma xhtmlpretty.cma"
-archive(native) = "xhtml.cmxa xhtmlpretty.cmxa"
+archive(byte) = "xhtml.cma"
+archive(native) = "xhtml.cmxa"
 
 package "functor" (
   description = "XHTML pages typed with polymorphic variants (Functor version)"
-  archive(byte) = "xhtml_f.cma xhtmlpretty.cma"
-  archive(native) = "xhtml_f.cmxa xhtmlpretty.cmxa"
+    version = "(distributed with xmlp4)"
+  archive(byte) = "xhtml_f.cma"
+  archive(native) = "xhtml_f.cmxa"
 )
 
 package "syntax" (
@@ -16,14 +17,6 @@ package "syntax" (
     requires = "xmlp4,xmlp4.lexer"
     archive(syntax,preprocessor) = "xhtmlsyntax.cma"
     archive(syntax,toploop) = "xhtmlsyntax.cma"
-)
-
-package "streams" (
-    description = "XHTML pages typed with polymorphic variants (output to streams)"
-    version = "(distributed with xmlp4)"
-    requires = "xmlp4"
-    archive(byte) = "xhtmlpretty_streams.cma"
-    archive(native) = "xhtmlpretty_streams.cmxa"
 )
 
 package "lexer" (

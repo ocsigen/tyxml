@@ -1,7 +1,7 @@
 include ../Makefile.config
 include ../Makefile.filelist
 
-LIB := -I ../xhtml -I ../syntax -I ../xml-pretty
+LIB := -I ../lib -I ../syntax
 
 OCAMLDOC := ${OCAMLFIND} ocamldoc
 

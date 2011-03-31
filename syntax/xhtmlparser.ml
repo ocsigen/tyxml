@@ -17,9 +17,6 @@
  *)
 
 open Camlp4.PreCast;
-(*
-module XHTML = XHTML5;
-*)
 
 (* For Camlp4 error handling when parsing xhtml inlined in OCaml code *)
 module Error = struct
@@ -68,20 +65,22 @@ module LexerArg = struct
 
 end;
 
-module Make (Syntax: Camlp4.Sig.Camlp4Syntax with module Loc = Loc and module Ast = Ast)
-  (S : sig value module_id: string; value module_types_id : string; end) =
-struct
-  module Xmllexer =
-    Xmllexer.Make(LexerArg);
+module type TypedXML = sig
+  value tot: Loc.t -> Ast.expr;
+  value toeltl: Loc.t -> Ast.expr;
+  value to_attrib: Loc.t -> Ast.expr;
+  value to_xmlattribs: Loc.t -> Ast.expr;
+  value make_type: Loc.t -> string -> Ast.ctyp;
+  value make_content_type: Loc.t -> string -> Ast.ctyp;
+  value make_attrib_type: Loc.t -> string -> Ast.ctyp;
+  value make_attribs_type: Loc.t -> string -> Ast.ctyp;
+end;
 
-  value blocktags = [ "fieldset"; "form"; "address"; "body"; "head";
-                      "blockquote"; "div"; "html";
-                      "h1"; "h2"; "h3"; "h4"; "h5"; "h6";
-                      "p"; "dd"; "dl"; "li"; "ol";
-                      "ul"; "colgroup"; "table"; "tbody"; "tfoot";
-                      "thead"; "td"; "th"; "tr" ] ;
+module Make
+    (Syntax: Camlp4.Sig.Camlp4Syntax with module Loc = Loc and module Ast = Ast)
+    (S : TypedXML) = struct
 
-  value semiblocktags = [ "pre"; "style"; "title" ] ;
+  module Xmllexer = Xmllexer.Make(LexerArg);
 
   type state = {
     stream : Stream.t (LexerArg.token * Loc.t)  ;
@@ -90,9 +89,7 @@ struct
   } ;
 
 
-
   exception CamlListExc of string ;
-
 
   (* Error report *)
   module Error = struct
@@ -170,46 +167,37 @@ struct
     let loc = s.loc in
     match pop s with
       [ (`PCData s, _) ->
-          <:expr< (($uid:S.module_id$.M.tot ({ XML.ref = 0 ; XML.elt = XML.EncodedPCDATA $str:String.escaped s$}))
-                     : $uid:S.module_id$.M.elt [> $uid:S.module_types_id$.pcdata ]) >>
+          <:expr< $S.tot loc$ (XML.encodedpcdata $str:String.escaped s$) >>
       | (`CamlString s, _) ->
-          <:expr< (($uid:S.module_id$.M.tot ({ XML.ref = 0 ; XML.elt = XML.EncodedPCDATA $get_expr s loc$}))
-                     : $uid:S.module_id$.M.elt [> $uid:S.module_types_id$.pcdata ]) >>
+          <:expr< $S.tot loc$ (XML.encodedpcdata $get_expr s loc$) >>
       | (`CamlList s, _) -> raise (CamlListExc s)
       | (`CamlExpr s, _) -> get_expr s loc
       | (`Whitespace s, _) ->
-          <:expr< $uid:S.module_id$.M.tot ({ XML.ref = 0 ; XML.elt = XML.PCDATA $str:String.escaped s$}) >>
+          <:expr< $S.tot loc$ (XML.pcdata $str:String.escaped s$) >>
       | (`Comment s, _) ->
-          <:expr< $uid:S.module_id$.M.tot ({ XML.ref = 0 ; XML.elt = XML.Comment $str:String.escaped s$}) >>
+          <:expr< $S.tot loc$ (XML.comment $str:String.escaped s$) >>
       | (`Tag (tag, attlist, closed), s) ->
-          let constr = "Node" in
-          let typename = match tag with
-            [ "option" -> "selectoption"
-            | x -> x ]
-          in
-          let make_type = 
-            if S.module_types_id = "Xhtml5types" then
-              <:ctyp< [> $uid: S.module_types_id$.$lid: typename$ ]>>
-            else
-              <:ctyp< [> `$uid: String.capitalize tag$] >>
-          in
           match closed with
-          [ True ->
-              <:expr< (($uid:S.module_id$.M.tot ({ XML.ref = 0 ; XML.elt = XML.$uid:constr$ $str:tag$
-                                       $read_attlist s attlist$ []}))
-                         : $uid:S.module_id$.M.elt $make_type$) >>
-          | False ->
-            let tag' = String.lowercase tag in
-              let foo = <:expr<
-                ($read_elems ~tag s$ :>
-                   list ($uid:S.module_id$.M.elt [< $uid:S.module_types_id$.$lid:tag'^"_content"$]))>>
-              in
-              <:expr< (($uid:S.module_id$.M.tot ({ XML.ref = 0 ; XML.elt = XML.$uid:constr$ $str:tag$
-                                       $read_attlist s attlist$
-                                       ($uid:S.module_id$.M.toeltl $foo$)} ))
-                         : $uid:S.module_id$.M.elt $make_type$)
-              >>
-          ]
+            [ True ->
+                <:expr< ($S.tot loc$ (XML.node
+				  ~a:($S.to_xmlattribs loc$
+				      ($read_attlist s attlist$
+				       :> list $S.make_attribs_type loc tag$))
+				  $str:tag$
+				  [])
+                           : $S.make_type loc tag$) >>
+            | False ->
+		let content =
+		  <:expr< ($read_elems ~tag s$ :> list $S.make_content_type loc tag$) >>
+		in
+		<:expr< ($S.tot loc$ (XML.node
+				  ~a:($S.to_xmlattribs loc$
+				      ($read_attlist s attlist$
+				       :> list $S.make_attribs_type loc tag$))
+				  $str:tag$
+				  ($S.toeltl loc$ $content$) )
+                           : $S.make_type loc tag$) >>
+            ]
       | ((`Endtag _ | `Eof as t),_) ->
         do {push t s;
             raise (E NoMoreData)}
@@ -254,19 +242,24 @@ struct
     let loc = s.loc in fun
     [ [] -> <:expr< [] >>
     | [`Attribute (`AttrName a, `AttrVal v)::l] ->
-        <:expr< [ (XML.string_attrib $str:a$ $str:v$) :: $read_attlist s l$ ] >>
+        <:expr< [ ($S.to_attrib loc$ (XML.string_attrib $str:a$ $str:v$)
+		     : $S.make_attrib_type loc a$)
+		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `AttrVal v)::l] ->
-        <:expr< [ (XML.string_attrib $get_expr a loc$ $str:v$) ::
-                    $read_attlist s l$ ] >>
+        <:expr< [ ($S.to_attrib loc$ (XML.string_attrib $get_expr a loc$ $str:v$)
+		     : $S.make_attrib_type loc a$)
+		  :: $read_attlist s l$ ] >>
     | [`Attribute (`AttrName a, `CamlAttrVal v)::l] ->
-        <:expr< [ (XML.string_attrib $str:a$ $get_expr v loc$) ::
-                    $read_attlist s l$ ] >>
+        <:expr< [ ($S.to_attrib loc$ (XML.string_attrib $str:a$ $get_expr v loc$)
+		     : $S.make_attrib_type loc a$)
+		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `CamlAttrVal v)::l] ->
-        <:expr< [ (XML.string_attrib $get_expr a loc$ $get_expr v loc$) ::
-                    $read_attlist s l$ ] >>
+        <:expr< [ ($S.to_attrib loc$
+		    (XML.string_attrib $get_expr a loc$ $get_expr v loc$)
+		     : $S.make_attrib_type loc a$)
+		  :: $read_attlist s l$ ] >>
     | [`CamlAttributes cl ::l] ->
-        <:expr< [ ($uid:S.module_id$.M.to_xmlattribs $get_expr cl loc$) ::
-                    $read_attlist s l$ ] >>
+        <:expr< [ ($get_expr cl loc$) :: $read_attlist s l$ ] >>
     ];
 
     (* FIXED ? please report any problem with this function *)
