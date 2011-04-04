@@ -33,16 +33,24 @@ FILES_F := uri.ml        \
 
 FILES := ${FILES_F} XML.ml XHTML.ml SVG.ml HTML5.ml
 
+DUCE_INTF  := XHTML_types_duce.mli XML_print_duce.mli XHTML_duce.mli
+
+DUCE_FILES := XML_sigs_duce.ml XML_print_duce.ml XHTML_duce.ml
+
 LIBS     := -package netstring
 
 OCAMLC   := $(OCAMLFIND) ocamlc
 OCAMLOPT := $(OCAMLFIND) ocamlopt
 OCAMLDEP := $(OCAMLFIND) ocamldep
 
+OCAMLDUCEC   := ${OCAMLDUCEFIND} ocamlc${BYTEDBG} -thread
+OCAMLDUCEOPT := ${OCAMLDUCEFIND} ocamlopt ${OPTDBG} -thread
+OCAMLDUCEDEP := ${OCAMLDUCEFIND} ocamldep
+
 all: byte opt
 
-byte: ${LIBNAME}.cma ${LIBNAME}_f.cma
-opt: ${LIBNAME}.cmxa ${LIBNAME}_f.cmxa
+byte:: ${LIBNAME}.cma ${LIBNAME}_f.cma
+opt:: ${LIBNAME}.cmxa ${LIBNAME}_f.cmxa
 
 ${LIBNAME}.cma: $(FILES:.ml=.cmo)
 	$(OCAMLC) -a $^ -o $@
@@ -58,6 +66,28 @@ ${LIBNAME}_f.cmxa: $(FILES_F:.ml=.cmx)
 
 ##########
 
+ifeq "${OCAMLDUCE}" "YES"
+byte:: ${LIBNAME}_duce.cma
+opt:: ${LIBNAME}_duce.cmxa
+ifeq "${NATDYNLINK}" "YES"
+opt:: ${LIBNAME}_duce.cmxs
+endif
+endif
+
+${LIBNAME}_duce.cma: ${DUCE_FILES:.ml=.cmo}
+	${OCAMLC} -a -o $@ $^
+${LIBNAME}_duce.cmxa: ${DUCE_FILES:.ml=.cmx}
+	${OCAMLOPT} -a -o $@ $^
+
+##########
+
+${DUCE_INTF:.mli=.cmi}: %.cmi: %.mli
+	$(OCAMLDUCEC) ${LIBS} -c $<
+${DUCE_FILES:.ml=.cmo}: %.cmo: %.ml
+	$(OCAMLDUCEC) ${LIBS} -c $<
+${DUCE_FILES:.ml=.cmx}: %.cmx: %.ml
+	$(OCAMLDUCEOPT) ${LIBS} -c $<
+
 %.cmi: %.mli
 	$(OCAMLC) ${LIBS} -c $<
 %.cmo: %.ml
@@ -72,7 +102,11 @@ distclean: clean
 	-rm -f *~ \#* .\#*
 
 depend:
-	$(OCAMLDEP) *.mli *.ml > .depend
+	$(OCAMLDEP) $(filter-out ${DUCE_INTF}, ${wildcard *.mli}) > .depend
+	$(OCAMLDEP) $(filter-out ${DUCE_FILES}, ${wildcard *.ml}) >> .depend
+ifeq "${OCAMLDUCE}" "YES"
+	${OCAMLDUCEDEP} ${DUCE_FILES} ${DUCE_INTF} >> .depend
+endif
 
 FORCE:
 

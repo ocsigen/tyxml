@@ -1,45 +1,54 @@
-HTML5.cmi: XML_sigs.cmo XML.cmi SVG.cmi HTML5_sigs.cmo
 HTML5_f.cmi: XML_sigs.cmo SVG_sigs.cmo HTML5_sigs.cmo
+HTML5.cmi: XML_sigs.cmo XML.cmi SVG.cmi HTML5_sigs.cmo
 HTML5_types.cmi: uri.cmi SVG_types.cmi
-SVG.cmi: XML_sigs.cmo XML.cmi SVG_sigs.cmo
 SVG_f.cmi: XML_sigs.cmo SVG_sigs.cmo
+SVG.cmi: XML_sigs.cmo XML.cmi SVG_sigs.cmo
 SVG_types.cmi:
-XHTML.cmi: XML_sigs.cmo XML.cmi XHTML_sigs.cmo
-XHTML_f.cmi: XML_sigs.cmo XHTML_sigs.cmo
-XHTML_types.cmi: uri.cmi
-XML.cmi:
-XML_iter.cmi: XML_sigs.cmo
-XML_print.cmi: XML_sigs.cmo
 uri.cmi:
-HTML5.cmo: XML_print.cmi XML.cmi SVG.cmi HTML5_sigs.cmo HTML5_f.cmi HTML5.cmi
-HTML5.cmx: XML_print.cmx XML.cmx SVG.cmx HTML5_sigs.cmx HTML5_f.cmx HTML5.cmi
+XHTML_f.cmi: XML_sigs.cmo XHTML_sigs.cmo
+XHTML.cmi: XML_sigs.cmo XML.cmi XHTML_sigs.cmo
+XHTML_types.cmi: uri.cmi
+XML_iter.cmi: XML_sigs.cmo
+XML.cmi:
+XML_print.cmi: XML_sigs.cmo
 HTML5_f.cmo: XML_sigs.cmo XML_print.cmi uri.cmi SVG_sigs.cmo HTML5_types.cmi \
     HTML5_f.cmi
 HTML5_f.cmx: XML_sigs.cmx XML_print.cmx uri.cmx SVG_sigs.cmx HTML5_types.cmi \
     HTML5_f.cmi
+HTML5.cmo: XML_print.cmi XML.cmi SVG.cmi HTML5_sigs.cmo HTML5_f.cmi HTML5.cmi
+HTML5.cmx: XML_print.cmx XML.cmx SVG.cmx HTML5_sigs.cmx HTML5_f.cmx HTML5.cmi
 HTML5_sigs.cmo: XML_sigs.cmo uri.cmi SVG_sigs.cmo HTML5_types.cmi
 HTML5_sigs.cmx: XML_sigs.cmx uri.cmx SVG_sigs.cmx HTML5_types.cmi
-SVG.cmo: XML_print.cmi XML.cmi SVG_sigs.cmo SVG_f.cmi SVG.cmi
-SVG.cmx: XML_print.cmx XML.cmx SVG_sigs.cmx SVG_f.cmx SVG.cmi
 SVG_f.cmo: XML_sigs.cmo XML_print.cmi uri.cmi SVG_types.cmi SVG_f.cmi
 SVG_f.cmx: XML_sigs.cmx XML_print.cmx uri.cmx SVG_types.cmi SVG_f.cmi
+SVG.cmo: XML_print.cmi XML.cmi SVG_sigs.cmo SVG_f.cmi SVG.cmi
+SVG.cmx: XML_print.cmx XML.cmx SVG_sigs.cmx SVG_f.cmx SVG.cmi
 SVG_sigs.cmo: XML_sigs.cmo SVG_types.cmi
 SVG_sigs.cmx: XML_sigs.cmx SVG_types.cmi
-XHTML.cmo: XML_sigs.cmo XML_print.cmi XML.cmi XHTML_sigs.cmo XHTML_f.cmi \
-    XHTML.cmi
-XHTML.cmx: XML_sigs.cmx XML_print.cmx XML.cmx XHTML_sigs.cmx XHTML_f.cmx \
-    XHTML.cmi
+uri.cmo: uri.cmi
+uri.cmx: uri.cmi
 XHTML_f.cmo: XML_sigs.cmo XML_print.cmi XHTML_types.cmi uri.cmi XHTML_f.cmi
 XHTML_f.cmx: XML_sigs.cmx XML_print.cmx XHTML_types.cmi uri.cmx XHTML_f.cmi
+XHTML.cmo: XML_print.cmi XML.cmi XHTML_sigs.cmo XHTML_f.cmi XHTML.cmi
+XHTML.cmx: XML_print.cmx XML.cmx XHTML_sigs.cmx XHTML_f.cmx XHTML.cmi
 XHTML_sigs.cmo: XML_sigs.cmo XHTML_types.cmi uri.cmi
 XHTML_sigs.cmx: XML_sigs.cmx XHTML_types.cmi uri.cmx
-XML.cmo: XML.cmi
-XML.cmx: XML.cmi
 XML_iter.cmo: XML_sigs.cmo XML_iter.cmi
 XML_iter.cmx: XML_sigs.cmx XML_iter.cmi
+XML.cmo: XML.cmi
+XML.cmx: XML.cmi
 XML_print.cmo: XML_sigs.cmo XML_print.cmi
 XML_print.cmx: XML_sigs.cmx XML_print.cmi
 XML_sigs.cmo: uri.cmi
 XML_sigs.cmx: uri.cmx
-uri.cmo: uri.cmi
-uri.cmx: uri.cmi
+XML_sigs_duce.cmo: XML_sigs.cmo
+XML_sigs_duce.cmx: XML_sigs.cmx
+XML_print_duce.cmo: XML_sigs_duce.cmo XML_print.cmi XML_print_duce.cmi
+XML_print_duce.cmx: XML_sigs_duce.cmx XML_print.cmx XML_print_duce.cmi
+XHTML_duce.cmo: XML_sigs_duce.cmo XML_print_duce.cmi XHTML_types_duce.cmi \
+    XHTML.cmi XHTML_duce.cmi
+XHTML_duce.cmx: XML_sigs_duce.cmx XML_print_duce.cmx XHTML_types_duce.cmi \
+    XHTML.cmx XHTML_duce.cmi
+XHTML_types_duce.cmi:
+XML_print_duce.cmi: XML_sigs_duce.cmo
+XHTML_duce.cmi: XML_sigs_duce.cmo XHTML_types_duce.cmi

@@ -35,10 +35,8 @@ let compose_doctype dt args =
   "<!DOCTYPE " ^ dt ^ " PUBLIC " ^
   String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args) ^ ">\n"
 
-module Make(XML : XML_sigs.Iterable)(F : XML_sigs.Info)(O : XML_sigs.Output) = struct
+module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O : XML_sigs.Output) = struct
 
-  type elt = XML.elt
-  type out = O.out
   let (++) = O.concat
 
   open XML
@@ -135,10 +133,6 @@ module MakeTyped(XML : XML_sigs.Iterable)
   module P = Make(XML)(TypedXML.Info)(O)
   let (++) = O.concat
 
-  type out = O.out
-  type 'a elt = 'a TypedXML.elt
-  type doc = TypedXML.doc
-
   let print_list ?(encode = encode_unsafe_char) foret =
     O.make (P.xh_print_taglist encode (List.map TypedXML.toelt foret))
 
@@ -159,7 +153,7 @@ module SimpleOutput(M : sig val put: string -> unit end) = struct
   let make f = f ()
 end
 
-module MakeSimple(XML : XML_sigs.Iterable)(I : XML_sigs.Info) = struct
+module MakeSimple(XML : XML_sigs.Iterable)(I : sig val emptytags : string list end) = struct
 
   type elt = XML.elt
   type out = unit

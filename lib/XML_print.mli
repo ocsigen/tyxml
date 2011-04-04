@@ -22,7 +22,7 @@ val compose_decl : ?version:string -> ?encoding:string -> unit -> string
 val compose_doctype : string -> string list -> string
 
 module Make(XML : XML_sigs.Iterable)
-           (I : XML_sigs.Info)
+           (I : sig val emptytags : string list end)
            (O : XML_sigs.Output)
      : XML_sigs.Printer(XML)(O).T
 
@@ -31,7 +31,7 @@ module MakeTyped(XML : XML_sigs.Iterable)
                 (O : XML_sigs.Output)
      : XML_sigs.TypedPrinter(XML)(TypedXML)(O).T
 
-module MakeSimple(XML : XML_sigs.Iterable)(F : XML_sigs.Info)
+module MakeSimple(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)
      : XML_sigs.SimplePrinter(XML).T
 
 module MakeTypedSimple(XML : XML_sigs.Iterable)

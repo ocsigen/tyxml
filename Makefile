@@ -37,8 +37,8 @@ include Makefile.filelist
 VERSION := $(shell head -n 1 VERSION)
 
 META: META.in Makefile.config
-	sed -e %_LIBNAME_%${LIBNAME}% \
-	    -e %_PACKAGENAME_%${PACKAGENAME}% \
+	sed -e s%_LIBNAME_%${LIBNAME}%g \
+	    -e s%_PACKAGENAME_%${PACKAGENAME}%g \
 	    $< > $@
 
 install:

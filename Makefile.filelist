@@ -35,6 +35,17 @@ NATIMPL := lib/${LIBNAME}.cmxa \
            syntax/xmllexer.cmx \
       	   syntax/simplexmlparser.cmx \
 
+ifeq "${OCAMLDUCE}" "YES"
+
+INTF += lib/XML_sigs_duce.cmi    \
+        lib/XML_print_duce.cmi   \
+        lib/XHTML_types_duce.cmi \
+        lib/XHTML_duce.cmi       \
+
+IMPL += lib/${LIBNAME}_duce.cma
+
+endif
+
 NATIMPL += $(patsubst %.cmxa,%.a,$(filter %.cmxa,${NATIMPL})) \
            $(patsubst %.cmx,%.o,$(filter %.cmx,${NATIMPL}))   \
 

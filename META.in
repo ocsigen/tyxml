@@ -34,3 +34,12 @@ package "parser" (
     archive(byte) = "simplexmlparser.cmo"
     archive(native) = "simplexmlparser.cmx"
 )
+
+package "duce" (
+    exists_if = "_LIBNAME__duce.cma"
+    description = "XHTML types for ocamlduce"
+    requires = "_PACKAGENAME_"
+    version = "(distributed with _PACKAGENAME_)"
+    archive(byte) = "_LIBNAME__duce.cma"
+    archive(native) = "_LIBNAME__duce.cmxa"
+)
