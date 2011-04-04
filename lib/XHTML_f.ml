@@ -807,6 +807,25 @@ let emptytags =
   [ "hr"; "br"; "img"; "meta"; "link"; "input"; "col"; "area";
     "param"; "base"; "basefont"; "isindex"; "frame" ]
 
+
+module Make_01_00_compat(XML : XML_sigs.T) = struct
+
+  module M = Version(XML)
+  include M
+
+  module Info = struct
+    let content_type = "text/html"
+    let version = "XHTML 1.0"
+    let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml1/"
+    let doctype =
+      XML_print.compose_doctype "html"
+	["-//W3C//DTD XHTML 1.0//EN";
+	 "http://www.w3.org/TR/xhtml11/DTD/xhtml1.dtd"]
+    let emptytags = emptytags
+  end
+
+end
+
 module Make_01_01_compat(XML : XML_sigs.T) = struct
 
   module M = Version(XML)
