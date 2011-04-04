@@ -1,0 +1,36 @@
+description = "XHTML and HTML5 pages typed with polymorphic variants"
+version = "dev"
+requires = "netstring"
+archive(byte) = "_LIBNAME_.cma"
+archive(native) = "_LIBNAME_.cmxa"
+
+package "functor" (
+  description = "XHTML and HTML5 pages typed with polymorphic variants (Functor version)"
+    version = "(distributed with _PACKAGENAME_)"
+  archive(byte) = "_LIBNAME__f.cma"
+  archive(native) = "_LIBNAME__f.cmxa"
+)
+
+package "syntax" (
+    description = "XHTML and HTML5 syntax extension"
+    version = "(distributed with _PACKAGENAME_)"
+    requires = "_PACKAGENAME_,_PACKAGENAME_.lexer"
+    archive(syntax,preprocessor) = "_LIBNAME__syntax.cma"
+    archive(syntax,toploop) = "_LIBNAME__syntax.cma"
+)
+
+package "lexer" (
+    description = "Simple XML parser"
+    requires = "camlp4"
+    version = "(distributed with _PACKAGENAME_)"
+    archive(byte) = "xmllexer.cmo"
+    archive(native) = "xmllexer.cmx"
+)
+
+package "parser" (
+    description = "Simple XML parser"
+    requires = "camlp4.lib,_PACKAGENAME_.lexer"
+    version = "(distributed with _PACKAGENAME_)"
+    archive(byte) = "simplexmlparser.cmo"
+    archive(native) = "simplexmlparser.cmx"
+)

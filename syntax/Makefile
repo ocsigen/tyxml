@@ -20,9 +20,9 @@ opt: xmllexer.cmx xhtmlsyntax.cmxa simplexmlparser.cmx
 
 OBJS := basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
 
-xhtmlsyntax.cma: ${OBJS}
+${LIBNAME}_syntax.cma: ${OBJS}
 	$(OCAMLC) -a -o $@ $^
-xhtmlsyntax.cmxa: ${OBJS:.cmo=.cmx}
+${LIBNAME}_syntax.cmxa: ${OBJS:.cmo=.cmx}
 	$(OCAMLOPT) -a -o $@ $^
 
 # Common rules

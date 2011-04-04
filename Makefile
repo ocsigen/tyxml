@@ -1,15 +1,15 @@
 
 include Makefile.config
 
-all:
+all: META
 	$(MAKE) -C lib byte opt
 	$(MAKE) -C syntax byte opt
 
-byte:
+byte: META
 	$(MAKE) -C lib byte
 	$(MAKE) -C syntax byte
 
-opt:
+opt: META
 	$(MAKE) -C lib opt
 	$(MAKE) -C syntax opt
 
@@ -17,6 +17,7 @@ clean:
 	$(MAKE) -C lib clean
 	$(MAKE) -C syntax clean
 	$(MAKE) -C doc clean
+	rm -f META
 
 distclean:
 	$(MAKE) -C lib distclean
@@ -34,6 +35,11 @@ depend:
 
 include Makefile.filelist
 VERSION := $(shell head -n 1 VERSION)
+
+META: META.in Makefile.config
+	sed -e %_LIBNAME_%${LIBNAME}% \
+	    -e %_PACKAGENAME_%${PACKAGENAME}% \
+	    $< > $@
 
 install:
 	$(OCAMLFIND) install ${PACKAGENAME} \
