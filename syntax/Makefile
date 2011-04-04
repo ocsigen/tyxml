@@ -15,8 +15,8 @@ OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
 OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
 OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
 
-byte: xmllexer.cmo xhtmlsyntax.cma simplexmlparser.cmo
-opt: xmllexer.cmx xhtmlsyntax.cmxa simplexmlparser.cmx
+byte: xmllexer.cmo ${LIBNAME}_syntax.cma simplexmlparser.cmo
+opt: xmllexer.cmx ${LIBNAME}_syntax.cmxa simplexmlparser.cmx
 
 OBJS := basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
 
