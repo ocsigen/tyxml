@@ -14,9 +14,8 @@ package "functor" (
 package "syntax" (
     description = "XHTML and HTML5 syntax extension"
     version = "(distributed with _PACKAGENAME_)"
-    requires = "_PACKAGENAME_,_PACKAGENAME_.lexer"
-    archive(syntax,preprocessor) = "_LIBNAME__syntax.cma"
-    archive(syntax,toploop) = "_LIBNAME__syntax.cma"
+    archive(syntax,preprocessor) = "xmllexer.cmo,_LIBNAME__syntax.cma"
+    archive(syntax,toploop) = "xmllexer.cmo,_LIBNAME__syntax.cma"
 )
 
 package "lexer" (
