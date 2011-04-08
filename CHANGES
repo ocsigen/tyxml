@@ -1,2 +1,7 @@
-===== dev =====
-  * Independent release
+===== 1.91 =====
+
+ * First independant release (was released with ocsigen)
+ * Add a functorial interface for concrete XML representation
+ * Add a functorial interface for stream printer
+ * Rename XHTML5 into HTML5
+ * Change the default syntax to HTML5 instead of XHTML 1.1

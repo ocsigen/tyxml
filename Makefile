@@ -62,3 +62,6 @@ uninstall:
 reinstall: uninstall install
 reinstall-byte: uninstall install-byte
 reinstall-opt: uninstall install-opt
+
+dist:
+	DARCS_REPO=$(PWD) darcs dist -d ${PACKAGENAME}-${VERSION}

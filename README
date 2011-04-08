@@ -1,43 +1,37 @@
-xmlp4 is a pre-processor and pretty-printer for xml.
-====================================================
 
-- Directory "xhtml":
+== TypedXML
 
-  XHTML typing using Thorsten Ohl's xHTML library to validate
-  xml tree at compile-time, adapted to support XHTML5.
+tyxml is a parser and printer for xml, and a simple library for
+building valid XHTML 1.1, HTML5 or SVG tree. The generic printer
+allows a HTML compatible mode.
 
-- Directory "syntax":
+ * Directory {{xhtml}}
 
-  A syntax extension to write xml inside a caml program.
+   XHTML typing using Thorsten Ohl's XHTML.M library to validate xml
+   tree at compile-time, adapted to support HTML5 and SVG.
 
-- Directory "xml-pretty":
+ * Directory {{syntax}}
 
-  A prettyprinter for XML.
+   A syntax extension to write XHTML or HTML5 inside a caml program.
 
-Requirements:
-=============
+== Requirements:
 
  * ocaml and camlp4
  * findlib
- * ocamlnet
- * sed
- * diff
+ * ocamlnet (for netstring)
 
-Build intructions:
-==================
+== Build intructions:
 
  $ ${EDITOR} Makefile.config
  $ make
  # make install
 
-Documentation:
-==============
+== API documentation:
 
  $ make doc
  $ ${BROWSER} doc/api-html/index.html
 
-Examples:
-=========
+== Examples:
 
  $ ocaml
         Objective Caml version 3.12.0
@@ -47,15 +41,15 @@ Examples:
  # #camlp4o;;
 	Camlp4 Parsing version 3.12.0
 
- # #require "xmlp4.syntax";;
+ # #require "tyxml.syntax";;
  # let x = << <a href="url"> Contents </a> >>;;
- val x : [> `A ] XHTML.M.elt = <abstr>
- # Xhtmlpretty.xhtml_list_print [x];;
+ val x : [> `A ] HTML5.M.elt = <abstr>
+ # HTML5.P.print_list ~output:print_string x;;
  - : string = "<a href=\"url\"> Contents </a>\n"
  # let x = << <html> <br/> </html> >>;;
  Error: This expression cannot be coerced to type
-         ([< Xhtmltypes.html_content ] as 'a) XHTML.M.elt list;
-       it has type ([> `Br ] as 'b) XHTML.M.elt list
-       but is here used with type 'a XHTML.M.elt list
+         ([< Xhtmltypes.html_content ] as 'a) HTML5.M.elt list;
+       it has type ([> `Br ] as 'b) HTML5.M.elt list
+       but is here used with type 'a HTML5.M.elt list
        Type 'b is not compatible with type 'a = [< `Body | `Head ]
        The second variant type does not allow tag(s) `Br

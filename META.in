@@ -6,7 +6,7 @@ archive(native) = "_LIBNAME_.cmxa"
 
 package "functor" (
   description = "XHTML and HTML5 pages typed with polymorphic variants (Functor version)"
-    version = "(distributed with _PACKAGENAME_)"
+  version = "(distributed with _PACKAGENAME_)"
   archive(byte) = "_LIBNAME__f.cma"
   archive(native) = "_LIBNAME__f.cmxa"
 )
@@ -14,6 +14,7 @@ package "functor" (
 package "syntax" (
     description = "XHTML and HTML5 syntax extension"
     version = "(distributed with _PACKAGENAME_)"
+    requires(toploop) = "_PACKAGENAME_"
     archive(syntax,preprocessor) = "xmllexer.cmo,_LIBNAME__syntax.cma"
     archive(syntax,toploop) = "xmllexer.cmo,_LIBNAME__syntax.cma"
 )
