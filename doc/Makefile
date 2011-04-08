@@ -3,7 +3,11 @@ include ../Makefile.filelist
 
 LIB := -I ../lib -I ../syntax
 
+ifeq "${OCAMLDUCE}" "YES"
+OCAMLDOC := ${OCAMLDUCEFIND} ocamldoc -package ocamlduce
+else
 OCAMLDOC := ${OCAMLFIND} ocamldoc
+endif
 
 doc: odoc
 

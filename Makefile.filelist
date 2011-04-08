@@ -35,20 +35,34 @@ NATIMPL := lib/${LIBNAME}.cmxa \
            syntax/xmllexer.cmx \
       	   syntax/simplexmlparser.cmx \
 
-ifeq "${OCAMLDUCE}" "YES"
-
-INTF += lib/XML_sigs_duce.cmi    \
-        lib/XML_print_duce.cmi   \
-        lib/XHTML_types_duce.cmi \
-        lib/XHTML_duce.cmi       \
-
-IMPL += lib/${LIBNAME}_duce.cma
-NATIMPL += lib/${LIBNAME}_duce.cmxa
-
-endif
-
 NATIMPL += $(patsubst %.cmxa,%.a,$(filter %.cmxa,${NATIMPL})) \
            $(patsubst %.cmx,%.o,$(filter %.cmx,${NATIMPL}))   \
 
-DOC := ${INTF:.cmi=.mli}
+NOMLI := lib/XML_sigs.mli   \
+         lib/XHTML_sigs.mli \
+         lib/SVG_sigs.mli   \
+         lib/HTML5_sigs.mli \
 
+DOC := $(filter-out ${NOMLI}, ${INTF:.cmi=.mli}) ${NOMLI:.mli=.ml}
+
+##
+
+DUCE_INTF := lib/XML_sigs_duce.cmi    \
+             lib/XML_print_duce.cmi   \
+             lib/XHTML_types_duce.cmi \
+             lib/XHTML_duce.cmi       \
+
+DUCE_IMPL    := lib/${LIBNAME}_duce.cma
+DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa
+
+
+DUCE_NOMLI := lib/XML_sigs_duce.mli
+
+DUCE_DOC := $(filter-out ${DUCE_NOMLI}, ${DUCE_INTF:.cmi=.mli}) ${DUCE_NOMLI:.mli=.ml}
+
+ifeq "${OCAMLDUCE}" "YES"
+INTF    += ${DUCE_INTF}
+IMPL    += ${DUCE_IMPL}
+NATIMPL += ${DUCE_NATIMPL}
+DOC     += ${DUCE_DOC}
+endif

@@ -44,7 +44,7 @@ META: META.in Makefile.config
 install:
 	$(OCAMLFIND) install ${PACKAGENAME} \
 	  -patch-version ${VERSION} \
-	  META ${INTF} ${IMPL} ${NATIMPL}
+	  META ${INTF} ${IMPL} ${NATIMPL} \
 
 install-byte:
 	$(OCAMLFIND) install ${PACKAGENAME} \
