@@ -21,17 +21,17 @@ INTF := lib/uri.cmi \
         lib/SVG.cmi \
         lib/HTML5.cmi \
 	\
+        syntax/pa_tyxml.cmi \
         syntax/simplexmlparser.cmi \
 
 IMPL := lib/${LIBNAME}_f.cma \
         lib/${LIBNAME}.cma \
-        syntax/${LIBNAME}_syntax.cma \
+        syntax/pa_${LIBNAME}.cmo \
         syntax/xmllexer.cmo \
         syntax/simplexmlparser.cmo \
 
 NATIMPL := lib/${LIBNAME}.cmxa \
            lib/${LIBNAME}_f.cmxa \
-           syntax/${LIBNAME}_syntax.cmxa \
            syntax/xmllexer.cmx \
       	   syntax/simplexmlparser.cmx \
 
@@ -54,7 +54,6 @@ DUCE_INTF := lib/XML_sigs_duce.cmi    \
 
 DUCE_IMPL    := lib/${LIBNAME}_duce.cma
 DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa
-
 
 DUCE_NOMLI := lib/XML_sigs_duce.mli
 

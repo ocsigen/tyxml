@@ -44,12 +44,12 @@ allows a HTML compatible mode.
  # #require "tyxml.syntax";;
  # let x = << <a href="url"> Contents </a> >>;;
  val x : [> `A ] HTML5.M.elt = <abstr>
- # HTML5.P.print_list ~output:print_string x;;
+ # HTML5.P.print_list ~output:print_string [x];;
  - : string = "<a href=\"url\"> Contents </a>\n"
  # let x = << <html> <br/> </html> >>;;
  Error: This expression cannot be coerced to type
-         ([< Xhtmltypes.html_content ] as 'a) HTML5.M.elt list;
-       it has type ([> `Br ] as 'b) HTML5.M.elt list
-       but is here used with type 'a HTML5.M.elt list
-       Type 'b is not compatible with type 'a = [< `Body | `Head ]
-       The second variant type does not allow tag(s) `Br
+          ([< HTML5_types.html_content ] as 'a) HTML5.M.elt list;
+        it has type ([> HTML5_types.br ] as 'b) HTML5.M.elt list
+        but is here used with type 'a HTML5.M.elt list
+        Type 'b = [> `Br ] is not compatible with type 'a = [< `Body | `Head ]
+        The second variant type does not allow tag(s) `Br

@@ -1,5 +1,7 @@
-(* Ocsigen
- * Copyright (C) 2011 Jaap Boender
+(* TyXML
+ * http://www.ocsigen.org/tyxml
+ * Copyright (C) 2010 Jaap Boender
+ * Copyright (C) 2011 Pierre Chambart, Grégoire Henry
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -13,15 +15,10 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-(**
-   Pretty printer for XHTML with Ocamlduce.
-   Handles browser specificities properly.
-
-   @author Jaap Boender
-*)
+(** Pretty printer for XHTML with Ocamlduce that handles browser specificities properly. *)
 
 module Make(I: sig val emptytags : string list end) = struct
 

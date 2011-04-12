@@ -1,33 +1,34 @@
-(*
-   Copyright (C) 2004 by Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
-   Copyright (C) 2007 by Vincent Balat, Gabriel Kerneis
-   Copyright (C) 2010 by Cecile Herbelin
+(* TyXML
+ * http://www.ocsigen.org/tyxml
+ * Copyright (C) 2004 by Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
+ * Copyright (C) 2007 by Vincent Balat, Gabriel Kerneis
+ * Copyright (C) 2010 by Cecile Herbelin
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
+ *)
 
-   HTML5.ml is free software; you can redistribute it and/or modify it
-   under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
-
-   HTML5.ml is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  *)
 (* TODO :
    - MathML and SVG
    - forbid construction like that noscript (a [a []])
    by playing on interactive_without*
 *)
+
 (* IDEAS:
      The [a_] prefix would have to be maintained and the
      only advantage are a potentially better mapping of the XHTML modularization
      to O'Caml modules. *)
-
-(** Typesafe constructors for HTML5 documents.
-    @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
 open HTML5_types
 

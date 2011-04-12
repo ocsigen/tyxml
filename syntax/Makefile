@@ -1,6 +1,6 @@
 include ../Makefile.config
 
-FILES   := xmllexer.ml camllexer.ml simplexmlparser.mli
+FILES   := xmllexer.ml camllexer.ml simplexmlparser.mli pa_tyxml.mli
 RFILES  := basicTypes.ml \
 	   simplexmlparser.ml \
 	   xhtmlparser.ml xhtmlsyntax.ml
@@ -15,15 +15,13 @@ OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
 OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
 OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
 
-byte: xmllexer.cmo ${LIBNAME}_syntax.cma simplexmlparser.cmo
-opt: xmllexer.cmx ${LIBNAME}_syntax.cmxa simplexmlparser.cmx
+byte: pa_${LIBNAME}.cmi pa_${LIBNAME}.cmo xmllexer.cmo simplexmlparser.cmo
+opt: xmllexer.cmx simplexmlparser.cmx
 
-OBJS := basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
+OBJS := xmllexer.cmo basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
 
-${LIBNAME}_syntax.cma: ${OBJS}
-	$(OCAMLC) -a -o $@ $^
-${LIBNAME}_syntax.cmxa: ${OBJS:.cmo=.cmx}
-	$(OCAMLOPT) -a -o $@ $^
+pa_${LIBNAME}.cmo: ${OBJS}
+	$(OCAMLC) -pack -o $@ $^
 
 # Common rules
 

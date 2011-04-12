@@ -1,20 +1,25 @@
-(* $Id: xML.mli,v 1.15 2004/12/13 14:57:45 ohl Exp $
+(* TyXML
+ * http://www.ocsigen.org/tyxml
+ * Copyright (C) 2004 Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
+ * Copyright (C) 2007 Gabriel Kerneis
+ * Copyright (C) 2010 Cecile Herbelin
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
+ *)
 
-   Copyright (C) 2004 by Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
-
-   XHTML is free software; you can redistribute it and/or modify it
-   under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
-
-   XHTML is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  *)
+(** Basic functions for construction and manipulation of XML tree. *)
 
 type aname = string
 type separator = Space | Comma
@@ -41,13 +46,13 @@ type ename = string
 
 type elt
 type econtent = private
-  | Empty
-  | Comment of string
-  | EncodedPCDATA of string
-  | PCDATA of string
-  | Entity of string
-  | Leaf of ename * attrib list
-  | Node of ename * attrib list * elt list
+		| Empty
+		| Comment of string
+		| EncodedPCDATA of string
+		| PCDATA of string
+		| Entity of string
+		| Leaf of ename * attrib list
+		| Node of ename * attrib list * elt list
 val content : elt -> econtent
 
 val empty : unit -> elt
@@ -66,3 +71,57 @@ val node : ?a:(attrib list) -> ename -> elt list -> elt
 val cdata : string -> elt
 val cdata_script : string -> elt
 val cdata_style : string -> elt
+
+(** {2 Iterators} *)
+
+val amap : (ename -> attrib list -> attrib list) -> elt -> elt
+(** Recursively edit attributes for the element and all its children. *)
+
+val amap1 : (ename -> attrib list -> attrib list) -> elt -> elt
+(** Edit attributes only for one element. *)
+
+(** The following can safely be exported by higher level libraries,
+    because removing an attribute from a element is always legal. *)
+
+val rm_attrib : (aname -> bool) -> attrib list -> attrib list
+val rm_attrib_from_list : (aname -> bool) -> (string -> bool) -> attrib list -> attrib list
+
+val map_int_attrib :
+  (aname -> bool) -> (int -> int) -> attrib list -> attrib list
+val map_string_attrib :
+  (aname -> bool) -> (string -> string) -> attrib list -> attrib list
+val map_string_attrib_in_list :
+  (aname -> bool) -> (string -> string) -> attrib list -> attrib list
+
+(** Exporting the following by higher level libraries would drive
+    a hole through a type system, because they allow to add {e any}
+    attribute to {e any} element. *)
+
+val add_int_attrib : aname -> int -> attrib list -> attrib list
+val add_string_attrib : aname -> string -> attrib list -> attrib list
+val add_comma_sep_attrib : aname -> string -> attrib list -> attrib list
+val add_space_sep_attrib : aname -> string -> attrib list -> attrib list
+
+val fold : (unit -> 'a) -> (string -> 'a) -> (string -> 'a) -> (string -> 'a) ->
+  (string -> 'a) -> (ename -> attrib list -> 'a) ->
+  (ename -> attrib list -> 'a list -> 'a) ->
+  elt -> 'a
+
+val all_entities : elt -> string list
+
+val translate :
+  (ename -> attrib list -> elt) ->
+  (ename -> attrib list -> elt list -> elt) ->
+  ('state -> ename -> attrib list -> elt list) ->
+  ('state -> ename -> attrib list -> elt list -> elt list) ->
+  (ename -> attrib list -> 'state -> 'state) -> 'state -> elt -> elt
+
+(** {2 Printer} *)
+
+val print_list:
+  output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
+
+(** {2 ...} *)
+
+module M : XML_sigs.Iterable
+

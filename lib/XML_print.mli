@@ -1,3 +1,24 @@
+(* TyXML
+ * http://www.ocsigen.org/tyxml
+ * Copyright (C) 2008 Vincent Balat, Mauricio Fernandez
+ * Copyright (C) 2011 Pierre Chambart, Grégoire Henry
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
+ *)
+
+(** Printer for XML. *)
 
 val encode_unsafe_char : string -> string
 (** The encoder maps strings to HTML and {e must} encode the unsafe characters
@@ -17,7 +38,7 @@ val encode_unsafe_char_and_at : string -> string
     simple minded email address harvesters. *)
 
 val compose_decl : ?version:string -> ?encoding:string -> unit -> string
-(** [encoding] is the name of the character encoding, e.g. ["US-ASCII"] *)
+(** [encoding] is the name of the character encoding, e.g. ["US-ASCII"] or ["UTF-8"] *)
 
 val compose_doctype : string -> string list -> string
 

@@ -15,24 +15,16 @@ package "syntax" (
     description = "XHTML and HTML5 syntax extension"
     version = "(distributed with _PACKAGENAME_)"
     requires(toploop) = "_PACKAGENAME_"
-    archive(syntax,preprocessor) = "xmllexer.cmo,_LIBNAME__syntax.cma"
-    archive(syntax,toploop) = "xmllexer.cmo,_LIBNAME__syntax.cma"
-)
-
-package "lexer" (
-    description = "Simple XML parser"
-    requires = "camlp4"
-    version = "(distributed with _PACKAGENAME_)"
-    archive(byte) = "xmllexer.cmo"
-    archive(native) = "xmllexer.cmx"
+    archive(syntax,preprocessor) = "pa__LIBNAME_.cmo"
+    archive(syntax,toploop) = "pa__LIBNAME_.cmo"
 )
 
 package "parser" (
     description = "Simple XML parser"
-    requires = "camlp4.lib,_PACKAGENAME_.lexer"
+    requires = "camlp4.lib"
     version = "(distributed with _PACKAGENAME_)"
-    archive(byte) = "simplexmlparser.cmo"
-    archive(native) = "simplexmlparser.cmx"
+    archive(byte) = "xmllexer.cmo simplexmlparser.cmo"
+    archive(native) = "xmllexer.cmx simplexmlparser.cmx"
 )
 
 package "duce" (

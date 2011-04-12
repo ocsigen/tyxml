@@ -1,22 +1,59 @@
-{1 Xmlp4 - API reference}
+{1 TyXML – API reference }
+
+{2 Building valid XML tree }
 
 {!modules:
 XHTML
-XHTML5
 SVG
-Svgtypes
-XML
-Xhtmltypes
-Xhtml5types
-Uri
-Simplexmlparser
-Xhtml_streams
-Xhtmlpretty
-Xhtmlpretty_streams
-Xhtmlcompact
-Xhtmlcompact_streams
-Xhtml5pretty
-Xhtml5pretty_streams
-Xhtml5compact
-Xhtml5compact_streams
+HTML5
 }
+
+{2 Common DTD's transcriptions}
+
+{!modules:
+XHTML_types
+SVG_types
+HTML5_types
+}
+
+{2 Low-level XML manipulation}
+
+{!modules:
+XML
+}
+
+{2 Functorial interface }
+
+{!modules:
+XHTML_f
+SVG_f
+HTML5_f
+XML_iter
+XML_print
+}
+
+{2 OCamlduce}
+
+{3 Common DTD's transcriptions}
+
+{!modules:
+XHTML_types_duce
+}
+
+{3 Helpers}
+
+{!modules:
+XML_print_duce
+XHTML_duce
+}
+
+{2 Syntax extension and simple parser}
+
+{!modules:
+Pa_tyxml
+Simplexmlparser
+}
+
+{2 Indexes}
+
+{!indexlist}

@@ -9,7 +9,7 @@ XHTML_f.cmi: XML_sigs.cmo XHTML_sigs.cmo
 XHTML.cmi: XML_sigs.cmo XML.cmi XHTML_sigs.cmo
 XHTML_types.cmi: uri.cmi
 XML_iter.cmi: XML_sigs.cmo
-XML.cmi:
+XML.cmi: XML_sigs.cmo
 XML_print.cmi: XML_sigs.cmo
 HTML5_f.cmo: XML_sigs.cmo XML_print.cmi uri.cmi SVG_sigs.cmo HTML5_types.cmi \
     HTML5_f.cmi
@@ -35,8 +35,8 @@ XHTML_sigs.cmo: XML_sigs.cmo XHTML_types.cmi uri.cmi
 XHTML_sigs.cmx: XML_sigs.cmx XHTML_types.cmi uri.cmx
 XML_iter.cmo: XML_sigs.cmo XML_iter.cmi
 XML_iter.cmx: XML_sigs.cmx XML_iter.cmi
-XML.cmo: XML.cmi
-XML.cmx: XML.cmi
+XML.cmo: XML_print.cmi XML_iter.cmi XML.cmi
+XML.cmx: XML_print.cmx XML_iter.cmx XML.cmi
 XML_print.cmo: XML_sigs.cmo XML_print.cmi
 XML_print.cmx: XML_sigs.cmx XML_print.cmi
 XML_sigs.cmo: uri.cmi

@@ -1,7 +1,25 @@
-(* SVG module
-   based on http://www.w3.org/TR/SVG/ *)
+(* TyXML
+ * http://www.ocsigen.org/tyxml
+ * Copyright (C) 2010 by Simon Castellan
+ * Copyright (C) 2010 by Cecile Herbelin
+ * Copyright (C) 2010 by Vincent Balat
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, with linking exception;
+ * either version 2.1 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
+ *)
 
-(** Type definitions for SVG *)
+(** SVG types with variants. (See also {!SVG.M}) *)
 
 (** This module defines basic data types for data, attributes
     and element occuring in SVG documents.
@@ -11,10 +29,13 @@
     and the interface is very low level and do not take deeply into account
     the needs of SVG elements. *)
 
+(** See {!XHTML.M} for a description of the transcription's principles. *)
+
 (* Some attribtes and elements are tagged with XXX: they
    may be improved and do not match completely the SVG spec *)
 
 (** {1 Categories of elements and attributes} *)
+
 (** This part defines the categories of elements and attributes *)
 
 (** {2 Elements} *)
@@ -241,11 +262,15 @@ type xlink_attr =
 (** {2 Generic data types} *)
 
 type iri = string
-(** An IRI reference is an Internationalized Resource Identifier with an optional fragment identifier, as defined in Internationalized Resource Identifiers [RFC3987]. An IRI reference serves as a reference to a resource or (with a fragment identifier) to a secondary resource. See References and the ‘defs’ element.. *)
+(** An IRI reference is an Internationalized Resource Identifier with
+    an optional fragment identifier, as defined in Internationalized
+    Resource Identifiers [RFC3987]. An IRI reference serves as a reference
+    to a resource or (with a fragment identifier) to a secondary
+    resource. See References and the ‘defs’ element.. *)
 
 (** {2 Units} *)
-(** SVG defines several units to measure time, length, angles. *)
 
+(** SVG defines several units to measure time, length, angles. *)
 module Unit : sig
   type 'a quantity = (float * 'a option)
   type angle = [ `Deg | `Grad | `Rad ] quantity
@@ -285,6 +310,7 @@ type rotate = float list
 type pcdata = [ `PCDATA ]
 
 (** {1 Element} *)
+
 (*-ELEMENTS-*)
 type svg = [ | `Svg ]
 

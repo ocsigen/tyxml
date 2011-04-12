@@ -1,4 +1,5 @@
-(* Ocsigen
+(* TyXML
+ * http://www.ocsigen.org/tyxml
  * Copyright (C) 2007 Gabriel Kerneis
  *
  * This program is free software; you can redistribute it and/or modify
@@ -13,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
 open Camlp4.PreCast;
@@ -167,19 +168,19 @@ module Make
     let loc = s.loc in
     match pop s with
       [ (`PCData s, _) ->
-          <:expr< $S.tot loc$ (XML.encodedpcdata $str:String.escaped s$) >>
+          <:expr< $S.tot loc$ (XML.M.encodedpcdata $str:String.escaped s$) >>
       | (`CamlString s, _) ->
-          <:expr< $S.tot loc$ (XML.encodedpcdata $get_expr s loc$) >>
+          <:expr< $S.tot loc$ (XML.M.encodedpcdata $get_expr s loc$) >>
       | (`CamlList s, _) -> raise (CamlListExc s)
       | (`CamlExpr s, _) -> get_expr s loc
       | (`Whitespace s, _) ->
-          <:expr< $S.tot loc$ (XML.pcdata $str:String.escaped s$) >>
+          <:expr< $S.tot loc$ (XML.M.pcdata $str:String.escaped s$) >>
       | (`Comment s, _) ->
-          <:expr< $S.tot loc$ (XML.comment $str:String.escaped s$) >>
+          <:expr< $S.tot loc$ (XML.M.comment $str:String.escaped s$) >>
       | (`Tag (tag, attlist, closed), s) ->
           match closed with
             [ True ->
-                <:expr< ($S.tot loc$ (XML.node
+                <:expr< ($S.tot loc$ (XML.M.node
 				  ~a:($S.to_xmlattribs loc$
 				      ($read_attlist s attlist$
 				       :> list $S.make_attribs_type loc tag$))
@@ -190,7 +191,7 @@ module Make
 		let content =
 		  <:expr< ($read_elems ~tag s$ :> list $S.make_content_type loc tag$) >>
 		in
-		<:expr< ($S.tot loc$ (XML.node
+		<:expr< ($S.tot loc$ (XML.M.node
 				  ~a:($S.to_xmlattribs loc$
 				      ($read_attlist s attlist$
 				       :> list $S.make_attribs_type loc tag$))
@@ -242,20 +243,20 @@ module Make
     let loc = s.loc in fun
     [ [] -> <:expr< [] >>
     | [`Attribute (`AttrName a, `AttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ (XML.string_attrib $str:a$ $str:v$)
+        <:expr< [ ($S.to_attrib loc$ (XML.M.string_attrib $str:a$ $str:v$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `AttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ (XML.string_attrib $get_expr a loc$ $str:v$)
+        <:expr< [ ($S.to_attrib loc$ (XML.M.string_attrib $get_expr a loc$ $str:v$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`AttrName a, `CamlAttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ (XML.string_attrib $str:a$ $get_expr v loc$)
+        <:expr< [ ($S.to_attrib loc$ (XML.M.string_attrib $str:a$ $get_expr v loc$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `CamlAttrVal v)::l] ->
         <:expr< [ ($S.to_attrib loc$
-		    (XML.string_attrib $get_expr a loc$ $get_expr v loc$)
+		    (XML.M.string_attrib $get_expr a loc$ $get_expr v loc$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`CamlAttributes cl ::l] ->

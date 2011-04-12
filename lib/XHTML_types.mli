@@ -1,11 +1,12 @@
-(* Ocsigen
+(* TyXML
+ * http://www.ocsigen.org/tyxml
  * Copyright (C) 2005 Vincent Balat
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, with linking exception;
  * either version 2.1 of the License, or (at your option) any later version.
- *<
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -13,8 +14,9 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
+
 (** XHTML types with variants. (See also {!XHTML.M}) *)
 
 (** The elements, attributes, attribute types and data types are given names
@@ -40,71 +42,75 @@
     The phantom type is always the {e most general} required by any (supported)
     version of the standard.  Type discipline is enforced by exporting or not-exporting
     the corresponding constructor.  *)
+
 (** {1 Attribute Types}
+
     @see <http://www.w3.org/TR/xhtml-modularization/abstraction.html#s_common_attrtypes> Modularization of XHTML *)
+
 type cdata = string
-
 (** Character data *)
+
 type id = string
-
 (** A document-unique identifier *)
+
 type idref = string
-
 (** A reference to a document-unique identifier *)
+
 type idrefs = idref list
-
 (** A space-separated list of references to document-unique identifiers *)
+
 type name = string
-
 (** A name with the same character constraints as ID above *)
-type nmtoken = string
 
+type nmtoken = string
 (** A name composed of only name tokens as defined in XML 1.0
     @see <http://www.w3.org/TR/2000/REC-xml-20001006> XML 1.0 *)
+
 type nmtokens = nmtoken list
-
 (** One or more white space separated NMTOKEN values *)
+
 (** {2 Data Types} *)
+
 type character = char
-
 (** A single character from ISO 10646. *)
+
 type charset = string
-
 (** A character encoding, as per RFC2045 (MIME).
-    @see <http://www.ietf.org/rfc/rfc2045.txt> RFC2045 *)
+    @see <http://tools.ietf.org/html/rfc2045> RFC2045 *)
+
 type charsets = charset list
-
 (** A space-separated list of character encodings, as per RFC2045 (MIME).
-    @see <http://www.ietf.org/rfc/rfc2045.txt> RFC2045 *)
+    @see <http://tools.ietf.org/html/rfc2045> RFC2045 *)
+
 type contenttype = string
-
 (** A media type, as per RFC2045 (MIME).
-    @see <http://www.ietf.org/rfc/rfc2045.txt> RFC2045 *)
+    @see <http://tools.ietf.org/html/rfc2045> RFC2045 *)
+
 type contenttypes = contenttype list
-
 (** A comma-separated list of media types, as per RFC2045 (MIME).
-    @see <http://www.ietf.org/rfc/rfc2045.txt> RFC2045 *)
+    @see <http://tools.ietf.org/html/rfc2045> RFC 2045 *)
+
 type coords = string list
-
 (** Comma- separated list of coordinates to use in defining areas. *)
+
 type datetime = string
-
 (** Date and time information. *)
+
 type fpi = string
-
 (** A character string representing an SGML Formal Public Identifier. *)
+
 type frametarget = string
-
 (** Frame name used as destination for results of certain actions. *)
+
 type languagecode = string
+(** A language code, as per RFC5646.
+    @see <http://tools.ietf.org/html/rfc5646> RFC5646 *)
 
-(** A language code, as per RFC3066.
-    @see <http://www.ietf.org/rfc/rfc3066.txt> RFC3066 *)
 type length = [ | `Pixels of int | `Percent of int ]
-
 (** The value may be either in pixels or a percentage of the available
     horizontal or vertical space. Thus, the value [`Percent 50] means half of
     the available space. *)
+
 type linktypes =
   [
     | `Alternate
@@ -123,7 +129,6 @@ type linktypes =
     | `Stylesheet
     | `Subsection
     | `Other of string ] list
-
 (** Authors may use the following recognized link types, listed here with
     their conventional interpretations. A LinkTypes value refers to a
     space-separated list of link types. White space characters are not
@@ -184,6 +189,7 @@ type linktypes =
       {- [`Other]:
          refers to any other type (for example [icon] or [shortcut]).
          }} *)
+
 type mediadesc =
   [
     | `All
@@ -197,7 +203,6 @@ type mediadesc =
     | `Speech
     | `TTY
     | `TV ] list
-
 (** The MediaDesc attribute is a comma-separated list of media descriptors.
     The following is a list of recognized media descriptors:
     {ul
@@ -246,8 +251,8 @@ type mediadesc =
     Note. Style sheets may include media-dependent variations within them
     (e.g., the [CSS \@media] construct). In such cases it may be appropriate
     to use ["media=all"]. *)
-type multilength = [ | length | `Relative of int ]
 
+type multilength = [ | length | `Relative of int ]
 (** The value may be a Length or a relative length. A relative length
     has the form ["i*"], where ["i"] is an integer. When allotting space
     among elements competing for that space, user agents allot pixel
@@ -259,24 +264,25 @@ type multilength = [ | length | `Relative of int ]
     and percentage space, and the competing relative lengths are ["1*"],
     ["2*"], and ["3*"], the ["1*"] will be allotted 10 pixels, the ["2*"] will be
     allotted 20 pixels, and the ["3*"] will be allotted 30 pixels. *)
+
 type multilengths = multilength list
-
-(* comma-separated *)
 (** A comma separated list of items of type MultiLength. *)
+
 type number = int
-
 (** One or more digits. *)
-type pixels = int
 
+type pixels = int
 (** The value is an integer that represents the number of pixels of
     the canvas (screen, paper). Thus, the value ["50"] means fifty
     pixels. For normative information about the definition of a pixel,
     please consult CSS2.
     @see <http://www.w3.org/TR/1998/REC-CSS2-19980512> CSS2 *)
-type text = string
 
+type text = string
 (** Arbitrary textual data, likely meant to be human-readable. *)
+
 (** Attributes *)
+
 type core = [ | `Class | `Id | `Title | `XML_space ]
 
 type i18n = [ | `XML_lang | `Dir ]
@@ -299,8 +305,8 @@ type common = [ | core | i18n | events | `Style_Attr ]
 
 type uri = Uri.uri
 type uris = Uri.uris
-(** A space-separated list of Uniform Resource Identifiers, as per RFC2396.
-    @see <http://www.ietf.org/rfc/rfc2396.txt> RFC2396 *)
+(** A space-separated list of Uniform Resource Identifiers, as per RFC3986.
+    @see <http://tools.ietf.org/html/rfc3986> RFC3986 *)
 
 
 module HYPERTEXT :
@@ -365,7 +371,6 @@ module STYLE_SHEET : sig type t = [ | `Style ] end
 
 module LINK : sig type t = [ | `Link ] end
 
-(** {2 5.20. Base Module} *)
 module BASE : sig type t = [ | `Base ] end
 
 module TEXT :
@@ -608,8 +613,7 @@ type table = [ `Table ]
 type table_attrib = [ common | `Summary | `Width | `Tr ]
 type table_content = [ `Tr ]
 type inlinemix = [ | `PCDATA | inline ]
-(* File autogenerated by xhtml5typesgenerator from xhtml_orig.ml *)
-(* You should not edit this file. *)
+
 (* NAME: title - KIND: nary - ATTRIB: [= i18n | `Id ] - CONTENT: [= `PCDATA ] - OUT: [=`Title] *)
 type title = [ | `Title ]
 
