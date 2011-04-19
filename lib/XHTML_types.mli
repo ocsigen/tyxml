@@ -388,6 +388,7 @@ module TEXT :
         | `Code
         | `Dfn
         | `Em
+	| `Iframe
         | `Kbd
         | `Q
         | `Samp
