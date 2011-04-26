@@ -3,6 +3,9 @@ xmllexer.cmx:
 camllexer.cmo: xmllexer.cmo
 camllexer.cmx: xmllexer.cmx
 simplexmlparser.cmi:
+pa_tyxml.cmi:
+pa_include.cmo:
+pa_include.cmx:
 basicTypes.cmo:
 basicTypes.cmx:
 simplexmlparser.cmo: xmllexer.cmo simplexmlparser.cmi

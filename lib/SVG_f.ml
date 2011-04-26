@@ -112,6 +112,7 @@ let string_of_coords l =
 module Make(XML : XML_sigs.T) = struct
 
   module XML = XML
+
   module Info = struct
     let content_type = "image/svg+xml"
     let emptytags = []

@@ -120,8 +120,3 @@ val translate :
 
 val print_list:
   output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
-
-(** {2 ...} *)
-
-module M : XML_sigs.Iterable
-

@@ -21,14 +21,10 @@
 include ../Makefile.config
 
 FILES_F := uri.ml        \
-	   XML_sigs.ml   \
 	   XML_iter.ml   \
 	   XML_print.ml  \
-	   XHTML_sigs.ml \
 	   XHTML_f.ml    \
-	   SVG_sigs.ml   \
 	   SVG_f.ml      \
-	   HTML5_sigs.ml \
 	   HTML5_f.ml    \
 
 FILES := ${FILES_F} XML.ml XHTML.ml SVG.ml HTML5.ml
@@ -39,9 +35,11 @@ DUCE_FILES := XML_sigs_duce.ml XML_print_duce.ml XHTML_duce.ml
 
 LIBS     := -package netstring
 
-OCAMLC   := $(OCAMLFIND) ocamlc
-OCAMLOPT := $(OCAMLFIND) ocamlopt
-OCAMLDEP := $(OCAMLFIND) ocamldep
+# SYNTAX := -ppopt ../syntax/pa_include.cmo -package camlp4 -syntax camlp4o
+
+OCAMLC   := $(OCAMLFIND) ocamlc ${SYNTAX}
+OCAMLOPT := $(OCAMLFIND) ocamlopt ${SYNTAX}
+OCAMLDEP := $(OCAMLFIND) ocamldep ${SYNTAX}
 
 OCAMLDUCEC   := ${OCAMLDUCEFIND} ocamlc${BYTEDBG} -thread
 OCAMLDUCEOPT := ${OCAMLDUCEFIND} ocamlopt ${OPTDBG} -thread

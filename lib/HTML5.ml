@@ -17,10 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-module type T = HTML5_sigs.HTML5(XML.M)(SVG.M).T
+module M = HTML5_f.Make(XML)(SVG.M)
 
-module M = HTML5_f.Make(XML.M)(SVG.M)
+module P = XML_print.MakeTypedSimple(XML)(M)
 
-module P = XML_print.MakeTypedSimple(XML.M)(M)
-
-module MakePrinter = XML_print.MakeTyped(XML.M)(M)
+module MakePrinter = XML_print.MakeTyped(XML)(M)

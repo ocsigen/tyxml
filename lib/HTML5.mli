@@ -21,14 +21,16 @@
 
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
-(** Type signature of HTML5 typesafe constructors  *)
-module type T = HTML5_sigs.HTML5(XML.M)(SVG.M).T
-
 (** Concrete implementation of HTML5 typesafe constructors *)
-module M : T
+module M : HTML5_sigs.T with module XML := XML
+			 and module SVG := SVG.M
 
 (** Simple printer for HTML5 documents *)
-module P : XML_sigs.TypedSimplePrinter(XML.M)(M).T
+module P : XML_sigs.TypedSimplePrinter with type 'a elt := 'a M.elt
+				       and type doc := M.doc
 
 (** Parametrized stream printer for HTML5 documents *)
-module MakePrinter(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M)(O).T
+module MakePrinter(O : XML_sigs.Output) :
+ XML_sigs.TypedPrinter with type out := O.out
+			and type 'a elt := 'a M.elt
+			and type doc := M.doc

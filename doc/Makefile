@@ -11,9 +11,11 @@ endif
 
 doc: odoc
 
+SYNTAX = -verbose -syntax camlp4o -package camlp4 -ppopt ../syntax/pa_include.cmo -ppopt o -ppopt -printer 
+
 odoc:
 	mkdir -p api-html
-	$(OCAMLDOC) ${LIB} -d api-html -intro indexdoc -html $(addprefix ../,${DOC})
+	$(OCAMLDOC) ${LIB} ${SYNTAX} -d api-html -intro indexdoc -html $(addprefix ../,${DOC})
 
 clean:
 	-rm -f api-html/*

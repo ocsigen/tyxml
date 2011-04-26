@@ -2,16 +2,16 @@
 include Makefile.config
 
 all: META
-	$(MAKE) -C lib byte opt
 	$(MAKE) -C syntax byte opt
+	$(MAKE) -C lib byte opt
 
 byte: META
-	$(MAKE) -C lib byte
 	$(MAKE) -C syntax byte
+	$(MAKE) -C lib byte
 
 opt: META
-	$(MAKE) -C lib opt
 	$(MAKE) -C syntax opt
+	$(MAKE) -C lib opt
 
 clean:
 	$(MAKE) -C lib clean
@@ -20,8 +20,8 @@ clean:
 	rm -f META
 
 distclean:
-	$(MAKE) -C lib distclean
 	$(MAKE) -C syntax distclean
+	$(MAKE) -C lib distclean
 	$(MAKE) -C doc distclean
 	-rm -f *~ \#* .\#*
 
@@ -30,8 +30,8 @@ doc:
 	$(MAKE) -C doc
 
 depend:
-	$(MAKE) -C lib depend
 	$(MAKE) -C syntax depend
+	$(MAKE) -C lib depend
 
 include Makefile.filelist
 VERSION := $(shell head -n 1 VERSION)

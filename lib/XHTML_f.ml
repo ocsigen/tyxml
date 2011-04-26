@@ -31,6 +31,7 @@ open XHTML_types
 
 module Version(XML : XML_sigs.T) = struct
 
+  module XML = XML
   include Uri
   (* Directly from http://www.w3.org/TR/xhtml-modularization/abstract_modules.html *)
 

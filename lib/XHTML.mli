@@ -23,59 +23,76 @@
 
 (** {1 Current version } *)
 
-(** Type signature of XHTML typesafe constructors  *)
-module type T = XHTML_sigs.XHTML(XML.M).T
-
 (** Concrete implementation of XHTML typesafe constructors *)
-module M : T
+module M : XHTML_sigs.T with module XML := XML
 
 (** Simple printer for XHTML documents (HTML compatible printer) *)
-module P : XML_sigs.TypedSimplePrinter(XML.M)(M).T
+module P : XML_sigs.TypedSimplePrinter with type 'a elt := 'a M.elt
+					 and type doc := M.doc
 
 (** Parametrized stream printer for XHTML documents (HTML compatible printer) *)
-module MakePrinter(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M)(O).T
+module MakePrinter(O : XML_sigs.Output) :
+  XML_sigs.TypedPrinter with type out := O.out
+			 and type 'a elt := 'a M.elt
+			 and type doc := M.doc
 
 (** {1 XHTML 1.1} *)
 
-(** Type signature of XHTML 1.1 typesafe constructors *)
-module type T_01_01 = XHTML_sigs.XHTML(XML.M).T_01_01
-
 (** Concrete implementation of XHTML 1.1 typesafe constructors *)
-module M_01_01 : T_01_01
+module M_01_01 : XHTML_sigs.T_01_01 with module XML := XML
 
 (** Simple printer for XHTML 1.1 documents *)
-module P_01_01 : XML_sigs.TypedSimplePrinter(XML.M)(M_01_01).T
+module P_01_01 :
+  XML_sigs.TypedSimplePrinter with type 'a elt := 'a M_01_01.elt
+                               and type doc := M_01_01.doc
 
 (** Simple printer for XHTML 1.1 documents (HTML compatible printer) *)
-module P_01_01_compat : XML_sigs.TypedSimplePrinter(XML.M)(M_01_01).T
+module P_01_01_compat :
+  XML_sigs.TypedSimplePrinter with type 'a elt := 'a M_01_01.elt
+                               and type doc := M_01_01.doc
 
 (** Parametrized stream printer for XHTML 1.1 documents *)
-module MakePrinter_01_01(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M_01_01)(O).T
+module MakePrinter_01_01(O : XML_sigs.Output) :
+  XML_sigs.TypedPrinter with type out := O.out
+                         and type 'a elt := 'a M_01_01.elt
+                         and type doc := M_01_01.doc
 
 (** Parametrized stream printer for XHTML 1.1 documents (HTML compatible printer) *)
-module MakePrinter_01_01_compat(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M_01_01)(O).T
+module MakePrinter_01_01_compat(O : XML_sigs.Output) :
+  XML_sigs.TypedPrinter with type out := O.out
+                         and type 'a elt := 'a M_01_01.elt
+                         and type doc := M_01_01.doc
 
 (** {1 XHTML 1.0 } *)
 
-(** Type signature of XHTML 1.0 typesafe constructors *)
-module type T_01_00 = XHTML_sigs.XHTML(XML.M).T_01_00
-
 (** Concrete implementation of XHTML 1.0 typesafe constructors *)
-module M_01_00 : T_01_00
+module M_01_00 : XHTML_sigs.T_01_00 with module XML := XML
 
 (** Simple printer for XHTML 1.0 documents *)
-module P_01_00 : XML_sigs.TypedSimplePrinter(XML.M)(M_01_00).T
+module P_01_00 :
+  XML_sigs.TypedSimplePrinter with type 'a elt := 'a M_01_00.elt
+                               and type doc := M_01_00.doc
 
 (** Simple printer for XHTML 1.0 documents (HTML compatible printer) *)
-module P_01_00_compat : XML_sigs.TypedSimplePrinter(XML.M)(M_01_00).T
+module P_01_00_compat :
+  XML_sigs.TypedSimplePrinter with type 'a elt := 'a M_01_00.elt
+			       and type doc := M_01_00.doc
 
 (** Parametrized stream printer for XHTML 1.0 documents *)
-module MakePrinter_01_00(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M_01_00)(O).T
+module MakePrinter_01_00(O : XML_sigs.Output) :
+  XML_sigs.TypedPrinter with type out := O.out
+                         and type 'a elt := 'a M_01_00.elt
+                         and type doc := M_01_00.doc
+
 
 (** Parametrized stream printer for XHTML 1.0 documents (HTML compatible printer) *)
-module MakePrinter_01_00_compat(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M_01_00)(O).T
+module MakePrinter_01_00_compat(O : XML_sigs.Output) :
+  XML_sigs.TypedPrinter with type out := O.out
+                         and type 'a elt := 'a M_01_00.elt
+                         and type doc := M_01_00.doc
 
 (**/**)
 
-module M_01_00_compat : T_01_00
-module M_01_01_compat : T_01_01
+module M_01_00_compat : XHTML_sigs.T_01_00 with type 'a elt = 'a M_01_00.elt and module XML := XML
+module M_01_01_compat : XHTML_sigs.T_01_01 with type 'a elt = 'a M_01_01.elt and module XML := XML
+

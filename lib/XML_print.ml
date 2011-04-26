@@ -146,7 +146,7 @@ module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O 
 end
 
 module MakeTyped(XML : XML_sigs.Iterable)
-                (TypedXML : XML_sigs.TypedXML(XML).T)
+                (TypedXML : XML_sigs.IterableTypedXML with module XML := XML)
                 (O : XML_sigs.Output) = struct
 
   module P = Make(XML)(TypedXML.Info)(O)
@@ -183,7 +183,7 @@ module MakeSimple(XML : XML_sigs.Iterable)(I : sig val emptytags : string list e
 end
 
 module MakeTypedSimple(XML : XML_sigs.Iterable)
-                      (TypedXML : XML_sigs.TypedXML(XML).T) = struct
+                      (TypedXML : XML_sigs.TypedXML with  module XML := XML) = struct
 
   type out = unit
   type 'a elt = 'a TypedXML.elt

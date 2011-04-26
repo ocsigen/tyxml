@@ -45,16 +45,19 @@ val compose_doctype : string -> string list -> string
 module Make(XML : XML_sigs.Iterable)
            (I : sig val emptytags : string list end)
            (O : XML_sigs.Output)
-     : XML_sigs.Printer(XML)(O).T
+     : XML_sigs.Printer with type out := O.out and type xml_elt := XML.elt
 
 module MakeTyped(XML : XML_sigs.Iterable)
-                (TypedXML : XML_sigs.TypedXML(XML).T)
+                (TypedXML : XML_sigs.TypedXML with module XML := XML)
                 (O : XML_sigs.Output)
-     : XML_sigs.TypedPrinter(XML)(TypedXML)(O).T
+     : XML_sigs.TypedPrinter with type out := O.out
+                              and type 'a elt := 'a TypedXML.elt
+                              and type doc := TypedXML.doc
 
 module MakeSimple(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)
-     : XML_sigs.SimplePrinter(XML).T
+     : XML_sigs.SimplePrinter with type xml_elt := XML.elt
 
 module MakeTypedSimple(XML : XML_sigs.Iterable)
-                      (TypedXML : XML_sigs.TypedXML(XML).T)
-     : XML_sigs.TypedSimplePrinter(XML)(TypedXML).T
+                      (TypedXML : XML_sigs.TypedXML with  module XML := XML)
+     : XML_sigs.TypedSimplePrinter with type 'a elt := 'a TypedXML.elt
+                                    and type doc := TypedXML.doc

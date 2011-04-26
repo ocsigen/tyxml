@@ -95,61 +95,75 @@ module type Output = sig
   val make: m -> out
 end
 
-module Printer(XML : T)(O: Output) = struct
+module type TypedXML = sig
 
-  module type T = sig
-    val print_list: ?encode:(string -> string) -> XML.elt list -> O.out
-  end
+  module XML : T
+  module Info : Info
 
-end
-
-module SimplePrinter(XML : T) = struct
-
-  module type T = sig
-    val print_list:
-	output:(string -> unit) ->
-	  ?encode:(string -> string) ->
-	    XML.elt list -> unit
-  end
+  type 'a elt
+  type doc
+  val toelt : 'a elt -> XML.elt
+  val doc_toelt : doc -> XML.elt
 
 end
 
+module type IterableTypedXML = sig
 
-module TypedXML(XML : T) = struct
+  module XML : Iterable
+  module Info : Info
 
-  module type T = sig
-
-    module Info : Info
-
-    type 'a elt
-    type doc
-    val toelt : 'a elt -> XML.elt
-    val doc_toelt : doc -> XML.elt
-
-  end
+  type 'a elt
+  type doc
+  val toelt : 'a elt -> XML.elt
+  val doc_toelt : doc -> XML.elt
 
 end
 
-module TypedPrinter(XML : T)(TypedXML : TypedXML(XML).T)(O : Output)  = struct
+module type Printer = sig
 
-  module type T = sig
-    val print_list: ?encode:(string -> string) -> 'a TypedXML.elt list -> O.out
-    val print: ?encode:(string -> string) -> ?advert:string-> TypedXML.doc -> O.out
-  end
+  type xml_elt
+  type out
+
+  val print_list: ?encode:(string -> string) -> xml_elt list -> out
 
 end
 
-module TypedSimplePrinter(XML : T)(TypedXML : TypedXML(XML).T) = struct
+module type SimplePrinter = sig
 
-  module type T = sig
-    val print_list:
-	output:(string -> unit) ->
-	  ?encode:(string -> string) ->
-	    'a TypedXML.elt list -> unit
-    val print:
-	output:(string -> unit) ->
-	  ?encode:(string -> string) -> ?advert:string->
-	    TypedXML.doc -> unit
-  end
+  type xml_elt
+
+  val print_list:
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    xml_elt list -> unit
+
+end
+
+module type TypedPrinter = sig
+
+  type 'a elt
+  type doc
+  type out
+
+  val print_list: ?encode:(string -> string) -> 'a elt list -> out
+  val print: ?encode:(string -> string) -> ?advert:string-> doc -> out
+
+end
+
+
+module type TypedSimplePrinter = sig
+
+  type 'a elt
+  type doc
+
+  val print_list:
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    'a elt list -> unit
+
+  val print:
+    output:(string -> unit) ->
+    ?encode:(string -> string) -> ?advert:string->
+    doc -> unit
 
 end

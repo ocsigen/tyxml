@@ -32,8 +32,7 @@
 
 open HTML5_types
 
-module Make(XML : XML_sigs.T)
-           (SVG : SVG_sigs.SVG(XML).T) = struct
+module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   module Info = struct
     let content_type = "text/html"

@@ -21,14 +21,16 @@
 
     @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
 
-(** Type signature of SVG typesafe constructors  *)
-module type T = SVG_sigs.SVG(XML.M).T
-
 (** Concrete implementation of SVG typesafe constructors *)
-module M : T
+module M : SVG_sigs.T with module XML := XML
 
 (** Simple printer for SVG documents *)
-module P : XML_sigs.TypedSimplePrinter(XML.M)(M).T
+module P : XML_sigs.TypedSimplePrinter with type 'a elt := 'a M.elt
+				        and type doc := M.doc
 
 (** Parametrized stream printer for SVG documents *)
-module MakePrinter(O : XML_sigs.Output) : XML_sigs.TypedPrinter(XML.M)(M)(O).T
+module MakePrinter(O : XML_sigs.Output) :
+  XML_sigs.TypedPrinter with type out := O.out
+                         and type 'a elt := 'a M.elt
+                         and type doc := M.doc
+

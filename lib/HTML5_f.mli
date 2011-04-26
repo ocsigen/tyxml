@@ -21,6 +21,6 @@
 
 (** Typesafe constructors for HTML5 documents (Functorial interface) *)
 
-module Make(XML : XML_sigs.T)
-           (SVG : SVG_sigs.SVG(XML).T)
-     : HTML5_sigs.HTML5(XML)(SVG).T
+module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML)
+  : HTML5_sigs.T with module XML := XML
+		  and module SVG := SVG
