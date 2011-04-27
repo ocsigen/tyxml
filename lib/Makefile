@@ -49,6 +49,9 @@ all: byte opt
 
 byte:: ${LIBNAME}.cma ${LIBNAME}_f.cma
 opt:: ${LIBNAME}.cmxa ${LIBNAME}_f.cmxa
+ifeq "${NATDYNLINK}" "YES"
+opt:: ${LIBNAME}.cmxs ${LIBNAME}_f.cmxs
+endif
 
 ${LIBNAME}.cma: $(FILES:.ml=.cmo)
 	$(OCAMLC) -a $^ -o $@
@@ -92,6 +95,8 @@ ${DUCE_FILES:.ml=.cmx}: %.cmx: %.ml
 	$(OCAMLC) ${LIBS} -c $<
 %.cmx: %.ml
 	$(OCAMLOPT) ${LIBS} -c $<
+%.cmxs: %.cmxa
+	$(OCAMLOPT) -shared -linkall -o $@ $<
 
 # Clean up
 clean:

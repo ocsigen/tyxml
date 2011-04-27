@@ -16,7 +16,10 @@ OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
 OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
 
 byte: pa_${LIBNAME}.cmi pa_${LIBNAME}.cmo xmllexer.cmo simplexmlparser.cmo
-opt: xmllexer.cmx simplexmlparser.cmx
+opt:: xmllexer.cmx simplexmlparser.cmx
+ifeq "${NATDYNLINK}" "YES"
+opt:: xmllexer.cmxs simplexmlparser.cmxs
+endif
 
 OBJS := xmllexer.cmo basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
 
@@ -46,6 +49,9 @@ ${MLR:.ml=.cmx}: %.cmx: %.ml
 
 %.ml: %.mll
 	$(OCAMLLEX) $<
+
+%.cmxs: %.cmx
+	$(OCAMLOPT) -shared -linkall -o $@ $<
 
 # Clean up
 clean:

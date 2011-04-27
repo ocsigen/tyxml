@@ -38,6 +38,11 @@ NATIMPL := lib/${LIBNAME}.cmxa \
 NATIMPL += $(patsubst %.cmxa,%.a,$(filter %.cmxa,${NATIMPL})) \
            $(patsubst %.cmx,%.o,$(filter %.cmx,${NATIMPL}))   \
 
+ifeq "${NATDYNLINK}" "YES"
+NATIMPL += $(patsubst %.cmxa,%.cmxs,$(filter %.cmxa,${NATIMPL})) \
+           $(patsubst %.cmx,%.cmxs,$(filter %.cmx,${NATIMPL}))
+endif
+
 NOMLI :=
 
 DOC := $(filter-out ${NOMLI}, ${INTF:.cmi=.mli}) ${NOMLI:.mli=.ml}
@@ -51,6 +56,10 @@ DUCE_INTF := lib/XML_sigs_duce.cmi    \
 
 DUCE_IMPL    := lib/${LIBNAME}_duce.cma
 DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa
+
+ifeq "${NATDYNLINK}" "YES"
+DUCE_NATIMPL += lib/${LIBNAME}_duce.cmxs
+endif
 
 DUCE_NOMLI := lib/XML_sigs_duce.mli
 
