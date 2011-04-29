@@ -20,7 +20,9 @@
 
 module Make (I : sig val emptytags : string list end) : XML_sigs_duce.Printer
 
-module MakeTypedRaw (TypedXML : XML_sigs_duce.TypedXML) : XML_sigs_duce.RawTypedPrinter
+(* module MakeTypedRaw (TypedXML : XML_sigs_duce.TypedXML) : XML_sigs_duce.RawTypedPrinter *)
+module MakeTyped (TypedXML : XML_sigs_duce.TypedXML) :
+  XML_sigs_duce.TypedPrinter with module TypedXML := TypedXML
 
 val print:
   output:(string -> unit) ->

@@ -32,6 +32,9 @@ module type TypedXML = sig
     type elt
     type doc
 
+    val of_doc : doc -> Ocamlduce.Load.anyxml
+    val of_elt : elt -> Ocamlduce.Load.anyxml
+
 end
 
 module type RawTypedPrinter = sig
@@ -39,25 +42,26 @@ module type RawTypedPrinter = sig
     output:(string -> unit) ->
     ?encode:(string -> string) ->
     {{ Ocamlduce.Load.anyxml }} list -> unit
+
   val print:
     output:(string -> unit) ->
     ?encode:(string -> string) ->
     ?advert:string-> {{ Ocamlduce.Load.anyxml }} -> unit
 end
 
-module TypedPrinter(TypedXML : TypedXML) = struct
+module type TypedPrinter = sig
 
-  module type T = sig
-    type elt = TypedXML.elt
-    type doc = TypedXML.doc
-    val print_list:
-      output:(string -> unit) ->
-        ?encode:(string -> string) ->
-          elt list -> unit
-    val print:
-      output:(string -> unit) ->
-        ?encode:(string -> string) ->
-          ?advert:string-> doc -> unit
-  end
+  module TypedXML : TypedXML
+
+  type elt = TypedXML.elt
+  type doc = TypedXML.doc
+  val print_list:
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    elt list -> unit
+  val print:
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    ?advert:string-> doc -> unit
 
 end

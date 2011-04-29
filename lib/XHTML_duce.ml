@@ -33,6 +33,10 @@ module M_01_00 = struct
   type elt = {{ XHTML_types_duce.block
 	      | XHTML_types_duce.form
 	      | XHTML_types_duce.misc }}
+
+  let of_doc (x: doc) : Ocamlduce.Load.anyxml = x
+  let of_elt (x: elt) : Ocamlduce.Load.anyxml = x
+
 end
 
 module M_01_00_compat = struct
@@ -44,38 +48,13 @@ module M_01_00_compat = struct
 	      | XHTML_types_duce.form
 	      | XHTML_types_duce.misc }}
 
+  let of_doc (x: doc) : Ocamlduce.Load.anyxml = x
+  let of_elt (x: elt) : Ocamlduce.Load.anyxml = x
+
 end
 
 module M = M_01_00_compat
 
-module P_01_00 = struct
-
-  module P = XML_print_duce.MakeTypedRaw(M_01_00)
-
-  type doc = M.doc
-  type elt = M.elt
-
-  let print_list = (P.print_list :>output:(string -> unit) ->
-         ?encode:(string -> string) ->
-         elt list -> unit)
-  let print = (P.print :> output:(string -> unit) ->
-         ?encode:(string -> string) -> ?advert:string -> doc -> unit)
-
-end
-
-module P_01_00_compat = struct
-
-  module P = XML_print_duce.MakeTypedRaw(M_01_00_compat)
-
-  type doc = M.doc
-  type elt = M.elt
-
-  let print_list = (P.print_list :>output:(string -> unit) ->
-         ?encode:(string -> string) ->
-         elt list -> unit)
-  let print = (P.print :> output:(string -> unit) ->
-         ?encode:(string -> string) -> ?advert:string -> doc -> unit)
-
-end
-
+module P_01_00 = XML_print_duce.MakeTyped(M_01_00)
+module P_01_00_compat = XML_print_duce.MakeTyped(M_01_00_compat)
 module P = P_01_00_compat

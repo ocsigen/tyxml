@@ -48,23 +48,42 @@ module Make(I: sig val emptytags : string list end) = struct
 
 end
 
-module MakeTypedRaw(TypedXML : XML_sigs_duce.TypedXML) = struct
+(* module MakeTypedRaw(TypedXML : XML_sigs_duce.TypedXML) = struct *)
+
+  (* module P = Make(TypedXML.Info) *)
+
+  (* type elt *)
+  (* type doc *)
+
+  (* let print_list ~output ?(encode = XML_print.encode_unsafe_char) elts = *)
+    (* P.print_list ~output ~encode elts *)
+
+  (* (\* let print ~(output: string  -> unit) ?(encode = XML_print.encode_unsafe_char) ?(advert = "") *\) *)
+      (* doc = *)
+    (* output TypedXML.Info.doctype; *)
+    (* if advert <> "" then output ("<!-- " ^ advert ^ " -->\n"); *)
+    (* P.print_list ~output ~encode [doc] *)
+
+(* end *)
+
+module MakeTyped(TypedXML : XML_sigs_duce.TypedXML) = struct
 
   module P = Make(TypedXML.Info)
 
-  type elt
-  type doc
+  type elt = TypedXML.elt
+  type doc = TypedXML.doc
 
   let print_list ~output ?(encode = XML_print.encode_unsafe_char) elts =
-    P.print_list ~output ~encode elts
+    P.print_list ~output ~encode (List.map TypedXML.of_elt elts)
 
   let print ~(output: string  -> unit) ?(encode = XML_print.encode_unsafe_char) ?(advert = "")
       doc =
     output TypedXML.Info.doctype;
     if advert <> "" then output ("<!-- " ^ advert ^ " -->\n");
-    P.print_list ~output ~encode [doc]
+    P.print_list ~output ~encode [TypedXML.of_doc doc]
 
 end
+
 
 let print ~output ?(encode = XML_print.encode_unsafe_char) elt =
   let module P = Make(struct let emptytags = [] end) in

@@ -29,9 +29,9 @@ FILES_F := uri.ml        \
 
 FILES := ${FILES_F} XML.ml XHTML.ml SVG.ml HTML5.ml
 
-DUCE_INTF  := XHTML_types_duce.mli XML_print_duce.mli XHTML_duce.mli
+DUCE_INTF  := XML_sigs_duce.mli XHTML_types_duce.mli XML_print_duce.mli XHTML_duce.mli
 
-DUCE_FILES := XML_sigs_duce.ml XML_print_duce.ml XHTML_duce.ml
+DUCE_FILES := XML_print_duce.ml XHTML_duce.ml
 
 LIBS     := -package netstring
 
