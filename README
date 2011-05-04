@@ -20,6 +20,9 @@ allows a HTML compatible mode.
  * findlib
  * ocamlnet (for netstring)
 
+ [optionnal]
+ * ocamlduce
+
 == Build intructions:
 
  $ ${EDITOR} Makefile.config
