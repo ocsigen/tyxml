@@ -61,7 +61,7 @@ ifeq "${NATDYNLINK}" "YES"
 DUCE_NATIMPL += lib/${LIBNAME}_duce.cmxs
 endif
 
-DUCE_NOMLI := lib/XML_sigs_duce.mli
+DUCE_NOMLI :=
 
 DUCE_DOC := $(filter-out ${DUCE_NOMLI}, ${DUCE_INTF:.cmi=.mli}) ${DUCE_NOMLI:.mli=.ml}
 
