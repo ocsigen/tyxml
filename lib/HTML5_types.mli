@@ -676,7 +676,7 @@ and phrasing_without_media =
 and phrasing_without_interactive =
   [
     | core_phrasing_without_interactive
-    | (phrasing_without_media, phrasing, phrasing_without_media)
+    | (phrasing_without_noscript, phrasing, phrasing_without_media)
         transparent_without_interactive
   ]
 
