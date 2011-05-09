@@ -23,6 +23,7 @@
   TODO, Issues:
   -> Map cannot contain area children for now
   -> noscript (a [a []]) should not be typed.
+  -> mathml !
 *)
 
 (* _fun prefix are the types that must be used
@@ -30,6 +31,15 @@
    some param are already taken as seperate argument,
    to ensure better compatibility.
    SC *)
+
+(*
+  TODO: from draft 8 may 2011:
+  * add bdi element
+  * add s element
+  * add u element
+  * area is only allowed inside a phrasing if included inside a map element
+
+*)
 
 (** HTML5 types with variants. (See also {!HTML5.M})
 
@@ -392,6 +402,8 @@ type submitable = [ | `Textarea | `Select | `Keygen | `Input | `Button ]
 
 type labelable = [ | resetable | `Progress | `Meter | `Button ]
 
+type labelable_without_interactive = [ `Progress | `Meter]
+
 type formatblock =
   [
     | heading
@@ -538,7 +550,9 @@ type core_phrasing =
     | `Mark
     | `Label
     | `Kbd
+    | `Iframe
     | `I
+    | `Embed
     | `Em
     | `Dfn
     | `Datalist
@@ -573,7 +587,9 @@ type core_phrasing_without_noscript =
     | `Mark
     | `Label
     | `Kbd
+    | `Iframe
     | `I
+    | `Embed
     | `Em
     | `Dfn
     | `Datalist
@@ -589,8 +605,7 @@ type core_phrasing_without_noscript =
   ]
 type core_phrasing_without_interactive =
   [
-    | labelable
-    | submitable
+    | labelable_without_interactive
     | `Wbr
     | `Var
     | `Img
@@ -626,18 +641,14 @@ type core_phrasing_without_media =
   [
     | labelable
     | submitable
-    | `Img | `Img_interactive
-    | `Iframe
-    | `Svg
-    | `Embed
     | `Wbr
     | `Var
     | `Time
+    | `Svg
     | `Sup
     | `Sub
     | `Strong
     | `Span
-    | `Img | `Img_interactive
     | `Small
     | `Script
     | `Samp
@@ -646,7 +657,10 @@ type core_phrasing_without_media =
     | `Mark
     | `Label
     | `Kbd
+    | `Img | `Img_interactive
+    | `Iframe
     | `I
+    | `Embed
     | `Em
     | `Dfn
     | `Datalist
@@ -883,6 +897,7 @@ type core_flow5 =
     | `Form
     | `Figure
     | `Dl
+    | `Details
   ]
 
 type core_flow5_without_interactive =
@@ -915,20 +930,11 @@ type core_flow5_without_noscript =
     | `Form
     | `Figure
     | `Dl
+    | `Details
   ]
 type core_flow5_without_media =
   [
     | core_phrasing_without_media
-    | `Textarea
-    | `Select
-    | `Menu
-    | `Label
-    | `Keygen
-    | `Input
-    | `Iframe
-    | `Embed
-    | `Details
-    | `Button
     | formassociated
     | formatblock
     | `Ul
@@ -940,6 +946,8 @@ type core_flow5_without_media =
     | `Form
     | `Figure
     | `Dl
+    | `Details
+
   ]
 
 type flow5_without_interactive =
@@ -952,8 +960,8 @@ type flow5_without_interactive =
 and flow5_without_noscript =
   [ | core_flow5_without_noscript
   | (flow5_without_interactive,
-     flow5_without_noscript,
-     flow5) transparent_without_noscript
+     flow5,
+     flow5_without_media) transparent_without_noscript
   ]
 
 and flow5_without_media =
@@ -981,6 +989,7 @@ type flow5_without_table =
     | `Form
     | `Figure
     | `Dl
+    | `Details
     | (flow5_without_interactive, flow5_without_noscript, flow5,
         flow5_without_media) transparent
   ]
@@ -1005,6 +1014,7 @@ type flow5_without_header_footer =
     | `Form
     | `Figure
     | `Dl
+    | `Details
     | (flow5_without_interactive, flow5_without_noscript, flow5,
         flow5_without_media) transparent
   ]
@@ -1022,6 +1032,7 @@ type flow5_without_form =
     | `Hr
     | `Figure
     | `Dl
+    | `Details
     | (flow5_without_interactive, flow5_without_noscript, flow5,
         flow5_without_media) transparent
   ]
@@ -1043,6 +1054,7 @@ type flow5_without_sectioning_heading_header_footer_address =
     | `Form
     | `Figure
     | `Dl
+    | `Details
     | (flow5_without_interactive, flow5_without_noscript, flow5,
         flow5_without_media) transparent
   ]
