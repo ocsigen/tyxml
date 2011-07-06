@@ -1,5 +1,6 @@
 
 include Makefile.config
+-include Makefile.local
 
 all: META
 	$(MAKE) -C syntax byte opt

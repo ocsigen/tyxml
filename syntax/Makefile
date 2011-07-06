@@ -1,4 +1,5 @@
 include ../Makefile.config
+-include ../Makefile.local
 
 FILES   := xmllexer.ml camllexer.ml simplexmlparser.mli pa_tyxml.mli
 RFILES  := basicTypes.ml \

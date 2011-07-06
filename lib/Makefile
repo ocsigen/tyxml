@@ -19,6 +19,7 @@
 ########################################################################
 
 include ../Makefile.config
+-include ../Makefile.local
 
 FILES_F := uri.ml        \
 	   XML_iter.ml   \
