@@ -56,6 +56,6 @@ Warning: lists antiquotations are allowed only at the end (before a closing tag)
 
 The syntax extension is not allowed in patterns for the while.
 
-Additionnaly, you may use {v xhtml v}, {v xhtmllist v}, {v svg v} ar {v svglist v}.
+Additionnaly, you may use [ xhtml ], [ xhtmllist ], [ svg ] or [ svglist ].
 
 *)
