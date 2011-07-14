@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Cleanup
+rm -f predist boring
