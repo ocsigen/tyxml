@@ -1,3 +1,9 @@
+===== 2.0-rc1 =====
+
+ * Some fixes to match the latest HTML5 working draft (05/08/2011).
+ * Simplification of the functorial interface (use module substitution)
+ * Fix IFrame usage.
+
 ===== 1.91 =====
 
  * First independant release (was released with ocsigen)
