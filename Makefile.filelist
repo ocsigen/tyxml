@@ -55,7 +55,7 @@ DUCE_INTF := lib/XML_sigs_duce.cmi    \
              lib/XHTML_duce.cmi       \
 
 DUCE_IMPL    := lib/${LIBNAME}_duce.cma
-DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa
+DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa lib/${LIBNAME}_duce.a
 
 ifeq "${NATDYNLINK}" "YES"
 DUCE_NATIMPL += lib/${LIBNAME}_duce.cmxs
@@ -71,3 +71,5 @@ IMPL    += ${DUCE_IMPL}
 NATIMPL += ${DUCE_NATIMPL}
 DOC     += ${DUCE_DOC}
 endif
+
+MLI_TO_INSTALL := $(foreach X,$(INTF:.cmi=.ml),$(if $(wildcard $(X)i),$(X)i,$(X)))

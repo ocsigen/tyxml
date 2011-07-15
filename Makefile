@@ -24,7 +24,7 @@ distclean:
 	$(MAKE) -C syntax distclean
 	$(MAKE) -C lib distclean
 	$(MAKE) -C doc distclean
-	-rm -f *~ \#* .\#*
+	-rm -f *~ \#* .\#* META
 
 .PHONY: doc
 doc:
@@ -46,16 +46,17 @@ install:
 	$(OCAMLFIND) install ${PACKAGENAME} \
 	  -patch-version ${VERSION} \
 	  META ${INTF} ${IMPL} ${NATIMPL} \
+	  ${MLI_TO_INSTALL}
 
 install-byte:
 	$(OCAMLFIND) install ${PACKAGENAME} \
 	  -patch-version ${VERSION} \
-	  META ${INTF} ${IMPL}
+	  META ${INTF} ${IMPL} ${MLI_TO_INSTALL}
 
 install-opt:
 	$(OCAMLFIND) install ${PACKAGENAME} \
 	  -patch-version ${VERSION} \
-	  META ${INTF} ${NATIMPL}
+	  META ${INTF} ${NATIMPL} ${MLI_TO_INSTALL}
 
 uninstall:
 	$(OCAMLFIND) remove ${PACKAGENAME}
