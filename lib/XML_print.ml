@@ -88,7 +88,7 @@ module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O 
     then
       (O.put ("<"^tag)
 	 ++ xh_print_attrs encode attrs
-	 ++ O.put ">")
+	 ++ O.put "/>")
     else
       (O.put ("<"^tag)
          ++ xh_print_attrs encode attrs
