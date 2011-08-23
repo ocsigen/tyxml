@@ -51,8 +51,12 @@ let compose_decl ?(version = "1.0") ?(encoding = "UTF-8") () =
   "<?xml version=\"" ^ version ^ "\" encoding=\"" ^ encoding ^ "\"?>\n"
 
 let compose_doctype dt args =
-  "<!DOCTYPE " ^ dt ^ " PUBLIC " ^
-  String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args) ^ ">\n"
+  "<!DOCTYPE " ^ dt
+  ^ (if args = []
+     then ""
+     else
+      " PUBLIC " ^
+	String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
 
 module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O : XML_sigs.Output) = struct
 
