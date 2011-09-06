@@ -436,7 +436,7 @@ type formassociated = [ | listed | `Progress | `Meter | `Label ]
         Exception to that : if you embdedd the element in another transparent (of an
         another kind) : [p [noscript (a [a []])]] will be correctly typed.
     *)
-type ('interactive, 'noscript, 'regular, 'media) transparent =
+type (+'interactive, +'noscript, +'regular, +'media) transparent =
   [
     | `A of 'interactive
     | `Noscript of 'noscript
@@ -452,7 +452,7 @@ type ('interactive, 'noscript, 'regular, 'media) transparent =
     | `Video of 'media
   ]
 (* _interactive variants are not used for now *)
-type ('noscript, 'regular, 'media) transparent_without_interactive =
+type (+'noscript, +'regular, +'media) transparent_without_interactive =
   [
     | `Noscript of 'noscript
     | `Ins of 'regular
@@ -464,7 +464,7 @@ type ('noscript, 'regular, 'media) transparent_without_interactive =
     | `Video of 'media
   ]
 
-type ('interactive, 'regular, 'media) transparent_without_noscript =
+type (+'interactive, +'regular, +'media) transparent_without_noscript =
   [
     | `A of 'interactive
     | `Ins of 'regular
@@ -479,7 +479,7 @@ type ('interactive, 'regular, 'media) transparent_without_noscript =
     | `Audio_interactive of 'media
   ]
 
-type ('interactive, 'noscript, 'regular) transparent_without_media =
+type (+'interactive, +'noscript, +'regular) transparent_without_media =
   [
     | `A of 'interactive
     | `Noscript of 'noscript
@@ -994,6 +994,30 @@ type flow5_without_table =
         flow5_without_media) transparent
   ]
 
+type flow5_without_interactive_header_footer =
+ [
+    | heading
+    | sectioning
+    | `Pre
+    | `P
+    | `Div
+    | `Blockquote
+    | `Address
+    | core_phrasing_without_interactive
+    | formassociated
+    | `Ul
+    | `Table
+    | `Style
+    | `Ol
+    | `Menu
+    | `Hr
+    | `Form
+    | `Figure
+    | `Dl
+    | (flow5_without_noscript, flow5, flow5_without_media)
+	transparent_without_interactive
+  ]
+
 type flow5_without_header_footer =
   [
     | heading
@@ -1015,9 +1039,36 @@ type flow5_without_header_footer =
     | `Figure
     | `Dl
     | `Details
-    | (flow5_without_interactive, flow5_without_noscript, flow5,
-        flow5_without_media) transparent
+    | (flow5_without_interactive_header_footer,
+       flow5_without_noscript, flow5,
+       flow5_without_media) transparent
   ]
+
+type +'a between_flow5_and_flow5_without_interactive_header_footer =
+  [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
+      `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl `Em
+      `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img
+      `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
+      `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
+      `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
+      `Textarea `Time `Ul `Var `Video `Wbr] as 'a
+
+type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
+  [< core_flow5
+  | ([< flow5_without_interactive ] as 'b,
+     flow5_without_noscript, 'a,
+     flow5_without_media)
+      transparent
+    > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B
+      `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
+      `Datalist `Del `Details `Dfn `Div `Dl `Em `Embed `Fieldset
+      `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
+      `Img `Img_interactive `Input `Ins `Kbd `Keygen `Label `Map
+      `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
+      `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
+      `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
+      `Table `Textarea `Time `Ul `Var `Video `Video_interactive
+      `Wbr ] as 'a
 
 type flow5_without_form =
   [
