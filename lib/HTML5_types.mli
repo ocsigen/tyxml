@@ -320,6 +320,7 @@ type core =
     | `Tabindex
     | `Title
     | `User_data
+    | `XMLns
   ]
 
 (** {2 Events} *)
