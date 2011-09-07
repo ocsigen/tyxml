@@ -1,3 +1,9 @@
+===== 2.0-rc2 =====
+
+ * Allow the namespace attribute in HTML5 elements.
+ * Always print polyglot XML. ( document correct as HTML5 and as XML )
+ * Add new polymorphic types to HTML5 ( between_phrasing_and_phrasing_without_interactive, ... )
+
 ===== 2.0-rc1 =====
 
  * Some fixes to match the latest HTML5 working draft (05/08/2011).
