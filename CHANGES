@@ -1,4 +1,4 @@
-===== 2.0-rc2 =====
+===== 2.0 =====
 
  * Allow the namespace attribute in HTML5 elements.
  * Always print polyglot XML. ( document correct as HTML5 and as XML )
