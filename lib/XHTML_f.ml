@@ -818,6 +818,7 @@ module Make_01_00_compat(XML : XML_sigs.T) = struct
 
   module Info = struct
     let content_type = "text/html"
+    let alternative_content_types = ["application/xhtml+xml"]
     let version = "XHTML 1.0"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml1/"
     let doctype =
@@ -836,6 +837,7 @@ module Make_01_01_compat(XML : XML_sigs.T) = struct
 
   module Info = struct
     let content_type = "text/html"
+    let alternative_content_types = ["application/xhtml+xml"]
     let version = "XHTML 1.1"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml11/"
     let doctype =

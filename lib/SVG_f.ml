@@ -115,6 +115,7 @@ module Make(XML : XML_sigs.T) = struct
 
   module Info = struct
     let content_type = "image/svg+xml"
+    let alternative_content_types = []
     let emptytags = []
     let version = "SVG 1.1"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/svg11/"
