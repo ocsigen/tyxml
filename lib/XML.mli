@@ -66,7 +66,6 @@ val entity : string -> elt
 
 val leaf : ?a:(attrib list) -> ename -> elt
 val node : ?a:(attrib list) -> ename -> elt list -> elt
-(** NB: [Leaf ("foo", []) -> "<foo />"], but [Node ("foo", [], []) -> "<foo></foo>"] *)
 
 val cdata : string -> elt
 val cdata_script : string -> elt

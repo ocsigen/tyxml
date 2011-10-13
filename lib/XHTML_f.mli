@@ -22,9 +22,4 @@
 module Make_01_00(X : XML_sigs.T) : XHTML_sigs.T_01_00 with module XML := X
 module Make_01_01(X : XML_sigs.T) : XHTML_sigs.T_01_01 with module XML := X
 
-module Make_01_00_compat(XML : XML_sigs.T)
-  : XHTML_sigs.T_01_00 with type 'a elt = 'a Make_01_00(XML).elt and module XML := XML
-module Make_01_01_compat(XML : XML_sigs.T)
-  : XHTML_sigs.T_01_01 with type 'a elt = 'a Make_01_01(XML).elt and module XML := XML
-
 module Make(XML : XML_sigs.T) : XHTML_sigs.T with module XML := XML

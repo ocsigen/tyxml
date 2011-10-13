@@ -39,22 +39,7 @@ module M_01_00 = struct
 
 end
 
-module M_01_00_compat = struct
-
-  module Info = XHTML.M_01_00_compat.Info
-
-  type doc = {{ XHTML_types_duce.html }}
-  type elt = {{ XHTML_types_duce.block
-	      | XHTML_types_duce.form
-	      | XHTML_types_duce.misc }}
-
-  let of_doc (x: doc) : Ocamlduce.Load.anyxml = x
-  let of_elt (x: elt) : Ocamlduce.Load.anyxml = x
-
-end
-
-module M = M_01_00_compat
-
 module P_01_00 = XML_print_duce.MakeTyped(M_01_00)
-module P_01_00_compat = XML_print_duce.MakeTyped(M_01_00_compat)
-module P = P_01_00_compat
+
+module M = M_01_00
+module P = P_01_00

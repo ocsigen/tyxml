@@ -39,7 +39,7 @@ module Make(I: sig val emptytags : string list end) = struct
 	 ~start_elem:(fun tag attrs -> open_markup tag attrs; output ">")
 	 ~end_elem:(fun tag -> output ("</" ^ tag ^ ">"))
 	 ~empty_elem:(fun tag attrs ->
-	   if List.mem tag I.emptytags then
+	   if I.emptytags = [] || List.mem tag I.emptytags then
 	     (open_markup tag attrs; output " />")
 	   else
 	     (open_markup tag attrs; output ("></" ^ tag ^ ">")))

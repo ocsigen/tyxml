@@ -119,6 +119,7 @@ module Make(XML : XML_sigs.T) = struct
     let emptytags = []
     let version = "SVG 1.1"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/svg11/"
+    let namespace = "http://www.w3.org/2000/svg"
     let doctype =
       XML_print.compose_doctype	"svg"
 	["-//W3C//DTD SVG 1.1//EN";

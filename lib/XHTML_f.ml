@@ -155,7 +155,7 @@ module Version(XML : XML_sigs.T) = struct
 
   let a_class = space_sep_attrib "class"
       (* class is different on client side.
-         We put the value in xML.ml 
+         We put the value in xML.ml
          because this file has a different implementation client side.
        *)
   let a_id = string_attrib "id"
@@ -763,21 +763,31 @@ module Version(XML : XML_sigs.T) = struct
 
 end
 
+(* The following tags are written <br />, etc.
+   The other empty tags are written <p></p> for html compatibility.
+   See guidelines here:
+   http://www.w3.org/TR/xhtml1/#guidelines
+ *)
+let emptytags =
+  [ "hr"; "br"; "img"; "meta"; "link"; "input"; "col"; "area";
+    "param"; "base"; "basefont"; "isindex"; "frame" ]
+
 module Make_01_00(XML : XML_sigs.T) = struct
 
   module M = Version(XML)
   include M
 
   module Info = struct
-    let content_type = "text/xml"
+    let content_type = "text/html"
+    let alternative_content_types = ["application/xhtml+xml"]
     let version = "XHTML 1.0"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml1/"
+    let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
-      XML_print.compose_decl () ^
       XML_print.compose_doctype	"html"
 	["-//W3C//DTD XHTML 1.0 Strict//EN";
 	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"]
-    let emptytags = []
+    let emptytags = emptytags
   end
 
 end
@@ -788,65 +798,19 @@ module Make_01_01(XML : XML_sigs.T) = struct
   include M
 
   module Info = struct
-    let content_type = "text/xml"
+    let content_type = "text/html"
+    let alternative_content_types = ["application/xhtml+xml"]
     let version = "XHTML 1.1"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml11/"
+    let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
       XML_print.compose_decl () ^
       XML_print.compose_doctype "html"
 	["-//W3C//DTD XHTML 1.1//EN";
 	 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"]
-    let emptytags = []
-  end
-
-end
-
-(* The following tags are written <br />, etc.
-   The other empty tags are written <p></p> for html compatibility.
-   See guidelines here:
-   http://www.w3.org/TR/xhtml1/#guidelines
- *)
-let emptytags =
-  [ "hr"; "br"; "img"; "meta"; "link"; "input"; "col"; "area";
-    "param"; "base"; "basefont"; "isindex"; "frame" ]
-
-
-module Make_01_00_compat(XML : XML_sigs.T) = struct
-
-  module M = Version(XML)
-  include M
-
-  module Info = struct
-    let content_type = "text/html"
-    let alternative_content_types = ["application/xhtml+xml"]
-    let version = "XHTML 1.0"
-    let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml1/"
-    let doctype =
-      XML_print.compose_doctype "html"
-	["-//W3C//DTD XHTML 1.0//EN";
-	 "http://www.w3.org/TR/xhtml11/DTD/xhtml1.dtd"]
     let emptytags = emptytags
   end
 
 end
 
-module Make_01_01_compat(XML : XML_sigs.T) = struct
-
-  module M = Version(XML)
-  include M
-
-  module Info = struct
-    let content_type = "text/html"
-    let alternative_content_types = ["application/xhtml+xml"]
-    let version = "XHTML 1.1"
-    let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml11/"
-    let doctype =
-      XML_print.compose_doctype "html"
-	["-//W3C//DTD XHTML 1.1//EN";
-	 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"]
-    let emptytags = emptytags
-  end
-
-end
-
-module Make = Make_01_01_compat
+module Make = Make_01_01

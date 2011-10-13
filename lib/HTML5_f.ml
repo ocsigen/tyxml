@@ -39,6 +39,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
     let alternative_content_types = ["application/xhtml+xml"]
     let version = "HTML5-draft"
     let standard = Uri.uri_of_string "http://www.w3.org/TR/html5/"
+    let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
       XML_print.compose_doctype "html" []
     let emptytags =

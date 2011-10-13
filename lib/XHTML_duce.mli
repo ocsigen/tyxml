@@ -29,4 +29,3 @@ module M : T
 
 module P : XML_sigs_duce.TypedPrinter with module TypedXML := M
 module P_01_00 : XML_sigs_duce.TypedPrinter with module TypedXML := M
-module P_01_00_compat : XML_sigs_duce.TypedPrinter with module TypedXML := M
