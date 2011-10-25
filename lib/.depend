@@ -1,34 +1,31 @@
 HTML5_f.cmi: XML_sigs.cmi SVG_sigs.cmi HTML5_sigs.cmi
 HTML5.cmi: XML_sigs.cmi XML.cmi SVG.cmi HTML5_sigs.cmi
-HTML5_sigs.cmi: XML_sigs.cmi uri.cmi SVG_sigs.cmi HTML5_types.cmi
-HTML5_types.cmi: uri.cmi SVG_types.cmi
+HTML5_sigs.cmi: XML_sigs.cmi SVG_sigs.cmi HTML5_types.cmi
+HTML5_types.cmi: SVG_types.cmi
 SVG_f.cmi: XML_sigs.cmi SVG_sigs.cmi
 SVG.cmi: XML_sigs.cmi XML.cmi SVG_sigs.cmi
 SVG_sigs.cmi: XML_sigs.cmi SVG_types.cmi
 SVG_types.cmi:
-uri.cmi:
 XHTML_f.cmi: XML_sigs.cmi XHTML_sigs.cmi
 XHTML.cmi: XML_sigs.cmi XML.cmi XHTML_sigs.cmi
-XHTML_sigs.cmi: XML_sigs.cmi XHTML_types.cmi uri.cmi
-XHTML_types.cmi: uri.cmi
+XHTML_sigs.cmi: XML_sigs.cmi XHTML_types.cmi
+XHTML_types.cmi:
 XML_iter.cmi: XML_sigs.cmi
 XML.cmi:
 XML_print.cmi: XML_sigs.cmi
-XML_sigs.cmi: uri.cmi
-HTML5_f.cmo: XML_sigs.cmi XML_print.cmi uri.cmi SVG_sigs.cmi HTML5_types.cmi \
+XML_sigs.cmi:
+HTML5_f.cmo: XML_sigs.cmi XML_print.cmi SVG_sigs.cmi HTML5_types.cmi \
     HTML5_f.cmi
-HTML5_f.cmx: XML_sigs.cmi XML_print.cmx uri.cmx SVG_sigs.cmi HTML5_types.cmi \
+HTML5_f.cmx: XML_sigs.cmi XML_print.cmx SVG_sigs.cmi HTML5_types.cmi \
     HTML5_f.cmi
 HTML5.cmo: XML_print.cmi XML.cmi SVG.cmi HTML5_f.cmi HTML5.cmi
 HTML5.cmx: XML_print.cmx XML.cmx SVG.cmx HTML5_f.cmx HTML5.cmi
-SVG_f.cmo: XML_sigs.cmi XML_print.cmi uri.cmi SVG_types.cmi SVG_f.cmi
-SVG_f.cmx: XML_sigs.cmi XML_print.cmx uri.cmx SVG_types.cmi SVG_f.cmi
+SVG_f.cmo: XML_sigs.cmi XML_print.cmi SVG_types.cmi SVG_f.cmi
+SVG_f.cmx: XML_sigs.cmi XML_print.cmx SVG_types.cmi SVG_f.cmi
 SVG.cmo: XML_print.cmi XML.cmi SVG_f.cmi SVG.cmi
 SVG.cmx: XML_print.cmx XML.cmx SVG_f.cmx SVG.cmi
-uri.cmo: uri.cmi
-uri.cmx: uri.cmi
-XHTML_f.cmo: XML_sigs.cmi XML_print.cmi XHTML_types.cmi uri.cmi XHTML_f.cmi
-XHTML_f.cmx: XML_sigs.cmi XML_print.cmx XHTML_types.cmi uri.cmx XHTML_f.cmi
+XHTML_f.cmo: XML_sigs.cmi XML_print.cmi XHTML_types.cmi XHTML_f.cmi
+XHTML_f.cmx: XML_sigs.cmi XML_print.cmx XHTML_types.cmi XHTML_f.cmi
 XHTML.cmo: XML_print.cmi XML.cmi XHTML_f.cmi XHTML.cmi
 XHTML.cmx: XML_print.cmx XML.cmx XHTML_f.cmx XHTML.cmi
 XML_iter.cmo: XML_sigs.cmi XML_iter.cmi

@@ -38,7 +38,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
     let content_type = "text/html"
     let alternative_content_types = ["application/xhtml+xml"]
     let version = "HTML5-draft"
-    let standard = Uri.uri_of_string "http://www.w3.org/TR/html5/"
+    let standard = "http://www.w3.org/TR/html5/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
       XML_print.compose_doctype "html" []
@@ -47,7 +47,6 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
 
-  include Uri
   type 'a attrib = XML.attrib
 
   let to_xmlattribs x = x
@@ -60,7 +59,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   let string_attrib = XML.string_attrib
 
-  let uri_attrib a s = XML.string_attrib a (string_of_uri s)
+  let uri_attrib a s = XML.uri_attrib a s
 
   let space_sep_attrib = XML.space_sep_attrib
 

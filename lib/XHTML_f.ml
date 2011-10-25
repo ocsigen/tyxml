@@ -32,7 +32,7 @@ open XHTML_types
 module Version(XML : XML_sigs.T) = struct
 
   module XML = XML
-  include Uri
+
   (* Directly from http://www.w3.org/TR/xhtml-modularization/abstract_modules.html *)
 
   type core = [ `Class | `Id | `Title | `XML_space ]
@@ -52,7 +52,8 @@ module Version(XML : XML_sigs.T) = struct
 
   let int_attrib = XML.int_attrib
   let string_attrib = XML.string_attrib
-  let uri_attrib a b = XML.string_attrib a (string_of_uri b)
+  let uri_attrib = XML.uri_attrib
+  let uris_attrib = XML.uris_attrib
   let space_sep_attrib = XML.space_sep_attrib
   let comma_sep_attrib = XML.comma_sep_attrib
   let event_attrib = XML.event_attrib
@@ -336,7 +337,7 @@ module Version(XML : XML_sigs.T) = struct
   let a_codebase = uri_attrib "codebase"
   let a_data = uri_attrib "data"
   let a_codetype = string_attrib "codetype"
-  let a_archive = uri_attrib "archive"
+  let a_archive = uris_attrib "archive"
   let a_standby = string_attrib "standby"
 
   let a_fs_rows mls = multilengths_attrib "rows" mls
@@ -781,7 +782,7 @@ module Make_01_00(XML : XML_sigs.T) = struct
     let content_type = "text/html"
     let alternative_content_types = ["application/xhtml+xml"]
     let version = "XHTML 1.0"
-    let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml1/"
+    let standard = "http://www.w3.org/TR/xhtml1/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
       XML_print.compose_doctype	"html"
@@ -801,7 +802,7 @@ module Make_01_01(XML : XML_sigs.T) = struct
     let content_type = "text/html"
     let alternative_content_types = ["application/xhtml+xml"]
     let version = "XHTML 1.1"
-    let standard = Uri.uri_of_string "http://www.w3.org/TR/xhtml11/"
+    let standard = "http://www.w3.org/TR/xhtml11/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
       XML_print.compose_decl () ^

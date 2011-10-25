@@ -50,9 +50,6 @@ module type T_01_01 = sig
 
       The type defining group of html elements are in {!XHTML_types} *)
 
-  (** An abstract type for URI. *)
-  type uri = Uri.uri
-
   (** {1 Common Attributes} *)
 
   type +'a attrib
@@ -130,10 +127,10 @@ module type T_01_01 = sig
   (** {1 Modules, Element Sets and Attributes } *)
 
 
-  val a_profile : uri -> [>`Profile] attrib
+  val a_profile : XML.uri -> [>`Profile] attrib
   val a_version : cdata -> [>`Version] attrib
   val a_xmlns : [< `W3_org_1999_xhtml ] -> [>`XMLns] attrib
-  val a_cite : uri -> [>`Cite] attrib
+  val a_cite : XML.uri -> [>`Cite] attrib
   val a_xml_space : [< `Preserve ] -> [>`XML_space] attrib
 
   (** This attribute assigns an access key to an element. An
@@ -154,7 +151,7 @@ module type T_01_01 = sig
       thus defining a link between the current element (the source
       anchor) and the destination anchor defined by this
       attribute. *)
-  val a_href : uri -> [>`Href] attrib
+  val a_href : XML.uri -> [>`Href] attrib
 
   (** This attribute specifies the base language of the resource
       designated by href and may only be used when href is
@@ -200,7 +197,7 @@ module type T_01_01 = sig
 
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
-  val a_action : uri -> [>`Action] attrib
+  val a_action : XML.uri -> [>`Action] attrib
 
   (** When the [type] attribute has the value ["radio"] or
       ["checkbox"], this boolean attribute specifies that the
@@ -238,7 +235,7 @@ module type T_01_01 = sig
   val a_selected : [< `Selected ] -> [>`Selected] attrib
 
   val a_size : number -> [>`Size] attrib
-  val a_src : uri -> [>`Src] attrib
+  val a_src : XML.uri -> [>`Src] attrib
   val a_input_type :
     [< `Text | `Password | `Checkbox | `Radio | `Submit | `Reset | `Hidden | `File | `Image | `Button ] ->
     [>`Input_Type] attrib
@@ -283,7 +280,7 @@ module type T_01_01 = sig
 
   val a_alt : text -> [>`Alt] attrib
   val a_height : length -> [>`Height] attrib
-  val a_longdesc : uri -> [>`Longdesc] attrib
+  val a_longdesc : XML.uri -> [>`Longdesc] attrib
   val a_width : length -> [>`Width] attrib
 
   (** {2 Attributes for client-side image map} *)
@@ -301,11 +298,11 @@ module type T_01_01 = sig
   (** {2 Attributes for Object} *)
 
   val a_declare : [< `Declare ] -> [> `Declare ] attrib
-  val a_classid : uri -> [> `Classid ] attrib
-  val a_codebase : uri -> [> `Codebase ] attrib
-  val a_data : uri -> [> `Data ] attrib
+  val a_classid : XML.uri -> [> `Classid ] attrib
+  val a_codebase : XML.uri -> [> `Codebase ] attrib
+  val a_data : XML.uri -> [> `Data ] attrib
   val a_codetype : contenttype -> [>`Codetype] attrib
-  val a_archive : uris -> [>`Archive] attrib
+  val a_archive : XML.uri list -> [>`Archive] attrib
   val a_standby : text -> [>`Standby] attrib
 
   (** {2 Attributes for Frames } *)
@@ -450,7 +447,7 @@ module type T_01_01 = sig
 
   module Basic_Forms : sig
 
-    val form : action:uri  ->([< form_attrib] , [< form_content], [> form ]) plus
+    val form : action:XML.uri  ->([< form_attrib] , [< form_content], [> form ]) plus
     val input : ([< input_attrib ], [> input]) nullary
     val label : ([< label_attrib] , [< label_content], [> label ]) star
     val option : ([< option_attrib] , [< option_content], [> selectoption ]) unary
@@ -461,7 +458,7 @@ module type T_01_01 = sig
   (** {3 Forms} *)
 
   (** Generic forms. WARNING: If you find a bug or if something is missing please send a bug report to the Ocsigen project! -- VB *)
-  val form : action:uri  ->([< form_attrib] , [< form_content], [> form ]) plus
+  val form : action:XML.uri  ->([< form_attrib] , [< form_content], [> form ]) plus
   val input : ([< input_attrib ], [> input]) nullary
   val label : ([< label_attrib] , [< label_content], [> label ]) star
   val optgroup : label:text  ->([< optgroup_attrib] , [< optgroup_content], [> optgroup ]) plus
@@ -513,7 +510,7 @@ module type T_01_01 = sig
 
   (** {2 Image} *)
 
-  val img : src:uri  -> alt:text  ->([< img_attrib ], [> img]) nullary
+  val img : src:XML.uri  -> alt:text  ->([< img_attrib ], [> img]) nullary
 
   (** {2 Object} VB *)
 
@@ -525,7 +522,7 @@ module type T_01_01 = sig
 
   val frameset : ?noframes:([< `Noframes ] elt)  ->([< frameset_attrib] , [< frameset_content], [> frameset ]) plus
 
-  val frame : src:uri  ->([< frame_attrib ], [> frame]) nullary
+  val frame : src:XML.uri  ->([< frame_attrib ], [> frame]) nullary
 
   val noframes : ([< noframes_attrib], [< noframes_content], [> noframes ]) unary
 
@@ -548,7 +545,7 @@ module type T_01_01 = sig
 
   (* in the DTD of xHTML1.1 xmlns attribute
      in the doc of xHTML1.1 id attribute *)
-  val base : href:uri  ->([< base_attrib ], [> base]) nullary
+  val base : href:XML.uri  ->([< base_attrib ], [> base]) nullary
 
   (** {2 Ruby} *)
 

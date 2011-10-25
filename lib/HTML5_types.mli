@@ -295,11 +295,6 @@ type script_ = string
 type text = string
 (** Arbitrary textual data, likely meant to be human-readable. *)
 
- type uri = Uri.uri
- type uris = Uri.uris
-(** A space-separated list of Uniform Resource Identifiers, as per RFC3986.
-        @see <http://tools.ietf.org/html/rfc3986> RFC3986 *)
-
 (** {2 Core} *)
 
 type i18n = [ | `XML_lang ]

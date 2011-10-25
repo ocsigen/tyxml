@@ -1,5 +1,6 @@
 ===== dev =====
 
+ * Truly allow to abstract the XMl.uri representation
  * Always print XHTML in a format that is "Html compatible":
  ** Add missing namespace in <html>.
 

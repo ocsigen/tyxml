@@ -69,10 +69,10 @@ module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O 
     | Comma -> ", "
 
   let attrib_value_to_string encode a = match acontent a with
-  | AFloat (_, f) -> Printf.sprintf "\"%e\"" f
-  | AInt (_, i) -> Printf.sprintf "\"%d\"" i
-  | AStr (_, s) -> Printf.sprintf "\"%s\"" (encode s)
-  | AStrL (sep, _, slist) ->
+  | AFloat f -> Printf.sprintf "\"%e\"" f
+  | AInt i -> Printf.sprintf "\"%d\"" i
+  | AStr s -> Printf.sprintf "\"%s\"" (encode s)
+  | AStrL (sep, slist) ->
       Printf.sprintf "\"%s\""
         (encode (String.concat (separator_to_string sep) slist))
 

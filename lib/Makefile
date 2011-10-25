@@ -1,8 +1,7 @@
 include ../Makefile.config
 -include ../Makefile.local
 
-FILES_F := uri.ml        \
-	   XML_iter.ml   \
+FILES_F := XML_iter.ml   \
 	   XML_print.ml  \
 	   XHTML_f.ml    \
 	   SVG_f.ml      \

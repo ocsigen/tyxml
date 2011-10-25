@@ -45,7 +45,7 @@ module Make(XML : XML_sigs.Iterable) = struct
 
   let rec map_float_attrib is_attrib f l =
     let aux head = match acontent head with
-    | AFloat (name, value) when is_attrib name -> float_attrib name (f value)
+    | AFloat value when is_attrib (aname head) -> float_attrib (aname head) (f value)
     | _ -> head in
     List.map aux l
 
@@ -62,7 +62,7 @@ module Make(XML : XML_sigs.Iterable) = struct
 
   let rec map_int_attrib is_attrib f l =
     let aux head = match acontent head with
-    | AInt (name, value) when is_attrib name -> int_attrib name (f value)
+    | AInt value when is_attrib (aname head) -> int_attrib (aname head) (f value)
     | _ -> head in
     List.map aux l
 
@@ -74,7 +74,7 @@ module Make(XML : XML_sigs.Iterable) = struct
 
   let rec map_string_attrib is_attrib f l =
     let aux head = match acontent head with
-    | AStr (name, value) when is_attrib name -> string_attrib name (f value)
+    | AStr value when is_attrib (aname head) -> string_attrib (aname head) (f value)
     | _ -> head in
     List.map aux l
 
@@ -82,7 +82,7 @@ module Make(XML : XML_sigs.Iterable) = struct
     | [] -> [space_sep_attrib name [value]]
     | head :: tail ->
 	match acontent head with
-	| AStrL (Space, name', values') when name' = name ->
+	| AStrL (Space, values') when aname head = name ->
 	    space_sep_attrib name (value :: values') :: tail
 	| _ when aname head = name ->
 	    space_sep_attrib name [value] :: tail
@@ -92,7 +92,7 @@ module Make(XML : XML_sigs.Iterable) = struct
     | [] -> [comma_sep_attrib name [value]]
     | head :: tail ->
 	match acontent head with
-	| AStrL (Comma, name', values') when name' = name ->
+	| AStrL (Comma, values') when aname head = name ->
 	    comma_sep_attrib name (value :: values') :: tail
 	| _ when aname head = name ->
 	    comma_sep_attrib name [value] :: tail
@@ -102,22 +102,22 @@ module Make(XML : XML_sigs.Iterable) = struct
     | [] -> []
     | head :: tail ->
 	match acontent head with
-	| AStrL (sep, name, values) when is_attrib name ->
+	| AStrL (sep, values) when is_attrib (aname head) ->
 	    begin match List.filter (fun v -> not (is_value v)) values with
 	    | [] -> tail
 	    | values' ->
 		match sep with
-		| Space -> space_sep_attrib name values' :: tail
-		| Comma -> comma_sep_attrib name values' :: tail
+		| Space -> space_sep_attrib (aname head) values' :: tail
+		| Comma -> comma_sep_attrib (aname head) values' :: tail
 	    end
 	| _ -> head :: rm_attrib_from_list is_attrib is_value tail
 
   let rec map_string_attrib_in_list is_attrib f l =
     let aux head = match acontent head with
-    | AStrL (sep, name, values) when is_attrib name ->
+    | AStrL (sep, values) when is_attrib (aname head) ->
 	begin match sep with
-	| Comma -> comma_sep_attrib name (List.map f values)
-	| Space -> space_sep_attrib name (List.map f values)
+	| Comma -> comma_sep_attrib (aname head) (List.map f values)
+	| Space -> space_sep_attrib (aname head) (List.map f values)
 	end
     | _ -> head in
     List.map aux l

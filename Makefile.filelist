@@ -1,6 +1,4 @@
-INTF := lib/uri.cmi \
-        \
-        lib/XML_sigs.cmi \
+INTF := lib/XML_sigs.cmi \
         lib/XML_print.cmi \
         lib/XML_iter.cmi \
         lib/XML.cmi \

@@ -303,12 +303,6 @@ type events =
 
 type common = [ | core | i18n | events | `Style_Attr ]
 
-type uri = Uri.uri
-type uris = Uri.uris
-(** A space-separated list of Uniform Resource Identifiers, as per RFC3986.
-    @see <http://tools.ietf.org/html/rfc3986> RFC3986 *)
-
-
 module HYPERTEXT :
 sig
   type inline = [ | `A ]

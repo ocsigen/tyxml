@@ -21,6 +21,10 @@
 
 (** Basic functions for construction and manipulation of XML tree. *)
 
+type uri = string
+val string_of_uri : uri -> string
+val uri_of_string : string -> uri
+
 type aname = string
 type separator = Space | Comma
 type event = string
@@ -29,10 +33,10 @@ type attrib
 val aname : attrib -> aname
 
 type acontent = private
-  | AFloat of aname * float
-  | AInt of aname * int
-  | AStr of aname * string
-  | AStrL of separator * aname * string list
+  | AFloat of float
+  | AInt of int
+  | AStr of string
+  | AStrL of separator * string list
 val acontent : attrib -> acontent
 
 val float_attrib : aname -> float -> attrib
@@ -41,6 +45,9 @@ val string_attrib : aname -> string -> attrib
 val space_sep_attrib : aname -> string list -> attrib
 val comma_sep_attrib : aname -> string list -> attrib
 val event_attrib : aname -> event -> attrib
+
+val uri_attrib : aname -> uri -> attrib
+val uris_attrib : aname -> uri list -> attrib
 
 type ename = string
 

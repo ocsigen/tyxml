@@ -25,12 +25,6 @@ module type T = sig
   module SVG : SVG_sigs.T with module XML := XML
   module Info : XML_sigs.Info
 
-  (** Uri — Alias for the module Uri *)
-  type uri = Uri.uri
-  type uris = Uri.uris
-  val string_of_uri: uri -> string
-  val uri_of_string: string -> uri
-
   (** {1 Common Attributes} *)
 
   type +'a attrib
@@ -68,7 +62,7 @@ module type T = sig
 
   val a_form : idref -> [> | `Form] attrib
 
-  val a_formaction : uri -> [> | `Formaction] attrib
+  val a_formaction : XML.uri -> [> | `Formaction] attrib
 
   val a_formenctype : contenttype -> [> | `Formenctype] attrib
 
@@ -84,7 +78,7 @@ module type T = sig
 
   val a_high : float_number -> [> | `High] attrib
 
-  val a_icon : uri -> [> | `Icon] attrib
+  val a_icon : XML.uri -> [> | `Icon] attrib
 
   val a_ismap : [< | `Ismap] -> [> | `Ismap] attrib
 
@@ -114,7 +108,7 @@ module type T = sig
 
   val a_placeholder : text -> [> | `Placeholder] attrib
 
-  val a_poster : uri -> [> | `Poster] attrib
+  val a_poster : XML.uri -> [> | `Poster] attrib
 
   val a_preload : [< | `None | `Metadata | `Audio] -> [> | `Preload] attrib
 
@@ -328,9 +322,9 @@ module type T = sig
 
   val a_xmlns : [< | `W3_org_1999_xhtml] -> [> | `XMLns] attrib
 
-  val a_manifest : uri -> [> | `Manifest] attrib
+  val a_manifest : XML.uri -> [> | `Manifest] attrib
 
-  val a_cite : uri -> [> | `Cite] attrib
+  val a_cite : XML.uri -> [> | `Cite] attrib
 
   val a_xml_space : [< | `Preserve] -> [> | `XML_space] attrib
 
@@ -349,7 +343,7 @@ module type T = sig
 
   val a_accept : contenttypes -> [> | `Accept] attrib
 
-  val a_href : uri -> [> | `Href] attrib
+  val a_href : XML.uri -> [> | `Href] attrib
   (** This attribute specifies the location of a Web resource, thus
       defining a link between the current element (the source anchor)
       and the destination anchor defined by this attribute. *)
@@ -387,7 +381,7 @@ module type T = sig
 
   val a_datetime : cdata -> [> | `Datetime] attrib
 
-  val a_action : uri -> [> | `Action] attrib
+  val a_action : XML.uri -> [> | `Action] attrib
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
 
@@ -435,7 +429,7 @@ module type T = sig
 
   val a_size : number -> [> | `Size] attrib
 
-  val a_src : uri -> [> | `Src] attrib
+  val a_src : XML.uri -> [> | `Src] attrib
 
   val a_input_type : [<
 		     | `Url
@@ -532,7 +526,7 @@ module type T = sig
 
   val a_usemap : idref -> [> | `Usemap] attrib
 
-  val a_data : uri -> [> | `Data] attrib
+  val a_data : XML.uri -> [> | `Data] attrib
 
   val a_codetype : contenttype -> [> | `Codetype] attrib
 
@@ -829,7 +823,7 @@ module type T = sig
   (** {2 Embedded} *)
 
   val img :
-    src: uri ->
+    src: XML.uri ->
     alt: text ->
     ([< | common | `Height | `Ismap | `Width], [> `Img ])
       nullary
@@ -885,12 +879,12 @@ module type T = sig
   (*   element descendants.             *)
   (**************************************)
   val audio :
-    ?srcs: (uri * (([< | `Source] elt) list)) ->
+    ?srcs: (XML.uri * (([< | `Source] elt) list)) ->
     ([< | common | `Preload | `Autoplay | `Loop | `Controls], 'a,
      [> | `Audio of 'a ]) star
 
   val video :
-    ?srcs: (uri * (([< | `Source] elt) list)) ->
+    ?srcs: (XML.uri * (([< | `Source] elt) list)) ->
     ([<
      | common
      | `Poster
@@ -1185,7 +1179,7 @@ module type T = sig
 
   val link :
     rel: linktypes ->
-    href: uri ->
+    href: XML.uri ->
     ([<
      | common
      | `Hreflang

@@ -20,6 +20,10 @@
 
 module type T = sig
 
+  type uri
+  val string_of_uri : uri -> string
+  val uri_of_string : string -> uri
+
   type aname = string
   type event
 
@@ -31,6 +35,8 @@ module type T = sig
   val space_sep_attrib : aname -> string list -> attrib
   val comma_sep_attrib : aname -> string list -> attrib
   val event_attrib : aname -> event -> attrib
+  val uri_attrib : aname -> uri -> attrib
+  val uris_attrib : aname -> uri list -> attrib
 
   type elt
   type ename = string
@@ -60,10 +66,10 @@ module type Iterable = sig
   val aname : attrib -> aname
 
   type acontent = private
-    | AFloat of aname * float
-    | AInt of aname * int
-    | AStr of aname * string
-    | AStrL of separator * aname * string list
+    | AFloat of float
+    | AInt of int
+    | AStr of string
+    | AStrL of separator * string list
   val acontent : attrib -> acontent
 
   type econtent = private
@@ -82,7 +88,7 @@ module type Info = sig
   val content_type: string
   val alternative_content_types: string list
   val version: string
-  val standard: Uri.uri
+  val standard: string
   val namespace: string
   val doctype: string
   val emptytags: string list

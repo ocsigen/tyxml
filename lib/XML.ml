@@ -23,28 +23,32 @@
 
 module M = struct
 
+  type uri = string
+  let uri_of_string s = s
+  let string_of_uri s = s
+
   type separator = Space | Comma
 
   type aname = string
   type acontent =
-    | AFloat of aname * float (* Cecile *)
-    | AInt of aname * int
-    | AStr of aname * string
-    | AStrL of separator * aname * string list
-  type attrib = acontent
+    | AFloat of float
+    | AInt of int
+    | AStr of string
+    | AStrL of separator * string list
+  type attrib = aname * acontent
   type event = string
 
-  let acontent a = a
-  let aname a = match a with
-    | (AFloat (name, _) | AInt (name, _) | AStr (name, _) | AStrL (_, name, _)) -> name
+  let acontent (_, a) = a
+  let aname (name, _) = name
 
-  let float_attrib name value = AFloat (name, value) (* Cecile *)
-  let int_attrib name value = AInt (name, value)
-  let string_attrib name value = AStr (name, value)
-  let space_sep_attrib name values = AStrL (Space, name, values)
-  let comma_sep_attrib name values = AStrL (Comma, name, values)
-  let event_attrib name value = AStr (name, value)
-
+  let float_attrib name value = name, AFloat value
+  let int_attrib name value = name, AInt value
+  let string_attrib name value = name, AStr value
+  let space_sep_attrib name values = name, AStrL (Space, values)
+  let comma_sep_attrib name values = name, AStrL (Comma, values)
+  let event_attrib name value = name, AStr value
+  let uri_attrib name value = name, AStr value
+  let uris_attrib name values = name, AStrL (Space, values)
 
 (** Element *)
 

@@ -118,7 +118,7 @@ module Make(XML : XML_sigs.T) = struct
     let alternative_content_types = []
     let emptytags = []
     let version = "SVG 1.1"
-    let standard = Uri.uri_of_string "http://www.w3.org/TR/svg11/"
+    let standard = "http://www.w3.org/TR/svg11/"
     let namespace = "http://www.w3.org/2000/svg"
     let doctype =
       XML_print.compose_doctype	"svg"
@@ -126,7 +126,6 @@ module Make(XML : XML_sigs.T) = struct
 	 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
   end
 
-  include Uri
   open Unit
 
   type 'a attrib = XML.attrib
@@ -178,7 +177,7 @@ module Make(XML : XML_sigs.T) = struct
 
   let string_attrib = XML.string_attrib
 
-  let uri_attrib a s = XML.string_attrib a (string_of_uri s)
+  let uri_attrib = XML.uri_attrib
 
   let user_attrib f name v = XML.string_attrib name (f v)
 
