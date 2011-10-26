@@ -25,6 +25,10 @@ module type T = sig
   module XML : XML_sigs.T
   module Info : XML_sigs.Info
 
+  type uri = XML.uri
+  val string_of_uri : uri -> string
+  val uri_of_string : string -> uri
+
   (** {1 Abstraction over XML's types} *)
 
   type 'a attrib

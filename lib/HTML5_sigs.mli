@@ -25,6 +25,10 @@ module type T = sig
   module SVG : SVG_sigs.T with module XML := XML
   module Info : XML_sigs.Info
 
+  type uri = XML.uri
+  val string_of_uri : uri -> string
+  val uri_of_string : string -> uri
+
   (** {1 Common Attributes} *)
 
   type +'a attrib

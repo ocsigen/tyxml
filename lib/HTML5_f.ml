@@ -47,6 +47,10 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
 
+  type uri = XML.uri
+  let string_of_uri = XML.string_of_uri
+  let uri_of_string = XML.uri_of_string
+
   type 'a attrib = XML.attrib
 
   let to_xmlattribs x = x

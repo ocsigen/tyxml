@@ -128,6 +128,10 @@ module Make(XML : XML_sigs.T) = struct
 
   open Unit
 
+  type uri = XML.uri
+  let string_of_uri = XML.string_of_uri
+  let uri_of_string = XML.uri_of_string
+
   type 'a attrib = XML.attrib
 
   type +'a elt = XML.elt

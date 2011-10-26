@@ -50,6 +50,10 @@ module type T_01_01 = sig
 
       The type defining group of html elements are in {!XHTML_types} *)
 
+  type uri = XML.uri
+  val string_of_uri : uri -> string
+  val uri_of_string : string -> uri
+
   (** {1 Common Attributes} *)
 
   type +'a attrib

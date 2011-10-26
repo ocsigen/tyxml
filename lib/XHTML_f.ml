@@ -33,6 +33,10 @@ module Version(XML : XML_sigs.T) = struct
 
   module XML = XML
 
+  type uri = XML.uri
+  let string_of_uri = XML.string_of_uri
+  let uri_of_string = XML.uri_of_string
+
   (* Directly from http://www.w3.org/TR/xhtml-modularization/abstract_modules.html *)
 
   type core = [ `Class | `Id | `Title | `XML_space ]
