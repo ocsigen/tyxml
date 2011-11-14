@@ -8,13 +8,13 @@ RFILES  := basicTypes.ml \
 
 PREDEP  := xmllexer.ml camllexer.ml
 
-LIB     := -package camlp4
+LIBS    := -package camlp4
 PP      := -pp "camlp4of -loc loc"
 PPR     := -pp "camlp4rf -loc loc"
 
-OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIB)
-OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIB)
-OCAMLDEP := $(OCAMLFIND) ocamldep $(LIB)
+OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIBS)
+OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIBS)
+OCAMLDEP := $(OCAMLFIND) ocamldep $(LIBS)
 
 byte: pa_${LIBNAME}.cmi pa_${LIBNAME}.cmo xmllexer.cmo simplexmlparser.cmo
 opt:: xmllexer.cmx simplexmlparser.cmx
