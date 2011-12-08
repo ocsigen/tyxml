@@ -1,3 +1,5 @@
+_LIBDIR_
+
 description = "XHTML and HTML5 pages typed with polymorphic variants"
 version = "dev"
 requires = "netstring"
@@ -12,6 +14,7 @@ package "functor" (
 )
 
 package "syntax" (
+    _SYNTAXDIR_
     description = "XHTML and HTML5 syntax extension"
     version = "(distributed with _PACKAGENAME_)"
     requires(toploop) = "_PACKAGENAME_"
@@ -20,6 +23,7 @@ package "syntax" (
 )
 
 package "parser" (
+    _SYNTAXDIR_
     description = "Simple XML parser"
     requires = "camlp4.lib"
     version = "(distributed with _PACKAGENAME_)"
