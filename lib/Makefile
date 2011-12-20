@@ -47,10 +47,10 @@ ${LIBNAME}_f.cmxa: $(FILES_F:.ml=.cmx)
 
 ##########
 
-ifeq "${OCAMLDUCE}" "YES"
+ifeq "${OCAMLDUCE}" "yes"
 byte:: ${LIBNAME}_duce.cma
 opt:: ${LIBNAME}_duce.cmxa
-ifeq "${NATDYNLINK}" "YES"
+ifeq "${NATDYNLINK}" "yes"
 opt:: ${LIBNAME}_duce.cmxs
 endif
 endif
@@ -87,7 +87,7 @@ distclean: clean
 depend:
 	$(OCAMLDEP) $(filter-out ${DUCE_INTF}, ${wildcard *.mli}) > .depend
 	$(OCAMLDEP) $(filter-out ${DUCE_FILES}, ${wildcard *.ml}) >> .depend
-ifeq "${OCAMLDUCE}" "YES"
+ifeq "${OCAMLDUCE}" "yes"
 	${OCAMLDUCEDEP} ${DUCE_FILES} ${DUCE_INTF} >> .depend
 endif
 
