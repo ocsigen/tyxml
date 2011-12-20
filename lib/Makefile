@@ -29,7 +29,7 @@ all: byte opt
 
 byte:: ${LIBNAME}.cma ${LIBNAME}_f.cma
 opt:: ${LIBNAME}.cmxa ${LIBNAME}_f.cmxa
-ifeq "${NATDYNLINK}" "YES"
+ifeq "${NATDYNLINK}" "yes"
 opt:: ${LIBNAME}.cmxs ${LIBNAME}_f.cmxs
 endif
 
