@@ -31,12 +31,12 @@ IMPL := lib/${LIBNAME}_f.cma \
 NATIMPL := lib/${LIBNAME}.cmxa \
            lib/${LIBNAME}_f.cmxa \
            syntax/xmllexer.cmx \
-      	   syntax/simplexmlparser.cmx \
+	   syntax/simplexmlparser.cmx \
 
 NATIMPL += $(patsubst %.cmxa,%$(LIBEXT),$(filter %.cmxa,${NATIMPL})) \
            $(patsubst %.cmx,%$(OBJEXT),$(filter %.cmx,${NATIMPL}))   \
 
-ifeq "${NATDYNLINK}" "YES"
+ifeq "${NATDYNLINK}" "yes"
 NATIMPL += $(patsubst %.cmxa,%.cmxs,$(filter %.cmxa,${NATIMPL})) \
            $(patsubst %.cmx,%.cmxs,$(filter %.cmx,${NATIMPL}))
 endif
@@ -55,7 +55,7 @@ DUCE_INTF := lib/XML_sigs_duce.cmi    \
 DUCE_IMPL    := lib/${LIBNAME}_duce.cma
 DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa lib/${LIBNAME}_duce$(LIBEXT)
 
-ifeq "${NATDYNLINK}" "YES"
+ifeq "${NATDYNLINK}" "yes"
 DUCE_NATIMPL += lib/${LIBNAME}_duce.cmxs
 endif
 
@@ -63,7 +63,7 @@ DUCE_NOMLI :=
 
 DUCE_DOC := $(filter-out ${DUCE_NOMLI}, ${DUCE_INTF:.cmi=.mli}) ${DUCE_NOMLI:.mli=.ml}
 
-ifeq "${OCAMLDUCE}" "YES"
+ifeq "${OCAMLDUCE}" "yes"
 INTF    += ${DUCE_INTF}
 IMPL    += ${DUCE_IMPL}
 NATIMPL += ${DUCE_NATIMPL}

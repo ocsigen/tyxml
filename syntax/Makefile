@@ -18,7 +18,7 @@ OCAMLDEP := $(OCAMLFIND) ocamldep $(LIBS)
 
 byte: pa_${LIBNAME}.cmi pa_${LIBNAME}.cmo xmllexer.cmo simplexmlparser.cmo
 opt:: xmllexer.cmx simplexmlparser.cmx
-ifeq "${NATDYNLINK}" "YES"
+ifeq "${NATDYNLINK}" "yes"
 opt:: xmllexer.cmxs simplexmlparser.cmxs
 endif
 
