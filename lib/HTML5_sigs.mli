@@ -184,143 +184,143 @@ module type T = sig
   (** {2 Events} *)
 
   (** Javascript events *)
-  val a_onabort : XML.event -> [> | `OnAbort] attrib
+  val a_onabort : XML.event_handler -> [> | `OnAbort] attrib
 
-  val a_onafterprint : XML.event -> [> | `OnAfterPrint] attrib
+  val a_onafterprint : XML.event_handler -> [> | `OnAfterPrint] attrib
 
-  val a_onbeforeprint : XML.event -> [> | `OnBeforePrint] attrib
+  val a_onbeforeprint : XML.event_handler -> [> | `OnBeforePrint] attrib
 
-  val a_onbeforeunload : XML.event -> [> | `OnBeforeUnload] attrib
+  val a_onbeforeunload : XML.event_handler -> [> | `OnBeforeUnload] attrib
 
-  val a_onblur : XML.event -> [> | `OnBlur] attrib
+  val a_onblur : XML.event_handler -> [> | `OnBlur] attrib
 
-  val a_oncanplay : XML.event -> [> | `OnCanPlay] attrib
+  val a_oncanplay : XML.event_handler -> [> | `OnCanPlay] attrib
 
-  val a_oncanplaythrough : XML.event -> [> | `OnCanPlayThrough] attrib
+  val a_oncanplaythrough : XML.event_handler -> [> | `OnCanPlayThrough] attrib
 
-  val a_onchange : XML.event -> [> | `OnChange] attrib
+  val a_onchange : XML.event_handler -> [> | `OnChange] attrib
 
-  val a_onclick : XML.event -> [> | `OnClick] attrib
+  val a_onclick : XML.event_handler -> [> | `OnClick] attrib
 
-  val a_oncontextmenu : XML.event -> [> | `OnContextMenu] attrib
+  val a_oncontextmenu : XML.event_handler -> [> | `OnContextMenu] attrib
 
-  val a_ondblclick : XML.event -> [> | `OnDblClick] attrib
+  val a_ondblclick : XML.event_handler -> [> | `OnDblClick] attrib
 
-  val a_ondrag : XML.event -> [> | `OnDrag] attrib
+  val a_ondrag : XML.event_handler -> [> | `OnDrag] attrib
 
-  val a_ondragend : XML.event -> [> | `OnDragEnd] attrib
+  val a_ondragend : XML.event_handler -> [> | `OnDragEnd] attrib
 
-  val a_ondragenter : XML.event -> [> | `OnDragEnter] attrib
+  val a_ondragenter : XML.event_handler -> [> | `OnDragEnter] attrib
 
-  val a_ondragleave : XML.event -> [> | `OnDragLeave] attrib
+  val a_ondragleave : XML.event_handler -> [> | `OnDragLeave] attrib
 
-  val a_ondragover : XML.event -> [> | `OnDragOver] attrib
+  val a_ondragover : XML.event_handler -> [> | `OnDragOver] attrib
 
-  val a_ondragstart : XML.event -> [> | `OnDragStart] attrib
+  val a_ondragstart : XML.event_handler -> [> | `OnDragStart] attrib
 
-  val a_ondrop : XML.event -> [> | `OnDrop] attrib
+  val a_ondrop : XML.event_handler -> [> | `OnDrop] attrib
 
-  val a_ondurationchange : XML.event -> [> | `OnDurationChange] attrib
+  val a_ondurationchange : XML.event_handler -> [> | `OnDurationChange] attrib
 
-  val a_onemptied : XML.event -> [> | `OnEmptied] attrib
+  val a_onemptied : XML.event_handler -> [> | `OnEmptied] attrib
 
-  val a_onended : XML.event -> [> | `OnEnded] attrib
+  val a_onended : XML.event_handler -> [> | `OnEnded] attrib
 
-  val a_onerror : XML.event -> [> | `OnError] attrib
+  val a_onerror : XML.event_handler -> [> | `OnError] attrib
 
-  val a_onfocus : XML.event -> [> | `OnFocus] attrib
+  val a_onfocus : XML.event_handler -> [> | `OnFocus] attrib
 
-  val a_onformchange : XML.event -> [> | `OnFormChange] attrib
+  val a_onformchange : XML.event_handler -> [> | `OnFormChange] attrib
 
-  val a_onforminput : XML.event -> [> | `OnFormInput] attrib
+  val a_onforminput : XML.event_handler -> [> | `OnFormInput] attrib
 
-  val a_onhashchange : XML.event -> [> | `OnHashChange] attrib
+  val a_onhashchange : XML.event_handler -> [> | `OnHashChange] attrib
 
-  val a_oninput : XML.event -> [> | `OnInput] attrib
+  val a_oninput : XML.event_handler -> [> | `OnInput] attrib
 
-  val a_oninvalid : XML.event -> [> | `OnInvalid] attrib
+  val a_oninvalid : XML.event_handler -> [> | `OnInvalid] attrib
 
-  val a_onmousedown : XML.event -> [> | `OnMouseDown] attrib
+  val a_onmousedown : XML.event_handler -> [> | `OnMouseDown] attrib
 
-  val a_onmouseup : XML.event -> [> | `OnMouseUp] attrib
+  val a_onmouseup : XML.event_handler -> [> | `OnMouseUp] attrib
 
-  val a_onmouseover : XML.event -> [> | `OnMouseOver] attrib
+  val a_onmouseover : XML.event_handler -> [> | `OnMouseOver] attrib
 
-  val a_onmousemove : XML.event -> [> | `OnMouseMove] attrib
+  val a_onmousemove : XML.event_handler -> [> | `OnMouseMove] attrib
 
-  val a_onmouseout : XML.event -> [> | `OnMouseOut] attrib
+  val a_onmouseout : XML.event_handler -> [> | `OnMouseOut] attrib
 
-  val a_onmousewheel : XML.event -> [> | `OnMouseWheel] attrib
+  val a_onmousewheel : XML.event_handler -> [> | `OnMouseWheel] attrib
 
-  val a_onoffline : XML.event -> [> | `OnOffLine] attrib
+  val a_onoffline : XML.event_handler -> [> | `OnOffLine] attrib
 
-  val a_ononline : XML.event -> [> | `OnOnLine] attrib
+  val a_ononline : XML.event_handler -> [> | `OnOnLine] attrib
 
-  val a_onpause : XML.event -> [> | `OnPause] attrib
+  val a_onpause : XML.event_handler -> [> | `OnPause] attrib
 
-  val a_onplay : XML.event -> [> | `OnPlay] attrib
+  val a_onplay : XML.event_handler -> [> | `OnPlay] attrib
 
-  val a_onplaying : XML.event -> [> | `OnPlaying] attrib
+  val a_onplaying : XML.event_handler -> [> | `OnPlaying] attrib
 
-  val a_onpagehide : XML.event -> [> | `OnPageHide] attrib
+  val a_onpagehide : XML.event_handler -> [> | `OnPageHide] attrib
 
-  val a_onpageshow : XML.event -> [> | `OnPageShow] attrib
+  val a_onpageshow : XML.event_handler -> [> | `OnPageShow] attrib
 
-  val a_onpopstate : XML.event -> [> | `OnPopState] attrib
+  val a_onpopstate : XML.event_handler -> [> | `OnPopState] attrib
 
-  val a_onprogress : XML.event -> [> | `OnProgress] attrib
+  val a_onprogress : XML.event_handler -> [> | `OnProgress] attrib
 
-  val a_onratechange : XML.event -> [> | `OnRateChange] attrib
+  val a_onratechange : XML.event_handler -> [> | `OnRateChange] attrib
 
-  val a_onreadystatechange : XML.event -> [> | `OnReadyStateChange] attrib
+  val a_onreadystatechange : XML.event_handler -> [> | `OnReadyStateChange] attrib
 
-  val a_onredo : XML.event -> [> | `OnRedo] attrib
+  val a_onredo : XML.event_handler -> [> | `OnRedo] attrib
 
-  val a_onresize : XML.event -> [> | `OnResize] attrib
+  val a_onresize : XML.event_handler -> [> | `OnResize] attrib
 
-  val a_onscroll : XML.event -> [> | `OnScroll] attrib
+  val a_onscroll : XML.event_handler -> [> | `OnScroll] attrib
 
-  val a_onseeked : XML.event -> [> | `OnSeeked] attrib
+  val a_onseeked : XML.event_handler -> [> | `OnSeeked] attrib
 
-  val a_onseeking : XML.event -> [> | `OnSeeking] attrib
+  val a_onseeking : XML.event_handler -> [> | `OnSeeking] attrib
 
-  val a_onselect : XML.event -> [> | `OnSelect] attrib
+  val a_onselect : XML.event_handler -> [> | `OnSelect] attrib
 
-  val a_onshow : XML.event -> [> | `OnShow] attrib
+  val a_onshow : XML.event_handler -> [> | `OnShow] attrib
 
-  val a_onstalled : XML.event -> [> | `OnStalled] attrib
+  val a_onstalled : XML.event_handler -> [> | `OnStalled] attrib
 
-  val a_onstorage : XML.event -> [> | `OnStorage] attrib
+  val a_onstorage : XML.event_handler -> [> | `OnStorage] attrib
 
-  val a_onsubmit : XML.event -> [> | `OnSubmit] attrib
+  val a_onsubmit : XML.event_handler -> [> | `OnSubmit] attrib
 
-  val a_onsuspend : XML.event -> [> | `OnSuspend] attrib
+  val a_onsuspend : XML.event_handler -> [> | `OnSuspend] attrib
 
-  val a_ontimeupdate : XML.event -> [> | `OnTimeUpdate] attrib
+  val a_ontimeupdate : XML.event_handler -> [> | `OnTimeUpdate] attrib
 
-  val a_onundo : XML.event -> [> | `OnUndo] attrib
+  val a_onundo : XML.event_handler -> [> | `OnUndo] attrib
 
-  val a_onunload : XML.event -> [> | `OnUnload] attrib
+  val a_onunload : XML.event_handler -> [> | `OnUnload] attrib
 
-  val a_onvolumechange : XML.event -> [> | `OnVolumeChange] attrib
+  val a_onvolumechange : XML.event_handler -> [> | `OnVolumeChange] attrib
 
-  val a_onwaiting : XML.event -> [> | `OnWaiting] attrib
+  val a_onwaiting : XML.event_handler -> [> | `OnWaiting] attrib
 
-  val a_onkeypress : XML.event -> [> | `OnKeyPress] attrib
+  val a_onkeypress : XML.event_handler -> [> | `OnKeyPress] attrib
 
-  val a_onkeydown : XML.event -> [> | `OnKeyDown] attrib
+  val a_onkeydown : XML.event_handler -> [> | `OnKeyDown] attrib
 
-  val a_onkeyup : XML.event -> [> | `OnKeyUp] attrib
+  val a_onkeyup : XML.event_handler -> [> | `OnKeyUp] attrib
 
-  val a_onload : XML.event -> [> | `OnLoad] attrib
+  val a_onload : XML.event_handler -> [> | `OnLoad] attrib
 
-  val a_onloadeddata : XML.event -> [> | `OnLoadedData] attrib
+  val a_onloadeddata : XML.event_handler -> [> | `OnLoadedData] attrib
 
-  val a_onloadedmetadata : XML.event -> [> | `OnLoadedMetaData] attrib
+  val a_onloadedmetadata : XML.event_handler -> [> | `OnLoadedMetaData] attrib
 
-  val a_onloadstart : XML.event -> [> | `OnLoadStart] attrib
+  val a_onloadstart : XML.event_handler -> [> | `OnLoadStart] attrib
 
-  val a_onmessage : XML.event -> [> | `OnMessage] attrib
+  val a_onmessage : XML.event_handler -> [> | `OnMessage] attrib
 
   val a_version : cdata -> [> | `Version] attrib
 

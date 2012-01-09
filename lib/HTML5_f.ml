@@ -69,7 +69,10 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   let comma_sep_attrib = XML.comma_sep_attrib
 
-  let event_attrib = XML.event_attrib
+  let event_handler_attrib = XML.event_handler_attrib
+
+  (* Deprecated alias. *)
+  let event_attrib = XML.event_handler_attrib
 
   (* space-separated *)
   let length_attrib name =

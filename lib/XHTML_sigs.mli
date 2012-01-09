@@ -108,24 +108,24 @@ module type T_01_01 = sig
 
   (** Javascript events *)
 
-  val a_onblur : XML.event -> [>`OnBlur] attrib
-  val a_onclick : XML.event -> [>`OnClick] attrib
-  val a_ondblclick : XML.event -> [>`OnDblClick] attrib
-  val a_onchange : XML.event -> [>`OnChange] attrib
-  val a_onfocus : XML.event -> [>`OnFocus] attrib
-  val a_onload : XML.event -> [>`OnLoad] attrib
-  val a_onunload : XML.event -> [>`OnUnload] attrib
-  val a_onreset : XML.event -> [>`OnReset] attrib
-  val a_onselect : XML.event -> [>`OnSelect] attrib
-  val a_onsubmit : XML.event -> [>`OnSubmit] attrib
-  val a_onmousedown : XML.event -> [>`OnMouseDown] attrib
-  val a_onmouseup : XML.event -> [>`OnMouseUp] attrib
-  val a_onmouseover : XML.event -> [>`OnMouseOver] attrib
-  val a_onmousemove : XML.event -> [>`OnMouseMove] attrib
-  val a_onmouseout : XML.event -> [>`OnMouseOut] attrib
-  val a_onkeypress : XML.event -> [>`OnKeyPress] attrib
-  val a_onkeydown : XML.event -> [>`OnKeyDown] attrib
-  val a_onkeyup : XML.event -> [>`OnKeyUp] attrib
+  val a_onblur : XML.event_handler -> [>`OnBlur] attrib
+  val a_onclick : XML.event_handler -> [>`OnClick] attrib
+  val a_ondblclick : XML.event_handler -> [>`OnDblClick] attrib
+  val a_onchange : XML.event_handler -> [>`OnChange] attrib
+  val a_onfocus : XML.event_handler -> [>`OnFocus] attrib
+  val a_onload : XML.event_handler -> [>`OnLoad] attrib
+  val a_onunload : XML.event_handler -> [>`OnUnload] attrib
+  val a_onreset : XML.event_handler -> [>`OnReset] attrib
+  val a_onselect : XML.event_handler -> [>`OnSelect] attrib
+  val a_onsubmit : XML.event_handler -> [>`OnSubmit] attrib
+  val a_onmousedown : XML.event_handler -> [>`OnMouseDown] attrib
+  val a_onmouseup : XML.event_handler -> [>`OnMouseUp] attrib
+  val a_onmouseover : XML.event_handler -> [>`OnMouseOver] attrib
+  val a_onmousemove : XML.event_handler -> [>`OnMouseMove] attrib
+  val a_onmouseout : XML.event_handler -> [>`OnMouseOut] attrib
+  val a_onkeypress : XML.event_handler -> [>`OnKeyPress] attrib
+  val a_onkeydown : XML.event_handler -> [>`OnKeyDown] attrib
+  val a_onkeyup : XML.event_handler -> [>`OnKeyUp] attrib
 
 
   (** {1 Modules, Element Sets and Attributes } *)

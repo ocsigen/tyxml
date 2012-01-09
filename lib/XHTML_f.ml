@@ -60,7 +60,10 @@ module Version(XML : XML_sigs.T) = struct
   let uris_attrib = XML.uris_attrib
   let space_sep_attrib = XML.space_sep_attrib
   let comma_sep_attrib = XML.comma_sep_attrib
-  let event_attrib = XML.event_attrib
+  let event_handler_attrib = XML.event_handler_attrib
+
+  (* Deprecated alias. *)
+  let event_attrib = XML.event_handler_attrib
 
   type cdata = string
   type id = string

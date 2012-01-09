@@ -1,3 +1,8 @@
+===== dev =====
+
+ * API change:
+ ** Rename XML.event into XML.event_handler
+
 ===== 2.0.1 =====
 
  * Allow compilation on win32/msvc

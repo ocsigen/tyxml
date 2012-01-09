@@ -27,7 +27,7 @@ val uri_of_string : string -> uri
 
 type aname = string
 type separator = Space | Comma
-type event = string
+type event_handler = string
 
 type attrib
 val aname : attrib -> aname
@@ -44,7 +44,12 @@ val int_attrib : aname -> int -> attrib
 val string_attrib : aname -> string -> attrib
 val space_sep_attrib : aname -> string list -> attrib
 val comma_sep_attrib : aname -> string list -> attrib
-val event_attrib : aname -> event -> attrib
+val event_handler_attrib : aname -> event_handler -> attrib
+
+(**/**)
+(* Deprecated alias. *)
+val event_attrib : aname -> event_handler -> attrib
+(**/**)
 
 val uri_attrib : aname -> uri -> attrib
 val uris_attrib : aname -> uri list -> attrib

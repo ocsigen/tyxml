@@ -25,7 +25,7 @@ module type T = sig
   val uri_of_string : string -> uri
 
   type aname = string
-  type event
+  type event_handler
 
   type attrib
 
@@ -34,7 +34,7 @@ module type T = sig
   val string_attrib : aname -> string -> attrib
   val space_sep_attrib : aname -> string list -> attrib
   val comma_sep_attrib : aname -> string list -> attrib
-  val event_attrib : aname -> event -> attrib
+  val event_handler_attrib : aname -> event_handler -> attrib
   val uri_attrib : aname -> uri -> attrib
   val uris_attrib : aname -> uri list -> attrib
 
