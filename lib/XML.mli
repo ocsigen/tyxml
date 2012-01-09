@@ -131,3 +131,5 @@ val translate :
 
 val print_list:
   output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
+
+val print : Format.formatter -> elt -> unit

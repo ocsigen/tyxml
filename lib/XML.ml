@@ -126,3 +126,6 @@ end
 include M
 include XML_print.MakeSimple(M)(struct let emptytags = [] end)
 include XML_iter.Make(M)
+
+let print fmt x = print_list ~output:(Format.pp_print_string fmt) [x]
+let print fmt x = Format.fprintf fmt "<< %a >>" print x
