@@ -24,3 +24,6 @@
 module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML)
   : HTML5_sigs.T with module XML := XML
 		  and module SVG := SVG
+		 and type 'a elt = XML.elt
+		 and type 'a attrib = XML.attrib
+		 and type uri = XML.uri

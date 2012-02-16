@@ -80,4 +80,8 @@ val string_of_transform : transform -> string
 val string_of_transforms : transforms -> string
 *)
 
-module Make(XML : XML_sigs.T) : SVG_sigs.T with module XML := XML
+module Make(XML : XML_sigs.T)
+  : SVG_sigs.T with module XML := XML
+	       and type 'a elt = XML.elt
+	       and type 'a attrib = XML.attrib
+	       and type uri = XML.uri
