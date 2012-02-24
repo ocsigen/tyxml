@@ -1,7 +1,10 @@
-===== dev =====
+===== 2.0.2 =====
 
+ * Add a simple printer: XML.print
  * API change:
  ** Rename XML.event into XML.event_handler
+ ** The functorized interface now export the concrete representation of XML.nodes
+ ** Open types in SVG_sigs (closes #269).
 
 ===== 2.0.1 =====
 

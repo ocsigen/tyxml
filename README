@@ -45,12 +45,12 @@ allows a HTML compatible mode.
 == Examples:
 
  $ ocaml
-        Objective Caml version 3.12.0
+        Objective Caml version 3.12.1
 
  # #use "topfind";;
  - : unit = ()
  # #camlp4o;;
-	Camlp4 Parsing version 3.12.0
+	Camlp4 Parsing version 3.12.1
 
  # #require "tyxml.syntax";;
  # let x = << <a href="url"> Contents </a> >>;;
