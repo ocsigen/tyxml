@@ -210,9 +210,9 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_contentstyletype = user_attrib string_of_string "contentStyleType"
 
-  let a_zoomAndPan =
-    user_attrib (function | `Disable -> "disable" | `Magnify -> "magnify")
-      "zoomAndSpan"
+  let a_zoomAndPan x =
+    user_attrib string_of_string "zoomAndSpan"
+      (match x with `Disable -> "disable" | `Magnify -> "magnify")
 
   let a_xlink_href = user_attrib string_of_iri "xlink:href"
 
@@ -234,10 +234,10 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_xml_lang = user_attrib string_of_iri "xml:lang"
 
-  let a_xml_space =
-    user_attrib
-      (function | `Default -> "default" | `Preserve -> "preserve")
+  let a_xml_space x =
+    user_attrib string_of_string
       "xml:space"
+      (match x with | `Default -> "default" | `Preserve -> "preserve")
 
   let a_type = user_attrib string_of_string "type"
 
@@ -293,12 +293,12 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_dy_number = user_attrib string_of_number "dy"
 
-  let a_lengthadjust =
-    user_attrib
-      (function
+  let a_lengthadjust x =
+    user_attrib string_of_string
+      "lengthAdjust"
+      (match x with
         | `Spacing -> "spacing"
         | `SpacingAndGlyphs -> "spacingAndGlyphs")
-      "lengthAdjust"
 
   let a_textlength = user_attrib string_of_length "textLength"
 
@@ -306,23 +306,23 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_startoffset = user_attrib string_of_length "startOffset"
 
-  let a_method =
-    user_attrib (function | `Align -> "align" | `Stretch -> "stretch")
-      "method"
-
-  let a_spacing =
-    user_attrib (function | `Auto -> "auto" | `Exact -> "exact") "spacing"
+  let a_method x =
+    user_attrib string_of_string "method"
+      (match x with | `Align -> "align" | `Stretch -> "stretch")
+  let a_spacing x =
+    user_attrib string_of_string "spacing"
+      (match x with | `Auto -> "auto" | `Exact -> "exact")
 
   let a_glyphref = user_attrib string_of_string "glyphRef"
 
   let a_format = user_attrib string_of_string "format"
 
-  let a_markerunits =
-    user_attrib
-      (function
+  let a_markerunits x =
+    user_attrib string_of_string
+      "markerUnits"
+      (match x with
         | `StrokeWidth -> "strokeWidth"
         | `UserSpaceOnUse -> "userSpaceOnUse")
-      "markerUnits"
 
   let a_refx = user_attrib string_of_coord "refX"
 
@@ -332,107 +332,96 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_markerheight = user_attrib string_of_length "markerHeight"
 
-  let a_orient =
-    user_attrib
-      (function | `Auto -> "auto" | `Angle __svg -> string_of_angle __svg)
-      "orient"
+  let a_orient x =
+    user_attrib string_of_string "orient"
+      (match x with | `Auto -> "auto" | `Angle __svg -> string_of_angle __svg)
 
   let a_local = user_attrib string_of_string "local"
 
   let a_string = user_attrib string_of_string "name"
 
-  let a_renderingindent =
-    user_attrib
-      (function
+  let a_renderingindent x =
+    user_attrib string_of_string "rendering:indent"
+      (match x with
         | `Auto -> "auto"
         | `Perceptual -> "perceptual"
         | `Relative_colorimetric -> "relative_colorimetric"
         | `Saturation -> "saturation"
         | `Absolute_colorimetric -> "absolute_colorimetric")
-      "rendering:indent"
 
-  let a_gradientunits =
-    user_attrib
-      (function
+  let a_gradientunits x =
+    user_attrib string_of_string "gradientUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "gradientUnits"
 
   let a_gradienttransform =
     user_attrib string_of_transforms "gradient:transform"
 
-  let a_spreadmethod =
-    user_attrib
-      (function
+  let a_spreadmethod x =
+    user_attrib string_of_string "spreadMethod"
+      (match x with
         | `Pad -> "pad"
         | `Reflect -> "reflect"
         | `Repeat -> "repeat")
-      "spreadMethod"
 
   let a_fx = user_attrib string_of_coord "fx"
 
   let a_fy = user_attrib string_of_coord "fy"
 
-  let a_offset =
-    user_attrib
-      (function
+  let a_offset x =
+    user_attrib string_of_string "offset"
+      (match x with
         | `Number __svg -> string_of_number __svg
         | `Percentage __svg -> string_of_percentage __svg)
-      "offset"
 
-  let a_patternunits =
-    user_attrib
-      (function
+  let a_patternunits x =
+    user_attrib string_of_string "patternUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "patternUnits"
 
-  let a_patterncontentunits =
-    user_attrib
-      (function
+  let a_patterncontentunits x =
+    user_attrib string_of_string "patternContentUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "patternContentUnits"
 
   let a_patterntransform =
     user_attrib string_of_transforms "patternTransform"
 
-  let a_clippathunits =
-    user_attrib
-      (function
+  let a_clippathunits x =
+    user_attrib string_of_string "clipPathUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "clipPathUnits"
 
-  let a_maskunits =
-    user_attrib
-      (function
+  let a_maskunits x =
+    user_attrib string_of_string "maskUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "maskUnits"
 
-  let a_maskcontentunits =
-    user_attrib
-      (function
+  let a_maskcontentunits x =
+    user_attrib string_of_string "maskContentUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "maskContentUnits"
 
-  let a_primitiveunits =
-    user_attrib
-      (function
+  let a_primitiveunits x =
+    user_attrib string_of_string "primitiveUnits"
+      (match x with
         | `UserSpaceOnUse -> "userSpaceOnUse"
         | `ObjectBoundingBox -> "objectBoundingBox")
-      "primitiveUnits"
 
   let a_filterres =
     user_attrib string_of_number_optional_number "filterResUnits"
 
   let a_result = user_attrib string_of_string "result"
 
-  let a_in =
-    user_attrib
-      (function
+  let a_in x =
+    user_attrib string_of_string "in"
+      (match x with
         | `SourceGraphic -> "sourceGraphic"
         | `SourceAlpha -> "sourceAlpha"
         | `BackgroundImage -> "backgroundImage"
@@ -440,11 +429,10 @@ module Make(XML : XML_sigs.T) = struct
         | `FillPaint -> "fillPaint"
         | `StrokePaint -> "strokePaint"
         | `Ref __svg -> string_of_string __svg)
-      "in"
 
-  let a_in2 =
-    user_attrib
-      (function
+  let a_in2 x =
+    user_attrib string_of_string "in2"
+      (match x with
         | `SourceGraphic -> "sourceGraphic"
         | `SourceAlpha -> "sourceAlpha"
         | `BackgroundImage -> "backgroundImage"
@@ -452,7 +440,6 @@ module Make(XML : XML_sigs.T) = struct
         | `FillPaint -> "fillPaint"
         | `StrokePaint -> "strokePaint"
         | `Ref __svg -> string_of_string __svg)
-      "in2"
 
   let a_aizmuth = user_attrib string_of_float "azimuth"
 
@@ -470,36 +457,33 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_limitingconeangle = user_attrib string_of_float "limitingConeAngle"
 
-  let a_mode =
-    user_attrib
-      (function
+  let a_mode x =
+    user_attrib string_of_string "mode"
+      (match x with
         | `Normal -> "normal"
         | `Multiply -> "multiply"
         | `Screen -> "screen"
         | `Darken -> "darken"
         | `Lighten -> "lighten")
-      "mode"
 
-  let a_typefecolor =
-    user_attrib
-      (function
+  let a_typefecolor x =
+    user_attrib string_of_string "type"
+      (match x with
         | `Matrix -> "matrix"
         | `Saturate -> "saturate"
         | `HueRotate -> "hueRotate"
         | `LuminanceToAlpha -> "luminanceToAlpha")
-      "type"
 
   let a_values = user_attrib string_of_numbers "values"
 
-  let a_transferttype =
-    user_attrib
-      (function
+  let a_transferttype x =
+    user_attrib string_of_string "type"
+      (match x with
         | `Identity -> "identity"
         | `Table -> "table"
         | `Discrete -> "discrete"
         | `Linear -> "linear"
         | `Gamma -> "gamma")
-      "type"
 
   let a_tablevalues = user_attrib string_of_numbers "tableValues"
 
@@ -513,16 +497,15 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_offsettransfer = user_attrib string_of_number "offset"
 
-  let a_operator =
-    user_attrib
-      (function
+  let a_operator x =
+    user_attrib string_of_string "operator"
+      (match x with
         | `Over -> "over"
         | `In -> "in"
         | `Out -> "out"
         | `Atop -> "atop"
         | `Xor -> "xor"
         | `Arithmetic -> "arithmetic")
-      "operator"
 
   let a_k1 = user_attrib string_of_number "k1"
 
@@ -547,13 +530,12 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_targetY = user_attrib string_of_int "targetY"
 
-  let a_edgemode =
-    user_attrib
-      (function
+  let a_edgemode x =
+    user_attrib string_of_string "targetY"
+      (match x with
         | `Duplicate -> "duplicate"
         | `Wrap -> "wrap"
         | `None -> "none")
-      "targetY"
 
   let a_preservealpha = user_attrib string_of_bool "targetY"
 
@@ -563,20 +545,20 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_scale = user_attrib string_of_number "scale"
 
-  let a_xchannelselector =
-    user_attrib (function | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a")
-      "xChannelSelector"
+  let a_xchannelselector x =
+    user_attrib string_of_string "xChannelSelector"
+      (match x with | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a")
 
-  let a_ychannelselector =
-    user_attrib (function | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a")
-      "yChannelSelector"
+  let a_ychannelselector x =
+    user_attrib string_of_string "yChannelSelector"
+      (match x with | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a")
 
   let a_stddeviation =
     user_attrib string_of_number_optional_number "stdDeviation"
 
-  let a_operatormorphology =
-    user_attrib (function | `Erode -> "erode" | `Dilate -> "dilate")
-      "operatorMorphology"
+  let a_operatormorphology x =
+    user_attrib string_of_string "operatorMorphology"
+      (match x with | `Erode -> "erode" | `Dilate -> "dilate")
 
   let a_radius = user_attrib string_of_number_optional_number "radius"
 
@@ -587,23 +569,23 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_seed = user_attrib string_of_number "seed"
 
-  let a_stitchtiles =
-    user_attrib (function | `Stitch -> "stitch" | `NoStitch -> "noStitch")
-      "stitchTiles"
+  let a_stitchtiles x =
+    user_attrib string_of_string "stitchTiles"
+      (match x with | `Stitch -> "stitch" | `NoStitch -> "noStitch")
 
-  let a_stitchtype =
-    user_attrib
-      (function
+  let a_stitchtype x =
+    user_attrib string_of_string "typeStitch"
+      (match x with
         | `FractalNoise -> "fractalNoise"
         | `Turbulence -> "turbulence")
-      "typeStitch"
 
-  let a_xlinkshow =
-    user_attrib (function | `New -> "new" | `Replace -> "replace")
-      "xlink:show"
+  let a_xlinkshow x =
+    user_attrib string_of_string "xlink:show"
+      (match x with | `New -> "new" | `Replace -> "replace")
 
-  let a_xlinkactuate =
-    user_attrib (function | `OnRequest -> "onRequest") "xlink:actuate"
+  let a_xlinkactuate x =
+    user_attrib string_of_string "xlink:actuate"
+      (match x with | `OnRequest -> "onRequest")
 
   let a_target = user_attrib string_of_string "xlink:target"
 
@@ -611,10 +593,9 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_attributename = user_attrib string_of_string "attributeName"
 
-  let a_attributetype =
-    user_attrib
-      (function | `CSS -> "cSS" | `XML -> "xML" | `Auto -> "auto")
-      "attributeType"
+  let a_attributetype x =
+    user_attrib string_of_string "attributeType"
+      (match x with | `CSS -> "cSS" | `XML -> "xML" | `Auto -> "auto")
 
   let a_begin = user_attrib string_of_string "begin"
 
@@ -624,30 +605,28 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_max = user_attrib string_of_string "max"
 
-  let a_restart =
-    user_attrib
-      (function
+  let a_restart x =
+    user_attrib string_of_string "restart"
+      (match x with
         | `Always -> "always"
         | `WhenNotActive -> "whenNotActive"
         | `Never -> "never")
-      "restart"
 
   let a_repeatcount = user_attrib string_of_string "repeatCount"
 
   let a_repeatdur = user_attrib string_of_string "repeatDur"
 
-  let a_fill =
-    user_attrib (function | `Freeze -> "freeze" | `Remove -> "remove")
-      "fill"
+  let a_fill x =
+    user_attrib string_of_string "fill"
+      (match x with | `Freeze -> "freeze" | `Remove -> "remove")
 
-  let a_calcmode =
-    user_attrib
-      (function
+  let a_calcmode x =
+    user_attrib string_of_string "calcMode"
+      (match x with
         | `Discrete -> "discrete"
         | `Linear -> "linear"
         | `Paced -> "paced"
         | `Spline -> "spline")
-      "calcMode"
 
   let a_values_anim = user_attrib string_of_strings "values"
 
@@ -661,26 +640,26 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_by = user_attrib string_of_string "by"
 
-  let a_additive =
-    user_attrib (function | `Replace -> "replace" | `Sum -> "sum")
-      "additive"
+  let a_additive x =
+    user_attrib string_of_string "additive"
+      (match x with | `Replace -> "replace" | `Sum -> "sum")
 
-  let a_accumulate =
-    user_attrib (function | `None -> "none" | `Sum -> "sum") "accumulate"
+  let a_accumulate x =
+    user_attrib string_of_string "accumulate"
+      (match x with | `None -> "none" | `Sum -> "sum")
 
   let a_keypoints = user_attrib string_of_numbers_semicolon "keyPoints"
 
   let a_path = user_attrib string_of_string "path"
 
-  let a_typeanimatecolor =
-    user_attrib
-      (function
+  let a_typeanimatecolor x =
+    user_attrib string_of_string "type"
+      (match x with
         | `Translate -> "translate"
         | `Scale -> "scale"
         | `Rotate -> "rotate"
         | `SkewX -> "skewX"
         | `SkewY -> "skewY")
-      "type"
 
   let a_horiz_origin_x = user_attrib string_of_number "horiz-origin-x"
 
@@ -698,17 +677,17 @@ module Make(XML : XML_sigs.T) = struct
 
   let a_glyphname = user_attrib string_of_string "glyphname"
 
-  let a_orientation =
-    user_attrib (function | `H -> "h" | `V -> "v") "orientation"
+  let a_orientation x =
+    user_attrib string_of_string "orientation"
+      (match x with | `H -> "h" | `V -> "v")
 
-  let a_arabicform =
-    user_attrib
-      (function
+  let a_arabicform x =
+    user_attrib string_of_string "arabic-form"
+      (match x with
         | `Initial -> "initial"
         | `Medial -> "medial"
         | `Terminal -> "terminal"
         | `Isolated -> "isolated")
-      "arabic-form"
 
   let a_lang = user_attrib string_of_string "lang"
 
