@@ -11,12 +11,13 @@ OCAMLDOC := ${OCAMLFIND} ocamldoc
 ODOC_WIKI := odoc_wiki.cma
 endif
 
-doc: odoc
-
-odoc:
+doc: api-html/index.html
+api-html/index.html: indexdoc $(addprefix ../,${DOC})
 	mkdir -p api-html
 	$(OCAMLDOC) ${LIB} -d api-html -intro indexdoc -html $(addprefix ../,${DOC})
-odocwiki:
+
+docwiki: api-wiki/index.wiki
+api-wiki/index.wiki: indexdoc $(addprefix ../,${DOC})
 	mkdir -p api-wiki
 	$(OCAMLDOC) ${LIB} -d api-wiki -intro indexdoc -colorize-code \
 	   -i $(shell ocamlfind query wikidoc) -g ${ODOC_WIKI} \
