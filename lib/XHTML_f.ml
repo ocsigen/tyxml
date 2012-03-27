@@ -241,7 +241,7 @@ module Version(XML : XML_sigs.T) = struct
 
   let a_checked `Checked = string_attrib "checked" "checked"
   let a_disabled `Disabled = string_attrib "disabled" "disabled"
-  let a_readonly `Readonly = string_attrib "readonly" "readonly"
+  let a_readonly `ReadOnly = string_attrib "readonly" "readonly"
   let a_maxlength = int_attrib "maxlength"
   let a_name = string_attrib "name"
 

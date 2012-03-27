@@ -979,7 +979,7 @@ type form_attrib =
 
 type form_content = [ | block_sans_form | `Fieldset ]
 
-(* NAME: input - KIND: nullary - ATTRIB: [= common | `Accesskey | `Checked | `Maxlength | `Name | `Size | `Src | `Tabindex | `Input_Type | `Value | `Disabled | `Readonly | `Alt | `Accept | `Usemap |`Ismap |`OnBlur |`OnChange |`OnFocus | `OnSelect] - CONTENT: notag - OUT: [=`Input] *)
+(* NAME: input - KIND: nullary - ATTRIB: [= common | `Accesskey | `Checked | `Maxlength | `Name | `Size | `Src | `Tabindex | `Input_Type | `Value | `Disabled | `ReadOnly | `Alt | `Accept | `Usemap |`Ismap |`OnBlur |`OnChange |`OnFocus | `OnSelect] - CONTENT: notag - OUT: [=`Input] *)
 type input = [ | `Input ]
 
 type input_attrib =
@@ -995,7 +995,7 @@ type input_attrib =
     | `Input_Type
     | `Value
     | `Disabled
-    | `Readonly
+    | `ReadOnly
     | `Alt
     | `Accept
     | `Usemap
@@ -1047,7 +1047,7 @@ type select_attrib =
 
 type select_content = [ | `Option | `Optgroup ]
 
-(* NAME: textarea - KIND: nary - ATTRIB: [= common | `Accesskey | `Name | `Tabindex | `Disabled | `Readonly |`OnBlur |`OnChange |`OnFocus | `OnSelect] - CONTENT: [= `PCDATA ] - OUT: [=`Textarea] *)
+(* NAME: textarea - KIND: nary - ATTRIB: [= common | `Accesskey | `Name | `Tabindex | `Disabled | `ReadOnly |`OnBlur |`OnChange |`OnFocus | `OnSelect] - CONTENT: [= `PCDATA ] - OUT: [=`Textarea] *)
 type textarea = [ | `Textarea ]
 
 type textarea_attrib =
@@ -1057,7 +1057,7 @@ type textarea_attrib =
     | `Name
     | `Tabindex
     | `Disabled
-    | `Readonly
+    | `ReadOnly
     | `OnBlur
     | `OnChange
     | `OnFocus

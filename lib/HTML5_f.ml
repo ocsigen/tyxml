@@ -373,7 +373,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
       function | `Disabled -> string_attrib "disabled" "disabled"
 
   let a_readonly =
-      function | `Readonly -> string_attrib "readonly" "readonly"
+      function | `ReadOnly -> string_attrib "readonly" "readonly"
 
   let a_maxlength = int_attrib "maxlength"
 

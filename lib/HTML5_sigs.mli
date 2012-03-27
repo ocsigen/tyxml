@@ -474,7 +474,7 @@ module type T = sig
 
   val a_disabled : [< | `Disabled] -> [> | `Disabled] attrib
 
-  val a_readonly : [< | `Readonly] -> [> | `Readonly] attrib
+  val a_readonly : [< | `ReadOnly] -> [> | `ReadOnly] attrib
   val a_button_type :
     [< | `Button | `Submit | `Reset] -> [> | `Button_Type] attrib
 

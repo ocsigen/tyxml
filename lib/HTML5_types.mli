@@ -1978,7 +1978,7 @@ type textarea_attrib =
     | `Maxlength
     | `Name
     | `Placeholder
-    | `Readonly
+    | `ReadOnly
     | `Required
     | `Wrap
     | `Rows

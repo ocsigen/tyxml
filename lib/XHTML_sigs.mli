@@ -252,7 +252,7 @@ module type T_01_01 = sig
   val a_value_type : [< `Data | `Ref | `Object ] -> [>`Value_Type] attrib
 
   val a_disabled : [< `Disabled ] -> [>`Disabled] attrib
-  val a_readonly : [< `Readonly ] -> [>`Readonly] attrib
+  val a_readonly : [< `ReadOnly ] -> [>`ReadOnly] attrib
   val a_button_type : [< `Button | `Submit | `Reset ] -> [>`Button_Type] attrib
 
   val a_label : text -> [> `Label ] attrib
