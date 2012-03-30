@@ -160,6 +160,8 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
   (* Style: *)
   let a_style = string_attrib "style"
 
+  let a_property = string_attrib "property"
+
   (* Events: *)
   let a_onabort = event_attrib "onabort"
 

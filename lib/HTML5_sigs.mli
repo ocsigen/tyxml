@@ -558,6 +558,8 @@ module type T = sig
 
   val a_style : string -> [> | `Style_Attr] attrib
 
+  val a_property : string -> [> | `Property] attrib
+
   (** {1 Phantom types and XML elements} *)
 
   (* For Ocsigen I need to specify the variance --Vincent *)

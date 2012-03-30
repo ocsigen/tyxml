@@ -137,7 +137,8 @@ type linktypes =
     | `Stylesheet
     | `Sidebar
     | `Tag
-    | `Up ] list
+    | `Up
+    | `Other of string ] list
 (** Authors may use the following recognized link types, listed here with
         their conventional interpretations. A LinkTypes value refers to a
         space-separated list of link types. White space characters are not
@@ -2042,8 +2043,7 @@ type optgroup_content_fun = [ | `Option ]
 type optgroup_attrib = [ | common | `Disabled | `Label ]
 
 type option_attrib =
-  [ | common | `Selected | `Text_Value | `Disabled | `Label
-  ]
+  [ | common | `Selected | `Text_Value | `Disabled | `Label | `Value ]
 
 type selectoption = [ | `Option ]
 
@@ -2145,7 +2145,7 @@ type meta_content = notag
 
 type meta_content_fun = notag
 
-type meta_attrib = [ | common | `Http_equiv | `Name | `Content | `Charset ]
+type meta_attrib = [ | common | `Http_equiv | `Name | `Content | `Charset | `Property ]
 
 (* NAME: style, KIND: star, TYPE: [= common | `Media | `Mime_type | `Scoped ], [= `PCDATA ], [=`Style], ARG: [= `PCDATA ], ATTRIB:  OUT: [=`Style] *)
 type style = [ | `Style ]
