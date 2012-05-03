@@ -3,14 +3,22 @@
 
 (**
 
+To choose the XML-implementation for the value the functions to construct the
+tags have to be put into the namespace, e.g. through a local [open]-statement.
+
 For example, the following code:
 {[
-<< <html>
+  let open HTML5.M in
+  << <html>
      <head><title></title></head>
      <body><h1>plop</h1></body>
    </html> >>
+)
 ]}
 is a caml value of type {v HTML5_types.html HTML5.M.elt v}.
+
+In the following, [HTML5.M] is assumed to be opened, but this could for example
+also be Eliom's [Eliom_xml.HTML5.F].
 
 To compile a module containing this syntax, you need the camlp4 preprocessor:
 {[

@@ -15,3 +15,7 @@ representation.
 
 A camlp4 extension, named <<a_api | module Pa_tyxml >>, allows to
 write HTML pages or HTML fragments with the usual syntax.
+For creating HTML5-, XHTML-, or SVG-nodes, the constructor functions of the
+corresponding XML-implementation must be put into the scope, e.g. by locally
+opening the corresponding module.
+

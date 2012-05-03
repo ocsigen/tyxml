@@ -24,14 +24,14 @@ open Xhtmlparser;
 open Camlp4.PreCast;
 
 module Parser = Xhtmlparser.Make(Syntax)(struct
-  value tot loc = <:expr< XHTML.M.tot >>;
-  value toeltl loc = <:expr< XHTML.M.toeltl >>;
-  value to_xmlattribs loc = <:expr< XHTML.M.to_xmlattribs >>;
-  value to_attrib loc = <:expr< XHTML.M.to_attrib >>;
+  value tot loc = <:expr< tot >>;
+  value toeltl loc = <:expr< toeltl >>;
+  value to_xmlattribs loc = <:expr< to_xmlattribs >>;
+  value to_attrib loc = <:expr< to_attrib >>;
   value make_type loc tag =
-    <:ctyp< XHTML.M.elt [> `$uid:String.capitalize tag$ ] >>;
+    <:ctyp< elt [> `$uid:String.capitalize tag$ ] >>;
   value make_content_type loc tag =
-    <:ctyp< XHTML.M.elt [< XHTML_types.$lid:String.lowercase tag^"_content"$] >>;
+    <:ctyp< elt [< XHTML_types.$lid:String.lowercase tag^"_content"$] >>;
   value make_attrib_type loc tag =
       let tag = match String.lowercase tag with
       [ "button_type" -> "Button_Type"
@@ -62,16 +62,16 @@ module Parser = Xhtmlparser.Make(Syntax)(struct
       | "xml_space" -> "XML_space"
       | "xmlns" -> "XMLns"
       | tag -> String.capitalize tag ] in
-    <:ctyp< XHTML.M.attrib [> `$uid:tag$ ] >>;
+    <:ctyp< attrib [> `$uid:tag$ ] >>;
   value make_attribs_type loc tag =
-    <:ctyp< XHTML.M.attrib [< XHTML_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    <:ctyp< attrib [< XHTML_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 module Parser5 = Xhtmlparser.Make(Syntax)(struct
-  value tot loc = <:expr< HTML5.M.tot >>;
-  value toeltl loc = <:expr< HTML5.M.toeltl >>;
-  value to_xmlattribs loc = <:expr< HTML5.M.to_xmlattribs >>;
-  value to_attrib loc = <:expr< HTML5.M.to_attrib >>;
+  value tot loc = <:expr< tot >>;
+  value toeltl loc = <:expr< toeltl >>;
+  value to_xmlattribs loc = <:expr< to_xmlattribs >>;
+  value to_attrib loc = <:expr< to_attrib >>;
   value make_type loc tag =
     let tag = match String.lowercase tag with
       [ "object" -> "object__"
@@ -84,10 +84,10 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | "ins_" -> "del_"
       | x -> x ] in
     match tag with
-      [ "a" -> <:ctyp< HTML5.M.elt [> HTML5_types.a 'a ] >>
-      | tag -> <:ctyp< HTML5.M.elt [> HTML5_types.$lid:tag$ ] >> ];
+      [ "a" -> <:ctyp< elt [> HTML5_types.a 'a ] >>
+      | tag -> <:ctyp< elt [> HTML5_types.$lid:tag$ ] >> ];
   value make_content_type loc tag =
-    <:ctyp< HTML5.M.elt [< HTML5_types.$lid:String.lowercase tag^"_content"$] >>;
+    <:ctyp< elt [< HTML5_types.$lid:String.lowercase tag^"_content"$] >>;
   value make_attrib_type loc tag =
       let tag = match String.lowercase tag with
       [ "button_type" -> "Button_Type"
@@ -173,21 +173,21 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | "onwaiting" -> "OnWaiting"
       | "onebeforeunload" -> "OneBeforeUnload"
       | tag -> String.capitalize tag ] in
-    <:ctyp< HTML5.M.attrib [> `$uid:tag$ ] >>;
+    <:ctyp< attrib [> `$uid:tag$ ] >>;
   value make_attribs_type loc tag =
-    <:ctyp< HTML5.M.attrib [< HTML5_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    <:ctyp< attrib [< HTML5_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 
 module ParserSVG = Xhtmlparser.Make(Syntax)(struct
-  value tot loc = <:expr< SVG.M.tot >>;
-  value toeltl loc = <:expr< SVG.M.toeltl >>;
-  value to_xmlattribs loc = <:expr< SVG.M.to_xmlattribs >>;
-  value to_attrib loc = <:expr< SVG.M.to_attrib >>;
+  value tot loc = <:expr< tot >>;
+  value toeltl loc = <:expr< toeltl >>;
+  value to_xmlattribs loc = <:expr< to_xmlattribs >>;
+  value to_attrib loc = <:expr< to_attrib >>;
   value make_type loc tag =
-    <:ctyp< SVG.M.elt [> `$uid:String.capitalize tag$ ] >>;
+    <:ctyp< elt [> `$uid:String.capitalize tag$ ] >>;
   value make_content_type loc tag =
-    <:ctyp< SVG.M.elt [< SVG_types.$lid:String.lowercase tag^"_content"$] >>;
+    <:ctyp< elt [< SVG_types.$lid:String.lowercase tag^"_content"$] >>;
   value make_attrib_type loc tag =
     let tag = match String.lowercase tag with
     [ "accent___height" -> "Accent___Height"
@@ -346,9 +346,9 @@ module ParserSVG = Xhtmlparser.Make(Syntax)(struct
     | "zoomandpan" -> "ZoomAndPan"
     | "zoomandplan" -> "ZoomAndPlan"
     | tag -> String.capitalize tag ] in
-    <:ctyp< SVG.M.attrib [> `$uid:tag$ ] >>;
+    <:ctyp< attrib [> `$uid:tag$ ] >>;
   value make_attribs_type loc tag =
-    <:ctyp< SVG.M.attrib [< SVG_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    <:ctyp< attrib [< SVG_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 do {
