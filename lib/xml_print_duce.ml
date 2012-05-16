@@ -24,7 +24,7 @@ module Make(I: sig val emptytags : string list end) = struct
 
   let print_list
       ~output
-      ?(encode = XML_print.encode_unsafe_char)
+      ?(encode = Xml_print.encode_unsafe_char)
       (v: Ocamlduce.Load.anyxml list) : unit =
 
     let open_markup tag attrs =
@@ -48,43 +48,43 @@ module Make(I: sig val emptytags : string list end) = struct
 
 end
 
-(* module MakeTypedRaw(TypedXML : XML_sigs_duce.TypedXML) = struct *)
+(* module MakeTypedRaw(Typed_xml : Xml_sigs_duce.Typed_xml) = struct *)
 
-  (* module P = Make(TypedXML.Info) *)
+  (* module P = Make(Typed_xml.Info) *)
 
   (* type elt *)
   (* type doc *)
 
-  (* let print_list ~output ?(encode = XML_print.encode_unsafe_char) elts = *)
+  (* let print_list ~output ?(encode = Xml_print.encode_unsafe_char) elts = *)
     (* P.print_list ~output ~encode elts *)
 
-  (* (\* let print ~(output: string  -> unit) ?(encode = XML_print.encode_unsafe_char) ?(advert = "") *\) *)
+  (* (\* let print ~(output: string  -> unit) ?(encode = Xml_print.encode_unsafe_char) ?(advert = "") *\) *)
       (* doc = *)
-    (* output TypedXML.Info.doctype; *)
+    (* output Typed_xml.Info.doctype; *)
     (* if advert <> "" then output ("<!-- " ^ advert ^ " -->\n"); *)
     (* P.print_list ~output ~encode [doc] *)
 
 (* end *)
 
-module MakeTyped(TypedXML : XML_sigs_duce.TypedXML) = struct
+module Make_typed(Typed_xml : Xml_sigs_duce.Typed_xml) = struct
 
-  module P = Make(TypedXML.Info)
+  module P = Make(Typed_xml.Info)
 
-  type elt = TypedXML.elt
-  type doc = TypedXML.doc
+  type elt = Typed_xml.elt
+  type doc = Typed_xml.doc
 
-  let print_list ~output ?(encode = XML_print.encode_unsafe_char) elts =
-    P.print_list ~output ~encode (List.map TypedXML.of_elt elts)
+  let print_list ~output ?(encode = Xml_print.encode_unsafe_char) elts =
+    P.print_list ~output ~encode (List.map Typed_xml.of_elt elts)
 
-  let print ~(output: string  -> unit) ?(encode = XML_print.encode_unsafe_char) ?(advert = "")
+  let print ~(output: string  -> unit) ?(encode = Xml_print.encode_unsafe_char) ?(advert = "")
       doc =
-    output TypedXML.Info.doctype;
+    output Typed_xml.Info.doctype;
     if advert <> "" then output ("<!-- " ^ advert ^ " -->\n");
-    P.print_list ~output ~encode [TypedXML.of_doc doc]
+    P.print_list ~output ~encode [Typed_xml.of_doc doc]
 
 end
 
 
-let print ~output ?(encode = XML_print.encode_unsafe_char) elt =
+let print ~output ?(encode = Xml_print.encode_unsafe_char) elt =
   let module P = Make(struct let emptytags = [] end) in
   P.print_list ~output ~encode [elt]

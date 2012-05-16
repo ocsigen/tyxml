@@ -17,29 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-(** Printers for XHTML 1.0 and 1.1 documents *)
+module M = Svg_f.Make(Xml)
 
-module type T = XML_sigs_duce.TypedXML
-                with type doc = XHTML_types_duce.html
-		 and type elt = {{ XHTML_types_duce.block
-				 | XHTML_types_duce.form
-				 | XHTML_types_duce.misc }}
+module P = Xml_print.Make_typed_simple(Xml)(M)
 
-module M_01_00 = struct
-
-  module Info = XHTML.M_01_00.Info
-
-  type doc = {{ XHTML_types_duce.html }}
-  type elt = {{ XHTML_types_duce.block
-	      | XHTML_types_duce.form
-	      | XHTML_types_duce.misc }}
-
-  let of_doc (x: doc) : Ocamlduce.Load.anyxml = x
-  let of_elt (x: elt) : Ocamlduce.Load.anyxml = x
-
-end
-
-module P_01_00 = XML_print_duce.MakeTyped(M_01_00)
-
-module M = M_01_00
-module P = P_01_00
+module Make_printer = Xml_print.Make_typed(Xml)(M)

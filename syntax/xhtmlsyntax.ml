@@ -64,7 +64,7 @@ module Parser = Xhtmlparser.Make(Syntax)(struct
       | tag -> String.capitalize tag ] in
     <:ctyp< attrib [> `$uid:tag$ ] >>;
   value make_attribs_type loc tag =
-    <:ctyp< attrib [< XHTML_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    <:ctyp< attrib [< Xhtml_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 module Parser5 = Xhtmlparser.Make(Syntax)(struct
@@ -84,10 +84,10 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | "ins_" -> "del_"
       | x -> x ] in
     match tag with
-      [ "a" -> <:ctyp< elt [> HTML5_types.a 'a ] >>
-      | tag -> <:ctyp< elt [> HTML5_types.$lid:tag$ ] >> ];
+      [ "a" -> <:ctyp< elt [> Html5_types.a 'a ] >>
+      | tag -> <:ctyp< elt [> Html5_types.$lid:tag$ ] >> ];
   value make_content_type loc tag =
-    <:ctyp< elt [< HTML5_types.$lid:String.lowercase tag^"_content"$] >>;
+    <:ctyp< elt [< Html5_types.$lid:String.lowercase tag^"_content"$] >>;
   value make_attrib_type loc tag =
       let tag = match String.lowercase tag with
       [ "button_type" -> "Button_Type"
@@ -175,7 +175,7 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | tag -> String.capitalize tag ] in
     <:ctyp< attrib [> `$uid:tag$ ] >>;
   value make_attribs_type loc tag =
-    <:ctyp< attrib [< HTML5_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    <:ctyp< attrib [< Html5_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 
@@ -187,7 +187,7 @@ module ParserSVG = Xhtmlparser.Make(Syntax)(struct
   value make_type loc tag =
     <:ctyp< elt [> `$uid:String.capitalize tag$ ] >>;
   value make_content_type loc tag =
-    <:ctyp< elt [< SVG_types.$lid:String.lowercase tag^"_content"$] >>;
+    <:ctyp< elt [< Svg_types.$lid:String.lowercase tag^"_content"$] >>;
   value make_attrib_type loc tag =
     let tag = match String.lowercase tag with
     [ "accent___height" -> "Accent___Height"
@@ -348,7 +348,7 @@ module ParserSVG = Xhtmlparser.Make(Syntax)(struct
     | tag -> String.capitalize tag ] in
     <:ctyp< attrib [> `$uid:tag$ ] >>;
   value make_attribs_type loc tag =
-    <:ctyp< attrib [< SVG_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    <:ctyp< attrib [< Svg_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 do {

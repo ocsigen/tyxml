@@ -19,13 +19,13 @@
 
 module type T = sig
 
-  open SVG_types
+  open Svg_types
   open Unit
 
-  module XML : XML_sigs.T
-  module Info : XML_sigs.Info
+  module Xml : Xml_sigs.T
+  module Info : Xml_sigs.Info
 
-  type uri = XML.uri
+  type uri = Xml.uri
   val string_of_uri : uri -> string
   val uri_of_string : string -> uri
 
@@ -564,11 +564,11 @@ module type T = sig
   val a_onzoom : string -> [> | `Onzoom ] attrib
 
   val metadata :
-    ?a: ((metadata_attr attrib) list) -> XML.elt list -> [> | metadata] elt
+    ?a: ((metadata_attr attrib) list) -> Xml.elt list -> [> | metadata] elt
 
   val foreignobject :
     ?a: ((foreignobject_attr attrib) list) ->
-    XML.elt list -> [> | foreignobject] elt
+    Xml.elt list -> [> | foreignobject] elt
 
   (** {1 Elements} *)
 
@@ -794,20 +794,20 @@ module type T = sig
 
   val fontfacename : ([< | fontfacename_attr], [> | fontfacename]) nullary
 
-  val tot : XML.elt -> 'a elt
+  val tot : Xml.elt -> 'a elt
 
-  val totl : XML.elt list -> ('a elt) list
+  val totl : Xml.elt list -> ('a elt) list
 
-  val toelt : 'a elt -> XML.elt
+  val toelt : 'a elt -> Xml.elt
 
-  val toeltl : ('a elt) list -> XML.elt list
+  val toeltl : ('a elt) list -> Xml.elt list
 
-  val to_xmlattribs : ('a attrib) list -> XML.attrib list
-  val to_attrib : XML.attrib -> 'a attrib
+  val to_xmlattribs : ('a attrib) list -> Xml.attrib list
+  val to_attrib : Xml.attrib -> 'a attrib
 
   (** {2 ... } *)
 
   type doc = [ `Svg ] elt
-  val doc_toelt : doc -> XML.elt
+  val doc_toelt : doc -> Xml.elt
 
 end

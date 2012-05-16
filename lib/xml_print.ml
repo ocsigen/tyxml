@@ -58,11 +58,11 @@ let compose_doctype dt args =
       " PUBLIC " ^
 	String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
 
-module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O : XML_sigs.Output) = struct
+module Make(Xml : Xml_sigs.Iterable)(F : sig val emptytags : string list end)(O : Xml_sigs.Output) = struct
 
   let (++) = O.concat
 
-  open XML
+  open Xml
 
   let separator_to_string = function
     | Space -> " "
@@ -149,35 +149,35 @@ module Make(XML : XML_sigs.Iterable)(F : sig val emptytags : string list end)(O 
 
 end
 
-module MakeTyped(XML : XML_sigs.Iterable)
-                (TypedXML : XML_sigs.IterableTypedXML with module XML := XML)
-                (O : XML_sigs.Output) = struct
+module Make_typed(Xml : Xml_sigs.Iterable)
+                (Typed_xml : Xml_sigs.Iterable_typed_xml with module Xml := Xml)
+                (O : Xml_sigs.Output) = struct
 
-  module P = Make(XML)(TypedXML.Info)(O)
+  module P = Make(Xml)(Typed_xml.Info)(O)
   let (++) = O.concat
 
   let print_list ?(encode = encode_unsafe_char) foret =
-    O.make (P.xh_print_taglist encode (List.map TypedXML.toelt foret))
+    O.make (P.xh_print_taglist encode (List.map Typed_xml.toelt foret))
 
   let print ?(encode = encode_unsafe_char) ?(advert = "") doc =
-    let doc = TypedXML.doc_toelt doc in
-    let doc = match XML.content doc with
-      | XML.Node (n, a, c) ->
+    let doc = Typed_xml.doc_toelt doc in
+    let doc = match Xml.content doc with
+      | Xml.Node (n, a, c) ->
 	  let a =
-	    if List.exists (fun a -> XML.aname a = "xmlns") a
+	    if List.exists (fun a -> Xml.aname a = "xmlns") a
 	    then a
-	    else XML.string_attrib "xmlns" TypedXML.Info.namespace :: a
+	    else Xml.string_attrib "xmlns" Typed_xml.Info.namespace :: a
 	  in
-	  XML.node ~a n c
+	  Xml.node ~a n c
       | _ -> doc in
     O.make
-      (O.put TypedXML.Info.doctype
+      (O.put Typed_xml.Info.doctype
 	 ++ O.put (if advert <> "" then ("<!-- " ^ advert ^ " -->\n") else "\n")
 	 ++ P.xh_print_taglist encode [doc])
 
 end
 
-module SimpleOutput(M : sig val put: string -> unit end) = struct
+module Simple_output(M : sig val put: string -> unit end) = struct
   type out = unit
   type m = unit -> unit
   let empty () = ()
@@ -186,29 +186,29 @@ module SimpleOutput(M : sig val put: string -> unit end) = struct
   let make f = f ()
 end
 
-module MakeSimple(XML : XML_sigs.Iterable)(I : sig val emptytags : string list end) = struct
+module Make_simple(Xml : Xml_sigs.Iterable)(I : sig val emptytags : string list end) = struct
 
-  type elt = XML.elt
+  type elt = Xml.elt
   type out = unit
   let print_list ~output =
-    let module M = Make(XML)(I)(SimpleOutput(struct let put = output end)) in
+    let module M = Make(Xml)(I)(Simple_output(struct let put = output end)) in
     M.print_list
 
 end
 
-module MakeTypedSimple(XML : XML_sigs.Iterable)
-                      (TypedXML : XML_sigs.TypedXML with  module XML := XML) = struct
+module Make_typed_simple(Xml : Xml_sigs.Iterable)
+                      (Typed_xml : Xml_sigs.Typed_xml with  module Xml := Xml) = struct
 
   type out = unit
-  type 'a elt = 'a TypedXML.elt
-  type doc = TypedXML.doc
+  type 'a elt = 'a Typed_xml.elt
+  type doc = Typed_xml.doc
 
   let print_list ~output =
-    let module M = MakeTyped(XML)(TypedXML)(SimpleOutput(struct let put = output end)) in
+    let module M = Make_typed(Xml)(Typed_xml)(Simple_output(struct let put = output end)) in
     M.print_list
 
   let print ~output =
-    let module M = MakeTyped(XML)(TypedXML)(SimpleOutput(struct let put = output end)) in
+    let module M = Make_typed(Xml)(Typed_xml)(Simple_output(struct let put = output end)) in
     M.print
 
 end

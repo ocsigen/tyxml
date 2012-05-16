@@ -1,17 +1,17 @@
 include ../Makefile.config
 -include ../Makefile.local
 
-FILES_F := XML_iter.ml   \
-	   XML_print.ml  \
-	   XHTML_f.ml    \
-	   SVG_f.ml      \
-	   HTML5_f.ml    \
+FILES_F := xml_iter.ml   \
+	   xml_print.ml  \
+	   xhtml_f.ml    \
+	   svg_f.ml      \
+	   html5_f.ml    \
 
-FILES := ${FILES_F} XML.ml XHTML.ml SVG.ml HTML5.ml
+FILES := ${FILES_F} xml.ml xhtml.ml svg.ml html5.ml
 
-DUCE_INTF  := XML_sigs_duce.mli XHTML_types_duce.mli XML_print_duce.mli XHTML_duce.mli
+DUCE_INTF  := xml_sigs_duce.mli xhtml_types_duce.mli xml_print_duce.mli xhtml_duce.mli
 
-DUCE_FILES := XML_print_duce.ml XHTML_duce.ml
+DUCE_FILES := xml_print_duce.ml xhtml_duce.ml
 
 LIBS     := -package netstring
 

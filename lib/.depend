@@ -1,46 +1,46 @@
-HTML5_f.cmi: XML_sigs.cmi SVG_sigs.cmi HTML5_sigs.cmi
-HTML5.cmi: XML_sigs.cmi XML.cmi SVG.cmi HTML5_sigs.cmi
-HTML5_sigs.cmi: XML_sigs.cmi SVG_sigs.cmi HTML5_types.cmi
-HTML5_types.cmi: SVG_types.cmi
-SVG_f.cmi: XML_sigs.cmi SVG_sigs.cmi
-SVG.cmi: XML_sigs.cmi XML.cmi SVG_sigs.cmi
-SVG_sigs.cmi: XML_sigs.cmi SVG_types.cmi
-SVG_types.cmi:
-XHTML_f.cmi: XML_sigs.cmi XHTML_sigs.cmi
-XHTML.cmi: XML_sigs.cmi XML.cmi XHTML_sigs.cmi
-XHTML_sigs.cmi: XML_sigs.cmi XHTML_types.cmi
-XHTML_types.cmi:
-XML_iter.cmi: XML_sigs.cmi
-XML.cmi:
-XML_print.cmi: XML_sigs.cmi
-XML_sigs.cmi:
-HTML5_f.cmo: XML_sigs.cmi XML_print.cmi SVG_sigs.cmi HTML5_types.cmi \
-    HTML5_f.cmi
-HTML5_f.cmx: XML_sigs.cmi XML_print.cmx SVG_sigs.cmi HTML5_types.cmi \
-    HTML5_f.cmi
-HTML5.cmo: XML_print.cmi XML.cmi SVG.cmi HTML5_f.cmi HTML5.cmi
-HTML5.cmx: XML_print.cmx XML.cmx SVG.cmx HTML5_f.cmx HTML5.cmi
-SVG_f.cmo: XML_sigs.cmi XML_print.cmi SVG_types.cmi SVG_f.cmi
-SVG_f.cmx: XML_sigs.cmi XML_print.cmx SVG_types.cmi SVG_f.cmi
-SVG.cmo: XML_print.cmi XML.cmi SVG_f.cmi SVG.cmi
-SVG.cmx: XML_print.cmx XML.cmx SVG_f.cmx SVG.cmi
-XHTML_f.cmo: XML_sigs.cmi XML_print.cmi XHTML_types.cmi XHTML_f.cmi
-XHTML_f.cmx: XML_sigs.cmi XML_print.cmx XHTML_types.cmi XHTML_f.cmi
-XHTML.cmo: XML_print.cmi XML.cmi XHTML_f.cmi XHTML.cmi
-XHTML.cmx: XML_print.cmx XML.cmx XHTML_f.cmx XHTML.cmi
-XML_iter.cmo: XML_sigs.cmi XML_iter.cmi
-XML_iter.cmx: XML_sigs.cmi XML_iter.cmi
-XML.cmo: XML_print.cmi XML_iter.cmi XML.cmi
-XML.cmx: XML_print.cmx XML_iter.cmx XML.cmi
-XML_print.cmo: XML_sigs.cmi XML_print.cmi
-XML_print.cmx: XML_sigs.cmi XML_print.cmi
-XML_print_duce.cmo: XML_sigs_duce.cmi XML_print.cmi XML_print_duce.cmi
-XML_print_duce.cmx: XML_sigs_duce.cmi XML_print.cmx XML_print_duce.cmi
-XHTML_duce.cmo: XML_sigs_duce.cmi XML_print_duce.cmi XHTML_types_duce.cmi \
-    XHTML.cmi XHTML_duce.cmi
-XHTML_duce.cmx: XML_sigs_duce.cmi XML_print_duce.cmx XHTML_types_duce.cmi \
-    XHTML.cmx XHTML_duce.cmi
-XML_sigs_duce.cmi: XML_sigs.cmi
-XHTML_types_duce.cmi:
-XML_print_duce.cmi: XML_sigs_duce.cmi
-XHTML_duce.cmi: XML_sigs_duce.cmi XHTML_types_duce.cmi
+html5_f.cmi: xml_sigs.cmi svg_sigs.cmi html5_sigs.cmi
+html5.cmi: xml_sigs.cmi xml.cmi svg.cmi html5_sigs.cmi
+html5_sigs.cmi: xml_sigs.cmi svg_sigs.cmi html5_types.cmi
+html5_types.cmi: svg_types.cmi
+svg_f.cmi: xml_sigs.cmi svg_sigs.cmi
+svg.cmi: xml_sigs.cmi xml.cmi svg_sigs.cmi
+svg_sigs.cmi: xml_sigs.cmi svg_types.cmi
+svg_types.cmi:
+xhtml_f.cmi: xml_sigs.cmi xhtml_sigs.cmi
+xhtml.cmi: xml_sigs.cmi xml.cmi xhtml_sigs.cmi
+xhtml_sigs.cmi: xml_sigs.cmi xhtml_types.cmi
+xhtml_types.cmi:
+xml_iter.cmi: xml_sigs.cmi
+xml.cmi:
+xml_print.cmi: xml_sigs.cmi
+xml_sigs.cmi:
+html5_f.cmo: xml_sigs.cmi xml_print.cmi svg_sigs.cmi html5_types.cmi \
+    html5_f.cmi
+html5_f.cmx: xml_sigs.cmi xml_print.cmx svg_sigs.cmi html5_types.cmi \
+    html5_f.cmi
+html5.cmo: xml_print.cmi xml.cmi svg.cmi html5_f.cmi html5.cmi
+html5.cmx: xml_print.cmx xml.cmx svg.cmx html5_f.cmx html5.cmi
+svg_f.cmo: xml_sigs.cmi xml_print.cmi svg_types.cmi svg_f.cmi
+svg_f.cmx: xml_sigs.cmi xml_print.cmx svg_types.cmi svg_f.cmi
+svg.cmo: xml_print.cmi xml.cmi svg_f.cmi svg.cmi
+svg.cmx: xml_print.cmx xml.cmx svg_f.cmx svg.cmi
+xhtml_f.cmo: xml_sigs.cmi xml_print.cmi xhtml_types.cmi xhtml_f.cmi
+xhtml_f.cmx: xml_sigs.cmi xml_print.cmx xhtml_types.cmi xhtml_f.cmi
+xhtml.cmo: xml_print.cmi xml.cmi xhtml_f.cmi xhtml.cmi
+xhtml.cmx: xml_print.cmx xml.cmx xhtml_f.cmx xhtml.cmi
+xml_iter.cmo: xml_sigs.cmi xml_iter.cmi
+xml_iter.cmx: xml_sigs.cmi xml_iter.cmi
+xml.cmo: xml_print.cmi xml_iter.cmi xml.cmi
+xml.cmx: xml_print.cmx xml_iter.cmx xml.cmi
+xml_print.cmo: xml_sigs.cmi xml_print.cmi
+xml_print.cmx: xml_sigs.cmi xml_print.cmi
+xml_print_duce.cmo: xml_sigs_duce.cmi xml_print.cmi xml_print_duce.cmi
+xml_print_duce.cmx: xml_sigs_duce.cmi xml_print.cmx xml_print_duce.cmi
+xhtml_duce.cmo: xml_sigs_duce.cmi xml_print_duce.cmi xhtml_types_duce.cmi \
+    xhtml.cmi xhtml_duce.cmi
+xhtml_duce.cmx: xml_sigs_duce.cmi xml_print_duce.cmx xhtml_types_duce.cmi \
+    xhtml.cmx xhtml_duce.cmi
+xml_sigs_duce.cmi: xml_sigs.cmi
+xhtml_types_duce.cmi:
+xml_print_duce.cmi: xml_sigs_duce.cmi
+xhtml_duce.cmi: xml_sigs_duce.cmi xhtml_types_duce.cmi

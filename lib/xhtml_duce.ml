@@ -1,5 +1,6 @@
-(* Ocsigen
- * Copyright (C) 2011 Jaap Boender
+(* TyXML
+ * http://www.ocsigen.org/tyxml
+ * Copyright (C) 2011 Pierre Chambart, Grégoire Henry
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,15 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-(** Printer for XHTML with Ocamlduce that handles browser specificities properly. *)
+(** Printers for XHTML 1.0 and 1.1 documents *)
 
-module Make (I : sig val emptytags : string list end) : XML_sigs_duce.Printer
+module type T = Xml_sigs_duce.Typed_xml
+                with type doc = Xhtml_types_duce.html
+		 and type elt = {{ Xhtml_types_duce.block
+				 | Xhtml_types_duce.form
+				 | Xhtml_types_duce.misc }}
 
-(* module MakeTypedRaw (TypedXML : XML_sigs_duce.TypedXML) : XML_sigs_duce.RawTypedPrinter *)
-module MakeTyped (TypedXML : XML_sigs_duce.TypedXML) :
-  XML_sigs_duce.TypedPrinter with module TypedXML := TypedXML
+module M_01_00 = struct
 
-val print:
-  output:(string -> unit) ->
-    ?encode:(string -> string) ->
-      Ocamlduce.Load.anyxml -> unit
+  module Info = Xhtml.M_01_00.Info
+
+  type doc = {{ Xhtml_types_duce.html }}
+  type elt = {{ Xhtml_types_duce.block
+	      | Xhtml_types_duce.form
+	      | Xhtml_types_duce.misc }}
+
+  let of_doc (x: doc) : Ocamlduce.Load.anyxml = x
+  let of_elt (x: elt) : Ocamlduce.Load.anyxml = x
+
+end
+
+module P_01_00 = Xml_print_duce.Make_typed(M_01_00)
+
+module M = M_01_00
+module P = P_01_00

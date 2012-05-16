@@ -24,46 +24,46 @@
 (** {1 Current version } *)
 
 (** Concrete implementation of XHTML typesafe constructors *)
-module M : XHTML_sigs.T with module XML := XML
+module M : Xhtml_sigs.T with module Xml := Xml
 
 (** Simple printer for XHTML documents (HTML compatible printer) *)
-module P : XML_sigs.TypedSimplePrinter with type 'a elt := 'a M.elt
+module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
 					 and type doc := M.doc
 
 (** Parametrized stream printer for XHTML documents (HTML compatible printer) *)
-module MakePrinter(O : XML_sigs.Output) :
-  XML_sigs.TypedPrinter with type out := O.out
+module Make_printer(O : Xml_sigs.Output) :
+  Xml_sigs.Typed_printer with type out := O.out
 			 and type 'a elt := 'a M.elt
 			 and type doc := M.doc
 
 (** {1 XHTML 1.1} *)
 
 (** Concrete implementation of XHTML 1.1 typesafe constructors *)
-module M_01_01 : XHTML_sigs.T_01_01 with module XML := XML
+module M_01_01 : Xhtml_sigs.T_01_01 with module Xml := Xml
 
 (** Simple printer for XHTML 1.1 documents (HTML compatible printer) *)
 module P_01_01 :
-  XML_sigs.TypedSimplePrinter with type 'a elt := 'a M_01_01.elt
+  Xml_sigs.Typed_simple_printer with type 'a elt := 'a M_01_01.elt
                                and type doc := M_01_01.doc
 
 (** Parametrized stream printer for XHTML 1.1 documents (HTML compatible printer) *)
-module MakePrinter_01_01(O : XML_sigs.Output) :
-  XML_sigs.TypedPrinter with type out := O.out
+module Make_printer_01_01(O : Xml_sigs.Output) :
+  Xml_sigs.Typed_printer with type out := O.out
                          and type 'a elt := 'a M_01_01.elt
                          and type doc := M_01_01.doc
 
 (** {1 XHTML 1.0 } *)
 
 (** Concrete implementation of XHTML 1.0 typesafe constructors *)
-module M_01_00 : XHTML_sigs.T_01_00 with module XML := XML
+module M_01_00 : Xhtml_sigs.T_01_00 with module Xml := Xml
 
 (** Simple printer for XHTML 1.0 documents (HTML compatible printer) *)
 module P_01_00 :
-  XML_sigs.TypedSimplePrinter with type 'a elt := 'a M_01_00.elt
+  Xml_sigs.Typed_simple_printer with type 'a elt := 'a M_01_00.elt
                                and type doc := M_01_00.doc
 
 (** Parametrized stream printer for XHTML 1.0 documents *)
-module MakePrinter_01_00(O : XML_sigs.Output) :
-  XML_sigs.TypedPrinter with type out := O.out
+module Make_printer_01_00(O : Xml_sigs.Output) :
+  Xml_sigs.Typed_printer with type out := O.out
                          and type 'a elt := 'a M_01_00.elt
                          and type doc := M_01_00.doc

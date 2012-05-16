@@ -29,7 +29,7 @@
     and the interface is very low level and do not take deeply into account
     the needs of SVG elements. *)
 
-open SVG_types
+open Svg_types
 
 open Unit
 
@@ -109,9 +109,9 @@ let string_of_numbers_semicolon l =
 let string_of_coords l =
   String.concat " " (List.map (fun (a, b) -> Printf.sprintf "%g, %g" a b) l)
 
-module Make(XML : XML_sigs.T) = struct
+module Make(Xml : Xml_sigs.T) = struct
 
-  module XML = XML
+  module Xml = Xml
 
   module Info = struct
     let content_type = "image/svg+xml"
@@ -121,22 +121,22 @@ module Make(XML : XML_sigs.T) = struct
     let standard = "http://www.w3.org/TR/svg11/"
     let namespace = "http://www.w3.org/2000/svg"
     let doctype =
-      XML_print.compose_doctype	"svg"
+      Xml_print.compose_doctype	"svg"
 	["-//W3C//DTD SVG 1.1//EN";
 	 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
   end
 
   open Unit
 
-  type uri = XML.uri
-  let string_of_uri = XML.string_of_uri
-  let uri_of_string = XML.uri_of_string
+  type uri = Xml.uri
+  let string_of_uri = Xml.string_of_uri
+  let uri_of_string = Xml.uri_of_string
 
-  type 'a attrib = XML.attrib
+  type 'a attrib = Xml.attrib
 
-  type +'a elt = XML.elt
+  type +'a elt = Xml.elt
 
-  type +'a elts = XML.elt list
+  type +'a elts = Xml.elt list
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
@@ -159,13 +159,13 @@ module Make(XML : XML_sigs.T) = struct
   let to_xmlattribs x = x
   let to_attrib x = x
 
-  let nullary tag ?a () = XML.node ?a tag []
+  let nullary tag ?a () = Xml.node ?a tag []
 
-  let unary tag ?a elt = XML.node ?a tag [ elt ]
+  let unary tag ?a elt = Xml.node ?a tag [ elt ]
 
-  let star tag ?a elts = XML.node ?a tag elts
+  let star tag ?a elts = Xml.node ?a tag elts
 
-  let plus tag ?a elt elts = XML.node ?a tag (elt :: elts)
+  let plus tag ?a elt elts = Xml.node ?a tag (elt :: elts)
 
   type altglyphdef_content =
       [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
@@ -175,19 +175,19 @@ module Make(XML : XML_sigs.T) = struct
 
   let to_xmlattribs x = x
 
-  let float_attrib = XML.float_attrib
+  let float_attrib = Xml.float_attrib
 
-  let int_attrib = XML.int_attrib
+  let int_attrib = Xml.int_attrib
 
-  let string_attrib = XML.string_attrib
+  let string_attrib = Xml.string_attrib
 
-  let uri_attrib = XML.uri_attrib
+  let uri_attrib = Xml.uri_attrib
 
-  let user_attrib f name v = XML.string_attrib name (f v)
+  let user_attrib f name v = Xml.string_attrib name (f v)
 
-  let metadata ?a children = XML.node ?a "metadata" children
+  let metadata ?a children = Xml.node ?a "metadata" children
 
-  let foreignobject ?a children = XML.node ?a "foreignObject" children
+  let foreignobject ?a children = Xml.node ?a "foreignObject" children
 
   (* generated *)
   let a_version = user_attrib string_of_string "version"

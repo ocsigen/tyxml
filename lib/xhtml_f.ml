@@ -27,15 +27,15 @@
 (** Typesafe constructors for XHTML 1.1 documents.
     @see <http://www.w3.org/TR/xhtml-modularization/abstract_modules.html> W3C Recommendation *)
 
-open XHTML_types
+open Xhtml_types
 
-module Version(XML : XML_sigs.T) = struct
+module Version(Xml : Xml_sigs.T) = struct
 
-  module XML = XML
+  module Xml = Xml
 
-  type uri = XML.uri
-  let string_of_uri = XML.string_of_uri
-  let uri_of_string = XML.uri_of_string
+  type uri = Xml.uri
+  let string_of_uri = Xml.string_of_uri
+  let uri_of_string = Xml.uri_of_string
 
   (* Directly from http://www.w3.org/TR/xhtml-modularization/abstract_modules.html *)
 
@@ -49,21 +49,21 @@ module Version(XML : XML_sigs.T) = struct
 
   type common = [ core | i18n | events | `Style_Attr]
 
-  type 'a attrib = XML.attrib
+  type 'a attrib = Xml.attrib
 
   let to_xmlattribs x = x (* VB *)
   let to_attrib x = x
 
-  let int_attrib = XML.int_attrib
-  let string_attrib = XML.string_attrib
-  let uri_attrib = XML.uri_attrib
-  let uris_attrib = XML.uris_attrib
-  let space_sep_attrib = XML.space_sep_attrib
-  let comma_sep_attrib = XML.comma_sep_attrib
-  let event_handler_attrib = XML.event_handler_attrib
+  let int_attrib = Xml.int_attrib
+  let string_attrib = Xml.string_attrib
+  let uri_attrib = Xml.uri_attrib
+  let uris_attrib = Xml.uris_attrib
+  let space_sep_attrib = Xml.space_sep_attrib
+  let comma_sep_attrib = Xml.comma_sep_attrib
+  let event_handler_attrib = Xml.event_handler_attrib
 
   (* Deprecated alias. *)
-  let event_attrib = XML.event_handler_attrib
+  let event_attrib = Xml.event_handler_attrib
 
   type cdata = string
   type id = string
@@ -163,7 +163,7 @@ module Version(XML : XML_sigs.T) = struct
 
   let a_class = space_sep_attrib "class"
       (* class is different on client side.
-         We put the value in xML.ml
+         We put the value in xml.ml
          because this file has a different implementation client side.
        *)
   let a_id = string_attrib "id"
@@ -369,11 +369,11 @@ module Version(XML : XML_sigs.T) = struct
 
   let a_media = mediadesc_attrib "media"
 
-  type 'a elt = XML.elt
+  type 'a elt = Xml.elt
 
   type html = [`Html] elt
 
-	(* NB: These are more general than the ones in xHTML.mli *)
+	(* NB: These are more general than the ones in xhtml.mli *)
 
   type ('a, 'b) nullary = ?a:('a attrib list) -> unit -> 'b elt
   type ('a, 'b, 'c) unary = ?a:('a attrib list) -> 'b elt -> 'c elt
@@ -384,15 +384,15 @@ module Version(XML : XML_sigs.T) = struct
   type ('a, 'b, 'c) star = ?a:('a attrib list) -> 'b elt list -> 'c elt
   type ('a, 'b, 'c) plus = ?a:('a attrib list) -> 'b elt -> 'b elt list -> 'c elt
 
-  let terminal tag ?a () = XML.leaf ?a tag
-      (* let nullary tag ?a () = XML.node ?a tag [] *)
-  let unary tag ?a elt = XML.node ?a tag [elt]
-  let binary tag ?a elt1 elt2 = XML.node ?a tag [elt1; elt2]
-  let star tag ?a elts = XML.node ?a tag elts
-  let plus tag ?a elt elts = XML.node ?a tag (elt :: elts)
+  let terminal tag ?a () = Xml.leaf ?a tag
+      (* let nullary tag ?a () = Xml.node ?a tag [] *)
+  let unary tag ?a elt = Xml.node ?a tag [elt]
+  let binary tag ?a elt1 elt2 = Xml.node ?a tag [elt1; elt2]
+  let star tag ?a elts = Xml.node ?a tag elts
+  let plus tag ?a elt elts = Xml.node ?a tag (elt :: elts)
 
 (* CH *)
-  let quadry tag ?a elt1 elt2 elt3 elt4 = XML.node ?a tag [elt1; elt2; elt3; elt4]
+  let quadry tag ?a elt1 elt2 elt3 elt4 = Xml.node ?a tag [elt1; elt2; elt3; elt4]
 (* CH *)
 
 
@@ -406,18 +406,18 @@ module Version(XML : XML_sigs.T) = struct
   let title = unary "title"
   let html = binary "html"
 
-  let pcdata = XML.pcdata
-  let entity = XML.entity
+  let pcdata = Xml.pcdata
+  let entity = Xml.entity
 
   let space () = entity "nbsp"
 
-  let cdata = XML.cdata
+  let cdata = Xml.cdata
 
-  let cdata_script = XML.cdata_script
+  let cdata_script = Xml.cdata_script
 
-  let cdata_style = XML.cdata_style
+  let cdata_style = Xml.cdata_style
 
-  let unsafe_data s = XML.encodedpcdata s
+  let unsafe_data s = Xml.encodedpcdata s
 
 
   module TEXT =
@@ -508,7 +508,7 @@ module Version(XML : XML_sigs.T) = struct
 
 (* CH *)
   let bdo ~dir ?(a = []) elts =
-    XML.node ~a:(a_dir dir :: a) "bdo" elts
+    Xml.node ~a:(a_dir dir :: a) "bdo" elts
 (* CH *)
 
   let a_shape d =
@@ -528,13 +528,13 @@ module Version(XML : XML_sigs.T) = struct
   let a_label = string_attrib "label"
 
   let area ~alt ?(a = []) () =
-    XML.leaf ~a:(a_alt alt :: a) "area"
+    Xml.leaf ~a:(a_alt alt :: a) "area"
   let map ~id ?(a = []) elt elts =
-    XML.node ~a:(a_id id :: a) "map" (elt::elts)
+    Xml.node ~a:(a_id id :: a) "map" (elt::elts)
   let del = star "del"
   let ins = star "ins"
   let script ~contenttype ?(a = []) elt =
-    XML.node ~a:(a_type contenttype :: a) "script" [elt]
+    Xml.node ~a:(a_type contenttype :: a) "script" [elt]
   let noscript = plus "noscript"
 (* VB *)
 
@@ -554,28 +554,28 @@ module Version(XML : XML_sigs.T) = struct
   module Basic_Forms =
     struct
       let form ~action ?(a = []) elt elts =
-        XML.node ~a:(a_action action :: a) "form" (elt::elts)
+        Xml.node ~a:(a_action action :: a) "form" (elt::elts)
       let input = terminal "input"
       let label = star "label"
       let option = unary "option"
       let select = plus "select"
       let textarea ~rows ~cols ?(a = []) elt =
-        XML.node ~a:(a_rows rows :: a_cols cols :: a) "textarea" [elt]
+        Xml.node ~a:(a_rows rows :: a_cols cols :: a) "textarea" [elt]
     end
 
   let form ~action ?(a = []) elt elts =
-    XML.node ~a:(a_action action :: a) "form" (elt::elts)
+    Xml.node ~a:(a_action action :: a) "form" (elt::elts)
   let input = terminal "input"
   let label = star "label"
   let option = unary "option"
   let select = plus "select"
   let textarea ~rows ~cols ?(a = []) elt =
-    XML.node ~a:(a_rows rows :: a_cols cols :: a) "textarea" [elt]
+    Xml.node ~a:(a_rows rows :: a_cols cols :: a) "textarea" [elt]
   let button = star "button"
   let legend = star "legend"
   let fieldset = star "fieldset"
   let optgroup ~label ?(a = []) elt elts =
-    XML.node ~a:(a_label label :: a) "optgroup" (elt :: elts)
+    Xml.node ~a:(a_label label :: a) "optgroup" (elt :: elts)
 
   module TABLES =
     struct
@@ -599,7 +599,7 @@ module Version(XML : XML_sigs.T) = struct
       let a_valign = a_valign
       let caption = star "caption"
       let table ?caption ?a elt elts =
-        XML.node ?a "table" (list_of_option caption @ elt :: elts)
+        Xml.node ?a "table" (list_of_option caption @ elt :: elts)
       let td = star "td"
       let th = star "th"
       let tr = plus "tr"
@@ -613,11 +613,11 @@ module Version(XML : XML_sigs.T) = struct
     | None -> []
 
   let table ?caption ?columns ?a elt elts =
-    XML.node ?a "table"
+    Xml.node ?a "table"
       (list_of_option caption @ cols_option columns @ elt :: elts)
 
   let tablex ?caption ?columns ?thead ?tfoot ?a elt elts =
-    XML.node ?a "table"
+    Xml.node ?a "table"
       (list_of_option caption @ cols_option columns @
        list_of_option thead @ list_of_option tfoot @ elt :: elts)
 
@@ -633,16 +633,16 @@ module Version(XML : XML_sigs.T) = struct
 
   let object_ = star "object"
   let param ~name ?(a = []) () =
-    XML.leaf ~a:(a_name name :: a) "param"
+    Xml.leaf ~a:(a_name name :: a) "param"
 
   let img ~src ~alt ?(a = []) () =
-    XML.leaf ~a:(a_src src :: a_alt alt :: a) "img"
+    Xml.leaf ~a:(a_src src :: a_alt alt :: a) "img"
 
   let frameset ?noframes ?a elt elts =
-    XML.node ?a "frameset"
+    Xml.node ?a "frameset"
       (elt :: elts @ (match noframes with None -> [] | Some e -> [e]))
   let frame ~src ?(a = []) () =
-    XML.leaf ~a:(a_src src :: a) "frame"
+    Xml.leaf ~a:(a_src src :: a) "frame"
   let noframes = unary "noframes"
   let iframe = star "iframe"
 
@@ -652,7 +652,7 @@ module Version(XML : XML_sigs.T) = struct
     end
 
   let meta ~content ?(a = []) () =
-    XML.leaf ~a:(a_content content :: a) "meta"
+    Xml.leaf ~a:(a_content content :: a) "meta"
 
   module STYLE_SHEET =
     struct
@@ -660,7 +660,7 @@ module Version(XML : XML_sigs.T) = struct
     end
 
   let style ~contenttype ?(a = []) elts =
-    XML.node ~a:(a_type contenttype :: a) "style" elts
+    Xml.node ~a:(a_type contenttype :: a) "style" elts
 
   module LINK =
     struct
@@ -675,7 +675,7 @@ module Version(XML : XML_sigs.T) = struct
     end
 
   let base ~href ?(a = []) ()=
-    XML.leaf ~a:(a_href href :: a) "base"
+    Xml.leaf ~a:(a_href href :: a) "base"
 
   let ruby_simple1 = binary "ruby"
   let ruby_simple2 = quadry "ruby"
@@ -780,9 +780,9 @@ let emptytags =
   [ "hr"; "br"; "img"; "meta"; "link"; "input"; "col"; "area";
     "param"; "base"; "basefont"; "isindex"; "frame" ]
 
-module Make_01_00(XML : XML_sigs.T) = struct
+module Make_01_00(Xml : Xml_sigs.T) = struct
 
-  module M = Version(XML)
+  module M = Version(Xml)
   include M
 
   module Info = struct
@@ -792,7 +792,7 @@ module Make_01_00(XML : XML_sigs.T) = struct
     let standard = "http://www.w3.org/TR/xhtml1/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
-      XML_print.compose_doctype	"html"
+      Xml_print.compose_doctype	"html"
 	["-//W3C//DTD XHTML 1.0 Strict//EN";
 	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"]
     let emptytags = emptytags
@@ -800,9 +800,9 @@ module Make_01_00(XML : XML_sigs.T) = struct
 
 end
 
-module Make_01_01(XML : XML_sigs.T) = struct
+module Make_01_01(Xml : Xml_sigs.T) = struct
 
-  module M = Version(XML)
+  module M = Version(Xml)
   include M
 
   module Info = struct
@@ -812,8 +812,8 @@ module Make_01_01(XML : XML_sigs.T) = struct
     let standard = "http://www.w3.org/TR/xhtml11/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
-      XML_print.compose_decl () ^
-      XML_print.compose_doctype "html"
+      Xml_print.compose_decl () ^
+      Xml_print.compose_doctype "html"
 	["-//W3C//DTD XHTML 1.1//EN";
 	 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"]
     let emptytags = emptytags

@@ -4,8 +4,8 @@ camllexer.cmo: xmllexer.cmo
 camllexer.cmx: xmllexer.cmx
 simplexmlparser.cmi:
 pa_tyxml.cmi:
-basicTypes.cmo:
-basicTypes.cmx:
+basic_types.cmo:
+basic_types.cmx:
 simplexmlparser.cmo: xmllexer.cmo simplexmlparser.cmi
 simplexmlparser.cmx: xmllexer.cmx simplexmlparser.cmi
 xhtmlparser.cmo: xmllexer.cmo camllexer.cmo

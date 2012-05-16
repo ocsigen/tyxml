@@ -30,9 +30,9 @@
      only advantage are a potentially better mapping of the XHTML modularization
      to O'Caml modules. *)
 
-open HTML5_types
+open Html5_types
 
-module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
+module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   module Info = struct
     let content_type = "text/html"
@@ -41,38 +41,38 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
     let standard = "http://www.w3.org/TR/html5/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
-      XML_print.compose_doctype "html" []
+      Xml_print.compose_doctype "html" []
     let emptytags =
       [ "area"; "base"; "br"; "col"; "command"; "embed"; "hr"; "img";
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
 
-  type uri = XML.uri
-  let string_of_uri = XML.string_of_uri
-  let uri_of_string = XML.uri_of_string
+  type uri = Xml.uri
+  let string_of_uri = Xml.string_of_uri
+  let uri_of_string = Xml.uri_of_string
 
-  type 'a attrib = XML.attrib
+  type 'a attrib = Xml.attrib
 
   let to_xmlattribs x = x
   let to_attrib x = x
 
   (* VB *)
-  let float_attrib = XML.float_attrib
+  let float_attrib = Xml.float_attrib
 
-  let int_attrib = XML.int_attrib
+  let int_attrib = Xml.int_attrib
 
-  let string_attrib = XML.string_attrib
+  let string_attrib = Xml.string_attrib
 
-  let uri_attrib a s = XML.uri_attrib a s
+  let uri_attrib a s = Xml.uri_attrib a s
 
-  let space_sep_attrib = XML.space_sep_attrib
+  let space_sep_attrib = Xml.space_sep_attrib
 
-  let comma_sep_attrib = XML.comma_sep_attrib
+  let comma_sep_attrib = Xml.comma_sep_attrib
 
-  let event_handler_attrib = XML.event_handler_attrib
+  let event_handler_attrib = Xml.event_handler_attrib
 
   (* Deprecated alias. *)
-  let event_attrib = XML.event_handler_attrib
+  let event_attrib = Xml.event_handler_attrib
 
   (* space-separated *)
   let length_attrib name =
@@ -647,11 +647,11 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   let a_media = mediadesc_attrib "media"
 
-    type 'a elt = XML.elt
+    type 'a elt = Xml.elt
 
     type html = [ | `Html ] elt
 
-    (* NB: These are more general than the ones in xHTML.mli *)
+    (* NB: These are more general than the ones in xhtml.mli *)
     type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
     type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt -> 'c elt
@@ -667,18 +667,18 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
     type ('a, 'b, 'c) plus =
       ?a: (('a attrib) list) -> 'b elt -> ('b elt) list -> 'c elt
 
-  let terminal tag ?a () = XML.leaf ?a tag
+  let terminal tag ?a () = Xml.leaf ?a tag
 
-    (* let nullary tag ?a () = XML.node ?a tag [] *)
-  let unary tag ?a elt = XML.node ?a tag [ elt ]
+    (* let nullary tag ?a () = Xml.node ?a tag [] *)
+  let unary tag ?a elt = Xml.node ?a tag [ elt ]
 
-  let binary tag ?a elt1 elt2 = XML.node ?a tag [ elt1; elt2 ]
+  let binary tag ?a elt1 elt2 = Xml.node ?a tag [ elt1; elt2 ]
 
-  let tri tag elt1 elt2 elt3 = XML.node tag [ elt1; elt2; elt3 ]
+  let tri tag elt1 elt2 elt3 = Xml.node tag [ elt1; elt2; elt3 ]
 
-  let star tag ?a elts = XML.node ?a tag elts
+  let star tag ?a elts = Xml.node ?a tag elts
 
-  let plus tag ?a elt elts = XML.node ?a tag (elt :: elts)
+  let plus tag ?a elt elts = Xml.node ?a tag (elt :: elts)
 
   let list_of_option = function | Some x -> [ x ] | None -> []
 
@@ -729,21 +729,21 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   let nav = star "nav"
 
-  let pcdata = XML.pcdata
+  let pcdata = Xml.pcdata
 
-  let entity = XML.entity
+  let entity = Xml.entity
 
   let space () = entity "nbsp"
 
-  let cdata = XML.cdata
+  let cdata = Xml.cdata
 
-  let cdata_script = XML.cdata_script
+  let cdata_script = Xml.cdata_script
 
-  let cdata_style = XML.cdata_style
+  let cdata_style = Xml.cdata_style
 
-  let unsafe_data s = XML.encodedpcdata s
+  let unsafe_data s = Xml.encodedpcdata s
 
-  let unsafe_data s = XML.encodedpcdata s
+  let unsafe_data s = Xml.encodedpcdata s
 
   let h1 = star "h1"
 
@@ -798,7 +798,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
   let a = star "a"
 
   let dl ?a list =
-      XML.node ?a "dl"
+      Xml.node ?a "dl"
         (List.concat
            (List.map
               (fun ((elt, elts), (elt', elts')) ->
@@ -834,9 +834,9 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
   let rt ?rp ?a elts =
       match rp with
       | Some ((a1, e1), (a2, e2)) ->
-          `Rpt (XML.node ~a: a1 "rp" e1, XML.node ?a "rt" elts,
-            XML.node ~a: a2 "rp" e2)
-      | None -> `Rt (XML.node ?a "rt" elts)
+          `Rpt (Xml.node ~a: a1 "rp" e1, Xml.node ?a "rt" elts,
+            Xml.node ~a: a2 "rp" e2)
+      | None -> `Rt (Xml.node ?a "rt" elts)
 
   let ruby ?a elt elts =
     let rec aux =
@@ -844,14 +844,14 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
         | [] -> []
         | (pel, `Rt e) :: l -> pel @ (e :: (aux l))
         | (pel, `Rpt (e1, e2, e3)) :: l -> pel @ (e1 :: e2 :: e3 :: (aux l))
-      in XML.node ?a "ruby" (aux (elt :: elts))
+      in Xml.node ?a "ruby" (aux (elt :: elts))
 
   let wbr = terminal "wbr"
 
     (* VB *)
     type shape = [ | `Rect | `Circle | `Poly | `Default ]
 
-  let bdo ~dir ?(a = []) elts = XML.node ~a: ((a_dir dir) :: a) "bdo" elts
+  let bdo ~dir ?(a = []) elts = Xml.node ~a: ((a_dir dir) :: a) "bdo" elts
 
   let a_datetime = string_attrib "datetime"
 
@@ -873,7 +873,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   let a_label = string_attrib "label"
 
-  let area ~alt ?(a = []) () = XML.leaf ~a: ((a_alt alt) :: a) "area"
+  let area ~alt ?(a = []) () = Xml.leaf ~a: ((a_alt alt) :: a) "area"
 
   let map = plus "map"
 
@@ -881,7 +881,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
 
   let ins = star "ins"
 
-  let script ?(a = []) elt = XML.node ~a "script" [ elt ]
+  let script ?(a = []) elt = Xml.node ~a "script" [ elt ]
 
   let noscript = plus "noscript"
 
@@ -894,7 +894,7 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
         match srcs with
         | None -> (a, elts)
         | Some (uri, srcs) -> (((a_src uri) :: a), (srcs @ elts))
-      in XML.node ~a name children
+      in Xml.node ~a name children
 
   let audio = video_audio "audio"
 
@@ -903,9 +903,9 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
   let canvas = star "canvas"
 
   let command ~label ?(a = []) () =
-      XML.leaf ~a: ((a_label label) :: a) "command"
+      Xml.leaf ~a: ((a_label label) :: a) "command"
 
-  let menu ?child ?a () = XML.node ?a "menu" (li_option child)
+  let menu ?child ?a () = Xml.node ?a "menu" (li_option child)
 
   let embed = terminal "embed"
 
@@ -918,8 +918,8 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
   let form = plus "form"
 
   let svg ?(xmlns = "http://www.w3.org/2000/svg")
-      ?(a = []) children = star ~a:(string_attrib "xmlns" xmlns ::(SVG.to_xmlattribs a))
-      "svg" (SVG.toeltl children)
+      ?(a = []) children = star ~a:(string_attrib "xmlns" xmlns ::(Svg.to_xmlattribs a))
+      "svg" (Svg.toeltl children)
   type input_attr =
       [
         | common
@@ -974,39 +974,39 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
         | Some (`Options x) -> x
         | Some (`Phras x) -> x
         | None -> []
-      in XML.node ?a "datalist" children
+      in Xml.node ?a "datalist" children
 
   let progress = star "proress"
 
   let legend = star "legend"
 
   let details summary ?a children =
-      XML.node "details" ?a (summary :: children)
+      Xml.node "details" ?a (summary :: children)
 
   let summary = star "summary"
 
   let fieldset ?legend ?a elts =
-      XML.node ?a "fieldset" ((list_of_option legend) @ elts)
+      Xml.node ?a "fieldset" ((list_of_option legend) @ elts)
 
   let optgroup ~label ?(a = []) elts =
-      XML.node ~a: ((a_label label) :: a) "optgroup" elts
+      Xml.node ~a: ((a_label label) :: a) "optgroup" elts
 
   let figcaption = star "figcaption"
 
   let figure ?figcaption ?a elts =
-      XML.node ?a "figure" ((list_of_option figcaption) @ elts)
+      Xml.node ?a "figure" ((list_of_option figcaption) @ elts)
 
   let caption = star "caption"
 
   let table ?caption ?(columns = []) ?thead ?tfoot ?a elt elts =
-      XML.node ?a "table"
+      Xml.node ?a "table"
         ((list_of_option caption) @
            (columns @
               ((list_of_option thead) @
                  ((list_of_option tfoot) @ (elt :: elts)))))
 
   let tablex ?caption ?(columns = []) ?thead ?tfoot ?a elts =
-      XML.node ?a "table"
+      Xml.node ?a "table"
         ((list_of_option caption) @
            (columns @
               ((list_of_option thead) @ ((list_of_option tfoot) @ elts))))
@@ -1030,20 +1030,20 @@ module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML) = struct
   let iframe = star "iframe"
 
   let object_ ?(params = []) ?(a = []) elts =
-      XML.node ~a "object" (params @ elts)
+      Xml.node ~a "object" (params @ elts)
 
   let param = terminal "param"
 
   let img ~src ~alt ?(a = []) () =
     let a = (a_src src) :: (a_alt alt) :: a in
-      XML.leaf ~a "img"
+      Xml.leaf ~a "img"
 
   let meta = terminal "meta"
 
-  let style ?(a = []) elts = XML.node ~a "style" elts
+  let style ?(a = []) elts = Xml.node ~a "style" elts
 
   let link ~rel ~href ?(a = []) () =
-      XML.leaf ~a: ((a_rel rel) :: (a_href href) :: a) "link"
+      Xml.leaf ~a: ((a_rel rel) :: (a_href href) :: a) "link"
 
   let base = terminal "base"
 

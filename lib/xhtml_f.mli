@@ -17,14 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-module M = XHTML_f.Make(XML)
-module M_01_00 = XHTML_f.Make_01_00(XML)
-module M_01_01 = XHTML_f.Make_01_01(XML)
+(** Typesafe constructors for XHTML documents (Functorial interface) *)
 
-module P = XML_print.MakeTypedSimple(XML)(M)
-module P_01_00 = XML_print.MakeTypedSimple(XML)(M_01_00)
-module P_01_01 = XML_print.MakeTypedSimple(XML)(M_01_01)
+module Make_01_00(X : Xml_sigs.T) : Xhtml_sigs.T_01_00 with module Xml := X
+module Make_01_01(X : Xml_sigs.T) : Xhtml_sigs.T_01_01 with module Xml := X
 
-module MakePrinter = XML_print.MakeTyped(XML)(M)
-module MakePrinter_01_00 = XML_print.MakeTyped(XML)(M_01_00)
-module MakePrinter_01_01 = XML_print.MakeTyped(XML)(M_01_01)
+module Make(Xml : Xml_sigs.T) : Xhtml_sigs.T with module Xml := Xml

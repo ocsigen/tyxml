@@ -103,27 +103,27 @@ module type Output = sig
   val make: m -> out
 end
 
-module type TypedXML = sig
+module type Typed_xml = sig
 
-  module XML : T
+  module Xml : T
   module Info : Info
 
   type 'a elt
   type doc
-  val toelt : 'a elt -> XML.elt
-  val doc_toelt : doc -> XML.elt
+  val toelt : 'a elt -> Xml.elt
+  val doc_toelt : doc -> Xml.elt
 
 end
 
-module type IterableTypedXML = sig
+module type Iterable_typed_xml = sig
 
-  module XML : Iterable
+  module Xml : Iterable
   module Info : Info
 
   type 'a elt
   type doc
-  val toelt : 'a elt -> XML.elt
-  val doc_toelt : doc -> XML.elt
+  val toelt : 'a elt -> Xml.elt
+  val doc_toelt : doc -> Xml.elt
 
 end
 
@@ -136,7 +136,7 @@ module type Printer = sig
 
 end
 
-module type SimplePrinter = sig
+module type Simple_printer = sig
 
   type xml_elt
 
@@ -147,7 +147,7 @@ module type SimplePrinter = sig
 
 end
 
-module type TypedPrinter = sig
+module type Typed_printer = sig
 
   type 'a elt
   type doc
@@ -159,7 +159,7 @@ module type TypedPrinter = sig
 end
 
 
-module type TypedSimplePrinter = sig
+module type Typed_simple_printer = sig
 
   type 'a elt
   type doc

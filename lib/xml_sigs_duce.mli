@@ -26,9 +26,9 @@ module type Printer = sig
 
 end
 
-module type TypedXML = sig
+module type Typed_xml = sig
 
-    module Info : XML_sigs.Info
+    module Info : Xml_sigs.Info
     type elt
     type doc
 
@@ -37,7 +37,7 @@ module type TypedXML = sig
 
 end
 
-module type RawTypedPrinter = sig
+module type Raw_typed_printer = sig
   val print_list:
     output:(string -> unit) ->
     ?encode:(string -> string) ->
@@ -49,12 +49,12 @@ module type RawTypedPrinter = sig
     ?advert:string-> {{ Ocamlduce.Load.anyxml }} -> unit
 end
 
-module type TypedPrinter = sig
+module type Typed_printer = sig
 
-  module TypedXML : TypedXML
+  module Typed_xml : Typed_xml
 
-  type elt = TypedXML.elt
-  type doc = TypedXML.doc
+  type elt = Typed_xml.elt
+  type doc = Typed_xml.doc
   val print_list:
     output:(string -> unit) ->
     ?encode:(string -> string) ->

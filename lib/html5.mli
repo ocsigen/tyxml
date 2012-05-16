@@ -17,20 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-(** Typesafe constructors and printers for SVG documents.
+(** Typesafe constructors and printers for HTML5 documents.
 
-    @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
+    @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
-(** Concrete implementation of SVG typesafe constructors *)
-module M : SVG_sigs.T with module XML := XML
+(** Concrete implementation of HTML5 typesafe constructors *)
+module M : Html5_sigs.T with module Xml := Xml
+			 and module Svg := Svg.M
 
-(** Simple printer for SVG documents *)
-module P : XML_sigs.TypedSimplePrinter with type 'a elt := 'a M.elt
-				        and type doc := M.doc
+(** Simple printer for HTML5 documents *)
+module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
+				       and type doc := M.doc
 
-(** Parametrized stream printer for SVG documents *)
-module MakePrinter(O : XML_sigs.Output) :
-  XML_sigs.TypedPrinter with type out := O.out
-                         and type 'a elt := 'a M.elt
-                         and type doc := M.doc
-
+(** Parametrized stream printer for HTML5 documents *)
+module Make_printer(O : Xml_sigs.Output) :
+ Xml_sigs.Typed_printer with type out := O.out
+			and type 'a elt := 'a M.elt
+			and type doc := M.doc

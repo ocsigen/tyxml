@@ -2,7 +2,7 @@ include ../Makefile.config
 -include ../Makefile.local
 
 FILES   := xmllexer.ml camllexer.ml simplexmlparser.mli pa_tyxml.mli
-RFILES  := basicTypes.ml \
+RFILES  := basic_types.ml \
 	   simplexmlparser.ml \
 	   xhtmlparser.ml xhtmlsyntax.ml
 
@@ -22,7 +22,7 @@ ifeq "${NATDYNLINK}" "yes"
 opt:: xmllexer.cmxs simplexmlparser.cmxs
 endif
 
-OBJS := xmllexer.cmo basicTypes.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
+OBJS := xmllexer.cmo basic_types.cmo camllexer.cmo xhtmlparser.cmo xhtmlsyntax.cmo
 
 pa_${LIBNAME}.cmo: ${OBJS}
 	$(OCAMLC) -pack -o $@ $^

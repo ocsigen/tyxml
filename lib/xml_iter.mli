@@ -20,9 +20,9 @@
 
 (** Basic iterators over XML tree (functorial interface). *)
 
-module Make(XML : XML_sigs.Iterable) : sig
+module Make(Xml : Xml_sigs.Iterable) : sig
 
-  open XML
+  open Xml
 
   val amap : (ename -> attrib list -> attrib list) -> elt -> elt
     (** Recursively edit attributes for the element and all its children. *)

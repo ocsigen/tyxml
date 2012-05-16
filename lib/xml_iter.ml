@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-module Make(XML : XML_sigs.Iterable) = struct
+module Make(Xml : Xml_sigs.Iterable) = struct
 
-  open XML
+  open Xml
 
 (** Iterators *)
 

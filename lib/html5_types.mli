@@ -46,7 +46,7 @@
     @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
 *)
 
-(** See {!XHTML.M} for a description of the transcription's principles. *)
+(** See {!Xhtml.M} for a description of the transcription's principles. *)
 
 (** {1 Attribute types.} *)
 
@@ -1175,8 +1175,8 @@ type body_content_fun = flow5
 
 
 type svg = [ `Svg ]
-type svg_content = SVG_types.svg_content
-type svg_attrib = SVG_types.svg_attr
+type svg_content = Svg_types.svg_content
+type svg_attrib = Svg_types.svg_attr
 (* NAME: base, KIND: nullary, TYPE: [= common | `Href | `Target], [= `Base ], ARG: notag, ATTRIB:  OUT: [= `Base ] *)
 type base = [ | `Base ]
 

@@ -1,8 +1,6 @@
 (* TyXML
  * http://www.ocsigen.org/tyxml
- * Copyright (C) 2004 by Thorsten Ohl <ohl@physik.uni-wuerzburg.de>
- * Copyright (C) 2007 by Vincent Balat, Gabriel Kerneis
- * Copyright (C) 2010 by Cecile Herbelin
+ * Copyright (C) 2011 Pierre Chambart, Grégoire Henry
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -19,11 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-(** Typesafe constructors for HTML5 documents (Functorial interface) *)
+module M = Html5_f.Make(Xml)(Svg.M)
 
-module Make(XML : XML_sigs.T)(SVG : SVG_sigs.T with module XML := XML)
-  : HTML5_sigs.T with module XML := XML
-		  and module SVG := SVG
-		 and type 'a elt = XML.elt
-		 and type 'a attrib = XML.attrib
-		 and type uri = XML.uri
+module P = Xml_print.Make_typed_simple(Xml)(M)
+
+module Make_printer = Xml_print.Make_typed(Xml)(M)

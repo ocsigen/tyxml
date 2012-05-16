@@ -19,13 +19,13 @@
 
 module type T = sig
 
-  open HTML5_types
+  open Html5_types
 
-  module XML : XML_sigs.T
-  module SVG : SVG_sigs.T with module XML := XML
-  module Info : XML_sigs.Info
+  module Xml : Xml_sigs.T
+  module Svg : Svg_sigs.T with module Xml := Xml
+  module Info : Xml_sigs.Info
 
-  type uri = XML.uri
+  type uri = Xml.uri
   val string_of_uri : uri -> string
   val uri_of_string : string -> uri
 
@@ -33,8 +33,8 @@ module type T = sig
 
   type +'a attrib
 
-  val to_xmlattribs : ('a attrib) list -> XML.attrib list (* VB *)
-  val to_attrib : XML.attrib -> 'a attrib (* GH *)
+  val to_xmlattribs : ('a attrib) list -> Xml.attrib list (* VB *)
+  val to_attrib : Xml.attrib -> 'a attrib (* GH *)
   (** ['a] is known as a {i phantom type}.  The implementation is
       actually monomorphic (the different element types are distinguished
       by a homogeneous variable, such as their textual representation)
@@ -66,7 +66,7 @@ module type T = sig
 
   val a_form : idref -> [> | `Form] attrib
 
-  val a_formaction : XML.uri -> [> | `Formaction] attrib
+  val a_formaction : Xml.uri -> [> | `Formaction] attrib
 
   val a_formenctype : contenttype -> [> | `Formenctype] attrib
 
@@ -82,7 +82,7 @@ module type T = sig
 
   val a_high : float_number -> [> | `High] attrib
 
-  val a_icon : XML.uri -> [> | `Icon] attrib
+  val a_icon : Xml.uri -> [> | `Icon] attrib
 
   val a_ismap : [< | `Ismap] -> [> | `Ismap] attrib
 
@@ -112,7 +112,7 @@ module type T = sig
 
   val a_placeholder : text -> [> | `Placeholder] attrib
 
-  val a_poster : XML.uri -> [> | `Poster] attrib
+  val a_poster : Xml.uri -> [> | `Poster] attrib
 
   val a_preload : [< | `None | `Metadata | `Audio] -> [> | `Preload] attrib
 
@@ -184,151 +184,151 @@ module type T = sig
   (** {2 Events} *)
 
   (** Javascript events *)
-  val a_onabort : XML.event_handler -> [> | `OnAbort] attrib
+  val a_onabort : Xml.event_handler -> [> | `OnAbort] attrib
 
-  val a_onafterprint : XML.event_handler -> [> | `OnAfterPrint] attrib
+  val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
 
-  val a_onbeforeprint : XML.event_handler -> [> | `OnBeforePrint] attrib
+  val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
 
-  val a_onbeforeunload : XML.event_handler -> [> | `OnBeforeUnload] attrib
+  val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload] attrib
 
-  val a_onblur : XML.event_handler -> [> | `OnBlur] attrib
+  val a_onblur : Xml.event_handler -> [> | `OnBlur] attrib
 
-  val a_oncanplay : XML.event_handler -> [> | `OnCanPlay] attrib
+  val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
 
-  val a_oncanplaythrough : XML.event_handler -> [> | `OnCanPlayThrough] attrib
+  val a_oncanplaythrough : Xml.event_handler -> [> | `OnCanPlayThrough] attrib
 
-  val a_onchange : XML.event_handler -> [> | `OnChange] attrib
+  val a_onchange : Xml.event_handler -> [> | `OnChange] attrib
 
-  val a_onclick : XML.event_handler -> [> | `OnClick] attrib
+  val a_onclick : Xml.event_handler -> [> | `OnClick] attrib
 
-  val a_oncontextmenu : XML.event_handler -> [> | `OnContextMenu] attrib
+  val a_oncontextmenu : Xml.event_handler -> [> | `OnContextMenu] attrib
 
-  val a_ondblclick : XML.event_handler -> [> | `OnDblClick] attrib
+  val a_ondblclick : Xml.event_handler -> [> | `OnDblClick] attrib
 
-  val a_ondrag : XML.event_handler -> [> | `OnDrag] attrib
+  val a_ondrag : Xml.event_handler -> [> | `OnDrag] attrib
 
-  val a_ondragend : XML.event_handler -> [> | `OnDragEnd] attrib
+  val a_ondragend : Xml.event_handler -> [> | `OnDragEnd] attrib
 
-  val a_ondragenter : XML.event_handler -> [> | `OnDragEnter] attrib
+  val a_ondragenter : Xml.event_handler -> [> | `OnDragEnter] attrib
 
-  val a_ondragleave : XML.event_handler -> [> | `OnDragLeave] attrib
+  val a_ondragleave : Xml.event_handler -> [> | `OnDragLeave] attrib
 
-  val a_ondragover : XML.event_handler -> [> | `OnDragOver] attrib
+  val a_ondragover : Xml.event_handler -> [> | `OnDragOver] attrib
 
-  val a_ondragstart : XML.event_handler -> [> | `OnDragStart] attrib
+  val a_ondragstart : Xml.event_handler -> [> | `OnDragStart] attrib
 
-  val a_ondrop : XML.event_handler -> [> | `OnDrop] attrib
+  val a_ondrop : Xml.event_handler -> [> | `OnDrop] attrib
 
-  val a_ondurationchange : XML.event_handler -> [> | `OnDurationChange] attrib
+  val a_ondurationchange : Xml.event_handler -> [> | `OnDurationChange] attrib
 
-  val a_onemptied : XML.event_handler -> [> | `OnEmptied] attrib
+  val a_onemptied : Xml.event_handler -> [> | `OnEmptied] attrib
 
-  val a_onended : XML.event_handler -> [> | `OnEnded] attrib
+  val a_onended : Xml.event_handler -> [> | `OnEnded] attrib
 
-  val a_onerror : XML.event_handler -> [> | `OnError] attrib
+  val a_onerror : Xml.event_handler -> [> | `OnError] attrib
 
-  val a_onfocus : XML.event_handler -> [> | `OnFocus] attrib
+  val a_onfocus : Xml.event_handler -> [> | `OnFocus] attrib
 
-  val a_onformchange : XML.event_handler -> [> | `OnFormChange] attrib
+  val a_onformchange : Xml.event_handler -> [> | `OnFormChange] attrib
 
-  val a_onforminput : XML.event_handler -> [> | `OnFormInput] attrib
+  val a_onforminput : Xml.event_handler -> [> | `OnFormInput] attrib
 
-  val a_onhashchange : XML.event_handler -> [> | `OnHashChange] attrib
+  val a_onhashchange : Xml.event_handler -> [> | `OnHashChange] attrib
 
-  val a_oninput : XML.event_handler -> [> | `OnInput] attrib
+  val a_oninput : Xml.event_handler -> [> | `OnInput] attrib
 
-  val a_oninvalid : XML.event_handler -> [> | `OnInvalid] attrib
+  val a_oninvalid : Xml.event_handler -> [> | `OnInvalid] attrib
 
-  val a_onmousedown : XML.event_handler -> [> | `OnMouseDown] attrib
+  val a_onmousedown : Xml.event_handler -> [> | `OnMouseDown] attrib
 
-  val a_onmouseup : XML.event_handler -> [> | `OnMouseUp] attrib
+  val a_onmouseup : Xml.event_handler -> [> | `OnMouseUp] attrib
 
-  val a_onmouseover : XML.event_handler -> [> | `OnMouseOver] attrib
+  val a_onmouseover : Xml.event_handler -> [> | `OnMouseOver] attrib
 
-  val a_onmousemove : XML.event_handler -> [> | `OnMouseMove] attrib
+  val a_onmousemove : Xml.event_handler -> [> | `OnMouseMove] attrib
 
-  val a_onmouseout : XML.event_handler -> [> | `OnMouseOut] attrib
+  val a_onmouseout : Xml.event_handler -> [> | `OnMouseOut] attrib
 
-  val a_onmousewheel : XML.event_handler -> [> | `OnMouseWheel] attrib
+  val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel] attrib
 
-  val a_onoffline : XML.event_handler -> [> | `OnOffLine] attrib
+  val a_onoffline : Xml.event_handler -> [> | `OnOffLine] attrib
 
-  val a_ononline : XML.event_handler -> [> | `OnOnLine] attrib
+  val a_ononline : Xml.event_handler -> [> | `OnOnLine] attrib
 
-  val a_onpause : XML.event_handler -> [> | `OnPause] attrib
+  val a_onpause : Xml.event_handler -> [> | `OnPause] attrib
 
-  val a_onplay : XML.event_handler -> [> | `OnPlay] attrib
+  val a_onplay : Xml.event_handler -> [> | `OnPlay] attrib
 
-  val a_onplaying : XML.event_handler -> [> | `OnPlaying] attrib
+  val a_onplaying : Xml.event_handler -> [> | `OnPlaying] attrib
 
-  val a_onpagehide : XML.event_handler -> [> | `OnPageHide] attrib
+  val a_onpagehide : Xml.event_handler -> [> | `OnPageHide] attrib
 
-  val a_onpageshow : XML.event_handler -> [> | `OnPageShow] attrib
+  val a_onpageshow : Xml.event_handler -> [> | `OnPageShow] attrib
 
-  val a_onpopstate : XML.event_handler -> [> | `OnPopState] attrib
+  val a_onpopstate : Xml.event_handler -> [> | `OnPopState] attrib
 
-  val a_onprogress : XML.event_handler -> [> | `OnProgress] attrib
+  val a_onprogress : Xml.event_handler -> [> | `OnProgress] attrib
 
-  val a_onratechange : XML.event_handler -> [> | `OnRateChange] attrib
+  val a_onratechange : Xml.event_handler -> [> | `OnRateChange] attrib
 
-  val a_onreadystatechange : XML.event_handler -> [> | `OnReadyStateChange] attrib
+  val a_onreadystatechange : Xml.event_handler -> [> | `OnReadyStateChange] attrib
 
-  val a_onredo : XML.event_handler -> [> | `OnRedo] attrib
+  val a_onredo : Xml.event_handler -> [> | `OnRedo] attrib
 
-  val a_onresize : XML.event_handler -> [> | `OnResize] attrib
+  val a_onresize : Xml.event_handler -> [> | `OnResize] attrib
 
-  val a_onscroll : XML.event_handler -> [> | `OnScroll] attrib
+  val a_onscroll : Xml.event_handler -> [> | `OnScroll] attrib
 
-  val a_onseeked : XML.event_handler -> [> | `OnSeeked] attrib
+  val a_onseeked : Xml.event_handler -> [> | `OnSeeked] attrib
 
-  val a_onseeking : XML.event_handler -> [> | `OnSeeking] attrib
+  val a_onseeking : Xml.event_handler -> [> | `OnSeeking] attrib
 
-  val a_onselect : XML.event_handler -> [> | `OnSelect] attrib
+  val a_onselect : Xml.event_handler -> [> | `OnSelect] attrib
 
-  val a_onshow : XML.event_handler -> [> | `OnShow] attrib
+  val a_onshow : Xml.event_handler -> [> | `OnShow] attrib
 
-  val a_onstalled : XML.event_handler -> [> | `OnStalled] attrib
+  val a_onstalled : Xml.event_handler -> [> | `OnStalled] attrib
 
-  val a_onstorage : XML.event_handler -> [> | `OnStorage] attrib
+  val a_onstorage : Xml.event_handler -> [> | `OnStorage] attrib
 
-  val a_onsubmit : XML.event_handler -> [> | `OnSubmit] attrib
+  val a_onsubmit : Xml.event_handler -> [> | `OnSubmit] attrib
 
-  val a_onsuspend : XML.event_handler -> [> | `OnSuspend] attrib
+  val a_onsuspend : Xml.event_handler -> [> | `OnSuspend] attrib
 
-  val a_ontimeupdate : XML.event_handler -> [> | `OnTimeUpdate] attrib
+  val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate] attrib
 
-  val a_onundo : XML.event_handler -> [> | `OnUndo] attrib
+  val a_onundo : Xml.event_handler -> [> | `OnUndo] attrib
 
-  val a_onunload : XML.event_handler -> [> | `OnUnload] attrib
+  val a_onunload : Xml.event_handler -> [> | `OnUnload] attrib
 
-  val a_onvolumechange : XML.event_handler -> [> | `OnVolumeChange] attrib
+  val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange] attrib
 
-  val a_onwaiting : XML.event_handler -> [> | `OnWaiting] attrib
+  val a_onwaiting : Xml.event_handler -> [> | `OnWaiting] attrib
 
-  val a_onkeypress : XML.event_handler -> [> | `OnKeyPress] attrib
+  val a_onkeypress : Xml.event_handler -> [> | `OnKeyPress] attrib
 
-  val a_onkeydown : XML.event_handler -> [> | `OnKeyDown] attrib
+  val a_onkeydown : Xml.event_handler -> [> | `OnKeyDown] attrib
 
-  val a_onkeyup : XML.event_handler -> [> | `OnKeyUp] attrib
+  val a_onkeyup : Xml.event_handler -> [> | `OnKeyUp] attrib
 
-  val a_onload : XML.event_handler -> [> | `OnLoad] attrib
+  val a_onload : Xml.event_handler -> [> | `OnLoad] attrib
 
-  val a_onloadeddata : XML.event_handler -> [> | `OnLoadedData] attrib
+  val a_onloadeddata : Xml.event_handler -> [> | `OnLoadedData] attrib
 
-  val a_onloadedmetadata : XML.event_handler -> [> | `OnLoadedMetaData] attrib
+  val a_onloadedmetadata : Xml.event_handler -> [> | `OnLoadedMetaData] attrib
 
-  val a_onloadstart : XML.event_handler -> [> | `OnLoadStart] attrib
+  val a_onloadstart : Xml.event_handler -> [> | `OnLoadStart] attrib
 
-  val a_onmessage : XML.event_handler -> [> | `OnMessage] attrib
+  val a_onmessage : Xml.event_handler -> [> | `OnMessage] attrib
 
   val a_version : cdata -> [> | `Version] attrib
 
   val a_xmlns : [< | `W3_org_1999_xhtml] -> [> | `XMLns] attrib
 
-  val a_manifest : XML.uri -> [> | `Manifest] attrib
+  val a_manifest : Xml.uri -> [> | `Manifest] attrib
 
-  val a_cite : XML.uri -> [> | `Cite] attrib
+  val a_cite : Xml.uri -> [> | `Cite] attrib
 
   val a_xml_space : [< | `Preserve] -> [> | `XML_space] attrib
 
@@ -347,7 +347,7 @@ module type T = sig
 
   val a_accept : contenttypes -> [> | `Accept] attrib
 
-  val a_href : XML.uri -> [> | `Href] attrib
+  val a_href : Xml.uri -> [> | `Href] attrib
   (** This attribute specifies the location of a Web resource, thus
       defining a link between the current element (the source anchor)
       and the destination anchor defined by this attribute. *)
@@ -385,7 +385,7 @@ module type T = sig
 
   val a_datetime : cdata -> [> | `Datetime] attrib
 
-  val a_action : XML.uri -> [> | `Action] attrib
+  val a_action : Xml.uri -> [> | `Action] attrib
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
 
@@ -433,7 +433,7 @@ module type T = sig
 
   val a_size : number -> [> | `Size] attrib
 
-  val a_src : XML.uri -> [> | `Src] attrib
+  val a_src : Xml.uri -> [> | `Src] attrib
 
   val a_input_type : [<
 		     | `Url
@@ -530,7 +530,7 @@ module type T = sig
 
   val a_usemap : idref -> [> | `Usemap] attrib
 
-  val a_data : XML.uri -> [> | `Data] attrib
+  val a_data : Xml.uri -> [> | `Data] attrib
 
   val a_codetype : contenttype -> [> | `Codetype] attrib
 
@@ -623,7 +623,7 @@ module type T = sig
   val body : ([< | body_attrib], [< | body_content_fun], [> | body]) star
 
 
-  val svg : ?xmlns : string -> ?a : [< svg_attrib ] SVG.attrib list -> [< svg_content ] SVG.elt list -> [> svg ] elt
+  val svg : ?xmlns : string -> ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list -> [> svg ] elt
 
   (** {2 Section} *)
 
@@ -829,7 +829,7 @@ module type T = sig
   (** {2 Embedded} *)
 
   val img :
-    src: XML.uri ->
+    src: Xml.uri ->
     alt: text ->
     ([< | common | `Height | `Ismap | `Width], [> `Img ])
       nullary
@@ -885,12 +885,12 @@ module type T = sig
   (*   element descendants.             *)
   (**************************************)
   val audio :
-    ?srcs: (XML.uri * (([< | `Source] elt) list)) ->
+    ?srcs: (Xml.uri * (([< | `Source] elt) list)) ->
     ([< | common | `Preload | `Autoplay | `Loop | `Controls], 'a,
      [> | `Audio of 'a ]) star
 
   val video :
-    ?srcs: (XML.uri * (([< | `Source] elt) list)) ->
+    ?srcs: (Xml.uri * (([< | `Source] elt) list)) ->
     ([<
      | common
      | `Poster
@@ -1185,7 +1185,7 @@ module type T = sig
 
   val link :
     rel: linktypes ->
-    href: XML.uri ->
+    href: Xml.uri ->
     ([<
      | common
      | `Hreflang
@@ -1198,14 +1198,14 @@ module type T = sig
 
   (** {1 Tools} *)
 
-  val tot : XML.elt -> 'a elt
-  val totl : XML.elt list -> ('a elt) list
-  val toelt : 'a elt -> XML.elt
-  val toeltl : ('a elt) list -> XML.elt list
+  val tot : Xml.elt -> 'a elt
+  val totl : Xml.elt list -> ('a elt) list
+  val toelt : 'a elt -> Xml.elt
+  val toeltl : ('a elt) list -> Xml.elt list
 
   (** *)
 
   type doc = [ `Html ] elt
-  val doc_toelt : doc -> XML.elt
+  val doc_toelt : doc -> Xml.elt
 
 end

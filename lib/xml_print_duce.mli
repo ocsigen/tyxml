@@ -1,6 +1,5 @@
-(* TyXML
- * http://www.ocsigen.org/tyxml
- * Copyright (C) 2011 Pierre Chambart, Grégoire Henry
+(* Ocsigen
+ * Copyright (C) 2011 Jaap Boender
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,8 +16,15 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-module M = HTML5_f.Make(XML)(SVG.M)
+(** Printer for XHTML with Ocamlduce that handles browser specificities properly. *)
 
-module P = XML_print.MakeTypedSimple(XML)(M)
+module Make (I : sig val emptytags : string list end) : Xml_sigs_duce.Printer
 
-module MakePrinter = XML_print.MakeTyped(XML)(M)
+(* module MakeTypedRaw (TypedXML : XML_sigs_duce.TypedXML) : XML_sigs_duce.RawTypedPrinter *)
+module Make_typed (Typed_xml : Xml_sigs_duce.Typed_xml) :
+  Xml_sigs_duce.Typed_printer with module Typed_xml := Typed_xml
+
+val print:
+  output:(string -> unit) ->
+    ?encode:(string -> string) ->
+      Ocamlduce.Load.anyxml -> unit

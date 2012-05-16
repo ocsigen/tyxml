@@ -17,12 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-open XHTML_types
+open Xhtml_types
 
 module type T_01_01 = sig
 
-  module XML : XML_sigs.T
-  module Info : XML_sigs.Info
+  module Xml : Xml_sigs.T
+  module Info : Xml_sigs.Info
 
   (** The elements, attributes, attribute types and data types are given names
       that match the names in the W3C recommendation as closely as allowed by
@@ -48,17 +48,17 @@ module type T_01_01 = sig
       version of the standard.  Type discipline is enforced by exporting or not-exporting
       the corresponding constructor.
 
-      The type defining group of html elements are in {!XHTML_types} *)
+      The type defining group of html elements are in {!Xhtml_types} *)
 
-  type uri = XML.uri
+  type uri = Xml.uri
   val string_of_uri : uri -> string
   val uri_of_string : string -> uri
 
   (** {1 Common Attributes} *)
 
   type +'a attrib
-  val to_xmlattribs : 'a attrib list -> XML.attrib list (* VB *)
-  val to_attrib : XML.attrib -> 'a attrib (* GH *)
+  val to_xmlattribs : 'a attrib list -> Xml.attrib list (* VB *)
+  val to_attrib : Xml.attrib -> 'a attrib (* GH *)
 
   (** ['a] is known as a {i phantom type}.  The implementation is
       actually monomorphic (the different element types are
@@ -108,33 +108,33 @@ module type T_01_01 = sig
 
   (** Javascript events *)
 
-  val a_onblur : XML.event_handler -> [>`OnBlur] attrib
-  val a_onclick : XML.event_handler -> [>`OnClick] attrib
-  val a_ondblclick : XML.event_handler -> [>`OnDblClick] attrib
-  val a_onchange : XML.event_handler -> [>`OnChange] attrib
-  val a_onfocus : XML.event_handler -> [>`OnFocus] attrib
-  val a_onload : XML.event_handler -> [>`OnLoad] attrib
-  val a_onunload : XML.event_handler -> [>`OnUnload] attrib
-  val a_onreset : XML.event_handler -> [>`OnReset] attrib
-  val a_onselect : XML.event_handler -> [>`OnSelect] attrib
-  val a_onsubmit : XML.event_handler -> [>`OnSubmit] attrib
-  val a_onmousedown : XML.event_handler -> [>`OnMouseDown] attrib
-  val a_onmouseup : XML.event_handler -> [>`OnMouseUp] attrib
-  val a_onmouseover : XML.event_handler -> [>`OnMouseOver] attrib
-  val a_onmousemove : XML.event_handler -> [>`OnMouseMove] attrib
-  val a_onmouseout : XML.event_handler -> [>`OnMouseOut] attrib
-  val a_onkeypress : XML.event_handler -> [>`OnKeyPress] attrib
-  val a_onkeydown : XML.event_handler -> [>`OnKeyDown] attrib
-  val a_onkeyup : XML.event_handler -> [>`OnKeyUp] attrib
+  val a_onblur : Xml.event_handler -> [>`OnBlur] attrib
+  val a_onclick : Xml.event_handler -> [>`OnClick] attrib
+  val a_ondblclick : Xml.event_handler -> [>`OnDblClick] attrib
+  val a_onchange : Xml.event_handler -> [>`OnChange] attrib
+  val a_onfocus : Xml.event_handler -> [>`OnFocus] attrib
+  val a_onload : Xml.event_handler -> [>`OnLoad] attrib
+  val a_onunload : Xml.event_handler -> [>`OnUnload] attrib
+  val a_onreset : Xml.event_handler -> [>`OnReset] attrib
+  val a_onselect : Xml.event_handler -> [>`OnSelect] attrib
+  val a_onsubmit : Xml.event_handler -> [>`OnSubmit] attrib
+  val a_onmousedown : Xml.event_handler -> [>`OnMouseDown] attrib
+  val a_onmouseup : Xml.event_handler -> [>`OnMouseUp] attrib
+  val a_onmouseover : Xml.event_handler -> [>`OnMouseOver] attrib
+  val a_onmousemove : Xml.event_handler -> [>`OnMouseMove] attrib
+  val a_onmouseout : Xml.event_handler -> [>`OnMouseOut] attrib
+  val a_onkeypress : Xml.event_handler -> [>`OnKeyPress] attrib
+  val a_onkeydown : Xml.event_handler -> [>`OnKeyDown] attrib
+  val a_onkeyup : Xml.event_handler -> [>`OnKeyUp] attrib
 
 
   (** {1 Modules, Element Sets and Attributes } *)
 
 
-  val a_profile : XML.uri -> [>`Profile] attrib
+  val a_profile : Xml.uri -> [>`Profile] attrib
   val a_version : cdata -> [>`Version] attrib
   val a_xmlns : [< `W3_org_1999_xhtml ] -> [>`XMLns] attrib
-  val a_cite : XML.uri -> [>`Cite] attrib
+  val a_cite : Xml.uri -> [>`Cite] attrib
   val a_xml_space : [< `Preserve ] -> [>`XML_space] attrib
 
   (** This attribute assigns an access key to an element. An
@@ -155,7 +155,7 @@ module type T_01_01 = sig
       thus defining a link between the current element (the source
       anchor) and the destination anchor defined by this
       attribute. *)
-  val a_href : XML.uri -> [>`Href] attrib
+  val a_href : Xml.uri -> [>`Href] attrib
 
   (** This attribute specifies the base language of the resource
       designated by href and may only be used when href is
@@ -201,7 +201,7 @@ module type T_01_01 = sig
 
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
-  val a_action : XML.uri -> [>`Action] attrib
+  val a_action : Xml.uri -> [>`Action] attrib
 
   (** When the [type] attribute has the value ["radio"] or
       ["checkbox"], this boolean attribute specifies that the
@@ -239,7 +239,7 @@ module type T_01_01 = sig
   val a_selected : [< `Selected ] -> [>`Selected] attrib
 
   val a_size : number -> [>`Size] attrib
-  val a_src : XML.uri -> [>`Src] attrib
+  val a_src : Xml.uri -> [>`Src] attrib
   val a_input_type :
     [< `Text | `Password | `Checkbox | `Radio | `Submit | `Reset | `Hidden | `File | `Image | `Button ] ->
     [>`Input_Type] attrib
@@ -284,7 +284,7 @@ module type T_01_01 = sig
 
   val a_alt : text -> [>`Alt] attrib
   val a_height : length -> [>`Height] attrib
-  val a_longdesc : XML.uri -> [>`Longdesc] attrib
+  val a_longdesc : Xml.uri -> [>`Longdesc] attrib
   val a_width : length -> [>`Width] attrib
 
   (** {2 Attributes for client-side image map} *)
@@ -302,11 +302,11 @@ module type T_01_01 = sig
   (** {2 Attributes for Object} *)
 
   val a_declare : [< `Declare ] -> [> `Declare ] attrib
-  val a_classid : XML.uri -> [> `Classid ] attrib
-  val a_codebase : XML.uri -> [> `Codebase ] attrib
-  val a_data : XML.uri -> [> `Data ] attrib
+  val a_classid : Xml.uri -> [> `Classid ] attrib
+  val a_codebase : Xml.uri -> [> `Codebase ] attrib
+  val a_data : Xml.uri -> [> `Data ] attrib
   val a_codetype : contenttype -> [>`Codetype] attrib
-  val a_archive : XML.uri list -> [>`Archive] attrib
+  val a_archive : Xml.uri list -> [>`Archive] attrib
   val a_standby : text -> [>`Standby] attrib
 
   (** {2 Attributes for Frames } *)
@@ -451,7 +451,7 @@ module type T_01_01 = sig
 
   module Basic_Forms : sig
 
-    val form : action:XML.uri  ->([< form_attrib] , [< form_content], [> form ]) plus
+    val form : action:Xml.uri  ->([< form_attrib] , [< form_content], [> form ]) plus
     val input : ([< input_attrib ], [> input]) nullary
     val label : ([< label_attrib] , [< label_content], [> label ]) star
     val option : ([< option_attrib] , [< option_content], [> selectoption ]) unary
@@ -462,7 +462,7 @@ module type T_01_01 = sig
   (** {3 Forms} *)
 
   (** Generic forms. WARNING: If you find a bug or if something is missing please send a bug report to the Ocsigen project! -- VB *)
-  val form : action:XML.uri  ->([< form_attrib] , [< form_content], [> form ]) plus
+  val form : action:Xml.uri  ->([< form_attrib] , [< form_content], [> form ]) plus
   val input : ([< input_attrib ], [> input]) nullary
   val label : ([< label_attrib] , [< label_content], [> label ]) star
   val optgroup : label:text  ->([< optgroup_attrib] , [< optgroup_content], [> optgroup ]) plus
@@ -514,7 +514,7 @@ module type T_01_01 = sig
 
   (** {2 Image} *)
 
-  val img : src:XML.uri  -> alt:text  ->([< img_attrib ], [> img]) nullary
+  val img : src:Xml.uri  -> alt:text  ->([< img_attrib ], [> img]) nullary
 
   (** {2 Object} VB *)
 
@@ -526,7 +526,7 @@ module type T_01_01 = sig
 
   val frameset : ?noframes:([< `Noframes ] elt)  ->([< frameset_attrib] , [< frameset_content], [> frameset ]) plus
 
-  val frame : src:XML.uri  ->([< frame_attrib ], [> frame]) nullary
+  val frame : src:Xml.uri  ->([< frame_attrib ], [> frame]) nullary
 
   val noframes : ([< noframes_attrib], [< noframes_content], [> noframes ]) unary
 
@@ -549,7 +549,7 @@ module type T_01_01 = sig
 
   (* in the DTD of xHTML1.1 xmlns attribute
      in the doc of xHTML1.1 id attribute *)
-  val base : href:XML.uri  ->([< base_attrib ], [> base]) nullary
+  val base : href:Xml.uri  ->([< base_attrib ], [> base]) nullary
 
   (** {2 Ruby} *)
 
@@ -569,15 +569,15 @@ module type T_01_01 = sig
 
   (** {2 ... } *)
 
-  val tot : XML.elt -> 'a elt
-  val totl : XML.elt list -> 'a elt list
-  val toelt : 'a elt -> XML.elt
-  val toeltl : 'a elt list -> XML.elt list
+  val tot : Xml.elt -> 'a elt
+  val totl : Xml.elt list -> 'a elt list
+  val toelt : 'a elt -> Xml.elt
+  val toeltl : 'a elt list -> Xml.elt list
 
   (** {2 ... }*)
 
   type doc = [ `Html ] elt
-  val doc_toelt : doc -> XML.elt
+  val doc_toelt : doc -> Xml.elt
 
 end
 

@@ -1,23 +1,23 @@
-INTF := lib/XML_sigs.cmi \
-        lib/XML_print.cmi \
-        lib/XML_iter.cmi \
-        lib/XML.cmi \
+INTF := lib/xml_sigs.cmi \
+        lib/xml_print.cmi \
+        lib/xml_iter.cmi \
+        lib/xml.cmi \
 	\
-        lib/XHTML_types.cmi \
-        lib/XHTML_sigs.cmi \
-        lib/XHTML_f.cmi \
+        lib/xhtml_types.cmi \
+        lib/xhtml_sigs.cmi \
+        lib/xhtml_f.cmi \
 	\
-        lib/SVG_types.cmi \
-        lib/SVG_sigs.cmi \
-	lib/SVG_f.cmi \
+        lib/svg_types.cmi \
+        lib/svg_sigs.cmi \
+	lib/svg_f.cmi \
 	\
-        lib/HTML5_types.cmi \
-        lib/HTML5_sigs.cmi \
-        lib/HTML5_f.cmi \
+        lib/html5_types.cmi \
+        lib/html5_sigs.cmi \
+        lib/html5_f.cmi \
 	\
-        lib/XHTML.cmi \
-        lib/SVG.cmi \
-        lib/HTML5.cmi \
+        lib/xhtml.cmi \
+        lib/svg.cmi \
+        lib/html5.cmi \
 	\
         syntax/pa_tyxml.cmi \
         syntax/simplexmlparser.cmi \
@@ -47,10 +47,10 @@ DOC := $(filter-out ${NOMLI}, ${INTF:.cmi=.mli}) ${NOMLI:.mli=.ml}
 
 ##
 
-DUCE_INTF := lib/XML_sigs_duce.cmi    \
-             lib/XML_print_duce.cmi   \
-             lib/XHTML_types_duce.cmi \
-             lib/XHTML_duce.cmi       \
+DUCE_INTF := lib/xml_sigs_duce.cmi    \
+             lib/xml_print_duce.cmi   \
+             lib/xhtml_types_duce.cmi \
+             lib/xhtml_duce.cmi       \
 
 DUCE_IMPL    := lib/${LIBNAME}_duce.cma
 DUCE_NATIMPL := lib/${LIBNAME}_duce.cmxa lib/${LIBNAME}_duce$(LIBEXT)

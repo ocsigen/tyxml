@@ -8,17 +8,17 @@ tags have to be put into the namespace, e.g. through a local [open]-statement.
 
 For example, the following code:
 {[
-  let open HTML5.M in
+  let open Html5.M in
   << <html>
      <head><title></title></head>
      <body><h1>plop</h1></body>
    </html> >>
 )
 ]}
-is a caml value of type {v HTML5_types.html HTML5.M.elt v}.
+is a caml value of type {v Html5_types.html Html5.M.elt v}.
 
-In the following, [HTML5.M] is assumed to be opened, but this could for example
-also be Eliom's [Eliom_xml.HTML5.F].
+In the following, [Html5.M] is assumed to be opened, but this could for example
+also be Eliom's [Eliom_content.Html5.F].
 
 To compile a module containing this syntax, you need the camlp4 preprocessor:
 {[
@@ -29,7 +29,7 @@ or
 ocamlc -pp "camlp4o -I <path/to/tyxml> pa_tyxml.cmo" -c your_module.ml
 ]}
 
-You can insert OCaml expressions of type {v 'a HTML5.M.elt v} inside html using {v $...$ v}, like this:
+You can insert OCaml expressions of type {v 'a Html5.M.elt v} inside html using {v $...$ v}, like this:
 {[
 let oc = << <em>Ocsigen</em> >> in
 << <p>$oc$ will revolutionize web programming.</p> >>
