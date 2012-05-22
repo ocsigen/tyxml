@@ -19,7 +19,18 @@
 
 (** Typesafe constructors for XHTML documents (Functorial interface) *)
 
-module Make_01_00(X : Xml_sigs.T) : Xhtml_sigs.T_01_00 with module Xml := X
-module Make_01_01(X : Xml_sigs.T) : Xhtml_sigs.T_01_01 with module Xml := X
+module Make_01_00(X : Xml_sigs.T) : Xhtml_sigs.T_01_00 with type Xml.uri = X.uri
+                                                       and type Xml.event_handler = X.event_handler
+                                                       and type Xml.attrib = X.attrib
+                                                       and type Xml.elt = X.elt
 
-module Make(Xml : Xml_sigs.T) : Xhtml_sigs.T with module Xml := Xml
+module Make_01_01(X : Xml_sigs.T) : Xhtml_sigs.T_01_01 with type Xml.uri = X.uri
+                                                       and type Xml.event_handler = X.event_handler
+                                                       and type Xml.attrib = X.attrib
+                                                       and type Xml.elt = X.elt
+
+module Make(X : Xml_sigs.T) : Xhtml_sigs.T with type Xml.uri = X.uri
+                                           and type Xml.event_handler = X.event_handler
+                                           and type Xml.attrib = X.attrib
+                                           and type Xml.elt = X.elt
+

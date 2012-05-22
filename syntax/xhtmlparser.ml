@@ -75,6 +75,11 @@ module type TypedXML = sig
   value make_content_type: Loc.t -> string -> Ast.ctyp;
   value make_attrib_type: Loc.t -> string -> Ast.ctyp;
   value make_attribs_type: Loc.t -> string -> Ast.ctyp;
+  value xml_encodedpcdata: Loc.t -> Ast.expr;
+  value xml_pcdata: Loc.t -> Ast.expr;
+  value xml_comment: Loc.t -> Ast.expr;
+  value xml_node: Loc.t -> Ast.expr;
+  value xml_string_attrib: Loc.t -> Ast.expr;
 end;
 
 module Make
@@ -168,36 +173,35 @@ module Make
     let loc = s.loc in
     match pop s with
       [ (`PCData s, _) ->
-          <:expr< $S.tot loc$ (Xml.encodedpcdata $str:String.escaped s$) >>
+          <:expr< $S.tot loc$ ($S.xml_encodedpcdata loc$ $str:String.escaped s$) >>
       | (`CamlString s, _) ->
-          <:expr< $S.tot loc$ (Xml.encodedpcdata $get_expr s loc$) >>
+          <:expr< $S.tot loc$ ($S.xml_encodedpcdata loc$ $get_expr s loc$) >>
       | (`CamlList s, _) -> raise (CamlListExc s)
       | (`CamlExpr s, _) -> get_expr s loc
       | (`Whitespace s, _) ->
-          <:expr< $S.tot loc$ (Xml.pcdata $str:String.escaped s$) >>
+          <:expr< $S.tot loc$ ($S.xml_pcdata loc$ $str:String.escaped s$) >>
       | (`Comment s, _) ->
-          <:expr< $S.tot loc$ (Xml.comment $str:String.escaped s$) >>
+          <:expr< $S.tot loc$ ($S.xml_comment loc$ $str:String.escaped s$) >>
       | (`Tag (tag, attlist, closed), s) ->
           match closed with
             [ True ->
-                <:expr< ($S.tot loc$ (Xml.node
-				  ~a:($S.to_xmlattribs loc$
-				      ($read_attlist s attlist$
-				       :> list $S.make_attribs_type loc tag$))
-				  $str:tag$
-				  [])
-                           : $S.make_type loc tag$) >>
+                <:expr< ($S.tot loc$
+                            ($S.xml_node loc$
+                               ~a:($S.to_xmlattribs loc$
+                                     ($read_attlist s attlist$ :> list $S.make_attribs_type loc tag$))
+                               $str:tag$ [])
+                          : $S.make_type loc tag$) >>
             | False ->
-		let content =
-		  <:expr< ($read_elems ~tag s$ :> list $S.make_content_type loc tag$) >>
-		in
-		<:expr< ($S.tot loc$ (Xml.node
-				  ~a:($S.to_xmlattribs loc$
-				      ($read_attlist s attlist$
-				       :> list $S.make_attribs_type loc tag$))
-				  $str:tag$
-				  ($S.toeltl loc$ $content$) )
-                           : $S.make_type loc tag$) >>
+                let content =
+                  <:expr< ($read_elems ~tag s$ :> list $S.make_content_type loc tag$) >>
+                in
+                <:expr< ($S.tot loc$
+                            ($S.xml_node loc$
+                               ~a:($S.to_xmlattribs loc$
+                                     ($read_attlist s attlist$ :> list $S.make_attribs_type loc tag$))
+                               $str:tag$
+                               ($S.toeltl loc$ $content$))
+                          : $S.make_type loc tag$) >>
             ]
       | ((`Endtag _ | `Eof as t),_) ->
         do {push t s;
@@ -243,20 +247,20 @@ module Make
     let loc = s.loc in fun
     [ [] -> <:expr< [] >>
     | [`Attribute (`AttrName a, `AttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ (Xml.string_attrib $str:a$ $str:v$)
+        <:expr< [ ($S.to_attrib loc$ ($S.xml_string_attrib loc$ $str:a$ $str:v$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `AttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ (Xml.string_attrib $get_expr a loc$ $str:v$)
+        <:expr< [ ($S.to_attrib loc$ ($S.xml_string_attrib loc$ $get_expr a loc$ $str:v$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`AttrName a, `CamlAttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ (Xml.string_attrib $str:a$ $get_expr v loc$)
+        <:expr< [ ($S.to_attrib loc$ ($S.xml_string_attrib loc$ $str:a$ $get_expr v loc$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `CamlAttrVal v)::l] ->
         <:expr< [ ($S.to_attrib loc$
-		    (Xml.string_attrib $get_expr a loc$ $get_expr v loc$)
+		    ($S.xml_string_attrib loc$ $get_expr a loc$ $get_expr v loc$)
 		     : $S.make_attrib_type loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`CamlAttributes cl ::l] ->

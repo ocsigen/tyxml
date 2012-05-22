@@ -22,12 +22,15 @@
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
 (** Concrete implementation of HTML5 typesafe constructors *)
-module M : Html5_sigs.T with module Xml := Xml
-			 and module Svg := Svg.M
+module M : Html5_sigs.T with type Xml.uri = Xml.uri
+                        and type Xml.event_handler = Xml.event_handler
+                        and type Xml.attrib = Xml.attrib
+                        and type Xml.elt = Xml.elt
+			and module Svg := Svg.M
 
 (** Simple printer for HTML5 documents *)
 module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
-				       and type doc := M.doc
+                                         and type doc := M.doc
 
 (** Parametrized stream printer for HTML5 documents *)
 module Make_printer(O : Xml_sigs.Output) :

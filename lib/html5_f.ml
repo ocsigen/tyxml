@@ -34,6 +34,8 @@ open Html5_types
 
 module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
+  module Xml = Xml
+
   module Info = struct
     let content_type = "text/html"
     let alternative_content_types = ["application/xhtml+xml";"application/xml";"text/xml"]

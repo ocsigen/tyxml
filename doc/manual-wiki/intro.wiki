@@ -15,7 +15,10 @@ representation.
 
 A camlp4 extension, named <<a_api | module Pa_tyxml >>, allows to
 write HTML pages or HTML fragments with the usual syntax.
-For creating HTML5-, XHTML-, or SVG-nodes, the constructor functions of the
-corresponding XML-implementation must be put into the scope, e.g. by locally
-opening the corresponding module.
-
+For creating HTML5-, XHTML-, or SVG-nodes, the syntax extension relies on the
+presence of a module called ##Html5##, ##Xhtml##, or ##Svg## which keeps the
+actual implementation, e.g.
+{{{
+  let module Html5 = Eliom_content.Html5.F in
+  <:html5< <div>xyz</div> >>
+}}}

@@ -3,22 +3,22 @@
 
 (**
 
-To choose the XML-implementation for the value the functions to construct the
-tags have to be put into the namespace, e.g. through a local [open]-statement.
+To choose actual XML-implementation you have to provide a module named [Html5]
+(or [Xhtml] or [Svg] respectively):
 
 For example, the following code:
 {[
-  let open Html5.M in
+  let module Html5 = Html5.M in
   << <html>
      <head><title></title></head>
      <body><h1>plop</h1></body>
    </html> >>
 )
 ]}
-is a caml value of type {v Html5_types.html Html5.M.elt v}.
+is a caml value of type {v Html5_types.html Html5.elt v}.
 
-In the following, [Html5.M] is assumed to be opened, but this could for example
-also be Eliom's [Eliom_content.Html5.F].
+In the following, [Html5] is assumed to be an HTML5 implementation, such as
+[Html5.M], but this could for example also be Eliom's [Eliom_content.Html5.F].
 
 To compile a module containing this syntax, you need the camlp4 preprocessor:
 {[

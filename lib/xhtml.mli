@@ -24,7 +24,10 @@
 (** {1 Current version } *)
 
 (** Concrete implementation of XHTML typesafe constructors *)
-module M : Xhtml_sigs.T with module Xml := Xml
+module M : Xhtml_sigs.T with type Xml.uri = Xml.uri
+                        and type Xml.event_handler = Xml.event_handler
+                        and type Xml.attrib = Xml.attrib
+                        and type Xml.elt = Xml.elt
 
 (** Simple printer for XHTML documents (HTML compatible printer) *)
 module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
@@ -39,7 +42,10 @@ module Make_printer(O : Xml_sigs.Output) :
 (** {1 XHTML 1.1} *)
 
 (** Concrete implementation of XHTML 1.1 typesafe constructors *)
-module M_01_01 : Xhtml_sigs.T_01_01 with module Xml := Xml
+module M_01_01 : Xhtml_sigs.T_01_01 with type Xml.uri = Xml.uri
+                                    and type Xml.event_handler = Xml.event_handler
+                                    and type Xml.attrib = Xml.attrib
+                                    and type Xml.elt = Xml.elt
 
 (** Simple printer for XHTML 1.1 documents (HTML compatible printer) *)
 module P_01_01 :
@@ -55,7 +61,11 @@ module Make_printer_01_01(O : Xml_sigs.Output) :
 (** {1 XHTML 1.0 } *)
 
 (** Concrete implementation of XHTML 1.0 typesafe constructors *)
-module M_01_00 : Xhtml_sigs.T_01_00 with module Xml := Xml
+module M_01_00 : Xhtml_sigs.T_01_00 with type Xml.uri = Xml.uri
+                                    and type Xml.event_handler = Xml.event_handler
+                                    and type Xml.attrib = Xml.attrib
+                                    and type Xml.elt = Xml.elt
+
 
 (** Simple printer for XHTML 1.0 documents (HTML compatible printer) *)
 module P_01_00 :
