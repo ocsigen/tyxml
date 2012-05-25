@@ -3,33 +3,33 @@
 {2 Building valid XML tree }
 
 {!modules:
-XHTML
-SVG
-HTML5
+Xhtml
+Svg
+Html5
 }
 
 {2 Common DTD's transcriptions}
 
 {!modules:
-XHTML_types
-SVG_types
-HTML5_types
+Xhtml_types
+Svg_types
+Html5_types
 }
 
 {2 Low-level XML manipulation}
 
 {!modules:
-XML
+Xml
 }
 
 {2 Functorial interface }
 
 {!modules:
-XHTML_f
-SVG_f
-HTML5_f
-XML_iter
-XML_print
+Xhtml_f
+Svg_f
+Html5_f
+Xml_iter
+Xml_print
 }
 
 {2 OCamlduce}
@@ -37,14 +37,14 @@ XML_print
 {3 Common DTD's transcriptions}
 
 {!modules:
-XHTML_types_duce
+Xhtml_types_duce
 }
 
 {3 Helpers}
 
 {!modules:
-XML_print_duce
-XHTML_duce
+Xml_print_duce
+Xhtml_duce
 }
 
 {2 Syntax extension and simple parser}
