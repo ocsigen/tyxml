@@ -1,3 +1,9 @@
+
+===== 2.1 =====
+
+ * Rename all module names lower-case
+ * Explicit choice of implementation for syntax extension
+
 ===== 2.0.2 =====
 
  * Add a simple printer: XML.print
