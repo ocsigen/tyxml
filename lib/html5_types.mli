@@ -27,7 +27,7 @@
 *)
 
 (* _fun prefix are the types that must be used
-   in HTML5.M. They are more restrictive as
+   in Html5.M. They are more restrictive as
    some param are already taken as seperate argument,
    to ensure better compatibility.
    SC *)
@@ -41,7 +41,7 @@
 
 *)
 
-(** HTML5 types with variants. (See also {!HTML5.M})
+(** HTML5 types with variants. (See also {!Html5.M})
 
     @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
 *)
