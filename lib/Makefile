@@ -17,8 +17,8 @@ LIBS     := -package netstring
 
 # SYNTAX := -ppopt ../syntax/pa_include.cmo -package camlp4 -syntax camlp4o
 
-OCAMLC   := $(OCAMLFIND) ocamlc ${SYNTAX}
-OCAMLOPT := $(OCAMLFIND) ocamlopt ${SYNTAX}
+OCAMLC   := $(OCAMLFIND) ocamlc ${DBG} ${SYNTAX}
+OCAMLOPT := $(OCAMLFIND) ocamlopt ${DBG} ${SYNTAX}
 OCAMLDEP := $(OCAMLFIND) ocamldep ${SYNTAX}
 
 OCAMLDUCEC   := ${OCAMLDUCEFIND} ocamlc ${DBG} -thread
