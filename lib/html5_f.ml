@@ -823,6 +823,8 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let i = star "i"
 
+  let u = star "u"
+
   let small = star "small"
 
   let sub = star "sub"

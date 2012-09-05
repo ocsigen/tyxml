@@ -756,6 +756,8 @@ module type T = sig
 
   val i : ([< | i_attrib], [< | i_content_fun], [> | i]) star
 
+  val u : ([< | u_attrib], [< | u_content_fun], [> | u]) star
+
   val small :
     ([< | small_attrib], [< | small_content_fun], [> | small]) star
 

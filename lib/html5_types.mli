@@ -533,6 +533,7 @@ type core_phrasing =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Svg
     | `Time
     | `Sup
@@ -570,6 +571,7 @@ type core_phrasing_without_noscript =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Time
     | `Sup
     | `Sub
@@ -605,6 +607,7 @@ type core_phrasing_without_interactive =
     | labelable_without_interactive
     | `Wbr
     | `Var
+    | `U
     | `Img
     | `Time
     | `Sup
@@ -640,6 +643,7 @@ type core_phrasing_without_media =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Time
     | `Svg
     | `Sup
@@ -707,7 +711,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
        `Datalist `Del `Dfn `Em `I `Img `Ins `Kbd `Map `Mark `Meter
        `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
-       `Small `Span `Strong `Sub `Sup `Svg `Time `Var  `Wbr  ] as 'a)
+       `Small `Span `Strong `Sub `Sup `Svg `Time `U `Var  `Wbr  ] as 'a)
 
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
@@ -716,6 +720,7 @@ type phrasing_without_dfn =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Time
     | `Sup
     | `Sub
@@ -751,6 +756,7 @@ type phrasing_without_label =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Time
     | `Sup
     | `Sub
@@ -786,6 +792,7 @@ type phrasing_without_progress =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Time
     | `Sup
     | `Sub
@@ -824,6 +831,7 @@ type phrasing_without_time =
     | submitable
     | `Wbr
     | `Var
+    | `U
     | `Sup
     | `Sub
     | `Strong
@@ -861,6 +869,7 @@ type phrasing_without_meter =
     | `Button
     | `Wbr
     | `Var
+    | `U
     | `Time
     | `Sup
     | `Img | `Img_interactive
@@ -1059,7 +1068,7 @@ type +'a between_flow5_and_flow5_without_interactive_header_footer =
       `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
       `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
-      `Textarea `Time `Ul `Var `Video `Wbr] as 'a
+      `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
 
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
   [< core_flow5
@@ -1075,7 +1084,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
       `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
-      `Table `Textarea `Time `Ul `Var `Video `Video_interactive
+      `Table `Textarea `Time `U `Ul `Var `Video `Video_interactive
       `Wbr ] as 'a
 
 type flow5_without_form =
@@ -1440,6 +1449,15 @@ type i_content = [ | phrasing ]
 type i_content_fun = [ | phrasing ]
 
 type i_attrib = [ | common ]
+
+(* NAME: u, KIND: star, TYPE: [= common ], [= phrasing ], [=`U], ARG: [= phrasing ], ATTRIB:  OUT: [=`U] *)
+type u = [ | `U ]
+
+type u_content = [ | phrasing ]
+
+type u_content_fun = [ | phrasing ]
+
+type u_attrib = [ | common ]
 
 (* NAME: small, KIND: star, TYPE: [= common ], [= phrasing ], [=`Small], ARG: [= phrasing ], ATTRIB:  OUT: [=`Small] *)
 type small = [ | `Small ]
