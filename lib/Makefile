@@ -21,8 +21,8 @@ OCAMLC   := $(OCAMLFIND) ocamlc ${SYNTAX}
 OCAMLOPT := $(OCAMLFIND) ocamlopt ${SYNTAX}
 OCAMLDEP := $(OCAMLFIND) ocamldep ${SYNTAX}
 
-OCAMLDUCEC   := ${OCAMLDUCEFIND} ocamlc${BYTEDBG} -thread
-OCAMLDUCEOPT := ${OCAMLDUCEFIND} ocamlopt ${OPTDBG} -thread
+OCAMLDUCEC   := ${OCAMLDUCEFIND} ocamlc ${DBG} -thread
+OCAMLDUCEOPT := ${OCAMLDUCEFIND} ocamlopt ${DBG} -thread
 OCAMLDUCEDEP := ${OCAMLDUCEFIND} ocamldep
 
 all: byte opt
