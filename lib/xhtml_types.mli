@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-(** XHTML types with variants. (See also {!XHTML.M}) *)
+(** XHTML types with variants. (See also {!Xhtml.M}) *)
 
 (** The elements, attributes, attribute types and data types are given names
     that match the names in the W3C recommendation as closely as allowed by
