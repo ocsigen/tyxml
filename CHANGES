@@ -1,5 +1,9 @@
 
-===== 2.1 =====
+===== 2.2.0 =====
+
+  * Adding tag <u>
+
+===== 2.1.0 =====
 
  * Rename all module names lower-case
  * Explicit choice of implementation for syntax extension
