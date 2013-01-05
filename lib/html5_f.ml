@@ -893,12 +893,12 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let aside = star "aside"
 
-  let video_audio name ?srcs ?(a = []) elts =
-    let (a, children) =
-        match srcs with
-        | None -> (a, elts)
-        | Some (uri, srcs) -> (((a_src uri) :: a), (srcs @ elts))
-      in Xml.node ~a name children
+  let video_audio name ?src ?(srcs=[]) ?(a = []) elts =
+    let a =
+      match src with
+        | None -> a
+        | Some uri -> (a_src uri) :: a
+    in Xml.node ~a name (srcs@elts)
 
   let audio = video_audio "audio"
 

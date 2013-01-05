@@ -887,12 +887,14 @@ module type T = sig
   (*   element descendants.             *)
   (**************************************)
   val audio :
-    ?srcs: (Xml.uri * (([< | `Source] elt) list)) ->
+    ?src:Xml.uri ->
+    ?srcs:(([< | `Source] elt) list) ->
     ([< | common | `Preload | `Autoplay | `Loop | `Controls], 'a,
      [> | `Audio of 'a ]) star
 
   val video :
-    ?srcs: (Xml.uri * (([< | `Source] elt) list)) ->
+    ?src:Xml.uri ->
+    ?srcs: (([< | `Source] elt) list) ->
     ([<
      | common
      | `Poster
