@@ -106,7 +106,7 @@ module type T = sig
 
   val a_transform : transform -> [> | `Transform ] attrib
 
-  val a_viewbox : fourfloats -> [> | `Viewbox ] attrib
+  val a_viewbox : fourfloats -> [> | `ViewBox ] attrib
 
   val a_d : string -> [> | `D ] attrib
 
