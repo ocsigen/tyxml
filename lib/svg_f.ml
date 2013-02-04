@@ -966,4 +966,28 @@ module Make(Xml : Xml_sigs.T) = struct
   type doc = [ `Svg ] elt
   let doc_toelt x = x
 
+  module Unsafe = struct
+
+    let data s = Xml.encodedpcdata s
+
+    let leaf tag ?a () = Xml.leaf ?a tag
+
+    let node tag ?a elts = Xml.node ?a tag elts
+
+    let float_attrib = Xml.float_attrib
+
+    let int_attrib = Xml.int_attrib
+
+    let string_attrib = Xml.string_attrib
+
+    let uri_attrib a s = Xml.uri_attrib a s
+
+    let space_sep_attrib = Xml.space_sep_attrib
+
+    let comma_sep_attrib = Xml.comma_sep_attrib
+
+    let event_handler_attrib = Xml.event_handler_attrib
+
+  end
+
 end

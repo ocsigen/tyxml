@@ -805,9 +805,56 @@ module type T = sig
   val to_xmlattribs : ('a attrib) list -> Xml.attrib list
   val to_attrib : Xml.attrib -> 'a attrib
 
+  module Unsafe : sig
+    (** Unsafe features. Warning using this module can break
+        validity and may introduce security problems like
+        code injection.
+        Use it with care.
+    *)
+
+    (** Insert raw text without any encoding *)
+    val data : string -> 'a elt
+
+    (** Insert an XML node that is not implemented in this module.
+        If it is a standard SVG node which is missing,
+        please report to the Ocsigen team.
+    *)
+    val node : string -> ?a:'a attrib list -> 'b elt list -> 'c elt
+
+    (** Insert an XML node without children
+        that is not implemented in this module.
+        If it is a standard SVG node which is missing,
+        please report to the Ocsigen team.
+    *)
+    val leaf : string -> ?a:'a attrib list -> unit -> 'b elt
+
+    (** Insert an attribute that is not implemented in this module.
+        If it is a standard SVG attribute which is missing,
+        please report to the Ocsigen team.
+    *)
+    val string_attrib : string -> string -> 'a attrib
+
+    (** Same, for float attribute *)
+    val float_attrib : string -> float -> 'a attrib
+
+    (** Same, for int attribute *)
+    val int_attrib : string -> int -> 'a attrib
+
+    (** Same, for URI attribute *)
+    val uri_attrib : string -> uri -> 'a attrib
+
+    (** Same, for a space separated list of values *)
+    val space_sep_attrib : string -> string list -> 'a attrib
+
+    (** Same, for a comma separated list of values *)
+    val comma_sep_attrib : string -> string list -> 'a attrib
+
+  end
+
   (** {2 ... } *)
 
   type doc = [ `Svg ] elt
   val doc_toelt : doc -> Xml.elt
+
 
 end

@@ -518,7 +518,7 @@ module Version(Xml : Xml_sigs.T) = struct
       | `Circle -> "circle"
       | `Poly -> "poly"
       | `Default -> "default")
-  let a_coords coords = 
+  let a_coords coords =
     string_attrib "coords" (String.concat ","
                               (List.map string_of_int coords))
 
@@ -708,7 +708,7 @@ module Version(Xml : Xml_sigs.T) = struct
 (* CH *)
   module RUBY = struct
     type inline = [ `Ruby_simple1 | `Ruby_simple2 | `Ruby_complex ]
-    type flow =  inline 
+    type flow =  inline
   end
 
   type no_ruby_inline = [ TEXT.inline | PRESENTATION.inline | HYPERTEXT.inline | SPECIAL.inline | FORMS.inline | i18nclass ]
@@ -768,6 +768,31 @@ module Version(Xml : Xml_sigs.T) = struct
 
   type doc = [ `Html ] elt
   let doc_toelt x = x
+
+  module Unsafe = struct
+
+    let data s = Xml.encodedpcdata s
+
+    let leaf tag ?a () = Xml.leaf ?a tag
+
+    let node tag ?a elts = Xml.node ?a tag elts
+
+    let float_attrib = Xml.float_attrib
+
+    let int_attrib = Xml.int_attrib
+
+    let string_attrib = Xml.string_attrib
+
+    let uri_attrib a s = Xml.uri_attrib a s
+
+    let space_sep_attrib = Xml.space_sep_attrib
+
+    let comma_sep_attrib = Xml.comma_sep_attrib
+
+    let event_handler_attrib = Xml.event_handler_attrib
+
+  end
+
 
 end
 
