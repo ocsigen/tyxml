@@ -208,7 +208,8 @@ type mediadesc =
     | `Screen
     | `Speech
     | `TTY
-    | `TV ] list
+    | `TV
+    | `Raw_mediadesc of string ] list
 (** The MediaDesc attribute is a comma-separated list of media descriptors.
         The following is a list of recognized media descriptors:
         {ul
@@ -229,25 +230,11 @@ type mediadesc =
         {- [`Aural]:
         For speech synthesizers.}
         {- [`All]:
-        For all devices.}}
+        For speech synthesizers.}
+        {- [`Raw_mediadesc]:
+        For more complex (untyped) media descriptors.}}
 
-        {ol
-        {- The value is a comma-separated list of entries. For example,
-        [media="screen, 3d-glasses, print and resolution > 90dpi"]
-        is mapped to: ["screen"], ["3d-glasses"],
-        ["print and resolution > 90dpi"].}
-        {- Each entry is truncated just before the first character that
-        isn't a US ASCII letter [\[a-zA-Z\]] (ISO 10646 hex 41-5a,
-        61-7a), digit [\[0-9\]] (hex 30-39), or hyphen-minus (hex 2d).
-        In the example, this gives: ["screen"], ["3d-glasses"], ["print"].}
-        {- A case-insensitive match is then made with the set of media
-        types defined above. User agents may ignore entries that
-        don't match.  In the example we are left with ["screen"] and
-        ["print"].}}
-
-        Note. Style sheets may include media-dependent variations within them
-        (e.g., the [CSS \@media] consig). In such cases it may be appropriate
-        to use ["media=all"]. *)
+*)
 
 type multilength = [ | length | `Relative of int ]
 (** The value may be a Length or a relative length. A relative length

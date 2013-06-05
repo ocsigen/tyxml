@@ -142,6 +142,7 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
     | `Speech -> "speech"
     | `TTY -> "tty"
     | `TV -> "tv"
+    | `Raw_mediadesc s -> s
 
   let mediadesc_attrib name mediadescs =
     string_attrib name
