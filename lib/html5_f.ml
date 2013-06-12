@@ -399,7 +399,7 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_challenge = string_attrib "challenge"
 
   let a_contenteditable ce =
-      string_attrib "contexteditable"
+      string_attrib "contenteditable"
         (match ce with | `True -> "true" | `False -> "false")
 
   let a_contextmenu = string_attrib "contextmenu"

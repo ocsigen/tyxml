@@ -54,7 +54,7 @@ module type T = sig
   val a_challenge : text -> [> | `Challenge] attrib
 
   val a_contenteditable :
-    [< | `True | `False] -> [> | `Contexteditable] attrib
+    [< | `True | `False] -> [> | `Contenteditable] attrib
 
   val a_contextmenu : idref -> [> | `Contextmenu] attrib
 
