@@ -1081,6 +1081,8 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
     let node tag ?a elts = Xml.node ?a tag elts
 
+    let coerce_elt x = x
+
     let float_attrib = Xml.float_attrib
 
     let int_attrib = Xml.int_attrib

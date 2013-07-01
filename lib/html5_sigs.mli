@@ -1232,6 +1232,11 @@ module type T = sig
     *)
     val leaf : string -> ?a:'a attrib list -> unit -> 'b elt
 
+    (** Remove phantom type annotation on an element,
+        to make it usable everywhere.
+    *)
+    val coerce_elt : 'a elt -> 'b elt
+
     (** Insert an attribute that is not implemented in this module.
         If it is a standard HTML5 attribute which is missing,
         please report to the Ocsigen team.
