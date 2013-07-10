@@ -82,19 +82,17 @@ module M = struct
   (* For security reasons, we do not allow "]]>" inside CDATA
      (as this string is to be considered as the end of the cdata)
   *)
-    let s' = "\n<![CDATA[\n"^
-      (Netstring_pcre.global_replace
-	 (Netstring_pcre.regexp_string "]]>") "" s)
-      ^"\n]]>\n" in
-    encodedpcdata s'
+  let s' = "\n<![CDATA[\n"^
+    (Pcre.replace ~rex:(Pcre.regexp(Pcre.quote "]]>")) s)
+    ^"\n]]>\n" in
+  encodedpcdata s'
 
   let cdata_script s = (* GK *)
   (* For security reasons, we do not allow "]]>" inside CDATA
      (as this string is to be considered as the end of the cdata)
   *)
     let s' = "\n//<![CDATA[\n"^
-      (Netstring_pcre.global_replace
-	 (Netstring_pcre.regexp_string "]]>") "" s)
+      (Pcre.replace ~rex:(Pcre.regexp(Pcre.quote "]]>")) s)
       ^"\n//]]>\n" in
     encodedpcdata s'
 
@@ -103,8 +101,7 @@ module M = struct
      (as this string is to be considered as the end of the cdata)
   *)
     let s' = "\n/* <![CDATA[ */\n"^
-      (Netstring_pcre.global_replace
-	 (Netstring_pcre.regexp_string "]]>") "" s)
+      (Pcre.replace ~rex:(Pcre.regexp (Pcre.quote "]]>")) s)
       ^"\n/* ]]> */\n" in
     encodedpcdata s'
 

@@ -13,7 +13,7 @@ DUCE_INTF  := xml_sigs_duce.mli xhtml_types_duce.mli xml_print_duce.mli xhtml_du
 
 DUCE_FILES := xml_print_duce.ml xhtml_duce.ml
 
-LIBS     := -package netstring-pcre
+LIBS     := -package netstring -package pcre
 
 # SYNTAX := -ppopt ../syntax/pa_include.cmo -package camlp4 -syntax camlp4o
 
