@@ -83,7 +83,7 @@ module M = struct
      (as this string is to be considered as the end of the cdata)
   *)
   let s' = "\n<![CDATA[\n"^
-    (Pcre.replace ~rex:(Pcre.regexp(Pcre.quote "]]>")) s)
+    (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
     ^"\n]]>\n" in
   encodedpcdata s'
 
@@ -92,7 +92,7 @@ module M = struct
      (as this string is to be considered as the end of the cdata)
   *)
     let s' = "\n//<![CDATA[\n"^
-      (Pcre.replace ~rex:(Pcre.regexp(Pcre.quote "]]>")) s)
+      (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
       ^"\n//]]>\n" in
     encodedpcdata s'
 
@@ -101,7 +101,7 @@ module M = struct
      (as this string is to be considered as the end of the cdata)
   *)
     let s' = "\n/* <![CDATA[ */\n"^
-      (Pcre.replace ~rex:(Pcre.regexp (Pcre.quote "]]>")) s)
+      (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
       ^"\n/* ]]> */\n" in
     encodedpcdata s'
 
