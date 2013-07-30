@@ -26,7 +26,6 @@ allows a HTML compatible mode.
 
  * ocaml and camlp4
  * findlib
- * ocamlnet (for netstring-pcre)
 
  [optionnal]
  * ocamlduce
