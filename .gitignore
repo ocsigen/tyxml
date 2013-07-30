@@ -1,0 +1,13 @@
+*.cmi
+*.cmx
+*.cmo
+*.cma
+*.cmxa
+*.cmxs
+*.o
+*.a
+*~
+Makefile.config
+doc/api-html
+syntax/xmllexer.ml
+syntax/camllexer.ml
