@@ -287,6 +287,18 @@ type number_optional_number = (number * (number option))
 type percentage = int
 type strings = string list
 
+type color = string
+type icccolor = string
+
+type paint_whitout_icc =
+  [ `None | `CurrentColor
+  | `Color of (color * icccolor option)
+  ]
+
+type paint =
+  [ paint_whitout_icc
+  | `Icc of (iri * paint_whitout_icc option) ]
+
 (* Transformation *)
 type transform =
   | Matrix of (float * float * float * float * float * float)
@@ -1028,12 +1040,12 @@ type radialgradient_attr =
     | `Xlink_href
   ]
 
-type gradientstop = [ | `Gradient_Stop ]
+type stop = [ | `Stop ]
 
 (* star *)
-type gradientstop_content = [ | `Animate | `Animate_Color | `Set ]
+type stop_content = [ | `Animate | `Animate_Color | `Set ]
 
-type gradientstop_attr =
+type stop_attr =
   [ | core_attr | presentation_attr | `Class | `Style | `Offset
   ]
 

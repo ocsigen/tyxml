@@ -394,7 +394,9 @@ module type T = sig
   val a_repeatdur : string -> [> | `RepeatDur ] attrib
 
   (* XXX *)
-  val a_fill : [< | `Freeze | `Remove ] -> [> | `Fill ] attrib
+  val a_fill : paint -> [> | `Fill ] attrib
+
+  val a_fill_animation : [< | `Freeze | `Remove ] -> [> | `Fill_Animation ] attrib
 
   val a_calcmode :
     [< | `Discrete | `Linear | `Paced | `Spline ] -> [> | `CalcMode ] attrib
@@ -570,6 +572,28 @@ module type T = sig
     ?a: ((foreignobject_attr attrib) list) ->
     Xml.elt list -> [> | foreignobject] elt
 
+  val a_stopcolor : color -> [> | `Stop_Color ] attrib
+
+  val a_stopopacity : number -> [> | `Stop_Opacity ] attrib
+
+  val a_stroke : paint -> [> | `Stroke ] attrib
+
+  val a_strokewidth : length -> [> | `Stroke_Width ] attrib
+
+  val a_strokelinecap :
+    [< `Butt | `Round | `Square ] -> [> | `Stroke_Linecap ] attrib
+
+  val a_strokelinejoin :
+    [< `Miter | `Round | `Bever ] -> [> `Stroke_Linejoin ] attrib
+
+  val a_strokemiterlimit : float -> [> `Stroke_Miterlimit ] attrib
+
+  val a_strokedasharray : Unit.length list -> [> `Stroke_Dasharray ] attrib
+
+  val a_strokedashoffset : Unit.length -> [> `Stroke_Dashoffset ] attrib
+
+  val a_strokeopacity : float -> [> `Stroke_Opacity ] attrib
+
   (** {1 Elements} *)
 
   (* generated *)
@@ -646,9 +670,8 @@ module type T = sig
     ([< | radialgradient_attr], [< | radialgradient_content],
      [> | radialgradient]) star
 
-  val gradientstop :
-    ([< | gradientstop_attr], [< | gradientstop_content], [> | gradientstop
-							  ]) star
+  val stop :
+    ([< | stop_attr], [< | stop_content], [> | stop ]) star
 
   val pattern :
     ([< | pattern_attr], [< | pattern_content], [> | pattern]) star

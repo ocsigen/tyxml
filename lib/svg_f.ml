@@ -33,7 +33,7 @@ open Svg_types
 
 open Unit
 
-let string_of_iri x = x
+let string_of_iri x = Printf.sprintf "url(%s)" x
 
 module Unit = struct
 
@@ -108,6 +108,22 @@ let string_of_numbers_semicolon l =
   String.concat ";" (List.map string_of_float l)
 let string_of_coords l =
   String.concat " " (List.map (fun (a, b) -> Printf.sprintf "%g, %g" a b) l)
+
+let string_of_color s = s
+(* For now just string, we may want something better in the future. *)
+
+let string_of_icccolor s = s
+
+let string_of_paint_whitout_icc = function
+  | `None -> "none"
+  | `CurrentColor -> "currentColor"
+  | `Color (c, icc) -> opt_concat (string_of_color c) string_of_icccolor icc
+
+let string_of_paint = function
+  | `Icc (iri, None) -> string_of_iri iri
+  | `Icc (iri, Some b) ->
+      (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
+  | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
 module Make(Xml : Xml_sigs.T) = struct
 
@@ -251,7 +267,7 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let a_transform = user_attrib string_of_transform "transform"
 
-  let a_viewbox = user_attrib string_of_fourfloats "viewbox"
+  let a_viewbox = user_attrib string_of_fourfloats "viewBox"
 
   let a_d = user_attrib string_of_string "d"
 
@@ -801,14 +817,43 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_onmousemove = user_attrib string_of_string "onmousemove"
 
   let a_onrepeat = user_attrib string_of_string "onrepeat"
+  let a_stopcolor = user_attrib string_of_color "stop-color"
 
   let a_onresize = user_attrib string_of_string "onresize"
+  let a_stopopacity = user_attrib string_of_number "stop-opacity"
 
   let a_onscroll = user_attrib string_of_string "onscroll"
+  let a_stroke = user_attrib string_of_paint "stroke"
+
+  let a_strokewidth = user_attrib string_of_length "stroke-width"
+
+  let a_strokelinecap x =
+    string_attrib "stroke-linecap"
+      (match x with
+          `Butt -> "butt" | `Round -> "round" | `Square -> "square")
+
+  let a_strokelinejoin x =
+    string_attrib "stroke-linejoin"
+      (match x with
+          `Miter -> "miter" | `Round -> "round" | `Bever -> "bevel")
+
+  let a_strokemiterlimit =
+    user_attrib string_of_number "stroke-miterlimit"
+
+  let a_strokedasharray x =
+    string_attrib "stroke-dasharray"
+      (match x with
+        | [] -> "none"
+        | l -> list string_of_length l
+      )
 
   let a_onunload = user_attrib string_of_string "onunload"
+  let a_strokedashoffset =
+    user_attrib string_of_length "stroke-dashoffset"
 
   let a_onzoom = user_attrib string_of_string "onzoom"
+  let a_strokeopacity =
+    user_attrib string_of_number "stroke-opacity"
 
   (* also generated *)
   let svg = star "svg"
@@ -859,17 +904,17 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let altglyphitem = plus "altGlyphItem"
 
-  let glyphref = nullary "glyphRef];"
+  let glyphref = nullary "glyphRef"
 
   let marker = star "marker"
 
   let colorprofile = star "colorProfile"
 
-  let lineargradient = star "linear-gradient"
+  let lineargradient = star "linearGradient"
 
-  let radialgradient = star "radial-gradient"
+  let radialgradient = star "radialGradient"
 
-  let gradientstop = star "gradient-stop"
+  let stop = star "stop"
 
   let pattern = star "pattern"
 
@@ -891,25 +936,25 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let fefunca = star "feFuncA"
 
-  let fefuncg = star "feFuncA"
+  let fefuncg = star "feFuncG"
 
-  let fefuncb = star "feFuncA"
+  let fefuncb = star "feFuncB"
 
-  let fefuncr = star "feFuncA"
+  let fefuncr = star "feFuncR"
 
-  let fecomposite = star "(*"
+  let fecomposite = star "feComposite"
 
   let feconvolvematrix = star "feConvolveMatrix"
 
-  let fediffuselighting = star "(*"
+  let fediffuselighting = star "feDiffuseLighting"
 
-  let fedisplacementmap = star "feDisplacementMap];"
+  let fedisplacementmap = star "feDisplacementMap"
 
-  let feflood = star "(*"
+  let feflood = star "feFlood"
 
-  let fegaussianblur = star "];"
+  let fegaussianblur = star "feGaussianBlur"
 
-  let feimage = star "(*"
+  let feimage = star "feImage"
 
   let femerge = star "feMerge"
 
@@ -923,7 +968,7 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let feturbulence = star "feTurbulence"
 
-  let cursor = star "(*"
+  let cursor = star "cursor"
 
   let a = star "a"
 
@@ -931,7 +976,7 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let script = unary "script"
 
-  let animation = star "(*"
+  let animation = star "animate"
 
   let set = star "set"
 
