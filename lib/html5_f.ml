@@ -380,7 +380,7 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_readonly =
       function | `ReadOnly -> string_attrib "readonly" "readonly"
 
-  let a_maxlength = int_attrib "maxLength"
+  let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
