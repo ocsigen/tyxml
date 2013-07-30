@@ -2,7 +2,7 @@ _LIBDIR_
 
 description = "XHTML and HTML5 pages typed with polymorphic variants"
 version = "dev"
-requires = "netstring-pcre"
+requires = "str"
 archive(byte) = "_LIBNAME_.cma"
 archive(native) = "_LIBNAME_.cmxa"
 
