@@ -41,13 +41,10 @@
 (** {2 Elements} *)
 
 type animation_element =
-  [ | `AnimateColor | `AnimateMotion | `AnimateTransform | `Animate | `Set
-  ]
-type descriptive_element = [ | `Desc | `Metdata | `Title ]
+  [ | `AnimateColor | `AnimateMotion | `AnimateTransform | `Animate | `Set ]
+type descriptive_element = [ | `Desc | `Metadata | `Title ]
 type basic_shape_element =
   [ | `Circle | `Ellipse | `Line | `Polygon | `Polyline | `Rect ]
-
-type clipping_path_element = [ | `Path | `Text | basic_shape_element ]
 
 type container_element =
   [
@@ -86,26 +83,22 @@ type filter_primitive_element =
 
 type light_source_element =
   [
-    | `FeDiffuseLighting
-    | `FeSpecularLighting
     | `FeDistantLight
     | `FePointLight
     | `FeSpotLight
   ]
 
-type shape_element = [ | `Circle | `Ellipse | `Line | `Polyline | `Polygon | `Rect]
+type shape_element = [ | `Circle | `Ellipse | `Line | `Path | `Polyline | `Polygon | `Rect]
 
 type structural_element = [ | `Defs | `G | `Svg | `Symbol | `Use ]
 
 type text_content_element =
-  [ | `AltGlyph | `TextPath | `Text | `Tref | `Tspan
-  ]
+  [ | `AltGlyph | `TextPath | `Text | `Tref | `Tspan ]
 
 type text_content_child_element =
-  [ | `AltGlyph | `TextPath | `Tref | `Tspan
-  ]
+  [ | `AltGlyph | `TextPath | `Tref | `Tspan ]
 
-type gradient_element = [ | `LinearGradient | `RadialGradient ]
+type gradient_element = [ | `Lineargradient | `Radialgradient ]
 
 type graphics_element =
   [
@@ -125,8 +118,6 @@ type graphics_ref_element = [ | `Image | `Use ]
 
 (** {2 Attributes } *)
 
-type anim_event_attr = [ | `OnBegin | `OnEnd | `OnLoad ]
-
 type conditional_processing_attr =
   [ | `RequiredExtensions | `RequiredFeatures | `SystemLanguage ]
 
@@ -140,12 +131,11 @@ type transfer_attr =
     | `Intercept
     | `Amplitude
     | `Exponent
-    | `Offset__transfer
+    | `Offset_transfer
   ]
 
 type document_event_attr =
-  [ | `OnAbort | `OnError | `OnResize | `OnScroll | `OnUnload | `OnZoom
-  ]
+  [ | `OnAbort | `OnError | `OnResize | `OnScroll | `OnUnload | `OnZoom ]
 
 type filter_primitive_attr = [ | `Height | `Result | `Width | `X | `Y ]
 
@@ -163,14 +153,14 @@ type animation_timing_attr =
     | `Restart
     | `RepeatCount
     | `RepeatDur
-    | `Fill
+    | `Fill_Animation
   ]
 
 type animation_value_attr =
   [ | `CalcMode | `Values | `KeyTimes | `KeySplines | `From | `To | `By
   ]
 
-type animation_addition_attr = [ | `Animation | `Accumulate ]
+type animation_addition_attr = [ | `Additive | `Accumulate ]
 
 type presentation_attr =
   [
@@ -187,7 +177,7 @@ type presentation_attr =
     | `Cursor
     | `Direction
     | `Display
-    | `Document_baseline
+    | `Dominant_baseline
     | `Enable_background
     | `Fill
     | `Fill_opacity
@@ -243,6 +233,7 @@ type graphical_event_attr =
     | `OnFocusOut
     | `OnLoad
     | `OnMouseDown
+    | `OnMouseMove
     | `OnMouseOut
     | `OnMouseOver
     | `OnMouseUp
@@ -486,8 +477,6 @@ type symbol_content =
     | descriptive_element
     | structural_element
     | gradient_element
-    | `LinearGradient
-    | `RadialGradient
     | `A
     | `AltGlyphDef
     | `ClipPath
@@ -762,8 +751,8 @@ type text_attr =
     | `LengthAdjust
     | `X_list
     | `Y_list
-    | `Dx
-    | `Dy
+    | `Dx_list
+    | `Dy_list
     | `Rotate
     | `TextLength
   ]
@@ -793,10 +782,10 @@ type tspan_attr =
     | `Class
     | `Style
     | `ExternalResourcesRequired
-    | `X__list
-    | `Y__list
-    | `Dx
-    | `Dy
+    | `X_list
+    | `Y_list
+    | `Dx_list
+    | `Dy_list
     | `Rotate
     | `TextLength
     | `LengthAdjust
@@ -813,8 +802,8 @@ type tspan_attribute =
     | `ExternalResourcesRequired
     | `X_list
     | `Y_list
-    | `Dx
-    | `Dy
+    | `Dx_list
+    | `Dy_list
     | `Rotate
     | `TextLength
     | `LengthAdjust
@@ -888,8 +877,8 @@ type altglyph_attr =
     | `ExternalResourcesRequired
     | `X_list
     | `Y_list
-    | `Dx
-    | `Dy
+    | `Dx_list
+    | `Dy_list
     | `GlyphRef
     | `Format
     | `Rotate
@@ -989,7 +978,7 @@ type colorprofile_attr =
     | `Xlink_href
   ]
 
-type lineargradient = [ | `Linear_Gradient ]
+type lineargradient = [ | `Lineargradient ]
 
 (* star *)
 type lineargradient_content =
@@ -1014,7 +1003,7 @@ type lineargradient_attr =
     | `Xlink_href
   ]
 
-type radialgradient = [ | `Radial_Gradient ]
+type radialgradient = [ | `Radialgradient ]
 
 (* star *)
 type radialgradient_content =
@@ -1250,7 +1239,7 @@ type fecolormatrix_attr =
     | filter_primitive_attr
     | `Class
     | `Style
-    | `Type__fecolor
+    | `Typefecolor
     | `Values
     | `In
   ]
@@ -1466,8 +1455,8 @@ type feoffset_attr =
     | filter_primitive_attr
     | `Class
     | `Style
-    | `Dx_number
-    | `Dy_number
+    | `Dx
+    | `Dy
     | `In
   ]
 
@@ -1672,7 +1661,6 @@ type animatemotion_attr =
     | `ExternalResourcesRequired
     | `Path
     | `KeyPoints
-    | `Path
     | `Rotate
     | `Origin
   ]
@@ -1721,7 +1709,7 @@ type animatetransform_attr =
     | animation_value_attr
     | animation_addition_attr
     | `ExternalResourcesRequired
-    | `Type__animatecolor
+    | `Typeanimatecolor
   ]
 
 type font = [ | `Font ]
@@ -1734,12 +1722,12 @@ type font_attr =
     | `Class
     | `Style
     | `ExternalResourcesRequired
-    | `Horiz___Origin___X
-    | `Horiz___Origin___Y
-    | `Horiz___Adv___X
-    | `Vert___Origin___X
-    | `Vert___Origin___Y
-    | `Vert___Adv___Y
+    | `HorizOriginX
+    | `HorizOriginY
+    | `HorizAdvX
+    | `VertOriginX
+    | `VertOriginY
+    | `VertAdvY
   ]
 
 type font_content =
@@ -1789,14 +1777,14 @@ type glyph_attr =
     | `Class
     | `Style
     | `D
-    | `Horiz___Adv___X
-    | `Vert___Origin___X
-    | `Vert___Origin___Y
-    | `Vert___Adv___Y
+    | `HorizAdvX
+    | `VertOriginX
+    | `VertOriginY
+    | `VertAdvY
     | `Unicode
-    | `Glyph___Name
+    | `GlyphName
     | `Orientation
-    | `Arabic___Form
+    | `ArabicForm
     | `Lang
   ]
 
@@ -1817,7 +1805,7 @@ type missingglyph_content =
     | `Cursor
     | `Filter
     | `Font
-    | `Font___Face
+    | `FontFace
     | `ForeignObject
     | `Image
     | `Marker
@@ -1837,10 +1825,10 @@ type missingglyph_attr =
     | `Class
     | `Style
     | `D
-    | `Horiz___Adv___X
-    | `Vert___Origin___X
-    | `Vert___Origin___Y
-    | `Vert___Adv___Y
+    | `HorizAdvX
+    | `VertOriginX
+    | `VertOriginY
+    | `VertAdvY
   ]
 
 type hkern = [ | `Hkern ]
@@ -1861,21 +1849,21 @@ type fontface_content = [ | descriptive_element | `Font_Face_Src ]
 type fontface_attr =
   [
     | core_attr
-    | `Font___Family
-    | `Font___Style
-    | `Font___Variant
-    | `Font___Weight
-    | `Font___Stretch
-    | `Font___Size
-    | `Unicode___Range
-    | `Units___Per___Em
-    | `Panose___1
+    | `FontFamily
+    | `FontStyle
+    | `FontVariant
+    | `FontWeight
+    | `FontStretch
+    | `FontSize
+    | `UnicodeRange
+    | `UnitsPerEm
+    | `Panose1
     | `Stemv
     | `Stemh
     | `Slope
-    | `Cap___Height
-    | `X___Height
-    | `Accent___Height
+    | `CapHeight
+    | `XHeight
+    | `AccentHeight
     | `Ascent
     | `Descent
     | `Widths
@@ -1884,16 +1872,16 @@ type fontface_attr =
     | `Alphabetic
     | `Mathematical
     | `Hanging
-    | `V___Ideographic
-    | `V___Alphabetic
-    | `V___Mathematical
-    | `V___Hanging
-    | `Underline___Position
-    | `Underline___Thickness
-    | `Strikethrough___Position
-    | `Strikethrough___Thickness
-    | `Overline___Position
-    | `Overline___Thickness
+    | `VIdeographic
+    | `VAlphabetic
+    | `VMathematical
+    | `VHanging
+    | `UnderlinePosition
+    | `UnderlineThickness
+    | `StrikethroughPosition
+    | `StrikethroughThickness
+    | `OverlinePosition
+    | `OverlineThickness
   ]
 
 type fontfacesrc = [ | `Font_Face_Src ]
@@ -1941,5 +1929,3 @@ type foreignobject_attr =
     | `Width
     | `Height
   ]
-
-

@@ -133,21 +133,17 @@ module type T = sig
 
   val a_points : coords -> [> | `Points ] attrib
 
-  val a_x_list : lengths -> [> | `X__list ] attrib
+  val a_x_list : lengths -> [> | `X_list ] attrib
 
-  val a_y_list : lengths -> [> | `Y__list ] attrib
+  val a_y_list : lengths -> [> | `Y_list ] attrib
 
-  val a_dx : lengths -> [> | `Dx ] attrib
+  val a_dx : number -> [> | `Dx ] attrib
 
-  val a_dy : lengths -> [> | `Dy ] attrib
+  val a_dy : number -> [> | `Dy ] attrib
 
-  val a_dx_single : Unit.length -> [> | `Dx__single ] attrib
+  val a_dx_list : lengths -> [> | `Dx_list ] attrib
 
-  val a_dy_single : Unit.length -> [> | `Dy__single ] attrib
-
-  val a_dx_number : number -> [> | `Dx__number ] attrib
-
-  val a_dy_number : number -> [> | `Dy__number ] attrib
+  val a_dy_list : lengths -> [> | `Dy_list ] attrib
 
   val a_lengthadjust :
     [< `Spacing | `SpacingAndGlyphs ] -> [> | `LengthAdjust ] attrib
@@ -277,13 +273,13 @@ module type T = sig
 
   val a_typefecolor :
     [< | `Matrix | `Saturate | `HueRotate | `LuminanceToAlpha ] ->
-    [> | `Type__fecolor ] attrib
+    [> | `Typefecolor ] attrib
 
   val a_values : numbers -> [> | `Values ] attrib
 
   val a_transferttype :
     [< | `Identity | `Table | `Discrete | `Linear | `Gamma ] ->
-    [> | `Type__transfert ] attrib
+    [> | `Typetransfert ] attrib
 
   val a_tablevalues : numbers -> [> | `TableValues ] attrib
 
@@ -295,7 +291,7 @@ module type T = sig
 
   val a_exponent : number -> [> | `Exponent ] attrib
 
-  val a_offsettransfer : number -> [> | `Offset__transfer ] attrib
+  val a_offsettransfer : number -> [> | `Offsettransfer ] attrib
 
   val a_operator :
     [< | `Over | `In | `Out | `Atop | `Xor | `Arithmetic ] ->
@@ -401,7 +397,7 @@ module type T = sig
   val a_calcmode :
     [< | `Discrete | `Linear | `Paced | `Spline ] -> [> | `CalcMode ] attrib
 
-  val a_values_anim : strings -> [> | `Values__anim ] attrib
+  val a_values_anim : strings -> [> | `Valuesanim ] attrib
 
   val a_keytimes : strings -> [> | `KeyTimes ] attrib
 
@@ -423,19 +419,19 @@ module type T = sig
 
   val a_typeanimatecolor :
     [ | `Translate | `Scale | `Rotate | `SkewX | `SkewY ] ->
-    [ | `Type__animatecolor ] attrib
+    [ | `Typeanimatecolor ] attrib
 
-  val a_horiz_origin_x : number -> [> | `Horiz___origin___x ] attrib
+  val a_horiz_origin_x : number -> [> | `Horizoriginx ] attrib
 
-  val a_horiz_origin_y : number -> [> | `Horiz___origin___y ] attrib
+  val a_horiz_origin_y : number -> [> | `Horizoriginy ] attrib
 
-  val a_horiz_adv_x : number -> [> | `Horiz___adv___x ] attrib
+  val a_horiz_adv_x : number -> [> | `Horizadvx ] attrib
 
-  val a_vert_origin_x : number -> [> | `Vert___origin___x ] attrib
+  val a_vert_origin_x : number -> [> | `Vertoriginx ] attrib
 
-  val a_vert_origin_y : number -> [> | `Vert___origin___y ] attrib
+  val a_vert_origin_y : number -> [> | `Vertoriginy ] attrib
 
-  val a_vert_adv_y : number -> [> | `Vert___adv___y ] attrib
+  val a_vert_adv_y : number -> [> | `Vertadvy ] attrib
 
   val a_unicode : string -> [> | `Unicode ] attrib
 
@@ -445,7 +441,7 @@ module type T = sig
 
   val a_arabicform :
     [< | `Initial | `Medial | `Terminal | `Isolated ] ->
-    [> | `Arabic___form ] attrib
+    [> | `Arabicform ] attrib
 
   val a_lang : string -> [> | `Lang ] attrib
 
@@ -459,21 +455,21 @@ module type T = sig
 
   val a_k : string -> [> | `K ] attrib
 
-  val a_fontfamily : string -> [> | `Font___Family ] attrib
+  val a_fontfamily : string -> [> | `FontFamily ] attrib
 
-  val a_fontstyle : string -> [> | `Font___Style ] attrib
+  val a_fontstyle : string -> [> | `FontStyle ] attrib
 
-  val a_fontvariant : string -> [> | `Font___Variant ] attrib
+  val a_fontvariant : string -> [> | `FontVariant ] attrib
 
-  val a_fontweight : string -> [> | `Font___Weight ] attrib
+  val a_fontweight : string -> [> | `FontWeight ] attrib
 
-  val a_fontstretch : string -> [> | `Font___Stretch ] attrib
+  val a_fontstretch : string -> [> | `FontStretch ] attrib
 
-  val a_fontsize : string -> [> | `Font___Size ] attrib
+  val a_fontsize : string -> [> | `FontSize ] attrib
 
-  val a_unicoderange : string -> [> | `Unicode___Range ] attrib
+  val a_unicoderange : string -> [> | `UnicodeRange ] attrib
 
-  val a_unitsperem : string -> [> | `Units___Per___Em ] attrib
+  val a_unitsperem : string -> [> | `UnitsPerEm ] attrib
 
   val a_stemv : number -> [> | `Stemv ] attrib
 
@@ -481,11 +477,11 @@ module type T = sig
 
   val a_slope : number -> [> | `Slope ] attrib
 
-  val a_capheight : number -> [> | `Cap___Height ] attrib
+  val a_capheight : number -> [> | `CapHeight ] attrib
 
-  val a_xheight : number -> [> | `X___Height ] attrib
+  val a_xheight : number -> [> | `XHeight ] attrib
 
-  val a_accentheight : number -> [> | `Accent___Height ] attrib
+  val a_accentheight : number -> [> | `AccentHeight ] attrib
 
   val a_ascent : number -> [> | `Ascent ] attrib
 
@@ -501,27 +497,27 @@ module type T = sig
 
   val a_hanging : number -> [> | `Hanging ] attrib
 
-  val a_videographic : number -> [> | `V___Ideographic ] attrib
+  val a_videographic : number -> [> | `VIdeographic ] attrib
 
-  val a_valphabetic : number -> [> | `V___Alphabetic ] attrib
+  val a_valphabetic : number -> [> | `VAlphabetic ] attrib
 
-  val a_vmathematical : number -> [> | `V___Mathematical ] attrib
+  val a_vmathematical : number -> [> | `VMathematical ] attrib
 
-  val a_vhanging : number -> [> | `V___Hanging ] attrib
+  val a_vhanging : number -> [> | `VHanging ] attrib
 
-  val a_underlineposition : number -> [> | `Underline___Position ] attrib
+  val a_underlineposition : number -> [> | `UnderlinePosition ] attrib
 
-  val a_underlinethickness : number -> [> | `Underline___Thickness ] attrib
+  val a_underlinethickness : number -> [> | `UnderlineThickness ] attrib
 
   val a_strikethroughposition :
-    number -> [> | `Strikethrough___Position ] attrib
+    number -> [> | `StrikethroughPosition ] attrib
 
   val a_strikethroughthickness :
-    number -> [> | `Strikethrough___Thickness ] attrib
+    number -> [> | `StrikethroughThickness ] attrib
 
-  val a_overlineposition : number -> [> | `Overline___Position ] attrib
+  val a_overlineposition : number -> [> | `OverlinePosition ] attrib
 
-  val a_overlinethickness : number -> [> | `Overline___Thickness ] attrib
+  val a_overlinethickness : number -> [> | `OverlineThickness ] attrib
 
   val a_string : string -> [> | `String ] attrib
 
