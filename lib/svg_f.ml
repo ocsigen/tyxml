@@ -807,43 +807,48 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let a_name = string_attrib "name"
 
-  let a_name = user_attrib string_of_string "name"
+  let a_onabort = Xml.event_handler_attrib "onabort"
 
-  let a_onabort = user_attrib string_of_string "onabort"
+  let a_onactivate = Xml.event_handler_attrib "onactivate"
 
-  let a_onactivate = user_attrib string_of_string "onactivate"
+  let a_onbegin = Xml.event_handler_attrib "onbegin"
 
-  let a_onbegin = user_attrib string_of_string "onbegin"
+  let a_onclick = Xml.event_handler_attrib "onclick"
 
-  let a_onclick = user_attrib string_of_string "onclick"
+  let a_onend = Xml.event_handler_attrib "onend"
 
-  let a_onend = user_attrib string_of_string "onend"
+  let a_onerror = Xml.event_handler_attrib "onerror"
 
-  let a_onerror = user_attrib string_of_string "onerror"
+  let a_onfocusin = Xml.event_handler_attrib "onfocusin"
 
-  let a_onfocusin = user_attrib string_of_string "onfocusin"
+  let a_onfocusout = Xml.event_handler_attrib "onfocusout"
 
-  let a_onfocusout = user_attrib string_of_string "onfocusout"
+  let a_onload = Xml.event_handler_attrib "onload"
 
-  let a_onload = user_attrib string_of_string "onload"
+  let a_onmousedown = Xml.event_handler_attrib "onmousdown"
 
-  let a_onmousedown = user_attrib string_of_string "onmousdown"
+  let a_onmouseup = Xml.event_handler_attrib "onmouseup"
 
-  let a_onmouseup = user_attrib string_of_string "onmouseup"
+  let a_onmouseover = Xml.event_handler_attrib "onmouseover"
 
-  let a_onmouseover = user_attrib string_of_string "onmouseover"
+  let a_onmouseout = Xml.event_handler_attrib "onmouseout"
 
-  let a_onmouseout = user_attrib string_of_string "onmouseout"
+  let a_onmousemove = Xml.event_handler_attrib "onmousemove"
 
-  let a_onmousemove = user_attrib string_of_string "onmousemove"
+  let a_onrepeat = Xml.event_handler_attrib "onrepeat"
 
-  let a_onrepeat = user_attrib string_of_string "onrepeat"
+  let a_onresize = Xml.event_handler_attrib "onresize"
+
+  let a_onscroll = Xml.event_handler_attrib "onscroll"
+
+  let a_onunload = Xml.event_handler_attrib "onunload"
+
+  let a_onzoom = Xml.event_handler_attrib "onzoom"
+
   let a_stopcolor = user_attrib string_of_color "stop-color"
 
-  let a_onresize = user_attrib string_of_string "onresize"
   let a_stopopacity = user_attrib string_of_number "stop-opacity"
 
-  let a_onscroll = user_attrib string_of_string "onscroll"
   let a_stroke = user_attrib string_of_paint "stroke"
 
   let a_strokewidth = user_attrib string_of_length "stroke-width"
@@ -868,11 +873,9 @@ module Make(Xml : Xml_sigs.T) = struct
         | l -> list string_of_length l
       )
 
-  let a_onunload = user_attrib string_of_string "onunload"
   let a_strokedashoffset =
     user_attrib string_of_length "stroke-dashoffset"
 
-  let a_onzoom = user_attrib string_of_string "onzoom"
   let a_strokeopacity =
     user_attrib string_of_number "stroke-opacity"
 
