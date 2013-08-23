@@ -523,43 +523,43 @@ module type T = sig
 
   val a_name : string -> [> | `Name ] attrib
 
-  val a_onabort : string -> [> | `Onabort ] attrib
+  val a_onabort : Xml.event_handler -> [> | `OnAbort ] attrib
 
-  val a_onactivate : string -> [> | `Onactivate ] attrib
+  val a_onactivate : Xml.event_handler -> [> | `OnActivate ] attrib
 
-  val a_onbegin : string -> [> | `Onbegin ] attrib
+  val a_onbegin : Xml.event_handler -> [> | `OnBegin ] attrib
 
-  val a_onclick : string -> [> | `Onclick ] attrib
+  val a_onclick : Xml.event_handler -> [> | `OnClick ] attrib
 
-  val a_onend : string -> [> | `Onend ] attrib
+  val a_onend : Xml.event_handler -> [> | `OnEnd ] attrib
 
-  val a_onerror : string -> [> | `Onerror ] attrib
+  val a_onerror : Xml.event_handler -> [> | `OnError ] attrib
 
-  val a_onfocusin : string -> [> | `Onfocusin ] attrib
+  val a_onfocusin : Xml.event_handler -> [> | `OnFocusIn ] attrib
 
-  val a_onfocusout : string -> [> | `Onfocusout ] attrib
+  val a_onfocusout : Xml.event_handler -> [> | `OnFocusOut ] attrib
 
-  val a_onload : string -> [> | `Onload ] attrib
+  val a_onload : Xml.event_handler -> [> | `OnLoad ] attrib
 
-  val a_onmousedown : string -> [> | `Onmousdown ] attrib
+  val a_onmousedown : Xml.event_handler -> [> | `OnMouseDown ] attrib
 
-  val a_onmouseup : string -> [> | `Onmouseup ] attrib
+  val a_onmouseup : Xml.event_handler -> [> | `OnMouseUp ] attrib
 
-  val a_onmouseover : string -> [> | `Onmouseover ] attrib
+  val a_onmouseover : Xml.event_handler -> [> | `OnMouseOver ] attrib
 
-  val a_onmouseout : string -> [> | `Onmouseout ] attrib
+  val a_onmouseout : Xml.event_handler -> [> | `OnMouseOut ] attrib
 
-  val a_onmousemove : string -> [> | `Onmousemove ] attrib
+  val a_onmousemove : Xml.event_handler -> [> | `OnMouseMove ] attrib
 
-  val a_onrepeat : string -> [> | `Onrepeat ] attrib
+  val a_onrepeat : Xml.event_handler -> [> | `OnRepeat ] attrib
 
-  val a_onresize : string -> [> | `Onresize ] attrib
+  val a_onresize : Xml.event_handler -> [> | `OnResize ] attrib
 
-  val a_onscroll : string -> [> | `Onscroll ] attrib
+  val a_onscroll : Xml.event_handler -> [> | `OnScroll ] attrib
 
-  val a_onunload : string -> [> | `Onunload ] attrib
+  val a_onunload : Xml.event_handler -> [> | `OnUnload ] attrib
 
-  val a_onzoom : string -> [> | `Onzoom ] attrib
+  val a_onzoom : Xml.event_handler -> [> | `OnZoom ] attrib
 
   val metadata :
     ?a: ((metadata_attr attrib) list) -> Xml.elt list -> [> | metadata] elt
