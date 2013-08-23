@@ -738,6 +738,7 @@ type text_content =
     | animation_element
     | descriptive_element
     | text_content_child_element
+    | `PCDATA
     | `A
   ]
 
@@ -764,6 +765,7 @@ type tspan_content =
   [
     | descriptive_element
     | core_attr
+    | `PCDATA
     | `A
     | `AltGlyph
     | `Animate
@@ -835,6 +837,7 @@ type textpath = [ | `TextPath ]
 type textpath_content =
   [
     | descriptive_element
+    | `PCDATA
     | `A
     | `AltGlyph
     | `Animate

@@ -226,6 +226,8 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let foreignobject ?a children = Xml.node ?a "foreignObject" children
 
+  let pcdata = Xml.pcdata
+
   (* generated *)
   let a_version = string_attrib "version"
 

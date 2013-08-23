@@ -52,6 +52,8 @@ module type T = sig
     [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
     ]
 
+  val pcdata : string -> [> | `PCDATA] elt
+
   (** {1 attributes } *)
 
   val a_version : string -> [> | `Version ] attrib
