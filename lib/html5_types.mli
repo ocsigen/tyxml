@@ -1956,8 +1956,10 @@ type input_attrib =
     | `Formtarget
     | `Height
     | `List
+    | `Max
     | `Input_Max
     | `Maxlength
+    | `Min
     | `Input_Min
     | `Multiple
     | `Name
