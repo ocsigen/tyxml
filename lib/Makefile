@@ -17,7 +17,7 @@ LIBS     :=
 
 # SYNTAX := -ppopt ../syntax/pa_include.cmo -package camlp4 -syntax camlp4o
 
-OCAMLC   := $(OCAMLFIND) ocamlc ${DBG} ${SYNTAX}
+OCAMLC   := $(OCAMLFIND) ocamlc -annot -bin-annot ${DBG} ${SYNTAX}
 OCAMLOPT := $(OCAMLFIND) ocamlopt ${DBG} ${SYNTAX}
 OCAMLDEP := $(OCAMLFIND) ocamldep ${SYNTAX}
 

@@ -11,3 +11,7 @@ Makefile.config
 doc/api-html
 syntax/xmllexer.ml
 syntax/camllexer.ml
+
+*.cmt
+*.cmti
+*.annot
