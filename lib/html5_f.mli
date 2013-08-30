@@ -21,6 +21,17 @@
 
 (** Typesafe constructors for HTML5 documents (Functorial interface) *)
 
+module MakeWraped(Xml : Xml_sigs.Wraped)(Svg : Svg_sigs.T with module Xml := Xml)
+  : Html5_sigs.T with type Xml.uri = Xml.uri
+                 and type Xml.event_handler = Xml.event_handler
+                 and type Xml.attrib = Xml.attrib
+                 and type Xml.elt = Xml.elt
+		 and module Svg := Svg
+		 and type +'a elt = Xml.elt
+                 and type 'a wrap = 'a Xml.W.t
+		 and type 'a attrib = Xml.attrib
+		 and type uri = Xml.uri
+
 module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.T with type Xml.uri = Xml.uri
                  and type Xml.event_handler = Xml.event_handler
@@ -28,5 +39,6 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml)
                  and type Xml.elt = Xml.elt
 		 and module Svg := Svg
 		 and type +'a elt = Xml.elt
+                 and type 'a wrap = 'a
 		 and type 'a attrib = Xml.attrib
 		 and type uri = Xml.uri

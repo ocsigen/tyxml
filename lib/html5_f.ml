@@ -32,7 +32,7 @@
 
 open Html5_types
 
-module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
+module MakeWraped(Xml : Xml_sigs.Wraped)(Svg : Svg_sigs.T with module Xml := Xml)= struct
 
   module Xml = Xml
 
@@ -48,6 +48,26 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
       [ "area"; "base"; "br"; "col"; "command"; "embed"; "hr"; "img";
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
+
+  type 'a wrap = 'a Xml.W.t
+
+  let fmap f x = Xml.W.(bind x (fun a -> return (f a)))
+  let opt_fmap f x def = match x with
+    | None -> Xml.W.return def
+    | Some x -> fmap f x
+  let opt_w x def = opt_fmap (fun x -> x) x def
+  let fmap2 f a b =
+    Xml.W.bind a (fun x -> fmap (f x) b )
+
+  let fmap3 f a b c =
+    Xml.W.bind a (fun x -> fmap2 (f x) b c)
+
+  let fmap4 f a b c d =
+    Xml.W.bind a (fun x -> fmap3 (f x) b c d )
+
+  let fmap5 f a b c d e =
+    Xml.W.bind a (fun x -> fmap4 (f x) b c d e)
+
 
   type uri = Xml.uri
   let string_of_uri = Xml.string_of_uri
@@ -71,33 +91,35 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let comma_sep_attrib = Xml.comma_sep_attrib
 
+  let user_attrib f name v = Xml.string_attrib name (fmap f v)
+
   let event_handler_attrib = Xml.event_handler_attrib
 
   (* Deprecated alias. *)
   let event_attrib = Xml.event_handler_attrib
 
   (* space-separated *)
-  let length_attrib name =
-    function
-    | `Pixels p -> int_attrib name p
-    | `Percent p -> string_attrib name ((string_of_int p) ^ "%")
+  let length_to_string = function
+    | `Pixels p -> string_of_int p
+    | `Percent p -> (string_of_int p) ^ "%"
 
-  let multilength_attrib name =
-    function
-    | (#length as l) -> length_attrib name l
-    | `Relative 1 -> string_attrib name "*"
-    | `Relative i -> string_attrib name ((string_of_int i) ^ "*")
+  let length_attrib name x =
+    user_attrib length_to_string name x
 
-  let multilength_to_string =
-    function
+  let multilength_to_string = function
     | `Pixels p -> string_of_int p
     | `Percent p -> (string_of_int p) ^ "%"
     | `Relative 1 -> "*"
     | `Relative i -> (string_of_int i) ^ "*"
 
-  let multilengths_attrib name multilengths =
-    string_attrib name
-      (String.concat ", " (List.map multilength_to_string multilengths))
+  let multilength_attrib name x =
+    user_attrib multilength_to_string name x
+
+  let multilength_to_string m =
+    String.concat ", " (List.map multilength_to_string m)
+
+  let multilengths_attrib name x =
+    user_attrib multilength_to_string name x
 
   let linktype_to_string =
     function
@@ -125,9 +147,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
     | `Up -> "up"
     | `Other t -> t
 
+  let linktypes_to_string l =
+    String.concat " " (List.map linktype_to_string l)
+
   let linktypes_attrib name linktypes =
-    string_attrib name
-      (String.concat " " (List.map linktype_to_string linktypes))
+    user_attrib linktypes_to_string name linktypes
 
   let mediadesc_to_string =
     function
@@ -144,9 +168,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
     | `TV -> "tv"
     | `Raw_mediadesc s -> s
 
+  let mediadescs_to_string mediadescs =
+    String.concat ", " (List.map mediadesc_to_string mediadescs)
+
   let mediadesc_attrib name mediadescs =
-    string_attrib name
-      (String.concat ", " (List.map mediadesc_to_string mediadescs))
+    user_attrib mediadescs_to_string name mediadescs
 
   (* Core: *)
   let a_class = space_sep_attrib "class"
@@ -307,19 +333,22 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
     (* Other Attributes *)
   let a_version = string_attrib "version"
 
-  let a_xmlns =
-      function
-      | `W3_org_1999_xhtml ->
-          string_attrib "xmlns" "http://www.w3.org/1999/xhtml"
+  let a_xmlns x =
+    let f = function
+      | `W3_org_1999_xhtml -> "http://www.w3.org/1999/xhtml"
+    in user_attrib f "xmlns" x
 
   let a_manifest = uri_attrib "manifest"
 
   let a_cite = uri_attrib "cite"
 
-  let a_xml_space =
-      function | `Preserve -> string_attrib "xml:space" "preserve"
+  let a_xml_space x =
+    let f = function
+      | `Preserve -> "preserve"
+    in user_attrib f "xml:space" x
 
-  let a_accesskey c = string_attrib "accesskey" (String.make 1 c)
+  let a_accesskey c =
+    user_attrib (String.make 1) "accesskey" c
 
   let a_charset = string_attrib "charset"
 
@@ -349,8 +378,9 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let a_for_list = space_sep_attrib "for"
 
-  let a_selected =
-      function | `Selected -> string_attrib "selected" "selected"
+  let a_selected x =
+    let f = function | `Selected -> "selected"
+    in user_attrib f "selected" x
 
   let a_text_value = string_attrib "value"
 
@@ -363,56 +393,59 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_action = uri_attrib "action"
 
   let a_method m =
-      string_attrib "method"
-        (match m with
+    let f = function
          | `Get -> "GET"
          | `Post -> "POST"
          | `Put -> "PUT"
-         | `Delete -> "DELETE")
+         | `Delete -> "DELETE"
+    in user_attrib f "method" m
 
   let a_enctype = string_attrib "enctype"
 
-  let a_checked = function | `Checked -> string_attrib "checked" "checked"
+  let a_checked x =
+    let f = function | `Checked -> "checked" in user_attrib f "checked" x
 
-  let a_disabled =
-      function | `Disabled -> string_attrib "disabled" "disabled"
+  let a_disabled x =
+    let f = function | `Disabled -> "disabled" in user_attrib f "disabled" x
 
-  let a_readonly =
-      function | `ReadOnly -> string_attrib "readonly" "readonly"
+  let a_readonly x =
+    let f = function | `ReadOnly -> "readonly" in user_attrib f "readonly" x
 
   let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
   let a_autocomplete ac =
-      string_attrib "autocomplete"
-        (match ac with | `On -> "on" | `Off -> "off")
+      let f = function | `On -> "on" | `Off -> "off"
+ in user_attrib f "autocomplete" ac
 
-  let a_async = function | `Async -> string_attrib "async" "async"
+  let a_async x =
+let f = function | `Async -> "async" in user_attrib f "async" x
 
-  let a_autofocus =
-      function | `Autofocus -> string_attrib "autofocus" "autofocus"
+  let a_autofocus x =
+let f = function | `Autofocus -> "autofocus" in user_attrib f "autofocus" x
 
-  let a_autoplay =
-      function | `Autoplay -> string_attrib "autoplay" "autoplay"
+  let a_autoplay x =
+let f = function | `Autoplay -> "autoplay" in user_attrib f "autoplay" x
 
   let a_challenge = string_attrib "challenge"
 
   let a_contenteditable ce =
-      string_attrib "contenteditable"
-        (match ce with | `True -> "true" | `False -> "false")
+      let f = function | `True -> "true" | `False -> "false"
+ in user_attrib f "contenteditable" ce
 
   let a_contextmenu = string_attrib "contextmenu"
 
-  let a_controls =
-      function | `Controls -> string_attrib "controls" "controls"
+  let a_controls x =
+let f = function | `Controls -> "controls" in user_attrib f "controls" x
 
   let a_dir d =
-      string_attrib "dir" (match d with | `Ltr -> "ltr" | `Rtl -> "rtl")
+      let f = function | `Ltr -> "ltr" | `Rtl -> "rtl"
+ in user_attrib f "dir" d
 
   let a_draggable d =
-      string_attrib "draggable"
-        (match d with | `True -> "true" | `False -> "false")
+      let f = function | `True -> "true" | `False -> "false"
+ in user_attrib f "draggable" d
 
   let a_form = string_attrib "form"
 
@@ -421,32 +454,34 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_formenctype = string_attrib "formenctype"
 
   let a_formmethod m =
-      string_attrib "method"
-        (match m with
-         | `Get -> "GET"
+      let f = function | `Get -> "GET"
          | `Post -> "POST"
          | `Put -> "PUT"
-         | `Delete -> "DELETE")
+         | `Delete -> "DELETE"
+      in user_attrib f "method" m
 
-  let a_formnovalidate =
-      function
-      | `Formnovalidate -> string_attrib "formnovalidate" "formnovalidate"
+  let a_formnovalidate x =
+    let f = function | `Formnovalidate -> "formnovalidate"
+    in user_attrib f "formnovalidate" x
 
   let a_formtarget = string_attrib "formtarget"
 
-  let a_hidden = function | `Hidden -> string_attrib "hidden" "hidden"
+  let a_hidden x =
+let f = function | `Hidden -> "hidden" in user_attrib f "hidden" x
 
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
 
-  let a_ismap = function | `Ismap -> string_attrib "ismap" "ismap"
+  let a_ismap x =
+let f = function | `Ismap -> "ismap" in user_attrib f "ismap" x
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
 
-  let a_loop = function | `Loop -> string_attrib "loop" "loop"
+  let a_loop x =
+let f = function | `Loop -> "loop" in user_attrib f "loop" x
 
   let a_low = float_attrib "low"
 
@@ -458,10 +493,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let a_input_min = float_attrib "min"
 
-  let a_novalidate =
-      function | `Novalidate -> string_attrib "novalidate" "novalidate"
+  let a_novalidate x =
+let f = function | `Novalidate -> "novalidate" in user_attrib f "novalidate" x
 
-  let a_open = function | `Open -> string_attrib "open" "open"
+  let a_open x =
+let f = function | `Open -> "open" in user_attrib f "open" x
 
   let a_optimum = float_attrib "optimum"
 
@@ -472,43 +508,44 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_poster = uri_attrib "poster"
 
   let a_preload pl =
-      string_attrib "preload"
-        (match pl with
-         | `None -> "none"
+      let f = function | `None -> "none"
          | `Metadata -> "metadata"
-         | `Audio -> "audio")
+         | `Audio -> "audio"
+ in user_attrib f "preload" pl
 
-  let a_pubdate = function | `Pubdate -> string_attrib "pubdate" "pubdate"
+  let a_pubdate x =
+let f = function | `Pubdate -> "pubdate" in user_attrib f "pubdate" x
 
   let a_radiogroup = string_attrib "radiogroup"
 
-  let a_required =
-      function | `Required -> string_attrib "required" "required"
+  let a_required x =
+let f = function | `Required -> "required" in user_attrib f "required" x
 
-  let a_reversed =
-      function | `Reversed -> string_attrib "reserved" "reserved"
+  let a_reversed x =
+let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
 
   let rec a_sandbox sb =
     let rec aux sb =
-        match sb with
+      match sb with
         | `AllowSameOrigin :: a -> "allow-same-origin" :: (aux a)
         | `AllowForms :: a -> "allow-forms" :: (aux a)
         | `AllowScript :: a -> "allow-script" :: (aux a)
         | [] -> []
-      in space_sep_attrib "sandbox" (aux sb)
+    in space_sep_attrib "sandbox" (fmap aux sb)
 
   let a_spellcheck sc =
-      string_attrib "spellckeck"
-        (match sc with | `True -> "true" | `False -> "false")
+      let f = function | `True -> "true" | `False -> "false"
+      in user_attrib f "spellckeck" sc
 
-  let a_scoped = function | `Scoped -> string_attrib "scoped" "scoped"
+  let a_scoped x =
+    let f = function | `Scoped -> "scoped" in user_attrib f "scoped" x
 
-  let a_seamless =
-      function | `Seamless -> string_attrib "seamless" "seamless"
+  let a_seamless x =
+    let f = function | `Seamless -> "seamless" in user_attrib f "seamless" x
 
   let a_sizes sizes =
-      string_attrib "sizes"
-        (String.concat " " (List.map string_of_int sizes))
+    let f sizes = String.concat " " (List.map string_of_int sizes)
+    in user_attrib f "sizes" sizes
 
   let a_span = int_attrib "span"
 
@@ -523,14 +560,13 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
     | Some f -> float_attrib "step" f
 
   let a_wrap w =
-      string_attrib "wrap" (match w with | `Soft -> "soft" | `Hard -> "hard")
+      let f = function | `Soft -> "soft" | `Hard -> "hard"
+ in user_attrib f "wrap" w
 
   let a_size = int_attrib "size"
 
   let a_input_type it =
-      string_attrib "type"
-        (match it with
-         | `Url -> "url"
+      let f = function | `Url -> "url"
          | `Tel -> "tel"
          | `Text -> "text"
          | `Time -> "time"
@@ -552,28 +588,27 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
          | `Datetime_local -> "datetime-locale"
          | `Color -> "color"
          | `Button -> "button"
-         | `Hidden -> "hidden")
+         | `Hidden -> "hidden"
+ in user_attrib f "type" it
 
   let a_menu_type mt =
-      string_attrib "type"
-        (match mt with | `Context -> "context" | `Toolbar -> "toolbar")
+      let f = function | `Context -> "context" | `Toolbar -> "toolbar"
+ in user_attrib f "type" mt
 
   let a_command_type ct =
-      string_attrib "type"
-        (match ct with
-         | `Command -> "command"
+      let f = function | `Command -> "command"
          | `Checkbox -> "checkbox"
-         | `Radio -> "radio")
+         | `Radio -> "radio"
+ in user_attrib f "type" ct
 
   let a_button_type bt =
-      string_attrib "type"
-        (match bt with
-         | `Button -> "button"
+      let f = function | `Button -> "button"
          | `Submit -> "submit"
-         | `Reset -> "reset")
+         | `Reset -> "reset"
+ in user_attrib f "type" bt
 
-  let a_multiple =
-      function | `Multiple -> string_attrib "multiple" "multiple"
+  let a_multiple x =
+let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
 
   let a_cols = int_attrib "cols"
 
@@ -582,12 +617,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_summary = string_attrib "summary"
 
   let a_align a =
-      string_attrib "align"
-        (match a with
-         | `Left -> "left"
+      let f = function | `Left -> "left"
          | `Right -> "right"
          | `Justify -> "justify"
-         | `Char -> "char")
+         | `Char -> "char"
+ in user_attrib f "align" a
 
   let a_axis = string_attrib "axis"
 
@@ -598,12 +632,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_rowspan = int_attrib "rowspan"
 
   let a_scope s =
-      string_attrib "scope"
-        (match s with
-         | `Row -> "row"
+      let f = function | `Row -> "row"
          | `Col -> "col"
          | `Rowgroup -> "rowgroup"
-         | `Colgroup -> "colgroup")
+         | `Colgroup -> "colgroup"
+ in user_attrib f "scope" s
 
   let a_border = int_attrib "border"
 
@@ -614,15 +647,15 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_datapagesize = string_attrib "datapagesize"
 
   let a_rules r =
-      string_attrib "rules"
-        (match r with
-         | `None -> "none"
+      let f = function | `None -> "none"
          | `Groups -> "groups"
          | `Rows -> "rows"
          | `Cols -> "cols"
-         | `All -> "all")
+         | `All -> "all"
+ in user_attrib f "rules" r
 
-  let a_char c = string_attrib "char" (String.make 1 c)
+  let a_char c =
+    user_attrib (String.make 1) "char" c
 
   let a_charoff = length_attrib "charoff"
 
@@ -635,15 +668,16 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_fs_cols mls = multilengths_attrib "cols" mls
 
   let a_frameborder b =
-      int_attrib "frameborder" (match b with | `Zero -> 0 | `One -> 1)
+    let f = function `Zero -> "0" | `One -> "1"
+    in user_attrib f "frameborder" b
 
   let a_marginheight = int_attrib "marginheight"
 
   let a_marginwidth = int_attrib "marginwidth"
 
   let a_scrolling s =
-      string_attrib "scrolling"
-        (match s with | `Yes -> "yes" | `No -> "no" | `Auto -> "auto")
+      let f = function | `Yes -> "yes" | `No -> "no" | `Auto -> "auto"
+ in user_attrib f "scrolling" s
 
   let a_target = string_attrib "target"
 
@@ -653,38 +687,53 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let a_media = mediadesc_attrib "media"
 
-    type 'a elt = Xml.elt
+  type 'a elt = Xml.elt
 
-    type html = [ | `Html ] elt
+  type html = [ | `Html ] elt
 
-    (* NB: These are more general than the ones in xhtml.mli *)
-    type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
+  (* NB: These are more general than the ones in xhtml.mli *)
+  type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
-    type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt -> 'c elt
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
-    type ('a, 'b, 'c, 'd) binary =
-      ?a: (('a attrib) list) -> 'b elt -> 'c elt -> 'd elt
+  type ('a, 'b, 'c, 'd) binary =
+    ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt wrap -> 'd elt
 
-    type ('b, 'c, 'd, 'e) tri = 'b elt -> 'c elt -> 'd elt -> 'e elt
+  type ('b, 'c, 'd, 'e) tri = 'b elt wrap -> 'c elt wrap -> 'd elt wrap -> 'e elt
 
-    type ('a, 'b, 'c) star =
-      ?a: (('a attrib) list) -> ('b elt) list -> 'c elt
+  type ('a, 'b, 'c) star =
+    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
-    type ('a, 'b, 'c) plus =
-      ?a: (('a attrib) list) -> 'b elt -> ('b elt) list -> 'c elt
+  type ('a, 'b, 'c) plus =
+    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   let terminal tag ?a () = Xml.leaf ?a tag
 
-    (* let nullary tag ?a () = Xml.node ?a tag [] *)
-  let unary tag ?a elt = Xml.node ?a tag [ elt ]
+  (* let nullary tag ?a () = Xml.node ?a tag [] *)
 
-  let binary tag ?a elt1 elt2 = Xml.node ?a tag [ elt1; elt2 ]
+  let nullary tag ?a () =
+    Xml.node ?a tag (Xml.W.return [])
 
-  let tri tag elt1 elt2 elt3 = Xml.node tag [ elt1; elt2; elt3 ]
+  let binary tag ?a elt1 elt2 =
+    let l = fmap2 (fun x y -> [x; y]) elt1 elt2 in
+    Xml.node ?a tag l
+
+  let tri tag ?a elt1 elt2 elt3 =
+    let l = fmap3 (fun x y z -> [x; y; z]) elt1 elt2 elt3 in
+    Xml.node ?a tag l
+
+  let unary tag ?a elt =
+    Xml.node ?a tag Xml.W.(bind elt (fun x -> return [ x ]))
 
   let star tag ?a elts = Xml.node ?a tag elts
 
-  let plus tag ?a elt elts = Xml.node ?a tag (elt :: elts)
+  let plus tag ?a elt elts =
+    let l = fmap2 (fun x y -> x :: y) elt elts in
+    Xml.node ?a tag l
+
+  let plus_concat tag ?a elt elts =
+    let l = fmap2 (@) elt elts in
+    Xml.node ?a tag l
 
   let list_of_option = function | Some x -> [ x ] | None -> []
 
@@ -800,12 +849,14 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a = star "a"
 
   let dl ?a list =
-      Xml.node ?a "dl"
-        (List.concat
-           (List.map
-              (fun ((elt, elts), (elt', elts')) ->
-                 (elt :: elts) @ (elt' :: elts'))
-              list))
+    let f l =
+      List.concat
+        (List.map
+           (fun ((elt, elts), (elt', elts')) ->
+              (elt :: elts) @ (elt' :: elts'))
+           l)
+    in
+    Xml.node ?a "dl" (fmap f list)
 
   let ol = star "ol"
 
@@ -848,7 +899,9 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
         | [] -> []
         | (pel, `Rt e) :: l -> pel @ (e :: (aux l))
         | (pel, `Rpt (e1, e2, e3)) :: l -> pel @ (e1 :: e2 :: e3 :: (aux l))
-      in Xml.node ?a "ruby" (aux (elt :: elts))
+    in
+    let l = Xml.W.(bind elt (fun x -> bind elts (fun y -> return (x :: y))))
+    in Xml.node ?a "ruby" (fmap aux l)
 
   let wbr = terminal "wbr"
 
@@ -860,20 +913,20 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let a_datetime = string_attrib "datetime"
 
   let a_shape d =
-      string_attrib "shape"
-        (match d with
-         | `Rect -> "rect"
+      let f = function | `Rect -> "rect"
          | `Circle -> "circle"
          | `Poly -> "poly"
-         | `Default -> "default")
+         | `Default -> "default"
+ in user_attrib f "shape" d
 
   let a_coords coords =
-      string_attrib "coords"
-        (String.concat "," (List.map string_of_int coords))
+    let f c = String.concat "," (List.map string_of_int c)
+    in user_attrib f "coords" coords
 
   let a_usemap = string_attrib "usemap"
 
-  let a_defer = function | `Defer -> string_attrib "defer" "defer"
+  let a_defer x =
+let f = function | `Defer -> "defer" in user_attrib f "defer" x
 
   let a_label = string_attrib "label"
 
@@ -885,7 +938,7 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let ins = star "ins"
 
-  let script ?(a = []) elt = Xml.node ~a "script" [ elt ]
+  let script = unary "script"
 
   let noscript = plus "noscript"
 
@@ -893,12 +946,13 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let aside = star "aside"
 
-  let video_audio name ?src ?(srcs=[]) ?(a = []) elts =
+  let video_audio name ?src ?(srcs=Xml.W.return []) ?(a = []) elts =
     let a =
       match src with
         | None -> a
         | Some uri -> (a_src uri) :: a
-    in Xml.node ~a name (srcs@elts)
+    in
+    plus_concat ~a name srcs elts
 
   let audio = video_audio "audio"
 
@@ -909,7 +963,9 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let command ~label ?(a = []) () =
       Xml.leaf ~a: ((a_label label) :: a) "command"
 
-  let menu ?child ?a () = Xml.node ?a "menu" (li_option child)
+  let menu ?child ?a () =
+    let child = opt_fmap (fun x -> li_option (Some x)) child (li_option None) in
+    Xml.node ?a "menu" child
 
   let embed = terminal "embed"
 
@@ -922,8 +978,10 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let form = plus "form"
 
   let svg ?(xmlns = "http://www.w3.org/2000/svg")
-      ?(a = []) children = star ~a:(string_attrib "xmlns" xmlns ::(Svg.to_xmlattribs a))
-      "svg" (Svg.toeltl children)
+      ?(a = []) children =
+    star ~a:(string_attrib "xmlns" (Xml.W.return xmlns) ::(Svg.to_xmlattribs a))
+      "svg" (fmap Svg.toeltl children)
+
   type input_attr =
       [
         | common
@@ -973,24 +1031,20 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let button = star "button"
 
   let datalist ?children ?a () =
-    let children =
-        match children with
-        | Some (`Options x) -> x
-        | Some (`Phras x) -> x
-        | None -> []
-      in Xml.node ?a "datalist" children
+    let f = function `Options x | `Phras x -> x in
+    Xml.node ?a "datalist" (opt_fmap f children [])
 
   let progress = star "proress"
 
   let legend = star "legend"
 
   let details summary ?a children =
-      Xml.node "details" ?a (summary :: children)
+      plus "details" ?a summary children
 
   let summary = star "summary"
 
   let fieldset ?legend ?a elts =
-      Xml.node ?a "fieldset" ((list_of_option legend) @ elts)
+      plus_concat ?a "fieldset" (opt_fmap (fun x -> [ x ]) legend []) elts
 
   let optgroup ~label ?(a = []) elts =
       Xml.node ~a: ((a_label label) :: a) "optgroup" elts
@@ -998,26 +1052,28 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let figcaption = star "figcaption"
 
   let figure ?figcaption ?a elts =
-    let content = match figcaption with
+    let add_caption caption elts = match caption with
       | Some (`Top figc) -> figc :: elts
       | Some (`Bottom figc) -> elts @ [figc]
       | None -> elts
-    in Xml.node ?a "figure" content
+    in
+    let content = fmap2 add_caption figcaption elts in
+    Xml.node ?a "figure" content
 
   let caption = star "caption"
 
-  let table ?caption ?(columns = []) ?thead ?tfoot ?a elt elts =
-      Xml.node ?a "table"
-        ((list_of_option caption) @
-           (columns @
-              ((list_of_option thead) @
-                 ((list_of_option tfoot) @ (elt :: elts)))))
+  let tablex ?caption ?columns ?thead ?tfoot ?a elts =
+    let thead = opt_fmap (fun x -> [ x ]) thead [] in
+    let columns = opt_w columns [] in
+    let tfoot = opt_fmap (fun x -> [ x ]) tfoot [] in
+    let caption = opt_fmap (fun x -> [ x ]) caption [] in
+    let f caption columns  thead tfoot l =
+      caption @ columns @ thead @ tfoot @ l
+    in Xml.node ?a "table" (fmap5 f caption columns thead tfoot elts)
 
-  let tablex ?caption ?(columns = []) ?thead ?tfoot ?a elts =
-      Xml.node ?a "table"
-        ((list_of_option caption) @
-           (columns @
-              ((list_of_option thead) @ ((list_of_option tfoot) @ elts))))
+  let table ?caption ?columns ?thead ?tfoot ?a elt elts =
+    let l = fmap2 (fun x y -> x :: y) elt elts in
+    tablex ?caption ?columns ?thead ?tfoot ?a l
 
   let td = star "td"
 
@@ -1037,8 +1093,8 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let iframe = star "iframe"
 
-  let object_ ?(params = []) ?(a = []) elts =
-      Xml.node ~a "object" (params @ elts)
+  let object_ ?params ?(a = []) elts =
+    plus_concat ~a "object" (opt_w params []) elts
 
   let param = terminal "param"
 
@@ -1065,7 +1121,7 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
     type ruby_content = (((phrasing elt) list) * rt)
 
-    type rp = (((common attrib) list) * ((phrasing elt) list))
+    type rp = (((common attrib) list) * ((phrasing elt) list wrap))
 
   (******************************************************************)
   (* Conversion from and to Xml module *)
@@ -1107,3 +1163,6 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   end
 
 end
+
+module MakeWraped(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) =
+  MakeWraped(struct include Xml module W = Xml_sigs.NoWrap end)
