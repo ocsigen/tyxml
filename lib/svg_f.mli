@@ -80,13 +80,16 @@ val string_of_transform : transform -> string
 val string_of_transforms : transforms -> string
 *)
 
-module MakeWraped(Xml : Xml_sigs.Wraped)
+module MakeWrapped
+    (W: Xml_wrap.T)
+    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t)
   : Svg_sigs.T with type Xml.uri = Xml.uri
                and type Xml.event_handler = Xml.event_handler
                and type Xml.attrib = Xml.attrib
                and type Xml.elt = Xml.elt
 	       and type +'a elt = Xml.elt
-               and type 'a wrap = 'a Xml.W.t
+               and type 'a Xml.wrap = 'a W.t
+               and type 'a wrap = 'a W.t
 	       and type 'a attrib = Xml.attrib
 	       and type uri = Xml.uri
 
@@ -96,6 +99,7 @@ module Make(Xml : Xml_sigs.T)
                and type Xml.attrib = Xml.attrib
                and type Xml.elt = Xml.elt
 	       and type +'a elt = Xml.elt
+               and type 'a Xml.wrap = 'a
                and type 'a wrap = 'a
 	       and type 'a attrib = Xml.attrib
 	       and type uri = Xml.uri

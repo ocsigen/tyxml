@@ -32,7 +32,10 @@
 
 open Html5_types
 
-module MakeWraped(Xml : Xml_sigs.Wraped)(Svg : Svg_sigs.T with module Xml := Xml)= struct
+module MakeWrapped
+    (W : Xml_wrap.T)
+    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t)
+    (Svg : Svg_sigs.T with module Xml := Xml)= struct
 
   module Xml = Xml
 
@@ -49,24 +52,14 @@ module MakeWraped(Xml : Xml_sigs.Wraped)(Svg : Svg_sigs.T with module Xml := Xml
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
 
-  type 'a wrap = 'a Xml.W.t
+  type 'a wrap = 'a W.t
 
-  let fmap f x = Xml.W.(bind x (fun a -> return (f a)))
   let opt_fmap f x def = match x with
-    | None -> Xml.W.return def
-    | Some x -> fmap f x
-  let opt_w x def = opt_fmap (fun x -> x) x def
-  let fmap2 f a b =
-    Xml.W.bind a (fun x -> fmap (f x) b )
-
-  let fmap3 f a b c =
-    Xml.W.bind a (fun x -> fmap2 (f x) b c)
-
-  let fmap4 f a b c d =
-    Xml.W.bind a (fun x -> fmap3 (f x) b c d )
-
-  let fmap5 f a b c d e =
-    Xml.W.bind a (fun x -> fmap4 (f x) b c d e)
+    | None -> W.return def
+    | Some x -> W.fmap f x
+  let opt_w x def = match x with
+    | None -> W.return def
+    | Some x -> x
 
 
   type uri = Xml.uri
@@ -91,7 +84,7 @@ module MakeWraped(Xml : Xml_sigs.Wraped)(Svg : Svg_sigs.T with module Xml := Xml
 
   let comma_sep_attrib = Xml.comma_sep_attrib
 
-  let user_attrib f name v = Xml.string_attrib name (fmap f v)
+  let user_attrib f name v = Xml.string_attrib name (W.fmap f v)
 
   let event_handler_attrib = Xml.event_handler_attrib
 
@@ -531,7 +524,7 @@ let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
         | `AllowForms :: a -> "allow-forms" :: (aux a)
         | `AllowScript :: a -> "allow-script" :: (aux a)
         | [] -> []
-    in space_sep_attrib "sandbox" (fmap aux sb)
+    in space_sep_attrib "sandbox" (W.fmap aux sb)
 
   let a_spellcheck sc =
       let f = function | `True -> "true" | `False -> "false"
@@ -554,14 +547,15 @@ let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
 
   let a_start = int_attrib "start"
 
-  let a_step =
-    function
-    | None -> string_attrib "step" "any"
-    | Some f -> float_attrib "step" f
+  let a_step step =
+    let f = function
+      | None -> "any"
+      | Some f -> string_of_float f
+    in user_attrib f "step" step
 
   let a_wrap w =
-      let f = function | `Soft -> "soft" | `Hard -> "hard"
- in user_attrib f "wrap" w
+    let f = function | `Soft -> "soft" | `Hard -> "hard"
+    in user_attrib f "wrap" w
 
   let a_size = int_attrib "size"
 
@@ -712,27 +706,27 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   (* let nullary tag ?a () = Xml.node ?a tag [] *)
 
   let nullary tag ?a () =
-    Xml.node ?a tag (Xml.W.return [])
+    Xml.node ?a tag (W.return [])
 
   let binary tag ?a elt1 elt2 =
-    let l = fmap2 (fun x y -> [x; y]) elt1 elt2 in
+    let l = W.fmap2 (fun x y -> [x; y]) elt1 elt2 in
     Xml.node ?a tag l
 
   let tri tag ?a elt1 elt2 elt3 =
-    let l = fmap3 (fun x y z -> [x; y; z]) elt1 elt2 elt3 in
+    let l = W.fmap3 (fun x y z -> [x; y; z]) elt1 elt2 elt3 in
     Xml.node ?a tag l
 
   let unary tag ?a elt =
-    Xml.node ?a tag Xml.W.(bind elt (fun x -> return [ x ]))
+    Xml.node ?a tag W.(bind elt (fun x -> return [ x ]))
 
   let star tag ?a elts = Xml.node ?a tag elts
 
   let plus tag ?a elt elts =
-    let l = fmap2 (fun x y -> x :: y) elt elts in
+    let l = W.fmap2 (fun x y -> x :: y) elt elts in
     Xml.node ?a tag l
 
   let plus_concat tag ?a elt elts =
-    let l = fmap2 (@) elt elts in
+    let l = W.fmap2 (@) elt elts in
     Xml.node ?a tag l
 
   let list_of_option = function | Some x -> [ x ] | None -> []
@@ -856,7 +850,7 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
               (elt :: elts) @ (elt' :: elts'))
            l)
     in
-    Xml.node ?a "dl" (fmap f list)
+    Xml.node ?a "dl" (W.fmap f list)
 
   let ol = star "ol"
 
@@ -900,8 +894,8 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
         | (pel, `Rt e) :: l -> pel @ (e :: (aux l))
         | (pel, `Rpt (e1, e2, e3)) :: l -> pel @ (e1 :: e2 :: e3 :: (aux l))
     in
-    let l = Xml.W.(bind elt (fun x -> bind elts (fun y -> return (x :: y))))
-    in Xml.node ?a "ruby" (fmap aux l)
+    let l = W.(bind elt (fun x -> bind elts (fun y -> return (x :: y))))
+    in Xml.node ?a "ruby" (W.fmap aux l)
 
   let wbr = terminal "wbr"
 
@@ -946,7 +940,7 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
 
   let aside = star "aside"
 
-  let video_audio name ?src ?(srcs=Xml.W.return []) ?(a = []) elts =
+  let video_audio name ?src ?(srcs=W.return []) ?(a = []) elts =
     let a =
       match src with
         | None -> a
@@ -979,8 +973,8 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
 
   let svg ?(xmlns = "http://www.w3.org/2000/svg")
       ?(a = []) children =
-    star ~a:(string_attrib "xmlns" (Xml.W.return xmlns) ::(Svg.to_xmlattribs a))
-      "svg" (fmap Svg.toeltl children)
+    star ~a:(string_attrib "xmlns" (W.return xmlns) ::(Svg.to_xmlattribs a))
+      "svg" (W.fmap Svg.toeltl children)
 
   type input_attr =
       [
@@ -1050,14 +1044,16 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
       Xml.node ~a: ((a_label label) :: a) "optgroup" elts
 
   let figcaption = star "figcaption"
-
   let figure ?figcaption ?a elts =
     let add_caption caption elts = match caption with
-      | Some (`Top figc) -> figc :: elts
-      | Some (`Bottom figc) -> elts @ [figc]
       | None -> elts
+      | Some x ->
+          let f c elts = match c with
+            | `Top figc -> figc :: elts
+            | `Bottom figc -> elts @ [figc]
+          in W.fmap2 f x elts
     in
-    let content = fmap2 add_caption figcaption elts in
+    let content = add_caption figcaption elts in
     Xml.node ?a "figure" content
 
   let caption = star "caption"
@@ -1069,10 +1065,10 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
     let caption = opt_fmap (fun x -> [ x ]) caption [] in
     let f caption columns  thead tfoot l =
       caption @ columns @ thead @ tfoot @ l
-    in Xml.node ?a "table" (fmap5 f caption columns thead tfoot elts)
+    in Xml.node ?a "table" (W.fmap5 f caption columns thead tfoot elts)
 
   let table ?caption ?columns ?thead ?tfoot ?a elt elts =
-    let l = fmap2 (fun x y -> x :: y) elt elts in
+    let l = W.fmap2 (fun x y -> x :: y) elt elts in
     tablex ?caption ?columns ?thead ?tfoot ?a l
 
   let td = star "td"
@@ -1164,5 +1160,10 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
 
 end
 
-module MakeWraped(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) =
-  MakeWraped(struct include Xml module W = Xml_sigs.NoWrap end)
+module Make
+    (Xml : Xml_sigs.T)
+    (Svg : Svg_sigs.T with module Xml := Xml) =
+  MakeWrapped
+    (Xml_wrap.NoWrap)
+    (Xml)
+    (Svg)

@@ -21,7 +21,7 @@ module type T = sig
 
   open Html5_types
 
-  module Xml : Xml_sigs.Wraped
+  module Xml : Xml_sigs.Wrapped
   module Svg : Svg_sigs.T with module Xml := Xml
   module Info : Xml_sigs.Info
 

@@ -135,7 +135,10 @@ let string_of_paint = function
       (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
-module MakeWraped(Xml : Xml_sigs.Wraped) = struct
+module MakeWrapped
+    (W : Xml_wrap.T)
+    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t) =
+struct
 
   module Xml = Xml
 
@@ -165,7 +168,7 @@ module MakeWraped(Xml : Xml_sigs.Wraped) = struct
 
   type +'a elt = Xml.elt
 
-  type 'a wrap = 'a Xml.W.t
+  type 'a wrap = 'a W.t
 
   type +'a elts = Xml.elt list
 
@@ -193,15 +196,15 @@ module MakeWraped(Xml : Xml_sigs.Wraped) = struct
   let to_attrib x = x
 
   let nullary tag ?a () =
-    Xml.node ?a tag (Xml.W.return [])
+    Xml.node ?a tag (W.return [])
 
   let unary tag ?a elt =
-    Xml.node ?a tag Xml.W.(bind elt (fun x -> return [ x ]))
+    Xml.node ?a tag (W.fmap (fun x -> [ x ]) elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 
   let plus tag ?a elt elts =
-    let l = Xml.W.(bind elt (fun x -> bind elts (fun y -> return (x :: y)))) in
+    let l = W.fmap2 (fun x y -> x :: y) elt elts in
     Xml.node ?a tag l
 
   type altglyphdef_content =
@@ -221,7 +224,8 @@ module MakeWraped(Xml : Xml_sigs.Wraped) = struct
 
   (* Custom XML attributes *)
 
-  let user_attrib f name v = Xml.string_attrib name Xml.W.(bind v (fun x -> return (f x)))
+  let user_attrib f name v =
+    Xml.string_attrib name (W.fmap f v)
 
   let number_attrib = float_attrib
 
@@ -997,4 +1001,6 @@ user_attrib f "calcMode" x
 end
 
 module Make(Xml : Xml_sigs.T) =
-  MakeWraped(struct include Xml module W = Xml_sigs.NoWrap end)
+  MakeWrapped
+    (Xml_wrap.NoWrap)
+    (Xml)

@@ -23,6 +23,8 @@
 
 module M = struct
 
+  type 'a wrap = 'a
+
   type uri = string
   let uri_of_string s = s
   let string_of_uri s = s

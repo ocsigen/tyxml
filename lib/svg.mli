@@ -26,6 +26,8 @@ module M : Svg_sigs.T with type Xml.uri = Xml.uri
                       and type Xml.event_handler = Xml.event_handler
                       and type Xml.attrib = Xml.attrib
                       and type Xml.elt = Xml.elt
+                      and type 'a Xml.wrap = 'a
+                      and type 'a wrap = 'a
 
 (** Simple printer for SVG documents *)
 module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
@@ -36,4 +38,3 @@ module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
                          and type 'a elt := 'a M.elt
                          and type doc := M.doc
-

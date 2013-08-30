@@ -21,6 +21,8 @@
 
 (** Basic functions for construction and manipulation of XML tree. *)
 
+type 'a wrap = 'a
+
 type uri = string
 val string_of_uri : uri -> string
 val uri_of_string : string -> uri

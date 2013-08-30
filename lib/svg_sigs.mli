@@ -22,7 +22,7 @@ module type T = sig
   open Svg_types
   open Unit
 
-  module Xml : Xml_sigs.Wraped
+  module Xml : Xml_sigs.Wrapped
   module Info : Xml_sigs.Info
 
   type uri = Xml.uri

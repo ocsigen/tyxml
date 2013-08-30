@@ -1,7 +1,8 @@
 include ../Makefile.config
 -include ../Makefile.local
 
-FILES_F := xml_iter.ml   \
+FILES_F := xml_wrap.ml   \
+	   xml_iter.ml   \
 	   xml_print.ml  \
 	   xhtml_f.ml    \
 	   svg_f.ml      \
