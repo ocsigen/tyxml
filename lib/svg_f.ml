@@ -135,7 +135,7 @@ let string_of_paint = function
       (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
-module Make(Xml : Xml_sigs.T) = struct
+module MakeWraped(Xml : Xml_sigs.Wraped) = struct
 
   module Xml = Xml
 
@@ -165,17 +165,19 @@ module Make(Xml : Xml_sigs.T) = struct
 
   type +'a elt = Xml.elt
 
+  type 'a wrap = 'a Xml.W.t
+
   type +'a elts = Xml.elt list
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt -> 'c elt
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-      ?a: (('a attrib) list) -> ('b elt) list -> 'c elt
+      ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
   type ('a, 'b, 'c) plus =
-      ?a: (('a attrib) list) -> 'b elt -> ('b elt) list -> 'c elt
+      ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   let tot x = x
 
@@ -190,13 +192,17 @@ module Make(Xml : Xml_sigs.T) = struct
   let to_xmlattribs x = x
   let to_attrib x = x
 
-  let nullary tag ?a () = Xml.node ?a tag []
+  let nullary tag ?a () =
+    Xml.node ?a tag (Xml.W.return [])
 
-  let unary tag ?a elt = Xml.node ?a tag [ elt ]
+  let unary tag ?a elt =
+    Xml.node ?a tag Xml.W.(bind elt (fun x -> return [ x ]))
 
   let star tag ?a elts = Xml.node ?a tag elts
 
-  let plus tag ?a elt elts = Xml.node ?a tag (elt :: elts)
+  let plus tag ?a elt elts =
+    let l = Xml.W.(bind elt (fun x -> bind elts (fun y -> return (x :: y)))) in
+    Xml.node ?a tag l
 
   type altglyphdef_content =
       [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
@@ -215,7 +221,7 @@ module Make(Xml : Xml_sigs.T) = struct
 
   (* Custom XML attributes *)
 
-  let user_attrib f name v = Xml.string_attrib name (f v)
+  let user_attrib f name v = Xml.string_attrib name Xml.W.(bind v (fun x -> return (f x)))
 
   let number_attrib = float_attrib
 
@@ -226,7 +232,7 @@ module Make(Xml : Xml_sigs.T) = struct
 
   let foreignobject ?a children = Xml.node ?a "foreignObject" children
 
-  let pcdata = Xml.pcdata
+  let pcdata s = Xml.pcdata s
 
   (* generated *)
   let a_version = string_attrib "version"
@@ -250,8 +256,8 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_contentstyletype = string_attrib "contentStyleType"
 
   let a_zoomAndPan x =
-    string_attrib "zoomAndSpan"
-      (match x with `Disable -> "disable" | `Magnify -> "magnify")
+    let f = function `Disable -> "disable" | `Magnify -> "magnify" in
+    user_attrib f "zoomAndSpan" x
 
   let a_xlink_href = user_attrib string_of_iri "xlink:href"
 
@@ -274,9 +280,8 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_xml_lang = user_attrib string_of_iri "xml:lang"
 
   let a_xml_space x =
-    string_attrib
-      "xml:space"
-      (match x with | `Default -> "default" | `Preserve -> "preserve")
+    let f = function `Default -> "default" | `Preserve -> "preserve" in
+    user_attrib f "xml:space" x
 
   let a_type = string_attrib "type"
 
@@ -329,11 +334,10 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_dy_list = user_attrib string_of_lengths "dy"
 
   let a_lengthadjust x =
-    string_attrib
-      "lengthAdjust"
-      (match x with
-        | `Spacing -> "spacing"
-        | `SpacingAndGlyphs -> "spacingAndGlyphs")
+    let f = function
+      | `Spacing -> "spacing"
+      | `SpacingAndGlyphs -> "spacingAndGlyphs" in
+    user_attrib f "lengthAdjust" x
 
   let a_textlength = user_attrib string_of_length "textLength"
 
@@ -342,22 +346,20 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_startoffset = user_attrib string_of_length "startOffset"
 
   let a_method x =
-    string_attrib "method"
-      (match x with | `Align -> "align" | `Stretch -> "stretch")
+    let f = function | `Align -> "align" | `Stretch -> "stretch" in
+    user_attrib f "method" x
+
   let a_spacing x =
-    string_attrib "spacing"
-      (match x with | `Auto -> "auto" | `Exact -> "exact")
+    let f = function | `Auto -> "auto" | `Exact -> "exact" in
+    user_attrib f "spacing" x
 
   let a_glyphref = string_attrib "glyphRef"
 
   let a_format = string_attrib "format"
 
   let a_markerunits x =
-    string_attrib
-      "markerUnits"
-      (match x with
-        | `StrokeWidth -> "strokeWidth"
-        | `UserSpaceOnUse -> "userSpaceOnUse")
+    let f = function `StrokeWidth -> "strokeWidth"| `UserSpaceOnUse -> "userSpaceOnUse" in
+    user_attrib f "markerUnits" x
 
   let a_refx = user_attrib string_of_coord "refX"
 
@@ -368,113 +370,84 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_markerheight = user_attrib string_of_length "markerHeight"
 
   let a_orient x =
-    string_attrib "orient"
-      (match x with | `Auto -> "auto" | `Angle __svg -> string_of_angle __svg)
+    let f = function | `Auto -> "auto" | `Angle __svg -> string_of_angle __svg in
+    user_attrib f "orient" x
 
   let a_local = string_attrib "local"
 
   let a_string = string_attrib "name"
 
   let a_renderingindent x =
-    string_attrib "rendering:indent"
-      (match x with
-        | `Auto -> "auto"
-        | `Perceptual -> "perceptual"
-        | `Relative_colorimetric -> "relative_colorimetric"
-        | `Saturation -> "saturation"
-        | `Absolute_colorimetric -> "absolute_colorimetric")
+    let f = function
+      | `Auto -> "auto" | `Perceptual -> "perceptual"
+      | `Relative_colorimetric -> "relative_colorimetric" | `Saturation -> "saturation"
+      | `Absolute_colorimetric -> "absolute_colorimetric" in
+    user_attrib f "rendering:indent" x
 
   let a_gradientunits x =
-    string_attrib "gradientUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function
+      | `UserSpaceOnUse -> "userSpaceOnUse"
+      | `ObjectBoundingBox -> "objectBoundingBox" in
+    user_attrib f "gradientUnits" x
 
   let a_gradienttransform =
     user_attrib string_of_transforms "gradient:transform"
 
   let a_spreadmethod x =
-    string_attrib "spreadMethod"
-      (match x with
-        | `Pad -> "pad"
-        | `Reflect -> "reflect"
-        | `Repeat -> "repeat")
+    let f = function
+      | `Pad -> "pad"| `Reflect -> "reflect"| `Repeat -> "repeat" in
+    user_attrib f "spreadMethod" x
 
   let a_fx = user_attrib string_of_coord "fx"
 
   let a_fy = user_attrib string_of_coord "fy"
 
   let a_offset x =
-    string_attrib "offset"
-      (match x with
-        | `Number __svg -> string_of_number __svg
-        | `Percentage __svg -> string_of_percentage __svg)
+    let f = function
+      | `Number x -> string_of_number x
+      | `Percentage x -> string_of_percentage x in
+    user_attrib f "offset" x
 
   let a_patternunits x =
-    string_attrib "patternUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function
+      | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
+    user_attrib f "patternUnits" x
 
   let a_patterncontentunits x =
-    string_attrib "patternContentUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
+user_attrib f "patternContentUnits" x
 
-  let a_patterntransform =
-    user_attrib string_of_transforms "patternTransform"
+  let a_patterntransform x =
+    user_attrib string_of_transforms "patternTransform" x
 
   let a_clippathunits x =
-    string_attrib "clipPathUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
+user_attrib f "clipPathUnits" x
 
   let a_maskunits x =
-    string_attrib "maskUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
+user_attrib f "maskUnits" x
 
   let a_maskcontentunits x =
-    string_attrib "maskContentUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
+user_attrib f "maskContentUnits" x
 
   let a_primitiveunits x =
-    string_attrib "primitiveUnits"
-      (match x with
-        | `UserSpaceOnUse -> "userSpaceOnUse"
-        | `ObjectBoundingBox -> "objectBoundingBox")
+    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
+user_attrib f "primitiveUnits" x
 
-  let a_filterres =
-    user_attrib string_of_number_optional_number "filterResUnits"
+  let a_filterres x =
+    user_attrib string_of_number_optional_number "filterResUnits" x
 
   let a_result = string_attrib "result"
 
   let a_in x =
-    string_attrib "in"
-      (match x with
-        | `SourceGraphic -> "sourceGraphic"
-        | `SourceAlpha -> "sourceAlpha"
-        | `BackgroundImage -> "backgroundImage"
-        | `BackgroundAlpha -> "backgroundAlpha"
-        | `FillPaint -> "fillPaint"
-        | `StrokePaint -> "strokePaint"
-        | `Ref _svg -> _svg)
+    let f = function | `SourceGraphic -> "sourceGraphic"| `SourceAlpha -> "sourceAlpha"| `BackgroundImage -> "backgroundImage"| `BackgroundAlpha -> "backgroundAlpha"| `FillPaint -> "fillPaint"| `StrokePaint -> "strokePaint"| `Ref _svg -> _svg in
+user_attrib f "in" x
 
   let a_in2 x =
-    string_attrib "in2"
-      (match x with
-        | `SourceGraphic -> "sourceGraphic"
-        | `SourceAlpha -> "sourceAlpha"
-        | `BackgroundImage -> "backgroundImage"
-        | `BackgroundAlpha -> "backgroundAlpha"
-        | `FillPaint -> "fillPaint"
-        | `StrokePaint -> "strokePaint"
-        | `Ref _svg -> _svg)
+    let f = function | `SourceGraphic -> "sourceGraphic"| `SourceAlpha -> "sourceAlpha"| `BackgroundImage -> "backgroundImage"| `BackgroundAlpha -> "backgroundAlpha"| `FillPaint -> "fillPaint"| `StrokePaint -> "strokePaint"| `Ref _svg -> _svg in
+user_attrib f "in2" x
 
   let a_aizmuth = number_attrib "azimuth"
 
@@ -493,32 +466,18 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_limitingconeangle = number_attrib "limitingConeAngle"
 
   let a_mode x =
-    string_attrib "mode"
-      (match x with
-        | `Normal -> "normal"
-        | `Multiply -> "multiply"
-        | `Screen -> "screen"
-        | `Darken -> "darken"
-        | `Lighten -> "lighten")
+    let f = function | `Normal -> "normal"| `Multiply -> "multiply"| `Screen -> "screen"| `Darken -> "darken"| `Lighten -> "lighten" in
+user_attrib f "mode" x
 
   let a_typefecolor x =
-    string_attrib "type"
-      (match x with
-        | `Matrix -> "matrix"
-        | `Saturate -> "saturate"
-        | `HueRotate -> "hueRotate"
-        | `LuminanceToAlpha -> "luminanceToAlpha")
+    let f = function | `Matrix -> "matrix"| `Saturate -> "saturate"| `HueRotate -> "hueRotate"| `LuminanceToAlpha -> "luminanceToAlpha" in
+user_attrib f "type" x
 
   let a_values = user_attrib string_of_numbers "values"
 
   let a_transferttype x =
-    string_attrib "type"
-      (match x with
-        | `Identity -> "identity"
-        | `Table -> "table"
-        | `Discrete -> "discrete"
-        | `Linear -> "linear"
-        | `Gamma -> "gamma")
+    let f = function | `Identity -> "identity"| `Table -> "table"| `Discrete -> "discrete"| `Linear -> "linear"| `Gamma -> "gamma" in
+user_attrib f "type" x
 
   let a_tablevalues = user_attrib string_of_numbers "tableValues"
 
@@ -533,14 +492,8 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_offsettransfer = user_attrib string_of_number "offset"
 
   let a_operator x =
-    string_attrib "operator"
-      (match x with
-        | `Over -> "over"
-        | `In -> "in"
-        | `Out -> "out"
-        | `Atop -> "atop"
-        | `Xor -> "xor"
-        | `Arithmetic -> "arithmetic")
+    let f = function | `Over -> "over"| `In -> "in"| `Out -> "out"| `Atop -> "atop"| `Xor -> "xor"| `Arithmetic -> "arithmetic" in
+user_attrib f "operator" x
 
   let a_k1 = user_attrib string_of_number "k1"
 
@@ -566,11 +519,8 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_targetY = user_attrib string_of_int "targetY"
 
   let a_edgemode x =
-    string_attrib "targetY"
-      (match x with
-        | `Duplicate -> "duplicate"
-        | `Wrap -> "wrap"
-        | `None -> "none")
+    let f = function | `Duplicate -> "duplicate"| `Wrap -> "wrap"| `None -> "none" in
+user_attrib f "targetY" x
 
   let a_preservealpha = user_attrib string_of_bool "targetY"
 
@@ -581,19 +531,19 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_scale = user_attrib string_of_number "scale"
 
   let a_xchannelselector x =
-    string_attrib "xChannelSelector"
-      (match x with | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a")
+    let f = function | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a" in
+user_attrib f "xChannelSelector" x
 
   let a_ychannelselector x =
-    string_attrib "yChannelSelector"
-      (match x with | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a")
+    let f = function | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a" in
+user_attrib f "yChannelSelector" x
 
   let a_stddeviation =
     user_attrib string_of_number_optional_number "stdDeviation"
 
   let a_operatormorphology x =
-    string_attrib "operatorMorphology"
-      (match x with | `Erode -> "erode" | `Dilate -> "dilate")
+    let f = function | `Erode -> "erode" | `Dilate -> "dilate" in
+user_attrib f "operatorMorphology" x
 
   let a_radius = user_attrib string_of_number_optional_number "radius"
 
@@ -605,22 +555,20 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_seed = user_attrib string_of_number "seed"
 
   let a_stitchtiles x =
-    string_attrib "stitchTiles"
-      (match x with | `Stitch -> "stitch" | `NoStitch -> "noStitch")
+    let f = function | `Stitch -> "stitch" | `NoStitch -> "noStitch" in
+user_attrib f "stitchTiles" x
 
   let a_stitchtype x =
-    string_attrib "typeStitch"
-      (match x with
-        | `FractalNoise -> "fractalNoise"
-        | `Turbulence -> "turbulence")
+    let f = function | `FractalNoise -> "fractalNoise"| `Turbulence -> "turbulence" in
+user_attrib f "typeStitch" x
 
   let a_xlinkshow x =
-    string_attrib "xlink:show"
-      (match x with | `New -> "new" | `Replace -> "replace")
+    let f = function | `New -> "new" | `Replace -> "replace" in
+user_attrib f "xlink:show" x
 
   let a_xlinkactuate x =
-    string_attrib "xlink:actuate"
-      (match x with | `OnRequest -> "onRequest")
+    let f = function | `OnRequest -> "onRequest" in
+user_attrib f "xlink:actuate" x
 
   let a_target = string_attrib "xlink:target"
 
@@ -629,8 +577,8 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_attributename = string_attrib "attributeName"
 
   let a_attributetype x =
-    string_attrib "attributeType"
-      (match x with | `CSS -> "CSS" | `XML -> "XML" | `Auto -> "auto")
+    let f = function | `CSS -> "CSS" | `XML -> "XML" | `Auto -> "auto" in
+user_attrib f "attributeType" x
 
   let a_begin = string_attrib "begin"
 
@@ -641,11 +589,8 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_max = string_attrib "max"
 
   let a_restart x =
-    string_attrib "restart"
-      (match x with
-        | `Always -> "always"
-        | `WhenNotActive -> "whenNotActive"
-        | `Never -> "never")
+    let f = function | `Always -> "always"| `WhenNotActive -> "whenNotActive"| `Never -> "never" in
+user_attrib f "restart" x
 
   let a_repeatcount = string_attrib "repeatCount"
 
@@ -654,16 +599,12 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_fill = user_attrib string_of_paint "fill"
 
   let a_fill_animation x =
-    string_attrib "fill"
-      (match x with | `Freeze -> "freeze" | `Remove -> "remove")
+    let f = function | `Freeze -> "freeze" | `Remove -> "remove" in
+user_attrib f "fill" x
 
   let a_calcmode x =
-    string_attrib "calcMode"
-      (match x with
-        | `Discrete -> "discrete"
-        | `Linear -> "linear"
-        | `Paced -> "paced"
-        | `Spline -> "spline")
+    let f = function | `Discrete -> "discrete"| `Linear -> "linear"| `Paced -> "paced"| `Spline -> "spline" in
+user_attrib f "calcMode" x
 
   let a_values_anim = Xml.comma_sep_attrib "values"
 
@@ -678,25 +619,22 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_by = string_attrib "by"
 
   let a_additive x =
-    string_attrib "additive"
-      (match x with | `Replace -> "replace" | `Sum -> "sum")
+    let f = function | `Replace -> "replace" | `Sum -> "sum" in
+    user_attrib f "additive" x
 
   let a_accumulate x =
-    string_attrib "accumulate"
-      (match x with | `None -> "none" | `Sum -> "sum")
+    let f = function | `None -> "none" | `Sum -> "sum" in
+    user_attrib f "accumulate" x
 
   let a_keypoints = user_attrib string_of_numbers_semicolon "keyPoints"
 
   let a_path = string_attrib "path"
 
   let a_typeanimatecolor x =
-    string_attrib "type"
-      (match x with
-        | `Translate -> "translate"
-        | `Scale -> "scale"
-        | `Rotate -> "rotate"
-        | `SkewX -> "skewX"
-        | `SkewY -> "skewY")
+    let f = function
+      | `Translate -> "translate" | `Scale -> "scale"
+      | `Rotate -> "rotate" | `SkewX -> "skewX" | `SkewY -> "skewY" in
+    user_attrib f "type" x
 
   let a_horiz_origin_x = user_attrib string_of_number "horiz-origin-x"
 
@@ -715,16 +653,14 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_glyphname = string_attrib "glyphname"
 
   let a_orientation x =
-    string_attrib "orientation"
-      (match x with | `H -> "h" | `V -> "v")
+    let f = function | `H -> "h" | `V -> "v" in
+    user_attrib f "orientation" x
 
   let a_arabicform x =
-    string_attrib "arabic-form"
-      (match x with
-        | `Initial -> "initial"
-        | `Medial -> "medial"
-        | `Terminal -> "terminal"
-        | `Isolated -> "isolated")
+    let f = function
+      | `Initial -> "initial"| `Medial -> "medial"
+      | `Terminal -> "terminal"| `Isolated -> "isolated" in
+    user_attrib f "arabic-form" x
 
   let a_lang = string_attrib "lang"
 
@@ -856,24 +792,19 @@ module Make(Xml : Xml_sigs.T) = struct
   let a_strokewidth = user_attrib string_of_length "stroke-width"
 
   let a_strokelinecap x =
-    string_attrib "stroke-linecap"
-      (match x with
-          `Butt -> "butt" | `Round -> "round" | `Square -> "square")
+    let f = function `Butt -> "butt" | `Round -> "round" | `Square -> "square" in
+    user_attrib f "stroke-linecap" x
 
   let a_strokelinejoin x =
-    string_attrib "stroke-linejoin"
-      (match x with
-          `Miter -> "miter" | `Round -> "round" | `Bever -> "bevel")
+    let f = function `Miter -> "miter" | `Round -> "round" | `Bever -> "bevel" in
+    user_attrib f "stroke-linejoin" x
 
   let a_strokemiterlimit =
     user_attrib string_of_number "stroke-miterlimit"
 
   let a_strokedasharray x =
-    string_attrib "stroke-dasharray"
-      (match x with
-        | [] -> "none"
-        | l -> list string_of_length l
-      )
+    let f = function | [] -> "none"| l -> list string_of_length l in
+    user_attrib f "stroke-dasharray" x
 
   let a_strokedashoffset =
     user_attrib string_of_length "stroke-dashoffset"
@@ -1064,3 +995,6 @@ module Make(Xml : Xml_sigs.T) = struct
   end
 
 end
+
+module Make(Xml : Xml_sigs.T) =
+  MakeWraped(struct include Xml module W = Xml_sigs.NoWrap end)

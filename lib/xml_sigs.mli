@@ -18,7 +18,18 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-module type T = sig
+
+module type Wraper = sig
+  type 'a t
+  val bind : 'a t -> ('a -> 'b t) -> 'b t
+  val return : 'a -> 'a t
+end
+
+module NoWrap : Wraper with type 'a t = 'a
+
+module type Wraped = sig
+
+  module W : Wraper
 
   type uri
   val string_of_uri : uri -> string
@@ -29,14 +40,14 @@ module type T = sig
 
   type attrib
 
-  val float_attrib : aname -> float -> attrib
-  val int_attrib : aname -> int -> attrib
-  val string_attrib : aname -> string -> attrib
-  val space_sep_attrib : aname -> string list -> attrib
-  val comma_sep_attrib : aname -> string list -> attrib
+  val float_attrib : aname -> float W.t -> attrib
+  val int_attrib : aname -> int W.t -> attrib
+  val string_attrib : aname -> string W.t -> attrib
+  val space_sep_attrib : aname -> string list W.t -> attrib
+  val comma_sep_attrib : aname -> string list W.t -> attrib
   val event_handler_attrib : aname -> event_handler -> attrib
-  val uri_attrib : aname -> uri -> attrib
-  val uris_attrib : aname -> uri list -> attrib
+  val uri_attrib : aname -> uri W.t -> attrib
+  val uris_attrib : aname -> uri list W.t -> attrib
 
   type elt
   type ename = string
@@ -44,18 +55,20 @@ module type T = sig
   val empty : unit -> elt
   val comment : string -> elt
 
-  val pcdata : string -> elt
-  val encodedpcdata : string -> elt
+  val pcdata : string W.t -> elt
+  val encodedpcdata : string W.t -> elt
   val entity : string -> elt
 
   val leaf : ?a:(attrib list) -> ename -> elt
-  val node : ?a:(attrib list) -> ename -> elt list -> elt
+  val node : ?a:(attrib list) -> ename -> elt list W.t -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
   val cdata_style : string -> elt
 
 end
+
+module type T = Wraped with module W := NoWrap
 
 module type Iterable = sig
 
