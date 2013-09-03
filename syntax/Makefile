@@ -9,8 +9,8 @@ RFILES  := basic_types.ml \
 PREDEP  := xmllexer.ml camllexer.ml
 
 LIBS    := -package camlp4
-PP      := -pp "camlp4of -loc loc"
-PPR     := -pp "camlp4rf -loc loc"
+PP      := -pp "camlp4of"
+PPR     := -pp "camlp4rf"
 
 OCAMLC   := $(OCAMLFIND) ocamlc $(DBG) $(LIBS)
 OCAMLOPT := $(OCAMLFIND) ocamlopt $(DBG) $(LIBS)
