@@ -17,33 +17,35 @@ let module Html5 = Eliom_content.Html5.F in
 <:html5< <div>xyz</div> >>
 ```
 
-You can find the documentation [here](http://ocsigen.org/tyxml/api/).
+You can find the documentation [on the TyXML website](http://ocsigen.org/tyxml/api/).
 
 ## How to
 
 ### Installation
 
-tyxml is available in [opam](http://opam.ocamlpro.com) : `opam install tyxml`
+TyXML is available in [opam](http://opam.ocamlpro.com) : `opam install tyxml`
 
 You can also use the ocsigen opam repository for the dev version :
-`opam repository add opamocsigen http://ocsigen.org/opam`
+`opam repository add ocsigen-dev http://ocsigen.org/opam`
 
 ### Manual build
 
 #### Requirements:
+
 * ocaml and camlp4
 * findlib
-* ocamlduce (optional)
 
 #### Build instructions:
+
 ```
-${EDITOR} Makefile.config
+./configure
 make
 make install
 ```
 
 #### API documentation:
+
 ```
 make doc
-${BROWSER} doc/api-html/index.html
+${BROWSER} _build/tyxml-api.docdir/index.html
 ```

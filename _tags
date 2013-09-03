@@ -1,0 +1,7 @@
+# OASIS_START
+# OASIS_STOP
+"syntax/basic_types.ml": camlp4rf
+"syntax/xhtmlparser.ml": camlp4rf
+"syntax/xhtmlsyntax.ml": camlp4rf
+"syntax/simplexmlparser.ml": camlp4rf
+<**/*.ml{,i}>: bin_annot
