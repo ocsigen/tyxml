@@ -1,78 +1,62 @@
+# Makefile
+# --------
+# Copyright : (c) 2012, Jeremie Dimino <jeremie@dimino.org>
+# Licence   : BSD3
+#
+# Generic Makefile for oasis project
 
-include Makefile.config
--include Makefile.local
+# Set to setup.exe for the release
+SETUP := setup-dev.exe
 
-all: files/META files/META.tyxml
-	$(MAKE) -C syntax byte opt
-	$(MAKE) -C lib byte opt
+# Default rule
+default: build
 
-byte: files/META files/META.tyxml
-	$(MAKE) -C syntax byte
-	$(MAKE) -C lib byte
+# Setup for the development version
+setup-dev.exe: _oasis setup.ml
+	grep -v '^#' setup.ml > setup_dev.ml
+	ocamlfind ocamlopt -o $@ -linkpkg -package ocamlbuild,oasis.dynrun setup_dev.ml || \
+	  ocamlfind ocamlc -o $@ -linkpkg -package ocamlbuild,oasis.dynrun setup_dev.ml || true
+	rm -f setup_dev.*
 
-opt: files/META files/META.tyxml
-	$(MAKE) -C syntax opt
-	$(MAKE) -C lib opt
+# Setup for the release
+setup.exe: setup.ml
+	ocamlopt.opt -o $@ $< || ocamlopt -o $@ $< || ocamlc -o $@ $<
+	rm -f setup.cmx setup.cmi setup.o setup.obj setup.cmo
 
-clean:
-	$(MAKE) -C lib clean
-	$(MAKE) -C syntax clean
-	$(MAKE) -C doc clean
-	rm -f files/META files/META.tyxml
+build: $(SETUP) setup.data
+	./$(SETUP) -build $(BUILDFLAGS)
 
-distclean:
-	$(MAKE) -C syntax distclean
-	$(MAKE) -C lib distclean
-	$(MAKE) -C doc distclean
-	-rm -f *~ \#* .\#* files/META files/META.tyxml
+doc: $(SETUP) setup.data build
+	./$(SETUP) -doc $(DOCFLAGS)
 
-.PHONY: doc
-doc:
-	$(MAKE) -C doc
+wikidoc: $(SETUP) setup.data build
+	./$(SETUP) -build tyxml-api.wikidocdir/index.wiki
 
-depend:
-	$(MAKE) -C syntax depend
-	$(MAKE) -C lib depend
+test: $(SETUP) setup.data build
+	./$(SETUP) -test $(TESTFLAGS)
 
-include Makefile.filelist
-VERSION := $(shell head -n 1 VERSION)
+all: $(SETUP)
+	./$(SETUP) -all $(ALLFLAGS)
 
-files/META: files/META.in Makefile.config
-	sed -e s%_LIBNAME_%${LIBNAME}%g \
-	    -e s%_PACKAGENAME_%${PACKAGENAME}%g \
-            -e s%_LIBDIR_%% \
-            -e s%_SYNTAXDIR_%% \
-	   $< > $@
+install: $(SETUP) setup.data
+	./$(SETUP) -install $(INSTALLFLAGS)
 
-files/META.tyxml: files/META.in Makefile.config
-	sed -e s%_LIBNAME_%${LIBNAME}%g \
-	    -e s%_PACKAGENAME_%${PACKAGENAME}%g \
-            -e s%_LIBDIR_%directory\ =\ \"..\/lib\"% \
-            -e s%_SYNTAXDIR_%directory\ =\ \"..\/syntax\"% \
-	  $< > $@
+uninstall: $(SETUP) setup.data
+	./$(SETUP) -uninstall $(UNINSTALLFLAGS)
 
-install:
-	$(OCAMLFIND) install ${PACKAGENAME} \
-	  -patch-version ${VERSION} \
-	  files/META ${INTF} ${IMPL} ${NATIMPL} \
-	  ${MLI_TO_INSTALL}
+reinstall: $(SETUP) setup.data
+	./$(SETUP) -reinstall $(REINSTALLFLAGS)
 
-install-byte:
-	$(OCAMLFIND) install ${PACKAGENAME} \
-	  -patch-version ${VERSION} \
-	  files/META ${INTF} ${IMPL} ${MLI_TO_INSTALL}
+clean: $(SETUP)
+	./$(SETUP) -clean $(CLEANFLAGS)
 
-install-opt:
-	$(OCAMLFIND) install ${PACKAGENAME} \
-	  -patch-version ${VERSION} \
-	  files/META ${INTF} ${NATIMPL} ${MLI_TO_INSTALL}
+distclean: $(SETUP)
+	./$(SETUP) -distclean $(DISTCLEANFLAGS)
 
-uninstall:
-	$(OCAMLFIND) remove ${PACKAGENAME}
+configure: $(SETUP)
+	./$(SETUP) -configure $(CONFIGUREFLAGS)
 
-reinstall: uninstall install
-reinstall-byte: uninstall install-byte
-reinstall-opt: uninstall install-opt
+setup.data: $(SETUP)
+	./$(SETUP) -configure $(CONFIGUREFLAGS)
 
-dist:
-	DARCS_REPO=$(PWD) darcs dist -d ${PACKAGENAME}-${VERSION}
+.PHONY: default build doc test all install uninstall reinstall clean distclean configure
