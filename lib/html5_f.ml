@@ -517,7 +517,10 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let a_start = int_attrib "start"
 
-  let a_step = float_attrib "step"
+  let a_step = function
+    |`Any -> string_attrib "step" "any"
+    |`Step f -> float_attrib "step" f
+
 
   let a_wrap w =
       string_attrib "wrap" (match w with | `Soft -> "soft" | `Hard -> "hard")
