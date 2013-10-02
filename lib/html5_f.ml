@@ -938,8 +938,10 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
         | `Formtarget
         | `Height
         | `List
+        | `Max
         | `Input_Max
         | `Maxlength
+        | `Min
         | `Input_Min
         | `Multiple
         | `Name
