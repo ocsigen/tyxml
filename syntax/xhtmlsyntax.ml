@@ -24,21 +24,21 @@ open Xhtmlparser;
 open Camlp4.PreCast;
 
 module Parser = Xhtmlparser.Make(Syntax)(struct
-  value xml_encodedpcdata loc = <:expr< Xhtml.Xml.encodedpcdata >>;
-  value xml_pcdata loc = <:expr< Xhtml.Xml.pcdata >>;
-  value xml_comment loc = <:expr< Xhtml.Xml.comment >>;
-  value xml_node loc = <:expr< Xhtml.Xml.node >>;
-  value xml_string_attrib loc = <:expr< Xhtml.Xml.string_attrib >>;
+  value xml_encodedpcdata _loc = <:expr< Xhtml.Xml.encodedpcdata >>;
+  value xml_pcdata _loc = <:expr< Xhtml.Xml.pcdata >>;
+  value xml_comment _loc = <:expr< Xhtml.Xml.comment >>;
+  value xml_node _loc = <:expr< Xhtml.Xml.node >>;
+  value xml_string_attrib _loc = <:expr< Xhtml.Xml.string_attrib >>;
 
-  value tot loc = <:expr< Xhtml.tot >>;
-  value toeltl loc = <:expr< Xhtml.toeltl >>;
-  value to_xmlattribs loc = <:expr< Xhtml.to_xmlattribs >>;
-  value to_attrib loc = <:expr< Xhtml.to_attrib >>;
-  value make_type loc tag =
+  value tot _loc = <:expr< Xhtml.tot >>;
+  value toeltl _loc = <:expr< Xhtml.toeltl >>;
+  value to_xmlattribs _loc = <:expr< Xhtml.to_xmlattribs >>;
+  value to_attrib _loc = <:expr< Xhtml.to_attrib >>;
+  value make_type _loc tag =
     <:ctyp< Xhtml.elt [> `$uid:String.capitalize tag$ ] >>;
-  value make_content_type loc tag =
+  value make_content_type _loc tag =
     <:ctyp< Xhtml.elt [< Xhtml_types.$lid:String.lowercase tag^"_content"$] >>;
-  value make_attrib_type loc tag =
+  value make_attrib_type _loc tag =
       let tag = match String.lowercase tag with
       [ "button_type" -> "Button_Type"
       | "fs_cols" -> "FS_Cols"
@@ -69,21 +69,21 @@ module Parser = Xhtmlparser.Make(Syntax)(struct
       | "xmlns" -> "XMLns"
       | tag -> String.capitalize tag ] in
     <:ctyp< Xhtml.attrib [> `$uid:tag$ ] >>;
-  value make_attribs_type loc tag =
+  value make_attribs_type _loc tag =
     <:ctyp< Xhtml.attrib [< Xhtml_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 module Parser5 = Xhtmlparser.Make(Syntax)(struct
-  value xml_encodedpcdata loc = <:expr< Html5.Xml.encodedpcdata >>;
-  value xml_pcdata loc = <:expr< Html5.Xml.pcdata >>;
-  value xml_comment loc = <:expr< Html5.Xml.comment >>;
-  value xml_node loc = <:expr< Html5.Xml.node >>;
-  value xml_string_attrib loc = <:expr< Html5.Xml.string_attrib >>;
-  value tot loc = <:expr< Html5.tot >>;
-  value toeltl loc = <:expr< Html5.toeltl >>;
-  value to_xmlattribs loc = <:expr< Html5.to_xmlattribs >>;
-  value to_attrib loc = <:expr< Html5.to_attrib >>;
-  value make_type loc tag =
+  value xml_encodedpcdata _loc = <:expr< Html5.Xml.encodedpcdata >>;
+  value xml_pcdata _loc = <:expr< Html5.Xml.pcdata >>;
+  value xml_comment _loc = <:expr< Html5.Xml.comment >>;
+  value xml_node _loc = <:expr< Html5.Xml.node >>;
+  value xml_string_attrib _loc = <:expr< Html5.Xml.string_attrib >>;
+  value tot _loc = <:expr< Html5.tot >>;
+  value toeltl _loc = <:expr< Html5.toeltl >>;
+  value to_xmlattribs _loc = <:expr< Html5.to_xmlattribs >>;
+  value to_attrib _loc = <:expr< Html5.to_attrib >>;
+  value make_type _loc tag =
     let tag = match String.lowercase tag with
       [ "object" -> "object__"
       | "option" -> "selectoption"
@@ -97,9 +97,9 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
     match tag with
       [ "a" -> <:ctyp< Html5.elt [> Html5_types.a 'a ] >>
       | tag -> <:ctyp< Html5.elt [> Html5_types.$lid:tag$ ] >> ];
-  value make_content_type loc tag =
+  value make_content_type _loc tag =
     <:ctyp< Html5.elt [< Html5_types.$lid:String.lowercase tag^"_content"$] >>;
-  value make_attrib_type loc tag =
+  value make_attrib_type _loc tag =
       let tag = match String.lowercase tag with
       [ "button_type" -> "Button_Type"
       | "command_type" -> "Command_Type"
@@ -185,26 +185,26 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | "onebeforeunload" -> "OneBeforeUnload"
       | tag -> String.capitalize tag ] in
     <:ctyp< Html5.attrib [> `$uid:tag$ ] >>;
-  value make_attribs_type loc tag =
+  value make_attribs_type _loc tag =
     <:ctyp< Html5.attrib [< Html5_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 
 
 module ParserSvg = Xhtmlparser.Make(Syntax)(struct
-  value xml_encodedpcdata loc = <:expr< Svg.Xml.encodedpcdata >>;
-  value xml_pcdata loc = <:expr< Svg.Xml.pcdata >>;
-  value xml_comment loc = <:expr< Svg.Xml.comment >>;
-  value xml_node loc = <:expr< Svg.Xml.node >>;
-  value xml_string_attrib loc = <:expr< Svg.Xml.string_attrib >>;
-  value tot loc = <:expr< Svg.tot >>;
-  value toeltl loc = <:expr< Svg.toeltl >>;
-  value to_xmlattribs loc = <:expr< Svg.to_xmlattribs >>;
-  value to_attrib loc = <:expr< Svg.to_attrib >>;
-  value make_type loc tag =
+  value xml_encodedpcdata _loc = <:expr< Svg.Xml.encodedpcdata >>;
+  value xml_pcdata _loc = <:expr< Svg.Xml.pcdata >>;
+  value xml_comment _loc = <:expr< Svg.Xml.comment >>;
+  value xml_node _loc = <:expr< Svg.Xml.node >>;
+  value xml_string_attrib _loc = <:expr< Svg.Xml.string_attrib >>;
+  value tot _loc = <:expr< Svg.tot >>;
+  value toeltl _loc = <:expr< Svg.toeltl >>;
+  value to_xmlattribs _loc = <:expr< Svg.to_xmlattribs >>;
+  value to_attrib _loc = <:expr< Svg.to_attrib >>;
+  value make_type _loc tag =
     <:ctyp< Svg.elt [> `$uid:String.capitalize tag$ ] >>;
-  value make_content_type loc tag =
+  value make_content_type _loc tag =
     <:ctyp< Svg.elt [< Svg_types.$lid:String.lowercase tag^"_content"$] >>;
-  value make_attrib_type loc tag =
+  value make_attrib_type _loc tag =
     let tag = match String.lowercase tag with
     [ "accent___height" -> "Accent___Height"
     | "alignement_baseline" -> "Alignement_Baseline"
@@ -363,7 +363,7 @@ module ParserSvg = Xhtmlparser.Make(Syntax)(struct
     | "zoomandplan" -> "ZoomAndPlan"
     | tag -> String.capitalize tag ] in
     <:ctyp< Svg.attrib [> `$uid:tag$ ] >>;
-  value make_attribs_type loc tag =
+  value make_attribs_type _loc tag =
     <:ctyp< Svg.attrib [< Svg_types.$lid:String.lowercase tag^"_attrib"$] >>;
 end);
 

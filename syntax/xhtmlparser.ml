@@ -142,12 +142,12 @@ module Make
     Stack.push t s.stack ;
 
 
-  value rec expr_of_list loc = fun
+  value rec expr_of_list _loc = fun
     [ [] -> <:expr< [] >>
     | [(`Elt a)::l] ->
-        <:expr< [ $a$ :: $expr_of_list loc l$ ] >>
+        <:expr< [ $a$ :: $expr_of_list _loc l$ ] >>
     | [(`List a)::l] ->
-        <:expr< $a$ @ $expr_of_list loc l$ >>
+        <:expr< $a$ @ $expr_of_list _loc l$ >>
     ];
 
   value parse = Xmllexer.from_string ;
@@ -170,38 +170,38 @@ module Make
 
   (* Convert a stream of tokens into an xhtml tree *)
   value rec read_node s =
-    let loc = s.loc in
+    let _loc = s.loc in
     match pop s with
       [ (`PCData s, _) ->
-          <:expr< $S.tot loc$ ($S.xml_encodedpcdata loc$ $str:String.escaped s$) >>
+          <:expr< $S.tot _loc$ ($S.xml_encodedpcdata _loc$ $str:String.escaped s$) >>
       | (`CamlString s, _) ->
-          <:expr< $S.tot loc$ ($S.xml_encodedpcdata loc$ $get_expr s loc$) >>
+          <:expr< $S.tot _loc$ ($S.xml_encodedpcdata _loc$ $get_expr s _loc$) >>
       | (`CamlList s, _) -> raise (CamlListExc s)
-      | (`CamlExpr s, _) -> get_expr s loc
+      | (`CamlExpr s, _) -> get_expr s _loc
       | (`Whitespace s, _) ->
-          <:expr< $S.tot loc$ ($S.xml_pcdata loc$ $str:String.escaped s$) >>
+          <:expr< $S.tot _loc$ ($S.xml_pcdata _loc$ $str:String.escaped s$) >>
       | (`Comment s, _) ->
-          <:expr< $S.tot loc$ ($S.xml_comment loc$ $str:String.escaped s$) >>
+          <:expr< $S.tot _loc$ ($S.xml_comment _loc$ $str:String.escaped s$) >>
       | (`Tag (tag, attlist, closed), s) ->
           match closed with
             [ True ->
-                <:expr< ($S.tot loc$
-                            ($S.xml_node loc$
-                               ~a:($S.to_xmlattribs loc$
-                                     ($read_attlist s attlist$ :> list $S.make_attribs_type loc tag$))
+                <:expr< ($S.tot _loc$
+                            ($S.xml_node _loc$
+                               ~a:($S.to_xmlattribs _loc$
+                                     ($read_attlist s attlist$ :> list $S.make_attribs_type _loc tag$))
                                $str:tag$ [])
-                          : $S.make_type loc tag$) >>
+                          : $S.make_type _loc tag$) >>
             | False ->
                 let content =
-                  <:expr< ($read_elems ~tag s$ :> list $S.make_content_type loc tag$) >>
+                  <:expr< ($read_elems ~tag s$ :> list $S.make_content_type _loc tag$) >>
                 in
-                <:expr< ($S.tot loc$
-                            ($S.xml_node loc$
-                               ~a:($S.to_xmlattribs loc$
-                                     ($read_attlist s attlist$ :> list $S.make_attribs_type loc tag$))
+                <:expr< ($S.tot _loc$
+                            ($S.xml_node _loc$
+                               ~a:($S.to_xmlattribs _loc$
+                                     ($read_attlist s attlist$ :> list $S.make_attribs_type _loc tag$))
                                $str:tag$
-                               ($S.toeltl loc$ $content$))
-                          : $S.make_type loc tag$) >>
+                               ($S.toeltl _loc$ $content$))
+                          : $S.make_type _loc tag$) >>
             ]
       | ((`Endtag _ | `Eof as t),_) ->
         do {push t s;
@@ -210,7 +210,7 @@ module Make
 
   and read_elems ?tag s =
     let elems = ref [] in
-    let loc = s.loc in
+    let _loc = s.loc in
     let _ =
       try
         while True do {
@@ -233,9 +233,9 @@ module Make
     in
     match pop s with
     [ (`Endtag s,_) when Some s = tag ->
-        <:expr< $expr_of_list loc (List.rev elems.val) $ >>
+        <:expr< $expr_of_list _loc (List.rev elems.val) $ >>
     | (`Eof,_) when tag = None ->
-        <:expr< $expr_of_list loc (List.rev elems.val) $ >>
+        <:expr< $expr_of_list _loc (List.rev elems.val) $ >>
     | (t,s) ->
         match tag with
         [ None -> err EOFExpected s.loc
@@ -244,27 +244,27 @@ module Make
     ]
 
   and read_attlist s =
-    let loc = s.loc in fun
+    let _loc = s.loc in fun
     [ [] -> <:expr< [] >>
     | [`Attribute (`AttrName a, `AttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ ($S.xml_string_attrib loc$ $str:a$ $str:v$)
-		     : $S.make_attrib_type loc a$)
+        <:expr< [ ($S.to_attrib _loc$ ($S.xml_string_attrib _loc$ $str:a$ $str:v$)
+		     : $S.make_attrib_type _loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `AttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ ($S.xml_string_attrib loc$ $get_expr a loc$ $str:v$)
-		     : $S.make_attrib_type loc a$)
+        <:expr< [ ($S.to_attrib _loc$ ($S.xml_string_attrib _loc$ $get_expr a _loc$ $str:v$)
+		     : $S.make_attrib_type _loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`AttrName a, `CamlAttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$ ($S.xml_string_attrib loc$ $str:a$ $get_expr v loc$)
-		     : $S.make_attrib_type loc a$)
+        <:expr< [ ($S.to_attrib _loc$ ($S.xml_string_attrib _loc$ $str:a$ $get_expr v _loc$)
+		     : $S.make_attrib_type _loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`Attribute (`CamlAttrName a, `CamlAttrVal v)::l] ->
-        <:expr< [ ($S.to_attrib loc$
-		    ($S.xml_string_attrib loc$ $get_expr a loc$ $get_expr v loc$)
-		     : $S.make_attrib_type loc a$)
+        <:expr< [ ($S.to_attrib _loc$
+		    ($S.xml_string_attrib _loc$ $get_expr a _loc$ $get_expr v _loc$)
+		     : $S.make_attrib_type _loc a$)
 		  :: $read_attlist s l$ ] >>
     | [`CamlAttributes cl ::l] ->
-        <:expr< [ ($get_expr cl loc$) :: $read_attlist s l$ ] >>
+        <:expr< [ ($get_expr cl _loc$) :: $read_attlist s l$ ] >>
     ];
 
     (* FIXED ? please report any problem with this function *)
@@ -275,8 +275,8 @@ module Make
     | (t,l) -> let _ = push t s in {(s) with loc = l } ] ;
 
 
-  value  to_expr stream loc =
-    let s = {stream = stream; stack = Stack.create() ; loc = loc } in
+  value  to_expr stream _loc =
+    let s = {stream = stream; stack = Stack.create() ; loc = _loc } in
     try
       let v = read_node (clean_ws s) in
       try match pop s with
@@ -284,12 +284,12 @@ module Make
         | (_, s) -> err NoMoreTagExpected s.loc
         ]
       with [ _ -> v ]
-    with [E NoMoreData -> err NoMoreData loc];
+    with [E NoMoreData -> err NoMoreData _loc];
 
-  value to_expr_taglist stream loc =
-    let s = {stream = stream; stack = Stack.create() ; loc = loc } in
+  value to_expr_taglist stream _loc =
+    let s = {stream = stream; stack = Stack.create() ; loc = _loc } in
     try <:expr< $read_elems (clean_ws s)$  >>
-    with [E NoMoreData -> err NoMoreData loc];
+    with [E NoMoreData -> err NoMoreData _loc];
 
   (* remove the white spaces at the end of a string *)
   value remove_ws s =
@@ -301,10 +301,10 @@ module Make
     try sub 0 (end_index (String.length s - 1))
     with [Invalid_argument _ -> ""];
 
-  value xml_exp loc (x : option string) s =
-    to_expr (parse loc False (remove_ws s)) loc;
+  value xml_exp _loc (x : option string) s =
+    to_expr (parse _loc False (remove_ws s)) _loc;
 
-  value xml_expl loc (x : option string) s =
-    to_expr_taglist (parse loc False (remove_ws s)) loc;
+  value xml_expl _loc (x : option string) s =
+    to_expr_taglist (parse _loc False (remove_ws s)) _loc;
 
  end ;
