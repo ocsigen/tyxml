@@ -995,7 +995,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let figcaption = star "figcaption"
 
   let figure ?figcaption ?a elts =
-      Xml.node ?a "figure" ((list_of_option figcaption) @ elts)
+    let content = match figcaption with
+      | Some (`Top figc) -> figc :: elts
+      | Some (`Bottom figc) -> elts @ [figc]
+      | None -> elts
+    in Xml.node ?a "figure" content
 
   let caption = star "caption"
 

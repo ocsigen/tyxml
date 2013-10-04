@@ -722,7 +722,7 @@ module type T = sig
   (*Or: Flow content.             *)
   (********************************)
   val figure :
-    ?figcaption: ([< | `Figcaption] elt) ->
+    ?figcaption:[`Top of [< `Figcaption ] elt | `Bottom of [< `Figcaption ] elt] ->
     ([< | common], [< | flow5], [> | `Figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
