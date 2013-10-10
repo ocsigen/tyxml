@@ -452,11 +452,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
 
   let a_max = float_attrib "max"
 
-  let a_input_max = int_attrib "max"
+  let a_input_max = float_attrib "max"
 
   let a_min = float_attrib "min"
 
-  let a_input_min = int_attrib "min"
+  let a_input_min = float_attrib "min"
 
   let a_novalidate =
       function | `Novalidate -> string_attrib "novalidate" "novalidate"
@@ -998,7 +998,11 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml) = struct
   let figcaption = star "figcaption"
 
   let figure ?figcaption ?a elts =
-      Xml.node ?a "figure" ((list_of_option figcaption) @ elts)
+    let content = match figcaption with
+      | Some (`Top figc) -> figc :: elts
+      | Some (`Bottom figc) -> elts @ [figc]
+      | None -> elts
+    in Xml.node ?a "figure" content
 
   let caption = star "caption"
 

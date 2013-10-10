@@ -96,11 +96,11 @@ module type T = sig
 
   val a_max : float_number -> [> | `Max] attrib
 
-  val a_input_max : number -> [> | `Input_Max] attrib
+  val a_input_max : float_number -> [> | `Input_Max] attrib
 
   val a_min : float_number -> [> | `Min] attrib
 
-  val a_input_min : number -> [> | `Input_Min] attrib
+  val a_input_min : float_number -> [> | `Input_Min] attrib
 
   val a_novalidate : [< | `Novalidate] -> [> | `Novalidate] attrib
 
@@ -722,7 +722,7 @@ module type T = sig
   (*Or: Flow content.             *)
   (********************************)
   val figure :
-    ?figcaption: ([< | `Figcaption] elt) ->
+    ?figcaption:[`Top of [< `Figcaption ] elt | `Bottom of [< `Figcaption ] elt] ->
     ([< | common], [< | flow5], [> | `Figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary

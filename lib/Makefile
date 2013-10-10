@@ -15,9 +15,13 @@ DUCE_FILES := xml_print_duce.ml xhtml_duce.ml
 
 LIBS     :=
 
+ifeq ($(HAVE_OCAML4), yes)
+ANNOT := -annot -bin-annot
+endif
+
 # SYNTAX := -ppopt ../syntax/pa_include.cmo -package camlp4 -syntax camlp4o
 
-OCAMLC   := $(OCAMLFIND) ocamlc -annot -bin-annot ${DBG} ${SYNTAX}
+OCAMLC   := $(OCAMLFIND) ocamlc $(ANNOT) ${DBG} ${SYNTAX}
 OCAMLOPT := $(OCAMLFIND) ocamlopt ${DBG} ${SYNTAX}
 OCAMLDEP := $(OCAMLFIND) ocamldep ${SYNTAX}
 
