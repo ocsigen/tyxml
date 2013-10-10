@@ -2026,7 +2026,7 @@ type select_content = [ | `Optgroup | `Option ]
 type select_content_fun = [ | `Optgroup | `Option ]
 
 type select_attrib =
-  [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled
+  [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled | `Required
   ]
 
 (* NAME: datalist, KIND: nullary, TYPE: [= common ], [=`Datalist], ARG: notag, ATTRIB:  OUT: [=`Datalist] *)

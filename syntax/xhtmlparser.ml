@@ -147,7 +147,7 @@ module Make
     | [(`Elt a)::l] ->
         <:expr< [ $a$ :: $expr_of_list _loc l$ ] >>
     | [(`List a)::l] ->
-        <:expr< $a$ @ $expr_of_list _loc l$ >>
+        <:expr< List.append $a$ $expr_of_list _loc l$ >>
     ];
 
   value parse = Xmllexer.from_string ;
