@@ -143,7 +143,7 @@ module type T = sig
 
   val a_start : number -> [> | `Start] attrib
 
-  val a_step : float_number -> [> | `Step] attrib
+  val a_step : float_number option -> [> | `Step] attrib
 
   val a_wrap : [< | `Soft | `Hard] -> [> | `Wrap] attrib
 
