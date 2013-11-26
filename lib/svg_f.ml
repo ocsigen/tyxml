@@ -208,8 +208,9 @@ struct
     Xml.node ?a tag l
 
   type altglyphdef_content =
-      [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
-      ]
+    [ `Ref of (glyphref elt) list
+    | `Item of (altglyphitem elt) list
+    ]
 
   let to_xmlattribs x = x
 
@@ -419,26 +420,34 @@ struct
 
   let a_patterncontentunits x =
     let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-user_attrib f "patternContentUnits" x
+    user_attrib f "patternContentUnits" x
 
   let a_patterntransform x =
     user_attrib string_of_transforms "patternTransform" x
 
   let a_clippathunits x =
-    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-user_attrib f "clipPathUnits" x
+    let f = function
+      | `UserSpaceOnUse -> "userSpaceOnUse"
+      | `ObjectBoundingBox -> "objectBoundingBox" in
+    user_attrib f "clipPathUnits" x
 
   let a_maskunits x =
-    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-user_attrib f "maskUnits" x
+    let f = function
+      | `UserSpaceOnUse -> "userSpaceOnUse"
+      | `ObjectBoundingBox -> "objectBoundingBox" in
+    user_attrib f "maskUnits" x
 
   let a_maskcontentunits x =
-    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-user_attrib f "maskContentUnits" x
+    let f = function
+      | `UserSpaceOnUse -> "userSpaceOnUse"
+      | `ObjectBoundingBox -> "objectBoundingBox" in
+    user_attrib f "maskContentUnits" x
 
   let a_primitiveunits x =
-    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-user_attrib f "primitiveUnits" x
+    let f = function
+      | `UserSpaceOnUse -> "userSpaceOnUse"
+      | `ObjectBoundingBox -> "objectBoundingBox" in
+    user_attrib f "primitiveUnits" x
 
   let a_filterres x =
     user_attrib string_of_number_optional_number "filterResUnits" x
@@ -446,12 +455,26 @@ user_attrib f "primitiveUnits" x
   let a_result = string_attrib "result"
 
   let a_in x =
-    let f = function | `SourceGraphic -> "sourceGraphic"| `SourceAlpha -> "sourceAlpha"| `BackgroundImage -> "backgroundImage"| `BackgroundAlpha -> "backgroundAlpha"| `FillPaint -> "fillPaint"| `StrokePaint -> "strokePaint"| `Ref _svg -> _svg in
-user_attrib f "in" x
+    let f = function
+      | `SourceGraphic -> "sourceGraphic"
+      | `SourceAlpha -> "sourceAlpha"
+      | `BackgroundImage -> "backgroundImage"
+      | `BackgroundAlpha -> "backgroundAlpha"
+      | `FillPaint -> "fillPaint"
+      | `StrokePaint -> "strokePaint"
+      | `Ref _svg -> _svg in
+    user_attrib f "in" x
 
   let a_in2 x =
-    let f = function | `SourceGraphic -> "sourceGraphic"| `SourceAlpha -> "sourceAlpha"| `BackgroundImage -> "backgroundImage"| `BackgroundAlpha -> "backgroundAlpha"| `FillPaint -> "fillPaint"| `StrokePaint -> "strokePaint"| `Ref _svg -> _svg in
-user_attrib f "in2" x
+    let f = function
+      | `SourceGraphic -> "sourceGraphic"
+      | `SourceAlpha -> "sourceAlpha"
+      | `BackgroundImage -> "backgroundImage"
+      | `BackgroundAlpha -> "backgroundAlpha"
+      | `FillPaint -> "fillPaint"
+      | `StrokePaint -> "strokePaint"
+      | `Ref _svg -> _svg in
+    user_attrib f "in2" x
 
   let a_aizmuth = number_attrib "azimuth"
 
@@ -470,18 +493,32 @@ user_attrib f "in2" x
   let a_limitingconeangle = number_attrib "limitingConeAngle"
 
   let a_mode x =
-    let f = function | `Normal -> "normal"| `Multiply -> "multiply"| `Screen -> "screen"| `Darken -> "darken"| `Lighten -> "lighten" in
-user_attrib f "mode" x
+    let f = function
+      | `Normal -> "normal"
+      | `Multiply -> "multiply"
+      | `Screen -> "screen"
+      | `Darken -> "darken"
+      | `Lighten -> "lighten" in
+    user_attrib f "mode" x
 
   let a_typefecolor x =
-    let f = function | `Matrix -> "matrix"| `Saturate -> "saturate"| `HueRotate -> "hueRotate"| `LuminanceToAlpha -> "luminanceToAlpha" in
-user_attrib f "type" x
+    let f = function
+      | `Matrix -> "matrix"
+      | `Saturate -> "saturate"
+      | `HueRotate -> "hueRotate"
+      | `LuminanceToAlpha -> "luminanceToAlpha" in
+    user_attrib f "type" x
 
   let a_values = user_attrib string_of_numbers "values"
 
   let a_transferttype x =
-    let f = function | `Identity -> "identity"| `Table -> "table"| `Discrete -> "discrete"| `Linear -> "linear"| `Gamma -> "gamma" in
-user_attrib f "type" x
+    let f = function
+      | `Identity -> "identity"
+      | `Table -> "table"
+      | `Discrete -> "discrete"
+      | `Linear -> "linear"
+      | `Gamma -> "gamma" in
+    user_attrib f "type" x
 
   let a_tablevalues = user_attrib string_of_numbers "tableValues"
 
@@ -496,8 +533,14 @@ user_attrib f "type" x
   let a_offsettransfer = user_attrib string_of_number "offset"
 
   let a_operator x =
-    let f = function | `Over -> "over"| `In -> "in"| `Out -> "out"| `Atop -> "atop"| `Xor -> "xor"| `Arithmetic -> "arithmetic" in
-user_attrib f "operator" x
+    let f = function
+      | `Over -> "over"
+      | `In -> "in"
+      | `Out -> "out"
+      | `Atop -> "atop"
+      | `Xor -> "xor"
+      | `Arithmetic -> "arithmetic" in
+    user_attrib f "operator" x
 
   let a_k1 = user_attrib string_of_number "k1"
 
@@ -523,8 +566,11 @@ user_attrib f "operator" x
   let a_targetY = user_attrib string_of_int "targetY"
 
   let a_edgemode x =
-    let f = function | `Duplicate -> "duplicate"| `Wrap -> "wrap"| `None -> "none" in
-user_attrib f "targetY" x
+    let f = function
+      | `Duplicate -> "duplicate"
+      | `Wrap -> "wrap"
+      | `None -> "none" in
+    user_attrib f "targetY" x
 
   let a_preservealpha = user_attrib string_of_bool "targetY"
 
@@ -535,19 +581,29 @@ user_attrib f "targetY" x
   let a_scale = user_attrib string_of_number "scale"
 
   let a_xchannelselector x =
-    let f = function | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a" in
-user_attrib f "xChannelSelector" x
+    let f = function
+      | `R -> "r"
+      | `G -> "g"
+      | `B -> "b"
+      | `A -> "a" in
+    user_attrib f "xChannelSelector" x
 
   let a_ychannelselector x =
-    let f = function | `R -> "r" | `G -> "g" | `B -> "b" | `A -> "a" in
-user_attrib f "yChannelSelector" x
+    let f = function
+      | `R -> "r"
+      | `G -> "g"
+      | `B -> "b"
+      | `A -> "a" in
+    user_attrib f "yChannelSelector" x
 
   let a_stddeviation =
     user_attrib string_of_number_optional_number "stdDeviation"
 
   let a_operatormorphology x =
-    let f = function | `Erode -> "erode" | `Dilate -> "dilate" in
-user_attrib f "operatorMorphology" x
+    let f = function
+      | `Erode -> "erode"
+      | `Dilate -> "dilate" in
+    user_attrib f "operatorMorphology" x
 
   let a_radius = user_attrib string_of_number_optional_number "radius"
 
@@ -559,20 +615,27 @@ user_attrib f "operatorMorphology" x
   let a_seed = user_attrib string_of_number "seed"
 
   let a_stitchtiles x =
-    let f = function | `Stitch -> "stitch" | `NoStitch -> "noStitch" in
-user_attrib f "stitchTiles" x
+    let f = function
+      | `Stitch -> "stitch"
+      | `NoStitch -> "noStitch" in
+    user_attrib f "stitchTiles" x
 
   let a_stitchtype x =
-    let f = function | `FractalNoise -> "fractalNoise"| `Turbulence -> "turbulence" in
-user_attrib f "typeStitch" x
+    let f = function
+      | `FractalNoise -> "fractalNoise"
+      | `Turbulence -> "turbulence" in
+    user_attrib f "typeStitch" x
 
   let a_xlinkshow x =
-    let f = function | `New -> "new" | `Replace -> "replace" in
-user_attrib f "xlink:show" x
+    let f = function
+      | `New -> "new"
+      | `Replace -> "replace" in
+    user_attrib f "xlink:show" x
 
   let a_xlinkactuate x =
-    let f = function | `OnRequest -> "onRequest" in
-user_attrib f "xlink:actuate" x
+    let f = function
+      | `OnRequest -> "onRequest" in
+    user_attrib f "xlink:actuate" x
 
   let a_target = string_attrib "xlink:target"
 
@@ -581,8 +644,11 @@ user_attrib f "xlink:actuate" x
   let a_attributename = string_attrib "attributeName"
 
   let a_attributetype x =
-    let f = function | `CSS -> "CSS" | `XML -> "XML" | `Auto -> "auto" in
-user_attrib f "attributeType" x
+    let f = function
+      | `CSS -> "CSS"
+      | `XML -> "XML"
+      | `Auto -> "auto" in
+    user_attrib f "attributeType" x
 
   let a_begin = string_attrib "begin"
 
@@ -593,8 +659,11 @@ user_attrib f "attributeType" x
   let a_max = string_attrib "max"
 
   let a_restart x =
-    let f = function | `Always -> "always"| `WhenNotActive -> "whenNotActive"| `Never -> "never" in
-user_attrib f "restart" x
+    let f = function
+      | `Always -> "always"
+      | `WhenNotActive -> "whenNotActive"
+      | `Never -> "never" in
+    user_attrib f "restart" x
 
   let a_repeatcount = string_attrib "repeatCount"
 
@@ -603,12 +672,18 @@ user_attrib f "restart" x
   let a_fill = user_attrib string_of_paint "fill"
 
   let a_fill_animation x =
-    let f = function | `Freeze -> "freeze" | `Remove -> "remove" in
-user_attrib f "fill" x
+    let f = function
+      | `Freeze -> "freeze"
+      | `Remove -> "remove" in
+    user_attrib f "fill" x
 
   let a_calcmode x =
-    let f = function | `Discrete -> "discrete"| `Linear -> "linear"| `Paced -> "paced"| `Spline -> "spline" in
-user_attrib f "calcMode" x
+    let f = function
+      | `Discrete -> "discrete"
+      | `Linear -> "linear"
+      | `Paced -> "paced"
+      | `Spline -> "spline" in
+    user_attrib f "calcMode" x
 
   let a_values_anim = Xml.comma_sep_attrib "values"
 
@@ -623,11 +698,15 @@ user_attrib f "calcMode" x
   let a_by = string_attrib "by"
 
   let a_additive x =
-    let f = function | `Replace -> "replace" | `Sum -> "sum" in
+    let f = function
+      | `Replace -> "replace"
+      | `Sum -> "sum" in
     user_attrib f "additive" x
 
   let a_accumulate x =
-    let f = function | `None -> "none" | `Sum -> "sum" in
+    let f = function
+      | `None -> "none"
+      | `Sum -> "sum" in
     user_attrib f "accumulate" x
 
   let a_keypoints = user_attrib string_of_numbers_semicolon "keyPoints"
@@ -636,8 +715,11 @@ user_attrib f "calcMode" x
 
   let a_typeanimatecolor x =
     let f = function
-      | `Translate -> "translate" | `Scale -> "scale"
-      | `Rotate -> "rotate" | `SkewX -> "skewX" | `SkewY -> "skewY" in
+      | `Translate -> "translate"
+      | `Scale -> "scale"
+      | `Rotate -> "rotate"
+      | `SkewX -> "skewX"
+      | `SkewY -> "skewY" in
     user_attrib f "type" x
 
   let a_horiz_origin_x = user_attrib string_of_number "horiz-origin-x"
@@ -657,13 +739,17 @@ user_attrib f "calcMode" x
   let a_glyphname = string_attrib "glyphname"
 
   let a_orientation x =
-    let f = function | `H -> "h" | `V -> "v" in
+    let f = function
+      | `H -> "h"
+      | `V -> "v" in
     user_attrib f "orientation" x
 
   let a_arabicform x =
     let f = function
-      | `Initial -> "initial"| `Medial -> "medial"
-      | `Terminal -> "terminal"| `Isolated -> "isolated" in
+      | `Initial -> "initial"
+      | `Medial -> "medial"
+      | `Terminal -> "terminal"
+      | `Isolated -> "isolated" in
     user_attrib f "arabic-form" x
 
   let a_lang = string_attrib "lang"
@@ -796,18 +882,26 @@ user_attrib f "calcMode" x
   let a_strokewidth = user_attrib string_of_length "stroke-width"
 
   let a_strokelinecap x =
-    let f = function `Butt -> "butt" | `Round -> "round" | `Square -> "square" in
+    let f = function
+      | `Butt -> "butt"
+      | `Round -> "round"
+      | `Square -> "square" in
     user_attrib f "stroke-linecap" x
 
   let a_strokelinejoin x =
-    let f = function `Miter -> "miter" | `Round -> "round" | `Bever -> "bevel" in
+    let f = function
+      | `Miter -> "miter"
+      | `Round -> "round"
+      | `Bever -> "bevel" in
     user_attrib f "stroke-linejoin" x
 
   let a_strokemiterlimit =
     user_attrib string_of_number "stroke-miterlimit"
 
   let a_strokedasharray x =
-    let f = function | [] -> "none"| l -> list string_of_length l in
+    let f = function
+      | [] -> "none"
+      | l -> list string_of_length l in
     user_attrib f "stroke-dasharray" x
 
   let a_strokedashoffset =

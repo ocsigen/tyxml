@@ -387,58 +387,80 @@ module MakeWrapped
 
   let a_method m =
     let f = function
-         | `Get -> "GET"
-         | `Post -> "POST"
-         | `Put -> "PUT"
-         | `Delete -> "DELETE"
+      | `Get -> "GET"
+      | `Post -> "POST"
+      | `Put -> "PUT"
+      | `Delete -> "DELETE"
     in user_attrib f "method" m
 
   let a_enctype = string_attrib "enctype"
 
   let a_checked x =
-    let f = function | `Checked -> "checked" in user_attrib f "checked" x
+    let f = function
+      | `Checked -> "checked"
+    in user_attrib f "checked" x
 
   let a_disabled x =
-    let f = function | `Disabled -> "disabled" in user_attrib f "disabled" x
+    let f = function
+      | `Disabled -> "disabled"
+    in user_attrib f "disabled" x
 
   let a_readonly x =
-    let f = function | `ReadOnly -> "readonly" in user_attrib f "readonly" x
+    let f = function
+      | `ReadOnly -> "readonly"
+    in user_attrib f "readonly" x
 
   let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
   let a_autocomplete ac =
-      let f = function | `On -> "on" | `Off -> "off"
- in user_attrib f "autocomplete" ac
+    let f = function
+      | `On -> "on"
+      | `Off -> "off"
+    in user_attrib f "autocomplete" ac
 
   let a_async x =
-let f = function | `Async -> "async" in user_attrib f "async" x
+    let f = function
+      | `Async -> "async"
+    in user_attrib f "async" x
 
   let a_autofocus x =
-let f = function | `Autofocus -> "autofocus" in user_attrib f "autofocus" x
+    let f = function
+      | `Autofocus -> "autofocus"
+    in user_attrib f "autofocus" x
 
   let a_autoplay x =
-let f = function | `Autoplay -> "autoplay" in user_attrib f "autoplay" x
+    let f = function
+      | `Autoplay -> "autoplay"
+    in user_attrib f "autoplay" x
 
   let a_challenge = string_attrib "challenge"
 
   let a_contenteditable ce =
-      let f = function | `True -> "true" | `False -> "false"
- in user_attrib f "contenteditable" ce
+    let f = function
+      | `True -> "true"
+      | `False -> "false"
+    in user_attrib f "contenteditable" ce
 
   let a_contextmenu = string_attrib "contextmenu"
 
   let a_controls x =
-let f = function | `Controls -> "controls" in user_attrib f "controls" x
+    let f = function
+      | `Controls -> "controls"
+    in user_attrib f "controls" x
 
   let a_dir d =
-      let f = function | `Ltr -> "ltr" | `Rtl -> "rtl"
- in user_attrib f "dir" d
+    let f = function
+      | `Ltr -> "ltr"
+      | `Rtl -> "rtl"
+    in user_attrib f "dir" d
 
   let a_draggable d =
-      let f = function | `True -> "true" | `False -> "false"
- in user_attrib f "draggable" d
+    let f = function
+      | `True -> "true"
+      | `False -> "false"
+    in user_attrib f "draggable" d
 
   let a_form = string_attrib "form"
 
@@ -447,34 +469,42 @@ let f = function | `Controls -> "controls" in user_attrib f "controls" x
   let a_formenctype = string_attrib "formenctype"
 
   let a_formmethod m =
-      let f = function | `Get -> "GET"
-         | `Post -> "POST"
-         | `Put -> "PUT"
-         | `Delete -> "DELETE"
-      in user_attrib f "method" m
+    let f = function
+      | `Get -> "GET"
+      | `Post -> "POST"
+      | `Put -> "PUT"
+      | `Delete -> "DELETE"
+    in user_attrib f "method" m
 
   let a_formnovalidate x =
-    let f = function | `Formnovalidate -> "formnovalidate"
+    let f = function
+      | `Formnovalidate -> "formnovalidate"
     in user_attrib f "formnovalidate" x
 
   let a_formtarget = string_attrib "formtarget"
 
   let a_hidden x =
-let f = function | `Hidden -> "hidden" in user_attrib f "hidden" x
+    let f = function
+      | `Hidden -> "hidden"
+    in user_attrib f "hidden" x
 
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
 
   let a_ismap x =
-let f = function | `Ismap -> "ismap" in user_attrib f "ismap" x
+    let f = function
+      | `Ismap -> "ismap"
+    in user_attrib f "ismap" x
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
 
   let a_loop x =
-let f = function | `Loop -> "loop" in user_attrib f "loop" x
+    let f = function
+      | `Loop -> "loop"
+    in user_attrib f "loop" x
 
   let a_low = float_attrib "low"
 
@@ -487,10 +517,14 @@ let f = function | `Loop -> "loop" in user_attrib f "loop" x
   let a_input_min = float_attrib "min"
 
   let a_novalidate x =
-let f = function | `Novalidate -> "novalidate" in user_attrib f "novalidate" x
+    let f = function
+      | `Novalidate -> "novalidate"
+    in user_attrib f "novalidate" x
 
   let a_open x =
-let f = function | `Open -> "open" in user_attrib f "open" x
+    let f = function
+      | `Open -> "open"
+    in user_attrib f "open" x
 
   let a_optimum = float_attrib "optimum"
 
@@ -501,21 +535,28 @@ let f = function | `Open -> "open" in user_attrib f "open" x
   let a_poster = uri_attrib "poster"
 
   let a_preload pl =
-      let f = function | `None -> "none"
-         | `Metadata -> "metadata"
-         | `Audio -> "audio"
- in user_attrib f "preload" pl
+    let f = function
+      | `None -> "none"
+      | `Metadata -> "metadata"
+      | `Audio -> "audio"
+    in user_attrib f "preload" pl
 
   let a_pubdate x =
-let f = function | `Pubdate -> "pubdate" in user_attrib f "pubdate" x
+    let f = function
+      | `Pubdate -> "pubdate"
+    in user_attrib f "pubdate" x
 
   let a_radiogroup = string_attrib "radiogroup"
 
   let a_required x =
-let f = function | `Required -> "required" in user_attrib f "required" x
+    let f = function
+      | `Required -> "required"
+    in user_attrib f "required" x
 
   let a_reversed x =
-let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
+    let f = function
+      | `Reversed -> "reserved"
+    in user_attrib f "reserved" x
 
   let rec a_sandbox sb =
     let rec aux sb =
@@ -527,14 +568,20 @@ let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
     in space_sep_attrib "sandbox" (W.fmap aux sb)
 
   let a_spellcheck sc =
-      let f = function | `True -> "true" | `False -> "false"
-      in user_attrib f "spellckeck" sc
+    let f = function
+      | `True -> "true"
+      | `False -> "false"
+    in user_attrib f "spellckeck" sc
 
   let a_scoped x =
-    let f = function | `Scoped -> "scoped" in user_attrib f "scoped" x
+    let f = function
+      | `Scoped -> "scoped"
+    in user_attrib f "scoped" x
 
   let a_seamless x =
-    let f = function | `Seamless -> "seamless" in user_attrib f "seamless" x
+    let f = function
+      | `Seamless -> "seamless"
+    in user_attrib f "seamless" x
 
   let a_sizes sizes =
     let f sizes = String.concat " " (List.map string_of_int sizes)
@@ -542,7 +589,7 @@ let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
 
   let a_span = int_attrib "span"
 
-    (*let a_srcdoc*)
+  (*let a_srcdoc*)
   let a_srclang = string_attrib "xml:lang"
 
   let a_start = int_attrib "start"
@@ -554,55 +601,64 @@ let f = function | `Reversed -> "reserved" in user_attrib f "reserved" x
     in user_attrib f "step" step
 
   let a_wrap w =
-    let f = function | `Soft -> "soft" | `Hard -> "hard"
+    let f = function
+      | `Soft -> "soft"
+      | `Hard -> "hard"
     in user_attrib f "wrap" w
 
   let a_size = int_attrib "size"
 
   let a_input_type it =
-      let f = function | `Url -> "url"
-         | `Tel -> "tel"
-         | `Text -> "text"
-         | `Time -> "time"
-         | `Search -> "search"
-         | `Password -> "password"
-         | `Checkbox -> "checkbox"
-         | `Range -> "range"
-         | `Radio -> "radio"
-         | `Submit -> "submit"
-         | `Reset -> "reset"
-         | `Number -> "number"
-         | `Month -> "month"
-         | `Week -> "week"
-         | `File -> "file"
-         | `Email -> "email"
-         | `Image -> "image"
-         | `Date -> "date"
-         | `Datetime -> "datetime"
-         | `Datetime_local -> "datetime-locale"
-         | `Color -> "color"
-         | `Button -> "button"
-         | `Hidden -> "hidden"
- in user_attrib f "type" it
+    let f = function
+      | `Url -> "url"
+      | `Tel -> "tel"
+      | `Text -> "text"
+      | `Time -> "time"
+      | `Search -> "search"
+      | `Password -> "password"
+      | `Checkbox -> "checkbox"
+      | `Range -> "range"
+      | `Radio -> "radio"
+      | `Submit -> "submit"
+      | `Reset -> "reset"
+      | `Number -> "number"
+      | `Month -> "month"
+      | `Week -> "week"
+      | `File -> "file"
+      | `Email -> "email"
+      | `Image -> "image"
+      | `Date -> "date"
+      | `Datetime -> "datetime"
+      | `Datetime_local -> "datetime-locale"
+      | `Color -> "color"
+      | `Button -> "button"
+      | `Hidden -> "hidden"
+    in user_attrib f "type" it
 
   let a_menu_type mt =
-      let f = function | `Context -> "context" | `Toolbar -> "toolbar"
- in user_attrib f "type" mt
+    let f = function
+      | `Context -> "context"
+      | `Toolbar -> "toolbar"
+    in user_attrib f "type" mt
 
   let a_command_type ct =
-      let f = function | `Command -> "command"
-         | `Checkbox -> "checkbox"
-         | `Radio -> "radio"
- in user_attrib f "type" ct
+    let f = function
+      | `Command -> "command"
+      | `Checkbox -> "checkbox"
+      | `Radio -> "radio"
+    in user_attrib f "type" ct
 
   let a_button_type bt =
-      let f = function | `Button -> "button"
-         | `Submit -> "submit"
-         | `Reset -> "reset"
- in user_attrib f "type" bt
+    let f = function
+      | `Button -> "button"
+      | `Submit -> "submit"
+      | `Reset -> "reset"
+    in user_attrib f "type" bt
 
   let a_multiple x =
-let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
+    let f = function
+      | `Multiple -> "multiple"
+    in user_attrib f "multiple" x
 
   let a_cols = int_attrib "cols"
 
@@ -611,11 +667,12 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   let a_summary = string_attrib "summary"
 
   let a_align a =
-      let f = function | `Left -> "left"
-         | `Right -> "right"
-         | `Justify -> "justify"
-         | `Char -> "char"
- in user_attrib f "align" a
+    let f = function
+      | `Left -> "left"
+      | `Right -> "right"
+      | `Justify -> "justify"
+      | `Char -> "char"
+    in user_attrib f "align" a
 
   let a_axis = string_attrib "axis"
 
@@ -626,11 +683,12 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   let a_rowspan = int_attrib "rowspan"
 
   let a_scope s =
-      let f = function | `Row -> "row"
-         | `Col -> "col"
-         | `Rowgroup -> "rowgroup"
-         | `Colgroup -> "colgroup"
- in user_attrib f "scope" s
+    let f = function
+      | `Row -> "row"
+      | `Col -> "col"
+      | `Rowgroup -> "rowgroup"
+      | `Colgroup -> "colgroup"
+    in user_attrib f "scope" s
 
   let a_border = int_attrib "border"
 
@@ -641,12 +699,13 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   let a_datapagesize = string_attrib "datapagesize"
 
   let a_rules r =
-      let f = function | `None -> "none"
-         | `Groups -> "groups"
-         | `Rows -> "rows"
-         | `Cols -> "cols"
-         | `All -> "all"
- in user_attrib f "rules" r
+    let f = function
+      | `None -> "none"
+      | `Groups -> "groups"
+      | `Rows -> "rows"
+      | `Cols -> "cols"
+      | `All -> "all"
+    in user_attrib f "rules" r
 
   let a_char c =
     user_attrib (String.make 1) "char" c
@@ -662,7 +721,9 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   let a_fs_cols mls = multilengths_attrib "cols" mls
 
   let a_frameborder b =
-    let f = function `Zero -> "0" | `One -> "1"
+    let f = function
+      | `Zero -> "0"
+      | `One -> "1"
     in user_attrib f "frameborder" b
 
   let a_marginheight = int_attrib "marginheight"
@@ -670,8 +731,11 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   let a_marginwidth = int_attrib "marginwidth"
 
   let a_scrolling s =
-      let f = function | `Yes -> "yes" | `No -> "no" | `Auto -> "auto"
- in user_attrib f "scrolling" s
+    let f = function
+      | `Yes -> "yes"
+      | `No -> "no"
+      | `Auto -> "auto"
+    in user_attrib f "scrolling" s
 
   let a_target = string_attrib "target"
 
@@ -703,8 +767,6 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
 
   let terminal tag ?a () = Xml.leaf ?a tag
 
-  (* let nullary tag ?a () = Xml.node ?a tag [] *)
-
   let nullary tag ?a () =
     Xml.node ?a tag (W.return [])
 
@@ -729,38 +791,59 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
     let l = W.fmap2 (@) elt elts in
     Xml.node ?a tag l
 
-  let list_of_option = function | Some x -> [ x ] | None -> []
+  let list_of_option = function
+    | Some x -> [ x ]
+    | None -> []
 
-  let list_of_list_option = function | Some x -> x | None -> []
+  let list_of_list_option = function
+    | Some x -> x
+    | None -> []
 
-  let srcs_option = function | Some (`Srcs s) -> s | None -> []
+  let srcs_option = function
+    | Some (`Srcs s) -> s
+    | None -> []
 
-  let phrasing_option = function | Some (`Phras p) -> p | None -> []
+  let phrasing_option = function
+    | Some (`Phras p) -> p
+    | None -> []
 
-  let ruby_option =
-      function | Some (`Rt_elt r) -> r | Some (`Group g) -> g | None -> []
+  let ruby_option = function
+    | Some (`Rt_elt r) -> r
+    | Some (`Group g) -> g
+    | None -> []
 
-  let body_option =
-      function | Some (`Body b) -> b | Some (`Trs t) -> t | None -> []
+  let body_option = function
+    | Some (`Body b) -> b
+    | Some (`Trs t) -> t
+    | None -> []
 
-  let colg_option = function | Some (`Colgroups c) -> c | None -> []
+  let colg_option = function
+    | Some (`Colgroups c) -> c
+    | None -> []
 
-  let opts_option =
-      function
-      | Some (`Options o) -> o
-      | Some (`Optgroups o) -> o
-      | None -> []
+  let opts_option = function
+    | Some (`Options o) -> o
+    | Some (`Optgroups o) -> o
+    | None -> []
 
-  let li_option =
-      function | Some (`Lis l) -> l | Some (`Flows f) -> f | None -> []
+  let li_option = function
+    | Some (`Lis l) -> l
+    | Some (`Flows f) -> f
+    | None -> []
 
-  let opt_option =
-      function | Some (`Options o) -> o | Some (`Phras p) -> p | None -> []
+  let opt_option = function
+    | Some (`Options o) -> o
+    | Some (`Phras p) -> p
+    | None -> []
 
-  let param_option = function | Some (`Params p) -> p | None -> []
+  let param_option = function
+    | Some (`Params p) -> p
+    | None -> []
 
-  let cols_option =
-      function | Some (`Cols c) -> c | Some (`Colgroups c) -> c | None -> []
+  let cols_option = function
+    | Some (`Cols c) -> c
+    | Some (`Colgroups c) -> c
+    | None -> []
 
   let body = star "body"
 
@@ -920,7 +1003,7 @@ let f = function | `Multiple -> "multiple" in user_attrib f "multiple" x
   let a_usemap = string_attrib "usemap"
 
   let a_defer x =
-let f = function | `Defer -> "defer" in user_attrib f "defer" x
+    let f = function | `Defer -> "defer" in user_attrib f "defer" x
 
   let a_label = string_attrib "label"
 
@@ -971,44 +1054,42 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
 
   let form = plus "form"
 
-  let svg ?(xmlns = "http://www.w3.org/2000/svg")
-      ?(a = []) children =
+  let svg ?(xmlns = "http://www.w3.org/2000/svg") ?(a = []) children =
     star ~a:(string_attrib "xmlns" (W.return xmlns) ::(Svg.to_xmlattribs a))
       "svg" (W.fmap Svg.toeltl children)
 
   type input_attr =
-      [
-        | common
-        | `Accept
-        | `Alt
-        | `Autocomplete
-        | `Autofocus
-        | `Checked
-        | `Disabled
-        | `Form
-        | `Formation
-        | `Formenctype
-        | `Formmethod
-        | `Formnovalidate
-        | `Formtarget
-        | `Height
-        | `List
-        | `Input_Max
-        | `Maxlength
-        | `Input_Min
-        | `Multiple
-        | `Name
-        | `Pattern
-        | `Placeholder
-        | `ReadOnly
-        | `Required
-        | `Size
-        | `Src
-        | `Step
-        | `Input_Type
-        | `Value
-        | `Width
-      ]
+    [ common
+    | `Accept
+    | `Alt
+    | `Autocomplete
+    | `Autofocus
+    | `Checked
+    | `Disabled
+    | `Form
+    | `Formation
+    | `Formenctype
+    | `Formmethod
+    | `Formnovalidate
+    | `Formtarget
+    | `Height
+    | `List
+    | `Input_Max
+    | `Maxlength
+    | `Input_Min
+    | `Multiple
+    | `Name
+    | `Pattern
+    | `Placeholder
+    | `ReadOnly
+    | `Required
+    | `Size
+    | `Src
+    | `Step
+    | `Input_Type
+    | `Value
+    | `Width
+    ]
 
   let input = terminal "input"
 
@@ -1033,15 +1114,15 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
   let legend = star "legend"
 
   let details summary ?a children =
-      plus "details" ?a summary children
+    plus "details" ?a summary children
 
   let summary = star "summary"
 
   let fieldset ?legend ?a elts =
-      plus_concat ?a "fieldset" (opt_fmap (fun x -> [ x ]) legend []) elts
+    plus_concat ?a "fieldset" (opt_fmap (fun x -> [ x ]) legend []) elts
 
   let optgroup ~label ?(a = []) elts =
-      Xml.node ~a: ((a_label label) :: a) "optgroup" elts
+    Xml.node ~a: ((a_label label) :: a) "optgroup" elts
 
   let figcaption = star "figcaption"
   let figure ?figcaption ?a elts =
@@ -1103,21 +1184,20 @@ let f = function | `Defer -> "defer" in user_attrib f "defer" x
   let style ?(a = []) elts = Xml.node ~a "style" elts
 
   let link ~rel ~href ?(a = []) () =
-      Xml.leaf ~a: ((a_rel rel) :: (a_href href) :: a) "link"
+    Xml.leaf ~a: ((a_rel rel) :: (a_href href) :: a) "link"
 
   let base = terminal "base"
 
-    (* VB *)
+  (* VB *)
 
-    type rt =
-      [
-        | `Rt of [ | `Rt ] elt
-        | `Rpt of (([ | `Rp ] elt) * ([ | `Rt ] elt) * ([ | `Rp ] elt))
-      ]
+  type rt =
+    [ `Rt of [ | `Rt ] elt
+    | `Rpt of (([ | `Rp ] elt) * ([ | `Rt ] elt) * ([ | `Rp ] elt))
+    ]
 
-    type ruby_content = (((phrasing elt) list) * rt)
+  type ruby_content = (((phrasing elt) list) * rt)
 
-    type rp = (((common attrib) list) * ((phrasing elt) list wrap))
+  type rp = (((common attrib) list) * ((phrasing elt) list wrap))
 
   (******************************************************************)
   (* Conversion from and to Xml module *)
