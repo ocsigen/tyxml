@@ -95,14 +95,22 @@ let store_string c s = Buffer.add_string c.buffer s
 
 
 (* Deal with entities  *)
-let idents = Hashtbl.create 0
 
+let entities = [
+  "gt"  ,62, ">";
+  "lt"  ,60, "<";
+  "amp" ,38, "&";
+  "apos",39, "'";
+  "quot",34, "\"";
+]
+
+let idents = Hashtbl.create 0
 let _ = begin
-        Hashtbl.add idents "gt;" ">";
-        Hashtbl.add idents "lt;" "<";
-        Hashtbl.add idents "amp;" "&";
-        Hashtbl.add idents "apos;" "'";
-        Hashtbl.add idents "quot;" "\"";
+  List.iter (fun (str,code,res) ->
+      Hashtbl.add idents (str^";") res;
+      if code > 0
+      then Hashtbl.add idents ("#" ^ string_of_int code ^ ";") res
+    ) entities
 end
 
 
@@ -159,7 +167,7 @@ let newline = ['\n']
 let break = ['\r']
 let space = [' ' '\t']
 let identchar =  ['A'-'Z' 'a'-'z' '_' '0'-'9' ':' '-']
-let entitychar = ['A'-'Z' 'a'-'z']
+let entitychar = ['A'-'Z' 'a'-'z' '0'-'9']
 let pcchar = [^ '\r' '\n' '<' '>' '&' '$']
 let camlidentchar =  [^ '$' ]
 
@@ -184,11 +192,6 @@ rule token c = parse
       ignore_spaces c lexbuf;
       let attribs, closed = attributes c lexbuf in
       `Tag(tag, attribs, closed)
-    }
-  | "&#" {
-      ignore(buff_contents c);
-      store c ;
-      `PCData (pcdata c lexbuf)
     }
   | '&' {
       ignore (buff_contents c);
@@ -262,10 +265,6 @@ and pcdata c = parse
       store c ;
       pcdata c lexbuf
     }
-  | "&#" {
-      store c ;
-      pcdata c lexbuf;
-    }
   | '&' {
       store_string c (entity c lexbuf);
       pcdata c lexbuf
@@ -279,6 +278,12 @@ and entity c = parse
       if not c.entity then "&" ^ ident else
         try Hashtbl.find idents (String.lowercase ident)
         with Not_found -> "&" ^ ident
+    }
+  | '#' ['0'-'9']+ ';' {
+      let ident = lexeme c in
+      if not c.entity then "&#" ^ ident else
+        try Hashtbl.find idents (String.lowercase ident)
+        with Not_found -> "&#" ^ ident
     }
   | _ | eof { err EUnterminatedEntity (Loc.of_lexbuf lexbuf) }
 
