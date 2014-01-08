@@ -50,6 +50,7 @@ module LexerArg = struct
   type token = [
   = `Tag of (string * (list attribute) * bool)
   | `PCData of string
+  | `CDATA of string
   | `Endtag of string
   | `Comment of string
   | `CamlString of string
@@ -172,7 +173,8 @@ module Make
   value rec read_node s =
     let _loc = s.loc in
     match pop s with
-      [ (`PCData s, _) ->
+      [ (`PCData s, _)
+      | (`CDATA s,  _) ->
           <:expr< $S.tot _loc$ ($S.xml_encodedpcdata _loc$ $str:String.escaped s$) >>
       | (`CamlString s, _) ->
           <:expr< $S.tot _loc$ ($S.xml_encodedpcdata _loc$ $get_expr s _loc$) >>
