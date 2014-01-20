@@ -30,4 +30,3 @@ type token =
   | CamlExpr of string
   | Whitespace of string
   | Eof ];
-

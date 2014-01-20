@@ -47,6 +47,7 @@ module LexerArg = struct
   type token = [
   = `Tag of (string * (list attribute) * bool)
   | `PCData of string
+  | `CDATA of string
   | `Endtag of string
   | `Comment of string
   | `Whitespace of string
@@ -89,7 +90,8 @@ value rec read_nodes s acc =
     match pop s with
     [ (`Comment _, s) -> read_nodes s acc
     | (`Whitespace _, s) -> read_nodes s acc
-    | (`PCData pcdata, s) -> read_nodes s [(PCData pcdata)::acc]
+    | (`PCData pcdata, s)
+    | (`CDATA pcdata, s) -> read_nodes s [(PCData pcdata)::acc]
     | (`Tag ("xi:include",
              [`Attribute (`AttrName "href", `AttrVal v)], True), s)->
         let l = rawxmlparser_file v in

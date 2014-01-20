@@ -129,6 +129,7 @@ module type LexerArgSig = sig
   type token = private [>
   | `Tag of (string * (attribute list) * bool)
   | `PCData of string
+  | `CDATA of string
   | `Endtag of string
   | `Comment of string
   | `Whitespace of string
@@ -173,6 +174,10 @@ rule token c = parse
          si le seul noeud à analyser était un commentaire *)
   | "<!--" { `Comment(comment c [Loc.of_lexbuf c.lexbuf] lexbuf)}
   | "<?" { header c lexbuf;  token c lexbuf }
+  | "<![CDATA[" {
+     ignore (buff_contents c);
+     cdata c lexbuf
+     }
   | '<' space* '/' space* {
       let tag = ident_name c lexbuf in
       ignore_spaces c lexbuf;
@@ -256,6 +261,10 @@ and header c = parse
   | "?>" { () }
   | eof { err ECloseExpected (loc c) }
   | _ { header c lexbuf }
+
+and cdata c = parse
+  | "]]>" { `CDATA (buff_contents c) }
+  | _     { store c; cdata c lexbuf }
 
 and pcdata c = parse
   | pcchar+ {
