@@ -1,3 +1,6 @@
+===== dev ====
+
+  * In the functorial interface, allow to wrap xml nodes inside a monad by providing an additionnal wrapping module. Used by reactive nodes in eliom.
 
 ===== 2.3.0 =====
 

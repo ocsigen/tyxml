@@ -18,7 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
  *)
 
-module type T = sig
+module type Wrapped = sig
+
+  type 'a wrap
 
   type uri
   val string_of_uri : uri -> string
@@ -29,14 +31,14 @@ module type T = sig
 
   type attrib
 
-  val float_attrib : aname -> float -> attrib
-  val int_attrib : aname -> int -> attrib
-  val string_attrib : aname -> string -> attrib
-  val space_sep_attrib : aname -> string list -> attrib
-  val comma_sep_attrib : aname -> string list -> attrib
+  val float_attrib : aname -> float wrap -> attrib
+  val int_attrib : aname -> int wrap -> attrib
+  val string_attrib : aname -> string wrap -> attrib
+  val space_sep_attrib : aname -> string list wrap -> attrib
+  val comma_sep_attrib : aname -> string list wrap -> attrib
   val event_handler_attrib : aname -> event_handler -> attrib
-  val uri_attrib : aname -> uri -> attrib
-  val uris_attrib : aname -> uri list -> attrib
+  val uri_attrib : aname -> uri wrap -> attrib
+  val uris_attrib : aname -> uri list wrap -> attrib
 
   type elt
   type ename = string
@@ -44,18 +46,20 @@ module type T = sig
   val empty : unit -> elt
   val comment : string -> elt
 
-  val pcdata : string -> elt
-  val encodedpcdata : string -> elt
+  val pcdata : string wrap -> elt
+  val encodedpcdata : string wrap -> elt
   val entity : string -> elt
 
   val leaf : ?a:(attrib list) -> ename -> elt
-  val node : ?a:(attrib list) -> ename -> elt list -> elt
+  val node : ?a:(attrib list) -> ename -> elt list wrap -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
   val cdata_style : string -> elt
 
 end
+
+module type T = Wrapped with type 'a wrap = 'a
 
 module type Iterable = sig
 

@@ -21,9 +21,11 @@ module type T = sig
 
   open Html5_types
 
-  module Xml : Xml_sigs.T
+  module Xml : Xml_sigs.Wrapped
   module Svg : Svg_sigs.T with module Xml := Xml
   module Info : Xml_sigs.Info
+
+  type 'a wrap
 
   type uri = Xml.uri
   val string_of_uri : uri -> string
@@ -43,127 +45,127 @@ module type T = sig
       NB: It might be possible to use polymorphic variants directly, without
       phantom types, but the implementation is likely to be more involved. *)
 
-  val a_autocomplete : [< | `On | `Off] -> [> | `Autocomplete] attrib
+  val a_autocomplete : [< | `On | `Off] wrap -> [> | `Autocomplete] attrib
 
-  val a_async : [< | `Async] -> [> | `Async] attrib
+  val a_async : [< | `Async] wrap -> [> | `Async] attrib
 
-  val a_autofocus : [< | `Autofocus] -> [> | `Autofocus] attrib
+  val a_autofocus : [< | `Autofocus] wrap -> [> | `Autofocus] attrib
 
-  val a_autoplay : [< | `Autoplay] -> [> | `Autoplay] attrib
+  val a_autoplay : [< | `Autoplay] wrap -> [> | `Autoplay] attrib
 
-  val a_challenge : text -> [> | `Challenge] attrib
+  val a_challenge : text wrap -> [> | `Challenge] attrib
 
   val a_contenteditable :
-    [< | `True | `False] -> [> | `Contenteditable] attrib
+    [< | `True | `False] wrap -> [> | `Contenteditable] attrib
 
-  val a_contextmenu : idref -> [> | `Contextmenu] attrib
+  val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
 
-  val a_controls : [< | `Controls] -> [> | `Controls] attrib
+  val a_controls : [< | `Controls] wrap -> [> | `Controls] attrib
 
-  val a_dir : [< | `Rtl | `Ltr] -> [> | `Dir] attrib
+  val a_dir : [< | `Rtl | `Ltr] wrap -> [> | `Dir] attrib
 
-  val a_draggable : [< | `True | `False] -> [> | `Draggable] attrib
+  val a_draggable : [< | `True | `False] wrap -> [> | `Draggable] attrib
 
-  val a_form : idref -> [> | `Form] attrib
+  val a_form : idref wrap -> [> | `Form] attrib
 
-  val a_formaction : Xml.uri -> [> | `Formaction] attrib
+  val a_formaction : Xml.uri wrap -> [> | `Formaction] attrib
 
-  val a_formenctype : contenttype -> [> | `Formenctype] attrib
+  val a_formenctype : contenttype wrap -> [> | `Formenctype] attrib
 
   val a_formmethod :
-    [< | `Get | `Post | `Put | `Delete] -> [> | `Formmethod] attrib
+    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Formmethod] attrib
 
   val a_formnovalidate :
-    [< | `Formnovalidate] -> [> | `Formnovalidate] attrib
+    [< | `Formnovalidate] wrap -> [> | `Formnovalidate] attrib
 
-  val a_formtarget : text -> [> | `Formtarget] attrib
+  val a_formtarget : text wrap -> [> | `Formtarget] attrib
 
-  val a_hidden : [< | `Hidden] -> [> | `Hidden] attrib
+  val a_hidden : [< | `Hidden] wrap -> [> | `Hidden] attrib
 
-  val a_high : float_number -> [> | `High] attrib
+  val a_high : float_number wrap -> [> | `High] attrib
 
-  val a_icon : Xml.uri -> [> | `Icon] attrib
+  val a_icon : Xml.uri wrap -> [> | `Icon] attrib
 
-  val a_ismap : [< | `Ismap] -> [> | `Ismap] attrib
+  val a_ismap : [< | `Ismap] wrap -> [> | `Ismap] attrib
 
-  val a_keytype : text -> [> | `Keytype] attrib
+  val a_keytype : text wrap -> [> | `Keytype] attrib
 
-  val a_list : idref -> [> | `List] attrib
+  val a_list : idref wrap -> [> | `List] attrib
 
-  val a_loop : [< | `Loop] -> [> | `Loop] attrib
+  val a_loop : [< | `Loop] wrap -> [> | `Loop] attrib
 
-  val a_low : float_number -> [> | `High] attrib
+  val a_low : float_number wrap -> [> | `High] attrib
 
-  val a_max : float_number -> [> | `Max] attrib
+  val a_max : float_number wrap -> [> | `Max] attrib
 
-  val a_input_max : float_number -> [> | `Input_Max] attrib
+  val a_input_max : float_number wrap -> [> | `Input_Max] attrib
 
-  val a_min : float_number -> [> | `Min] attrib
+  val a_min : float_number wrap -> [> | `Min] attrib
 
-  val a_input_min : float_number -> [> | `Input_Min] attrib
+  val a_input_min : float_number wrap -> [> | `Input_Min] attrib
 
-  val a_novalidate : [< | `Novalidate] -> [> | `Novalidate] attrib
+  val a_novalidate : [< | `Novalidate] wrap -> [> | `Novalidate] attrib
 
-  val a_open : [< | `Open] -> [> | `Open] attrib
+  val a_open : [< | `Open] wrap -> [> | `Open] attrib
 
-  val a_optimum : float_number -> [> | `Optimum] attrib
+  val a_optimum : float_number wrap -> [> | `Optimum] attrib
 
-  val a_pattern : text -> [> | `Pattern] attrib
+  val a_pattern : text wrap -> [> | `Pattern] attrib
 
-  val a_placeholder : text -> [> | `Placeholder] attrib
+  val a_placeholder : text wrap -> [> | `Placeholder] attrib
 
-  val a_poster : Xml.uri -> [> | `Poster] attrib
+  val a_poster : Xml.uri wrap -> [> | `Poster] attrib
 
-  val a_preload : [< | `None | `Metadata | `Audio] -> [> | `Preload] attrib
+  val a_preload : [< | `None | `Metadata | `Audio] wrap -> [> | `Preload] attrib
 
-  val a_pubdate : [< | `Pubdate] -> [> | `Pubdate] attrib
+  val a_pubdate : [< | `Pubdate] wrap -> [> | `Pubdate] attrib
 
-  val a_radiogroup : text -> [> | `Radiogroup] attrib
+  val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
 
-  val a_required : [< | `Required] -> [> | `Required] attrib
+  val a_required : [< | `Required] wrap -> [> | `Required] attrib
 
-  val a_reversed : [< | `Reversed] -> [> | `Reversed] attrib
+  val a_reversed : [< | `Reversed] wrap -> [> | `Reversed] attrib
 
   val a_sandbox :
-    [< | `AllowSameOrigin | `AllowForms | `AllowScript] list ->
+    [< | `AllowSameOrigin | `AllowForms | `AllowScript] list wrap ->
     [> | `Sandbox] attrib
 
-  val a_spellcheck : [< | `True | `False] -> [> | `Spellcheck] attrib
+  val a_spellcheck : [< | `True | `False] wrap -> [> | `Spellcheck] attrib
 
-  val a_scoped : [< | `Scoped] -> [> | `Scoped] attrib
+  val a_scoped : [< | `Scoped] wrap -> [> | `Scoped] attrib
 
-  val a_seamless : [< | `Seamless] -> [> | `Seamless] attrib
+  val a_seamless : [< | `Seamless] wrap -> [> | `Seamless] attrib
 
-  val a_sizes : numbers -> [> | `Sizes] attrib
+  val a_sizes : numbers wrap -> [> | `Sizes] attrib
 
-  val a_span : number -> [> | `Span] attrib
+  val a_span : number wrap -> [> | `Span] attrib
 
   (*val a_srcdoc*)
-  val a_srclang : nmtoken -> [> | `XML_lang] attrib
+  val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
 
-  val a_start : number -> [> | `Start] attrib
+  val a_start : number wrap -> [> | `Start] attrib
 
-  val a_step : float_number option -> [> | `Step] attrib
+  val a_step : float_number option wrap -> [> | `Step] attrib
 
-  val a_wrap : [< | `Soft | `Hard] -> [> | `Wrap] attrib
+  val a_wrap : [< | `Soft | `Hard] wrap -> [> | `Wrap] attrib
 
-  val a_class : nmtokens -> [> | `Class] attrib
+  val a_class : nmtokens wrap -> [> | `Class] attrib
   (** This attribute assigns a class name or set of class names to an
       element. Any number of elements may be assigned the same class
       name or names.  *)
 
-  val a_user_data : nmtoken -> text -> [> | `User_data] attrib
+  val a_user_data : nmtoken -> text wrap -> [> | `User_data] attrib
   (** May be used to specify custom attribs.
       The example given by the W3C is as follows :
       {v <ol>
       <li data-length="2m11s">Beyond The Sea</li>
       </ol> v}
       It should be used for preprocessing ends only. *)
-  val a_id : text -> [> | `Id] attrib
+  val a_id : text wrap -> [> | `Id] attrib
   (** This attribute assigns a name to an element. This name must be
       unique in a document. The text should be without any space. *)
 
-  val a_title : text -> [> | `Title] attrib
+  val a_title : text wrap -> [> | `Title] attrib
   (** This attribute offers advisory information about the element for
       which it is set. *)
 
@@ -179,7 +181,7 @@ module type T = sig
 
   (** {2 I18N} *)
 
-  val a_xml_lang : nmtoken -> [> | `XML_lang] attrib
+  val a_xml_lang : nmtoken wrap -> [> | `XML_lang] attrib
 
   (** {2 Events} *)
 
@@ -322,41 +324,41 @@ module type T = sig
 
   val a_onmessage : Xml.event_handler -> [> | `OnMessage] attrib
 
-  val a_version : cdata -> [> | `Version] attrib
+  val a_version : cdata wrap -> [> | `Version] attrib
 
-  val a_xmlns : [< | `W3_org_1999_xhtml] -> [> | `XMLns] attrib
+  val a_xmlns : [< | `W3_org_1999_xhtml] wrap -> [> | `XMLns] attrib
 
-  val a_manifest : Xml.uri -> [> | `Manifest] attrib
+  val a_manifest : Xml.uri wrap -> [> | `Manifest] attrib
 
-  val a_cite : Xml.uri -> [> | `Cite] attrib
+  val a_cite : Xml.uri wrap -> [> | `Cite] attrib
 
-  val a_xml_space : [< | `Preserve] -> [> | `XML_space] attrib
+  val a_xml_space : [< | `Preserve] wrap -> [> | `XML_space] attrib
 
-  val a_accesskey : character -> [> | `Accesskey] attrib
+  val a_accesskey : character wrap -> [> | `Accesskey] attrib
   (** This attribute assigns an access key to an element. An access key
       is a single character from the document character
       set. NB: authors should consider the input method of the
       expected reader when specifying an accesskey. *)
 
-  val a_charset : charset -> [> | `Charset] attrib
+  val a_charset : charset wrap -> [> | `Charset] attrib
   (** This attribute specifies the character encoding of the resource
       designated by the link. Please consult the section on character
       encodings for more details. *)
 
-  val a_accept_charset : charsets -> [> | `Accept_charset] attrib
+  val a_accept_charset : charsets wrap -> [> | `Accept_charset] attrib
 
-  val a_accept : contenttypes -> [> | `Accept] attrib
+  val a_accept : contenttypes wrap -> [> | `Accept] attrib
 
-  val a_href : Xml.uri -> [> | `Href] attrib
+  val a_href : Xml.uri wrap -> [> | `Href] attrib
   (** This attribute specifies the location of a Web resource, thus
       defining a link between the current element (the source anchor)
       and the destination anchor defined by this attribute. *)
 
-  val a_hreflang : languagecode -> [> | `Hreflang] attrib
+  val a_hreflang : languagecode wrap -> [> | `Hreflang] attrib
   (** This attribute specifies the base language of the resource
       designated by href and may only be used when href is specified. *)
 
-  val a_rel : linktypes -> [> | `Rel] attrib
+  val a_rel : linktypes wrap -> [> | `Rel] attrib
   (** This attribute describes the relationship from the current
       document to the anchor specified by the href attribute. The
       value of this attribute is a space-separated list of link
@@ -367,13 +369,13 @@ module type T = sig
       document. The value of this attribute is a space-separated
       list of link types. *)
 
-  val a_tabindex : number -> [> | `Tabindex] attrib
+  val a_tabindex : number wrap -> [> | `Tabindex] attrib
   (** This attribute specifies the position of the current
       element in the tabbing order for the current document. This
       value must be a number between 0 and 32767. User agents
       should ignore leading zeros. *)
 
-  val a_mime_type : contenttype -> [> | `Mime_type] attrib
+  val a_mime_type : contenttype wrap -> [> | `Mime_type] attrib
   (** This attribute gives an advisory hint as to the content type
       of the content available at the link target address. It
       allows user agents to opt to use a fallback mechanism rather
@@ -383,19 +385,19 @@ module type T = sig
       risk that it may become inconsistent with the content
       available at the link target address. *)
 
-  val a_datetime : cdata -> [> | `Datetime] attrib
+  val a_datetime : cdata wrap -> [> | `Datetime] attrib
 
-  val a_action : Xml.uri -> [> | `Action] attrib
+  val a_action : Xml.uri wrap -> [> | `Action] attrib
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
 
-  val a_checked : [< | `Checked] -> [> | `Checked] attrib
+  val a_checked : [< | `Checked] wrap -> [> | `Checked] attrib
   (** When the [type] attribute has the value ["radio"] or
       ["checkbox"], this boolean attribute specifies that the
       button is on. User agents must ignore this attribute for
       other control types. *)
 
-  val a_cols : number -> [> | `Cols] attrib
+  val a_cols : number wrap -> [> | `Cols] attrib
   (** This attribute specifies the visible width in average
       character widths. Users should be able to enter longer lines
       than this, so user agents should provide some means to
@@ -404,36 +406,36 @@ module type T = sig
       text lines to keep long lines visible without the need for
       scrolling. *)
 
-  val a_enctype : contenttype -> [> | `Enctype] attrib
+  val a_enctype : contenttype wrap -> [> | `Enctype] attrib
 
-  val a_for : idref -> [> | `For] attrib
+  val a_for : idref wrap -> [> | `For] attrib
 
-  val a_for_list : idrefs -> [> | `For_List] attrib
+  val a_for_list : idrefs wrap -> [> | `For_List] attrib
 
-  val a_maxlength : number -> [> | `Maxlength] attrib
+  val a_maxlength : number wrap -> [> | `Maxlength] attrib
 
   val a_method :
-    [< | `Get | `Post | `Put | `Delete] -> [> | `Method] attrib
+    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
 
-  val a_multiple : [< | `Multiple] -> [> | `Multiple] attrib
+  val a_multiple : [< | `Multiple] wrap -> [> | `Multiple] attrib
 
-  val a_name : text -> [> | `Name] attrib
+  val a_name : text wrap -> [> | `Name] attrib
   (** This attribute assigns the control name. *)
 
-  val a_rows : number -> [> | `Rows] attrib
+  val a_rows : number wrap -> [> | `Rows] attrib
   (** This attribute specifies the number of visible text
       lines. Users should be able to enter more lines than this,
       so user agents should provide some means to scroll through
       the contents of the control when the contents extend beyond
       the visible area. *)
 
-  val a_selected : [< | `Selected] -> [> | `Selected] attrib
+  val a_selected : [< | `Selected] wrap -> [> | `Selected] attrib
   (** When set, this boolean attribute specifies that
       this option is pre-selected. *)
 
-  val a_size : number -> [> | `Size] attrib
+  val a_size : number wrap -> [> | `Size] attrib
 
-  val a_src : Xml.uri -> [> | `Src] attrib
+  val a_src : Xml.uri wrap -> [> | `Src] attrib
 
   val a_input_type : [<
 		     | `Url
@@ -458,107 +460,107 @@ module type T = sig
 		     | `Datetime
 		     | `Date
 		     | `Color
-		     | `Button] -> [> | `Input_Type] attrib
+		     | `Button] wrap -> [> | `Input_Type] attrib
 
-  val a_text_value : text -> [> | `Text_Value] attrib
+  val a_text_value : text wrap -> [> | `Text_Value] attrib
   (** This attribute specifies the initial value of the
       control. If this attribute is not set, the initial value is
       set to the contents of the [option] element. *)
 
-  val a_int_value : number -> [> | `Int_Value] attrib
+  val a_int_value : number wrap -> [> | `Int_Value] attrib
 
   (*VVV NO *)
-  val a_value : cdata -> [> | `Value] attrib
+  val a_value : cdata wrap -> [> | `Value] attrib
 
-  val a_float_value : float_number -> [> | `Float_Value] attrib
+  val a_float_value : float_number wrap -> [> | `Float_Value] attrib
 
-  val a_disabled : [< | `Disabled] -> [> | `Disabled] attrib
+  val a_disabled : [< | `Disabled] wrap -> [> | `Disabled] attrib
 
-  val a_readonly : [< | `ReadOnly] -> [> | `ReadOnly] attrib
+  val a_readonly : [< | `ReadOnly] wrap -> [> | `ReadOnly] attrib
   val a_button_type :
-    [< | `Button | `Submit | `Reset] -> [> | `Button_Type] attrib
+    [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
 
   val a_command_type :
-    [< | `Command | `Checkbox | `Radio] -> [> | `Command_Type] attrib
+    [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
 
-  val a_menu_type : [< | `Context | `Toolbar] -> [> | `Menu_Type] attrib
+  val a_menu_type : [< | `Context | `Toolbar] wrap -> [> | `Menu_Type] attrib
 
-  val a_label : text -> [> | `Label] attrib
+  val a_label : text wrap -> [> | `Label] attrib
 
   val a_align :
-    [< | `Left | `Right | `Justify | `Char] -> [> | `Align] attrib
+    [< | `Left | `Right | `Justify | `Char] wrap -> [> | `Align] attrib
 
-  val a_axis : cdata -> [> | `Axis] attrib
+  val a_axis : cdata wrap -> [> | `Axis] attrib
 
-  val a_colspan : number -> [> | `Colspan] attrib
+  val a_colspan : number wrap -> [> | `Colspan] attrib
 
-  val a_headers : idrefs -> [> | `Headers] attrib
+  val a_headers : idrefs wrap -> [> | `Headers] attrib
 
-  val a_rowspan : number -> [> | `Rowspan] attrib
+  val a_rowspan : number wrap -> [> | `Rowspan] attrib
 
   val a_scope :
-    [< | `Row | `Col | `Rowgroup | `Colgroup] -> [> | `Scope] attrib
+    [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
 
-  val a_summary : text -> [> | `Summary] attrib
+  val a_summary : text wrap -> [> | `Summary] attrib
 
-  val a_border : pixels -> [> | `Border] attrib
+  val a_border : pixels wrap -> [> | `Border] attrib
 
-  val a_cellpadding : length -> [> | `Cellpadding] attrib
+  val a_cellpadding : length wrap -> [> | `Cellpadding] attrib
 
-  val a_cellspacing : length -> [> | `Cellspacing] attrib
+  val a_cellspacing : length wrap -> [> | `Cellspacing] attrib
 
-  val a_datapagesize : cdata -> [> | `Datapagesize] attrib
+  val a_datapagesize : cdata wrap -> [> | `Datapagesize] attrib
 
   val a_rules :
-    [< | `None | `Groups | `Rows | `Cols | `All] -> [> | `Rules] attrib
+    [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
 
-  val a_char : character -> [> | `Char] attrib
+  val a_char : character wrap -> [> | `Char] attrib
 
-  val a_charoff : length -> [> | `Charoff] attrib
+  val a_charoff : length wrap -> [> | `Charoff] attrib
 
-  val a_alt : text -> [> | `Alt] attrib
+  val a_alt : text wrap -> [> | `Alt] attrib
 
-  val a_height : number -> [> | `Height] attrib
+  val a_height : number wrap -> [> | `Height] attrib
 
-  val a_width : number -> [> | `Width] attrib
+  val a_width : number wrap -> [> | `Width] attrib
 
   type shape = [ | `Rect | `Circle | `Poly | `Default ]
 
-  val a_shape : shape -> [> | `Shape] attrib
+  val a_shape : shape wrap -> [> | `Shape] attrib
 
-  val a_coords : numbers -> [> | `Coords] attrib
+  val a_coords : numbers wrap -> [> | `Coords] attrib
 
-  val a_usemap : idref -> [> | `Usemap] attrib
+  val a_usemap : idref wrap -> [> | `Usemap] attrib
 
-  val a_data : Xml.uri -> [> | `Data] attrib
+  val a_data : Xml.uri wrap -> [> | `Data] attrib
 
-  val a_codetype : contenttype -> [> | `Codetype] attrib
+  val a_codetype : contenttype wrap -> [> | `Codetype] attrib
 
-  val a_fs_rows : multilengths -> [> | `FS_Rows] attrib
+  val a_fs_rows : multilengths wrap -> [> | `FS_Rows] attrib
 
-  val a_fs_cols : multilengths -> [> | `FS_Cols] attrib
+  val a_fs_cols : multilengths wrap -> [> | `FS_Cols] attrib
 
-  val a_frameborder : [< | `Zero | `One] -> [> | `Frameborder] attrib
+  val a_frameborder : [< | `Zero | `One] wrap -> [> | `Frameborder] attrib
 
-  val a_marginheight : pixels -> [> | `Marginheight] attrib
+  val a_marginheight : pixels wrap -> [> | `Marginheight] attrib
 
-  val a_marginwidth : pixels -> [> | `Marginwidth] attrib
+  val a_marginwidth : pixels wrap -> [> | `Marginwidth] attrib
 
-  val a_scrolling : [< | `Yes | `No | `Auto] -> [> | `Scrolling] attrib
+  val a_scrolling : [< | `Yes | `No | `Auto] wrap -> [> | `Scrolling] attrib
 
-  val a_target : frametarget -> [> | `Target] attrib
+  val a_target : frametarget wrap -> [> | `Target] attrib
 
-  val a_content : text -> [> | `Content] attrib
+  val a_content : text wrap -> [> | `Content] attrib
 
-  val a_http_equiv : text -> [> | `Http_equiv] attrib
+  val a_http_equiv : text wrap -> [> | `Http_equiv] attrib
 
-  val a_defer : [< | `Defer] -> [> | `Defer] attrib
+  val a_defer : [< | `Defer] wrap -> [> | `Defer] attrib
 
-  val a_media : mediadesc -> [> | `Media] attrib
+  val a_media : mediadesc wrap -> [> | `Media] attrib
 
-  val a_style : string -> [> | `Style_Attr] attrib
+  val a_style : string wrap -> [> | `Style_Attr] attrib
 
-  val a_property : string -> [> | `Property] attrib
+  val a_property : string wrap -> [> | `Property] attrib
 
   (** {1 Phantom types and XML elements} *)
 
@@ -567,19 +569,19 @@ module type T = sig
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt -> 'c elt
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c, 'd) binary =
-      ?a: (('a attrib) list) -> 'b elt -> 'c elt -> 'd elt
+      ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt wrap -> 'd elt
 
-  type ('b, 'c, 'd, 'e) tri = 'b elt -> 'c elt -> 'd elt -> 'e elt
+  type ('b, 'c, 'd, 'e) tri = 'b elt wrap -> 'c elt wrap -> 'd elt wrap -> 'e elt
 
   type ('a, 'b, 'c) star =
-      ?a: (('a attrib) list) -> ('b elt) list -> 'c elt
+      ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
   (** Star '*' denotes any number of children, uncluding zero. *)
 
   type ('a, 'b, 'c) plus =
-      ?a: (('a attrib) list) -> 'b elt -> ('b elt) list -> 'c elt
+      ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   (** Root element *)
   type html = [ | `Html ] elt
@@ -591,7 +593,7 @@ module type T = sig
 
   type ruby_content = (((phrasing elt) list) * rt)
 
-  type rp = (((common attrib) list) * ((phrasing elt) list))
+  type rp = (((common attrib) list) * ((phrasing elt) list wrap))
 
   (** {1 Combined Element Sets:} *)
 
@@ -610,11 +612,11 @@ module type T = sig
 
   val html :
     ?a: ((html_attrib attrib) list) ->
-    [< | `Head] elt -> [< | `Body] elt -> [> | `Html] elt
+    [< | `Head] elt wrap -> [< | `Body] elt wrap -> [> | `Html] elt
 
   val head :
     ?a: ((head_attrib attrib) list) ->
-    [< | `Title] elt -> (head_content_fun elt) list -> [> | head] elt
+    [< | `Title] elt wrap -> (head_content_fun elt) list wrap -> [> | head] elt
 
   val base : ([< | base_attrib], [> | base]) nullary
 
@@ -623,7 +625,7 @@ module type T = sig
   val body : ([< | body_attrib], [< | body_content_fun], [> | body]) star
 
 
-  val svg : ?xmlns : string -> ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list -> [> svg ] elt
+  val svg : ?xmlns : string -> ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list wrap -> [> svg ] elt
 
   (** {2 Section} *)
 
@@ -686,7 +688,7 @@ module type T = sig
   val dl :
     ?a: (([< | common] attrib) list) ->
     ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
-	(([< | `Dd] elt) * (([< | `Dd] elt) list))) list -> [> | `Dl] elt
+	(([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
 
@@ -722,7 +724,7 @@ module type T = sig
   (*Or: Flow content.             *)
   (********************************)
   val figure :
-    ?figcaption:[`Top of [< `Figcaption ] elt | `Bottom of [< `Figcaption ] elt] ->
+    ?figcaption: ([`Top of [< `Figcaption ] elt | `Bottom of [< `Figcaption ] elt] wrap) ->
     ([< | common], [< | flow5], [> | `Figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
@@ -741,14 +743,14 @@ module type T = sig
   (**********************************)
   val rt :
     ?rp: (rp * rp) ->
-    ?a: (([< | common] attrib) list) -> ([< | phrasing] elt) list -> rt
+    ?a: (([< | common] attrib) list) -> ([< | phrasing] elt) list wrap -> rt
 
   val rp :
-    ?a: (([< | common] attrib) list) -> ([< | phrasing] elt) list -> rp
+    ?a: (([< | common] attrib) list) -> ([< | phrasing] elt) list wrap -> rp
 
   val ruby :
     ?a: (([< | common] attrib) list) ->
-    ruby_content -> ruby_content list -> [> | `Ruby] elt
+    ruby_content wrap -> ruby_content list wrap -> [> | `Ruby] elt
 
   (** {2 Semantic} *)
 
@@ -770,7 +772,7 @@ module type T = sig
   val wbr : ([< | wbr_attrib], [> | wbr]) nullary
 
   val bdo :
-    dir: [< | `Ltr | `Rtl] ->
+    dir: [< | `Ltr | `Rtl] wrap ->
     ([< | common], [< | phrasing], [> | `Bdo]) star
 
   val abbr : ([< | abbr_attrib], [< | abbr_content_fun], [> | abbr]) star
@@ -831,8 +833,8 @@ module type T = sig
   (** {2 Embedded} *)
 
   val img :
-    src: Xml.uri ->
-    alt: text ->
+    src: Xml.uri wrap ->
+    alt: text wrap ->
     ([< | common | `Height | `Ismap | `Width], [> `Img ])
       nullary
 
@@ -841,7 +843,7 @@ module type T = sig
      [< | `PCDATA], [> | `Iframe]) star
 
   val object_ :
-    ?params: (([< | `Param] elt) list) ->
+    ?params: (([< | `Param] elt) list wrap ) ->
     ([<
      | common
      | `Data
@@ -887,14 +889,14 @@ module type T = sig
   (*   element descendants.             *)
   (**************************************)
   val audio :
-    ?src:Xml.uri ->
-    ?srcs:(([< | `Source] elt) list) ->
+    ?src:Xml.uri wrap ->
+    ?srcs:(([< | `Source] elt) list wrap) ->
     ([< | common | `Preload | `Autoplay | `Loop | `Controls], 'a,
      [> | `Audio of 'a ]) star
 
   val video :
-    ?src:Xml.uri ->
-    ?srcs: (([< | `Source] elt) list) ->
+    ?src:Xml.uri wrap ->
+    ?srcs: (([< | `Source] elt) list wrap) ->
     ([<
      | common
      | `Poster
@@ -919,7 +921,7 @@ module type T = sig
   (*   attribute is not present.  *)
   (********************************)
   val area :
-    alt: text ->
+    alt: text wrap ->
     ([<
      | common
      | `Alt
@@ -962,17 +964,17 @@ module type T = sig
   (*         CHILD IN TOTAL       *)
   (********************************)
   val table :
-    ?caption: ([< | `Caption] elt) ->
-    ?columns: (([< | `Colgroup] elt) list) ->
-    ?thead: ([< | `Thead] elt) ->
-    ?tfoot: ([< | `Tfoot] elt) ->
+    ?caption: [< | `Caption] elt wrap ->
+    ?columns: [< | `Colgroup] elt list wrap ->
+    ?thead: [< | `Thead] elt wrap ->
+    ?tfoot: [< | `Tfoot] elt wrap ->
     ([< | common | `Summary], [< | `Tr], [> | `Table]) plus
 
   val tablex :
-    ?caption: ([< | `Caption] elt) ->
-    ?columns: (([< | `Colgroup] elt) list) ->
-    ?thead: ([< | `Thead] elt) ->
-    ?tfoot: ([< | `Tfoot] elt) ->
+    ?caption: [< | `Caption] elt wrap ->
+    ?columns: [< | `Colgroup] elt list wrap ->
+    ?thead: [< | `Thead] elt wrap ->
+    ?tfoot: [< | `Tfoot] elt wrap ->
     ([< | common | `Summary], [< | `Tbody], [> | `Table]) star
 
   (********************************)
@@ -1017,7 +1019,7 @@ module type T = sig
   val form : ([< | form_attrib], [< | form_content_fun], [> | form]) plus
 
   val fieldset :
-    ?legend: ([ | `Legend ] elt) ->
+    ?legend: [ | `Legend ] elt wrap ->
     ([< | common | `Disabled | `Form | `Name], [< | flow5],
      [> | `Fieldset]) star
 
@@ -1052,14 +1054,14 @@ module type T = sig
     ([< | select_attrib], [< | select_content_fun], [> | select]) star
 
   val datalist :
-    ?children:
+    ?children:(
     [<
     | `Options of ([< | `Option] elt) list
     | `Phras of ([< | phrasing] elt) list
-    ] -> ([< | common], [> | `Datalist]) nullary
+    ] wrap ) -> ([< | common], [> | `Datalist]) nullary
 
   val optgroup :
-    label: text ->
+    label: text wrap  ->
     ([< | common | `Disabled | `Label], [< | `Option], [> | `Optgroup])
       star
 
@@ -1085,7 +1087,7 @@ module type T = sig
 
   (** {2 Data} *)
 
-  val pcdata : string -> [> | `PCDATA] elt
+  val pcdata : string wrap -> [> | `PCDATA] elt
 
   val entity : string -> [> | `PCDATA] elt
 
@@ -1103,14 +1105,14 @@ module type T = sig
   (** {2 Interactive} *)
 
   val details :
-    [< | `Summary] elt ->
+    [< | `Summary] elt wrap ->
     ([< | common | `Open], [< | flow5] elt, [> | `Details]) star
 
   val summary :
     ([< | summary_attrib], [< | summary_content_fun], [> | summary]) star
 
   val command :
-    label: text ->
+    label: text wrap ->
     ([<
      | common
      | `Icon
@@ -1121,11 +1123,11 @@ module type T = sig
      ], [> | `Command]) nullary
 
   val menu :
-    ?child:
+    ?child:(
     [<
     | `Lis of ([< | `Li of [< | common]] elt) list
     | `Flows of ([< | flow5] elt) list
-    ] -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
+    ] wrap) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
 
   (** {2 Scripting} *)
 
@@ -1184,8 +1186,8 @@ module type T = sig
   (** {2 Link} *)
 
   val link :
-    rel: linktypes ->
-    href: Xml.uri ->
+    rel: linktypes wrap ->
+    href: Xml.uri wrap ->
     ([<
      | common
      | `Hreflang
@@ -1217,13 +1219,13 @@ module type T = sig
     *)
 
     (** Insert raw text without any encoding *)
-    val data : string -> 'a elt
+    val data : string wrap -> 'a elt
 
     (** Insert an XML node that is not implemented in this module.
         If it is a standard HTML5 node which is missing,
         please report to the Ocsigen team.
     *)
-    val node : string -> ?a:'a attrib list -> 'b elt list -> 'c elt
+    val node : string -> ?a:'a attrib list -> 'b elt list wrap -> 'c elt
 
     (** Insert an XML node without children
         that is not implemented in this module.
@@ -1241,22 +1243,22 @@ module type T = sig
         If it is a standard HTML5 attribute which is missing,
         please report to the Ocsigen team.
     *)
-    val string_attrib : string -> string -> 'a attrib
+    val string_attrib : string -> string wrap -> 'a attrib
 
     (** Same, for float attribute *)
-    val float_attrib : string -> float -> 'a attrib
+    val float_attrib : string -> float wrap -> 'a attrib
 
     (** Same, for int attribute *)
-    val int_attrib : string -> int -> 'a attrib
+    val int_attrib : string -> int wrap -> 'a attrib
 
     (** Same, for URI attribute *)
-    val uri_attrib : string -> uri -> 'a attrib
+    val uri_attrib : string -> uri wrap -> 'a attrib
 
     (** Same, for a space separated list of values *)
-    val space_sep_attrib : string -> string list -> 'a attrib
+    val space_sep_attrib : string -> string list wrap -> 'a attrib
 
     (** Same, for a comma separated list of values *)
-    val comma_sep_attrib : string -> string list -> 'a attrib
+    val comma_sep_attrib : string -> string list wrap -> 'a attrib
 
   end
 

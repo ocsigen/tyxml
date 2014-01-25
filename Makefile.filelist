@@ -1,4 +1,5 @@
-INTF := lib/xml_sigs.cmi \
+INTF := lib/xml_wrap.cmi \
+        lib/xml_sigs.cmi \
         lib/xml_print.cmi \
         lib/xml_iter.cmi \
         lib/xml.cmi \
