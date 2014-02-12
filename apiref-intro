@@ -32,21 +32,6 @@ Xml_iter
 Xml_print
 }
 
-{2 OCamlduce}
-
-{3 Common DTD's transcriptions}
-
-{!modules:
-Xhtml_types_duce
-}
-
-{3 Helpers}
-
-{!modules:
-Xml_print_duce
-Xhtml_duce
-}
-
 {2 Syntax extension and simple parser}
 
 {!modules:

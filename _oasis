@@ -1,4 +1,4 @@
-OASISFormat: 0.3
+OASISFormat: 0.4
 Name: tyxml
 Version: 2.3.0
 Homepage: http://ocsigen.org/tyxml/
@@ -14,6 +14,7 @@ Authors:
 License: LGPL-2.1 with OCaml linking exception
 Plugins: META (0.3)
 BuildTools: ocamlbuild
+AlphaFeatures: pure_interface
 
 Synopsis: XHTML and HTML5 pages typed with polymorphic variants
 Description:
@@ -35,6 +36,13 @@ Library tyxml
     Xhtml,
     Svg,
     Html5
+  InternalModules:
+    Xml_iter,
+    Xml_wrap,
+    Xml_print,
+    Xhtml_f,
+    Svg_f,
+    Html5_f
   BuildDepends: str
 
 Library tyxml_f
@@ -45,9 +53,17 @@ Library tyxml_f
   Path: lib
   Modules:
     Xml_iter,
+    Xml_sigs,
+    Xml_wrap,
     Xml_print,
+    Xhtml_sigs,
+    Xhtml_types,
     Xhtml_f,
+    Svg_sigs,
+    Svg_types,
     Svg_f,
+    Html5_sigs,
+    Html5_types,
     Html5_f
 
 Library pa_tyxml
@@ -76,8 +92,9 @@ Library tymlx_p
   Path: syntax
   BuildDepends:
     camlp4.lib
+  InternalModules:
+    Xmllexer
   Modules:
-    Xmllexer,
     Simplexmlparser
 
 Document "tyxml-api"
@@ -88,4 +105,4 @@ Document "tyxml-api"
   BuildTools: ocamldoc
   XOCamlbuildPath: ./
   XOCamlbuildLibraries:
-    tyxml
+    tyxml, tyxml.functor, tyxml.parser, tyxml.syntax
