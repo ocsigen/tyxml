@@ -1,0 +1,108 @@
+OASISFormat: 0.4
+Name: tyxml
+Version: 2.3.0
+Homepage: http://ocsigen.org/tyxml/
+Authors:
+  Thorsten Ohl,
+  Vincent Balat,
+  Gabriel Kerneis,
+  Cecile Herbelin,
+  Simon Castellan,
+  Boris Yakobowski,
+  Pierre Chambart,
+  Grégoire Henry
+License: LGPL-2.1 with OCaml linking exception
+Plugins: META (0.3)
+BuildTools: ocamlbuild
+AlphaFeatures: pure_interface
+
+Synopsis: XHTML and HTML5 pages typed with polymorphic variants
+Description:
+   XHTML typing based on Thorsten Ohl's XHTML.M library to validate
+   xml tree at compile-time, adapted to support HTML5 and SVG.
+
+   The implementation uses a XML module for generating well
+   formed---but not necessarily valid with respect to some DTD---XML
+   documents.  The elements of type XML.elt and attributes of type
+   XML.attrib are then hidden behind polymorphic phantom types type 'a
+   elt = XML.elt and type 'a attrib = XML.attrib with 'a set to
+   appropriate polymorphic variants.
+
+Library tyxml
+  FindlibName: tyxml
+  Path: lib
+  Modules:
+    Xml,
+    Xhtml,
+    Svg,
+    Html5
+  InternalModules:
+    Xml_iter,
+    Xml_wrap,
+    Xml_print,
+    Xhtml_f,
+    Svg_f,
+    Html5_f
+  BuildDepends: str
+
+Library tyxml_f
+  FindlibName: functor
+  FindlibParent: tyxml
+  XMETADescription:
+    XHTML and HTML5 pages typed with polymorphic variants (Functor version)
+  Path: lib
+  Modules:
+    Xml_iter,
+    Xml_sigs,
+    Xml_wrap,
+    Xml_print,
+    Xhtml_sigs,
+    Xhtml_types,
+    Xhtml_f,
+    Svg_sigs,
+    Svg_types,
+    Svg_f,
+    Html5_sigs,
+    Html5_types,
+    Html5_f
+
+Library pa_tyxml
+  FindlibName: syntax
+  FindlibParent: tyxml
+  XMETAType: syntax
+  XMETADescription:
+    XHTML and HTML5 extension
+  XMETAExtraLines: requires(toploop) = "tyxml"
+  Path: syntax
+  BuildDepends:
+    camlp4
+  Modules:
+    Xmllexer,
+    Basic_types,
+    Camllexer,
+    Xhtmlparser,
+    Xhtmlsyntax
+  Pack: true
+
+Library tymlx_p
+  FindlibName: parser
+  FindlibParent: tyxml
+  XMETADescription:
+    Simple XML parser
+  Path: syntax
+  BuildDepends:
+    camlp4.lib
+  InternalModules:
+    Xmllexer
+  Modules:
+    Simplexmlparser
+
+Document "tyxml-api"
+  Title: API reference for TyXML
+  Type: ocamlbuild (0.3)
+  Install: true
+  InstallDir: $htmldir/api
+  BuildTools: ocamldoc
+  XOCamlbuildPath: ./
+  XOCamlbuildLibraries:
+    tyxml, tyxml.functor, tyxml.parser, tyxml.syntax
