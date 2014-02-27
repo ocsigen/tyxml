@@ -1,6 +1,8 @@
-===== dev ====
+===== 3.0.0 ====
 
   * In the functorial interface, allow to wrap xml nodes inside a monad by providing an additionnal wrapping module. Used by reactive nodes in eliom.
+  * Use oasis as build systems
+  * Various bug fixes, mostly related to the svg module.
 
 ===== 2.3.0 =====
 
