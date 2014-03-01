@@ -34,8 +34,10 @@ let () =
 
              (* Api: use an introduction page with categories *)
              tag_file "tyxml-api.docdir/index.html" ["apiref"];
-             dep ["apiref"] ["apiref-intro"];
-             flag ["apiref"] & S[A "-intro"; P "apiref-intro"; A"-colorize-code"];
+             dep ["apiref"] ["doc/indexdoc"];
+             flag ["apiref"] & S[A "-intro"; P "doc/indexdoc";
+                                 A"-colorize-code" ; A"-short-functors" ;
+                                 A"-charset"; P "utf-8" ];
 
              (* the "-bin-annot" flag was introduced in ocaml-4.00 *)
              (* the "bin_annot" tag was only introduced in ocamlbuild-4.01 *)
