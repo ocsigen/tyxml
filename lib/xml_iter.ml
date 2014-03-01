@@ -43,7 +43,7 @@ module Make(Xml : Xml_sigs.Iterable) = struct
 	float_attrib name value :: tail
     | head :: tail -> head :: add_float_attrib name value tail
 
-  let rec map_float_attrib is_attrib f l =
+  let map_float_attrib is_attrib f l =
     let aux head = match acontent head with
     | AFloat value when is_attrib (aname head) -> float_attrib (aname head) (f value)
     | _ -> head in
@@ -60,7 +60,7 @@ module Make(Xml : Xml_sigs.Iterable) = struct
     | head :: tail when is_attrib (aname head) -> rm_attrib is_attrib tail
     | head :: tail -> head :: rm_attrib is_attrib tail
 
-  let rec map_int_attrib is_attrib f l =
+  let map_int_attrib is_attrib f l =
     let aux head = match acontent head with
     | AInt value when is_attrib (aname head) -> int_attrib (aname head) (f value)
     | _ -> head in
@@ -72,7 +72,7 @@ module Make(Xml : Xml_sigs.Iterable) = struct
 	string_attrib name value :: tail
     | head :: tail -> head :: add_string_attrib name value tail
 
-  let rec map_string_attrib is_attrib f l =
+  let map_string_attrib is_attrib f l =
     let aux head = match acontent head with
     | AStr value when is_attrib (aname head) -> string_attrib (aname head) (f value)
     | _ -> head in
@@ -112,7 +112,7 @@ module Make(Xml : Xml_sigs.Iterable) = struct
 	    end
 	| _ -> head :: rm_attrib_from_list is_attrib is_value tail
 
-  let rec map_string_attrib_in_list is_attrib f l =
+  let map_string_attrib_in_list is_attrib f l =
     let aux head = match acontent head with
     | AStrL (sep, values) when is_attrib (aname head) ->
 	begin match sep with
@@ -148,19 +148,21 @@ module Make(Xml : Xml_sigs.Iterable) = struct
    update_state (update_state name attribs state)) elts)
  *)
 
-  let all_attribs access ?(is_elt = fun ename -> true) aname elt =
+  let all_attribs access ?(is_elt = fun _ename -> true) aname elt =
     let access' ename attribs =
       if is_elt ename then
 	try [access aname attribs] with Not_found -> []
       else
 	[] in
-    fold (fun () -> []) (fun c -> []) (fun p -> []) (fun p -> []) (fun e -> []) access'
+    let f _ = [] in
+    fold f f f f f access'
       (fun ename attribs elts -> access' ename attribs @ List.flatten elts)
       elt
 
   let all_entities elt =
-    fold (fun () -> []) (fun c -> []) (fun p -> []) (fun p -> []) (fun e -> [e])
-      (fun ename attribs -> []) (fun ename attribs elts -> List.flatten elts)
+    let f _ = [] in
+    fold f f f f f
+      (fun _ename _attribs -> []) (fun _ename _attribs elts -> List.flatten elts)
       elt
 
   let rec flatmap f = function

@@ -58,7 +58,11 @@ let compose_doctype dt args =
       " PUBLIC " ^
 	String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
 
-module Make(Xml : Xml_sigs.Iterable)(F : sig val emptytags : string list end)(O : Xml_sigs.Output) = struct
+module Make
+    (Xml : Xml_sigs.Iterable)
+    (F : sig val emptytags : string list end)
+    (O : Xml_sigs.Output) =
+struct
 
   let (++) = O.concat
 
@@ -149,9 +153,11 @@ module Make(Xml : Xml_sigs.Iterable)(F : sig val emptytags : string list end)(O 
 
 end
 
-module Make_typed(Xml : Xml_sigs.Iterable)
-                (Typed_xml : Xml_sigs.Iterable_typed_xml with module Xml := Xml)
-                (O : Xml_sigs.Output) = struct
+module Make_typed
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Iterable_typed_xml with module Xml := Xml)
+    (O : Xml_sigs.Output) =
+struct
 
   module P = Make(Xml)(Typed_xml.Info)(O)
   let (++) = O.concat
@@ -186,7 +192,10 @@ module Simple_output(M : sig val put: string -> unit end) = struct
   let make f = f ()
 end
 
-module Make_simple(Xml : Xml_sigs.Iterable)(I : sig val emptytags : string list end) = struct
+module Make_simple
+    (Xml : Xml_sigs.Iterable)
+    (I : sig val emptytags : string list end) =
+struct
 
   type elt = Xml.elt
   type out = unit
@@ -196,19 +205,23 @@ module Make_simple(Xml : Xml_sigs.Iterable)(I : sig val emptytags : string list 
 
 end
 
-module Make_typed_simple(Xml : Xml_sigs.Iterable)
-                      (Typed_xml : Xml_sigs.Typed_xml with  module Xml := Xml) = struct
+module Make_typed_simple
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with  module Xml := Xml) =
+struct
 
   type out = unit
   type 'a elt = 'a Typed_xml.elt
   type doc = Typed_xml.doc
 
   let print_list ~output =
-    let module M = Make_typed(Xml)(Typed_xml)(Simple_output(struct let put = output end)) in
+    let module M =
+      Make_typed(Xml)(Typed_xml)(Simple_output(struct let put = output end)) in
     M.print_list
 
   let print ~output =
-    let module M = Make_typed(Xml)(Typed_xml)(Simple_output(struct let put = output end)) in
+    let module M =
+      Make_typed(Xml)(Typed_xml)(Simple_output(struct let put = output end)) in
     M.print
 
 end

@@ -42,22 +42,27 @@ val compose_decl : ?version:string -> ?encoding:string -> unit -> string
 
 val compose_doctype : string -> string list -> string
 
-module Make(Xml : Xml_sigs.Iterable)
-           (I : sig val emptytags : string list end)
-           (O : Xml_sigs.Output)
-     : Xml_sigs.Printer with type out := O.out and type xml_elt := Xml.elt
+module Make
+    (Xml : Xml_sigs.Iterable)
+    (I : sig val emptytags : string list end)
+    (O : Xml_sigs.Output)
+  : Xml_sigs.Printer with type out := O.out and type xml_elt := Xml.elt
 
-module Make_typed(Xml : Xml_sigs.Iterable)
-                (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
-                (O : Xml_sigs.Output)
-     : Xml_sigs.Typed_printer with type out := O.out
-                              and type 'a elt := 'a Typed_xml.elt
-                              and type doc := Typed_xml.doc
+module Make_typed
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
+    (O : Xml_sigs.Output)
+  : Xml_sigs.Typed_printer with type out := O.out
+                            and type 'a elt := 'a Typed_xml.elt
+                            and type doc := Typed_xml.doc
 
-module Make_simple(Xml : Xml_sigs.Iterable)(F : sig val emptytags : string list end)
-     : Xml_sigs.Simple_printer with type xml_elt := Xml.elt
+module Make_simple
+    (Xml : Xml_sigs.Iterable)
+    (F : sig val emptytags : string list end)
+  : Xml_sigs.Simple_printer with type xml_elt := Xml.elt
 
-module Make_typed_simple(Xml : Xml_sigs.Iterable)
-                      (Typed_xml : Xml_sigs.Typed_xml with  module Xml := Xml)
-     : Xml_sigs.Typed_simple_printer with type 'a elt := 'a Typed_xml.elt
-                                    and type doc := Typed_xml.doc
+module Make_typed_simple
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
+  : Xml_sigs.Typed_simple_printer with type 'a elt := 'a Typed_xml.elt
+                                   and type doc := Typed_xml.doc

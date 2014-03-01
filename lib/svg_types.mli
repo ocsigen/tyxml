@@ -793,24 +793,6 @@ type tspan_attr =
     | `LengthAdjust
   ]
 
-type tspan_attribute =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X_list
-    | `Y_list
-    | `Dx_list
-    | `Dy_list
-    | `Rotate
-    | `TextLength
-    | `LengthAdjust
-  ]
-
 type tref = [ | `Tref ]
 
 (* star *)

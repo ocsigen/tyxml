@@ -558,7 +558,7 @@ module MakeWrapped
       | `Reversed -> "reserved"
     in user_attrib f "reserved" x
 
-  let rec a_sandbox sb =
+  let a_sandbox sb =
     let rec aux sb =
       match sb with
         | `AllowSameOrigin :: a -> "allow-same-origin" :: (aux a)
@@ -1057,39 +1057,6 @@ module MakeWrapped
   let svg ?(xmlns = "http://www.w3.org/2000/svg") ?(a = []) children =
     star ~a:(string_attrib "xmlns" (W.return xmlns) ::(Svg.to_xmlattribs a))
       "svg" (W.fmap Svg.toeltl children)
-
-  type input_attr =
-    [ common
-    | `Accept
-    | `Alt
-    | `Autocomplete
-    | `Autofocus
-    | `Checked
-    | `Disabled
-    | `Form
-    | `Formation
-    | `Formenctype
-    | `Formmethod
-    | `Formnovalidate
-    | `Formtarget
-    | `Height
-    | `List
-    | `Input_Max
-    | `Maxlength
-    | `Input_Min
-    | `Multiple
-    | `Name
-    | `Pattern
-    | `Placeholder
-    | `ReadOnly
-    | `Required
-    | `Size
-    | `Src
-    | `Step
-    | `Input_Type
-    | `Value
-    | `Width
-    ]
 
   let input = terminal "input"
 

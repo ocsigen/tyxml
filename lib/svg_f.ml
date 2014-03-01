@@ -155,8 +155,6 @@ struct
 	 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
   end
 
-  open Unit
-
   type uri = Xml.uri
   let string_of_uri = Xml.string_of_uri
   let uri_of_string = Xml.uri_of_string
@@ -380,8 +378,6 @@ struct
 
   let a_local = string_attrib "local"
 
-  let a_string = string_attrib "name"
-
   let a_renderingindent x =
     let f = function
       | `Auto -> "auto" | `Perceptual -> "perceptual"
@@ -521,8 +517,6 @@ struct
     user_attrib f "type" x
 
   let a_tablevalues = user_attrib string_of_numbers "tableValues"
-
-  let a_slope = user_attrib string_of_number "slope"
 
   let a_intercept = user_attrib string_of_number "intercept"
 

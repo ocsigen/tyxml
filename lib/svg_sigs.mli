@@ -287,8 +287,6 @@ module type T = sig
 
   val a_tablevalues : numbers wrap -> [> | `TableValues ] attrib
 
-  val a_slope : number wrap -> [> | `Slope ] attrib
-
   val a_intercept : number wrap -> [> | `Intercept ] attrib
 
   val a_amplitude : number wrap -> [> | `Amplitude ] attrib
