@@ -12,9 +12,9 @@ Authors:
   Pierre Chambart,
   Grégoire Henry
 License: LGPL-2.1 with OCaml linking exception
-Plugins: META (0.3)
+Plugins: META (0.3), DevFiles (0.3)
 BuildTools: ocamlbuild
-AlphaFeatures: pure_interface
+AlphaFeatures: pure_interface, compiled_setup_ml
 
 Synopsis: XHTML and HTML5 pages typed with polymorphic variants
 Description:

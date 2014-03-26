@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# OASIS_START
+# DO NOT EDIT (digest: 82230d61386befb40bc7377608e1f16e)
+set -e
+
 FST=true
 for i in "$@"; do
   if $FST; then
@@ -20,3 +24,4 @@ for i in "$@"; do
 done
 
 make configure CONFIGUREFLAGS="$@"
+# OASIS_STOP
