@@ -1076,7 +1076,7 @@ module MakeWrapped
     let f = function `Options x | `Phras x -> x in
     Xml.node ?a "datalist" (opt_fmap f children [])
 
-  let progress = star "proress"
+  let progress = star "progress"
 
   let legend = star "legend"
 
