@@ -55,8 +55,7 @@ module type T = sig
 
   val a_challenge : text wrap -> [> | `Challenge] attrib
 
-  val a_contenteditable :
-    [< | `True | `False] wrap -> [> | `Contenteditable] attrib
+  val a_contenteditable : bool wrap -> [> | `Contenteditable] attrib
 
   val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
 
@@ -64,7 +63,7 @@ module type T = sig
 
   val a_dir : [< | `Rtl | `Ltr] wrap -> [> | `Dir] attrib
 
-  val a_draggable : [< | `True | `False] wrap -> [> | `Draggable] attrib
+  val a_draggable : bool wrap -> [> | `Draggable] attrib
 
   val a_form : idref wrap -> [> | `Form] attrib
 
@@ -130,7 +129,7 @@ module type T = sig
     [< | `AllowSameOrigin | `AllowForms | `AllowScript] list wrap ->
     [> | `Sandbox] attrib
 
-  val a_spellcheck : [< | `True | `False] wrap -> [> | `Spellcheck] attrib
+  val a_spellcheck : bool wrap -> [> | `Spellcheck] attrib
 
   val a_scoped : [< | `Scoped] wrap -> [> | `Scoped] attrib
 

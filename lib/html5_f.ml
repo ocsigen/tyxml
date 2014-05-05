@@ -88,6 +88,8 @@ module MakeWrapped
 
   let event_handler_attrib = Xml.event_handler_attrib
 
+  let bool_attrib = user_attrib string_of_bool
+
   (* Deprecated alias. *)
   let event_attrib = Xml.event_handler_attrib
 
@@ -438,10 +440,7 @@ module MakeWrapped
   let a_challenge = string_attrib "challenge"
 
   let a_contenteditable ce =
-    let f = function
-      | `True -> "true"
-      | `False -> "false"
-    in user_attrib f "contenteditable" ce
+    bool_attrib "contenteditable" ce
 
   let a_contextmenu = string_attrib "contextmenu"
 
@@ -457,10 +456,7 @@ module MakeWrapped
     in user_attrib f "dir" d
 
   let a_draggable d =
-    let f = function
-      | `True -> "true"
-      | `False -> "false"
-    in user_attrib f "draggable" d
+    bool_attrib "draggable" d
 
   let a_form = string_attrib "form"
 
@@ -568,10 +564,7 @@ module MakeWrapped
     in space_sep_attrib "sandbox" (W.fmap aux sb)
 
   let a_spellcheck sc =
-    let f = function
-      | `True -> "true"
-      | `False -> "false"
-    in user_attrib f "spellckeck" sc
+    bool_attrib "spellckeck" sc
 
   let a_scoped x =
     let f = function
