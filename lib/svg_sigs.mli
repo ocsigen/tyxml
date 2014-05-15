@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 module type T = sig
 
@@ -44,10 +44,10 @@ module type T = sig
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-      ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
   type ('a, 'b, 'c) plus =
-      ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   (* to be processed by a script *)
   type altglyphdef_content =
@@ -183,11 +183,11 @@ module type T = sig
 
   val a_renderingindent :
     [<
-    | `Auto
-    | `Perceptual
-    | `Relative_colorimetric
-    | `Saturation
-    | `Absolute_colorimetric ] wrap -> [> | `Rendering_Indent ] attrib
+      | `Auto
+      | `Perceptual
+      | `Relative_colorimetric
+      | `Saturation
+      | `Absolute_colorimetric ] wrap -> [> | `Rendering_Indent ] attrib
 
   val a_gradientunits :
     [< `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
@@ -237,23 +237,23 @@ module type T = sig
 
   val a_in :
     [<
-    | `SourceGraphic
-    | `SourceAlpha
-    | `BackgroundImage
-    | `BackgroundAlpha
-    | `FillPaint
-    | `StrokePaint
-    | `Ref of string ] wrap -> [> | `In ] attrib
+      | `SourceGraphic
+      | `SourceAlpha
+      | `BackgroundImage
+      | `BackgroundAlpha
+      | `FillPaint
+      | `StrokePaint
+      | `Ref of string ] wrap -> [> | `In ] attrib
 
   val a_in2 :
     [<
-    | `SourceGraphic
-    | `SourceAlpha
-    | `BackgroundImage
-    | `BackgroundAlpha
-    | `FillPaint
-    | `StrokePaint
-    | `Ref of string ] wrap -> [> | `In2 ] attrib
+      | `SourceGraphic
+      | `SourceAlpha
+      | `BackgroundImage
+      | `BackgroundAlpha
+      | `FillPaint
+      | `StrokePaint
+      | `Ref of string ] wrap -> [> | `In2 ] attrib
 
   val a_aizmuth : float wrap -> [> | `Azimuth ] attrib
 
@@ -646,11 +646,11 @@ module type T = sig
 
   val altglyphdef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
-	unary
+      unary
 
   val altglyphitem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
-							  ]) plus
+                                                          ]) plus
 
   val glyphref : ([< | glyphref_attr], [> | glyphref]) nullary
 
@@ -658,7 +658,7 @@ module type T = sig
 
   val colorprofile :
     ([< | colorprofile_attr], [< | colorprofile_content], [> | colorprofile
-							  ]) star
+                                                          ]) star
 
   val lineargradient :
     ([< | lineargradient_attr], [< | lineargradient_content],
@@ -685,11 +685,11 @@ module type T = sig
 
   val fepointlight :
     ([< | fepointlight_attr], [< | fepointlight_content], [> | fepointlight
-							  ]) star
+                                                          ]) star
 
   val fespotlight :
     ([< | fespotlight_attr], [< | fespotlight_content], [> | fespotlight])
-	star
+      star
 
   val feblend :
     ([< | feblend_attr], [< | feblend_content], [> | feblend]) star
@@ -716,7 +716,7 @@ module type T = sig
 
   val fecomposite :
     ([< | fecomposite_attr], [< | fecomposite_content], [> | fecomposite])
-	star
+      star
 
   val feconvolvematrix :
     ([< | feconvolvematrix_attr], [< | feconvolvematrix_content],
@@ -745,7 +745,7 @@ module type T = sig
 
   val femorphology :
     ([< | femorphology_attr], [< | femorphology_content], [> | femorphology
-							  ]) star
+                                                          ]) star
 
   val feoffset :
     ([< | feoffset_attr], [< | feoffset_content], [> | feoffset]) star
@@ -758,7 +758,7 @@ module type T = sig
 
   val feturbulence :
     ([< | feturbulence_attr], [< | feturbulence_content], [> | feturbulence
-							  ]) star
+                                                          ]) star
 
   val cursor : ([< | cursor_attr], [< | cursor_content], [> | cursor]) star
 
@@ -782,7 +782,7 @@ module type T = sig
 
   val animatecolor :
     ([< | animatecolor_attr], [< | animatecolor_content], [> | animatecolor
-							  ]) star
+                                                          ]) star
 
   val animatetransform :
     ([< | animatetransform_attr], [< | animatetransform_content],
@@ -794,7 +794,7 @@ module type T = sig
 
   val missingglyph :
     ([< | missingglyph_attr], [< | missingglyph_content], [> | missingglyph
-							  ]) star
+                                                          ]) star
 
   val hkern : ([< | hkern_attr], [> | hkern]) nullary
 
@@ -804,11 +804,11 @@ module type T = sig
 
   val fontfacesrc :
     ([< | fontfacesrc_attr], [< | fontfacesrc_content], [> | fontfacesrc])
-	star
+      star
 
   val fontfaceuri :
     ([< | fontfaceuri_attr], [< | fontfaceuri_content], [> | fontfaceuri])
-	star
+      star
 
   val fontfaceformat :
     ([< | fontfaceformat_attr], [> | fontfaceformat]) nullary

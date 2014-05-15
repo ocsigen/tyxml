@@ -17,21 +17,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (** Typesafe constructors for HTML5 documents (Functorial interface) *)
 
 module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.T with type Xml.uri = Xml.uri
-                 and type Xml.event_handler = Xml.event_handler
-                 and type Xml.attrib = Xml.attrib
-                 and type Xml.elt = Xml.elt
-		 and module Svg := Svg
-		 and type +'a elt = Xml.elt
-                 and type 'a Xml.wrap = 'a
-                 and type 'a wrap = 'a
-		 and type 'a attrib = Xml.attrib
-		 and type uri = Xml.uri
+                  and type Xml.event_handler = Xml.event_handler
+                  and type Xml.attrib = Xml.attrib
+                  and type Xml.elt = Xml.elt
+                  and module Svg := Svg
+                  and type +'a elt = Xml.elt
+                  and type 'a Xml.wrap = 'a
+                  and type 'a wrap = 'a
+                  and type 'a attrib = Xml.attrib
+                  and type uri = Xml.uri
 
 (** Like the {! Html5_f.Make } functor, but allows to wrap elements inside a monad described by {! Xml_wrap.T}.
     See the functorial interface documentation for more details. *)
@@ -40,12 +40,12 @@ module MakeWrapped
     (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t)
     (Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.T with type Xml.uri = Xml.uri
-                 and type Xml.event_handler = Xml.event_handler
-                 and type Xml.attrib = Xml.attrib
-                 and type Xml.elt = Xml.elt
-		 and module Svg := Svg
-		 and type +'a elt = Xml.elt
-                 and type 'a Xml.wrap = 'a W.t
-                 and type 'a wrap = 'a W.t
-		 and type 'a attrib = Xml.attrib
-		 and type uri = Xml.uri
+                  and type Xml.event_handler = Xml.event_handler
+                  and type Xml.attrib = Xml.attrib
+                  and type Xml.elt = Xml.elt
+                  and module Svg := Svg
+                  and type +'a elt = Xml.elt
+                  and type 'a Xml.wrap = 'a W.t
+                  and type 'a wrap = 'a W.t
+                  and type 'a attrib = Xml.attrib
+                  and type uri = Xml.uri

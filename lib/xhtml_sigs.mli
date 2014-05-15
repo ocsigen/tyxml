@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 open Xhtml_types
 
@@ -387,7 +387,7 @@ module type T_01_01 = sig
 
   val address : ([< address_attrib] , [< address_content], [> address ]) star
   val blockquote : ([< common | `Cite ],
-		    [< `PCDATA | block ], [>`Blockquote]) star
+                    [< `PCDATA | block ], [>`Blockquote]) star
   val div : ([< div_attrib] , [< div_content], [> div ]) star
   val p : ([< p_attrib] , [< p_content], [> p ]) star
   val pre : ([< common | `XML_space ], [< `PCDATA | precontent ], [>`Pre]) star
@@ -497,10 +497,10 @@ module type T_01_01 = sig
   val caption : ([< caption_attrib] , [< caption_content], [> caption ]) star
 
   val table : ?caption:([< `Caption ] elt) ->      ?columns:([< `Cols of ([< `Col ] elt list)
-							     | `Colgroups of ([< `Colgroup ] elt list) ]) ->        ([< common | `Border | `Cellpadding | `Cellspacing | `Datapagesize         | `Frame | `Rules | `Summary | `Width ], [< `Tr ], [>`Table]) plus
+                                                             | `Colgroups of ([< `Colgroup ] elt list) ]) ->        ([< common | `Border | `Cellpadding | `Cellspacing | `Datapagesize         | `Frame | `Rules | `Summary | `Width ], [< `Tr ], [>`Table]) plus
 
   val tablex : ?caption:([< `Caption ] elt) ->      ?columns:([< `Cols of ([< `Col ] elt list)
-							      | `Colgroups of ([< `Colgroup ] elt list) ]) ->        ?thead:([< `Thead ] elt) -> ?tfoot:([< `Tfoot ] elt) ->          ([< common | `Border | `Cellpadding | `Cellspacing | `Datapagesize           | `Frame | `Rules | `Summary | `Width ], [< `Tbody ], [>`Table]) plus
+                                                              | `Colgroups of ([< `Colgroup ] elt list) ]) ->        ?thead:([< `Thead ] elt) -> ?tfoot:([< `Tfoot ] elt) ->          ([< common | `Border | `Cellpadding | `Cellspacing | `Datapagesize           | `Frame | `Rules | `Summary | `Width ], [< `Tbody ], [>`Table]) plus
 
   val td : ([< td_attrib] , [< td_content], [> td ]) star
   val th : ([< th_attrib] , [< th_content], [> th ]) star

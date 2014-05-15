@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (** Basic functions for construction and manipulation of XML tree. *)
 
@@ -60,13 +60,13 @@ type ename = string
 
 type elt
 type econtent = private
-		| Empty
-		| Comment of string
-		| EncodedPCDATA of string
-		| PCDATA of string
-		| Entity of string
-		| Leaf of ename * attrib list
-		| Node of ename * attrib list * elt list
+  | Empty
+  | Comment of string
+  | EncodedPCDATA of string
+  | PCDATA of string
+  | Entity of string
+  | Leaf of ename * attrib list
+  | Node of ename * attrib list * elt list
 val content : elt -> econtent
 
 val empty : unit -> elt

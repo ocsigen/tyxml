@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (** Basic iterators over XML tree (functorial interface). *)
 
@@ -25,13 +25,13 @@ module Make(Xml : Xml_sigs.Iterable) : sig
   open Xml
 
   val amap : (ename -> attrib list -> attrib list) -> elt -> elt
-    (** Recursively edit attributes for the element and all its children. *)
+  (** Recursively edit attributes for the element and all its children. *)
 
   val amap1 : (ename -> attrib list -> attrib list) -> elt -> elt
-    (** Edit attributes only for one element. *)
+  (** Edit attributes only for one element. *)
 
-    (** The following can safely be exported by higher level libraries,
-	because removing an attribute from a element is always legal. *)
+  (** The following can safely be exported by higher level libraries,
+      because removing an attribute from a element is always legal. *)
 
   val rm_attrib : (aname -> bool) -> attrib list -> attrib list
   val rm_attrib_from_list : (aname -> bool) -> (string -> bool) -> attrib list -> attrib list
@@ -43,9 +43,9 @@ module Make(Xml : Xml_sigs.Iterable) : sig
   val map_string_attrib_in_list :
     (aname -> bool) -> (string -> string) -> attrib list -> attrib list
 
-    (** Exporting the following by higher level libraries would drive
-	a hole through a type system, because they allow to add {e any}
-	attribute to {e any} element. *)
+  (** Exporting the following by higher level libraries would drive
+      a hole through a type system, because they allow to add {e any}
+      attribute to {e any} element. *)
 
   val add_int_attrib : aname -> int -> attrib list -> attrib list
   val add_string_attrib : aname -> string -> attrib list -> attrib list
