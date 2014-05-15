@@ -28,6 +28,10 @@ Description:
    elt = XML.elt and type 'a attrib = XML.attrib with 'a set to
    appropriate polymorphic variants.
 
+Flag syntax
+  Description: Build the camlp4 syntax extension.
+  Default: true
+
 Library tyxml
   FindlibName: tyxml
   Path: lib
@@ -67,6 +71,7 @@ Library tyxml_f
     Html5_f
 
 Library pa_tyxml
+  Build$: flag(syntax)
   FindlibName: syntax
   FindlibParent: tyxml
   XMETAType: syntax
@@ -85,6 +90,7 @@ Library pa_tyxml
   Pack: true
 
 Library tymlx_p
+  Build$: flag(syntax)
   FindlibName: parser
   FindlibParent: tyxml
   XMETADescription:
