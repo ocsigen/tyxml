@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 let is_control c =
   let cc = Char.code c in
@@ -30,7 +30,7 @@ let encode_unsafe_char s =
     | '"' -> Buffer.add_string b "&quot;"
     | '&' -> Buffer.add_string b "&amp;"
     | c when is_control c ->
-        Buffer.add_string b ("&#" ^ string_of_int (Char.code c) ^ ";")
+      Buffer.add_string b ("&#" ^ string_of_int (Char.code c) ^ ";")
     | c -> Buffer.add_char b c) s;
   Buffer.contents b
 
@@ -43,7 +43,7 @@ let encode_unsafe_char_and_at s =
     | '&' -> Buffer.add_string b "&amp;"
     | '@' -> Buffer.add_string b "&#64;"
     | c when is_control c ->
-        Buffer.add_string b ("&#" ^ string_of_int (Char.code c) ^ ";")
+      Buffer.add_string b ("&#" ^ string_of_int (Char.code c) ^ ";")
     | c -> Buffer.add_char b c) s;
   Buffer.contents b
 
@@ -55,8 +55,8 @@ let compose_doctype dt args =
   ^ (if args = []
      then ""
      else
-      " PUBLIC " ^
-	String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
+       " PUBLIC " ^
+       String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
 
 module Make
     (Xml : Xml_sigs.Iterable)
@@ -73,10 +73,10 @@ struct
     | Comma -> ", "
 
   let attrib_value_to_string encode a = match acontent a with
-  | AFloat f -> Printf.sprintf "\"%e\"" f
-  | AInt i -> Printf.sprintf "\"%d\"" i
-  | AStr s -> Printf.sprintf "\"%s\"" (encode s)
-  | AStrL (sep, slist) ->
+    | AFloat f -> Printf.sprintf "\"%e\"" f
+    | AInt i -> Printf.sprintf "\"%d\"" i
+    | AStr s -> Printf.sprintf "\"%s\"" (encode s)
+    | AStrL (sep, slist) ->
       Printf.sprintf "\"%s\""
         (encode (String.concat (separator_to_string sep) slist))
 
@@ -84,10 +84,10 @@ struct
     Printf.sprintf "%s=%s" (aname a) (attrib_value_to_string encode a)
 
   let rec xh_print_attrs encode attrs = match attrs with
-  | [] -> O.empty
-  | attr::queue ->
+    | [] -> O.empty
+    | attr::queue ->
       O.put (" "^ attrib_to_string encode attr)
-	++ xh_print_attrs encode queue
+      ++ xh_print_attrs encode queue
 
   and xh_print_text texte = O.put texte
 
@@ -95,26 +95,26 @@ struct
     if F.emptytags = [] || List.mem tag F.emptytags
     then
       (O.put ("<"^tag)
-	 ++ xh_print_attrs encode attrs
-	 ++ O.put " />")
+       ++ xh_print_attrs encode attrs
+       ++ O.put " />")
     else
       (O.put ("<"^tag)
-         ++ xh_print_attrs encode attrs
-         ++ O.put ("></"^tag^">"))
+       ++ xh_print_attrs encode attrs
+       ++ O.put ("></"^tag^">"))
 
   and xh_print_tag encode tag attrs taglist =
     if taglist = []
     then xh_print_closedtag encode tag attrs
     else
       (O.put ("<"^tag)
-         ++ xh_print_attrs encode attrs
-         ++ O.put ">"
-         ++ xh_print_taglist encode taglist
-         ++ O.put ("</"^tag^">"))
+       ++ xh_print_attrs encode attrs
+       ++ O.put ">"
+       ++ xh_print_taglist encode taglist
+       ++ O.put ("</"^tag^">"))
 
   and print_nodes encode name xh_attrs xh_taglist queue =
     xh_print_tag encode name xh_attrs xh_taglist
-      ++ xh_print_taglist encode queue
+    ++ xh_print_taglist encode queue
 
   and xh_print_taglist encode taglist =
     match taglist with
@@ -123,29 +123,29 @@ struct
 
     | elt :: queue -> match content elt with
 
-    | Comment texte ->
+      | Comment texte ->
         O.put ("<!--"^(encode texte)^"-->")
-	  ++ xh_print_taglist encode queue
+        ++ xh_print_taglist encode queue
 
-    | Entity e ->
+      | Entity e ->
         O.put ("&"^e^";") (* no encoding *)
-          ++ xh_print_taglist encode queue
+        ++ xh_print_taglist encode queue
 
-    | PCDATA texte ->
+      | PCDATA texte ->
         O.put (encode texte)
-          ++ xh_print_taglist encode queue
+        ++ xh_print_taglist encode queue
 
-    | EncodedPCDATA texte ->
+      | EncodedPCDATA texte ->
         O.put texte
-          ++ xh_print_taglist encode queue
+        ++ xh_print_taglist encode queue
 
-    | Node (name, xh_attrs, xh_taglist) ->
+      | Node (name, xh_attrs, xh_taglist) ->
         print_nodes encode name xh_attrs xh_taglist queue
 
-    | Leaf (name, xh_attrs) ->
+      | Leaf (name, xh_attrs) ->
         print_nodes encode name xh_attrs [] queue
 
-    | Empty ->
+      | Empty ->
         xh_print_taglist encode queue
 
   let print_list ?(encode = encode_unsafe_char) foret =
@@ -169,17 +169,17 @@ struct
     let doc = Typed_xml.doc_toelt doc in
     let doc = match Xml.content doc with
       | Xml.Node (n, a, c) ->
-	  let a =
-	    if List.exists (fun a -> Xml.aname a = "xmlns") a
-	    then a
-	    else Xml.string_attrib "xmlns" Typed_xml.Info.namespace :: a
-	  in
-	  Xml.node ~a n c
+        let a =
+          if List.exists (fun a -> Xml.aname a = "xmlns") a
+          then a
+          else Xml.string_attrib "xmlns" Typed_xml.Info.namespace :: a
+        in
+        Xml.node ~a n c
       | _ -> doc in
     O.make
       (O.put Typed_xml.Info.doctype
-	 ++ O.put (if advert <> "" then ("<!-- " ^ advert ^ " -->\n") else "\n")
-	 ++ P.xh_print_taglist encode [doc])
+       ++ O.put (if advert <> "" then ("<!-- " ^ advert ^ " -->\n") else "\n")
+       ++ P.xh_print_taglist encode [doc])
 
 end
 

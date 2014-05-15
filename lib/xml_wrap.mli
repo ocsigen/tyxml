@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 module type T = sig
   type 'a t

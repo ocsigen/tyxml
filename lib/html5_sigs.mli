@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 module type T = sig
 
@@ -437,29 +437,29 @@ module type T = sig
   val a_src : Xml.uri wrap -> [> | `Src] attrib
 
   val a_input_type : [<
-		     | `Url
-		     | `Tel
-		     | `Text
-		     | `Time
-		     | `Search
-		     | `Password
-		     | `Checkbox
-		     | `Range
-		     | `Radio
-		     | `Submit
-		     | `Reset
-		     | `Number
-		     | `Hidden
-		     | `Month
-		     | `Week
-		     | `File
-		     | `Email
-		     | `Image
-		     | `Datetime_local
-		     | `Datetime
-		     | `Date
-		     | `Color
-		     | `Button] wrap -> [> | `Input_Type] attrib
+    | `Url
+    | `Tel
+    | `Text
+    | `Time
+    | `Search
+    | `Password
+    | `Checkbox
+    | `Range
+    | `Radio
+    | `Submit
+    | `Reset
+    | `Number
+    | `Hidden
+    | `Month
+    | `Week
+    | `File
+    | `Email
+    | `Image
+    | `Datetime_local
+    | `Datetime
+    | `Date
+    | `Color
+    | `Button] wrap -> [> | `Input_Type] attrib
 
   val a_text_value : text wrap -> [> | `Text_Value] attrib
   (** This attribute specifies the initial value of the
@@ -571,23 +571,23 @@ module type T = sig
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c, 'd) binary =
-      ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt wrap -> 'd elt
+    ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt wrap -> 'd elt
 
   type ('b, 'c, 'd, 'e) tri = 'b elt wrap -> 'c elt wrap -> 'd elt wrap -> 'e elt
 
   type ('a, 'b, 'c) star =
-      ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
   (** Star '*' denotes any number of children, uncluding zero. *)
 
   type ('a, 'b, 'c) plus =
-      ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   (** Root element *)
   type html = [ | `Html ] elt
 
   type rt = [
-  | `Rt of [ | `Rt ] elt
-  | `Rpt of (([ | `Rp ] elt) * ([ | `Rt ] elt) * ([ | `Rp ] elt))
+    | `Rt of [ | `Rt ] elt
+    | `Rpt of (([ | `Rp ] elt) * ([ | `Rt ] elt) * ([ | `Rp ] elt))
   ]
 
   type ruby_content = (((phrasing elt) list) * rt)
@@ -671,7 +671,7 @@ module type T = sig
 
   val blockquote :
     ([< | blockquote_attrib], [< | blockquote_content_fun], [> | blockquote
-							    ]) star
+                                                            ]) star
 
   val div : ([< | div_attrib], [< | div_content_fun], [> | div]) star
 
@@ -687,7 +687,7 @@ module type T = sig
   val dl :
     ?a: (([< | common] attrib) list) ->
     ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
-	(([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
+     (([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
 
@@ -844,15 +844,15 @@ module type T = sig
   val object_ :
     ?params: (([< | `Param] elt) list wrap ) ->
     ([<
-     | common
-     | `Data
-     | `Form
-     | `Mime_type
-     | `Height
-     | `Width
-     | `Name
-     | `Usemap
-     ], 'a, [> | `Object of 'a ]) star
+      | common
+      | `Data
+      | `Form
+      | `Mime_type
+      | `Height
+      | `Width
+      | `Name
+      | `Usemap
+    ], 'a, [> | `Object of 'a ]) star
 
   val param : ([< | param_attrib], [> | param]) nullary
 
@@ -897,15 +897,15 @@ module type T = sig
     ?src:Xml.uri wrap ->
     ?srcs: (([< | `Source] elt) list wrap) ->
     ([<
-     | common
-     | `Poster
-     | `Preload
-     | `Autoplay
-     | `Loop
-     | `Controls
-     | `Width
-     | `Height
-     ], 'a, [> | `Video of 'a]) star
+      | common
+      | `Poster
+      | `Preload
+      | `Autoplay
+      | `Loop
+      | `Controls
+      | `Width
+      | `Height
+    ], 'a, [> | `Video of 'a]) star
 
   val canvas : ([< | canvas_attrib], 'a, [> | `Canvas of 'a]) star
 
@@ -922,16 +922,16 @@ module type T = sig
   val area :
     alt: text wrap ->
     ([<
-     | common
-     | `Alt
-     | `Coords
-     | `Shape
-     | `Target
-     | `Rel
-     | `Media
-     | `Hreflang
-     | `Mime_type
-     ], [> | `Area]) nullary
+      | common
+      | `Alt
+      | `Coords
+      | `Shape
+      | `Target
+      | `Rel
+      | `Media
+      | `Hreflang
+      | `Mime_type
+    ], [> | `Area]) nullary
 
   (* XXX: SC : the current system doesn't allow
      to put <area> tag inside a map (a priori) *)
@@ -1054,10 +1054,10 @@ module type T = sig
 
   val datalist :
     ?children:(
-    [<
-    | `Options of ([< | `Option] elt) list
-    | `Phras of ([< | phrasing] elt) list
-    ] wrap ) -> ([< | common], [> | `Datalist]) nullary
+      [<
+        | `Options of ([< | `Option] elt) list
+        | `Phras of ([< | phrasing] elt) list
+      ] wrap ) -> ([< | common], [> | `Datalist]) nullary
 
   val optgroup :
     label: text wrap  ->
@@ -1113,20 +1113,20 @@ module type T = sig
   val command :
     label: text wrap ->
     ([<
-     | common
-     | `Icon
-     | `Disabled
-     | `Checked
-     | `Radiogroup
-     | `Command_Type
-     ], [> | `Command]) nullary
+      | common
+      | `Icon
+      | `Disabled
+      | `Checked
+      | `Radiogroup
+      | `Command_Type
+    ], [> | `Command]) nullary
 
   val menu :
     ?child:(
-    [<
-    | `Lis of ([< | `Li of [< | common]] elt) list
-    | `Flows of ([< | flow5] elt) list
-    ] wrap) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
+      [<
+        | `Lis of ([< | `Li of [< | common]] elt) list
+        | `Flows of ([< | flow5] elt) list
+      ] wrap) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
 
   (** {2 Scripting} *)
 
@@ -1188,14 +1188,14 @@ module type T = sig
     rel: linktypes wrap ->
     href: Xml.uri wrap ->
     ([<
-     | common
-     | `Hreflang
-     | `Media
-     | `Rel
-     | `Href
-     | `Sizes
-     | `Mime_type
-     ], [> | `Link]) nullary
+      | common
+      | `Hreflang
+      | `Media
+      | `Rel
+      | `Href
+      | `Sizes
+      | `Mime_type
+    ], [> | `Link]) nullary
 
   (** {1 Tools} *)
 

@@ -18,7 +18,7 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
- *)
+*)
 
 (* OASIS_START *)
 (* OASIS_STOP *)
@@ -30,22 +30,22 @@ let () =
     (fun hook ->
        dispatch_default hook;
        match hook with
-         | After_rules ->
+       | After_rules ->
 
-             (* Api: use an introduction page with categories *)
-             tag_file "tyxml-api.docdir/index.html" ["apiref"];
-             dep ["apiref"] ["doc/indexdoc"];
-             flag ["apiref"] & S[A "-intro"; P "doc/indexdoc";
-                                 A"-colorize-code" ; A"-short-functors" ;
-                                 A"-charset"; P "utf-8" ];
+         (* Api: use an introduction page with categories *)
+         tag_file "tyxml-api.docdir/index.html" ["apiref"];
+         dep ["apiref"] ["doc/indexdoc"];
+         flag ["apiref"] & S[A "-intro"; P "doc/indexdoc";
+                             A"-colorize-code" ; A"-short-functors" ;
+                             A"-charset"; P "utf-8" ];
 
-             (* the "-bin-annot" flag was introduced in ocaml-4.00 *)
-             (* the "bin_annot" tag was only introduced in ocamlbuild-4.01 *)
-             if String.sub Sys.ocaml_version 0 4 = "4.00" then
-               flag ["ocaml"; "bin_annot"; "compile"] (A "-bin-annot");
+         (* the "-bin-annot" flag was introduced in ocaml-4.00 *)
+         (* the "bin_annot" tag was only introduced in ocamlbuild-4.01 *)
+         if String.sub Sys.ocaml_version 0 4 = "4.00" then
+           flag ["ocaml"; "bin_annot"; "compile"] (A "-bin-annot");
 
-         | _ ->
-             ())
+       | _ ->
+         ())
 
 (* Compile the wiki version of the Ocamldoc.
 
@@ -67,15 +67,15 @@ let () =
 
     Ocamlbuild_pack.Rule.rule
       "ocamldoc: document ocaml project odocl & *odoc -> wikidocdir"
-      ~insert:`top
-      ~prod:"%.wikidocdir/index.wiki"
-      ~stamp:"%.wikidocdir/wiki.stamp"
-      ~dep:"%.odocl"
-      (Ocamlbuild_pack.Ocaml_tools.document_ocaml_project
-         ~ocamldoc:ocamldoc_wiki
-         "%.odocl" "%.wikidocdir/index.wiki" "%.wikidocdir");
+        ~insert:`top
+        ~prod:"%.wikidocdir/index.wiki"
+        ~stamp:"%.wikidocdir/wiki.stamp"
+        ~dep:"%.odocl"
+        (Ocamlbuild_pack.Ocaml_tools.document_ocaml_project
+           ~ocamldoc:ocamldoc_wiki
+           "%.odocl" "%.wikidocdir/index.wiki" "%.wikidocdir");
 
-    tag_file "tyxml-api.wikidocdir/index.wiki" ["apiref";"wikidoc"];
-    flag ["wikidoc"] & S[A"-i";A wikidoc_dir;A"-g";A"odoc_wiki.cma"]
+      tag_file "tyxml-api.wikidocdir/index.wiki" ["apiref";"wikidoc"];
+      flag ["wikidoc"] & S[A"-i";A wikidoc_dir;A"-g";A"odoc_wiki.cma"]
 
   with Failure e -> () (* Silently fail if the package wikidoc isn't available *)

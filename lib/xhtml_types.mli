@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (** XHTML types with variants. (See also {!Xhtml.M}) *)
 
@@ -310,56 +310,56 @@ sig
 end
 
 module LIST :
-  sig
-    type list = [ | `Dl | `Ol | `Ul ]
+sig
+  type list = [ | `Dl | `Ol | `Ul ]
 
-    type t = [ | `Dd | `Dt | `Li ]
+  type t = [ | `Dd | `Dt | `Li ]
 
-    type flow = list
+  type flow = list
 
-  end
+end
 
 module PRESENTATION :
-  sig
-    type block = [ | `Hr ]
+sig
+  type block = [ | `Hr ]
 
-    type inline = [ | `B | `Big | `I | `Small | `Sub | `Sup | `Tt ]
+  type inline = [ | `B | `Big | `I | `Small | `Sub | `Sup | `Tt ]
 
-    type flow = [ | inline | block ]
+  type flow = [ | inline | block ]
 
-  end
+end
 
 module FORMS :
-  sig
-    type t = [ | `Option ]
+sig
+  type t = [ | `Option ]
 
-    type form = [ | `Form ]
+  type form = [ | `Form ]
 
-    type formctrl_sans_label = [ | `Input | `Select | `Textarea | `Button ]
+  type formctrl_sans_label = [ | `Input | `Select | `Textarea | `Button ]
 
-    type formctrl = [ | formctrl_sans_label | `Label ]
+  type formctrl = [ | formctrl_sans_label | `Label ]
 
-    type block = form
+  type block = form
 
-    type inline_sans_label = formctrl_sans_label
+  type inline_sans_label = formctrl_sans_label
 
-    type inline = formctrl
+  type inline = formctrl
 
-    type flow_sans_label = [ | block | inline_sans_label ]
+  type flow_sans_label = [ | block | inline_sans_label ]
 
-    type flow = [ | block | inline ]
+  type flow = [ | block | inline ]
 
-  end
+end
 
 module TABLES :
-  sig
-    type t = [ | `Caption | `Td | `Th | `Tr ]
+sig
+  type t = [ | `Caption | `Td | `Th | `Tr ]
 
-    type block = [ | `Table ]
+  type block = [ | `Table ]
 
-    type flow = block
+  type flow = block
 
-  end
+end
 
 module STYLE_SHEET : sig type t = [ | `Style ] end
 
@@ -368,32 +368,32 @@ module LINK : sig type t = [ | `Link ] end
 module BASE : sig type t = [ | `Base ] end
 
 module TEXT :
-  sig
-    type heading = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+sig
+  type heading = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
 
-    type block = [ | `Address | `Blockquote | `Div | `P | `Pre ]
+  type block = [ | `Address | `Blockquote | `Div | `P | `Pre ]
 
-    type inline =
-      [
-        | `Abbr
-        | `Acronym
-        | `Br
-        | `Cite
-        | `Code
-        | `Dfn
-        | `Em
-	| `Iframe
-        | `Kbd
-        | `Q
-        | `Samp
-        | `Span
-        | `Strong
-        | `Var
-      ]
+  type inline =
+    [
+      | `Abbr
+      | `Acronym
+      | `Br
+      | `Cite
+      | `Code
+      | `Dfn
+      | `Em
+      | `Iframe
+      | `Kbd
+      | `Q
+      | `Samp
+      | `Span
+      | `Strong
+      | `Var
+    ]
 
-    type flow = [ | heading | block | inline ]
+  type flow = [ | heading | block | inline ]
 
-  end
+end
 
 type edit = [ | `Ins | `Del ]
 
@@ -402,37 +402,37 @@ type scripttag = [ | `Script | `Noscript ]
 type misc = [ | edit | scripttag ]
 
 module SPECIAL :
-  sig
-    type inline = [ | `Img | `Map | `Object ]
+sig
+  type inline = [ | `Img | `Map | `Object ]
 
-    type block = [ | `Table | `Form | `Fieldset ]
+  type block = [ | `Table | `Form | `Fieldset ]
 
-    type flow = [ | inline | block ]
+  type flow = [ | inline | block ]
 
-  end
+end
 
 type i18nclass = [ | `Bdo ]
 
 module RUBY :
-  sig
-    type inline = [ | `Ruby_simple1 | `Ruby_simple2 | `Ruby_complex ]
+sig
+  type inline = [ | `Ruby_simple1 | `Ruby_simple2 | `Ruby_complex ]
 
-    type flow = inline
+  type flow = inline
 
-  end
+end
 
 type no_ruby_inline =
   [
     | TEXT.
-    inline
+        inline
     | PRESENTATION.
-    inline
+        inline
     | HYPERTEXT.
-    inline
+        inline
     | SPECIAL.
-    inline
+        inline
     | FORMS.
-    inline
+        inline
     | i18nclass
   ]
 
@@ -442,122 +442,122 @@ type no_ruby_content = [ | `PCDATA | no_ruby_inline | misc ]
 type block =
   [
     | TEXT.
-    block
+        block
     | PRESENTATION.
-    block
+        block
     | FORMS.
-    block
+        block
     | TABLES.
-    block
+        block
     | SPECIAL.
-    block
+        block
     | TEXT.
-    heading
+        heading
     | LIST.
-    list
+        list
     | misc
   ]
 
 type block_sans_form =
   [
     | TEXT.
-    block
+        block
     | PRESENTATION.
-    block
+        block
     | TABLES.
-    block
+        block
     | TEXT.
-    heading
+        heading
     | LIST.
-    list
+        list
     | misc
   ]
 
 type flow =
   [
     | TEXT.
-    flow
+        flow
     | HYPERTEXT.
-    flow
+        flow
     | LIST.
-    flow
+        flow
     | FORMS.
-    flow
+        flow
     | TABLES.
-    flow
+        flow
     | PRESENTATION.
-    flow
+        flow
     | SPECIAL.
-    flow
+        flow
     | i18nclass
     | misc
     | RUBY.
-    flow
+        flow
   ]
 
 type flow_sans_table =
   [
     | TEXT.
-    flow
+        flow
     | HYPERTEXT.
-    flow
+        flow
     | LIST.
-    flow
+        flow
     | FORMS.
-    flow
+        flow
     | PRESENTATION.
-    flow
+        flow
     | SPECIAL.
-    flow
+        flow
     | i18nclass
     | misc
     | RUBY.
-    flow
+        flow
   ]
 
 type inline =
   [
     | TEXT.
-    inline
+        inline
     | HYPERTEXT.
-    inline
+        inline
     | PRESENTATION.
-    inline
+        inline
     | FORMS.
-    inline
+        inline
     | SPECIAL.
-    inline
+        inline
     | i18nclass
     | misc
     | RUBY.
-    inline
+        inline
   ]
 
 type inline_sans_a_mix =
   [
     | TEXT.
-    inline
+        inline
     | PRESENTATION.
-    inline
+        inline
     | FORMS.
-    inline
+        inline
     | SPECIAL.
-    inline
+        inline
     | i18nclass
     | misc
     | RUBY.
-    inline
+        inline
   ]
 
 type buttoncontent =
   (* VB *)
   [
     | TEXT.
-    inline
+        inline
     | PRESENTATION.
-    inline
+        inline
     | SPECIAL.
-    inline
+        inline
     | i18nclass
     | block_sans_form
   ]
@@ -567,15 +567,15 @@ type precontent = inline
 type inline_sans_label =
   [
     | TEXT.
-    inline
+        inline
     | HYPERTEXT.
-    inline
+        inline
     | PRESENTATION.
-    inline
+        inline
     | FORMS.
-    inline_sans_label
+        inline_sans_label
     | SPECIAL.
-    inline
+        inline
     | i18nclass
     | misc
   ]

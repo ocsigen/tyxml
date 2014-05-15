@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (** Attributes *)
 
@@ -55,7 +55,7 @@ module M = struct
   (* Deprecated alias. *)
   let event_attrib = event_handler_attrib
 
-(** Element *)
+  (** Element *)
 
   type ename = string
   type econtent =
@@ -81,43 +81,43 @@ module M = struct
   let entity e = { elt = Entity e }
 
   let cdata s = (* GK *)
-  (* For security reasons, we do not allow "]]>" inside CDATA
-     (as this string is to be considered as the end of the cdata)
-  *)
-  let s' = "\n<![CDATA[\n"^
-    (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
-    ^"\n]]>\n" in
-  encodedpcdata s'
+    (* For security reasons, we do not allow "]]>" inside CDATA
+       (as this string is to be considered as the end of the cdata)
+    *)
+    let s' = "\n<![CDATA[\n"^
+             (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
+             ^"\n]]>\n" in
+    encodedpcdata s'
 
   let cdata_script s = (* GK *)
-  (* For security reasons, we do not allow "]]>" inside CDATA
-     (as this string is to be considered as the end of the cdata)
-  *)
+    (* For security reasons, we do not allow "]]>" inside CDATA
+       (as this string is to be considered as the end of the cdata)
+    *)
     let s' = "\n//<![CDATA[\n"^
-      (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
-      ^"\n//]]>\n" in
+             (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
+             ^"\n//]]>\n" in
     encodedpcdata s'
 
   let cdata_style s = (* GK *)
-  (* For security reasons, we do not allow "]]>" inside CDATA
-     (as this string is to be considered as the end of the cdata)
-  *)
+    (* For security reasons, we do not allow "]]>" inside CDATA
+       (as this string is to be considered as the end of the cdata)
+    *)
     let s' = "\n/* <![CDATA[ */\n"^
-      (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
-      ^"\n/* ]]> */\n" in
+             (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
+             ^"\n/* ]]> */\n" in
     encodedpcdata s'
 
   let leaf ?a name =
     { elt =
-	(match a with
-	  | Some a -> Leaf (name, a)
-	  | None -> Leaf (name, [])) }
+        (match a with
+         | Some a -> Leaf (name, a)
+         | None -> Leaf (name, [])) }
 
   let node ?a name children =
     { elt =
-	(match a with
-	  | Some a -> Node (name, a, children)
-	  | None -> Node (name, [], children)) }
+        (match a with
+         | Some a -> Node (name, a, children)
+         | None -> Node (name, [], children)) }
 
 
 end

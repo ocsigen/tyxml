@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (* IDEAS:
       The [a_] prefix would have to be maintained and the
@@ -43,9 +43,9 @@ module Version(Xml : Xml_sigs.T) = struct
   type i18n = [ `XML_lang | `Dir ]
 
   type events =
-      [ `OnClick | `OnDblClick | `OnMouseDown | `OnMouseUp |
-        `OnMouseOver | `OnMouseMove | `OnMouseOut | `OnKeyPress |
-	`OnKeyDown | `OnKeyUp ]
+    [ `OnClick | `OnDblClick | `OnMouseDown | `OnMouseUp |
+      `OnMouseOver | `OnMouseMove | `OnMouseOut | `OnKeyPress |
+      `OnKeyDown | `OnKeyUp ]
 
   type common = [ core | i18n | events | `Style_Attr]
 
@@ -87,11 +87,11 @@ module Version(Xml : Xml_sigs.T) = struct
   type languagecode = string
   type length = [ `Pixels of int | `Percent of int ]
   type linktypes =
-      [`Alternate | `Appendix | `Bookmark | `Chapter | `Contents
+    [`Alternate | `Appendix | `Bookmark | `Chapter | `Contents
     | `Copyright | `Glossary | `Help | `Index | `Next | `Prev
     | `Section | `Start | `Stylesheet | `Subsection | `Other of string] list
   type mediadesc =
-      [ `All | `Aural | `Braille | `Embossed | `Handheld | `Print
+    [ `All | `Aural | `Braille | `Embossed | `Handheld | `Print
     | `Projection | `Screen | `Speech | `TTY | `TV ] list
 
   type multilength = [ length | `Relative of int ]
@@ -159,26 +159,26 @@ module Version(Xml : Xml_sigs.T) = struct
     string_attrib name
       (String.concat ", " (List.map mediadesc_to_string mediadescs))
 
-      (* Core: *)
+  (* Core: *)
 
   let a_class = space_sep_attrib "class"
-      (* class is different on client side.
-         We put the value in xml.ml
-         because this file has a different implementation client side.
-       *)
+  (* class is different on client side.
+     We put the value in xml.ml
+     because this file has a different implementation client side.
+  *)
   let a_id = string_attrib "id"
   let a_title = string_attrib "title"
 
-      (* I18N: *)
+  (* I18N: *)
 
   let a_xml_lang = string_attrib "xml:lang"
 
-      (* Style: *)
+  (* Style: *)
 
   let a_style = string_attrib "style"
 
 
-      (* Events: *)
+  (* Events: *)
 
   let a_onblur = event_attrib "onblur"
   let a_onclick = event_attrib "onclick"
@@ -200,7 +200,7 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_onkeyup = event_attrib "onkeyup"
 
 
-      (* Other Attributes *)
+  (* Other Attributes *)
 
   let a_profile = uri_attrib "profile"
   let a_version = string_attrib "version"
@@ -250,33 +250,33 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_value_type it =
     string_attrib "valuetype"
       (match it with
-      | `Data -> "data"
-      | `Ref -> "ref"
-      | `Object -> "object")
+       | `Data -> "data"
+       | `Ref -> "ref"
+       | `Object -> "object")
 
-(* XHTML 1.0 allows the name attribute for more elements:*)
+  (* XHTML 1.0 allows the name attribute for more elements:*)
   let a_name_01_00 = string_attrib "name"
 
   let a_size = int_attrib "size"
   let a_input_type it =
     string_attrib "type"
       (match it with
-      | `Text -> "text"
-      | `Password -> "password"
-      | `Checkbox -> "checkbox"
-      | `Radio -> "radio"
-      | `Submit -> "submit"
-      | `Reset -> "reset"
-      | `File -> "file"
-      | `Image -> "image"
-      | `Button -> "button"
-      | `Hidden -> "hidden")
+       | `Text -> "text"
+       | `Password -> "password"
+       | `Checkbox -> "checkbox"
+       | `Radio -> "radio"
+       | `Submit -> "submit"
+       | `Reset -> "reset"
+       | `File -> "file"
+       | `Image -> "image"
+       | `Button -> "button"
+       | `Hidden -> "hidden")
   let a_button_type bt =
     string_attrib "type"
       (match bt with
-      | `Button -> "button"
-      | `Submit -> "submit"
-      | `Reset -> "reset")
+       | `Button -> "button"
+       | `Submit -> "submit"
+       | `Reset -> "reset")
   let a_multiple = function
     | `Multiple -> string_attrib "multiple" "multiple"
   let a_cols = int_attrib "cols"
@@ -288,11 +288,11 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_align a =
     string_attrib "align"
       (match a with
-      | `Left -> "left"
-      | `Center -> "center"
-      | `Right -> "right"
-      | `Justify -> "justify"
-      | `Char -> "char")
+       | `Left -> "left"
+       | `Center -> "center"
+       | `Right -> "right"
+       | `Justify -> "justify"
+       | `Char -> "char")
   let a_axis = string_attrib "axis"
   let a_colspan = int_attrib "colspan"
   let a_headers = space_sep_attrib "headers"
@@ -300,17 +300,17 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_scope s =
     string_attrib "scope"
       (match s with
-      | `Row -> "row"
-      | `Col -> "col"
-      | `Rowgroup -> "rowgroup"
-      | `Colgroup -> "colgroup")
+       | `Row -> "row"
+       | `Col -> "col"
+       | `Rowgroup -> "rowgroup"
+       | `Colgroup -> "colgroup")
   let a_valign v =
     string_attrib "valign"
       (match v with
-      | `Top -> "top"
-      | `Middle -> "middle"
-      | `Bottom -> "bottom"
-      | `Baseline -> "baseline")
+       | `Top -> "top"
+       | `Middle -> "middle"
+       | `Bottom -> "bottom"
+       | `Baseline -> "baseline")
 
   let a_border = int_attrib "border"
   let a_cellpadding = length_attrib "cellpadding"
@@ -319,23 +319,23 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_frame f =
     string_attrib "frame"
       (match f with
-      | `Void -> "void"
-      | `Above -> "above"
-      | `Below -> "below"
-      | `Hsides -> "hsides"
-      | `LHS -> "lhs"
-      | `RHS -> "rhs"
-      | `Vsides -> "vsides"
-      | `Box -> "box"
-      | `Border -> "border")
+       | `Void -> "void"
+       | `Above -> "above"
+       | `Below -> "below"
+       | `Hsides -> "hsides"
+       | `LHS -> "lhs"
+       | `RHS -> "rhs"
+       | `Vsides -> "vsides"
+       | `Box -> "box"
+       | `Border -> "border")
   let a_rules r =
     string_attrib "rules"
       (match r with
-      | `None -> "none"
-      | `Groups -> "groups"
-      | `Rows -> "rows"
-      | `Cols -> "cols"
-      | `All -> "all")
+       | `None -> "none"
+       | `Groups -> "groups"
+       | `Rows -> "rows"
+       | `Cols -> "cols"
+       | `All -> "all")
   let a_char c = string_attrib "char" (String.make 1 c)
   let a_charoff = length_attrib "charoff"
 
@@ -357,9 +357,9 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_scrolling s =
     string_attrib "scrolling"
       (match s with
-      | `Yes -> "yes"
-      | `No -> "no"
-      | `Auto -> "auto")
+       | `Yes -> "yes"
+       | `No -> "no"
+       | `Auto -> "auto")
 
   let a_target = string_attrib "target"
 
@@ -373,33 +373,33 @@ module Version(Xml : Xml_sigs.T) = struct
 
   type html = [`Html] elt
 
-	(* NB: These are more general than the ones in xhtml.mli *)
+  (* NB: These are more general than the ones in xhtml.mli *)
 
   type ('a, 'b) nullary = ?a:('a attrib list) -> unit -> 'b elt
   type ('a, 'b, 'c) unary = ?a:('a attrib list) -> 'b elt -> 'c elt
   type ('a, 'b, 'c, 'd) binary = ?a:('a attrib list) -> 'b elt -> 'c elt -> 'd elt
-(* CH *)
+  (* CH *)
   type ('a, 'b, 'c, 'd, 'e, 'f) quadry= ?a:('a attrib list) -> 'b elt -> 'c elt -> 'd elt -> 'e elt -> 'f elt
-(* CH *)
+  (* CH *)
   type ('a, 'b, 'c) star = ?a:('a attrib list) -> 'b elt list -> 'c elt
   type ('a, 'b, 'c) plus = ?a:('a attrib list) -> 'b elt -> 'b elt list -> 'c elt
 
   let terminal tag ?a () = Xml.leaf ?a tag
-      (* let nullary tag ?a () = Xml.node ?a tag [] *)
+  (* let nullary tag ?a () = Xml.node ?a tag [] *)
   let unary tag ?a elt = Xml.node ?a tag [elt]
   let binary tag ?a elt1 elt2 = Xml.node ?a tag [elt1; elt2]
   let star tag ?a elts = Xml.node ?a tag elts
   let plus tag ?a elt elts = Xml.node ?a tag (elt :: elts)
 
-(* CH *)
+  (* CH *)
   let quadry tag ?a elt1 elt2 elt3 elt4 = Xml.node ?a tag [elt1; elt2; elt3; elt4]
-(* CH *)
+  (* CH *)
 
 
   module STRUCTURE =
-    struct
-      type t = [ `Body | `Head | `Html | `Title ]
-    end
+  struct
+    type t = [ `Body | `Head | `Html | `Title ]
+  end
 
   let body = star "body"
   let head = plus "head"
@@ -421,14 +421,14 @@ module Version(Xml : Xml_sigs.T) = struct
 
 
   module TEXT =
-    struct
-      type heading = [ `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
-      type block = [ `Address | `Blockquote | `Div | `P | `Pre ]
-      type inline =
-          [ `Abbr | `Acronym | `Br | `Cite | `Code | `Dfn
-        | `Em | `Kbd | `Q | `Samp | `Span | `Strong | `Var ]
-      type flow = [ heading | block | inline ]
-    end
+  struct
+    type heading = [ `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+    type block = [ `Address | `Blockquote | `Div | `P | `Pre ]
+    type inline =
+      [ `Abbr | `Acronym | `Br | `Cite | `Code | `Dfn
+      | `Em | `Kbd | `Q | `Samp | `Span | `Strong | `Var ]
+    type flow = [ heading | block | inline ]
+  end
 
   let h1 = star "h1"
   let h2 = star "h2"
@@ -458,19 +458,19 @@ module Version(Xml : Xml_sigs.T) = struct
   let var = star "var"
 
   module HYPERTEXT =
-    struct
-      type inline = [ `A ]
-      type flow = inline
-    end
+  struct
+    type inline = [ `A ]
+    type flow = inline
+  end
 
   let a = star "a"
 
   module LIST =
-    struct
-      type list = [ `Dl | `Ol | `Ul ]
-      type t = [ `Dd | `Dt | `Li ]
-      type flow = list
-    end
+  struct
+    type list = [ `Dl | `Ol | `Ul ]
+    type t = [ `Dd | `Dt | `Li ]
+    type flow = list
+  end
 
   let dl = plus "dl"
   let ol = plus "ol"
@@ -480,11 +480,11 @@ module Version(Xml : Xml_sigs.T) = struct
   let li = star "li"
 
   module PRESENTATION =
-    struct
-      type block = [ `Hr ]
-      type inline = [ `B | `Big | `I | `Small | `Sub | `Sup | `Tt ]
-      type flow = [ inline | block ]
-    end
+  struct
+    type block = [ `Hr ]
+    type inline = [ `B | `Big | `I | `Small | `Sub | `Sup | `Tt ]
+    type flow = [ inline | block ]
+  end
 
   let hr = terminal "hr"
   let b = star "b"
@@ -496,7 +496,7 @@ module Version(Xml : Xml_sigs.T) = struct
   let tt = star "tt"
 
 
-(* VB *)
+  (* VB *)
   type i18nclass = [ `Bdo ]
   type shape = [ `Rect | `Circle | `Poly | `Default ]
 
@@ -506,18 +506,18 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_dir d =
     string_attrib "dir" (match d with `Rtl -> "rtl" | `Ltr -> "ltr")
 
-(* CH *)
+  (* CH *)
   let bdo ~dir ?(a = []) elts =
     Xml.node ~a:(a_dir dir :: a) "bdo" elts
-(* CH *)
+  (* CH *)
 
   let a_shape d =
     string_attrib "shape"
       (match d with
-        `Rect -> "rect"
-      | `Circle -> "circle"
-      | `Poly -> "poly"
-      | `Default -> "default")
+         `Rect -> "rect"
+       | `Circle -> "circle"
+       | `Poly -> "poly"
+       | `Default -> "default")
   let a_coords coords =
     string_attrib "coords" (String.concat ","
                               (List.map string_of_int coords))
@@ -536,32 +536,32 @@ module Version(Xml : Xml_sigs.T) = struct
   let script ~contenttype ?(a = []) elt =
     Xml.node ~a:(a_type contenttype :: a) "script" [elt]
   let noscript = plus "noscript"
-(* VB *)
+  (* VB *)
 
   module FORMS =
-    struct
-      type t = [ `Option ]
-      type form = [ `Form ]
-      type formctrl_sans_label = [ `Input | `Select | `Textarea | `Button ]
-      type formctrl = [ `Label | formctrl_sans_label ]
-      type block = form
-      type inline_sans_label = formctrl_sans_label
-      type inline = formctrl
-      type flow_sans_label = [block | inline_sans_label ]
-      type flow = [ block | inline ]
-    end
+  struct
+    type t = [ `Option ]
+    type form = [ `Form ]
+    type formctrl_sans_label = [ `Input | `Select | `Textarea | `Button ]
+    type formctrl = [ `Label | formctrl_sans_label ]
+    type block = form
+    type inline_sans_label = formctrl_sans_label
+    type inline = formctrl
+    type flow_sans_label = [block | inline_sans_label ]
+    type flow = [ block | inline ]
+  end
 
   module Basic_Forms =
-    struct
-      let form ~action ?(a = []) elt elts =
-        Xml.node ~a:(a_action action :: a) "form" (elt::elts)
-      let input = terminal "input"
-      let label = star "label"
-      let option = unary "option"
-      let select = plus "select"
-      let textarea ~rows ~cols ?(a = []) elt =
-        Xml.node ~a:(a_rows rows :: a_cols cols :: a) "textarea" [elt]
-    end
+  struct
+    let form ~action ?(a = []) elt elts =
+      Xml.node ~a:(a_action action :: a) "form" (elt::elts)
+    let input = terminal "input"
+    let label = star "label"
+    let option = unary "option"
+    let select = plus "select"
+    let textarea ~rows ~cols ?(a = []) elt =
+      Xml.node ~a:(a_rows rows :: a_cols cols :: a) "textarea" [elt]
+  end
 
   let form ~action ?(a = []) elt elts =
     Xml.node ~a:(a_action action :: a) "form" (elt::elts)
@@ -578,11 +578,11 @@ module Version(Xml : Xml_sigs.T) = struct
     Xml.node ~a:(a_label label :: a) "optgroup" (elt :: elts)
 
   module TABLES =
-    struct
-      type t = [ `Caption | `Td | `Th | `Tr ]
-      type block = [ `Table ]
-      type flow = block
-    end
+  struct
+    type t = [ `Caption | `Td | `Th | `Tr ]
+    type block = [ `Table ]
+    type flow = block
+  end
 
   let list_of_option = function
     | Some x -> [x]
@@ -593,17 +593,17 @@ module Version(Xml : Xml_sigs.T) = struct
     | None -> []
 
   module Basic_Tables =
-    struct
-      let a_align = a_align
-      let a_scope = a_scope
-      let a_valign = a_valign
-      let caption = star "caption"
-      let table ?caption ?a elt elts =
-        Xml.node ?a "table" (list_of_option caption @ elt :: elts)
-      let td = star "td"
-      let th = star "th"
-      let tr = plus "tr"
-    end
+  struct
+    let a_align = a_align
+    let a_scope = a_scope
+    let a_valign = a_valign
+    let caption = star "caption"
+    let table ?caption ?a elt elts =
+      Xml.node ?a "table" (list_of_option caption @ elt :: elts)
+    let td = star "td"
+    let th = star "th"
+    let tr = plus "tr"
+  end
 
   let caption = star "caption"
 
@@ -647,32 +647,32 @@ module Version(Xml : Xml_sigs.T) = struct
   let iframe = star "iframe"
 
   module METAINFORMATION =
-    struct
-      type t = [ `Meta ]
-    end
+  struct
+    type t = [ `Meta ]
+  end
 
   let meta ~content ?(a = []) () =
     Xml.leaf ~a:(a_content content :: a) "meta"
 
   module STYLE_SHEET =
-    struct
-      type t = [ `Style ]
-    end
+  struct
+    type t = [ `Style ]
+  end
 
   let style ~contenttype ?(a = []) elts =
     Xml.node ~a:(a_type contenttype :: a) "style" elts
 
   module LINK =
-    struct
-      type t = [ `Link ]
-    end
+  struct
+    type t = [ `Link ]
+  end
 
   let link = terminal "link"
 
   module BASE =
-    struct
-      type t = [ `Base ]
-    end
+  struct
+    type t = [ `Base ]
+  end
 
   let base ~href ?(a = []) ()=
     Xml.leaf ~a:(a_href href :: a) "base"
@@ -692,7 +692,7 @@ module Version(Xml : Xml_sigs.T) = struct
   let a_rbspan = int_attrib "rbspan"
 
 
-(* VB *)
+  (* VB *)
   type edit = [ `Ins | `Del ]
   type scripttag = [ `Script | `Noscript ]
   type misc = [ edit | scripttag ]
@@ -703,9 +703,9 @@ module Version(Xml : Xml_sigs.T) = struct
     type flow = [ inline | block ]
   end
 
-(* VB *)
+  (* VB *)
 
-(* CH *)
+  (* CH *)
   module RUBY = struct
     type inline = [ `Ruby_simple1 | `Ruby_simple2 | `Ruby_complex ]
     type flow =  inline
@@ -713,32 +713,32 @@ module Version(Xml : Xml_sigs.T) = struct
 
   type no_ruby_inline = [ TEXT.inline | PRESENTATION.inline | HYPERTEXT.inline | SPECIAL.inline | FORMS.inline | i18nclass ]
   type no_ruby_content = [ `PCDATA | no_ruby_inline | misc ]
-(* CH *)
+  (* CH *)
 
   type block =
-      [ TEXT.block | PRESENTATION.block | FORMS.block | TABLES.block | SPECIAL.block | TEXT.heading | LIST.list | misc ]
+    [ TEXT.block | PRESENTATION.block | FORMS.block | TABLES.block | SPECIAL.block | TEXT.heading | LIST.list | misc ]
   type block_sans_form =
-      [ TEXT.block | PRESENTATION.block | TABLES.block | TEXT.heading | LIST.list | misc ]
+    [ TEXT.block | PRESENTATION.block | TABLES.block | TEXT.heading | LIST.list | misc ]
 
   type flow =
-      [ TEXT.flow | HYPERTEXT.flow | LIST.flow | FORMS.flow | TABLES.flow | PRESENTATION.flow | SPECIAL.flow | i18nclass | misc | RUBY.flow ]
+    [ TEXT.flow | HYPERTEXT.flow | LIST.flow | FORMS.flow | TABLES.flow | PRESENTATION.flow | SPECIAL.flow | i18nclass | misc | RUBY.flow ]
   type flow_sans_table =
-      [ TEXT.flow | HYPERTEXT.flow | LIST.flow | FORMS.flow | PRESENTATION.flow | SPECIAL.flow | i18nclass | misc | RUBY.flow ]
+    [ TEXT.flow | HYPERTEXT.flow | LIST.flow | FORMS.flow | PRESENTATION.flow | SPECIAL.flow | i18nclass | misc | RUBY.flow ]
 
   type inline =
-      [ TEXT.inline | HYPERTEXT.inline | PRESENTATION.inline
+    [ TEXT.inline | HYPERTEXT.inline | PRESENTATION.inline
     | FORMS.inline | SPECIAL.inline | i18nclass | misc | RUBY.inline ]
 
   type inline_sans_a_mix =
-      [ TEXT.inline | PRESENTATION.inline
+    [ TEXT.inline | PRESENTATION.inline
     | FORMS.inline | SPECIAL.inline | i18nclass | misc | RUBY.inline ]
 
   type buttoncontent = (* VB *)
-      [ TEXT.inline | PRESENTATION.inline
+    [ TEXT.inline | PRESENTATION.inline
     | SPECIAL.inline | i18nclass | block_sans_form ]
   type precontent = inline
   type inline_sans_label =
-      [ TEXT.inline | HYPERTEXT.inline | PRESENTATION.inline
+    [ TEXT.inline | HYPERTEXT.inline | PRESENTATION.inline
     | FORMS.inline_sans_label | SPECIAL.inline | i18nclass | misc ]
 
   type heading = TEXT.heading
@@ -800,7 +800,7 @@ end
    The other empty tags are written <p></p> for html compatibility.
    See guidelines here:
    http://www.w3.org/TR/xhtml1/#guidelines
- *)
+*)
 let emptytags =
   [ "hr"; "br"; "img"; "meta"; "link"; "input"; "col"; "area";
     "param"; "base"; "basefont"; "isindex"; "frame" ]
@@ -817,9 +817,9 @@ module Make_01_00(Xml : Xml_sigs.T) = struct
     let standard = "http://www.w3.org/TR/xhtml1/"
     let namespace = "http://www.w3.org/1999/xhtml"
     let doctype =
-      Xml_print.compose_doctype	"html"
-	["-//W3C//DTD XHTML 1.0 Strict//EN";
-	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"]
+      Xml_print.compose_doctype"html"
+        ["-//W3C//DTD XHTML 1.0 Strict//EN";
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"]
     let emptytags = emptytags
   end
 
@@ -839,8 +839,8 @@ module Make_01_01(Xml : Xml_sigs.T) = struct
     let doctype =
       Xml_print.compose_decl () ^
       Xml_print.compose_doctype "html"
-	["-//W3C//DTD XHTML 1.1//EN";
-	 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"]
+        ["-//W3C//DTD XHTML 1.1//EN";
+         "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"]
     let emptytags = emptytags
   end
 

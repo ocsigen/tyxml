@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (** Type instantiations for SVG *)
 
@@ -59,7 +59,7 @@ module Unit = struct
     match unit with
     | Some unit -> f unit
     | None -> ""
-    end
+  end
 
   let angle_names = function `Deg -> "deg" | `Grad -> "grad" | `Rad -> "rad"
   let string_of_angle a = to_string angle_names a
@@ -98,16 +98,16 @@ let string_of_percentage = Printf.sprintf "%d%%"
 let string_of_transform =
   function
   | Matrix ((a, b, c, d, e, f)) ->
-      Printf.sprintf "matrix(%g %g %g %g %g %g)" a b c d e f
+    Printf.sprintf "matrix(%g %g %g %g %g %g)" a b c d e f
   | Translate x ->
-      Printf.sprintf "translate(%s)" (string_of_number_optional_number x)
+    Printf.sprintf "translate(%s)" (string_of_number_optional_number x)
   | Scale x ->
-      Printf.sprintf "scale(%s)" (string_of_number_optional_number x)
+    Printf.sprintf "scale(%s)" (string_of_number_optional_number x)
   | Rotate ((angle, x)) ->
-      Printf.sprintf "rotate(%s %s)" (string_of_angle angle)
-        (match x with
-         | Some ((x, y)) -> Printf.sprintf "%g %g" x y
-         | None -> "")
+    Printf.sprintf "rotate(%s %s)" (string_of_angle angle)
+      (match x with
+       | Some ((x, y)) -> Printf.sprintf "%g %g" x y
+       | None -> "")
   | SkewX angle -> Printf.sprintf "skewX(%s)" (string_of_angle angle)
   | SkewY angle -> Printf.sprintf "skewY(%s)" (string_of_angle angle)
 let string_of_transforms x = String.concat " " (List.map string_of_transform x)
@@ -132,7 +132,7 @@ let string_of_paint_whitout_icc = function
 let string_of_paint = function
   | `Icc (iri, None) -> string_of_iri iri
   | `Icc (iri, Some b) ->
-      (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
+    (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
 module MakeWrapped
@@ -150,9 +150,9 @@ struct
     let standard = "http://www.w3.org/TR/svg11/"
     let namespace = "http://www.w3.org/2000/svg"
     let doctype =
-      Xml_print.compose_doctype	"svg"
-	["-//W3C//DTD SVG 1.1//EN";
-	 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
+      Xml_print.compose_doctype"svg"
+        ["-//W3C//DTD SVG 1.1//EN";
+         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
   end
 
   type uri = Xml.uri
@@ -175,10 +175,10 @@ struct
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-      ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
   type ('a, 'b, 'c) plus =
-      ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   let tot x = x
 

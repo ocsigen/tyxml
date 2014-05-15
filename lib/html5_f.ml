@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
- *)
+*)
 
 (* TODO :
    - MathML and SVG
@@ -325,7 +325,7 @@ module MakeWrapped
 
   let a_onmessage = event_attrib "onmessage"
 
-    (* Other Attributes *)
+  (* Other Attributes *)
   let a_version = string_attrib "version"
 
   let a_xmlns x =
@@ -557,10 +557,10 @@ module MakeWrapped
   let a_sandbox sb =
     let rec aux sb =
       match sb with
-        | `AllowSameOrigin :: a -> "allow-same-origin" :: (aux a)
-        | `AllowForms :: a -> "allow-forms" :: (aux a)
-        | `AllowScript :: a -> "allow-script" :: (aux a)
-        | [] -> []
+      | `AllowSameOrigin :: a -> "allow-same-origin" :: (aux a)
+      | `AllowForms :: a -> "allow-forms" :: (aux a)
+      | `AllowScript :: a -> "allow-script" :: (aux a)
+      | [] -> []
     in space_sep_attrib "sandbox" (W.fmap aux sb)
 
   let a_spellcheck sc =
@@ -957,37 +957,37 @@ module MakeWrapped
   let rp ?(a = []) elts = (a, elts)
 
   let rt ?rp ?a elts =
-      match rp with
-      | Some ((a1, e1), (a2, e2)) ->
-          `Rpt (Xml.node ~a: a1 "rp" e1, Xml.node ?a "rt" elts,
+    match rp with
+    | Some ((a1, e1), (a2, e2)) ->
+      `Rpt (Xml.node ~a: a1 "rp" e1, Xml.node ?a "rt" elts,
             Xml.node ~a: a2 "rp" e2)
-      | None -> `Rt (Xml.node ?a "rt" elts)
+    | None -> `Rt (Xml.node ?a "rt" elts)
 
   let ruby ?a elt elts =
     let rec aux =
-        function
-        | [] -> []
-        | (pel, `Rt e) :: l -> pel @ (e :: (aux l))
-        | (pel, `Rpt (e1, e2, e3)) :: l -> pel @ (e1 :: e2 :: e3 :: (aux l))
+      function
+      | [] -> []
+      | (pel, `Rt e) :: l -> pel @ (e :: (aux l))
+      | (pel, `Rpt (e1, e2, e3)) :: l -> pel @ (e1 :: e2 :: e3 :: (aux l))
     in
     let l = W.(bind elt (fun x -> bind elts (fun y -> return (x :: y))))
     in Xml.node ?a "ruby" (W.fmap aux l)
 
   let wbr = terminal "wbr"
 
-    (* VB *)
-    type shape = [ | `Rect | `Circle | `Poly | `Default ]
+  (* VB *)
+  type shape = [ | `Rect | `Circle | `Poly | `Default ]
 
   let bdo ~dir ?(a = []) elts = Xml.node ~a: ((a_dir dir) :: a) "bdo" elts
 
   let a_datetime = string_attrib "datetime"
 
   let a_shape d =
-      let f = function | `Rect -> "rect"
-         | `Circle -> "circle"
-         | `Poly -> "poly"
-         | `Default -> "default"
- in user_attrib f "shape" d
+    let f = function | `Rect -> "rect"
+                     | `Circle -> "circle"
+                     | `Poly -> "poly"
+                     | `Default -> "default"
+    in user_attrib f "shape" d
 
   let a_coords coords =
     let f c = String.concat "," (List.map string_of_int c)
@@ -1019,8 +1019,8 @@ module MakeWrapped
   let video_audio name ?src ?(srcs=W.return []) ?(a = []) elts =
     let a =
       match src with
-        | None -> a
-        | Some uri -> (a_src uri) :: a
+      | None -> a
+      | Some uri -> (a_src uri) :: a
     in
     plus_concat ~a name srcs elts
 
@@ -1031,7 +1031,7 @@ module MakeWrapped
   let canvas = star "canvas"
 
   let command ~label ?(a = []) () =
-      Xml.leaf ~a: ((a_label label) :: a) "command"
+    Xml.leaf ~a: ((a_label label) :: a) "command"
 
   let menu ?child ?a () =
     let child = opt_fmap (fun x -> li_option (Some x)) child (li_option None) in
@@ -1089,10 +1089,10 @@ module MakeWrapped
     let add_caption caption elts = match caption with
       | None -> elts
       | Some x ->
-          let f c elts = match c with
-            | `Top figc -> figc :: elts
-            | `Bottom figc -> elts @ [figc]
-          in W.fmap2 f x elts
+        let f c elts = match c with
+          | `Top figc -> figc :: elts
+          | `Bottom figc -> elts @ [figc]
+        in W.fmap2 f x elts
     in
     let content = add_caption figcaption elts in
     Xml.node ?a "figure" content
@@ -1137,7 +1137,7 @@ module MakeWrapped
 
   let img ~src ~alt ?(a = []) () =
     let a = (a_src src) :: (a_alt alt) :: a in
-      Xml.leaf ~a "img"
+    Xml.leaf ~a "img"
 
   let meta = terminal "meta"
 
