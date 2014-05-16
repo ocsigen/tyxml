@@ -22,4 +22,4 @@ A good example of application is the ##R## modules with reactive nodes in eliom.
 In order to do this, You need to provide an additional ##Wrap## module to the functor, following the signature <<a_api | module Xml_wrap.T >>. This implements monadic operations, with multiple {{{fmap}}}, for efficiency reasons.
 The ##Xml## implementation follow <<a_api | module Xml_sigs.Wrapped >>, which is the same as <<a_api| module Xml_sigs.T >>, but with arbitrary {{{'a wrap}}} type.
 
-An identity wrapper, <<a_api| module Xml_wrap.NoWrap >>, is provided. The ##Make## functor is only ##MakeWrapped# partially applied to ##NoWrap##.
+An identity wrapper, <<a_api| module Xml_wrap.NoWrap >>, is provided. The ##Make## functor is only ##MakeWrapped## partially applied to ##NoWrap##.
