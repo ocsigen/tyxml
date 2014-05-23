@@ -967,14 +967,14 @@ module type T = sig
     ?columns: [< | colgroup] elt list wrap ->
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
-    ([< | table_attrib], [< | table_content_fun], [> | `Table]) plus
+    ([< | table_attrib], [< | table_content_fun], [> | table]) plus
 
   val tablex :
     ?caption: [< | caption] elt wrap ->
     ?columns: [< | colgroup] elt list wrap ->
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
-    ([< | tablex_attrib], [< | tablex_content_fun], [> | `Tablex]) star
+    ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
 
   (********************************)
   (*          In Colgroup         *)
