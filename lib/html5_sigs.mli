@@ -907,7 +907,7 @@ module type T = sig
       | `Height
     ], 'a, [> | `Video of 'a]) star
 
-  val canvas : ([< | canvas_attrib], 'a, [> | `Canvas of 'a]) star
+  val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
 
   val source : ([< | source_attrib], [> | source]) nullary
 
@@ -963,18 +963,18 @@ module type T = sig
   (*         CHILD IN TOTAL       *)
   (********************************)
   val table :
-    ?caption: [< | `Caption] elt wrap ->
-    ?columns: [< | `Colgroup] elt list wrap ->
-    ?thead: [< | `Thead] elt wrap ->
-    ?tfoot: [< | `Tfoot] elt wrap ->
-    ([< | common | `Summary], [< | `Tr], [> | `Table]) plus
+    ?caption: [< | caption] elt wrap ->
+    ?columns: [< | colgroup] elt list wrap ->
+    ?thead: [< | thead] elt wrap ->
+    ?tfoot: [< | tfoot] elt wrap ->
+    ([< | table_attrib], [< | table_content_fun], [> | `Table]) plus
 
   val tablex :
-    ?caption: [< | `Caption] elt wrap ->
-    ?columns: [< | `Colgroup] elt list wrap ->
-    ?thead: [< | `Thead] elt wrap ->
-    ?tfoot: [< | `Tfoot] elt wrap ->
-    ([< | common | `Summary], [< | `Tbody], [> | `Table]) star
+    ?caption: [< | caption] elt wrap ->
+    ?columns: [< | colgroup] elt list wrap ->
+    ?thead: [< | thead] elt wrap ->
+    ?tfoot: [< | tfoot] elt wrap ->
+    ([< | tablex_attrib], [< | tablex_content_fun], [> | `Tablex]) star
 
   (********************************)
   (*          In Colgroup         *)
