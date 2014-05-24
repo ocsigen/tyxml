@@ -13,6 +13,8 @@ remove: [
 ]
 depends: [
   "ocamlfind"
+  ## OASIS is not required in released version
+  "oasis" {>= "0.4.4"}
 ]
 depopts: [
   "camlp4"
