@@ -1,3 +1,3 @@
 opam pin tyxml .
-opam install tyxml
-opam remove tyxml
+opam install --verbose tyxml
+opam remove --verbose tyxml
