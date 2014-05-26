@@ -82,12 +82,12 @@ Library pa_tyxml
   BuildDepends:
     camlp4
   Modules:
+    Pa_tyxml
+  InternalModules:
     Xmllexer,
     Basic_types,
     Camllexer,
-    Xhtmlparser,
-    Xhtmlsyntax
-  Pack: true
+    Xhtmlparser
 
 Library tymlx_p
   Build$: flag(syntax)
