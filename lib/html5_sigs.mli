@@ -53,6 +53,13 @@ module type T = sig
 
   val a_autoplay : [< | `Autoplay] wrap -> [> | `Autoplay] attrib
 
+  val a_muted : [< | `Muted] wrap -> [> | `Muted] attrib
+
+  val a_crossorigin :
+    [< | `Anonymous | `Use_credentials ] wrap -> [> | `Crossorigin ] attrib
+
+  val a_mediagroup : string wrap -> [> | `Mediagroup ] attrib
+
   val a_challenge : text wrap -> [> | `Challenge] attrib
 
   val a_contenteditable : bool wrap -> [> | `Contenteditable] attrib
@@ -889,23 +896,13 @@ module type T = sig
   (**************************************)
   val audio :
     ?src:Xml.uri wrap ->
-    ?srcs:(([< | `Source] elt) list wrap) ->
-    ([< | common | `Preload | `Autoplay | `Loop | `Controls], 'a,
-     [> | `Audio of 'a ]) star
+    ?srcs:(([< | source] elt) list wrap) ->
+    ([< | audio_attrib], 'a, [> | `Audio of 'a ]) star
 
   val video :
     ?src:Xml.uri wrap ->
-    ?srcs: (([< | `Source] elt) list wrap) ->
-    ([<
-      | common
-      | `Poster
-      | `Preload
-      | `Autoplay
-      | `Loop
-      | `Controls
-      | `Width
-      | `Height
-    ], 'a, [> | `Video of 'a]) star
+    ?srcs: (([< | source] elt) list wrap) ->
+    ([< | video_attrib], 'a, [> | `Video of 'a]) star
 
   val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
 

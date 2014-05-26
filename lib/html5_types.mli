@@ -1700,25 +1700,28 @@ type embed_content_fun = notag
 
 type embed_attrib = [ | common | `Src | `Height | `Mime_type | `Width ]
 
+(* Attributes used by audio and video. *)
+type media_attrib =
+  [ | `Crossorigin
+    | `Preload
+    | `Autoplay
+    | `Mediagroup
+    | `Loop
+    | `Muted
+    | `Controls
+  ]
+
 type 'a audio = [ | `Audio of 'a | `Audio_interactive of 'a ]
 
 type audio_content = flow5_without_media
-
 type audio_ = audio_content audio
-
 type audio_content_fun = flow5_without_media
 
 type audio_attrib =
-  [
-    | common
-    | `Poster
-    | `Preload
-    | `Autoplay
-    | `Loop
-    | `Controls
-    | `Width
-    | `Height
+  [ | common
+    | media_attrib
   ]
+
 
 type 'a video = [ | `Video of 'a | `Video_interactive of 'a ]
 
@@ -1727,13 +1730,9 @@ type video_ = video_content video
 type video_content_fun = flow5_without_media
 
 type video_attrib =
-  [
-    | common
+  [ | common
+    | media_attrib
     | `Poster
-    | `Preload
-    | `Autoplay
-    | `Loop
-    | `Controls
     | `Width
     | `Height
   ]

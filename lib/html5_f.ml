@@ -437,6 +437,19 @@ module MakeWrapped
       | `Autoplay -> "autoplay"
     in user_attrib f "autoplay" x
 
+  let a_muted x =
+    let f = function
+      | `Muted -> "muted"
+    in user_attrib f "muted" x
+
+  let a_crossorigin x =
+    let f = function
+      | `Anonymous -> "anonymous"
+      | `Use_credentials -> "use-credentials"
+    in user_attrib f "crossorigin" x
+
+  let a_mediagroup = string_attrib "mediagroup"
+
   let a_challenge = string_attrib "challenge"
 
   let a_contenteditable ce =
