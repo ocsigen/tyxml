@@ -1,0 +1,22 @@
+# OASIS_START
+# DO NOT EDIT (digest: 18101f90360a095e58ab4ea2af65bc66)
+lib/Xml
+lib/Xhtml
+lib/Svg
+lib/Html5
+lib/Xml_iter
+lib/Xml_sigs
+lib/Xml_wrap
+lib/Xml_print
+lib/Xhtml_sigs
+lib/Xhtml_types
+lib/Xhtml_f
+lib/Svg_sigs
+lib/Svg_types
+lib/Svg_f
+lib/Html5_sigs
+lib/Html5_types
+lib/Html5_f
+syntax/Simplexmlparser
+syntax/Pa_tyxml
+# OASIS_STOP

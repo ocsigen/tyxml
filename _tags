@@ -1,4 +1,29 @@
 # OASIS_START
+# DO NOT EDIT (digest: a8b2c1c0d619924a93a606114a692f33)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library tyxml
+"lib/tyxml.cmxs": use_tyxml
+<lib/*.ml{,i}>: pkg_str
+# Library tyxml_f
+"lib/tyxml_f.cmxs": use_tyxml_f
+# Library pa_tyxml
+"syntax/pa_tyxml.cmxs": use_pa_tyxml
+<syntax/*.ml{,i}>: pkg_camlp4
+# Library tymlx_p
+"syntax/tymlx_p.cmxs": use_tymlx_p
+<syntax/*.ml{,i}>: pkg_camlp4.lib
 # OASIS_STOP
 "syntax/basic_types.ml": camlp4rf
 "syntax/xhtmlparser.ml": camlp4rf
