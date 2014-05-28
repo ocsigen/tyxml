@@ -360,9 +360,6 @@ module ParserSvg = Xhtmlparser.Make(Syntax)(struct
 end);
 
 do {
-  Syntax.Quotation.add "xhtml" Syntax.Quotation.DynAst.expr_tag Parser.xml_exp ;
-  Syntax.Quotation.add "xhtmllist" Syntax.Quotation.DynAst.expr_tag
-        Parser.xml_expl;
   Syntax.Quotation.add "html5" Syntax.Quotation.DynAst.expr_tag Parser5.xml_exp ;
   Syntax.Quotation.add "html5list" Syntax.Quotation.DynAst.expr_tag
         Parser5.xml_expl;
