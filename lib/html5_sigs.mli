@@ -577,17 +577,9 @@ module type T = sig
 
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
-  type ('a, 'b, 'c, 'd) binary =
-    ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt wrap -> 'd elt
-
-  type ('b, 'c, 'd, 'e) tri = 'b elt wrap -> 'c elt wrap -> 'd elt wrap -> 'e elt
-
   type ('a, 'b, 'c) star =
     ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
   (** Star '*' denotes any number of children, uncluding zero. *)
-
-  type ('a, 'b, 'c) plus =
-    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
 
   (** Root element *)
   type html = [ | `Html ] elt
@@ -658,8 +650,9 @@ module type T = sig
 
   val h6 : ([< | h6_attrib], [< | h6_content_fun], [> | h6]) star
 
+  (* theoretically a plus, simplified into star *)
   val hgroup :
-    ([< | hgroup_attrib], [< | hgroup_content_fun], [> | hgroup]) plus
+    ([< | hgroup_attrib], [< | hgroup_content_fun], [> | hgroup]) star
 
   val address :
     ([< | address_attrib], [< | address_content_fun], [> | address]) star
@@ -691,10 +684,13 @@ module type T = sig
   (*      followed by             *)
   (*      one or more dd  elements*)
   (********************************)
-  val dl :
-    ?a: (([< | common] attrib) list) ->
-    ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
-     (([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
+  (* theoretically
+    val dl :
+      ?a: (([< | common] attrib) list) ->
+      ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
+       (([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
+   but we simplify into star *)
+  val dl : ([< | common], [< | `Dt | `Dd], [> | `Dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
 
@@ -932,7 +928,8 @@ module type T = sig
 
   (* XXX: SC : the current system doesn't allow
      to put <area> tag inside a map (a priori) *)
-  val map : ([< | map_attrib], 'a, [> | `A of 'a]) plus
+  (* theoretically a plus, simplified into star *)
+  val map : ([< | map_attrib], 'a, [> | `A of 'a]) star
 
   (** {2 Tables Data} *)
 
@@ -959,12 +956,13 @@ module type T = sig
   (*   BUT ONLY ONE FOOT ELEMENT  *)
   (*         CHILD IN TOTAL       *)
   (********************************)
+  (* theoretically a plus, simplified into star *)
   val table :
     ?caption: [< | caption] elt wrap ->
     ?columns: [< | colgroup] elt list wrap ->
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
-    ([< | table_attrib], [< | table_content_fun], [> | table]) plus
+    ([< | table_attrib], [< | table_content_fun], [> | table]) star
 
   val tablex :
     ?caption: [< | caption] elt wrap ->
@@ -982,8 +980,7 @@ module type T = sig
   (*                col elements. *)
   (********************************)
   val colgroup :
-    ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup])
-      star
+    ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup]) star
 
   val col : ([< | col_attrib], [> | col]) nullary
 
@@ -1011,8 +1008,8 @@ module type T = sig
   val tr : ([< | tr_attrib], [< | tr_content_fun], [> | tr]) star
 
   (** {2 Forms} *)
-
-  val form : ([< | form_attrib], [< | form_content_fun], [> | form]) plus
+  (* theoretically a plus, simplified into star *)
+  val form : ([< | form_attrib], [< | form_content_fun], [> | form]) star
 
   val fieldset :
     ?legend: [ | `Legend ] elt wrap ->
@@ -1058,22 +1055,18 @@ module type T = sig
 
   val optgroup :
     label: text wrap  ->
-    ([< | common | `Disabled | `Label], [< | `Option], [> | `Optgroup])
-      star
+    ([< | common | `Disabled | `Label], [< | `Option], [> | `Optgroup]) star
 
   val option :
-    ([< | option_attrib], [< | option_content_fun], [> | selectoption])
-      unary
+    ([< | option_attrib], [< | option_content_fun], [> | selectoption]) unary
 
   val textarea :
-    ([< | textarea_attrib], [< | textarea_content_fun], [> | textarea])
-      unary
+    ([< | textarea_attrib], [< | textarea_content_fun], [> | textarea]) unary
 
   val keygen : ([< | keygen_attrib], [> | keygen]) nullary
 
   val progress :
-    ([< | progress_attrib], [< | progress_content_fun], [> | progress])
-      star
+    ([< | progress_attrib], [< | progress_content_fun], [> | progress]) star
 
   val meter :
     ([< | meter_attrib], [< | meter_content_fun], [> | meter]) star
@@ -1157,10 +1150,10 @@ module type T = sig
   (*   in the algorithm causes an HTML parser to flag *)
   (*   a parse error                                  *)
   (****************************************************)
-  (* PLUS ?? *)
+  (* PLUS ?? simplified into star *)
   val noscript :
     ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript])
-      plus
+      star
 
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
