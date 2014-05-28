@@ -648,9 +648,10 @@ module type T = sig
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
 
+  (* theoretically a plus, simplified into star *)
   val altglyphitem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
-                                                          ]) plus
+                                                          ]) star
 
   val glyphref : ([< | glyphref_attr], [> | glyphref]) nullary
 

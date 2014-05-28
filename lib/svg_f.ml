@@ -951,7 +951,7 @@ struct
 
   let altglyphdef = unary "altGlyphDef"
 
-  let altglyphitem = plus "altGlyphItem"
+  let altglyphitem = star "altGlyphItem"
 
   let glyphref = nullary "glyphRef"
 
