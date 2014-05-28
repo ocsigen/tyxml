@@ -34,6 +34,7 @@ module type T = sig
   type 'a attrib
 
   type 'a wrap
+  type 'a list_wrap
 
   type +'a elt
 
@@ -44,7 +45,7 @@ module type T = sig
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
 
   (* to be processed by a script *)
   type altglyphdef_content =
@@ -550,11 +551,11 @@ module type T = sig
 
 
   val metadata :
-    ?a: ((metadata_attr attrib) list) -> Xml.elt list wrap -> [> | metadata] elt
+    ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt
 
   val foreignobject :
     ?a: ((foreignobject_attr attrib) list) ->
-    Xml.elt list wrap -> [> | foreignobject] elt
+    Xml.elt list_wrap -> [> | foreignobject] elt
 
   val a_stopcolor : color wrap -> [> | `Stop_Color ] attrib
 
@@ -827,7 +828,7 @@ module type T = sig
         If it is a standard SVG node which is missing,
         please report to the Ocsigen team.
     *)
-    val node : string -> ?a:'a attrib list -> 'b elt list wrap -> 'c elt
+    val node : string -> ?a:'a attrib list -> 'b elt list_wrap -> 'c elt
 
     (** Insert an XML node without children
         that is not implemented in this module.

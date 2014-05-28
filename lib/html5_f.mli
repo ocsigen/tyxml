@@ -32,6 +32,8 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml)
                   and type +'a elt = Xml.elt
                   and type 'a Xml.wrap = 'a
                   and type 'a wrap = 'a
+                  and type 'a Xml.list_wrap = 'a list
+                  and type 'a list_wrap = 'a list
                   and type 'a attrib = Xml.attrib
                   and type uri = Xml.uri
 
@@ -39,7 +41,8 @@ module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml)
     See the functorial interface documentation for more details. *)
 module MakeWrapped
     (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t)
+    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t
+                             and type 'a list_wrap = 'a W.tlist)
     (Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.T with type Xml.uri = Xml.uri
                   and type Xml.event_handler = Xml.event_handler
@@ -51,5 +54,7 @@ module MakeWrapped
                   and type +'a elt = Xml.elt
                   and type 'a Xml.wrap = 'a W.t
                   and type 'a wrap = 'a W.t
+                  and type 'a Xml.list_wrap = 'a W.tlist
+                  and type 'a list_wrap = 'a W.tlist
                   and type 'a attrib = Xml.attrib
                   and type uri = Xml.uri

@@ -24,6 +24,7 @@
 module M = struct
 
   type 'a wrap = 'a
+  type 'a list_wrap = 'a list
 
   type uri = string
   let uri_of_string s = s
