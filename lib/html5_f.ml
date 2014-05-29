@@ -765,17 +765,6 @@ module MakeWrapped
 
   let terminal tag ?a () = Xml.leaf ?a tag
 
-  let nullary tag ?a () =
-    Xml.node ?a tag (W.return [])
-
-  let binary tag ?a elt1 elt2 =
-    let l = W.fmap2 (fun x y -> [x; y]) elt1 elt2 in
-    Xml.node ?a tag l
-
-  let tri tag ?a elt1 elt2 elt3 =
-    let l = W.fmap3 (fun x y z -> [x; y; z]) elt1 elt2 elt3 in
-    Xml.node ?a tag l
-
   let unary tag ?a elt =
     Xml.node ?a tag W.(bind elt (fun x -> return [ x ]))
 
@@ -849,7 +838,9 @@ module MakeWrapped
 
   let title = unary "title"
 
-  let html = binary "html"
+  let html ?a head body =
+    let content = W.fmap2 (fun x y -> [x; y]) head body in
+    Xml.node ?a "html" content
 
   let footer = star "footer"
 
