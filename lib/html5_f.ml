@@ -755,7 +755,6 @@ module MakeWrapped
 
   type html = [ | `Html ] elt
 
-  (* NB: These are more general than the ones in xhtml.mli *)
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt

@@ -18,7 +18,7 @@ AlphaFeatures: pure_interface, compiled_setup_ml
 
 Synopsis: HTML5 pages typed with polymorphic variants
 Description:
-   XHTML typing based on Thorsten Ohl's XHTML.M library to validate
+   HTML typing based on Thorsten Ohl's XHTML.M library to validate
    xml tree at compile-time, adapted to support HTML5 and SVG.
 
    The implementation uses a XML module for generating well
@@ -71,7 +71,7 @@ Library pa_tyxml
   FindlibParent: tyxml
   XMETAType: syntax
   XMETADescription:
-    XHTML and HTML5 extension
+    HTML5 and SVG syntax extension
   XMETAExtraLines: requires(toploop) = "tyxml"
   Path: syntax
   BuildDepends:

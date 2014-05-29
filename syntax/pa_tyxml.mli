@@ -1,10 +1,10 @@
 
-(** Syntax extension for HTML5, XHTML or SVG tree creation. *)
+(** Syntax extension for HTML5 or SVG tree creation. *)
 
 (**
 
 To choose actual XML-implementation you have to provide a module named [Html5]
-(or [Xhtml] or [Svg] respectively):
+(or [Svg]):
 
 For example, the following code:
 {[
@@ -64,6 +64,6 @@ Warning: lists antiquotations are allowed only at the end (before a closing tag)
 
 The syntax extension is not allowed in patterns for the while.
 
-Additionnaly, you may use [ xhtml ], [ xhtmllist ], [ svg ] or [ svglist ].
+Additionnaly, you may use [ svg ] or [ svglist ].
 
 *)

@@ -3,7 +3,6 @@
 {2 Building valid XML tree }
 
 {!modules:
-Xhtml
 Svg
 Html5
 }
@@ -11,7 +10,6 @@ Html5
 {2 Common DTD's transcriptions}
 
 {!modules:
-Xhtml_types
 Svg_types
 Html5_types
 }
@@ -25,7 +23,6 @@ Xml
 {2 Functorial interface }
 
 {!modules:
-Xhtml_f
 Svg_f
 Html5_f
 Xml_iter
