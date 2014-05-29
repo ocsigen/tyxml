@@ -177,9 +177,6 @@ struct
   type ('a, 'b, 'c) star =
     ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
-  type ('a, 'b, 'c) plus =
-    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
-
   let tot x = x
 
   let totl x = x
@@ -200,10 +197,6 @@ struct
     Xml.node ?a tag (W.fmap (fun x -> [ x ]) elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
-
-  let plus tag ?a elt elts =
-    let l = W.fmap2 (fun x y -> x :: y) elt elts in
-    Xml.node ?a tag l
 
   type altglyphdef_content =
     [ `Ref of (glyphref elt) list
