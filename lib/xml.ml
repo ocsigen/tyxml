@@ -39,6 +39,8 @@ module M = struct
     | AStrL of separator * string list
   type attrib = aname * acontent
   type event_handler = string
+  type mouse_event_handler = string
+  type keyboard_event_handler = string
 
   let acontent (_, a) = a
   let aname (name, _) = name
@@ -49,11 +51,11 @@ module M = struct
   let space_sep_attrib name values = name, AStrL (Space, values)
   let comma_sep_attrib name values = name, AStrL (Comma, values)
   let event_handler_attrib name value = name, AStr value
+  let mouse_event_handler_attrib name value = name, AStr value
+  let keyboard_event_handler_attrib name value = name, AStr value
   let uri_attrib name value = name, AStr value
   let uris_attrib name values = name, AStrL (Space, values)
 
-  (* Deprecated alias. *)
-  let event_attrib = event_handler_attrib
 
   (** Element *)
 

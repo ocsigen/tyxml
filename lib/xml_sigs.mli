@@ -28,6 +28,8 @@ module type Wrapped = sig
 
   type aname = string
   type event_handler
+  type mouse_event_handler
+  type keyboard_event_handler
 
   type attrib
 
@@ -37,6 +39,8 @@ module type Wrapped = sig
   val space_sep_attrib : aname -> string list wrap -> attrib
   val comma_sep_attrib : aname -> string list wrap -> attrib
   val event_handler_attrib : aname -> event_handler -> attrib
+  val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
+  val keyboard_event_handler_attrib : aname -> keyboard_event_handler -> attrib
   val uri_attrib : aname -> uri wrap -> attrib
   val uris_attrib : aname -> uri list wrap -> attrib
 

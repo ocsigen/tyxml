@@ -829,43 +829,32 @@ struct
 
   let a_name = string_attrib "name"
 
+
+  (** Javascript events *)
+
   let a_onabort = Xml.event_handler_attrib "onabort"
-
   let a_onactivate = Xml.event_handler_attrib "onactivate"
-
   let a_onbegin = Xml.event_handler_attrib "onbegin"
-
-  let a_onclick = Xml.event_handler_attrib "onclick"
-
   let a_onend = Xml.event_handler_attrib "onend"
-
   let a_onerror = Xml.event_handler_attrib "onerror"
-
   let a_onfocusin = Xml.event_handler_attrib "onfocusin"
-
   let a_onfocusout = Xml.event_handler_attrib "onfocusout"
-
   let a_onload = Xml.event_handler_attrib "onload"
-
-  let a_onmousedown = Xml.event_handler_attrib "onmousdown"
-
-  let a_onmouseup = Xml.event_handler_attrib "onmouseup"
-
-  let a_onmouseover = Xml.event_handler_attrib "onmouseover"
-
-  let a_onmouseout = Xml.event_handler_attrib "onmouseout"
-
-  let a_onmousemove = Xml.event_handler_attrib "onmousemove"
-
   let a_onrepeat = Xml.event_handler_attrib "onrepeat"
-
   let a_onresize = Xml.event_handler_attrib "onresize"
-
   let a_onscroll = Xml.event_handler_attrib "onscroll"
-
   let a_onunload = Xml.event_handler_attrib "onunload"
-
   let a_onzoom = Xml.event_handler_attrib "onzoom"
+
+  (** Javascript mouse events *)
+
+  let a_onclick = Xml.mouse_event_handler_attrib "onclick"
+  let a_onmousedown = Xml.mouse_event_handler_attrib "onmousdown"
+  let a_onmouseup = Xml.mouse_event_handler_attrib "onmouseup"
+  let a_onmouseover = Xml.mouse_event_handler_attrib "onmouseover"
+  let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
+  let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
+
 
   let a_stopcolor = user_attrib string_of_color "stop-color"
 
@@ -1081,8 +1070,6 @@ struct
     let space_sep_attrib = Xml.space_sep_attrib
 
     let comma_sep_attrib = Xml.comma_sep_attrib
-
-    let event_handler_attrib = Xml.event_handler_attrib
 
   end
 

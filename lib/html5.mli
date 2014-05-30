@@ -24,6 +24,8 @@
 (** Concrete implementation of HTML5 typesafe constructors *)
 module M : Html5_sigs.T with type Xml.uri = Xml.uri
                          and type Xml.event_handler = Xml.event_handler
+                         and type Xml.mouse_event_handler = Xml.mouse_event_handler
+                         and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
                          and type Xml.attrib = Xml.attrib
                          and type Xml.elt = Xml.elt
                          and type 'a Xml.wrap = 'a

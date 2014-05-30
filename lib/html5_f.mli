@@ -24,6 +24,8 @@
 module Make(Xml : Xml_sigs.T)(Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.T with type Xml.uri = Xml.uri
                   and type Xml.event_handler = Xml.event_handler
+                  and type Xml.mouse_event_handler = Xml.mouse_event_handler
+                  and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
                   and type Xml.attrib = Xml.attrib
                   and type Xml.elt = Xml.elt
                   and module Svg := Svg
@@ -41,6 +43,8 @@ module MakeWrapped
     (Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.T with type Xml.uri = Xml.uri
                   and type Xml.event_handler = Xml.event_handler
+                  and type Xml.mouse_event_handler = Xml.mouse_event_handler
+                  and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
                   and type Xml.attrib = Xml.attrib
                   and type Xml.elt = Xml.elt
                   and module Svg := Svg
