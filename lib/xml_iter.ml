@@ -135,39 +135,13 @@ module Make(Xml : Xml_sigs.Iterable) = struct
       of_node name attribs
         (List.map (fold of_empty of_comment of_pcdata of_encodedpcdata of_entity of_leaf of_node) elts)
 
-  (* (* is this AT ALL useful??? *)
-     let rec foldx of_empty of_comment of_pcdata of_entity of_leaf of_node update_state state = function
-     | Empty -> of_empty ()
-     | Comment s -> of_comment s
-     | PCDATA s -> of_pcdata s
-     | Entity s -> of_entity s
-     | Leaf (name, attribs) -> of_leaf state name attribs
-     | Node (name, attribs, elts) ->
-     of_node state name attribs
-     (List.map (foldx of_empty of_comment of_pcdata of_entity of_leaf of_node
-     update_state (update_state name attribs state)) elts)
-  *)
-
-  let all_attribs access ?(is_elt = fun _ename -> true) aname elt =
-    let access' ename attribs =
-      if is_elt ename then
-        try [access aname attribs] with Not_found -> []
-      else
-        [] in
-    let f _ = [] in
-    fold f f f f f access'
-      (fun ename attribs elts -> access' ename attribs @ List.flatten elts)
-      elt
-
   let all_entities elt =
     let f _ = [] in
     fold f f f f f
       (fun _ename _attribs -> []) (fun _ename _attribs elts -> List.flatten elts)
       elt
 
-  let rec flatmap f = function
-    | [] -> []
-    | x :: rest -> f x @ flatmap f rest
+  let flatmap f l = List.concat (List.map f l)
 
   let translate root_leaf root_node sub_leaf sub_node update_state state n =
     let rec translate' state  n =

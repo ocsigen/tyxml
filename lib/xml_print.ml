@@ -22,29 +22,29 @@ let is_control c =
   let cc = Char.code c in
   (cc <= 8 || cc = 11 || cc = 12 || (14 <= cc && cc <= 31) || cc = 127)
 
+let add_unsafe_char b = function
+  | '<' -> Buffer.add_string b "&lt;"
+  | '>' -> Buffer.add_string b "&gt;"
+  | '"' -> Buffer.add_string b "&quot;"
+  | '&' -> Buffer.add_string b "&amp;"
+  | c when is_control c ->
+    Buffer.add_string b "&#" ;
+    Buffer.add_string b (string_of_int (Char.code c)) ;
+    Buffer.add_string b ";"
+  | c -> Buffer.add_char b c
+
 let encode_unsafe_char s =
   let b = Buffer.create (String.length s) in
-  String.iter (function
-    | '<' -> Buffer.add_string b "&lt;"
-    | '>' -> Buffer.add_string b "&gt;"
-    | '"' -> Buffer.add_string b "&quot;"
-    | '&' -> Buffer.add_string b "&amp;"
-    | c when is_control c ->
-      Buffer.add_string b ("&#" ^ string_of_int (Char.code c) ^ ";")
-    | c -> Buffer.add_char b c) s;
+  String.iter (add_unsafe_char b) s;
   Buffer.contents b
 
 let encode_unsafe_char_and_at s =
   let b = Buffer.create (String.length s) in
-  String.iter (function
-    | '<' -> Buffer.add_string b "&lt;"
-    | '>' -> Buffer.add_string b "&gt;"
-    | '"' -> Buffer.add_string b "&quot;"
-    | '&' -> Buffer.add_string b "&amp;"
+  let f = function
     | '@' -> Buffer.add_string b "&#64;"
-    | c when is_control c ->
-      Buffer.add_string b ("&#" ^ string_of_int (Char.code c) ^ ";")
-    | c -> Buffer.add_char b c) s;
+    | c -> add_unsafe_char b c
+  in
+  String.iter f s;
   Buffer.contents b
 
 let compose_decl ?(version = "1.0") ?(encoding = "UTF-8") () =
@@ -57,6 +57,38 @@ let compose_doctype dt args =
      else
        " PUBLIC " ^
        String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
+
+
+(* copied form js_of_ocaml: compiler/javascript.ml *)
+let string_of_number v =
+  if v = infinity
+  then "Infinity"
+  else if v = neg_infinity
+  then "-Infinity"
+  else if v <> v
+  then "NaN"
+  else
+    let vint = int_of_float v in
+    (* compiler 1000 into 1e3 *)
+    if float_of_int vint = v
+    then
+      let rec div n i =
+        if n <> 0 && n mod 10 = 0
+        then div (n/10) (succ i)
+        else
+        if i > 2
+        then Printf.sprintf "%de%d" n i
+        else string_of_int vint in
+      div vint 0
+    else
+      let s1 = Printf.sprintf "%.12g" v in
+      if v = float_of_string s1
+      then s1
+      else
+        let s2 = Printf.sprintf "%.15g" v in
+        if v = float_of_string s2
+        then s2
+        else  Printf.sprintf "%.18g" v
 
 module Make
     (Xml : Xml_sigs.Iterable)
@@ -71,38 +103,6 @@ struct
   let separator_to_string = function
     | Space -> " "
     | Comma -> ", "
-
-  (* copied form js_of_ocaml: compiler/javascript.ml *)
-  let string_of_number v =
-    if v = infinity
-    then "Infinity"
-    else if v = neg_infinity
-    then "-Infinity"
-    else if v <> v
-    then "NaN"
-    else
-      let vint = int_of_float v in
-      (* compiler 1000 into 1e3 *)
-      if float_of_int vint = v
-      then
-        let rec div n i =
-          if n <> 0 && n mod 10 = 0
-          then div (n/10) (succ i)
-          else
-          if i > 2
-          then Printf.sprintf "%de%d" n i
-          else string_of_int vint in
-        div vint 0
-      else
-        let s1 = Printf.sprintf "%.12g" v in
-        if v = float_of_string s1
-        then s1
-        else
-          let s2 = Printf.sprintf "%.15g" v in
-          if v = float_of_string s2
-          then s2
-          else  Printf.sprintf "%.18g" v
-
 
   let attrib_value_to_string encode a = match acontent a with
     | AFloat f -> Printf.sprintf "\"%s\"" (string_of_number f)
