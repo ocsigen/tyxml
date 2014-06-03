@@ -760,29 +760,10 @@ module MakeWrapped
 
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
-  type ('a, 'b, 'c, 'd) binary =
-    ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt wrap -> 'd elt
-
-  type ('b, 'c, 'd, 'e) tri = 'b elt wrap -> 'c elt wrap -> 'd elt wrap -> 'e elt
-
   type ('a, 'b, 'c) star =
     ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
-  type ('a, 'b, 'c) plus =
-    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
-
   let terminal tag ?a () = Xml.leaf ?a tag
-
-  let nullary tag ?a () =
-    Xml.node ?a tag (W.return [])
-
-  let binary tag ?a elt1 elt2 =
-    let l = W.fmap2 (fun x y -> [x; y]) elt1 elt2 in
-    Xml.node ?a tag l
-
-  let tri tag ?a elt1 elt2 elt3 =
-    let l = W.fmap3 (fun x y z -> [x; y; z]) elt1 elt2 elt3 in
-    Xml.node ?a tag l
 
   let unary tag ?a elt =
     Xml.node ?a tag W.(bind elt (fun x -> return [ x ]))
@@ -857,7 +838,9 @@ module MakeWrapped
 
   let title = unary "title"
 
-  let html = binary "html"
+  let html ?a head body =
+    let content = W.fmap2 (fun x y -> [x; y]) head body in
+    Xml.node ?a "html" content
 
   let footer = star "footer"
 
@@ -891,7 +874,7 @@ module MakeWrapped
 
   let h6 = star "h6"
 
-  let hgroup = plus "hgroup"
+  let hgroup = star "hgroup"
 
   let address = star "address"
 
@@ -931,15 +914,7 @@ module MakeWrapped
 
   let a = star "a"
 
-  let dl ?a list =
-    let f l =
-      List.concat
-        (List.map
-           (fun ((elt, elts), (elt', elts')) ->
-              (elt :: elts) @ (elt' :: elts'))
-           l)
-    in
-    Xml.node ?a "dl" (W.fmap f list)
+  let dl = star "dl"
 
   let ol = star "ol"
 
@@ -1015,7 +990,7 @@ module MakeWrapped
 
   let area ~alt ?(a = []) () = Xml.leaf ~a: ((a_alt alt) :: a) "area"
 
-  let map = plus "map"
+  let map = star "map"
 
   let del = star "del"
 
@@ -1023,7 +998,7 @@ module MakeWrapped
 
   let script = unary "script"
 
-  let noscript = plus "noscript"
+  let noscript = star "noscript"
 
   let article = star "article"
 
@@ -1058,7 +1033,7 @@ module MakeWrapped
 
   let output_elt = star "output"
 
-  let form = plus "form"
+  let form = star "form"
 
   let svg ?(xmlns = "http://www.w3.org/2000/svg") ?(a = []) children =
     star ~a:(string_attrib "xmlns" (W.return xmlns) ::(Svg.to_xmlattribs a))
@@ -1121,9 +1096,7 @@ module MakeWrapped
       caption @ columns @ thead @ tfoot @ l
     in Xml.node ?a "table" (W.fmap5 f caption columns thead tfoot elts)
 
-  let table ?caption ?columns ?thead ?tfoot ?a elt elts =
-    let l = W.fmap2 (fun x y -> x :: y) elt elts in
-    tablex ?caption ?columns ?thead ?tfoot ?a l
+  let table = tablex
 
   let td = star "td"
 
