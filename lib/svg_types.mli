@@ -29,8 +29,6 @@
     and the interface is very low level and do not take deeply into account
     the needs of SVG elements. *)
 
-(** See {!Xhtml.M} for a description of the transcription's principles. *)
-
 (* Some attribtes and elements are tagged with XXX: they
    may be improved and do not match completely the SVG spec *)
 

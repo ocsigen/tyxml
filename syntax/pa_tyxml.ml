@@ -23,56 +23,6 @@
 open Xhtmlparser;
 open Camlp4.PreCast;
 
-module Parser = Xhtmlparser.Make(Syntax)(struct
-  value xml_encodedpcdata _loc = <:expr< Xhtml.Xml.encodedpcdata >>;
-  value xml_pcdata _loc = <:expr< Xhtml.Xml.pcdata >>;
-  value xml_comment _loc = <:expr< Xhtml.Xml.comment >>;
-  value xml_node _loc = <:expr< Xhtml.Xml.node >>;
-  value xml_string_attrib _loc = <:expr< Xhtml.Xml.string_attrib >>;
-
-  value tot _loc = <:expr< Xhtml.tot >>;
-  value toeltl _loc = <:expr< Xhtml.toeltl >>;
-  value to_xmlattribs _loc = <:expr< Xhtml.to_xmlattribs >>;
-  value to_attrib _loc = <:expr< Xhtml.to_attrib >>;
-  value make_type _loc tag =
-    <:ctyp< Xhtml.elt [> `$uid:String.capitalize tag$ ] >>;
-  value make_content_type _loc tag =
-    <:ctyp< Xhtml.elt [< Xhtml_types.$lid:String.lowercase tag^"_content"$] >>;
-  value make_attrib_type _loc tag =
-      let tag = match String.lowercase tag with
-      [ "button_type" -> "Button_Type"
-      | "fs_cols" -> "FS_Cols"
-      | "fs_rows" -> "FS_Rows"
-      | "input_type" -> "Input_Type"
-      | "onblur" -> "OnBlur"
-      | "onchange" -> "OnChange"
-      | "onclick" -> "OnClick"
-      | "ondblclick" -> "OnDblClick"
-      | "onfocus" -> "OnFocus"
-      | "onkeydown" -> "OnKeyDown"
-      | "onkeypress" -> "OnKeyPress"
-      | "onkeyup" -> "OnKeyUp"
-      | "onload" -> "OnLoad"
-      | "onmousedown" -> "OnMouseDown"
-      | "onmousemove" -> "OnMouseMove"
-      | "onmouseout" -> "OnMouseOut"
-      | "onmouseover" -> "OnMouseOver"
-      | "onmouseup" -> "OnMouseUp"
-      | "onreset" -> "OnReset"
-      | "onselect" -> "OnSelect"
-      | "onsubmit" -> "OnSubmit"
-      | "onunload" -> "OnUnload"
-      | "style_attr" -> "Style_Attr"
-      | "value_type" -> "Value_Type"
-      | "xml_lang" -> "XML_lang"
-      | "xml_space" -> "XML_space"
-      | "xmlns" -> "XMLns"
-      | tag -> String.capitalize tag ] in
-    <:ctyp< Xhtml.attrib [> `$uid:tag$ ] >>;
-  value make_attribs_type _loc tag =
-    <:ctyp< Xhtml.attrib [< Xhtml_types.$lid:String.lowercase tag^"_attrib"$] >>;
-end);
-
 module Parser5 = Xhtmlparser.Make(Syntax)(struct
   value xml_encodedpcdata _loc = <:expr< Html5.Xml.encodedpcdata >>;
   value xml_pcdata _loc = <:expr< Html5.Xml.pcdata >>;
@@ -360,9 +310,6 @@ module ParserSvg = Xhtmlparser.Make(Syntax)(struct
 end);
 
 do {
-  Syntax.Quotation.add "xhtml" Syntax.Quotation.DynAst.expr_tag Parser.xml_exp ;
-  Syntax.Quotation.add "xhtmllist" Syntax.Quotation.DynAst.expr_tag
-        Parser.xml_expl;
   Syntax.Quotation.add "html5" Syntax.Quotation.DynAst.expr_tag Parser5.xml_exp ;
   Syntax.Quotation.add "html5list" Syntax.Quotation.DynAst.expr_tag
         Parser5.xml_expl;

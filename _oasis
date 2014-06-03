@@ -16,9 +16,9 @@ Plugins: META (0.3), DevFiles (0.3)
 BuildTools: ocamlbuild
 AlphaFeatures: pure_interface, compiled_setup_ml
 
-Synopsis: XHTML and HTML5 pages typed with polymorphic variants
+Synopsis: HTML5 pages typed with polymorphic variants
 Description:
-   XHTML typing based on Thorsten Ohl's XHTML.M library to validate
+   HTML typing based on Thorsten Ohl's XHTML.M library to validate
    xml tree at compile-time, adapted to support HTML5 and SVG.
 
    The implementation uses a XML module for generating well
@@ -37,14 +37,12 @@ Library tyxml
   Path: lib
   Modules:
     Xml,
-    Xhtml,
     Svg,
     Html5
   InternalModules:
     Xml_iter,
     Xml_wrap,
     Xml_print,
-    Xhtml_f,
     Svg_f,
     Html5_f
   BuildDepends: str
@@ -53,16 +51,13 @@ Library tyxml_f
   FindlibName: functor
   FindlibParent: tyxml
   XMETADescription:
-    XHTML and HTML5 pages typed with polymorphic variants (Functor version)
+    HTML5 pages typed with polymorphic variants (Functor version)
   Path: lib
   Modules:
     Xml_iter,
     Xml_sigs,
     Xml_wrap,
     Xml_print,
-    Xhtml_sigs,
-    Xhtml_types,
-    Xhtml_f,
     Svg_sigs,
     Svg_types,
     Svg_f,
@@ -76,7 +71,7 @@ Library pa_tyxml
   FindlibParent: tyxml
   XMETAType: syntax
   XMETADescription:
-    XHTML and HTML5 extension
+    HTML5 and SVG syntax extension
   XMETAExtraLines: requires(toploop) = "tyxml"
   Path: syntax
   BuildDepends:

@@ -46,7 +46,6 @@
     @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
 *)
 
-(** See {!Xhtml.M} for a description of the transcription's principles. *)
 
 (** {1 Attribute types.} *)
 
@@ -1126,8 +1125,6 @@ type no_attribute_allowed
 type noattrib = [ `No_attribute_allowed of no_attribute_allowed ]
 
 type html = [ | `Html ]
-
-type xhtml = html
 
 type html_content_fun = [ | `Head | `Body ]
 
