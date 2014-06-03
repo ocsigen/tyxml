@@ -46,9 +46,6 @@ module type T = sig
   type ('a, 'b, 'c) star =
     ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
 
-  type ('a, 'b, 'c) plus =
-    ?a: (('a attrib) list) -> 'b elt wrap -> ('b elt) list wrap -> 'c elt
-
   (* to be processed by a script *)
   type altglyphdef_content =
     [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
@@ -648,9 +645,10 @@ module type T = sig
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
 
+  (* theoretically a plus, simplified into star *)
   val altglyphitem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
-                                                          ]) plus
+                                                          ]) star
 
   val glyphref : ([< | glyphref_attr], [> | glyphref]) nullary
 

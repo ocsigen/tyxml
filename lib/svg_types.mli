@@ -877,7 +877,7 @@ type altglyphdef_attr = [ | core_attr ]
 
 type altglyphitem = [ | `AltGlyphItem ]
 
-(* plus *)
+
 type altglyphitem_content = [ | `glyphRef ]
 
 type altglyphitem_attr = [ | core_attr ]
