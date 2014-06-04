@@ -522,43 +522,32 @@ module type T = sig
 
   val a_name : string wrap -> [> | `Name ] attrib
 
+
+  (** Javascript events *)
+
   val a_onabort : Xml.event_handler  -> [> | `OnAbort ] attrib
-
   val a_onactivate : Xml.event_handler  -> [> | `OnActivate ] attrib
-
   val a_onbegin : Xml.event_handler  -> [> | `OnBegin ] attrib
-
-  val a_onclick : Xml.event_handler  -> [> | `OnClick ] attrib
-
   val a_onend : Xml.event_handler  -> [> | `OnEnd ] attrib
-
   val a_onerror : Xml.event_handler  -> [> | `OnError ] attrib
-
   val a_onfocusin : Xml.event_handler  -> [> | `OnFocusIn ] attrib
-
   val a_onfocusout : Xml.event_handler  -> [> | `OnFocusOut ] attrib
-
   val a_onload : Xml.event_handler  -> [> | `OnLoad ] attrib
-
-  val a_onmousedown : Xml.event_handler  -> [> | `OnMouseDown ] attrib
-
-  val a_onmouseup : Xml.event_handler  -> [> | `OnMouseUp ] attrib
-
-  val a_onmouseover : Xml.event_handler  -> [> | `OnMouseOver ] attrib
-
-  val a_onmouseout : Xml.event_handler  -> [> | `OnMouseOut ] attrib
-
-  val a_onmousemove : Xml.event_handler  -> [> | `OnMouseMove ] attrib
-
   val a_onrepeat : Xml.event_handler  -> [> | `OnRepeat ] attrib
-
   val a_onresize : Xml.event_handler  -> [> | `OnResize ] attrib
-
   val a_onscroll : Xml.event_handler  -> [> | `OnScroll ] attrib
-
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
-
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
+
+  (** Javascript mouse events *)
+
+  val a_onclick : Xml.mouse_event_handler  -> [> | `OnClick ] attrib
+  val a_onmousedown : Xml.mouse_event_handler  -> [> | `OnMouseDown ] attrib
+  val a_onmouseup : Xml.mouse_event_handler  -> [> | `OnMouseUp ] attrib
+  val a_onmouseover : Xml.mouse_event_handler  -> [> | `OnMouseOver ] attrib
+  val a_onmouseout : Xml.mouse_event_handler  -> [> | `OnMouseOut ] attrib
+  val a_onmousemove : Xml.mouse_event_handler  -> [> | `OnMouseMove ] attrib
+
 
   val metadata :
     ?a: ((metadata_attr attrib) list) -> Xml.elt list wrap -> [> | metadata] elt

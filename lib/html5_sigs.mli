@@ -193,142 +193,79 @@ module type T = sig
 
   (** Javascript events *)
   val a_onabort : Xml.event_handler -> [> | `OnAbort] attrib
-
   val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
-
   val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
-
   val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload] attrib
-
   val a_onblur : Xml.event_handler -> [> | `OnBlur] attrib
-
   val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
-
   val a_oncanplaythrough : Xml.event_handler -> [> | `OnCanPlayThrough] attrib
-
   val a_onchange : Xml.event_handler -> [> | `OnChange] attrib
-
-  val a_onclick : Xml.event_handler -> [> | `OnClick] attrib
-
-  val a_oncontextmenu : Xml.event_handler -> [> | `OnContextMenu] attrib
-
-  val a_ondblclick : Xml.event_handler -> [> | `OnDblClick] attrib
-
-  val a_ondrag : Xml.event_handler -> [> | `OnDrag] attrib
-
-  val a_ondragend : Xml.event_handler -> [> | `OnDragEnd] attrib
-
-  val a_ondragenter : Xml.event_handler -> [> | `OnDragEnter] attrib
-
-  val a_ondragleave : Xml.event_handler -> [> | `OnDragLeave] attrib
-
-  val a_ondragover : Xml.event_handler -> [> | `OnDragOver] attrib
-
-  val a_ondragstart : Xml.event_handler -> [> | `OnDragStart] attrib
-
-  val a_ondrop : Xml.event_handler -> [> | `OnDrop] attrib
-
   val a_ondurationchange : Xml.event_handler -> [> | `OnDurationChange] attrib
-
   val a_onemptied : Xml.event_handler -> [> | `OnEmptied] attrib
-
   val a_onended : Xml.event_handler -> [> | `OnEnded] attrib
-
   val a_onerror : Xml.event_handler -> [> | `OnError] attrib
-
   val a_onfocus : Xml.event_handler -> [> | `OnFocus] attrib
-
   val a_onformchange : Xml.event_handler -> [> | `OnFormChange] attrib
-
   val a_onforminput : Xml.event_handler -> [> | `OnFormInput] attrib
-
   val a_onhashchange : Xml.event_handler -> [> | `OnHashChange] attrib
-
   val a_oninput : Xml.event_handler -> [> | `OnInput] attrib
-
   val a_oninvalid : Xml.event_handler -> [> | `OnInvalid] attrib
-
-  val a_onmousedown : Xml.event_handler -> [> | `OnMouseDown] attrib
-
-  val a_onmouseup : Xml.event_handler -> [> | `OnMouseUp] attrib
-
-  val a_onmouseover : Xml.event_handler -> [> | `OnMouseOver] attrib
-
-  val a_onmousemove : Xml.event_handler -> [> | `OnMouseMove] attrib
-
-  val a_onmouseout : Xml.event_handler -> [> | `OnMouseOut] attrib
-
   val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel] attrib
-
   val a_onoffline : Xml.event_handler -> [> | `OnOffLine] attrib
-
   val a_ononline : Xml.event_handler -> [> | `OnOnLine] attrib
-
   val a_onpause : Xml.event_handler -> [> | `OnPause] attrib
-
   val a_onplay : Xml.event_handler -> [> | `OnPlay] attrib
-
   val a_onplaying : Xml.event_handler -> [> | `OnPlaying] attrib
-
   val a_onpagehide : Xml.event_handler -> [> | `OnPageHide] attrib
-
   val a_onpageshow : Xml.event_handler -> [> | `OnPageShow] attrib
-
   val a_onpopstate : Xml.event_handler -> [> | `OnPopState] attrib
-
   val a_onprogress : Xml.event_handler -> [> | `OnProgress] attrib
-
   val a_onratechange : Xml.event_handler -> [> | `OnRateChange] attrib
-
   val a_onreadystatechange : Xml.event_handler -> [> | `OnReadyStateChange] attrib
-
   val a_onredo : Xml.event_handler -> [> | `OnRedo] attrib
-
   val a_onresize : Xml.event_handler -> [> | `OnResize] attrib
-
   val a_onscroll : Xml.event_handler -> [> | `OnScroll] attrib
-
   val a_onseeked : Xml.event_handler -> [> | `OnSeeked] attrib
-
   val a_onseeking : Xml.event_handler -> [> | `OnSeeking] attrib
-
   val a_onselect : Xml.event_handler -> [> | `OnSelect] attrib
-
   val a_onshow : Xml.event_handler -> [> | `OnShow] attrib
-
   val a_onstalled : Xml.event_handler -> [> | `OnStalled] attrib
-
   val a_onstorage : Xml.event_handler -> [> | `OnStorage] attrib
-
   val a_onsubmit : Xml.event_handler -> [> | `OnSubmit] attrib
-
   val a_onsuspend : Xml.event_handler -> [> | `OnSuspend] attrib
-
   val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate] attrib
-
   val a_onundo : Xml.event_handler -> [> | `OnUndo] attrib
-
   val a_onunload : Xml.event_handler -> [> | `OnUnload] attrib
-
   val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange] attrib
-
   val a_onwaiting : Xml.event_handler -> [> | `OnWaiting] attrib
-
-  val a_onkeypress : Xml.event_handler -> [> | `OnKeyPress] attrib
-
-  val a_onkeydown : Xml.event_handler -> [> | `OnKeyDown] attrib
-
-  val a_onkeyup : Xml.event_handler -> [> | `OnKeyUp] attrib
-
   val a_onload : Xml.event_handler -> [> | `OnLoad] attrib
-
   val a_onloadeddata : Xml.event_handler -> [> | `OnLoadedData] attrib
-
   val a_onloadedmetadata : Xml.event_handler -> [> | `OnLoadedMetaData] attrib
-
   val a_onloadstart : Xml.event_handler -> [> | `OnLoadStart] attrib
-
   val a_onmessage : Xml.event_handler -> [> | `OnMessage] attrib
+
+  (** Javascript mouse events *)
+  val a_onclick : Xml.mouse_event_handler -> [> | `OnClick] attrib
+  val a_oncontextmenu : Xml.mouse_event_handler -> [> | `OnContextMenu] attrib
+  val a_ondblclick : Xml.mouse_event_handler -> [> | `OnDblClick] attrib
+  val a_ondrag : Xml.mouse_event_handler -> [> | `OnDrag] attrib
+  val a_ondragend : Xml.mouse_event_handler -> [> | `OnDragEnd] attrib
+  val a_ondragenter : Xml.mouse_event_handler -> [> | `OnDragEnter] attrib
+  val a_ondragleave : Xml.mouse_event_handler -> [> | `OnDragLeave] attrib
+  val a_ondragover : Xml.mouse_event_handler -> [> | `OnDragOver] attrib
+  val a_ondragstart : Xml.mouse_event_handler -> [> | `OnDragStart] attrib
+  val a_ondrop : Xml.mouse_event_handler -> [> | `OnDrop] attrib
+  val a_onmousedown : Xml.mouse_event_handler -> [> | `OnMouseDown] attrib
+  val a_onmouseup : Xml.mouse_event_handler -> [> | `OnMouseUp] attrib
+  val a_onmouseover : Xml.mouse_event_handler -> [> | `OnMouseOver] attrib
+  val a_onmousemove : Xml.mouse_event_handler -> [> | `OnMouseMove] attrib
+  val a_onmouseout : Xml.mouse_event_handler -> [> | `OnMouseOut] attrib
+
+  (** Javascript keyboard events *)
+  val a_onkeypress : Xml.keyboard_event_handler -> [> | `OnKeyPress] attrib
+  val a_onkeydown : Xml.keyboard_event_handler -> [> | `OnKeyDown] attrib
+  val a_onkeyup : Xml.keyboard_event_handler -> [> | `OnKeyUp] attrib
+
 
   val a_version : cdata wrap -> [> | `Version] attrib
 

@@ -84,6 +84,8 @@ val string_of_transforms : transforms -> string
 module Make(Xml : Xml_sigs.T)
   : Svg_sigs.T with type Xml.uri = Xml.uri
                 and type Xml.event_handler = Xml.event_handler
+                and type Xml.mouse_event_handler = Xml.mouse_event_handler
+                and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
                 and type Xml.attrib = Xml.attrib
                 and type Xml.elt = Xml.elt
                 and type +'a elt = Xml.elt
@@ -99,6 +101,8 @@ module MakeWrapped
     (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t)
   : Svg_sigs.T with type Xml.uri = Xml.uri
                 and type Xml.event_handler = Xml.event_handler
+                and type Xml.mouse_event_handler = Xml.mouse_event_handler
+                and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
                 and type Xml.attrib = Xml.attrib
                 and type Xml.elt = Xml.elt
                 and type +'a elt = Xml.elt

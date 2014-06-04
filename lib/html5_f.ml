@@ -86,12 +86,7 @@ module MakeWrapped
 
   let user_attrib f name v = Xml.string_attrib name (W.fmap f v)
 
-  let event_handler_attrib = Xml.event_handler_attrib
-
   let bool_attrib = user_attrib string_of_bool
-
-  (* Deprecated alias. *)
-  let event_attrib = Xml.event_handler_attrib
 
   (* space-separated *)
   let length_to_string = function
@@ -187,143 +182,79 @@ module MakeWrapped
   let a_property = string_attrib "property"
 
   (* Events: *)
-  let a_onabort = event_attrib "onabort"
-
-  let a_onafterprint = event_attrib "onafterprint"
-
-  let a_onbeforeprint = event_attrib "onbeforeprint"
-
-  let a_onbeforeunload = event_attrib "onbeforeunload"
-
-  let a_onblur = event_attrib "onblur"
-
-  let a_oncanplay = event_attrib "oncanplay"
-
-  let a_oncanplaythrough = event_attrib "oncanplaythrough"
-
-  let a_onchange = event_attrib "onchange"
-
-  let a_onclick = event_attrib "onclick"
-
-  let a_oncontextmenu = event_attrib "oncontextmenu"
-
-  let a_ondblclick = event_attrib "ondblclick"
-
-  let a_ondrag = event_attrib "ondrag"
-
-  let a_ondragend = event_attrib "ondragend"
-
-  let a_ondragenter = event_attrib "ondragenter"
-
-  let a_ondragleave = event_attrib "ondragleave"
-
-  let a_ondragover = event_attrib "ondragover"
-
-  let a_ondragstart = event_attrib "ondragstart"
-
-  let a_ondrop = event_attrib "ondrop"
-
-  let a_ondurationchange = event_attrib "ondurationchange"
-
-  let a_onemptied = event_attrib "onemptied"
-
-  let a_onended = event_attrib "onended"
-
-  let a_onerror = event_attrib "onerror"
-
-  let a_onfocus = event_attrib "onfocus"
-
-  let a_onformchange = event_attrib "onformchange"
-
-  let a_onforminput = event_attrib "onforminput"
-
-  let a_onhashchange = event_attrib "onhashchange"
-
-  let a_oninput = event_attrib "oninput"
-
-  let a_oninvalid = event_attrib "oninvalid"
-
-  let a_onmousedown = event_attrib "onmousedown"
-
-  let a_onmouseup = event_attrib "onmouseup"
-
-  let a_onmouseover = event_attrib "onmouseover"
-
-  let a_onmousemove = event_attrib "onmousemove"
-
-  let a_onmouseout = event_attrib "onmouseout"
-
-  let a_onmousewheel = event_attrib "onmousewheel"
-
-  let a_onoffline = event_attrib "onoffline"
-
-  let a_ononline = event_attrib "ononline"
-
-  let a_onpause = event_attrib "onpause"
-
-  let a_onplay = event_attrib "onplay"
-
-  let a_onplaying = event_attrib "onplaying"
-
-  let a_onpagehide = event_attrib "onpagehide"
-
-  let a_onpageshow = event_attrib "onpageshow"
-
-  let a_onpopstate = event_attrib "onpopstate"
-
-  let a_onprogress = event_attrib "onprogress"
-
-  let a_onratechange = event_attrib "onratechange"
-
-  let a_onreadystatechange = event_attrib "onreadystatechange"
-
-  let a_onredo = event_attrib "onredo"
-
-  let a_onresize = event_attrib "onresize"
-
-  let a_onscroll = event_attrib "onscroll"
-
-  let a_onseeked = event_attrib "onseeked"
-
-  let a_onseeking = event_attrib "onseeking"
-
-  let a_onselect = event_attrib "onselect"
-
-  let a_onshow = event_attrib "onshow"
-
-  let a_onstalled = event_attrib "onstalled"
-
-  let a_onstorage = event_attrib "onstorage"
-
-  let a_onsubmit = event_attrib "onsubmit"
-
-  let a_onsuspend = event_attrib "onsuspend"
-
-  let a_ontimeupdate = event_attrib "ontimeupdate"
-
-  let a_onundo = event_attrib "onundo"
-
-  let a_onunload = event_attrib "onunload"
-
-  let a_onvolumechange = event_attrib "onvolumechange"
-
-  let a_onwaiting = event_attrib "onwaiting"
-
-  let a_onkeypress = event_attrib "onkeypress"
-
-  let a_onkeydown = event_attrib "onkeydown"
-
-  let a_onkeyup = event_attrib "onkeyup"
-
-  let a_onload = event_attrib "onload"
-
-  let a_onloadeddata = event_attrib "onloadeddata"
-
-  let a_onloadedmetadata = event_attrib ""
-
-  let a_onloadstart = event_attrib "onloadstart"
-
-  let a_onmessage = event_attrib "onmessage"
+  let a_onabort = Xml.event_handler_attrib "onabort"
+  let a_onafterprint = Xml.event_handler_attrib "onafterprint"
+  let a_onbeforeprint = Xml.event_handler_attrib "onbeforeprint"
+  let a_onbeforeunload = Xml.event_handler_attrib "onbeforeunload"
+  let a_onblur = Xml.event_handler_attrib "onblur"
+  let a_oncanplay = Xml.event_handler_attrib "oncanplay"
+  let a_oncanplaythrough = Xml.event_handler_attrib "oncanplaythrough"
+  let a_onchange = Xml.event_handler_attrib "onchange"
+  let a_ondurationchange = Xml.event_handler_attrib "ondurationchange"
+  let a_onemptied = Xml.event_handler_attrib "onemptied"
+  let a_onended = Xml.event_handler_attrib "onended"
+  let a_onerror = Xml.event_handler_attrib "onerror"
+  let a_onfocus = Xml.event_handler_attrib "onfocus"
+  let a_onformchange = Xml.event_handler_attrib "onformchange"
+  let a_onforminput = Xml.event_handler_attrib "onforminput"
+  let a_onhashchange = Xml.event_handler_attrib "onhashchange"
+  let a_oninput = Xml.event_handler_attrib "oninput"
+  let a_oninvalid = Xml.event_handler_attrib "oninvalid"
+  let a_onoffline = Xml.event_handler_attrib "onoffline"
+  let a_ononline = Xml.event_handler_attrib "ononline"
+  let a_onpause = Xml.event_handler_attrib "onpause"
+  let a_onplay = Xml.event_handler_attrib "onplay"
+  let a_onplaying = Xml.event_handler_attrib "onplaying"
+  let a_onpagehide = Xml.event_handler_attrib "onpagehide"
+  let a_onpageshow = Xml.event_handler_attrib "onpageshow"
+  let a_onpopstate = Xml.event_handler_attrib "onpopstate"
+  let a_onprogress = Xml.event_handler_attrib "onprogress"
+  let a_onratechange = Xml.event_handler_attrib "onratechange"
+  let a_onreadystatechange = Xml.event_handler_attrib "onreadystatechange"
+  let a_onredo = Xml.event_handler_attrib "onredo"
+  let a_onresize = Xml.event_handler_attrib "onresize"
+  let a_onscroll = Xml.event_handler_attrib "onscroll"
+  let a_onseeked = Xml.event_handler_attrib "onseeked"
+  let a_onseeking = Xml.event_handler_attrib "onseeking"
+  let a_onselect = Xml.event_handler_attrib "onselect"
+  let a_onshow = Xml.event_handler_attrib "onshow"
+  let a_onstalled = Xml.event_handler_attrib "onstalled"
+  let a_onstorage = Xml.event_handler_attrib "onstorage"
+  let a_onsubmit = Xml.event_handler_attrib "onsubmit"
+  let a_onsuspend = Xml.event_handler_attrib "onsuspend"
+  let a_ontimeupdate = Xml.event_handler_attrib "ontimeupdate"
+  let a_onundo = Xml.event_handler_attrib "onundo"
+  let a_onunload = Xml.event_handler_attrib "onunload"
+  let a_onvolumechange = Xml.event_handler_attrib "onvolumechange"
+  let a_onwaiting = Xml.event_handler_attrib "onwaiting"
+  let a_onload = Xml.event_handler_attrib "onload"
+  let a_onloadeddata = Xml.event_handler_attrib "onloadeddata"
+  let a_onloadedmetadata = Xml.event_handler_attrib ""
+  let a_onloadstart = Xml.event_handler_attrib "onloadstart"
+  let a_onmessage = Xml.event_handler_attrib "onmessage"
+  let a_onmousewheel = Xml.event_handler_attrib "onmousewheel"
+
+  (** Javascript mouse events *)
+  let a_onclick = Xml.mouse_event_handler_attrib "onclick"
+  let a_oncontextmenu = Xml.mouse_event_handler_attrib "oncontextmenu"
+  let a_ondblclick = Xml.mouse_event_handler_attrib "ondblclick"
+  let a_ondrag = Xml.mouse_event_handler_attrib "ondrag"
+  let a_ondragend = Xml.mouse_event_handler_attrib "ondragend"
+  let a_ondragenter = Xml.mouse_event_handler_attrib "ondragenter"
+  let a_ondragleave = Xml.mouse_event_handler_attrib "ondragleave"
+  let a_ondragover = Xml.mouse_event_handler_attrib "ondragover"
+  let a_ondragstart = Xml.mouse_event_handler_attrib "ondragstart"
+  let a_ondrop = Xml.mouse_event_handler_attrib "ondrop"
+  let a_onmousedown = Xml.mouse_event_handler_attrib "onmousedown"
+  let a_onmouseup = Xml.mouse_event_handler_attrib "onmouseup"
+  let a_onmouseover = Xml.mouse_event_handler_attrib "onmouseover"
+  let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
+  let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
+
+  (** Javascript keyboard events *)
+  let a_onkeypress = Xml.keyboard_event_handler_attrib "onkeypress"
+  let a_onkeydown = Xml.keyboard_event_handler_attrib "onkeydown"
+  let a_onkeyup = Xml.keyboard_event_handler_attrib "onkeyup"
 
   (* Other Attributes *)
   let a_version = string_attrib "version"
@@ -1178,8 +1109,6 @@ module MakeWrapped
     let space_sep_attrib = Xml.space_sep_attrib
 
     let comma_sep_attrib = Xml.comma_sep_attrib
-
-    let event_handler_attrib = Xml.event_handler_attrib
 
   end
 
