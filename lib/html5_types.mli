@@ -1398,6 +1398,15 @@ type dt_content_fun = [ | phrasing ]
 type dt_attrib = [ | common ]
 
 
+type dl = [ | `Dl ]
+
+type dl_content = [ | `Dt | `Dd ]
+
+type dl_content_fun = [ | `Dt | `Dd ]
+
+type dl_attrib = [ | common ]
+
+
 (* NAME: figcaption, KIND: star, TYPE: [= common ], [= flow5], [=`Figcaption], ARG: [= flow5], ATTRIB:  OUT: [=`Figcaption] *)
 type figcaption = [ | `Figcaption ]
 
@@ -1697,6 +1706,13 @@ type embed_content_fun = notag
 
 type embed_attrib = [ | common | `Src | `Height | `Mime_type | `Width ]
 
+
+type img = [ `Img ]
+type img_interactive = [ `Img | `Img_interactive ]
+type img_content = notag
+type img_content_fun = notag
+type img_attrib = [ | common | `Height | `Ismap | `Width]
+
 (* Attributes used by audio and video. *)
 type media_attrib =
   [ | `Crossorigin
@@ -1708,7 +1724,8 @@ type media_attrib =
     | `Controls
   ]
 
-type 'a audio = [ | `Audio of 'a | `Audio_interactive of 'a ]
+type 'a audio = [ | `Audio of 'a ]
+type 'a audio_interactive = [ | `Audio of 'a | `Audio_interactive of 'a ]
 
 type audio_content = flow5_without_media
 type audio_ = audio_content audio
@@ -1720,7 +1737,8 @@ type audio_attrib =
   ]
 
 
-type 'a video = [ | `Video of 'a | `Video_interactive of 'a ]
+type 'a video = [ | `Video of 'a ]
+type 'a video_interactive = [ | `Video of 'a | `Video_interactive of 'a ]
 
 type video_content = flow5_without_media
 type video_ = video_content video
