@@ -627,7 +627,7 @@ module type T = sig
       ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
        (([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
    but we simplify into star *)
-  val dl : ([< | common], [< | `Dt | `Dd], [> | `Dl]) star
+  val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
 
@@ -774,8 +774,7 @@ module type T = sig
   val img :
     src: Xml.uri wrap ->
     alt: text wrap ->
-    ([< | common | `Height | `Ismap | `Width], [> `Img ])
-      nullary
+    ([< img_attrib], [> img]) nullary
 
   val iframe : (*| `Srcdoc*)
     ([< | common | `Src | `Name | `Sandbox | `Seamless | `Width | `Height],
@@ -830,12 +829,12 @@ module type T = sig
   val audio :
     ?src:Xml.uri wrap ->
     ?srcs:(([< | source] elt) list wrap) ->
-    ([< | audio_attrib], 'a, [> | `Audio of 'a ]) star
+    ([< | audio_attrib], 'a, [> 'a audio ]) star
 
   val video :
     ?src:Xml.uri wrap ->
     ?srcs: (([< | source] elt) list wrap) ->
-    ([< | video_attrib], 'a, [> | `Video of 'a]) star
+    ([< | video_attrib], 'a, [> 'a video]) star
 
   val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
 
