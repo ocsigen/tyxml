@@ -42,6 +42,9 @@ val compose_decl : ?version:string -> ?encoding:string -> unit -> string
 
 val compose_doctype : string -> string list -> string
 
+val string_of_number : float -> string
+(** Convert a float to a string using a compact representation compatible with Javascript norme. *)
+
 module Make
     (Xml : Xml_sigs.Iterable)
     (I : sig val emptytags : string list end)

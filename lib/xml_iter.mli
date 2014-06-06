@@ -38,6 +38,8 @@ module Make(Xml : Xml_sigs.Iterable) : sig
 
   val map_int_attrib :
     (aname -> bool) -> (int -> int) -> attrib list -> attrib list
+  val map_float_attrib :
+    (aname -> bool) -> (float -> float) -> attrib list -> attrib list
   val map_string_attrib :
     (aname -> bool) -> (string -> string) -> attrib list -> attrib list
   val map_string_attrib_in_list :
@@ -48,6 +50,7 @@ module Make(Xml : Xml_sigs.Iterable) : sig
       attribute to {e any} element. *)
 
   val add_int_attrib : aname -> int -> attrib list -> attrib list
+  val add_float_attrib : aname -> float -> attrib list -> attrib list
   val add_string_attrib : aname -> string -> attrib list -> attrib list
   val add_comma_sep_attrib : aname -> string -> attrib list -> attrib list
   val add_space_sep_attrib : aname -> string -> attrib list -> attrib list
