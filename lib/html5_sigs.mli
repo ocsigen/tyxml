@@ -26,6 +26,7 @@ module type T = sig
   module Info : Xml_sigs.Info
 
   type 'a wrap
+  type 'a list_wrap
 
   type uri = Xml.uri
   val string_of_uri : uri -> string
@@ -515,20 +516,11 @@ module type T = sig
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
   (** Star '*' denotes any number of children, uncluding zero. *)
 
   (** Root element *)
   type html = [ | `Html ] elt
-
-  type rt = [
-    | `Rt of [ | `Rt ] elt
-    | `Rpt of (([ | `Rp ] elt) * ([ | `Rt ] elt) * ([ | `Rp ] elt))
-  ]
-
-  type ruby_content = (((phrasing elt) list) * rt)
-
-  type rp = (((common attrib) list) * ((phrasing elt) list wrap))
 
   (** {1 Combined Element Sets:} *)
 
@@ -551,7 +543,7 @@ module type T = sig
 
   val head :
     ?a: ((head_attrib attrib) list) ->
-    [< | `Title] elt wrap -> (head_content_fun elt) list wrap -> [> | head] elt
+    [< | `Title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
 
   val base : ([< | base_attrib], [> | base]) nullary
 
@@ -560,7 +552,7 @@ module type T = sig
   val body : ([< | body_attrib], [< | body_content_fun], [> | body]) star
 
 
-  val svg : ?xmlns : string -> ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list wrap -> [> svg ] elt
+  val svg : ?xmlns : string -> ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list_wrap -> [> svg ] elt
 
   (** {2 Section} *)
 
@@ -663,7 +655,7 @@ module type T = sig
   (*Or: Flow content.             *)
   (********************************)
   val figure :
-    ?figcaption: ([`Top of [< `Figcaption ] elt | `Bottom of [< `Figcaption ] elt] wrap) ->
+    ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
     ([< | common], [< | flow5], [> | `Figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
@@ -680,16 +672,12 @@ module type T = sig
   (*       an rt element, and       *)
   (*       another rp element.      *)
   (**********************************)
-  val rt :
-    ?rp: (rp * rp) ->
-    ?a: (([< | common] attrib) list) -> ([< | phrasing] elt) list wrap -> rt
+  (* simplified with simple stars *)
+  val rt : ([< | common], [< | phrasing], [> | `Rt]) star
 
-  val rp :
-    ?a: (([< | common] attrib) list) -> ([< | phrasing] elt) list wrap -> rp
+  val rp : ([< | common], [< | phrasing], [> | `Rp]) star
 
-  val ruby :
-    ?a: (([< | common] attrib) list) ->
-    ruby_content wrap -> ruby_content list wrap -> [> | `Ruby] elt
+  val ruby : ([< | common], [< | phrasing | `Rp | `Rt ], [> | `Ruby]) star
 
   (** {2 Semantic} *)
 
@@ -781,7 +769,7 @@ module type T = sig
      [< | `PCDATA], [> | `Iframe]) star
 
   val object_ :
-    ?params: (([< | `Param] elt) list wrap ) ->
+    ?params: (([< | `Param] elt) list_wrap ) ->
     ([<
       | common
       | `Data
@@ -828,12 +816,12 @@ module type T = sig
   (**************************************)
   val audio :
     ?src:Xml.uri wrap ->
-    ?srcs:(([< | source] elt) list wrap) ->
+    ?srcs:(([< | source] elt) list_wrap) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
 
   val video :
     ?src:Xml.uri wrap ->
-    ?srcs: (([< | source] elt) list wrap) ->
+    ?srcs: (([< | source] elt) list_wrap) ->
     ([< | video_attrib], 'a, [> 'a video]) star
 
   val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
@@ -895,14 +883,14 @@ module type T = sig
   (* theoretically a plus, simplified into star *)
   val table :
     ?caption: [< | caption] elt wrap ->
-    ?columns: [< | colgroup] elt list wrap ->
+    ?columns: [< | colgroup] elt list_wrap ->
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | table_attrib], [< | table_content_fun], [> | table]) star
 
   val tablex :
     ?caption: [< | caption] elt wrap ->
-    ?columns: [< | colgroup] elt list wrap ->
+    ?columns: [< | colgroup] elt list_wrap ->
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
@@ -985,9 +973,9 @@ module type T = sig
   val datalist :
     ?children:(
       [<
-        | `Options of ([< | `Option] elt) list
-        | `Phras of ([< | phrasing] elt) list
-      ] wrap ) -> ([< | common], [> | `Datalist]) nullary
+        | `Options of ([< | `Option] elt) list_wrap
+        | `Phras of ([< | phrasing] elt) list_wrap
+      ]) -> ([< | common], [> | `Datalist]) nullary
 
   val optgroup :
     label: text wrap  ->
@@ -1031,7 +1019,7 @@ module type T = sig
 
   val details :
     [< | `Summary] elt wrap ->
-    ([< | common | `Open], [< | flow5] elt, [> | `Details]) star
+    ([< | common | `Open], [< | flow5], [> | `Details]) star
 
   val summary :
     ([< | summary_attrib], [< | summary_content_fun], [> | summary]) star
@@ -1050,9 +1038,9 @@ module type T = sig
   val menu :
     ?child:(
       [<
-        | `Lis of ([< | `Li of [< | common]] elt) list
-        | `Flows of ([< | flow5] elt) list
-      ] wrap) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
+        | `Lis of ([< | `Li of [< | common]] elt) list_wrap
+        | `Flows of ([< | flow5] elt) list_wrap
+      ]) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
 
   (** {2 Scripting} *)
 
@@ -1150,7 +1138,7 @@ module type T = sig
         If it is a standard HTML5 node which is missing,
         please report to the Ocsigen team.
     *)
-    val node : string -> ?a:'a attrib list -> 'b elt list wrap -> 'c elt
+    val node : string -> ?a:'a attrib list -> 'b elt list_wrap -> 'c elt
 
     (** Insert an XML node without children
         that is not implemented in this module.

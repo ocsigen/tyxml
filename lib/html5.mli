@@ -30,6 +30,7 @@ module M : Html5_sigs.T with type Xml.uri = Xml.uri
                          and type Xml.elt = Xml.elt
                          and type 'a Xml.wrap = 'a
                          and type 'a wrap = 'a
+                         and type 'a list_wrap = 'a list
                          and module Svg := Svg.M
 
 (** Simple printer for HTML5 documents *)

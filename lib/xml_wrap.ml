@@ -20,31 +20,26 @@
 
 module type T = sig
   type 'a t
-  val bind : 'a t -> ('a -> 'b t) -> 'b t
+  type 'a tlist
   val return : 'a -> 'a t
   val fmap : ('a -> 'b) -> 'a t -> 'b t
-  val fmap2 :
-    ('a -> 'b -> 'c) -> 'a t -> 'b t -> 'c t
-  val fmap3 :
-    ('a -> 'b -> 'c -> 'd) -> 'a t -> 'b t -> 'c t -> 'd t
-  val fmap4 :
-    ('a -> 'b -> 'c -> 'd -> 'e) -> 'a t -> 'b t -> 'c t -> 'd t -> 'e t
-  val fmap5 :
-    ('a -> 'b -> 'c -> 'd -> 'e -> 'f) -> 'a t -> 'b t -> 'c t -> 'd t -> 'e t -> 'f t
+
+  val nil : 'a tlist
+  val singleton : 'a t -> 'a tlist
+  val cons : 'a t -> 'a tlist -> 'a tlist
+  val append : 'a tlist -> 'a tlist -> 'a tlist
+  val map : ('a -> 'b) -> 'a tlist -> 'b tlist
 end
 
 module NoWrap = struct
   type 'a t = 'a
+  type 'a tlist = 'a list
   external return : 'a -> 'a = "%identity"
-  let bind x f = f x
   let fmap f :  'a t -> 'b t = f
-  let fmap2 f : 'a t -> 'b t -> 'c t
-    = f
-  let fmap3 f : 'a t -> 'b t -> 'c t -> 'd t
-    = f
-  let fmap4 f : 'a t -> 'b t -> 'c t -> 'd t -> 'e t
-    = f
-  let fmap5 f : 'a t -> 'b t -> 'c t -> 'd t -> 'e t -> 'f t
-    = f
 
+  let nil = []
+  let singleton x = [x]
+  let cons x xs = x::xs
+  let append x y= x@y
+  let map = List.map
 end

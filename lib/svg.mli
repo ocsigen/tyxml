@@ -30,6 +30,7 @@ module M : Svg_sigs.T with type Xml.uri = Xml.uri
                        and type Xml.elt = Xml.elt
                        and type 'a Xml.wrap = 'a
                        and type 'a wrap = 'a
+                       and type 'a list_wrap = 'a list
 
 (** Simple printer for SVG documents *)
 module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt

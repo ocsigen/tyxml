@@ -137,7 +137,8 @@ let string_of_paint = function
 
 module MakeWrapped
     (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t) =
+    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t
+                             and type 'a list_wrap = 'a W.tlist) =
 struct
 
   module Xml = Xml
@@ -167,6 +168,7 @@ struct
   type +'a elt = Xml.elt
 
   type 'a wrap = 'a W.t
+  type 'a list_wrap = 'a W.tlist
 
   type +'a elts = Xml.elt list
 
@@ -175,7 +177,7 @@ struct
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
 
   let tot x = x
 
@@ -191,10 +193,10 @@ struct
   let to_attrib x = x
 
   let nullary tag ?a () =
-    Xml.node ?a tag (W.return [])
+    Xml.node ?a tag W.nil
 
   let unary tag ?a elt =
-    Xml.node ?a tag (W.fmap (fun x -> [ x ]) elt)
+    Xml.node ?a tag (W.singleton elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 

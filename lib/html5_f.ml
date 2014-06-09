@@ -34,7 +34,8 @@ open Html5_types
 
 module MakeWrapped
     (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t)
+    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t
+                             and type 'a list_wrap = 'a W.tlist)
     (Svg : Svg_sigs.T with module Xml := Xml)= struct
 
   module Xml = Xml
@@ -53,14 +54,7 @@ module MakeWrapped
   end
 
   type 'a wrap = 'a W.t
-
-  let opt_fmap f x def = match x with
-    | None -> W.return def
-    | Some x -> W.fmap f x
-  let opt_w x def = match x with
-    | None -> W.return def
-    | Some x -> x
-
+  type 'a list_wrap = 'a W.tlist
 
   type uri = Xml.uri
   let string_of_uri = Xml.string_of_uri
@@ -691,76 +685,22 @@ module MakeWrapped
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
 
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list wrap -> 'c elt
+    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
 
   let terminal tag ?a () = Xml.leaf ?a tag
 
   let unary tag ?a elt =
-    Xml.node ?a tag W.(bind elt (fun x -> return [ x ]))
+    Xml.node ?a tag (W.singleton elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 
   let plus tag ?a elt elts =
-    let l = W.fmap2 (fun x y -> x :: y) elt elts in
-    Xml.node ?a tag l
+    Xml.node ?a tag (W.cons elt elts)
 
-  let plus_concat tag ?a elt elts =
-    let l = W.fmap2 (@) elt elts in
-    Xml.node ?a tag l
-
-  let list_of_option = function
-    | Some x -> [ x ]
-    | None -> []
-
-  let list_of_list_option = function
-    | Some x -> x
-    | None -> []
-
-  let srcs_option = function
-    | Some (`Srcs s) -> s
-    | None -> []
-
-  let phrasing_option = function
-    | Some (`Phras p) -> p
-    | None -> []
-
-  let ruby_option = function
-    | Some (`Rt_elt r) -> r
-    | Some (`Group g) -> g
-    | None -> []
-
-  let body_option = function
-    | Some (`Body b) -> b
-    | Some (`Trs t) -> t
-    | None -> []
-
-  let colg_option = function
-    | Some (`Colgroups c) -> c
-    | None -> []
-
-  let opts_option = function
-    | Some (`Options o) -> o
-    | Some (`Optgroups o) -> o
-    | None -> []
-
-  let li_option = function
-    | Some (`Lis l) -> l
-    | Some (`Flows f) -> f
-    | None -> []
-
-  let opt_option = function
-    | Some (`Options o) -> o
-    | Some (`Phras p) -> p
-    | None -> []
-
-  let param_option = function
-    | Some (`Params p) -> p
-    | None -> []
-
-  let cols_option = function
-    | Some (`Cols c) -> c
-    | Some (`Colgroups c) -> c
-    | None -> []
+  let option_cons opt elts =
+    match opt with
+    | None -> elts
+    | Some x -> W.cons x elts
 
   let body = star "body"
 
@@ -769,7 +709,7 @@ module MakeWrapped
   let title = unary "title"
 
   let html ?a head body =
-    let content = W.fmap2 (fun x y -> [x; y]) head body in
+    let content = W.cons head (W.singleton body) in
     Xml.node ?a "html" content
 
   let footer = star "footer"
@@ -872,24 +812,11 @@ module MakeWrapped
 
   let mark = star "mark"
 
-  let rp ?(a = []) elts = (a, elts)
+  let rp = star "rp"
 
-  let rt ?rp ?a elts =
-    match rp with
-    | Some ((a1, e1), (a2, e2)) ->
-      `Rpt (Xml.node ~a: a1 "rp" e1, Xml.node ?a "rt" elts,
-            Xml.node ~a: a2 "rp" e2)
-    | None -> `Rt (Xml.node ?a "rt" elts)
+  let rt = star "rt"
 
-  let ruby ?a elt elts =
-    let rec aux =
-      function
-      | [] -> []
-      | (pel, `Rt e) :: l -> pel @ (e :: (aux l))
-      | (pel, `Rpt (e1, e2, e3)) :: l -> pel @ (e1 :: e2 :: e3 :: (aux l))
-    in
-    let l = W.(bind elt (fun x -> bind elts (fun y -> return (x :: y))))
-    in Xml.node ?a "ruby" (W.fmap aux l)
+  let ruby = star "ruby"
 
   let wbr = terminal "wbr"
 
@@ -934,13 +861,15 @@ module MakeWrapped
 
   let aside = star "aside"
 
-  let video_audio name ?src ?(srcs=W.return []) ?(a = []) elts =
+  let video_audio name ?src ?srcs ?(a = []) elts =
     let a =
       match src with
       | None -> a
       | Some uri -> (a_src uri) :: a
     in
-    plus_concat ~a name srcs elts
+    match srcs with
+    | None -> Xml.node name ~a elts
+    | Some srcs -> Xml.node name ~a (W.append srcs elts)
 
   let audio = video_audio "audio"
 
@@ -952,7 +881,10 @@ module MakeWrapped
     Xml.leaf ~a: ((a_label label) :: a) "command"
 
   let menu ?child ?a () =
-    let child = opt_fmap (fun x -> li_option (Some x)) child (li_option None) in
+    let child = match child with
+      | None -> W.nil
+      | Some (`Lis l)
+      | Some (`Flows l) -> l in
     Xml.node ?a "menu" child
 
   let embed = terminal "embed"
@@ -967,7 +899,7 @@ module MakeWrapped
 
   let svg ?(xmlns = "http://www.w3.org/2000/svg") ?(a = []) children =
     star ~a:(string_attrib "xmlns" (W.return xmlns) ::(Svg.to_xmlattribs a))
-      "svg" (W.fmap Svg.toeltl children)
+      "svg" (W.map Svg.toelt children)
 
   let input = terminal "input"
 
@@ -984,8 +916,10 @@ module MakeWrapped
   let button = star "button"
 
   let datalist ?children ?a () =
-    let f = function `Options x | `Phras x -> x in
-    Xml.node ?a "datalist" (opt_fmap f children [])
+    let children = match children with
+      | None -> W.nil
+      | Some (`Options x | `Phras x) -> x in
+    Xml.node ?a "datalist" children
 
   let progress = star "progress"
 
@@ -997,34 +931,29 @@ module MakeWrapped
   let summary = star "summary"
 
   let fieldset ?legend ?a elts =
-    plus_concat ?a "fieldset" (opt_fmap (fun x -> [ x ]) legend []) elts
+    Xml.node ?a "fieldset" (option_cons legend elts)
 
   let optgroup ~label ?(a = []) elts =
     Xml.node ~a: ((a_label label) :: a) "optgroup" elts
 
   let figcaption = star "figcaption"
   let figure ?figcaption ?a elts =
-    let add_caption caption elts = match caption with
+    let content = match figcaption with
       | None -> elts
-      | Some x ->
-        let f c elts = match c with
-          | `Top figc -> figc :: elts
-          | `Bottom figc -> elts @ [figc]
-        in W.fmap2 f x elts
+      | Some (`Top c) -> W.cons c elts
+      | Some (`Bottom c) -> W.append elts (W.singleton c)
     in
-    let content = add_caption figcaption elts in
     Xml.node ?a "figure" content
 
   let caption = star "caption"
 
   let tablex ?caption ?columns ?thead ?tfoot ?a elts =
-    let thead = opt_fmap (fun x -> [ x ]) thead [] in
-    let columns = opt_w columns [] in
-    let tfoot = opt_fmap (fun x -> [ x ]) tfoot [] in
-    let caption = opt_fmap (fun x -> [ x ]) caption [] in
-    let f caption columns  thead tfoot l =
-      caption @ columns @ thead @ tfoot @ l
-    in Xml.node ?a "table" (W.fmap5 f caption columns thead tfoot elts)
+    let content = option_cons thead (option_cons tfoot elts) in
+    let content = match columns with
+      | None -> content
+      | Some columns -> W.append columns content in
+    let content = option_cons caption content in
+    Xml.node ?a "table" content
 
   let table = tablex
 
@@ -1047,7 +976,10 @@ module MakeWrapped
   let iframe = star "iframe"
 
   let object_ ?params ?(a = []) elts =
-    plus_concat ~a "object" (opt_w params []) elts
+    let elts = match params with
+      | None -> elts
+      | Some e -> W.append e elts in
+    Xml.node ~a "object" elts
 
   let param = terminal "param"
 
@@ -1063,17 +995,6 @@ module MakeWrapped
     Xml.leaf ~a: ((a_rel rel) :: (a_href href) :: a) "link"
 
   let base = terminal "base"
-
-  (* VB *)
-
-  type rt =
-    [ `Rt of [ | `Rt ] elt
-    | `Rpt of (([ | `Rp ] elt) * ([ | `Rt ] elt) * ([ | `Rp ] elt))
-    ]
-
-  type ruby_content = (((phrasing elt) list) * rt)
-
-  type rp = (((common attrib) list) * ((phrasing elt) list wrap))
 
   (******************************************************************)
   (* Conversion from and to Xml module *)

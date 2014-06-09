@@ -21,6 +21,7 @@
 module type Wrapped = sig
 
   type 'a wrap
+  type 'a list_wrap
 
   type uri
   val string_of_uri : uri -> string
@@ -55,7 +56,7 @@ module type Wrapped = sig
   val entity : string -> elt
 
   val leaf : ?a:(attrib list) -> ename -> elt
-  val node : ?a:(attrib list) -> ename -> elt list wrap -> elt
+  val node : ?a:(attrib list) -> ename -> elt list_wrap -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
@@ -64,7 +65,7 @@ module type Wrapped = sig
 end
 
 module type T = Wrapped with type 'a wrap = 'a
-
+                         and type 'a list_wrap = 'a list
 module type Iterable = sig
 
   include T
