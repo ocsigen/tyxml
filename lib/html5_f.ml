@@ -882,7 +882,7 @@ module MakeWrapped
 
   let menu ?child ?a () =
     let child = match child with
-      | None -> W.nil
+      | None -> W.nil ()
       | Some (`Lis l)
       | Some (`Flows l) -> l in
     Xml.node ?a "menu" child
@@ -917,7 +917,7 @@ module MakeWrapped
 
   let datalist ?children ?a () =
     let children = match children with
-      | None -> W.nil
+      | None -> W.nil ()
       | Some (`Options x | `Phras x) -> x in
     Xml.node ?a "datalist" children
 
