@@ -193,7 +193,7 @@ struct
   let to_attrib x = x
 
   let nullary tag ?a () =
-    Xml.node ?a tag W.nil
+    Xml.node ?a tag (W.nil ())
 
   let unary tag ?a elt =
     Xml.node ?a tag (W.singleton elt)

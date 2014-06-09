@@ -23,7 +23,7 @@ module type T = sig
   val return : 'a -> 'a t
   val fmap : ('a -> 'b) -> 'a t -> 'b t
 
-  val nil : 'a tlist
+  val nil : unit -> 'a tlist
   val singleton : 'a t -> 'a tlist
   val cons : 'a t -> 'a tlist -> 'a tlist
   val append : 'a tlist -> 'a tlist -> 'a tlist
