@@ -21,10 +21,6 @@ git checkout -b release-$VERSION
 # Generate files
 oasis setup
 
-# Set release mode in the Makefile
-sed 's/^SETUP := setup-dev.exe.*/SETUP := setup.exe/' Makefile > Makefile.new
-mv Makefile.new Makefile
-
 # Remove this script and dev-files
 rm -f dist.sh opam .jenkins.sh
 
