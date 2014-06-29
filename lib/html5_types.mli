@@ -1416,6 +1416,34 @@ type figcaption_content_fun = [ | flow5 ]
 
 type figcaption_attrib = [ | common ]
 
+
+(* figure *)
+type figure = [ | `Figure ]
+
+type figure_content = [ | flow5 ]
+
+type figure_content_fun = [ | flow5 ]
+
+type figure_attrib = [ | common ]
+
+
+(* Rp, Rt and ruby *)
+type rp = [ | `Rp ]
+type rp_content = [ | phrasing ]
+type rp_content_fun = [ | phrasing ]
+type rp_attrib = [ | common ]
+
+type rt = [ | `Rt ]
+type rt_content = [ | phrasing ]
+type rt_content_fun = [ | phrasing ]
+type rt_attrib = [ | common ]
+
+type ruby = [ | `Ruby ]
+type ruby_content = [ | phrasing | rp | rt ]
+type ruby_content_fun = [ | phrasing | rp | rt ]
+type ruby_attrib = [ | common ]
+
+
 (* NAME: hr, KIND: nullary, TYPE: [= common ], [=`Hr], ARG: notag, ATTRIB:  OUT: [=`Hr] *)
 type hr = [ | `Hr ]
 

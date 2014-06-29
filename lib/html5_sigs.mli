@@ -656,7 +656,7 @@ module type T = sig
   (********************************)
   val figure :
     ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
-    ([< | common], [< | flow5], [> | `Figure]) star
+    ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
 
@@ -673,11 +673,11 @@ module type T = sig
   (*       another rp element.      *)
   (**********************************)
   (* simplified with simple stars *)
-  val rt : ([< | common], [< | phrasing], [> | `Rt]) star
+  val rt : ([< | rt_attrib], [< | rt_content_fun], [> | rt]) star
 
-  val rp : ([< | common], [< | phrasing], [> | `Rp]) star
+  val rp : ([< | rp_attrib], [< | rp_content_fun], [> | rp]) star
 
-  val ruby : ([< | common], [< | phrasing | `Rp | `Rt ], [> | `Ruby]) star
+  val ruby : ([< | ruby_attrib], [< | ruby_content_fun], [> | ruby]) star
 
   (** {2 Semantic} *)
 
