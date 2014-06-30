@@ -26,7 +26,7 @@ rm -f dist.sh opam .jenkins.sh
 
 # Commit
 git add --all --force
-git commit -m "prepare release"
+git commit
 git tag $VERSION
 
 git checkout master

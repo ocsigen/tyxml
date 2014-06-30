@@ -1,7 +1,16 @@
-===== dev ====
+===== 3.2.0 ====
 
-  * Remove Xhtml
+  * Remove Xhtml.
+  * Remove plus elements.
+    For example, table doesn't enforce non-emptyness anymore.
+  * Add various types that were not exported (img, dl, figure, rp, rt and ruby types).
+  * Expose `string_of_number`, the better stringifier introduced in 3.1.0.
 
+  * Functorial interface breaking changes:
+    * Modify the functorized interface to export typed events.
+      You can now specify different handlers for keyboard and mouse events.
+      There are two new types and functions (keyboard and mous events) in the Xml signature.
+    * Add a wrapping type for lists of nodes. See reactiveData and new eliom wrapping.
 
 ===== 3.1.0 ====
 
