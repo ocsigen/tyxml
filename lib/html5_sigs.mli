@@ -1176,6 +1176,8 @@ module type T = sig
 
 end
 
+(** {2 Signature functors} *)
+(** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 
 module MakeWrapped
     (W : Xml_wrap.T)
