@@ -508,7 +508,6 @@ module type T = sig
 
   (** {1 Phantom types and XML elements} *)
 
-  (* For Ocsigen I need to specify the variance --Vincent *)
   type +'a elt
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt

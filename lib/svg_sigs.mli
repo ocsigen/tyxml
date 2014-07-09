@@ -31,14 +31,12 @@ module type T = sig
 
   (** {1 Abstraction over XML's types} *)
 
-  type 'a attrib
+  type +'a attrib
 
   type 'a wrap
   type 'a list_wrap
 
   type +'a elt
-
-  type +'a elts
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
