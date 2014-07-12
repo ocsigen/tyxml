@@ -1,4 +1,4 @@
-opam pin tyxml .
+opam pin add --no-action tyxml .
 opam install camlp4
 opam install --deps-only tyxml
 opam install --verbose tyxml
