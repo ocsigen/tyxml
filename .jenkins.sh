@@ -5,8 +5,8 @@ opam install --verbose tyxml
 
 do_build_doc () {
   make wikidoc
-  cp -Rf doc/manual-wiki/*.wiki $(MANUAL_SRC_DIR)
-  cp -Rf _build/tyxml-api.wikidocdir/*.wiki $(API_DIR)
+  cp -Rf doc/manual-wiki/*.wiki ${MANUAL_SRC_DIR}
+  cp -Rf _build/tyxml-api.wikidocdir/*.wiki ${API_DIR}
 }
 
 do_remove () {
