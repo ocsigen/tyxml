@@ -508,7 +508,6 @@ module type T = sig
 
   (** {1 Phantom types and XML elements} *)
 
-  (* For Ocsigen I need to specify the variance --Vincent *)
   type +'a elt
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
@@ -1175,4 +1174,33 @@ module type T = sig
 
   end
 
+end
+
+(** {2 Signature functors} *)
+(** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
+
+module MakeWrapped
+    (W : Xml_wrap.T)
+    (Xml : Xml_sigs.Wrapped)
+    (Svg : Svg_sigs.T with module Xml := Xml) :
+sig
+  module type T = T
+    with type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
+     and module Svg := Svg
+     and type 'a Xml.wrap = 'a W.t
+     and type 'a wrap = 'a W.t
+     and type 'a Xml.list_wrap = 'a W.tlist
+     and type 'a list_wrap = 'a W.tlist
+end
+
+module Make
+    (Xml : Xml_sigs.T)
+    (Svg : Svg_sigs.T with module Xml := Xml) :
+sig
+  module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml)(Svg).T
 end

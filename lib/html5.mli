@@ -22,16 +22,7 @@
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
 (** Concrete implementation of HTML5 typesafe constructors *)
-module M : Html5_sigs.T with type Xml.uri = Xml.uri
-                         and type Xml.event_handler = Xml.event_handler
-                         and type Xml.mouse_event_handler = Xml.mouse_event_handler
-                         and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
-                         and type Xml.attrib = Xml.attrib
-                         and type Xml.elt = Xml.elt
-                         and type 'a Xml.wrap = 'a
-                         and type 'a wrap = 'a
-                         and type 'a list_wrap = 'a list
-                         and module Svg := Svg.M
+module M : Html5_sigs.Make(Xml)(Svg.M).T
 
 (** Simple printer for HTML5 documents *)
 module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt

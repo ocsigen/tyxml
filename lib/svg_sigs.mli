@@ -31,14 +31,12 @@ module type T = sig
 
   (** {1 Abstraction over XML's types} *)
 
-  type 'a attrib
+  type +'a attrib
 
   type 'a wrap
   type 'a list_wrap
 
   type +'a elt
-
-  type +'a elts
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
@@ -871,4 +869,29 @@ module type T = sig
   val doc_toelt : doc -> Xml.elt
 
 
+end
+
+(** {2 Signature functors} *)
+(** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
+
+module MakeWrapped
+    (W : Xml_wrap.T)
+    (Xml : Xml_sigs.Wrapped) :
+sig
+  module type T = T
+    with type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
+     and type 'a Xml.wrap = 'a W.t
+     and type 'a wrap = 'a W.t
+     and type 'a Xml.list_wrap = 'a W.tlist
+     and type 'a list_wrap = 'a W.tlist
+end
+
+module Make(Xml : Xml_sigs.T) :
+sig
+  module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml).T
 end

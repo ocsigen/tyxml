@@ -1,3 +1,10 @@
+===== dev ====
+
+  * Add signature functors to ease export of module created with the functorial interface.
+    See the manual for more details.
+  * Fix variance for Svg.attrib.
+  * Fix export of Xml.list_wrap for Html5.M and Svg.M. Should fix syntax extension with those.
+
 ===== 3.2.0 ====
 
   * Remove Xhtml.

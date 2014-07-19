@@ -22,15 +22,7 @@
     @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
 
 (** Concrete implementation of SVG typesafe constructors *)
-module M : Svg_sigs.T with type Xml.uri = Xml.uri
-                       and type Xml.event_handler = Xml.event_handler
-                       and type Xml.mouse_event_handler = Xml.mouse_event_handler
-                       and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
-                       and type Xml.attrib = Xml.attrib
-                       and type Xml.elt = Xml.elt
-                       and type 'a Xml.wrap = 'a
-                       and type 'a wrap = 'a
-                       and type 'a list_wrap = 'a list
+module M : Svg_sigs.Make(Xml).T
 
 (** Simple printer for SVG documents *)
 module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
