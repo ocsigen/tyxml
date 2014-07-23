@@ -100,49 +100,86 @@ struct
 
   open Xml
 
-  let separator_to_string = function
-    | Space -> " "
-    | Comma -> ", "
 
-  let attrib_value_to_string encode a = match acontent a with
-    | AFloat f -> Printf.sprintf "\"%s\"" (string_of_number f)
-    | AInt i -> Printf.sprintf "\"%d\"" i
-    | AStr s -> Printf.sprintf "\"%s\"" (encode s)
-    | AStrL (sep, slist) ->
-      Printf.sprintf "\"%s\""
-        (encode (String.concat (separator_to_string sep) slist))
+  let quote = O.put "\""
+  let equal = O.put "="
+  let space = O.put " "
+  let comma_space = O.put ", "
+  let lt = O.put "<"
+  let gt = O.put ">"
+  let lt_slash = O.put "</"
+  let space_slash_gt = O.put " />"
+  let comment_open = O.put "<!--"
+  let comment_close = O.put "-->"
+  let ampersand = O.put "&"
+  let semicolon = O.put ";"
 
-  let attrib_to_string encode a =
-    Printf.sprintf "%s=%s" (aname a) (attrib_value_to_string encode a)
+  let separator_to_m = function
+    | Space -> space
+    | Comma -> comma_space
+
+  let rec xh_print_attr_value_list encode sep = function
+    | [] -> O.empty
+    | [x] -> O.put (encode x)
+    | x::xs -> O.put (encode x) ++ sep ++ xh_print_attr_value_list encode sep xs
+
+  let xh_print_attr_value encode a =
+    quote
+    ++ begin match acontent a with
+      | AFloat f -> O.put (string_of_number f)
+      | AInt i -> O.put (string_of_int i)
+      | AStr s -> O.put (encode s)
+      | AStrL (sep, slist) ->
+        xh_print_attr_value_list encode (separator_to_m sep) slist
+    end
+    ++ quote
+
+
+  let xh_print_attr encode a =
+    O.put (aname a)
+    ++ equal
+    ++ xh_print_attr_value encode a
 
   let rec xh_print_attrs encode attrs = match attrs with
     | [] -> O.empty
     | attr::queue ->
-      O.put (" "^ attrib_to_string encode attr)
+      space
+      ++ xh_print_attr encode attr
       ++ xh_print_attrs encode queue
 
   and xh_print_text texte = O.put texte
 
   and xh_print_closedtag encode tag attrs =
     if F.emptytags = [] || List.mem tag F.emptytags
-    then
-      (O.put ("<"^tag)
-       ++ xh_print_attrs encode attrs
-       ++ O.put " />")
-    else
-      (O.put ("<"^tag)
-       ++ xh_print_attrs encode attrs
-       ++ O.put ("></"^tag^">"))
+    then begin
+      lt
+      ++ O.put tag
+      ++ xh_print_attrs encode attrs
+      ++ space_slash_gt
+    end
+    else begin
+      lt
+      ++ O.put tag
+      ++ xh_print_attrs encode attrs
+      ++ gt
+      ++ lt_slash
+      ++ O.put tag
+      ++ gt
+    end
 
   and xh_print_tag encode tag attrs taglist =
     if taglist = []
     then xh_print_closedtag encode tag attrs
-    else
-      (O.put ("<"^tag)
-       ++ xh_print_attrs encode attrs
-       ++ O.put ">"
-       ++ xh_print_taglist encode taglist
-       ++ O.put ("</"^tag^">"))
+    else begin
+      lt
+      ++ O.put tag
+      ++ xh_print_attrs encode attrs
+      ++ gt
+      ++ xh_print_taglist encode taglist
+      ++ lt_slash
+      ++ O.put tag
+      ++ gt
+    end
 
   and print_nodes encode name xh_attrs xh_taglist queue =
     xh_print_tag encode name xh_attrs xh_taglist
@@ -156,11 +193,15 @@ struct
     | elt :: queue -> match content elt with
 
       | Comment texte ->
-        O.put ("<!--"^(encode texte)^"-->")
+        comment_open
+        ++ O.put (encode texte)
+        ++ comment_close
         ++ xh_print_taglist encode queue
 
       | Entity e ->
-        O.put ("&"^e^";") (* no encoding *)
+        ampersand
+        ++ O.put (encode e)
+        ++ semicolon
         ++ xh_print_taglist encode queue
 
       | PCDATA texte ->
@@ -197,6 +238,10 @@ struct
   let print_list ?(encode = encode_unsafe_char) foret =
     O.make (P.xh_print_taglist encode (List.map Typed_xml.toelt foret))
 
+  let advert_open = O.put "<!-- "
+  let advert_close = O.put " -->"
+  let new_line = O.put "\n"
+
   let print ?(encode = encode_unsafe_char) ?(advert = "") doc =
     let doc = Typed_xml.doc_toelt doc in
     let doc = match Xml.content doc with
@@ -210,7 +255,14 @@ struct
       | _ -> doc in
     O.make
       (O.put Typed_xml.Info.doctype
-       ++ O.put (if advert <> "" then ("<!-- " ^ advert ^ " -->\n") else "\n")
+       ++ (if advert <> ""
+           then begin
+             advert_open
+             ++ O.put advert
+             ++ advert_close
+           end else
+             O.empty)
+       ++ new_line
        ++ P.xh_print_taglist encode [doc])
 
 end
