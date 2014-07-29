@@ -74,6 +74,22 @@ module Utf8 : sig
 
 end
 
+module Make_fmt
+    (Xml : Xml_sigs.Iterable)
+    (I : sig val emptytags : string list end)
+  : sig
+    val print_list: ?encode:(string -> string) -> Format.formatter -> Xml.elt list -> unit
+  end
+
+module Make_typed_fmt
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
+  : sig
+
+    val print_list: ?encode:(string -> string) -> Format.formatter -> 'a Typed_xml.elt list -> unit
+    val print: ?encode:(string -> string) -> ?advert:string -> Format.formatter -> Typed_xml.doc -> unit
+  end
+
 module Make
     (Xml : Xml_sigs.Iterable)
     (I : sig val emptytags : string list end)
