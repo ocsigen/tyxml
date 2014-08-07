@@ -889,7 +889,12 @@ struct
     user_attrib string_of_number "stroke-opacity"
 
   (* also generated *)
-  let svg = star "svg"
+  let svg ?(a = []) children =
+    let attribs =
+      string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
+      :: to_xmlattribs a
+    in
+    star ~a:(attribs) "svg" (W.map toeltl children)
 
   let g = star "g"
 
