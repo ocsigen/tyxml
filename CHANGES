@@ -1,5 +1,7 @@
 ===== dev ====
 
+===== 3.2.1 ====
+
   * Add signature functors to ease export of module created with the functorial interface.
     See the manual for more details.
   * Fix variance for Svg.attrib.
