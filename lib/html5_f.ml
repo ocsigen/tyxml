@@ -265,6 +265,7 @@ module MakeWrapped
   let a_xml_space x =
     let f = function
       | `Preserve -> "preserve"
+      | `Default -> "default"
     in user_attrib f "xml:space" x
 
   let a_accesskey c =
