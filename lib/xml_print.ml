@@ -90,6 +90,76 @@ let string_of_number v =
         then s2
         else  Printf.sprintf "%.18g" v
 
+
+module Utf8 = struct
+  type utf8 = string
+  type encoding = [ `UTF_16 | `UTF_16BE | `UTF_16LE | `UTF_8 | `US_ASCII | `ISO_8859_1]
+  let normalize_from ~encoding src =
+    let warn = ref false in
+    let rec loop d e = match Uutf.decode d with
+      | `Uchar _ as u -> ignore (Uutf.encode e u); loop d e
+      | `End -> ignore (Uutf.encode e `End)
+      | `Malformed _ -> ignore (Uutf.encode e (`Uchar Uutf.u_rep)); warn:=true;loop d e
+      | `Await -> assert false
+    in
+    let d = Uutf.decoder ~encoding (`String src) in
+    let buffer = Buffer.create (String.length src) in
+    let e = Uutf.encoder `UTF_8 (`Buffer buffer) in
+    loop d e;
+    Buffer.contents buffer, !warn
+
+  let normalize src = normalize_from ~encoding:`UTF_8 src
+
+  let normalize_html src =
+    let warn = ref false in
+    let str e s =
+      for i = 0 to String.length s - 1 do
+        ignore (Uutf.encode e (`Uchar (Char.code s.[i])))
+      done in
+    let rec loop d e = match Uutf.decode d with
+      | `Uchar 34 -> str e "&quot;"; loop d e
+      | `Uchar 38 -> str e "&amp;"; loop d e
+      | `Uchar 60 -> str e "&lt;"; loop d e
+      | `Uchar 62 -> str e "&gt;"; loop d e
+      | `Uchar code as u ->
+        let u =
+          (* Illegal characters in html
+             http://en.wikipedia.org/wiki/Character_encodings_in_HTML
+             http://www.w3.org/TR/html5/syntax.html *)
+          if (* A. control C0 *)
+            (code <= 31 && code <> 9 && code <> 10 && code <> 13)
+            (* B. DEL + control C1
+               - invalid in html
+               - discouraged in xml;
+                 exept 0x85 see http://www.w3.org/TR/newline
+                 but let's discard it anyway *)
+            || (code >= 127 && code <= 159)
+            (* C. UTF-16 surrogate halves : already discarded by uutf *)
+            (* || (code >= 0xD800 && code <= 0xDFFF) *)
+            (* D. BOOM related *)
+            || code land 0xFFFF = 0xFFFE
+            || code land 0xFFFF = 0xFFFF
+
+          then (warn:=true;`Uchar Uutf.u_rep)
+          else u in
+        ignore (Uutf.encode e u);
+        loop d e
+      | `End -> ignore (Uutf.encode e `End)
+      | `Malformed _ ->
+        ignore (Uutf.encode e (`Uchar Uutf.u_rep));
+        warn:=true;
+        loop d e
+      | `Await -> assert false
+    in
+    let d = Uutf.decoder ~encoding:`UTF_8 (`String src) in
+    let buffer = Buffer.create (String.length src) in
+    let e = Uutf.encoder `UTF_8 (`Buffer buffer) in
+    loop d e;
+    Buffer.contents buffer, !warn
+
+end
+
+
 module Make
     (Xml : Xml_sigs.Iterable)
     (F : sig val emptytags : string list end)
