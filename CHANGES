@@ -1,5 +1,9 @@
 ===== dev ====
 
+===== 3.3.0 ====
+
+  * Add `Xml_print.Utf8` to encode html elements to utf8 properly.
+
 ===== 3.2.1 ====
 
   * Add signature functors to ease export of module created with the functorial interface.
