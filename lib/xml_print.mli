@@ -45,6 +45,38 @@ val compose_doctype : string -> string list -> string
 val string_of_number : float -> string
 (** Convert a float to a string using a compact representation compatible with Javascript norme. *)
 
+(** Utf8 normalizer and encoder for HTML.
+
+Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, this modules is used as following:
+  {[
+    let encode x = fst (Utf8.normalize_html x) in
+    Htmlprinter.print ~encode document
+  ]} *)
+module Utf8 : sig
+
+  type utf8 = string
+  (** [normalize str] take a possibly invalid utf-8 string
+      and return a valid utf-8 string
+      where invalid bytes have been replaced by
+      the replacement character [U+FFFD].
+      The returned boolean is true if invalid bytes were found *)
+  val normalize : string -> utf8 * bool
+
+  (** Same as [normalize] plus some extra work :
+      It encode '<' , '>' , '"' , '&' characters with
+      corresponding entities and replaced invalid html
+      character by [U+FFFD] *)
+  val normalize_html : string -> utf8 * bool
+
+  type encoding = [ `UTF_16 | `UTF_16BE | `UTF_16LE | `UTF_8 | `US_ASCII | `ISO_8859_1]
+
+  (** [normalize_from ~encoding str] convert the string [str] into an uft-8 string.
+      It assumes the [encoding] encoding and replace invalid bytes by
+      the replacement character [U+FFFD].
+      The returned boolean is true if invalid bytes were found *)
+  val normalize_from : encoding:[<encoding] -> string -> utf8 * bool
+end
+
 module Make
     (Xml : Xml_sigs.Iterable)
     (I : sig val emptytags : string list end)
