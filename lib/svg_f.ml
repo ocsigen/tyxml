@@ -888,7 +888,10 @@ struct
   let a_strokeopacity =
     user_attrib string_of_number "stroke-opacity"
 
-  (* also generated *)
+  (* xlink namespace given a nickname since some attributes mandated by
+     the svg standard such as xlink:href live in that namespace, and we
+     refer to them as "xlink:whatever" (see a_xlink_href or a_xlinkshow)
+  *)
   let svg ?(a = []) children =
     let attribs =
       string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
@@ -896,6 +899,7 @@ struct
     in
     star ~a:(attribs) "svg" (W.map toeltl children)
 
+  (* also generated *)
   let g = star "g"
 
   let defs = star "defs"
