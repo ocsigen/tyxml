@@ -257,7 +257,7 @@ struct
     let f = function `Disable -> "disable" | `Magnify -> "magnify" in
     user_attrib f "zoomAndSpan" x
 
-  let a_xlink_href = user_attrib string_of_iri "xlink:href"
+  let a_xlink_href = string_attrib "xlink:href"
 
   let a_requiredfeatures =
     Xml.space_sep_attrib "requiredFeatures"
@@ -273,9 +273,9 @@ struct
 
   let a_id = string_attrib "id"
 
-  let a_xml_base = user_attrib string_of_iri "xml:base"
+  let a_xml_base = string_attrib "xml:base"
 
-  let a_xml_lang = user_attrib string_of_iri "xml:lang"
+  let a_xml_lang = string_attrib "xml:lang"
 
   let a_xml_space x =
     let f = function `Default -> "default" | `Preserve -> "preserve" in
