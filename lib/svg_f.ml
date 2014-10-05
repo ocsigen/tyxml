@@ -257,7 +257,7 @@ struct
     let f = function `Disable -> "disable" | `Magnify -> "magnify" in
     user_attrib f "zoomAndSpan" x
 
-  let a_xlink_href = user_attrib string_of_iri "xlink:href"
+  let a_xlink_href = string_attrib "xlink:href"
 
   let a_requiredfeatures =
     Xml.space_sep_attrib "requiredFeatures"
