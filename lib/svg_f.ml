@@ -273,9 +273,9 @@ struct
 
   let a_id = string_attrib "id"
 
-  let a_xml_base = user_attrib string_of_iri "xml:base"
+  let a_xml_base = string_attrib "xml:base"
 
-  let a_xml_lang = user_attrib string_of_iri "xml:lang"
+  let a_xml_lang = string_attrib "xml:lang"
 
   let a_xml_space x =
     let f = function `Default -> "default" | `Preserve -> "preserve" in
