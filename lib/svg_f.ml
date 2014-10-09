@@ -137,11 +137,9 @@ let string_of_paint = function
 
 module MakeWrapped
     (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t
-                             and type 'a list_wrap = 'a W.tlist) =
+    (Xml : Xml_sigs.Wrapped with module W = W) =
 struct
 
-  module W = W
   module Xml = Xml
 
   module Info = struct
@@ -1141,7 +1139,7 @@ struct
 
 end
 
-module Make(Xml : Xml_sigs.T) =
+module Make(Xml : Xml_sigs.Wrapped) =
   MakeWrapped
-    (Xml_wrap.NoWrap)
+    (Xml.W)
     (Xml)

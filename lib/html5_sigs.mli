@@ -21,19 +21,14 @@ module type T = sig
 
   open Html5_types
 
-  module W : Xml_wrap.T
-
   module Xml : Xml_sigs.Wrapped
-    with type 'a wrap = 'a W.t and type 'a list_wrap = 'a W.tlist
 
-  module Svg : Svg_sigs.T
-    with module W = W and module Xml := Xml
-    with type 'a wrap = 'a W.t and type 'a list_wrap = 'a W.tlist
+  module Svg : Svg_sigs.T with module Xml := Xml
 
   module Info : Xml_sigs.Info
 
-  type 'a wrap = 'a W.t
-  type 'a list_wrap = 'a W.tlist
+  type 'a wrap = 'a Xml.W.t
+  type 'a list_wrap = 'a Xml.W.tlist
 
   type uri = Xml.uri
   val string_of_uri : uri -> string
@@ -1199,15 +1194,14 @@ end
 (** Signature functor for {!Html5_f.MakeWrapped}. *)
 module MakeWrapped
     (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped
-     with type 'a wrap = 'a W.t and type 'a list_wrap = 'a W.tlist)
-    (Svg : Svg_sigs.T with module W = W and module Xml := Xml) :
+    (Xml : Xml_sigs.Wrapped with module W = W)
+    (Svg : Svg_sigs.T with module Xml := Xml) :
 sig
 
   (** See {!modtype:Html5_sigs.T}. *)
   module type T = T
-    with type 'a W.t = 'a W.t
-     and type 'a W.tlist = 'a W.tlist
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
      and type Xml.uri = Xml.uri
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
@@ -1219,10 +1213,10 @@ end
 
 (** Signature functor for {!Html5_f.Make}. *)
 module Make
-    (Xml : Xml_sigs.T)
-    (Svg : Svg_sigs.T with module W = Xml_wrap.NoWrap and module Xml := Xml) :
+    (Xml : Xml_sigs.Wrapped)
+    (Svg : Svg_sigs.T with module Xml := Xml) :
 sig
 
   (** See {!modtype:Html5_sigs.MakeWrapped} and {!modtype:Html5_sigs.T}. *)
-  module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml)(Svg).T
+  module type T = MakeWrapped(Xml.W)(Xml)(Svg).T
 end

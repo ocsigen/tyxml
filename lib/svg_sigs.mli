@@ -22,9 +22,7 @@ module type T = sig
   open Svg_types
   open Unit
 
-  module W : Xml_wrap.T
   module Xml : Xml_sigs.Wrapped
-    with type 'a wrap = 'a W.t and type 'a list_wrap = 'a W.tlist
   module Info : Xml_sigs.Info
 
   type uri = Xml.uri
@@ -35,8 +33,8 @@ module type T = sig
 
   type +'a attrib
 
-  type 'a wrap = 'a W.t
-  type 'a list_wrap = 'a W.tlist
+  type 'a wrap = 'a Xml.W.t
+  type 'a list_wrap = 'a Xml.W.tlist
 
   type +'a elt
 
@@ -898,13 +896,13 @@ end
 (** Signature functor for {!Svg_f.MakeWrapped}. *)
 module MakeWrapped
     (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped) :
+    (Xml : Xml_sigs.Wrapped with module W = W) :
 sig
 
   (** See {!modtype:Svg_sigs.T}. *)
   module type T = T
-    with type 'a W.t = 'a W.t
-     and type 'a W.tlist = 'a W.tlist
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
      and type Xml.uri = Xml.uri
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
@@ -914,9 +912,9 @@ sig
 end
 
 (** Signature functor for {!Svg_f.Make}. *)
-module Make(Xml : Xml_sigs.T) :
+module Make(Xml : Xml_sigs.Wrapped) :
 sig
 
   (** See {!modtype:Svg_sigs.MakeWrapped} and {!modtype:Svg_sigs.T}. *)
-  module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml).T
+  module type T = MakeWrapped(Xml.W)(Xml).T
 end
