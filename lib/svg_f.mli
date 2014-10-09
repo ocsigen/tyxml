@@ -84,12 +84,3 @@ module Make(Xml : Xml_sigs.Wrapped)
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
-
-(** Like the {! Svg_f.Make } functor, but allows to wrap elements inside a monad described by {! Xml_wrap.T}.
-    See the functorial interface documentation for more details. *)
-module MakeWrapped
-    (W: Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with module W = W)
-  : Svg_sigs.MakeWrapped(W)(Xml).T
-    with type +'a elt = Xml.elt
-     and type +'a attrib = Xml.attrib

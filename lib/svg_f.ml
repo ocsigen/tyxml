@@ -135,12 +135,11 @@ let string_of_paint = function
     (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with module W = W) =
+module Make (Xml : Xml_sigs.Wrapped) =
 struct
 
   module Xml = Xml
+  module W = Xml.W
 
   module Info = struct
     let content_type = "image/svg+xml"
@@ -1138,8 +1137,3 @@ struct
   end
 
 end
-
-module Make(Xml : Xml_sigs.Wrapped) =
-  MakeWrapped
-    (Xml.W)
-    (Xml)

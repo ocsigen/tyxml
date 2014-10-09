@@ -894,9 +894,8 @@ end
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 
 (** Signature functor for {!Svg_f.MakeWrapped}. *)
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with module W = W) :
+module Make
+    (Xml : Xml_sigs.Wrapped) :
 sig
 
   (** See {!modtype:Svg_sigs.T}. *)
@@ -909,12 +908,4 @@ sig
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
-end
-
-(** Signature functor for {!Svg_f.Make}. *)
-module Make(Xml : Xml_sigs.Wrapped) :
-sig
-
-  (** See {!modtype:Svg_sigs.MakeWrapped} and {!modtype:Svg_sigs.T}. *)
-  module type T = MakeWrapped(Xml.W)(Xml).T
 end

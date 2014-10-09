@@ -1192,9 +1192,8 @@ end
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 
 (** Signature functor for {!Html5_f.MakeWrapped}. *)
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with module W = W)
+module Make
+    (Xml : Xml_sigs.Wrapped)
     (Svg : Svg_sigs.T with module Xml := Xml) :
 sig
 
@@ -1209,14 +1208,4 @@ sig
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
      and module Svg := Svg
-end
-
-(** Signature functor for {!Html5_f.Make}. *)
-module Make
-    (Xml : Xml_sigs.Wrapped)
-    (Svg : Svg_sigs.T with module Xml := Xml) :
-sig
-
-  (** See {!modtype:Html5_sigs.MakeWrapped} and {!modtype:Html5_sigs.T}. *)
-  module type T = MakeWrapped(Xml.W)(Xml)(Svg).T
 end

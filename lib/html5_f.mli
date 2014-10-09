@@ -27,14 +27,3 @@ module Make
   : Html5_sigs.Make(Xml)(Svg).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
-
-
-(** Like the {! Html5_f.Make } functor, but allows to wrap elements inside a monad described by {! Xml_wrap.T}.
-    See the functorial interface documentation for more details. *)
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with module W = W)
-    (Svg : Svg_sigs.T with module Xml := Xml)
-  : Html5_sigs.MakeWrapped(W)(Xml)(Svg).T
-    with type +'a elt = Xml.elt
-     and type +'a attrib = Xml.attrib

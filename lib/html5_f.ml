@@ -32,12 +32,12 @@
 
 open Html5_types
 
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped with module W = W)
+module Make
+    (Xml : Xml_sigs.Wrapped)
     (Svg : Svg_sigs.T with module Xml := Xml)= struct
 
   module Xml = Xml
+  module W = Xml.W
 
   module Info = struct
     let content_type = "text/html"
@@ -1062,11 +1062,3 @@ module MakeWrapped
   end
 
 end
-
-module Make
-    (Xml : Xml_sigs.Wrapped)
-    (Svg : Svg_sigs.T with module Xml := Xml) =
-  MakeWrapped
-    (Xml.W)
-    (Xml)
-    (Svg)
