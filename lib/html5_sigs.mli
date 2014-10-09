@@ -276,7 +276,7 @@ module type T = sig
 
   val a_cite : Xml.uri wrap -> [> | `Cite] attrib
 
-  val a_xml_space : [< | `Preserve] wrap -> [> | `XML_space] attrib
+  val a_xml_space : [< | `Default | `Preserve] wrap -> [> | `XML_space] attrib
 
   val a_accesskey : character wrap -> [> | `Accesskey] attrib
   (** This attribute assigns an access key to an element. An access key

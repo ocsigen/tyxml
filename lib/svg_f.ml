@@ -623,8 +623,11 @@ struct
 
   let a_xlinkactuate x =
     let f = function
-      | `OnRequest -> "onRequest" in
-    user_attrib f "xlink:actuate" x
+      | `OnRequest -> "onRequest"
+      | `OnLoad -> "onLoad"
+      | `Other -> "other"
+      | `None -> "none"
+    in user_attrib f "xlink:actuate" x
 
   let a_target = string_attrib "xlink:target"
 

@@ -357,7 +357,9 @@ module type T = sig
 
   val a_xlinkshow : [< | `New | `Replace ] wrap -> [> | `Xlink_show ] attrib
 
-  val a_xlinkactuate : [< | `OnRequest ] wrap -> [> | `Xlink_actuate ] attrib
+  val a_xlinkactuate :
+    [< | `OnRequest | `OnLoad | `Other | `None ] wrap
+    -> [> | `Xlink_actuate ] attrib
 
   val a_target : string wrap -> [> | `Xlink_target ] attrib
 
