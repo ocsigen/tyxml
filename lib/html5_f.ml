@@ -36,9 +36,10 @@ module MakeWrapped
     (W : Xml_wrap.T)
     (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t
                              and type 'a list_wrap = 'a W.tlist)
-    (Svg : Svg_sigs.T with module Xml := Xml
-                       and type 'a list_wrap = 'a W.tlist)= struct
+    (Svg : Svg_sigs.T with module W = W and module Xml := Xml)= struct
 
+
+  module W = W
   module Xml = Xml
 
   module Info = struct
@@ -1067,8 +1068,7 @@ end
 
 module Make
     (Xml : Xml_sigs.T)
-    (Svg : Svg_sigs.T with module Xml := Xml
-                       and type 'a list_wrap = 'a Xml.list_wrap) =
+    (Svg : Svg_sigs.T with module W = Xml_wrap.NoWrap and module Xml := Xml) =
   MakeWrapped
     (Xml_wrap.NoWrap)
     (Xml)

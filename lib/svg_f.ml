@@ -141,6 +141,7 @@ module MakeWrapped
                              and type 'a list_wrap = 'a W.tlist) =
 struct
 
+  module W = W
   module Xml = Xml
 
   module Info = struct
