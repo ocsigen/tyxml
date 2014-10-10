@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-module type Wrapped = sig
+module type T = sig
 
   module W : Xml_wrap.T
 
@@ -66,10 +66,10 @@ module type Wrapped = sig
 
 end
 
-module type T = Wrapped with module W = Xml_wrap.NoWrap
+module type NoWrap = T with module W = Xml_wrap.NoWrap
 module type Iterable = sig
 
-  include T
+  include NoWrap
 
   type separator = Space | Comma
 
@@ -115,7 +115,7 @@ end
 
 module type Typed_xml = sig
 
-  module Xml : T
+  module Xml : NoWrap
   module Info : Info
 
   type 'a elt

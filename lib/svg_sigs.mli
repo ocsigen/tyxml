@@ -22,7 +22,7 @@ module type T = sig
   open Svg_types
   open Unit
 
-  module Xml : Xml_sigs.Wrapped
+  module Xml : Xml_sigs.T
   module Info : Xml_sigs.Info
 
   type uri = Xml.uri
@@ -890,13 +890,13 @@ module type T = sig
 
 end
 
+module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
+
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 
-(** Signature functor for {!Svg_f.MakeWrapped}. *)
-module Make
-    (Xml : Xml_sigs.Wrapped) :
-sig
+(** Signature functor for {!Svg_f.Make}. *)
+module Make (Xml : Xml_sigs.T) : sig
 
   (** See {!modtype:Svg_sigs.T}. *)
   module type T = T
@@ -908,4 +908,5 @@ sig
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
+
 end

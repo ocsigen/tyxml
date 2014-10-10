@@ -135,7 +135,7 @@ let string_of_paint = function
     (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
-module Make (Xml : Xml_sigs.Wrapped) =
+module Make (Xml : Xml_sigs.T) =
 struct
 
   module Xml = Xml

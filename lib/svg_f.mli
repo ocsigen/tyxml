@@ -80,7 +80,7 @@ val string_of_transform : transform -> string
 val string_of_transforms : transforms -> string
 *)
 
-module Make(Xml : Xml_sigs.Wrapped)
+module Make(Xml : Xml_sigs.T)
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib

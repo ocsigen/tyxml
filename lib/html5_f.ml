@@ -33,7 +33,7 @@
 open Html5_types
 
 module Make
-    (Xml : Xml_sigs.Wrapped)
+    (Xml : Xml_sigs.T)
     (Svg : Svg_sigs.T with module Xml := Xml)= struct
 
   module Xml = Xml
