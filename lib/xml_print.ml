@@ -110,52 +110,65 @@ module Utf8 = struct
 
   let normalize src = normalize_from ~encoding:`UTF_8 src
 
-  let normalize_html src =
-    let warn = ref false in
-    let str e s =
-      for i = 0 to String.length s - 1 do
-        ignore (Uutf.encode e (`Uchar (Char.code s.[i])))
-      done in
-    let rec loop d e = match Uutf.decode d with
-      | `Uchar 34 -> str e "&quot;"; loop d e
-      | `Uchar 38 -> str e "&amp;"; loop d e
-      | `Uchar 60 -> str e "&lt;"; loop d e
-      | `Uchar 62 -> str e "&gt;"; loop d e
-      | `Uchar code as u ->
-        let u =
-          (* Illegal characters in html
-             http://en.wikipedia.org/wiki/Character_encodings_in_HTML
-             http://www.w3.org/TR/html5/syntax.html *)
-          if (* A. control C0 *)
-            (code <= 31 && code <> 9 && code <> 10 && code <> 13)
-            (* B. DEL + control C1
-               - invalid in html
-               - discouraged in xml;
-                 exept 0x85 see http://www.w3.org/TR/newline
-                 but let's discard it anyway *)
-            || (code >= 127 && code <= 159)
-            (* C. UTF-16 surrogate halves : already discarded by uutf *)
-            (* || (code >= 0xD800 && code <= 0xDFFF) *)
-            (* D. BOOM related *)
-            || code land 0xFFFF = 0xFFFE
-            || code land 0xFFFF = 0xFFFF
-
-          then (warn:=true;`Uchar Uutf.u_rep)
-          else u in
-        ignore (Uutf.encode e u);
-        loop d e
-      | `End -> ignore (Uutf.encode e `End)
-      | `Malformed _ ->
-        ignore (Uutf.encode e (`Uchar Uutf.u_rep));
-        warn:=true;
-        loop d e
-      | `Await -> assert false
+  let normalization_needed src =
+    let rec loop src i l =
+      i < l &&
+      match src.[i] with
+      (* Characters that need to be encoded in HTML *)
+      | '\034' | '\038' | '\060' |'\062' ->
+          true
+      (* ASCII characters *)
+      | '\009' | '\010' | '\013' | '\032'..'\126' ->
+          loop src (i + 1) l
+      | _ ->
+          true
     in
-    let d = Uutf.decoder ~encoding:`UTF_8 (`String src) in
-    let buffer = Buffer.create (String.length src) in
-    let e = Uutf.encoder `UTF_8 (`Buffer buffer) in
-    loop d e;
-    Buffer.contents buffer, !warn
+    loop src 0 (String.length src)
+
+  let normalize_html src =
+    if normalization_needed src then begin
+      let warn = ref false in
+      let buffer = Buffer.create (String.length src) in
+      Uutf.String.fold_utf_8
+        (fun _ i d ->
+           match d with
+           | `Uchar 34 ->
+               Buffer.add_string buffer "&quot;"
+           | `Uchar 38 ->
+               Buffer.add_string buffer "&amp;"
+           | `Uchar 60 ->
+               Buffer.add_string buffer "&lt;"
+           | `Uchar 62 ->
+               Buffer.add_string buffer "&gt;"
+           | `Uchar code ->
+               let u =
+                 (* Illegal characters in html
+                  http://en.wikipedia.org/wiki/Character_encodings_in_HTML
+                  http://www.w3.org/TR/html5/syntax.html *)
+                 if (* A. control C0 *)
+                   (code <= 31 && code <> 9 && code <> 10 && code <> 13)
+                   (* B. DEL + control C1
+                    - invalid in html
+                    - discouraged in xml;
+                      except 0x85 see http://www.w3.org/TR/newline
+                      but let's discard it anyway *)
+                   || (code >= 127 && code <= 159)
+                   (* C. UTF-16 surrogate halves : already discarded by uutf *)
+                   (* || (code >= 0xD800 && code <= 0xDFFF) *)
+                   (* D. BOOM related *)
+                   || code land 0xFFFF = 0xFFFE
+                   || code land 0xFFFF = 0xFFFF
+                 then (warn:=true; Uutf.u_rep)
+                 else code
+               in
+               Uutf.Buffer.add_utf_8 buffer u
+           | `Malformed _ ->
+               Uutf.Buffer.add_utf_8 buffer Uutf.u_rep;
+               warn:=true)
+        () src;
+      (Buffer.contents buffer, !warn)
+    end else
+      (src, false)
 
 end
 
