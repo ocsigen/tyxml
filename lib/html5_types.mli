@@ -105,7 +105,7 @@ type frametarget = string
 (** Frame name used as destination for results of certain actions. *)
 
 type languagecode = string
-(** A language code, as per RFC5646.
+(** A language code, as per RFC5646/BCP47.
     @see <http://tools.ietf.org/html/rfc5646> RFC5646 *)
 
 type length = [ | `Pixels of int | `Percent of int ]
@@ -284,7 +284,7 @@ type text = string
 
 (** {2 Core} *)
 
-type i18n = [ | `XML_lang ]
+type i18n = [ | `XML_lang | `Lang ]
 
 type core =
   [
