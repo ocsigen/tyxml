@@ -1,45 +1,40 @@
 # OASIS_START
-# DO NOT EDIT (digest: 9a60866e2fa295c5e33a3fe33b8f3a32)
+# DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
 
-SETUP = ./setup.exe
+SETUP = ocaml setup.ml
 
-build: setup.data $(SETUP)
+build: setup.data
 	$(SETUP) -build $(BUILDFLAGS)
 
-doc: setup.data $(SETUP) build
+doc: setup.data build
 	$(SETUP) -doc $(DOCFLAGS)
 
-test: setup.data $(SETUP) build
+test: setup.data build
 	$(SETUP) -test $(TESTFLAGS)
 
-all: $(SETUP)
+all:
 	$(SETUP) -all $(ALLFLAGS)
 
-install: setup.data $(SETUP)
+install: setup.data
 	$(SETUP) -install $(INSTALLFLAGS)
 
-uninstall: setup.data $(SETUP)
+uninstall: setup.data
 	$(SETUP) -uninstall $(UNINSTALLFLAGS)
 
-reinstall: setup.data $(SETUP)
+reinstall: setup.data
 	$(SETUP) -reinstall $(REINSTALLFLAGS)
 
-clean: $(SETUP)
+clean:
 	$(SETUP) -clean $(CLEANFLAGS)
 
-distclean: $(SETUP)
+distclean:
 	$(SETUP) -distclean $(DISTCLEANFLAGS)
-	$(RM) $(SETUP)
 
-setup.data: $(SETUP)
+setup.data:
 	$(SETUP) -configure $(CONFIGUREFLAGS)
 
-configure: $(SETUP)
+configure:
 	$(SETUP) -configure $(CONFIGUREFLAGS)
-
-setup.exe: setup.ml
-	ocamlfind ocamlopt -o $@ -linkpkg -package oasis.dynrun $< || ocamlfind ocamlc -o $@ -linkpkg -package oasis.dynrun $< || true
-	$(RM) setup.cmi setup.cmo setup.cmx setup.o
 
 .PHONY: build doc test all install uninstall reinstall clean distclean configure
 

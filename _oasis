@@ -14,7 +14,7 @@ Authors:
 License: LGPL-2.1 with OCaml linking exception
 Plugins: META (0.3), DevFiles (0.3)
 BuildTools: ocamlbuild
-AlphaFeatures: pure_interface, compiled_setup_ml
+AlphaFeatures: pure_interface
 
 Synopsis: HTML5 pages typed with polymorphic variants
 Description:
