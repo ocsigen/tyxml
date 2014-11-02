@@ -40,5 +40,5 @@ configure:
 
 # OASIS_STOP
 
-wikidoc: $(SETUP) setup.data build
+wikidoc: setup.data build
 	$(SETUP) -build tyxml-api.wikidocdir/index.wiki
