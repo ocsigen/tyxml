@@ -21,7 +21,7 @@ depends: [
   "ocamlfind" {build}
   "uutf"
   ## OASIS is not required in released version
-  "oasis" {build && >= "0.4.4"}
+  "oasis" {build & >= "0.4.4"}
 ]
 depopts: [
   "camlp4"
