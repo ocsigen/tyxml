@@ -147,7 +147,7 @@ module type T = sig
 
   val a_span : number wrap -> [> | `Span] attrib
 
-  (*val a_srcdoc*)
+  (** This attribute is deprecated, you should use {! a_xml_lang}. *)
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
 
   val a_start : number wrap -> [> | `Start] attrib
@@ -188,7 +188,9 @@ module type T = sig
 
   (** {2 I18N} *)
 
-  val a_xml_lang : nmtoken wrap -> [> | `XML_lang] attrib
+  val a_xml_lang : languagecode wrap -> [> | `XML_lang] attrib
+
+  val a_lang : languagecode wrap -> [> | `Lang] attrib
 
   (** {2 Events} *)
 

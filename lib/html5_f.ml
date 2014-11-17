@@ -169,6 +169,7 @@ module MakeWrapped
 
   (* I18N: *)
   let a_xml_lang = string_attrib "xml:lang"
+  let a_lang = string_attrib "lang"
 
   (* Style: *)
   let a_style = string_attrib "style"

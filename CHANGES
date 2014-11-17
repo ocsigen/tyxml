@@ -1,5 +1,7 @@
 ===== dev ====
 
+  * Add `a_lang` for HTML. Deprecate `a_srclang` in favor of `a_xml_lang`.
+
 ===== 3.3.0 ====
 
   * Add `Xml_print.Utf8` to encode html elements to utf8 properly.
