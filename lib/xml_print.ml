@@ -93,22 +93,19 @@ let string_of_number v =
 
 module Utf8 = struct
   type utf8 = string
-  type encoding = [ `UTF_16 | `UTF_16BE | `UTF_16LE | `UTF_8 | `US_ASCII | `ISO_8859_1]
-  let normalize_from ~encoding src =
-    let warn = ref false in
-    let rec loop d e = match Uutf.decode d with
-      | `Uchar _ as u -> ignore (Uutf.encode e u); loop d e
-      | `End -> ignore (Uutf.encode e `End)
-      | `Malformed _ -> ignore (Uutf.encode e (`Uchar Uutf.u_rep)); warn:=true;loop d e
-      | `Await -> assert false
-    in
-    let d = Uutf.decoder ~encoding (`String src) in
-    let buffer = Buffer.create (String.length src) in
-    let e = Uutf.encoder `UTF_8 (`Buffer buffer) in
-    loop d e;
-    Buffer.contents buffer, !warn
 
-  let normalize src = normalize_from ~encoding:`UTF_8 src
+  let normalize src =
+    let warn = ref false in
+    let buffer = Buffer.create (String.length src) in
+    Uutf.String.fold_utf_8
+      (fun _ i d ->
+         match d with
+         | `Uchar code -> Uutf.Buffer.add_utf_8 buffer code
+         | `Malformed _ ->
+               Uutf.Buffer.add_utf_8 buffer Uutf.u_rep;
+               warn:=true)
+      () src;
+    (Buffer.contents buffer, !warn)
 
   let normalization_needed src =
     let rec loop src i l =

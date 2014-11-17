@@ -1,6 +1,9 @@
 ===== dev ====
 
   * Add `a_lang` for HTML. Deprecate `a_srclang` in favor of `a_xml_lang`.
+  * Fix a performance issue with `Xml_print.Utf8.{normalize, normalize_html}.
+  * Remove `Xml_print.Utf8.normalize_from`.
+    The function was not useful and not optimizable easily.
 
 ===== 3.3.0 ====
 

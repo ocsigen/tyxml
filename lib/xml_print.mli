@@ -68,13 +68,6 @@ module Utf8 : sig
       character by [U+FFFD] *)
   val normalize_html : string -> utf8 * bool
 
-  type encoding = [ `UTF_16 | `UTF_16BE | `UTF_16LE | `UTF_8 | `US_ASCII | `ISO_8859_1]
-
-  (** [normalize_from ~encoding str] convert the string [str] into an uft-8 string.
-      It assumes the [encoding] encoding and replace invalid bytes by
-      the replacement character [U+FFFD].
-      The returned boolean is true if invalid bytes were found *)
-  val normalize_from : encoding:[<encoding] -> string -> utf8 * bool
 end
 
 module Make
