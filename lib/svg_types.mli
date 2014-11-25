@@ -1788,7 +1788,7 @@ type missingglyph_content =
     | `Cursor
     | `Filter
     | `Font
-    | `FontFace
+    | `Font_Face
     | `ForeignObject
     | `Image
     | `Marker
@@ -1824,7 +1824,7 @@ type vkern = [ | `Vkern ]
 (* nullary *)
 type vkern_attr = [ | core_attr | `U1 | `G1 | `U2 | `G2 | `K ]
 
-type fontface = [ | `FontFace ]
+type fontface = [ | `Font_Face ]
 
 (* nullary *)
 type fontface_content = [ | descriptive_element | `Font_Face_Src ]
@@ -1832,12 +1832,12 @@ type fontface_content = [ | descriptive_element | `Font_Face_Src ]
 type fontface_attr =
   [
     | core_attr
-    | `FontFamily
-    | `FontStyle
-    | `FontVariant
-    | `FontWeight
-    | `FontStretch
-    | `FontSize
+    | `Font_Family
+    | `Font_Style
+    | `Font_Variant
+    | `Font_Weight
+    | `Font_Stretch
+    | `Font_Size
     | `UnicodeRange
     | `UnitsPerEm
     | `Panose1
@@ -1881,7 +1881,7 @@ type fontfaceuri_content = [ | `Font_Face_Format ]
 
 type fontfaceuri_attr = [ | core_attr | xlink_attr | `Xlink_href ]
 
-type fontfaceformat = [ | `Font_Face_Uri ]
+type fontfaceformat = [ | `Font_Face_Format ]
 
 (* nullary *)
 type fontfaceformat_attr = [ | core_attr | `String ]

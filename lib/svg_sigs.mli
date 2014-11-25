@@ -455,17 +455,17 @@ module type T = sig
 
   val a_k : string wrap -> [> | `K ] attrib
 
-  val a_fontfamily : string wrap -> [> | `FontFamily ] attrib
+  val a_fontfamily : string wrap -> [> | `Font_Family ] attrib
 
-  val a_fontstyle : string wrap -> [> | `FontStyle ] attrib
+  val a_fontstyle : string wrap -> [> | `Font_Style ] attrib
 
-  val a_fontvariant : string wrap -> [> | `FontVariant ] attrib
+  val a_fontvariant : string wrap -> [> | `Font_Variant ] attrib
 
-  val a_fontweight : string wrap -> [> | `FontWeight ] attrib
+  val a_fontweight : string wrap -> [> | `Font_Weight ] attrib
 
-  val a_fontstretch : string wrap -> [> | `FontStretch ] attrib
+  val a_fontstretch : string wrap -> [> | `Font_Stretch ] attrib
 
-  val a_fontsize : string wrap -> [> | `FontSize ] attrib
+  val a_fontsize : string wrap -> [> | `Font_Size ] attrib
 
   val a_unicoderange : string wrap -> [> | `UnicodeRange ] attrib
 
