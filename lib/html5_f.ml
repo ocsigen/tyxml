@@ -504,7 +504,7 @@ module MakeWrapped
     in space_sep_attrib "sandbox" (W.fmap aux sb)
 
   let a_spellcheck sc =
-    bool_attrib "spellckeck" sc
+    bool_attrib "spellcheck" sc
 
   let a_scoped x =
     let f = function
