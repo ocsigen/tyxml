@@ -500,6 +500,9 @@ module MakeWrapped
       | `AllowSameOrigin :: a -> "allow-same-origin" :: (aux a)
       | `AllowForms :: a -> "allow-forms" :: (aux a)
       | `AllowScript :: a -> "allow-script" :: (aux a)
+      | `AllowPointerLock :: a -> "allow-pointer-lock" :: (aux a)
+      | `AllowPopups :: a -> "allow-popups" :: (aux a)
+      | `AllowTopNavigation :: a -> "allow-top-navigation" :: (aux a)
       | [] -> []
     in space_sep_attrib "sandbox" (W.fmap aux sb)
 
