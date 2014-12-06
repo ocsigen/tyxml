@@ -522,7 +522,7 @@ module MakeWrapped
   let a_sizes sizes =
     let f = function
       | `Sizes sizes ->
-	 let buf = Buffer.create 80 in
+	 let buf = Buffer.create 17 in
 	 let size_fmt (w, h) = 
 	   Buffer.add_string buf (string_of_int w);
 	   Buffer.add_char buf 'x';
@@ -538,7 +538,7 @@ module MakeWrapped
 	      sizes_fmt xs
 	 in
 	 sizes_fmt sizes;
-	 Buffer.to_bytes buf
+	 Buffer.contents buf
       | `Any -> "any"
     in user_attrib f "sizes" sizes
 
