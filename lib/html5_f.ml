@@ -522,8 +522,23 @@ module MakeWrapped
   let a_sizes sizes =
     let f = function
       | `Sizes sizes ->
-	 let size_fmt (w, h) = string_of_int w ^ "x" ^ string_of_int h in
-	 String.concat " " (List.map size_fmt sizes)
+	 let buf = Buffer.create 80 in
+	 let size_fmt (w, h) = 
+	   Buffer.add_string buf (string_of_int w);
+	   Buffer.add_char buf 'x';
+	   Buffer.add_string buf (string_of_int h)
+	 in
+	 let rec sizes_fmt = function
+	   | [] -> ()
+	   | x :: [] -> 
+	      size_fmt x
+	   | x :: xs -> 
+	      size_fmt x;
+	      Buffer.add_char buf ' ';
+	      sizes_fmt xs
+	 in
+	 sizes_fmt sizes;
+	 Buffer.to_bytes buf
       | `Any -> "any"
     in user_attrib f "sizes" sizes
 
