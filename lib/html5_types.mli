@@ -257,9 +257,6 @@ type number = int
 (* space-separated *)
 type numbers = number list
 
-(* x-separated *)
-type size = int * int
-
 type float_number = float
 
 type pixels = int

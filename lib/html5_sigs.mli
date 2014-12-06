@@ -149,7 +149,7 @@ module type T = sig
 
   val a_seamless : [< | `Seamless] wrap -> [> | `Seamless] attrib
 
-  val a_sizes : [< | `Sizes of size list | `Any] wrap -> [> | `Sizes] attrib
+  val a_sizes : [< | `Sizes of (number * number) list | `Any] wrap -> [> | `Sizes] attrib
 
   val a_span : number wrap -> [> | `Span] attrib
 
