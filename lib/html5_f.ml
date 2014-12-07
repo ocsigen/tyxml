@@ -520,7 +520,26 @@ module MakeWrapped
     in user_attrib f "seamless" x
 
   let a_sizes sizes =
-    let f sizes = String.concat " " (List.map string_of_int sizes)
+    let f = function
+      | `Sizes sizes ->
+	 let buf = Buffer.create 17 in
+	 let size_fmt (w, h) = 
+	   Buffer.add_string buf (string_of_int w);
+	   Buffer.add_char buf 'x';
+	   Buffer.add_string buf (string_of_int h)
+	 in
+	 let rec sizes_fmt = function
+	   | [] -> ()
+	   | x :: [] -> 
+	      size_fmt x
+	   | x :: xs -> 
+	      size_fmt x;
+	      Buffer.add_char buf ' ';
+	      sizes_fmt xs
+	 in
+	 sizes_fmt sizes;
+	 Buffer.contents buf
+      | `Any -> "any"
     in user_attrib f "sizes" sizes
 
   let a_span = int_attrib "span"
