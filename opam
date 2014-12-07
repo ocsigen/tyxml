@@ -20,6 +20,7 @@ remove: [
 depends: [
   "ocamlfind" {build}
   "uutf"
+  "base-bytes"
   ## OASIS is not required in released version
   "oasis" {build & >= "0.4.4"}
 ]

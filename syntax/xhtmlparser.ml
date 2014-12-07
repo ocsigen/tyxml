@@ -120,8 +120,11 @@ module Make
       ];
 
     value to_string x =
-        let b = Buffer.create 50 in
-        let () = bprintf b "%a" print x in Buffer.contents b ;
+        (* sprintf doesn't work with "%a",
+           asprintf is not compatible with OCaml 3.12
+        *)
+        let () = print str_formatter x in
+        flush_str_formatter () ;
   end;
 
 

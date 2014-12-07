@@ -76,7 +76,7 @@ Library pa_tyxml
   XMETAExtraLines: requires(toploop) = "tyxml"
   Path: syntax
   BuildDepends:
-    camlp4
+    bytes, camlp4
   Modules:
     Pa_tyxml
   InternalModules:
@@ -93,7 +93,7 @@ Library tymlx_p
     Simple XML parser
   Path: syntax
   BuildDepends:
-    camlp4.lib
+    bytes, camlp4.lib
   InternalModules:
     Xmllexer
   Modules:

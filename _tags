@@ -5,3 +5,4 @@
 "syntax/pa_tyxml.ml": camlp4rf
 "syntax/simplexmlparser.ml": camlp4rf
 <**/*.ml{,i}>: bin_annot
+true: safe_string
