@@ -136,7 +136,10 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | tag -> String.capitalize tag ] in
     <:ctyp< Html5.attrib [> `$uid:tag$ ] >>;
   value make_attribs_type _loc tag =
-    <:ctyp< Html5.attrib [< Html5_types.$lid:String.lowercase tag^"_attrib"$] >>;
+    match String.lowercase tag with
+    [ "img" -> <:ctyp< Html5.attrib [< `Alt | `Src | Html5_types.img_attrib] >>
+    | tag -> <:ctyp< Html5.attrib [< Html5_types.$lid:tag^"_attrib"$] >>
+    ] ;
 end);
 
 
