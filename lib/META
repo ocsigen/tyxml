@@ -1,0 +1,46 @@
+# OASIS_START
+# DO NOT EDIT (digest: 21543140a2f275b8126768fe97e820fa)
+version = "3.4.0"
+description = "HTML5 pages typed with polymorphic variants"
+requires = "str uutf"
+archive(byte) = "tyxml.cma"
+archive(byte, plugin) = "tyxml.cma"
+archive(native) = "tyxml.cmxa"
+archive(native, plugin) = "tyxml.cmxs"
+exists_if = "tyxml.cma"
+package "syntax" (
+ version = "3.4.0"
+ description = "HTML5 and SVG syntax extension"
+ requires = "bytes camlp4"
+ archive(syntax, preprocessor) = "pa_tyxml.cma"
+ archive(syntax, toploop) = "pa_tyxml.cma"
+ archive(syntax, preprocessor, native) = "pa_tyxml.cmxa"
+ archive(syntax, preprocessor, native, plugin) = "pa_tyxml.cmxs"
+ requires(toploop) = "tyxml"
+ exists_if = "pa_tyxml.cma"
+)
+
+package "parser" (
+ version = "3.4.0"
+ description = "Simple XML parser"
+ requires = "bytes camlp4.lib"
+ archive(byte) = "tymlx_p.cma"
+ archive(byte, plugin) = "tymlx_p.cma"
+ archive(native) = "tymlx_p.cmxa"
+ archive(native, plugin) = "tymlx_p.cmxs"
+ exists_if = "tymlx_p.cma"
+)
+
+package "functor" (
+ version = "3.4.0"
+ description =
+ "HTML5 pages typed with polymorphic variants (Functor version)"
+ requires = "uutf"
+ archive(byte) = "tyxml_f.cma"
+ archive(byte, plugin) = "tyxml_f.cma"
+ archive(native) = "tyxml_f.cmxa"
+ archive(native, plugin) = "tyxml_f.cmxs"
+ exists_if = "tyxml_f.cma"
+)
+# OASIS_STOP
+
