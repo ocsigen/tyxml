@@ -1,9 +1,17 @@
-===== dev ====
+===== 3.4.0 ====
 
   * Add `a_lang` for HTML. Deprecate `a_srclang` in favor of `a_xml_lang`.
   * Fix a performance issue with `Xml_print.Utf8.{normalize, normalize_html}.
   * Remove `Xml_print.Utf8.normalize_from`.
     The function was not useful and not optimizable easily.
+  * Add missing parameters for the attributes xlink:actuate and xml:space.
+  * Svg elements use the xlink namespace (contribution by Florent Becker).
+  * Do not use the `url(...)` form when inappropriate (contribution by Florent Becker).
+  * Fix a typo in the `spellcheck` attribute (contribution by Kevin Brubeck Unhammer).
+  * Fix the `sizes` attributes and add missing attributes for the `sandbox` tag (contributions by Eyyüb Sari).
+  * Fix the `img` tag in the syntax extension.
+  * Fix compilation of the opam package under freeBSD.
+  * Fix typing for the various `font_` svg attributes.
 
 ===== 3.3.0 ====
 
