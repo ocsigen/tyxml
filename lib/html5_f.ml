@@ -584,7 +584,7 @@ module MakeWrapped
       | `Image -> "image"
       | `Date -> "date"
       | `Datetime -> "datetime"
-      | `Datetime_local -> "datetime-locale"
+      | `Datetime_local -> "datetime-local"
       | `Color -> "color"
       | `Button -> "button"
       | `Hidden -> "hidden"
