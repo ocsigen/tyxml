@@ -310,6 +310,8 @@ module type T = sig
   (** This attribute specifies the base language of the resource
       designated by href and may only be used when href is specified. *)
 
+  val a_download : string option wrap -> [> | `Download] attrib
+
   val a_rel : linktypes wrap -> [> | `Rel] attrib
   (** This attribute describes the relationship from the current
       document to the anchor specified by the href attribute. The

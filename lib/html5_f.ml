@@ -282,6 +282,12 @@ module MakeWrapped
 
   let a_hreflang = string_attrib "hreflang"
 
+  let a_download file =
+    let f = function
+      | None -> ""
+      | Some s -> s
+    in user_attrib f "download" file
+
   let a_rel = linktypes_attrib "rel"
 
   let a_tabindex = int_attrib "tabindex"

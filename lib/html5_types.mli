@@ -1660,6 +1660,7 @@ type 'a a = [ | `A of 'a ]
 type a_ = [ `A of a_content ] (* should not be used as it may break *)
 type a_attrib =
   [ | common | `Href | `Hreflang | `Media | `Rel | `Target | `Mime_type
+    | `Download
   ]
 
 (* NAME: del, KIND: star, TYPE: [= common | `Cite | `Datetime ], 'a,[=`Del of 'a], ARG: 'a, ATTRIB:  OUT: [=`Del of 'a] *)
@@ -1816,6 +1817,7 @@ type area_attrib =
     | `Media
     | `Hreflang
     | `Mime_type
+    | `Download
   ]
 
 (* NAME: map, KIND: plus, TYPE: [=common | `Name ],'a, [=`Map of 'a], ARG: 'a, ATTRIB:  OUT: [=`Map of 'a] *)
