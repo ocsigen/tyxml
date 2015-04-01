@@ -2,6 +2,7 @@ opam-version: "1.2"
 
 version: "dev"
 
+author: "The ocsigen team"
 maintainer: "dev@ocsigen.org"
 homepage: "https://ocsigen.org/tyxml/"
 dev-repo: "https://github.com/ocsigen/tyxml.git"
