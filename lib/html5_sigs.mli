@@ -134,9 +134,9 @@ module type T = sig
   val a_reversed : [< | `Reversed] wrap -> [> | `Reversed] attrib
 
   val a_sandbox :
-    [< 
-     | `AllowSameOrigin 
-     | `AllowForms 
+    [<
+     | `AllowSameOrigin
+     | `AllowForms
      | `AllowScript
      | `AllowPointerLock
      | `AllowPopups

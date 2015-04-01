@@ -529,16 +529,16 @@ module MakeWrapped
     let f = function
       | `Sizes sizes ->
 	 let buf = Buffer.create 17 in
-	 let size_fmt (w, h) = 
+	 let size_fmt (w, h) =
 	   Buffer.add_string buf (string_of_int w);
 	   Buffer.add_char buf 'x';
 	   Buffer.add_string buf (string_of_int h)
 	 in
 	 let rec sizes_fmt = function
 	   | [] -> ()
-	   | x :: [] -> 
+	   | x :: [] ->
 	      size_fmt x
-	   | x :: xs -> 
+	   | x :: xs ->
 	      size_fmt x;
 	      Buffer.add_char buf ' ';
 	      sizes_fmt xs
