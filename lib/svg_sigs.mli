@@ -150,6 +150,12 @@ module type T = sig
 
   val a_textlength : Unit.length wrap -> [> | `TextLength ] attrib
 
+  val a_textanchor : [< `Start | `Middle | `End | `Inherit ] wrap -> [> | `Text_Anchor ] attrib
+
+  val a_textdecoration : [< `None | `Underline | `Overline | `Linethrough | `Blink | `Inherit ] wrap -> [> | `Text_Decoration ] attrib
+
+  val a_textrendering : [< `Auto | `OptimizeSpeed | `OptimizeLegibility | `GeometricPrecision | `Inherit ] wrap -> [> | `Text_Rendering ] attrib
+
   val a_rotate : numbers wrap -> [> | `Rotate ] attrib
 
   val a_startoffset : Unit.length wrap -> [> | `StartOffset ] attrib

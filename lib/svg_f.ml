@@ -339,6 +339,28 @@ struct
 
   let a_textlength = user_attrib string_of_length "textLength"
 
+  let a_textanchor x =
+    let f = function
+      | `Start -> "start" | `Middle -> "middle"
+      | `End -> "end" | `Inherit -> "inherit" in
+    user_attrib f "text-anchor" x
+
+  let a_textdecoration x =
+    let f = function
+      | `None -> "none" | `Underline -> "underline"
+      | `Overline -> "overline" | `Linethrough -> "line-through"
+      | `Blink -> "blink" | `Inherit -> "inherit" in
+    user_attrib f "text-decoration" x
+
+  let a_textrendering x =
+    let f = function
+      | `Auto -> "auto"
+      | `OptimizeSpeed -> "optimizeSpeed"
+      | `OptimizeLegibility -> "optimizeLegibility"
+      | `GeometricPrecision -> "geometricPrecision"
+      | `Inherit -> "inherit" in
+    user_attrib f "text-rendering" x
+
   let a_rotate = user_attrib string_of_numbers "rotate"
 
   let a_startoffset = user_attrib string_of_length "startOffset"
