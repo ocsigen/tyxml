@@ -339,20 +339,20 @@ struct
 
   let a_textlength = user_attrib string_of_length "textLength"
 
-  let a_textanchor x =
+  let a_text_anchor x =
     let f = function
       | `Start -> "start" | `Middle -> "middle"
       | `End -> "end" | `Inherit -> "inherit" in
     user_attrib f "text-anchor" x
 
-  let a_textdecoration x =
+  let a_text_decoration x =
     let f = function
       | `None -> "none" | `Underline -> "underline"
-      | `Overline -> "overline" | `Linethrough -> "line-through"
+      | `Overline -> "overline" | `Line_through -> "line-through"
       | `Blink -> "blink" | `Inherit -> "inherit" in
     user_attrib f "text-decoration" x
 
-  let a_textrendering x =
+  let a_text_rendering x =
     let f = function
       | `Auto -> "auto"
       | `OptimizeSpeed -> "optimizeSpeed"
