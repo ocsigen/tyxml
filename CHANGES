@@ -1,3 +1,9 @@
+===== dev   ====
+
+  * Fix typo in `datetime-local`.
+  * Add download attributes for area and tags.
+  * Add various svg `text` attributes.
+
 ===== 3.4.0 ====
 
   * Add `a_lang` for HTML. Deprecate `a_srclang` in favor of `a_xml_lang`.
