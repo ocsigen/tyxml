@@ -928,13 +928,8 @@ module MakeWrapped
 
   let form = star "form"
 
-  let svg ?(xmlns = "http://www.w3.org/2000/svg") ?(a = []) children =
-    let xmlns = string_attrib "xmlns" (W.return xmlns) in
-    let xmlns_xlink =
-      string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
-    in
-    let attribs = Svg.to_attrib xmlns :: Svg.to_attrib xmlns_xlink :: a in
-    Svg.toelt (Svg.svg ~a:attribs children)
+  let svg ?(a = []) children =
+    Svg.toelt (Svg.svg ~a children)
 
   let input = terminal "input"
 
