@@ -919,7 +919,8 @@ struct
   *)
   let svg ?(a = []) children =
     let attribs =
-      string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
+      string_attrib "xmlns" (W.return "http://www.w3.org/2000/svg")
+      :: string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
       :: to_xmlattribs a
     in
     star ~a:(attribs) "svg" (W.map toeltl children)

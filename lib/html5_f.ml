@@ -36,7 +36,8 @@ module MakeWrapped
     (W : Xml_wrap.T)
     (Xml : Xml_sigs.Wrapped with type 'a wrap = 'a W.t
                              and type 'a list_wrap = 'a W.tlist)
-    (Svg : Svg_sigs.T with module Xml := Xml)= struct
+    (Svg : Svg_sigs.T with module Xml := Xml
+                       and type 'a list_wrap = 'a W.tlist)= struct
 
   module Xml = Xml
 
@@ -927,14 +928,8 @@ module MakeWrapped
 
   let form = star "form"
 
-  let svg ?(xmlns = "http://www.w3.org/2000/svg") ?(a = []) children =
-    let attribs =
-      string_attrib "xmlns" (W.return xmlns)
-      :: string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
-      :: Svg.to_xmlattribs a
-    in
-    star ~a:(attribs)
-      "svg" (W.map Svg.toelt children)
+  let svg ?(a = []) children =
+    Svg.toelt (Svg.svg ~a children)
 
   let input = terminal "input"
 
@@ -1072,7 +1067,8 @@ end
 
 module Make
     (Xml : Xml_sigs.T)
-    (Svg : Svg_sigs.T with module Xml := Xml) =
+    (Svg : Svg_sigs.T with module Xml := Xml
+                       and type 'a list_wrap = 'a Xml.list_wrap) =
   MakeWrapped
     (Xml_wrap.NoWrap)
     (Xml)
