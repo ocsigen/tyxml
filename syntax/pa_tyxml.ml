@@ -160,7 +160,7 @@ module ParserSvg = Xhtmlparser.Make(Syntax)(struct
   value make_attrib_type _loc tag =
     let tag = match String.lowercase tag with
     [ "accent-height" -> "AccentHeight"
-    | "alignement-baseline" -> "Alignement_Baseline"
+    | "alignment-baseline" -> "Alignment_Baseline"
     | "altglyph" -> "AltGlyph"
     | "animatecolor" -> "AnimateColor"
     | "arabic-form" -> "ArabicForm"
