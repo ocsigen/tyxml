@@ -162,6 +162,7 @@ type animation_addition_attr = [ | `Additive | `Accumulate ]
 
 type presentation_attr =
   [
+    | `Alignment_Baseline
     | `Baseline_Shift
     | `Clip
     | `Clip_Path
@@ -779,7 +780,6 @@ type tspan_attr =
     | conditional_processing_attr
     | graphical_event_attr
     | presentation_attr
-    | `Alignment_Baseline
     | `Class
     | `Style
     | `ExternalResourcesRequired
@@ -806,7 +806,6 @@ type tref_attr =
     | graphical_event_attr
     | presentation_attr
     | xlink_attr
-    | `Alignment_Baseline
     | `Class
     | `Style
     | `ExternalResourcesRequired
@@ -836,7 +835,6 @@ type textpath_attr =
     | graphical_event_attr
     | presentation_attr
     | xlink_attr
-    | `Alignment_Baseline
     | `Class
     | `Style
     | `ExternalResourcesRequired
@@ -858,7 +856,6 @@ type altglyph_attr =
     | graphical_event_attr
     | presentation_attr
     | xlink_attr
-    | `Alignment_Baseline
     | `Class
     | `Style
     | `ExternalResourcesRequired
