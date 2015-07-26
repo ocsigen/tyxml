@@ -529,6 +529,17 @@ module type T = sig
 
   val a_name : string wrap -> [> | `Name ] attrib
 
+  val a_alignment_baseline :
+    [< | `Auto | `Baseline | `Before_edge | `Text_before_edge | `Middle
+       | `Central | `After_edge | `Text_after_edge | `Ideographic
+       | `Alphabetic | `Hanging | `Mathematical | `Inherit ] wrap ->
+    [> | `Alignment_Baseline ] attrib
+
+  val a_dominant_baseline :
+    [< | `Auto | `Use_script | `No_change | `Reset_size | `Ideographic
+       | `Alphabetic | `Hanging | `Mathematical | `Central | `Middle
+       | `Text_after_edge | `Text_before_edge | `Inherit ] wrap ->
+    [> | `Dominant_Baseline ] attrib
 
   (** Javascript events *)
 

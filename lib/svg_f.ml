@@ -849,6 +849,41 @@ struct
 
   let a_name = string_attrib "name"
 
+  let string_of_alignment_baseline = function
+    | `Auto -> "auto"
+    | `Baseline -> "baseline"
+    | `Before_edge -> "before-edge"
+    | `Text_before_edge -> "text-before-edge"
+    | `Middle -> "middle"
+    | `Central -> "central"
+    | `After_edge -> "after-edge"
+    | `Text_after_edge -> "text-after-edge"
+    | `Ideographic -> "ideographic"
+    | `Alphabetic -> "alphabetic"
+    | `Hanging-> "hanging"
+    | `Mathematical -> "mathematical"
+    | `Inherit -> "inherit"
+
+  let a_alignment_baseline =
+    user_attrib string_of_alignment_baseline "alignment-baseline"
+
+  let string_of_dominant_baseline = function
+    | `Auto -> "auto"
+    | `Use_script -> "use-script"
+    | `No_change -> "no-change"
+    | `Reset_size -> "reset-size"
+    | `Ideographic -> "ideographic"
+    | `Alphabetic -> "alphabetic"
+    | `Hanging -> "hanging"
+    | `Mathematical -> "mathematical"
+    | `Central -> "central"
+    | `Middle -> "middle"
+    | `Text_after_edge -> "text-after-edge"
+    | `Text_before_edge -> "text-before-edge"
+    | `Inherit -> "inherit"
+
+  let a_dominant_baseline =
+    user_attrib string_of_dominant_baseline "dominant-baseline"
 
   (** Javascript events *)
 

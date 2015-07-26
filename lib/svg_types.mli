@@ -162,7 +162,7 @@ type animation_addition_attr = [ | `Additive | `Accumulate ]
 
 type presentation_attr =
   [
-    | `Alignement_Baseline
+    | `Alignment_Baseline
     | `Baseline_Shift
     | `Clip
     | `Clip_Path
@@ -175,7 +175,7 @@ type presentation_attr =
     | `Cursor
     | `Direction
     | `Display
-    | `Dominant_baseline
+    | `Dominant_Baseline
     | `Enable_background
     | `Fill
     | `Fill_opacity
@@ -746,6 +746,7 @@ type text_attr =
     | core_attr
     | graphical_event_attr
     | presentation_attr
+    | `Class
     | `Transform
     | `LengthAdjust
     | `X_list
