@@ -1,5 +1,9 @@
 ===== dev   ====
 
+  * Add Tyxml_name, which allows to derive tyxml identifiers from HTML
+    elements and attributes.
+  * Internally build the tool `autoname`, which applies the aftermentionned
+    transformation for the given elements/attributes.
   * Fix typo in `datetime-local`.
   * Add download attributes for area and tags.
   * Add various svg `text` attributes.

@@ -9,3 +9,5 @@ setup.log
 **/*~
 setup.exe
 setup-dev.exe
+*.byte
+*.native

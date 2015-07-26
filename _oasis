@@ -66,6 +66,19 @@ Library tyxml_f
     Html5_f
   BuildDepends: uutf
 
+Library tyxml_tools
+  FindlibName: tools
+  FindlibParent: tyxml
+  Path: tools
+  Modules: Tyxml_name
+  BuildDepends: bytes
+
+Executable autoname
+  Path: tools
+  MainIs: autoname.ml
+  Install: false
+  BuildDepends: tyxml.tools
+
 Library pa_tyxml
   Build$: flag(syntax)
   FindlibName: syntax

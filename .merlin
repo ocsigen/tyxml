@@ -1,8 +1,7 @@
 S lib
 S syntax
+S tools
 
-B _build
-B _build/lib
-B _build/syntax
+B _build/*
 
 PKG uutf
