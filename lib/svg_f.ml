@@ -864,8 +864,8 @@ struct
     | `Mathematical -> "mathematical"
     | `Inherit -> "inherit"
 
-  let a_alignment_baseline =
-    user_attrib string_of_alignment_baseline "alignment-baseline"
+  let a_alignment_baseline x =
+    user_attrib string_of_alignment_baseline "alignment-baseline" x
 
   let string_of_dominant_baseline = function
     | `Auto -> "auto"
@@ -882,8 +882,8 @@ struct
     | `Text_before_edge -> "text-before-edge"
     | `Inherit -> "inherit"
 
-  let a_dominant_baseline =
-    user_attrib string_of_dominant_baseline "dominant-baseline"
+  let a_dominant_baseline x =
+    user_attrib string_of_dominant_baseline "dominant-baseline" x
 
   (** Javascript events *)
 
