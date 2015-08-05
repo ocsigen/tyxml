@@ -7,6 +7,7 @@
   * Fix typo in `datetime-local`.
   * Add download attributes for area and tags.
   * Add various svg `text` attributes.
+  * Fix namespaces issues related to svg elements inside html.
 
 ===== 3.4.0 ====
 
