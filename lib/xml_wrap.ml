@@ -31,6 +31,9 @@ module type T = sig
   val map : ('a -> 'b) -> 'a tlist -> 'b tlist
 end
 
+module type NoWrap =
+  T with type 'a t = 'a and type 'a tlist = 'a list
+
 module NoWrap = struct
   type 'a t = 'a
   type 'a tlist = 'a list

@@ -30,5 +30,7 @@ module type T = sig
   val map : ('a -> 'b ) -> 'a tlist -> 'b tlist
 end
 
-module NoWrap : T with type 'a t = 'a
-                   and type 'a tlist = 'a list
+module type NoWrap =
+  T with type 'a t = 'a and type 'a tlist = 'a list
+
+module NoWrap : NoWrap

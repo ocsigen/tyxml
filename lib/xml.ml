@@ -23,6 +23,8 @@
 
 module M = struct
 
+  module W = Xml_wrap.NoWrap
+
   type 'a wrap = 'a
   type 'a list_wrap = 'a list
 

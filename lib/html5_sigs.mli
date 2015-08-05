@@ -21,12 +21,14 @@ module type T = sig
 
   open Html5_types
 
-  module Xml : Xml_sigs.Wrapped
+  module Xml : Xml_sigs.T
+
   module Svg : Svg_sigs.T with module Xml := Xml
+
   module Info : Xml_sigs.Info
 
-  type 'a wrap
-  type 'a list_wrap
+  type 'a wrap = 'a Xml.W.t
+  type 'a list_wrap = 'a Xml.W.tlist
 
   type uri = Xml.uri
   val string_of_uri : uri -> string
@@ -1186,30 +1188,10 @@ module type T = sig
 
 end
 
+module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
+
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
-
-(** Signature functor for {!Html5_f.MakeWrapped}. *)
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped)
-    (Svg : Svg_sigs.T with module Xml := Xml) :
-sig
-
-  (** See {!modtype:Html5_sigs.T}. *)
-  module type T = T
-    with type Xml.uri = Xml.uri
-     and type Xml.event_handler = Xml.event_handler
-     and type Xml.mouse_event_handler = Xml.mouse_event_handler
-     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
-     and type Xml.attrib = Xml.attrib
-     and type Xml.elt = Xml.elt
-     and module Svg := Svg
-     and type 'a Xml.wrap = 'a W.t
-     and type 'a wrap = 'a W.t
-     and type 'a Xml.list_wrap = 'a W.tlist
-     and type 'a list_wrap = 'a W.tlist
-end
 
 (** Signature functor for {!Html5_f.Make}. *)
 module Make
@@ -1217,6 +1199,15 @@ module Make
     (Svg : Svg_sigs.T with module Xml := Xml) :
 sig
 
-  (** See {!modtype:Html5_sigs.MakeWrapped} and {!modtype:Html5_sigs.T}. *)
-  module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml)(Svg).T
+  (** See {!modtype:Html5_sigs.T}. *)
+  module type T = T
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
+     and module Svg := Svg
 end

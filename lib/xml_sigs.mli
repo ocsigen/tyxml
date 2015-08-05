@@ -18,10 +18,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-module type Wrapped = sig
+module type T = sig
 
-  type 'a wrap
-  type 'a list_wrap
+  module W : Xml_wrap.T
+
+  type 'a wrap = 'a W.t
+  type 'a list_wrap = 'a W.tlist
 
   type uri
   val string_of_uri : uri -> string
@@ -64,11 +66,10 @@ module type Wrapped = sig
 
 end
 
-module type T = Wrapped with type 'a wrap = 'a
-                         and type 'a list_wrap = 'a list
+module type NoWrap = T with module W = Xml_wrap.NoWrap
 module type Iterable = sig
 
-  include T
+  include NoWrap
 
   type separator = Space | Comma
 
@@ -114,7 +115,7 @@ end
 
 module type Typed_xml = sig
 
-  module Xml : T
+  module Xml : NoWrap
   module Info : Info
 
   type 'a elt

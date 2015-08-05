@@ -22,7 +22,7 @@ module type T = sig
   open Svg_types
   open Unit
 
-  module Xml : Xml_sigs.Wrapped
+  module Xml : Xml_sigs.T
   module Info : Xml_sigs.Info
 
   type uri = Xml.uri
@@ -33,8 +33,8 @@ module type T = sig
 
   type +'a attrib
 
-  type 'a wrap
-  type 'a list_wrap
+  type 'a wrap = 'a Xml.W.t
+  type 'a list_wrap = 'a Xml.W.tlist
 
   type +'a elt
 
@@ -890,33 +890,23 @@ module type T = sig
 
 end
 
+module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
+
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 
-(** Signature functor for {!Svg_f.MakeWrapped}. *)
-module MakeWrapped
-    (W : Xml_wrap.T)
-    (Xml : Xml_sigs.Wrapped) :
-sig
+(** Signature functor for {!Svg_f.Make}. *)
+module Make (Xml : Xml_sigs.T) : sig
 
   (** See {!modtype:Svg_sigs.T}. *)
   module type T = T
-    with type Xml.uri = Xml.uri
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type Xml.uri = Xml.uri
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
-     and type 'a Xml.wrap = 'a W.t
-     and type 'a wrap = 'a W.t
-     and type 'a Xml.list_wrap = 'a W.tlist
-     and type 'a list_wrap = 'a W.tlist
-end
 
-(** Signature functor for {!Svg_f.Make}. *)
-module Make(Xml : Xml_sigs.T) :
-sig
-
-  (** See {!modtype:Svg_sigs.MakeWrapped} and {!modtype:Svg_sigs.T}. *)
-  module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml).T
 end
