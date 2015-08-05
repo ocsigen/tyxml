@@ -1,4 +1,4 @@
-===== dev   ====
+===== 3.5.0 ====
 
   * Add Tyxml_name, which allows to derive tyxml identifiers from HTML
     elements and attributes.
