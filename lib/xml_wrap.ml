@@ -17,26 +17,30 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-
 module type T = sig
   type 'a t
-  type 'a tlist
   val return : 'a -> 'a t
-  val fmap : ('a -> 'b) -> 'a t -> 'b t
 
+  type ('a, 'b) ft
+  val fmap : ('a, 'b) ft -> 'a t -> 'b t
+
+  type 'a tlist
   val nil : unit -> 'a tlist
   val singleton : 'a t -> 'a tlist
   val cons : 'a t -> 'a tlist -> 'a tlist
   val append : 'a tlist -> 'a tlist -> 'a tlist
-  val map : ('a -> 'b) -> 'a tlist -> 'b tlist
+  val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
 end
 
 module type NoWrap =
-  T with type 'a t = 'a and type 'a tlist = 'a list
+  T with type 'a t = 'a
+     and type 'a tlist = 'a list
+     and type ('a, 'b) ft = 'a -> 'b
 
 module NoWrap = struct
   type 'a t = 'a
   type 'a tlist = 'a list
+  type ('a, 'b) ft = 'a -> 'b
   external return : 'a -> 'a = "%identity"
   let fmap f :  'a t -> 'b t = f
 

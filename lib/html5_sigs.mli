@@ -17,13 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-module type T = sig
+module type T_NoSVG = sig
 
   open Html5_types
 
   module Xml : Xml_sigs.T
-
-  module Svg : Svg_sigs.T with module Xml := Xml
 
   module Info : Xml_sigs.Info
 
@@ -561,9 +559,6 @@ module type T = sig
   val title : (title_attrib, [< | title_content_fun], [> | title]) unary
 
   val body : ([< | body_attrib], [< | body_content_fun], [> | body]) star
-
-
-  val svg : ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list_wrap -> [> svg ] elt
 
   (** {2 Section} *)
 
@@ -1188,7 +1183,80 @@ module type T = sig
 
 end
 
+module type T = sig
+
+  include T_NoSVG
+
+  module Svg : Svg_sigs.T with module Xml := Xml
+
+  val svg :
+    ?a : [< Html5_types.svg_attrib ] Svg.attrib list ->
+    [< Html5_types.svg_content ] Svg.elt list_wrap ->
+    [> Html5_types.svg ] elt
+
+end
+
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
+
+module type Conv = sig
+
+  type ('a, 'b) ft
+
+    (* In the general case, it is imppossible to transform OCaml
+     functions into [ft] values, e.g., for
+       [('a, 'b) ft = ('a -> 'b) Eliom_lib.shared_value] ,
+     it is impossible to produce the client part of the shared_value
+     by injecting a server-side function. To circumvent this, our
+     functorial interface receives a collection of [ft] values for the
+       operations needed. *)
+
+  val unoption_string : (string option, string) ft
+
+  val string_of_step : (float option, string) ft
+
+  val string_of_bool : (bool, string) ft
+
+  val string_of_number : (Html5_types.number, string) ft
+
+  val string_of_character : (Html5_types.character, string) ft
+
+  val string_of_multilength :
+    ([< Html5_types.multilength], string) ft
+
+  val string_of_sandbox_token :
+    ([< Html5_types.sandbox_token], string) ft
+
+  val string_of_linktype :
+    ([< Html5_types.linktype], string) ft
+
+  val string_of_variant :
+    ([< Html5_types.big_variant], string) ft
+
+  val string_of_mediadesc_token :
+    ([< Html5_types.mediadesc_token], string) ft
+
+  val string_of_input_type :
+    ([< Html5_types.input_type], string) ft
+
+  val string_of_linktypes :
+    ([< Html5_types.linktype] list, string) ft
+
+  val string_of_mediadesc :
+    ([< Html5_types.mediadesc_token] list, string) ft
+
+  val string_of_multilengths :
+    ([< Html5_types.multilength] list, string) ft
+
+  val string_of_sizes :
+    ([< Html5_types.sizes], string) ft
+
+  val string_of_sandbox :
+    ([< Html5_types.sandbox_token] list, string) ft
+
+  val string_of_numbers :
+    (Html5_types.numbers, string) ft
+
+end
 
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
@@ -1210,4 +1278,20 @@ sig
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
      and module Svg := Svg
+end
+
+(** Signature functor for {!Html5_f.NoSVG.Make}. *)
+module Make_NoSVG(Xml : Xml_sigs.T): sig
+
+  (** See {!modtype:Html5_sigs.T}. *)
+  module type T = T_NoSVG
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
+
 end

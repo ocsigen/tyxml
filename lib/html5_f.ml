@@ -32,11 +32,13 @@
 
 open Html5_types
 
-module Make
+module Make'_NoSVG
     (Xml : Xml_sigs.T)
-    (Svg : Svg_sigs.T with module Xml := Xml)= struct
+    (C : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
+struct
 
   module Xml = Xml
+
   module W = Xml.W
 
   module Info = struct
@@ -79,83 +81,22 @@ module Make
 
   let user_attrib f name v = Xml.string_attrib name (W.fmap f v)
 
-  let bool_attrib = user_attrib string_of_bool
+  let bool_attrib = user_attrib C.string_of_bool
 
   (* space-separated *)
-  let length_to_string = function
-    | `Pixels p -> string_of_int p
-    | `Percent p -> (string_of_int p) ^ "%"
-
   let length_attrib name x =
-    user_attrib length_to_string name x
-
-  let multilength_to_string = function
-    | `Pixels p -> string_of_int p
-    | `Percent p -> (string_of_int p) ^ "%"
-    | `Relative 1 -> "*"
-    | `Relative i -> (string_of_int i) ^ "*"
-
-  let multilength_attrib name x =
-    user_attrib multilength_to_string name x
-
-  let multilength_to_string m =
-    String.concat ", " (List.map multilength_to_string m)
+    user_attrib
+      C.string_of_multilength
+      name (x :> [< Html5_types.multilength] W.t)
 
   let multilengths_attrib name x =
-    user_attrib multilength_to_string name x
+    user_attrib C.string_of_multilengths name x
 
-  let linktype_to_string =
-    function
-    | `Alternate -> "alternate"
-    | `Archives -> "archives"
-    | `Author -> "author"
-    | `Bookmark -> "bookmark"
-    | `External -> "external"
-    | `First -> "first"
-    | `Help -> "help"
-    | `Icon -> "icon"
-    | `Index -> "index"
-    | `Last -> "last"
-    | `License -> "license"
-    | `Next -> "next"
-    | `Nofollow -> "nofollow"
-    | `Noreferrer -> "noreferrer"
-    | `Pingback -> "pingback"
-    | `Prefetch -> "prefetch"
-    | `Prev -> "prev"
-    | `Search -> "search"
-    | `Stylesheet -> "stylesheet"
-    | `Sidebar -> "sidebar"
-    | `Tag -> "tag"
-    | `Up -> "up"
-    | `Other t -> t
+  let linktypes_attrib name x =
+    user_attrib C.string_of_linktypes name x
 
-  let linktypes_to_string l =
-    String.concat " " (List.map linktype_to_string l)
-
-  let linktypes_attrib name linktypes =
-    user_attrib linktypes_to_string name linktypes
-
-  let mediadesc_to_string =
-    function
-    | `All -> "all"
-    | `Aural -> "aural"
-    | `Braille -> "braille"
-    | `Embossed -> "embossed"
-    | `Handheld -> "handheld"
-    | `Print -> "print"
-    | `Projection -> "projection"
-    | `Screen -> "screen"
-    | `Speech -> "speech"
-    | `TTY -> "tty"
-    | `TV -> "tv"
-    | `Raw_mediadesc s -> s
-
-  let mediadescs_to_string mediadescs =
-    String.concat ", " (List.map mediadesc_to_string mediadescs)
-
-  let mediadesc_attrib name mediadescs =
-    user_attrib mediadescs_to_string name mediadescs
+  let mediadesc_attrib name x =
+    user_attrib C.string_of_mediadesc name x
 
   (* Core: *)
   let a_class = space_sep_attrib "class"
@@ -253,23 +194,34 @@ module Make
   (* Other Attributes *)
   let a_version = string_attrib "version"
 
+  let user_attrib_bv :
+    string ->
+    ([< Html5_types.big_variant] as 'a) W.t ->
+    Xml.attrib =
+    fun name (v : 'a W.t) ->
+      let f =
+        (C.string_of_variant :
+           ([< Html5_types.big_variant], string) W.ft :>
+           ('a, string) W.ft)
+      in
+      Xml.string_attrib name (W.fmap f v)
+
   let a_xmlns x =
-    let f = function
-      | `W3_org_1999_xhtml -> "http://www.w3.org/1999/xhtml"
-    in user_attrib f "xmlns" x
+    user_attrib C.string_of_variant "xmlns"
+      (x : [< `W3_org_1999_xhtml ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_manifest = uri_attrib "manifest"
 
   let a_cite = uri_attrib "cite"
 
   let a_xml_space x =
-    let f = function
-      | `Preserve -> "preserve"
-      | `Default -> "default"
-    in user_attrib f "xml:space" x
+    user_attrib C.string_of_variant "xml:space"
+      (x : [< `Default | `Preserve ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_accesskey c =
-    user_attrib (String.make 1) "accesskey" c
+    user_attrib C.string_of_character "accesskey" c
 
   let a_charset = string_attrib "charset"
 
@@ -282,10 +234,7 @@ module Make
   let a_hreflang = string_attrib "hreflang"
 
   let a_download file =
-    let f = function
-      | None -> ""
-      | Some s -> s
-    in user_attrib f "download" file
+     user_attrib (C.unoption_string) "download" file
 
   let a_rel = linktypes_attrib "rel"
 
@@ -306,8 +255,8 @@ module Make
   let a_for_list = space_sep_attrib "for"
 
   let a_selected x =
-    let f = function | `Selected -> "selected"
-    in user_attrib f "selected" x
+    user_attrib C.string_of_variant "selected"
+      (x : [< `Selected ]  wrap :> [< Html5_types.big_variant] wrap)
 
   let a_text_value = string_attrib "value"
 
@@ -319,66 +268,53 @@ module Make
 
   let a_action = uri_attrib "action"
 
-  let a_method m =
-    let f = function
-      | `Get -> "GET"
-      | `Post -> "POST"
-      | `Put -> "PUT"
-      | `Delete -> "DELETE"
-    in user_attrib f "method" m
+  let a_method x =
+    user_attrib C.string_of_variant "method"
+      (x : [< `Delete | `Get | `Post | `Put ]  wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_enctype = string_attrib "enctype"
 
   let a_checked x =
-    let f = function
-      | `Checked -> "checked"
-    in user_attrib f "checked" x
+    user_attrib C.string_of_variant "checked"
+      (x : [< `Checked ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_disabled x =
-    let f = function
-      | `Disabled -> "disabled"
-    in user_attrib f "disabled" x
+    user_attrib C.string_of_variant "disabled"
+      (x : [< `Disabled ]  wrap :> [< Html5_types.big_variant] wrap)
 
   let a_readonly x =
-    let f = function
-      | `ReadOnly -> "readonly"
-    in user_attrib f "readonly" x
+    user_attrib C.string_of_variant "readonly"
+      (x : [< `ReadOnly ]  wrap :> [< Html5_types.big_variant] wrap)
 
   let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
-  let a_autocomplete ac =
-    let f = function
-      | `On -> "on"
-      | `Off -> "off"
-    in user_attrib f "autocomplete" ac
+  let a_autocomplete x =
+    user_attrib_bv "autocomplete"
+      (x : [< `Off | `On ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_async x =
-    let f = function
-      | `Async -> "async"
-    in user_attrib f "async" x
+    user_attrib C.string_of_variant "async"
+      (x : [< `Async ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_autofocus x =
-    let f = function
-      | `Autofocus -> "autofocus"
-    in user_attrib f "autofocus" x
+    user_attrib C.string_of_variant "autofocus"
+      (x : [< `Autofocus ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_autoplay x =
-    let f = function
-      | `Autoplay -> "autoplay"
-    in user_attrib f "autoplay" x
+    user_attrib C.string_of_variant "autoplay"
+      (x : [< `Autoplay ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_muted x =
-    let f = function
-      | `Muted -> "muted"
-    in user_attrib f "muted" x
+    user_attrib C.string_of_variant "muted"
+      (x : [< `Muted ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_crossorigin x =
-    let f = function
-      | `Anonymous -> "anonymous"
-      | `Use_credentials -> "use-credentials"
-    in user_attrib f "crossorigin" x
+    user_attrib C.string_of_variant "crossorigin"
+      (x : [< `Anonymous | `Use_credentials ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_mediagroup = string_attrib "mediagroup"
 
@@ -390,15 +326,12 @@ module Make
   let a_contextmenu = string_attrib "contextmenu"
 
   let a_controls x =
-    let f = function
-      | `Controls -> "controls"
-    in user_attrib f "controls" x
+    user_attrib C.string_of_variant "controls"
+      (x : [< `Controls ] wrap :> [< Html5_types.big_variant] wrap)
 
-  let a_dir d =
-    let f = function
-      | `Ltr -> "ltr"
-      | `Rtl -> "rtl"
-    in user_attrib f "dir" d
+  let a_dir x =
+    user_attrib C.string_of_variant "dir"
+      (x : [< `Ltr | `Rtl ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_draggable d =
     bool_attrib "draggable" d
@@ -409,43 +342,35 @@ module Make
 
   let a_formenctype = string_attrib "formenctype"
 
-  let a_formmethod m =
-    let f = function
-      | `Get -> "GET"
-      | `Post -> "POST"
-      | `Put -> "PUT"
-      | `Delete -> "DELETE"
-    in user_attrib f "method" m
+  let a_formmethod = a_method
 
   let a_formnovalidate x =
-    let f = function
-      | `Formnovalidate -> "formnovalidate"
-    in user_attrib f "formnovalidate" x
+    user_attrib C.string_of_variant "formnovalidate"
+      (x : [< `Formnovalidate ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_formtarget = string_attrib "formtarget"
 
   let a_hidden x =
-    let f = function
-      | `Hidden -> "hidden"
-    in user_attrib f "hidden" x
+    user_attrib C.string_of_variant "hidden"
+      (x : [< `Hidden ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
 
   let a_ismap x =
-    let f = function
-      | `Ismap -> "ismap"
-    in user_attrib f "ismap" x
+    user_attrib C.string_of_variant "ismap"
+      (x : [< `Ismap ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
 
   let a_loop x =
-    let f = function
-      | `Loop -> "loop"
-    in user_attrib f "loop" x
+    user_attrib C.string_of_variant "loop"
+      (x : [< `Loop ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_low = float_attrib "low"
 
@@ -458,14 +383,12 @@ module Make
   let a_input_min = float_attrib "min"
 
   let a_novalidate x =
-    let f = function
-      | `Novalidate -> "novalidate"
-    in user_attrib f "novalidate" x
+    user_attrib C.string_of_variant "novalidate"
+      (x : [< `Novalidate ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_open x =
-    let f = function
-      | `Open -> "open"
-    in user_attrib f "open" x
+    user_attrib C.string_of_variant "open"
+      (x : [< `Open ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_optimum = float_attrib "optimum"
 
@@ -475,77 +398,41 @@ module Make
 
   let a_poster = uri_attrib "poster"
 
-  let a_preload pl =
-    let f = function
-      | `None -> "none"
-      | `Metadata -> "metadata"
-      | `Audio -> "audio"
-    in user_attrib f "preload" pl
+  let a_preload x =
+    user_attrib C.string_of_variant "preload"
+      (x : [< `Audio | `Metadata | `None ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_pubdate x =
-    let f = function
-      | `Pubdate -> "pubdate"
-    in user_attrib f "pubdate" x
+    user_attrib C.string_of_variant "pubdate"
+      (x : [< `Pubdate ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_radiogroup = string_attrib "radiogroup"
 
   let a_required x =
-    let f = function
-      | `Required -> "required"
-    in user_attrib f "required" x
+    user_attrib C.string_of_variant "required"
+      (x : [< `Required ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_reversed x =
-    let f = function
-      | `Reversed -> "reserved"
-    in user_attrib f "reserved" x
+    user_attrib C.string_of_variant "reserved"
+      (x : [< `Reversed ] wrap :> [< Html5_types.big_variant] wrap)
 
-  let a_sandbox sb =
-    let rec aux sb =
-      match sb with
-      | `AllowSameOrigin :: a -> "allow-same-origin" :: (aux a)
-      | `AllowForms :: a -> "allow-forms" :: (aux a)
-      | `AllowScript :: a -> "allow-script" :: (aux a)
-      | `AllowPointerLock :: a -> "allow-pointer-lock" :: (aux a)
-      | `AllowPopups :: a -> "allow-popups" :: (aux a)
-      | `AllowTopNavigation :: a -> "allow-top-navigation" :: (aux a)
-      | [] -> []
-    in space_sep_attrib "sandbox" (W.fmap aux sb)
+  let a_sandbox x =
+    user_attrib C.string_of_sandbox "sandbox" x
 
   let a_spellcheck sc =
     bool_attrib "spellcheck" sc
 
   let a_scoped x =
-    let f = function
-      | `Scoped -> "scoped"
-    in user_attrib f "scoped" x
+    user_attrib C.string_of_variant "scoped"
+      (x : [< `Scoped ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_seamless x =
-    let f = function
-      | `Seamless -> "seamless"
-    in user_attrib f "seamless" x
+    user_attrib C.string_of_variant "seamless"
+      (x : [< `Seamless ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_sizes sizes =
-    let f = function
-      | `Sizes sizes ->
-	 let buf = Buffer.create 17 in
-	 let size_fmt (w, h) =
-	   Buffer.add_string buf (string_of_int w);
-	   Buffer.add_char buf 'x';
-	   Buffer.add_string buf (string_of_int h)
-	 in
-	 let rec sizes_fmt = function
-	   | [] -> ()
-	   | x :: [] ->
-	      size_fmt x
-	   | x :: xs ->
-	      size_fmt x;
-	      Buffer.add_char buf ' ';
-	      sizes_fmt xs
-	 in
-	 sizes_fmt sizes;
-	 Buffer.contents buf
-      | `Any -> "any"
-    in user_attrib f "sizes" sizes
+    user_attrib C.string_of_sizes "sizes" sizes
 
   let a_span = int_attrib "span"
 
@@ -555,70 +442,33 @@ module Make
   let a_start = int_attrib "start"
 
   let a_step step =
-    let f = function
-      | None -> "any"
-      | Some f -> string_of_float f
-    in user_attrib f "step" step
+    user_attrib C.string_of_step "step" step
 
-  let a_wrap w =
-    let f = function
-      | `Soft -> "soft"
-      | `Hard -> "hard"
-    in user_attrib f "wrap" w
+  let a_wrap x =
+    user_attrib C.string_of_variant "wrap"
+      (x : [< `Hard | `Soft ] wrap :> [< Html5_types.big_variant] wrap)
 
   let a_size = int_attrib "size"
 
   let a_input_type it =
-    let f = function
-      | `Url -> "url"
-      | `Tel -> "tel"
-      | `Text -> "text"
-      | `Time -> "time"
-      | `Search -> "search"
-      | `Password -> "password"
-      | `Checkbox -> "checkbox"
-      | `Range -> "range"
-      | `Radio -> "radio"
-      | `Submit -> "submit"
-      | `Reset -> "reset"
-      | `Number -> "number"
-      | `Month -> "month"
-      | `Week -> "week"
-      | `File -> "file"
-      | `Email -> "email"
-      | `Image -> "image"
-      | `Date -> "date"
-      | `Datetime -> "datetime"
-      | `Datetime_local -> "datetime-local"
-      | `Color -> "color"
-      | `Button -> "button"
-      | `Hidden -> "hidden"
-    in user_attrib f "type" it
+    user_attrib C.string_of_input_type "type" it
 
-  let a_menu_type mt =
-    let f = function
-      | `Context -> "context"
-      | `Toolbar -> "toolbar"
-    in user_attrib f "type" mt
+  let a_menu_type x =
+    user_attrib C.string_of_variant "type"
+      (x : [< `Context | `Toolbar] wrap :>
+         [< Html5_types.big_variant] wrap)
 
-  let a_command_type ct =
-    let f = function
-      | `Command -> "command"
-      | `Checkbox -> "checkbox"
-      | `Radio -> "radio"
-    in user_attrib f "type" ct
+  let a_command_type x =
+    user_attrib C.string_of_variant "type"
+      (x : [< `Checkbox | `Command | `Radio ]  wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_button_type bt =
-    let f = function
-      | `Button -> "button"
-      | `Submit -> "submit"
-      | `Reset -> "reset"
-    in user_attrib f "type" bt
+    user_attrib C.string_of_input_type "type" bt
 
   let a_multiple x =
-    let f = function
-      | `Multiple -> "multiple"
-    in user_attrib f "multiple" x
+    user_attrib C.string_of_variant "multiple"
+      (x : [< `Multiple ]  wrap :> [< Html5_types.big_variant] wrap)
 
   let a_cols = int_attrib "cols"
 
@@ -626,13 +476,10 @@ module Make
 
   let a_summary = string_attrib "summary"
 
-  let a_align a =
-    let f = function
-      | `Left -> "left"
-      | `Right -> "right"
-      | `Justify -> "justify"
-      | `Char -> "char"
-    in user_attrib f "align" a
+  let a_align x =
+    user_attrib C.string_of_variant "align"
+      (x : [< `Char | `Justify | `Left | `Right ]  wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_axis = string_attrib "axis"
 
@@ -642,33 +489,27 @@ module Make
 
   let a_rowspan = int_attrib "rowspan"
 
-  let a_scope s =
-    let f = function
-      | `Row -> "row"
-      | `Col -> "col"
-      | `Rowgroup -> "rowgroup"
-      | `Colgroup -> "colgroup"
-    in user_attrib f "scope" s
+  let a_scope x =
+    user_attrib C.string_of_variant "scope"
+      (x : [< `Col | `Colgroup | `Row | `Rowgroup ]  wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_border = int_attrib "border"
 
-  let a_cellpadding = length_attrib "cellpadding"
+  let a_cellpadding (x : Html5_types.length W.t) =
+    length_attrib "cellpadding" x
 
   let a_cellspacing = length_attrib "cellspacing"
 
   let a_datapagesize = string_attrib "datapagesize"
 
-  let a_rules r =
-    let f = function
-      | `None -> "none"
-      | `Groups -> "groups"
-      | `Rows -> "rows"
-      | `Cols -> "cols"
-      | `All -> "all"
-    in user_attrib f "rules" r
+  let a_rules x =
+    user_attrib C.string_of_variant "rules"
+      (x : [< `All | `Cols | `Groups | `None | `Rows ] wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_char c =
-    user_attrib (String.make 1) "char" c
+    user_attrib C.string_of_character "char" c
 
   let a_charoff = length_attrib "charoff"
 
@@ -680,22 +521,19 @@ module Make
 
   let a_fs_cols mls = multilengths_attrib "cols" mls
 
-  let a_frameborder b =
-    let f = function
-      | `Zero -> "0"
-      | `One -> "1"
-    in user_attrib f "frameborder" b
+  let a_frameborder x =
+    user_attrib C.string_of_variant "frameborder"
+      (x : [< `One | `Zero ]  wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_marginheight = int_attrib "marginheight"
 
   let a_marginwidth = int_attrib "marginwidth"
 
-  let a_scrolling s =
-    let f = function
-      | `Yes -> "yes"
-      | `No -> "no"
-      | `Auto -> "auto"
-    in user_attrib f "scrolling" s
+  let a_scrolling x =
+    user_attrib C.string_of_variant "scrolling"
+      (x : [< `Auto | `No | `Yes ]  wrap :>
+         [< Html5_types.big_variant] wrap)
 
   let a_target = string_attrib "target"
 
@@ -856,21 +694,18 @@ module Make
 
   let a_datetime = string_attrib "datetime"
 
-  let a_shape d =
-    let f = function | `Rect -> "rect"
-                     | `Circle -> "circle"
-                     | `Poly -> "poly"
-                     | `Default -> "default"
-    in user_attrib f "shape" d
+  let a_shape x =
+    user_attrib C.string_of_variant "shape"
+      (x : [< shape] W.t :> [< Html5_types.big_variant] W.t)
 
   let a_coords coords =
-    let f c = String.concat "," (List.map string_of_int c)
-    in user_attrib f "coords" coords
+    user_attrib C.string_of_numbers "coords" coords
 
   let a_usemap = string_attrib "usemap"
 
   let a_defer x =
-    let f = function | `Defer -> "defer" in user_attrib f "defer" x
+    user_attrib C.string_of_variant "defer"
+      (x : [< `Defer ]  wrap :> [< Html5_types.big_variant] W.t)
 
   let a_label = string_attrib "label"
 
@@ -925,9 +760,6 @@ module Make
   let output_elt = star "output"
 
   let form = star "form"
-
-  let svg ?(a = []) children =
-    Svg.toelt (Svg.svg ~a children)
 
   let input = terminal "input"
 
@@ -1060,5 +892,251 @@ module Make
     let comma_sep_attrib = Xml.comma_sep_attrib
 
   end
+
+end
+
+module NoSVG = struct
+
+  module Make'
+      (Xml : Xml_sigs.T)
+      (C : Html5_sigs.Conv
+       with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
+    Make'_NoSVG(Xml)(C)
+
+end
+
+module Make'
+    (Xml : Xml_sigs.T)
+    (C : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
+    (Svg : Svg_sigs.T with module Xml := Xml) = struct
+
+  include Make'_NoSVG(Xml)(C)
+
+  let svg ?(a = []) children =
+    Svg.toelt (Svg.svg ~a children)
+
+end
+
+module Conv = struct
+
+  type ('a, 'b) ft = 'a -> 'b
+
+  let string_of_sandbox_token = function
+    | `AllowForms -> "allow-forms"
+    | `AllowPointerLock -> "allow-pointer-lock"
+    | `AllowPopups -> "allow-popups"
+    | `AllowTopNavigation -> "allow-top-navigation"
+    | `AllowSameOrigin -> "allow-same-origin"
+    | `AllowScript -> "allow-script"
+
+  let string_of_multilength = function
+    | `Percent p -> (string_of_int p) ^ "%"
+    | `Pixels p -> string_of_int p
+    | `Relative 1 -> "*"
+    | `Relative i -> (string_of_int i) ^ "*"
+
+  let string_of_linktype = function
+    | `Alternate -> "alternate"
+    | `Archives -> "archives"
+    | `Author -> "author"
+    | `Bookmark -> "bookmark"
+    | `External -> "external"
+    | `First -> "first"
+    | `Help -> "help"
+    | `Icon -> "icon"
+    | `Index -> "index"
+    | `Last -> "last"
+    | `License -> "license"
+    | `Next -> "next"
+    | `Nofollow -> "nofollow"
+    | `Noreferrer -> "noreferrer"
+    | `Pingback -> "pingback"
+    | `Prefetch -> "prefetch"
+    | `Prev -> "prev"
+    | `Search -> "search"
+    | `Stylesheet -> "stylesheet"
+    | `Sidebar -> "sidebar"
+    | `Tag -> "tag"
+    | `Up -> "up"
+    | `Other s -> s
+
+  let string_of_mediadesc_token =
+    function
+    | `All -> "all"
+    | `Aural -> "aural"
+    | `Braille -> "braille"
+    | `Embossed -> "embossed"
+    | `Handheld -> "handheld"
+    | `Print -> "print"
+    | `Projection -> "projection"
+    | `Screen -> "screen"
+    | `Speech -> "speech"
+    | `TTY -> "tty"
+    | `TV -> "tv"
+    | `Raw_mediadesc s -> s
+
+  let string_of_variant = function
+    | `Anonymous -> "anonymous"
+    | `Async -> "async"
+    | `Autofocus -> "autofocus"
+    | `Autoplay -> "autoplay"
+    | `Checked -> "checked"
+    | `Defer -> "defer"
+    | `Disabled -> "disabled"
+    | `Muted -> "muted"
+    | `Off -> "off"
+    | `On -> "on"
+    | `ReadOnly -> "readonly"
+    | `Rect -> "rect"
+    | `Selected -> "selected"
+    | `Use_credentials -> "use-credentials"
+    | `W3_org_1999_xhtml -> "http://www.w3.org/1999/xhtml"
+    | `All -> "all"
+    | `Preserve -> "preserve"
+    | `Default -> "default"
+    | `Controls -> "controls"
+    | `Ltr -> "ltr"
+    | `Rtl -> "rtl"
+    | `Get -> "GET"
+    | `Post -> "POST"
+    | `Put -> "PUT"
+    | `Delete -> "DELETE"
+    | `Formnovalidate -> "formnovalidate"
+    | `Hidden -> "hidden"
+    | `Ismap -> "ismap"
+    | `Loop -> "loop"
+    | `Novalidate -> "novalidate"
+    | `Open -> "open"
+    | `None -> "none"
+    | `Metadata -> "metadata"
+    | `Audio -> "audio"
+    | `Pubdate -> "pubdate"
+    | `Required -> "required"
+    | `Reversed -> "reserved"
+    | `Scoped -> "scoped"
+    | `Seamless -> "seamless"
+    | `Any -> "any"
+    | `Soft -> "soft"
+    | `Hard -> "hard"
+    | `Context -> "context"
+    | `Toolbar -> "toolbar"
+    | `Command -> "command"
+    | `Checkbox -> "checkbox"
+    | `Radio -> "radio"
+    | `Multiple -> "multiple"
+    | `Left -> "left"
+    | `Right -> "right"
+    | `Justify -> "justify"
+    | `Char -> "char"
+    | `Row -> "row"
+    | `Col -> "col"
+    | `Rowgroup -> "rowgroup"
+    | `Colgroup -> "colgroup"
+    | `Groups -> "groups"
+    | `Rows -> "rows"
+    | `Cols -> "cols"
+    | `Zero -> "0"
+    | `One -> "1"
+    | `Yes -> "yes"
+    | `No -> "no"
+    | `Auto -> "auto"
+    | `Circle -> "circle"
+    | `Poly -> "poly"
+    | `Alternate -> "alternate"
+    | `Archives -> "archives"
+    | `Author -> "author"
+    | `Bookmark -> "bookmark"
+    | `External -> "external"
+    | `First -> "first"
+    | `Help -> "help"
+    | `Icon -> "icon"
+    | `Index -> "index"
+    | `Last -> "last"
+    | `License -> "license"
+    | `Next -> "next"
+    | `Nofollow -> "nofollow"
+    | `Noreferrer -> "noreferrer"
+    | `Pingback -> "pingback"
+    | `Prefetch -> "prefetch"
+    | `Prev -> "prev"
+    | `Search -> "search"
+    | `Stylesheet -> "stylesheet"
+    | `Sidebar -> "sidebar"
+    | `Tag -> "tag"
+    | `Up -> "up"
+    | `Other s -> s
+
+  let string_of_input_type = function
+    | `Button -> "button"
+    | `Checkbox -> "checkbox"
+    | `Color -> "color"
+    | `Date -> "date"
+    | `Datetime -> "datetime"
+    | `Datetime_local -> "datetime-local"
+    | `Email -> "email"
+    | `File -> "file"
+    | `Hidden -> "hidden"
+    | `Image -> "image"
+    | `Month -> "month"
+    | `Number -> "number"
+    | `Password -> "password"
+    | `Radio -> "radio"
+    | `Range -> "range"
+    | `Readonly -> "readonly"
+    | `Reset -> "reset"
+    | `Search -> "search"
+    | `Submit -> "submit"
+    | `Tel -> "tel"
+    | `Text -> "text"
+    | `Time -> "time"
+    | `Url -> "url"
+    | `Week -> "week"
+
+  let string_of_character _ = ""
+
+  let string_of_number = string_of_int
+
+  let string_of_bool = string_of_bool
+
+  let unoption_string = function
+    | Some x -> x
+    | None -> ""
+
+  let string_of_step = function
+    | Some x -> string_of_float x
+    | None -> "any"
+
+  let string_of_sizes = function
+    | `Sizes l ->
+      String.concat " "
+        (List.map (fun (x, y) -> Printf.sprintf "%dx%d" x y) l)
+    | `Any ->
+      "any"
+
+  let string_of_sandbox l =
+    String.concat " " (List.map string_of_sandbox_token l)
+
+  let string_of_numbers l =
+    String.concat "," (List.map string_of_number l)
+
+  let string_of_multilengths l =
+    String.concat ", " (List.map string_of_multilength l)
+
+  let string_of_mediadesc l =
+    String.concat ", " (List.map string_of_mediadesc_token l)
+
+  let string_of_linktypes l =
+    String.concat " " (List.map string_of_linktype l)
+
+end
+
+module Make
+
+    (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
+    (Svg : Svg_sigs.T with module Xml := Xml) =
+
+struct
+
+  include Make'(Xml)(Conv)(Svg)
 
 end
