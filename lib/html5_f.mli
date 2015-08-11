@@ -28,6 +28,8 @@ module Make
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
 
+module Conv : Html5_sigs.Conv with type (-'a, 'b) ft = 'a -> 'b
+
 module Make'
     (Xml : Xml_sigs.T)
     (Conv : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)

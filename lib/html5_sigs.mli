@@ -1200,40 +1200,14 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
 module type Conv = sig
 
-  type ('a, 'b) ft
+  type (-'a, 'b) ft
 
-    (* In the general case, it is imppossible to transform OCaml
-     functions into [ft] values, e.g., for
-       [('a, 'b) ft = ('a -> 'b) Eliom_lib.shared_value] ,
-     it is impossible to produce the client part of the shared_value
-     by injecting a server-side function. To circumvent this, our
-     functorial interface receives a collection of [ft] values for the
-       operations needed. *)
-
-  val unoption_string : (string option, string) ft
-
-  val string_of_step : (float option, string) ft
+  val string_of_big_variant :
+    ([< Html5_types.big_variant], string) ft
 
   val string_of_bool : (bool, string) ft
 
-  val string_of_number : (Html5_types.number, string) ft
-
   val string_of_character : (Html5_types.character, string) ft
-
-  val string_of_multilength :
-    ([< Html5_types.multilength], string) ft
-
-  val string_of_sandbox_token :
-    ([< Html5_types.sandbox_token], string) ft
-
-  val string_of_linktype :
-    ([< Html5_types.linktype], string) ft
-
-  val string_of_variant :
-    ([< Html5_types.big_variant], string) ft
-
-  val string_of_mediadesc_token :
-    ([< Html5_types.mediadesc_token], string) ft
 
   val string_of_input_type :
     ([< Html5_types.input_type], string) ft
@@ -1244,17 +1218,23 @@ module type Conv = sig
   val string_of_mediadesc :
     ([< Html5_types.mediadesc_token] list, string) ft
 
+  val string_of_multilength :
+    ([< Html5_types.multilength], string) ft
+
   val string_of_multilengths :
     ([< Html5_types.multilength] list, string) ft
 
-  val string_of_sizes :
-    ([< Html5_types.sizes], string) ft
+  val string_of_numbers : (Html5_types.numbers, string) ft
 
   val string_of_sandbox :
     ([< Html5_types.sandbox_token] list, string) ft
 
-  val string_of_numbers :
-    (Html5_types.numbers, string) ft
+  val string_of_sizes :
+    ([< Html5_types.sizes], string) ft
+
+  val string_of_step : (float option, string) ft
+
+  val unoption_string : (string option, string) ft
 
 end
 

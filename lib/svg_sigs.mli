@@ -904,7 +904,7 @@ module type Conv = sig
 
   val string_of_bool : (bool, string) ft
 
-  val string_of_big_variant : (Svg_types.big_variant, string) ft
+  val string_of_big_variant : ([< Svg_types.big_variant], string) ft
 
   val string_of_coords : (Svg_types.coords, string) ft
 
@@ -934,7 +934,7 @@ module type Conv = sig
 
   val string_of_orient : ([< Svg_types.orient], string) ft
 
-  val string_of_paint : (Svg_types.paint, string) ft
+  val string_of_paint : ([< Svg_types.paint], string) ft
 
   val string_of_strokedasharray : (Svg_types.lengths, string) ft
 

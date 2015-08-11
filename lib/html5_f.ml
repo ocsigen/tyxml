@@ -84,10 +84,7 @@ struct
   let bool_attrib = user_attrib C.string_of_bool
 
   (* space-separated *)
-  let length_attrib name x =
-    user_attrib
-      C.string_of_multilength
-      name (x :> [< Html5_types.multilength] W.t)
+  let length_attrib = user_attrib C.string_of_multilength
 
   let multilengths_attrib name x =
     user_attrib C.string_of_multilengths name x
@@ -194,31 +191,15 @@ struct
   (* Other Attributes *)
   let a_version = string_attrib "version"
 
-  let user_attrib_bv :
-    string ->
-    ([< Html5_types.big_variant] as 'a) W.t ->
-    Xml.attrib =
-    fun name (v : 'a W.t) ->
-      let f =
-        (C.string_of_variant :
-           ([< Html5_types.big_variant], string) W.ft :>
-           ('a, string) W.ft)
-      in
-      Xml.string_attrib name (W.fmap f v)
-
   let a_xmlns x =
-    user_attrib C.string_of_variant "xmlns"
-      (x : [< `W3_org_1999_xhtml ] wrap :>
-         [< Html5_types.big_variant] wrap)
+    user_attrib C.string_of_big_variant "xmlns" x
 
   let a_manifest = uri_attrib "manifest"
 
   let a_cite = uri_attrib "cite"
 
   let a_xml_space x =
-    user_attrib C.string_of_variant "xml:space"
-      (x : [< `Default | `Preserve ] wrap :>
-         [< Html5_types.big_variant] wrap)
+    user_attrib C.string_of_big_variant "xml:space" x
 
   let a_accesskey c =
     user_attrib C.string_of_character "accesskey" c
@@ -234,7 +215,7 @@ struct
   let a_hreflang = string_attrib "hreflang"
 
   let a_download file =
-     user_attrib (C.unoption_string) "download" file
+    user_attrib (C.unoption_string) "download" file
 
   let a_rel = linktypes_attrib "rel"
 
@@ -254,9 +235,8 @@ struct
 
   let a_for_list = space_sep_attrib "for"
 
-  let a_selected x =
-    user_attrib C.string_of_variant "selected"
-      (x : [< `Selected ]  wrap :> [< Html5_types.big_variant] wrap)
+  let a_selected =
+    user_attrib C.string_of_big_variant "selected"
 
   let a_text_value = string_attrib "value"
 
@@ -268,53 +248,41 @@ struct
 
   let a_action = uri_attrib "action"
 
-  let a_method x =
-    user_attrib C.string_of_variant "method"
-      (x : [< `Delete | `Get | `Post | `Put ]  wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_method =
+    user_attrib C.string_of_big_variant "method"
 
   let a_enctype = string_attrib "enctype"
 
-  let a_checked x =
-    user_attrib C.string_of_variant "checked"
-      (x : [< `Checked ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_checked =
+    user_attrib C.string_of_big_variant "checked"
 
-  let a_disabled x =
-    user_attrib C.string_of_variant "disabled"
-      (x : [< `Disabled ]  wrap :> [< Html5_types.big_variant] wrap)
+  let a_disabled =
+    user_attrib C.string_of_big_variant "disabled"
 
-  let a_readonly x =
-    user_attrib C.string_of_variant "readonly"
-      (x : [< `ReadOnly ]  wrap :> [< Html5_types.big_variant] wrap)
+  let a_readonly =
+    user_attrib C.string_of_big_variant "readonly"
 
   let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
-  let a_autocomplete x =
-    user_attrib_bv "autocomplete"
-      (x : [< `Off | `On ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_autocomplete =
+    user_attrib C.string_of_big_variant "autocomplete"
 
-  let a_async x =
-    user_attrib C.string_of_variant "async"
-      (x : [< `Async ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_async =
+    user_attrib C.string_of_big_variant "async"
 
-  let a_autofocus x =
-    user_attrib C.string_of_variant "autofocus"
-      (x : [< `Autofocus ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_autofocus =
+    user_attrib C.string_of_big_variant "autofocus"
 
-  let a_autoplay x =
-    user_attrib C.string_of_variant "autoplay"
-      (x : [< `Autoplay ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_autoplay =
+    user_attrib C.string_of_big_variant "autoplay"
 
-  let a_muted x =
-    user_attrib C.string_of_variant "muted"
-      (x : [< `Muted ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_muted =
+    user_attrib C.string_of_big_variant "muted"
 
-  let a_crossorigin x =
-    user_attrib C.string_of_variant "crossorigin"
-      (x : [< `Anonymous | `Use_credentials ] wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_crossorigin =
+    user_attrib C.string_of_big_variant "crossorigin"
 
   let a_mediagroup = string_attrib "mediagroup"
 
@@ -325,13 +293,11 @@ struct
 
   let a_contextmenu = string_attrib "contextmenu"
 
-  let a_controls x =
-    user_attrib C.string_of_variant "controls"
-      (x : [< `Controls ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_controls =
+    user_attrib C.string_of_big_variant "controls"
 
-  let a_dir x =
-    user_attrib C.string_of_variant "dir"
-      (x : [< `Ltr | `Rtl ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_dir =
+    user_attrib C.string_of_big_variant "dir"
 
   let a_draggable d =
     bool_attrib "draggable" d
@@ -344,33 +310,27 @@ struct
 
   let a_formmethod = a_method
 
-  let a_formnovalidate x =
-    user_attrib C.string_of_variant "formnovalidate"
-      (x : [< `Formnovalidate ] wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_formnovalidate =
+    user_attrib C.string_of_big_variant "formnovalidate"
 
   let a_formtarget = string_attrib "formtarget"
 
-  let a_hidden x =
-    user_attrib C.string_of_variant "hidden"
-      (x : [< `Hidden ] wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_hidden =
+    user_attrib C.string_of_big_variant "hidden"
 
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
 
-  let a_ismap x =
-    user_attrib C.string_of_variant "ismap"
-      (x : [< `Ismap ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_ismap =
+    user_attrib C.string_of_big_variant "ismap"
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
 
-  let a_loop x =
-    user_attrib C.string_of_variant "loop"
-      (x : [< `Loop ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_loop =
+    user_attrib C.string_of_big_variant "loop"
 
   let a_low = float_attrib "low"
 
@@ -382,13 +342,11 @@ struct
 
   let a_input_min = float_attrib "min"
 
-  let a_novalidate x =
-    user_attrib C.string_of_variant "novalidate"
-      (x : [< `Novalidate ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_novalidate =
+    user_attrib C.string_of_big_variant "novalidate"
 
-  let a_open x =
-    user_attrib C.string_of_variant "open"
-      (x : [< `Open ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_open =
+    user_attrib C.string_of_big_variant "open"
 
   let a_optimum = float_attrib "optimum"
 
@@ -398,24 +356,19 @@ struct
 
   let a_poster = uri_attrib "poster"
 
-  let a_preload x =
-    user_attrib C.string_of_variant "preload"
-      (x : [< `Audio | `Metadata | `None ] wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_preload =
+    user_attrib C.string_of_big_variant "preload"
 
-  let a_pubdate x =
-    user_attrib C.string_of_variant "pubdate"
-      (x : [< `Pubdate ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_pubdate =
+    user_attrib C.string_of_big_variant "pubdate"
 
   let a_radiogroup = string_attrib "radiogroup"
 
-  let a_required x =
-    user_attrib C.string_of_variant "required"
-      (x : [< `Required ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_required =
+    user_attrib C.string_of_big_variant "required"
 
-  let a_reversed x =
-    user_attrib C.string_of_variant "reserved"
-      (x : [< `Reversed ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_reversed =
+    user_attrib C.string_of_big_variant "reserved"
 
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
@@ -423,13 +376,11 @@ struct
   let a_spellcheck sc =
     bool_attrib "spellcheck" sc
 
-  let a_scoped x =
-    user_attrib C.string_of_variant "scoped"
-      (x : [< `Scoped ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_scoped =
+    user_attrib C.string_of_big_variant "scoped"
 
-  let a_seamless x =
-    user_attrib C.string_of_variant "seamless"
-      (x : [< `Seamless ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_seamless =
+    user_attrib C.string_of_big_variant "seamless"
 
   let a_sizes sizes =
     user_attrib C.string_of_sizes "sizes" sizes
@@ -444,31 +395,25 @@ struct
   let a_step step =
     user_attrib C.string_of_step "step" step
 
-  let a_wrap x =
-    user_attrib C.string_of_variant "wrap"
-      (x : [< `Hard | `Soft ] wrap :> [< Html5_types.big_variant] wrap)
+  let a_wrap =
+    user_attrib C.string_of_big_variant "wrap"
 
   let a_size = int_attrib "size"
 
   let a_input_type it =
     user_attrib C.string_of_input_type "type" it
 
-  let a_menu_type x =
-    user_attrib C.string_of_variant "type"
-      (x : [< `Context | `Toolbar] wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_menu_type =
+    user_attrib C.string_of_big_variant "type"
 
-  let a_command_type x =
-    user_attrib C.string_of_variant "type"
-      (x : [< `Checkbox | `Command | `Radio ]  wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_command_type =
+    user_attrib C.string_of_big_variant "type"
 
   let a_button_type bt =
     user_attrib C.string_of_input_type "type" bt
 
-  let a_multiple x =
-    user_attrib C.string_of_variant "multiple"
-      (x : [< `Multiple ]  wrap :> [< Html5_types.big_variant] wrap)
+  let a_multiple =
+    user_attrib C.string_of_big_variant "multiple"
 
   let a_cols = int_attrib "cols"
 
@@ -476,10 +421,8 @@ struct
 
   let a_summary = string_attrib "summary"
 
-  let a_align x =
-    user_attrib C.string_of_variant "align"
-      (x : [< `Char | `Justify | `Left | `Right ]  wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_align =
+    user_attrib C.string_of_big_variant "align"
 
   let a_axis = string_attrib "axis"
 
@@ -489,24 +432,19 @@ struct
 
   let a_rowspan = int_attrib "rowspan"
 
-  let a_scope x =
-    user_attrib C.string_of_variant "scope"
-      (x : [< `Col | `Colgroup | `Row | `Rowgroup ]  wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_scope =
+    user_attrib C.string_of_big_variant "scope"
 
   let a_border = int_attrib "border"
 
-  let a_cellpadding (x : Html5_types.length W.t) =
-    length_attrib "cellpadding" x
+  let a_cellpadding = length_attrib "cellpadding"
 
   let a_cellspacing = length_attrib "cellspacing"
 
   let a_datapagesize = string_attrib "datapagesize"
 
-  let a_rules x =
-    user_attrib C.string_of_variant "rules"
-      (x : [< `All | `Cols | `Groups | `None | `Rows ] wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_rules =
+    user_attrib C.string_of_big_variant "rules"
 
   let a_char c =
     user_attrib C.string_of_character "char" c
@@ -521,19 +459,15 @@ struct
 
   let a_fs_cols mls = multilengths_attrib "cols" mls
 
-  let a_frameborder x =
-    user_attrib C.string_of_variant "frameborder"
-      (x : [< `One | `Zero ]  wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_frameborder =
+    user_attrib C.string_of_big_variant "frameborder"
 
   let a_marginheight = int_attrib "marginheight"
 
   let a_marginwidth = int_attrib "marginwidth"
 
-  let a_scrolling x =
-    user_attrib C.string_of_variant "scrolling"
-      (x : [< `Auto | `No | `Yes ]  wrap :>
-         [< Html5_types.big_variant] wrap)
+  let a_scrolling =
+    user_attrib C.string_of_big_variant "scrolling"
 
   let a_target = string_attrib "target"
 
@@ -694,18 +628,16 @@ struct
 
   let a_datetime = string_attrib "datetime"
 
-  let a_shape x =
-    user_attrib C.string_of_variant "shape"
-      (x : [< shape] W.t :> [< Html5_types.big_variant] W.t)
+  let a_shape =
+    user_attrib C.string_of_big_variant "shape"
 
   let a_coords coords =
     user_attrib C.string_of_numbers "coords" coords
 
   let a_usemap = string_attrib "usemap"
 
-  let a_defer x =
-    user_attrib C.string_of_variant "defer"
-      (x : [< `Defer ]  wrap :> [< Html5_types.big_variant] W.t)
+  let a_defer =
+    user_attrib C.string_of_big_variant "defer"
 
   let a_label = string_attrib "label"
 
@@ -975,7 +907,7 @@ module Conv = struct
     | `TV -> "tv"
     | `Raw_mediadesc s -> s
 
-  let string_of_variant = function
+  let string_of_big_variant = function
     | `Anonymous -> "anonymous"
     | `Async -> "async"
     | `Autofocus -> "autofocus"
@@ -1092,7 +1024,7 @@ module Conv = struct
     | `Url -> "url"
     | `Week -> "week"
 
-  let string_of_character _ = ""
+  let string_of_character = String.make 1
 
   let string_of_number = string_of_int
 
@@ -1131,12 +1063,6 @@ module Conv = struct
 end
 
 module Make
-
     (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
     (Svg : Svg_sigs.T with module Xml := Xml) =
-
-struct
-
-  include Make'(Xml)(Conv)(Svg)
-
-end
+  Make'(Xml)(Conv)(Svg)
