@@ -21,7 +21,7 @@ module type T = sig
   type 'a t
   val return : 'a -> 'a t
 
-  type ('a, 'b) ft
+  type (-'a, 'b) ft
   val fmap : ('a, 'b) ft -> 'a t -> 'b t
 
   type 'a tlist
@@ -35,6 +35,6 @@ end
 module type NoWrap =
   T with type 'a t = 'a
      and type 'a tlist = 'a list
-     and type ('a, 'b) ft = 'a -> 'b
+     and type (-'a, 'b) ft = 'a -> 'b
 
 module NoWrap : NoWrap

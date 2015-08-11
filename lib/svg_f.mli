@@ -84,3 +84,12 @@ module Make(Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b))
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
+
+module Conv : Svg_sigs.Conv with type (-'a, 'b) ft = 'a -> 'b
+
+module Make'
+    (Xml : Xml_sigs.T)
+    (C : Svg_sigs.Conv with type (-'a, 'b) ft = ('a, 'b) Xml.W.ft)
+  : Svg_sigs.Make(Xml).T
+    with type +'a elt = Xml.elt
+     and type +'a attrib = Xml.attrib
