@@ -32,9 +32,12 @@
 
 open Html5_types
 
-module Make'_NoSVG
+module Make'
+
     (Xml : Xml_sigs.T)
-    (C : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
+    (C : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
+    (Svg : Svg_sigs.T with module Xml := Xml) =
+
 struct
 
   module Xml = Xml
@@ -693,6 +696,9 @@ struct
 
   let form = star "form"
 
+  let svg ?(a = []) children =
+    Svg.toelt (Svg.svg ~a children)
+
   let input = terminal "input"
 
   let keygen = terminal "keygen"
@@ -824,28 +830,6 @@ struct
     let comma_sep_attrib = Xml.comma_sep_attrib
 
   end
-
-end
-
-module NoSVG = struct
-
-  module Make'
-      (Xml : Xml_sigs.T)
-      (C : Html5_sigs.Conv
-       with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
-    Make'_NoSVG(Xml)(C)
-
-end
-
-module Make'
-    (Xml : Xml_sigs.T)
-    (C : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
-    (Svg : Svg_sigs.T with module Xml := Xml) = struct
-
-  include Make'_NoSVG(Xml)(C)
-
-  let svg ?(a = []) children =
-    Svg.toelt (Svg.svg ~a children)
 
 end
 
