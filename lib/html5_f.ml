@@ -238,8 +238,8 @@ struct
 
   let a_for_list = space_sep_attrib "for"
 
-  let a_selected =
-    user_attrib C.string_of_big_variant "selected"
+  let a_selected x =
+    user_attrib C.string_of_big_variant "selected" x
 
   let a_text_value = string_attrib "value"
 
@@ -251,41 +251,41 @@ struct
 
   let a_action = uri_attrib "action"
 
-  let a_method =
-    user_attrib C.string_of_big_variant "method"
+  let a_method x =
+    user_attrib C.string_of_big_variant "method" x
 
   let a_enctype = string_attrib "enctype"
 
-  let a_checked =
-    user_attrib C.string_of_big_variant "checked"
+  let a_checked x =
+    user_attrib C.string_of_big_variant "checked" x
 
-  let a_disabled =
-    user_attrib C.string_of_big_variant "disabled"
+  let a_disabled x =
+    user_attrib C.string_of_big_variant "disabled" x
 
-  let a_readonly =
-    user_attrib C.string_of_big_variant "readonly"
+  let a_readonly x =
+    user_attrib C.string_of_big_variant "readonly" x
 
   let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
-  let a_autocomplete =
-    user_attrib C.string_of_big_variant "autocomplete"
+  let a_autocomplete x =
+    user_attrib C.string_of_big_variant "autocomplete" x
 
-  let a_async =
-    user_attrib C.string_of_big_variant "async"
+  let a_async x =
+    user_attrib C.string_of_big_variant "async" x
 
-  let a_autofocus =
-    user_attrib C.string_of_big_variant "autofocus"
+  let a_autofocus x =
+    user_attrib C.string_of_big_variant "autofocus" x
 
-  let a_autoplay =
-    user_attrib C.string_of_big_variant "autoplay"
+  let a_autoplay x =
+    user_attrib C.string_of_big_variant "autoplay" x
 
-  let a_muted =
-    user_attrib C.string_of_big_variant "muted"
+  let a_muted x =
+    user_attrib C.string_of_big_variant "muted" x
 
-  let a_crossorigin =
-    user_attrib C.string_of_big_variant "crossorigin"
+  let a_crossorigin x =
+    user_attrib C.string_of_big_variant "crossorigin" x
 
   let a_mediagroup = string_attrib "mediagroup"
 
@@ -296,11 +296,11 @@ struct
 
   let a_contextmenu = string_attrib "contextmenu"
 
-  let a_controls =
-    user_attrib C.string_of_big_variant "controls"
+  let a_controls x =
+    user_attrib C.string_of_big_variant "controls" x
 
-  let a_dir =
-    user_attrib C.string_of_big_variant "dir"
+  let a_dir x =
+    user_attrib C.string_of_big_variant "dir" x
 
   let a_draggable d =
     bool_attrib "draggable" d
@@ -313,27 +313,27 @@ struct
 
   let a_formmethod = a_method
 
-  let a_formnovalidate =
-    user_attrib C.string_of_big_variant "formnovalidate"
+  let a_formnovalidate x =
+    user_attrib C.string_of_big_variant "formnovalidate" x
 
   let a_formtarget = string_attrib "formtarget"
 
-  let a_hidden =
-    user_attrib C.string_of_big_variant "hidden"
+  let a_hidden x =
+    user_attrib C.string_of_big_variant "hidden" x
 
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
 
-  let a_ismap =
-    user_attrib C.string_of_big_variant "ismap"
+  let a_ismap x =
+    user_attrib C.string_of_big_variant "ismap" x
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
 
-  let a_loop =
-    user_attrib C.string_of_big_variant "loop"
+  let a_loop x =
+    user_attrib C.string_of_big_variant "loop" x
 
   let a_low = float_attrib "low"
 
@@ -345,11 +345,11 @@ struct
 
   let a_input_min = float_attrib "min"
 
-  let a_novalidate =
-    user_attrib C.string_of_big_variant "novalidate"
+  let a_novalidate x =
+    user_attrib C.string_of_big_variant "novalidate" x
 
-  let a_open =
-    user_attrib C.string_of_big_variant "open"
+  let a_open x =
+    user_attrib C.string_of_big_variant "open" x
 
   let a_optimum = float_attrib "optimum"
 
@@ -359,19 +359,19 @@ struct
 
   let a_poster = uri_attrib "poster"
 
-  let a_preload =
-    user_attrib C.string_of_big_variant "preload"
+  let a_preload x =
+    user_attrib C.string_of_big_variant "preload" x
 
-  let a_pubdate =
-    user_attrib C.string_of_big_variant "pubdate"
+  let a_pubdate x =
+    user_attrib C.string_of_big_variant "pubdate" x
 
   let a_radiogroup = string_attrib "radiogroup"
 
-  let a_required =
-    user_attrib C.string_of_big_variant "required"
+  let a_required x =
+    user_attrib C.string_of_big_variant "required" x
 
-  let a_reversed =
-    user_attrib C.string_of_big_variant "reserved"
+  let a_reversed x =
+    user_attrib C.string_of_big_variant "reserved" x
 
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
@@ -379,11 +379,11 @@ struct
   let a_spellcheck sc =
     bool_attrib "spellcheck" sc
 
-  let a_scoped =
-    user_attrib C.string_of_big_variant "scoped"
+  let a_scoped x =
+    user_attrib C.string_of_big_variant "scoped" x
 
-  let a_seamless =
-    user_attrib C.string_of_big_variant "seamless"
+  let a_seamless x =
+    user_attrib C.string_of_big_variant "seamless" x
 
   let a_sizes sizes =
     user_attrib C.string_of_sizes "sizes" sizes
@@ -398,25 +398,25 @@ struct
   let a_step step =
     user_attrib C.string_of_step "step" step
 
-  let a_wrap =
-    user_attrib C.string_of_big_variant "wrap"
+  let a_wrap x =
+    user_attrib C.string_of_big_variant "wrap" x
 
   let a_size = int_attrib "size"
 
   let a_input_type it =
     user_attrib C.string_of_input_type "type" it
 
-  let a_menu_type =
-    user_attrib C.string_of_big_variant "type"
+  let a_menu_type x =
+    user_attrib C.string_of_big_variant "type" x
 
-  let a_command_type =
-    user_attrib C.string_of_big_variant "type"
+  let a_command_type x =
+    user_attrib C.string_of_big_variant "type" x
 
   let a_button_type bt =
     user_attrib C.string_of_input_type "type" bt
 
-  let a_multiple =
-    user_attrib C.string_of_big_variant "multiple"
+  let a_multiple x =
+    user_attrib C.string_of_big_variant "multiple" x
 
   let a_cols = int_attrib "cols"
 
@@ -424,8 +424,8 @@ struct
 
   let a_summary = string_attrib "summary"
 
-  let a_align =
-    user_attrib C.string_of_big_variant "align"
+  let a_align x =
+    user_attrib C.string_of_big_variant "align" x
 
   let a_axis = string_attrib "axis"
 
@@ -435,8 +435,8 @@ struct
 
   let a_rowspan = int_attrib "rowspan"
 
-  let a_scope =
-    user_attrib C.string_of_big_variant "scope"
+  let a_scope x =
+    user_attrib C.string_of_big_variant "scope" x
 
   let a_border = int_attrib "border"
 
@@ -446,8 +446,8 @@ struct
 
   let a_datapagesize = string_attrib "datapagesize"
 
-  let a_rules =
-    user_attrib C.string_of_big_variant "rules"
+  let a_rules x =
+    user_attrib C.string_of_big_variant "rules" x
 
   let a_char c =
     user_attrib C.string_of_character "char" c
@@ -462,15 +462,15 @@ struct
 
   let a_fs_cols mls = multilengths_attrib "cols" mls
 
-  let a_frameborder =
-    user_attrib C.string_of_big_variant "frameborder"
+  let a_frameborder x =
+    user_attrib C.string_of_big_variant "frameborder" x
 
   let a_marginheight = int_attrib "marginheight"
 
   let a_marginwidth = int_attrib "marginwidth"
 
-  let a_scrolling =
-    user_attrib C.string_of_big_variant "scrolling"
+  let a_scrolling x =
+    user_attrib C.string_of_big_variant "scrolling" x
 
   let a_target = string_attrib "target"
 
@@ -631,16 +631,16 @@ struct
 
   let a_datetime = string_attrib "datetime"
 
-  let a_shape =
-    user_attrib C.string_of_big_variant "shape"
+  let a_shape x =
+    user_attrib C.string_of_big_variant "shape" x
 
   let a_coords coords =
     user_attrib C.string_of_numbers "coords" coords
 
   let a_usemap = string_attrib "usemap"
 
-  let a_defer =
-    user_attrib C.string_of_big_variant "defer"
+  let a_defer x =
+    user_attrib C.string_of_big_variant "defer" x
 
   let a_label = string_attrib "label"
 

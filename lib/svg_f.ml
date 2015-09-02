@@ -234,8 +234,8 @@ struct
 
   let a_contentstyletype = string_attrib "contentStyleType"
 
-  let a_zoomAndPan =
-    user_attrib C.string_of_big_variant "zoomAndSpan"
+  let a_zoomAndPan x =
+    user_attrib C.string_of_big_variant "zoomAndSpan" x
 
   let a_xlink_href = string_attrib "xlink:href"
 
@@ -257,8 +257,8 @@ struct
 
   let a_xml_lang = string_attrib "xml:lang"
 
-  let a_xml_space =
-    user_attrib C.string_of_big_variant "xml:space"
+  let a_xml_space x =
+    user_attrib C.string_of_big_variant "xml:space" x
 
   let a_type = string_attrib "type"
 
@@ -310,36 +310,36 @@ struct
 
   let a_dy_list = user_attrib string_of_lengths "dy"
 
-  let a_lengthadjust =
-    user_attrib C.string_of_big_variant "lengthAdjust"
+  let a_lengthadjust x =
+    user_attrib C.string_of_big_variant "lengthAdjust" x
 
   let a_textlength = user_attrib string_of_length "textLength"
 
-  let a_text_anchor =
-    user_attrib C.string_of_big_variant "text-anchor"
+  let a_text_anchor x =
+    user_attrib C.string_of_big_variant "text-anchor" x
 
-  let a_text_decoration =
-    user_attrib C.string_of_big_variant "text-decoration"
+  let a_text_decoration x =
+    user_attrib C.string_of_big_variant "text-decoration" x
 
-  let a_text_rendering =
-    user_attrib C.string_of_big_variant "text-rendering"
+  let a_text_rendering x =
+    user_attrib C.string_of_big_variant "text-rendering" x
 
   let a_rotate = user_attrib C.string_of_numbers "rotate"
 
   let a_startoffset = user_attrib string_of_length "startOffset"
 
-  let a_method =
-    user_attrib C.string_of_big_variant "method"
+  let a_method x =
+    user_attrib C.string_of_big_variant "method" x
 
-  let a_spacing =
-    user_attrib C.string_of_big_variant "spacing"
+  let a_spacing x =
+    user_attrib C.string_of_big_variant "spacing" x
 
   let a_glyphref = string_attrib "glyphRef"
 
   let a_format = string_attrib "format"
 
-  let a_markerunits =
-    user_attrib C.string_of_big_variant "markerUnits"
+  let a_markerunits x =
+    user_attrib C.string_of_big_variant "markerUnits" x
 
   let a_refx = user_attrib string_of_coord "refX"
 
@@ -354,17 +354,17 @@ struct
 
   let a_local = string_attrib "local"
 
-  let a_renderingindent =
-    user_attrib C.string_of_big_variant "rendering:indent"
+  let a_renderingindent x =
+    user_attrib C.string_of_big_variant "rendering:indent" x
 
-  let a_gradientunits =
-    user_attrib C.string_of_big_variant "gradientUnits"
+  let a_gradientunits x =
+    user_attrib C.string_of_big_variant "gradientUnits" x
 
   let a_gradienttransform =
     user_attrib C.string_of_transforms "gradient:transform"
 
-  let a_spreadmethod =
-    user_attrib C.string_of_big_variant "spreadMethod"
+  let a_spreadmethod x =
+    user_attrib C.string_of_big_variant "spreadMethod" x
 
   let a_fx = user_attrib string_of_coord "fx"
 
@@ -373,37 +373,37 @@ struct
   let a_offset x =
     user_attrib C.string_of_offset "offset" x
 
-  let a_patternunits =
-    user_attrib C.string_of_big_variant "patternUnits"
+  let a_patternunits x =
+    user_attrib C.string_of_big_variant "patternUnits" x
 
-  let a_patterncontentunits =
-    user_attrib C.string_of_big_variant "patternContentUnits"
+  let a_patterncontentunits x =
+    user_attrib C.string_of_big_variant "patternContentUnits" x
 
   let a_patterntransform x =
     user_attrib C.string_of_transforms "patternTransform" x
 
-  let a_clippathunits =
-    user_attrib C.string_of_big_variant "clipPathUnits"
+  let a_clippathunits x =
+    user_attrib C.string_of_big_variant "clipPathUnits" x
 
-  let a_maskunits =
-    user_attrib C.string_of_big_variant "maskUnits"
+  let a_maskunits x =
+    user_attrib C.string_of_big_variant "maskUnits" x
 
-  let a_maskcontentunits =
-    user_attrib C.string_of_big_variant "maskContentUnits"
+  let a_maskcontentunits x =
+    user_attrib C.string_of_big_variant "maskContentUnits" x
 
-  let a_primitiveunits =
-    user_attrib C.string_of_big_variant "primitiveUnits"
+  let a_primitiveunits x =
+    user_attrib C.string_of_big_variant "primitiveUnits" x
 
   let a_filterres =
     user_attrib C.string_of_number_optional_number "filterResUnits"
 
   let a_result = string_attrib "result"
 
-  let a_in =
-    user_attrib C.string_of_in_value "in"
+  let a_in x =
+    user_attrib C.string_of_in_value "in" x
 
-  let a_in2 =
-    user_attrib C.string_of_in_value "in2"
+  let a_in2 x =
+    user_attrib C.string_of_in_value "in2" x
 
   let a_aizmuth = number_attrib "azimuth"
 
@@ -421,16 +421,16 @@ struct
 
   let a_limitingconeangle = number_attrib "limitingConeAngle"
 
-  let a_mode =
-    user_attrib C.string_of_big_variant "mode"
+  let a_mode x =
+    user_attrib C.string_of_big_variant "mode" x
 
-  let a_typefecolor =
-    user_attrib C.string_of_big_variant "type"
+  let a_typefecolor x =
+    user_attrib C.string_of_big_variant "type" x
 
   let a_values = user_attrib C.string_of_numbers "values"
 
-  let a_transferttype =
-    user_attrib C.string_of_big_variant "type"
+  let a_transferttype x =
+    user_attrib C.string_of_big_variant "type" x
 
   let a_tablevalues = user_attrib C.string_of_numbers "tableValues"
 
@@ -442,8 +442,8 @@ struct
 
   let a_offsettransfer = user_attrib C.string_of_number "offset"
 
-  let a_operator =
-    user_attrib C.string_of_big_variant "operator"
+  let a_operator x =
+    user_attrib C.string_of_big_variant "operator" x
 
   let a_k1 = user_attrib C.string_of_number "k1"
 
@@ -468,8 +468,8 @@ struct
 
   let a_targetY = user_attrib C.string_of_int "targetY"
 
-  let a_edgemode =
-    user_attrib C.string_of_big_variant "targetY"
+  let a_edgemode x =
+    user_attrib C.string_of_big_variant "targetY" x
 
   let a_preservealpha = user_attrib C.string_of_bool "targetY"
 
@@ -480,17 +480,17 @@ struct
 
   let a_scale = user_attrib C.string_of_number "scale"
 
-  let a_xchannelselector =
-    user_attrib C.string_of_big_variant "xChannelSelector"
+  let a_xchannelselector x =
+    user_attrib C.string_of_big_variant "xChannelSelector" x
 
-  let a_ychannelselector =
-    user_attrib C.string_of_big_variant "yChannelSelector"
+  let a_ychannelselector x =
+    user_attrib C.string_of_big_variant "yChannelSelector" x
 
   let a_stddeviation =
     user_attrib C.string_of_number_optional_number "stdDeviation"
 
-  let a_operatormorphology =
-    user_attrib C.string_of_big_variant "operatorMorphology"
+  let a_operatormorphology x =
+    user_attrib C.string_of_big_variant "operatorMorphology" x
 
   let a_radius = user_attrib C.string_of_number_optional_number "radius"
 
@@ -501,17 +501,17 @@ struct
 
   let a_seed = user_attrib C.string_of_number "seed"
 
-  let a_stitchtiles =
-    user_attrib C.string_of_big_variant "stitchTiles"
+  let a_stitchtiles x =
+    user_attrib C.string_of_big_variant "stitchTiles" x
 
-  let a_stitchtype =
-    user_attrib C.string_of_big_variant "typeStitch"
+  let a_stitchtype x =
+    user_attrib C.string_of_big_variant "typeStitch" x
 
-  let a_xlinkshow =
-    user_attrib C.string_of_big_variant "xlink:show"
+  let a_xlinkshow x =
+    user_attrib C.string_of_big_variant "xlink:show" x
 
-  let a_xlinkactuate =
-    user_attrib C.string_of_big_variant "xlink:actuate"
+  let a_xlinkactuate x =
+    user_attrib C.string_of_big_variant "xlink:actuate" x
 
   let a_target = string_attrib "xlink:target"
 
@@ -519,8 +519,8 @@ struct
 
   let a_attributename = string_attrib "attributeName"
 
-  let a_attributetype =
-    user_attrib C.string_of_big_variant "attributeType"
+  let a_attributetype x =
+    user_attrib C.string_of_big_variant "attributeType" x
 
   let a_begin = string_attrib "begin"
 
@@ -530,8 +530,8 @@ struct
 
   let a_max = string_attrib "max"
 
-  let a_restart =
-    user_attrib C.string_of_big_variant "restart"
+  let a_restart x =
+    user_attrib C.string_of_big_variant "restart" x
 
   let a_repeatcount = string_attrib "repeatCount"
 
@@ -539,11 +539,11 @@ struct
 
   let a_fill = user_attrib C.string_of_paint "fill"
 
-  let a_fill_animation =
-    user_attrib C.string_of_big_variant "fill"
+  let a_fill_animation x =
+    user_attrib C.string_of_big_variant "fill" x
 
-  let a_calcmode =
-    user_attrib C.string_of_big_variant "calcMode"
+  let a_calcmode x =
+    user_attrib C.string_of_big_variant "calcMode" x
 
   let a_values_anim = Xml.comma_sep_attrib "values"
 
@@ -557,11 +557,11 @@ struct
 
   let a_by = string_attrib "by"
 
-  let a_additive =
-    user_attrib C.string_of_big_variant "additive"
+  let a_additive x =
+    user_attrib C.string_of_big_variant "additive" x
 
-  let a_accumulate =
-    user_attrib C.string_of_big_variant "accumulate"
+  let a_accumulate x =
+    user_attrib C.string_of_big_variant "accumulate" x
 
   let a_keypoints = user_attrib C.string_of_numbers_semicolon "keyPoints"
 
@@ -586,11 +586,11 @@ struct
 
   let a_glyphname = string_attrib "glyphname"
 
-  let a_orientation =
-    user_attrib C.string_of_big_variant "orientation"
+  let a_orientation x =
+    user_attrib C.string_of_big_variant "orientation" x
 
-  let a_arabicform =
-    user_attrib C.string_of_big_variant "arabic-form"
+  let a_arabicform x =
+    user_attrib C.string_of_big_variant "arabic-form" x
 
   let a_lang = string_attrib "lang"
 
@@ -714,11 +714,11 @@ struct
 
   let a_strokewidth = user_attrib C.string_of_length "stroke-width"
 
-  let a_strokelinecap =
-    user_attrib C.string_of_big_variant "stroke-linecap"
+  let a_strokelinecap x =
+    user_attrib C.string_of_big_variant "stroke-linecap" x
 
-  let a_strokelinejoin =
-    user_attrib C.string_of_big_variant "stroke-linejoin"
+  let a_strokelinejoin x =
+    user_attrib C.string_of_big_variant "stroke-linejoin" x
 
   let a_strokemiterlimit =
     user_attrib C.string_of_number "stroke-miterlimit"
