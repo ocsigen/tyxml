@@ -892,6 +892,55 @@ end
 
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
+module type Wrapped_functions = sig
+
+  type (-'a, 'b) ft
+
+  val string_of_alignment_baseline :
+    ([< Svg_types.alignment_baseline], string) ft
+
+  val string_of_bool : (bool, string) ft
+
+  val string_of_big_variant : ([< Svg_types.big_variant], string) ft
+
+  val string_of_coords : (Svg_types.coords, string) ft
+
+  val string_of_dominant_baseline :
+    ([< Svg_types.dominant_baseline], string) ft
+
+  val string_of_fourfloats : (float * float * float * float, string) ft
+
+  val string_of_in_value : ([< Svg_types.in_value], string) ft
+
+  val string_of_int : (int, string) ft
+
+  val string_of_length : (Svg_types.Unit.length, string) ft
+
+  val string_of_lengths : (Svg_types.lengths, string) ft
+
+  val string_of_number : (float, string) ft
+
+  val string_of_number_optional_number :
+    (float * float option, string) ft
+
+  val string_of_numbers : (float list, string) ft
+
+  val string_of_numbers_semicolon : (float list, string) ft
+
+  val string_of_offset : ([< Svg_types.offset], string) ft
+
+  val string_of_orient : ([< Svg_types.orient], string) ft
+
+  val string_of_paint : ([< Svg_types.paint], string) ft
+
+  val string_of_strokedasharray : (Svg_types.lengths, string) ft
+
+  val string_of_transform : (Svg_types.transform, string) ft
+
+  val string_of_transforms : (Svg_types.transforms, string) ft
+
+end
+
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 

@@ -113,7 +113,7 @@ type length = [ | `Pixels of int | `Percent of int ]
     horizontal or vertical space. Thus, the value [`Percent 50] means half of
     the available space. *)
 
-type linktypes =
+type linktype =
   [
     | `Alternate
     | `Archives
@@ -137,7 +137,9 @@ type linktypes =
     | `Sidebar
     | `Tag
     | `Up
-    | `Other of string ] list
+    | `Other of string ]
+
+type linktypes = linktype list
 (** Authors may use the following recognized link types, listed here with
         their conventional interpretations. A LinkTypes value refers to a
         space-separated list of link types. White space characters are not
@@ -195,20 +197,22 @@ type linktypes =
         Provides a link to a document giving the context for the current document.}
         } *)
 
-type mediadesc =
-  [
-    | `All
-    | `Aural
-    | `Braille
-    | `Embossed
-    | `Handheld
-    | `Print
-    | `Projection
-    | `Screen
-    | `Speech
-    | `TTY
-    | `TV
-    | `Raw_mediadesc of string ] list
+type mediadesc_token =
+  [ `All
+  | `Aural
+  | `Braille
+  | `Embossed
+  | `Handheld
+  | `Print
+  | `Projection
+  | `Screen
+  | `Speech
+  | `TTY
+  | `TV
+  | `Raw_mediadesc of string ]
+
+type mediadesc = mediadesc_token list
+
 (** The MediaDesc attribute is a comma-separated list of media descriptors.
         The following is a list of recognized media descriptors:
         {ul
@@ -2225,3 +2229,111 @@ type link_content_fun = notag
 type link_attrib =
   [ | common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
   ]
+
+type big_variant =
+  [ `W3_org_1999_xhtml
+  | `Default
+  | `Preserve
+  | `Selected
+  | `Get
+  | `Post
+  | `Put
+  | `Delete
+  | `Checked
+  | `Disabled
+  | `ReadOnly
+  | `On
+  | `Off
+  | `Async
+  | `Autofocus
+  | `Autoplay
+  | `Muted
+  | `Anonymous
+  | `Use_credentials
+  | `Controls
+  | `Ltr
+  | `Rtl
+  | `Formnovalidate
+  | `Hidden
+  | `Ismap
+  | `Loop
+  | `Novalidate
+  | `Open
+  | `Audio
+  | `Metadata
+  | `None
+  | `Pubdate
+  | `Required
+  | `Reversed
+  | `Scoped
+  | `Seamless
+  | `Hard
+  | `Soft
+  | `Multiple
+  | `Checkbox
+  | `Command
+  | `Radio
+  | `Context
+  | `Toolbar
+  | `Char
+  | `Justify
+  | `Left
+  | `Right
+  | `Col
+  | `Colgroup
+  | `Row
+  | `Rowgroup
+  | `All
+  | `Cols
+  | `Groups
+  | `None
+  | `Rows
+  | `Rect
+  | `Circle
+  | `Poly
+  | `Default
+  | `One
+  | `Zero
+  | `Auto
+  | `No
+  | `Yes
+  | `Defer
+  ]
+
+type sandbox_token =
+  [ `AllowForms
+  | `AllowPointerLock
+  | `AllowPopups
+  | `AllowTopNavigation
+  | `AllowSameOrigin
+  | `AllowScript ]
+
+
+type input_type =
+  [ `Button
+  | `Checkbox
+  | `Color
+  | `Date
+  | `Datetime
+  | `Datetime_local
+  | `Email
+  | `File
+  | `Hidden
+  | `Image
+  | `Month
+  | `Number
+  | `Password
+  | `Radio
+  | `Range
+  | `Reset
+  | `Search
+  | `Submit
+  | `Tel
+  | `Text
+  | `Time
+  | `Url
+  | `Week ]
+
+type sizes =
+  [ `Sizes of (number * number) list
+  | `Any ]

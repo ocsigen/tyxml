@@ -1913,3 +1913,149 @@ type foreignobject_attr =
     | `Width
     | `Height
   ]
+
+type alignment_baseline =
+  [ `After_edge
+  | `Alphabetic
+  | `Auto
+  | `Baseline
+  | `Before_edge
+  | `Central
+  | `Hanging
+  | `Ideographic
+  | `Inherit
+  | `Mathematical
+  | `Middle
+  | `Text_after_edge
+  | `Text_before_edge ]
+
+type dominant_baseline =
+  [ `Auto
+  | `Use_script
+  | `No_change
+  | `Reset_size
+  | `Ideographic
+  | `Alphabetic
+  | `Hanging
+  | `Mathematical
+  | `Central
+  | `Middle
+  | `Text_after_edge
+  | `Text_before_edge
+  | `Inherit
+  ]
+
+type in_value =
+  [ `SourceGraphic
+  | `SourceAlpha
+  | `BackgroundImage
+  | `BackgroundAlpha
+  | `FillPaint
+  | `StrokePaint
+  | `Ref of string ]
+
+type offset =
+  [ `Number of float
+  | `Percentage of int ]
+
+type orient =
+  [ `Auto
+  | `Angle of Unit.angle ]
+
+type big_variant =
+  [ `A
+  | `Absolute_colorimetric
+  | `Align
+  | `Always
+  | `Atop
+  | `Arithmetic
+  | `Auto
+  | `B
+  | `Bever
+  | `Blink
+  | `Butt
+  | `CSS
+  | `Darken
+  | `Default
+  | `Dilate
+  | `Disable
+  | `Discrete
+  | `Duplicate
+  | `End
+  | `Erode
+  | `Exact
+  | `FractalNoise
+  | `Freeze
+  | `HueRotate
+  | `G
+  | `Gamma
+  | `GeometricPrecision
+  | `H
+  | `Identity
+  | `In
+  | `Inherit
+  | `Initial
+  | `Isolated
+  | `Lighten
+  | `Line_through
+  | `Linear
+  | `LuminanceToAlpha
+  | `Magnify
+  | `Matrix
+  | `Medial
+  | `Middle
+  | `Miter
+  | `Multiply
+  | `Never
+  | `New
+  | `None
+  | `Normal
+  | `NoStitch
+  | `ObjectBoundingBox
+  | `OnLoad
+  | `OnRequest
+  | `OptimizeLegibility
+  | `OptimizeSpeed
+  | `Other
+  | `Out
+  | `Over
+  | `Overline
+  | `Paced
+  | `Pad
+  | `Perceptual
+  | `Preserve
+  | `R
+  | `Reflect
+  | `Remove
+  | `Repeat
+  | `Replace
+  | `Relative_colorimetric
+  | `Rotate
+  | `Round
+  | `Saturate
+  | `Saturation
+  | `Scale
+  | `Screen
+  | `SkewX
+  | `SkewY
+  | `Spacing
+  | `SpacingAndGlyphs
+  | `Spline
+  | `Square
+  | `Start
+  | `Stitch
+  | `Stretch
+  | `StrokeWidth
+  | `Sum
+  | `Table
+  | `Terminal
+  | `Translate
+  | `Turbulence
+  | `Underline
+  | `UserSpaceOnUse
+  | `V
+  | `WhenNotActive
+  | `Wrap
+  | `XML
+  | `Xor
+  ]

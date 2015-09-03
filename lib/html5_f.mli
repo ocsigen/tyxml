@@ -22,7 +22,19 @@
 (** Typesafe constructors for HTML5 documents (Functorial interface) *)
 
 module Make
+    (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
+    (Svg : Svg_sigs.T with module Xml := Xml)
+  : Html5_sigs.Make(Xml)(Svg).T
+    with type +'a elt = Xml.elt
+     and type +'a attrib = Xml.attrib
+
+module Wrapped_functions :
+  Html5_sigs.Wrapped_functions with type (-'a, 'b) ft = 'a -> 'b
+
+module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
+    (C : Html5_sigs.Wrapped_functions
+     with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
     (Svg : Svg_sigs.T with module Xml := Xml)
   : Html5_sigs.Make(Xml)(Svg).T
     with type +'a elt = Xml.elt

@@ -86,38 +86,7 @@ let opt_concat ?(sep=" ") s f = function
 let list ?(sep=" ") f l = String.concat sep (List.map f l)
 let comma_list = list ~sep:", "
 
-let string_of_coord = string_of_length
-let string_of_number = string_of_float
-let string_of_number_optional_number =
-  function
-  | (x, Some y) -> Printf.sprintf "%g, %g" x y
-  | (x, None) -> Printf.sprintf "%g" x
 let string_of_percentage = Printf.sprintf "%d%%"
-
-
-let string_of_transform =
-  function
-  | Matrix ((a, b, c, d, e, f)) ->
-    Printf.sprintf "matrix(%g %g %g %g %g %g)" a b c d e f
-  | Translate x ->
-    Printf.sprintf "translate(%s)" (string_of_number_optional_number x)
-  | Scale x ->
-    Printf.sprintf "scale(%s)" (string_of_number_optional_number x)
-  | Rotate ((angle, x)) ->
-    Printf.sprintf "rotate(%s %s)" (string_of_angle angle)
-      (match x with
-       | Some ((x, y)) -> Printf.sprintf "%g %g" x y
-       | None -> "")
-  | SkewX angle -> Printf.sprintf "skewX(%s)" (string_of_angle angle)
-  | SkewY angle -> Printf.sprintf "skewY(%s)" (string_of_angle angle)
-let string_of_transforms x = String.concat " " (List.map string_of_transform x)
-let string_of_fourfloats (a, b, c, d) = Printf.sprintf "%g %g %g %g" a b c d
-
-let string_of_lengths = list string_of_length
-let string_of_numbers = list string_of_float
-let string_of_numbers_semicolon = list ~sep:"; " string_of_float
-
-let string_of_coords = list (fun (a, b) -> Printf.sprintf "%g, %g" a b)
 
 let string_of_color s = s
 (* For now just string, we may want something better in the future. *)
@@ -135,7 +104,12 @@ let string_of_paint = function
     (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
-module Make (Xml : Xml_sigs.T) =
+module Make_with_wrapped_functions
+
+    (Xml : Xml_sigs.T)
+    (C : Svg_sigs.Wrapped_functions
+     with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
+
 struct
 
   module Xml = Xml
@@ -213,6 +187,13 @@ struct
 
   let uri_attrib = Xml.uri_attrib
 
+  (* wrap C module functions *)
+
+  let string_of_coord = C.string_of_length
+
+  let string_of_length = C.string_of_length
+
+  let string_of_lengths = C.string_of_lengths
 
   (* Custom XML attributes *)
 
@@ -221,6 +202,9 @@ struct
 
   let number_attrib = float_attrib
 
+  (* for now string_attrib, we may want something better in the
+     future. *)
+  let color_attrib = Xml.string_attrib
 
   (* SVG attributes *)
 
@@ -252,8 +236,7 @@ struct
   let a_contentstyletype = string_attrib "contentStyleType"
 
   let a_zoomAndPan x =
-    let f = function `Disable -> "disable" | `Magnify -> "magnify" in
-    user_attrib f "zoomAndSpan" x
+    user_attrib C.string_of_big_variant "zoomAndSpan" x
 
   let a_xlink_href = string_attrib "xlink:href"
 
@@ -267,7 +250,7 @@ struct
     Xml.comma_sep_attrib "systemLanguage"
 
   let a_externalressourcesrequired =
-    user_attrib string_of_bool "externalRessourcesRequired"
+    user_attrib C.string_of_bool "externalRessourcesRequired"
 
   let a_id = string_attrib "id"
 
@@ -276,8 +259,7 @@ struct
   let a_xml_lang = string_attrib "xml:lang"
 
   let a_xml_space x =
-    let f = function `Default -> "default" | `Preserve -> "preserve" in
-    user_attrib f "xml:space" x
+    user_attrib C.string_of_big_variant "xml:space" x
 
   let a_type = string_attrib "type"
 
@@ -289,9 +271,9 @@ struct
 
   let a_style = string_attrib "style"
 
-  let a_transform = user_attrib string_of_transform "transform"
+  let a_transform = user_attrib C.string_of_transform "transform"
 
-  let a_viewbox = user_attrib string_of_fourfloats "viewBox"
+  let a_viewbox = user_attrib C.string_of_fourfloats "viewBox"
 
   let a_d = string_attrib "d"
 
@@ -315,69 +297,50 @@ struct
 
   let a_y2 = user_attrib string_of_coord "y2"
 
-  let a_points = user_attrib string_of_coords "points"
+  let a_points = user_attrib C.string_of_coords "points"
 
   let a_x_list = user_attrib string_of_lengths "x"
 
   let a_y_list = user_attrib string_of_lengths "y"
 
-  let a_dx = user_attrib string_of_number "dx"
+  let a_dx = user_attrib C.string_of_number "dx"
 
-  let a_dy = user_attrib string_of_number "dy"
+  let a_dy = user_attrib C.string_of_number "dy"
 
   let a_dx_list = user_attrib string_of_lengths "dx"
 
   let a_dy_list = user_attrib string_of_lengths "dy"
 
   let a_lengthadjust x =
-    let f = function
-      | `Spacing -> "spacing"
-      | `SpacingAndGlyphs -> "spacingAndGlyphs" in
-    user_attrib f "lengthAdjust" x
+    user_attrib C.string_of_big_variant "lengthAdjust" x
 
   let a_textlength = user_attrib string_of_length "textLength"
 
   let a_text_anchor x =
-    let f = function
-      | `Start -> "start" | `Middle -> "middle"
-      | `End -> "end" | `Inherit -> "inherit" in
-    user_attrib f "text-anchor" x
+    user_attrib C.string_of_big_variant "text-anchor" x
 
   let a_text_decoration x =
-    let f = function
-      | `None -> "none" | `Underline -> "underline"
-      | `Overline -> "overline" | `Line_through -> "line-through"
-      | `Blink -> "blink" | `Inherit -> "inherit" in
-    user_attrib f "text-decoration" x
+    user_attrib C.string_of_big_variant "text-decoration" x
 
   let a_text_rendering x =
-    let f = function
-      | `Auto -> "auto"
-      | `OptimizeSpeed -> "optimizeSpeed"
-      | `OptimizeLegibility -> "optimizeLegibility"
-      | `GeometricPrecision -> "geometricPrecision"
-      | `Inherit -> "inherit" in
-    user_attrib f "text-rendering" x
+    user_attrib C.string_of_big_variant "text-rendering" x
 
-  let a_rotate = user_attrib string_of_numbers "rotate"
+  let a_rotate = user_attrib C.string_of_numbers "rotate"
 
   let a_startoffset = user_attrib string_of_length "startOffset"
 
   let a_method x =
-    let f = function | `Align -> "align" | `Stretch -> "stretch" in
-    user_attrib f "method" x
+    user_attrib C.string_of_big_variant "method" x
 
   let a_spacing x =
-    let f = function | `Auto -> "auto" | `Exact -> "exact" in
-    user_attrib f "spacing" x
+    user_attrib C.string_of_big_variant "spacing" x
 
   let a_glyphref = string_attrib "glyphRef"
 
   let a_format = string_attrib "format"
 
   let a_markerunits x =
-    let f = function `StrokeWidth -> "strokeWidth"| `UserSpaceOnUse -> "userSpaceOnUse" in
-    user_attrib f "markerUnits" x
+    user_attrib C.string_of_big_variant "markerUnits" x
 
   let a_refx = user_attrib string_of_coord "refX"
 
@@ -388,104 +351,60 @@ struct
   let a_markerheight = user_attrib string_of_length "markerHeight"
 
   let a_orient x =
-    let f = function | `Auto -> "auto" | `Angle __svg -> string_of_angle __svg in
-    user_attrib f "orient" x
+    user_attrib C.string_of_orient "orient" x
 
   let a_local = string_attrib "local"
 
   let a_renderingindent x =
-    let f = function
-      | `Auto -> "auto" | `Perceptual -> "perceptual"
-      | `Relative_colorimetric -> "relative_colorimetric" | `Saturation -> "saturation"
-      | `Absolute_colorimetric -> "absolute_colorimetric" in
-    user_attrib f "rendering:indent" x
+    user_attrib C.string_of_big_variant "rendering:indent" x
 
   let a_gradientunits x =
-    let f = function
-      | `UserSpaceOnUse -> "userSpaceOnUse"
-      | `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "gradientUnits" x
+    user_attrib C.string_of_big_variant "gradientUnits" x
 
   let a_gradienttransform =
-    user_attrib string_of_transforms "gradient:transform"
+    user_attrib C.string_of_transforms "gradient:transform"
 
   let a_spreadmethod x =
-    let f = function
-      | `Pad -> "pad"| `Reflect -> "reflect"| `Repeat -> "repeat" in
-    user_attrib f "spreadMethod" x
+    user_attrib C.string_of_big_variant "spreadMethod" x
 
   let a_fx = user_attrib string_of_coord "fx"
 
   let a_fy = user_attrib string_of_coord "fy"
 
   let a_offset x =
-    let f = function
-      | `Number x -> string_of_number x
-      | `Percentage x -> string_of_percentage x in
-    user_attrib f "offset" x
+    user_attrib C.string_of_offset "offset" x
 
   let a_patternunits x =
-    let f = function
-      | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "patternUnits" x
+    user_attrib C.string_of_big_variant "patternUnits" x
 
   let a_patterncontentunits x =
-    let f = function | `UserSpaceOnUse -> "userSpaceOnUse"| `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "patternContentUnits" x
+    user_attrib C.string_of_big_variant "patternContentUnits" x
 
   let a_patterntransform x =
-    user_attrib string_of_transforms "patternTransform" x
+    user_attrib C.string_of_transforms "patternTransform" x
 
   let a_clippathunits x =
-    let f = function
-      | `UserSpaceOnUse -> "userSpaceOnUse"
-      | `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "clipPathUnits" x
+    user_attrib C.string_of_big_variant "clipPathUnits" x
 
   let a_maskunits x =
-    let f = function
-      | `UserSpaceOnUse -> "userSpaceOnUse"
-      | `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "maskUnits" x
+    user_attrib C.string_of_big_variant "maskUnits" x
 
   let a_maskcontentunits x =
-    let f = function
-      | `UserSpaceOnUse -> "userSpaceOnUse"
-      | `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "maskContentUnits" x
+    user_attrib C.string_of_big_variant "maskContentUnits" x
 
   let a_primitiveunits x =
-    let f = function
-      | `UserSpaceOnUse -> "userSpaceOnUse"
-      | `ObjectBoundingBox -> "objectBoundingBox" in
-    user_attrib f "primitiveUnits" x
+    user_attrib C.string_of_big_variant "primitiveUnits" x
 
-  let a_filterres x =
-    user_attrib string_of_number_optional_number "filterResUnits" x
+  let a_filterres =
+    user_attrib C.string_of_number_optional_number "filterResUnits"
 
   let a_result = string_attrib "result"
 
   let a_in x =
-    let f = function
-      | `SourceGraphic -> "sourceGraphic"
-      | `SourceAlpha -> "sourceAlpha"
-      | `BackgroundImage -> "backgroundImage"
-      | `BackgroundAlpha -> "backgroundAlpha"
-      | `FillPaint -> "fillPaint"
-      | `StrokePaint -> "strokePaint"
-      | `Ref _svg -> _svg in
-    user_attrib f "in" x
+    user_attrib C.string_of_in_value "in" x
 
   let a_in2 x =
-    let f = function
-      | `SourceGraphic -> "sourceGraphic"
-      | `SourceAlpha -> "sourceAlpha"
-      | `BackgroundImage -> "backgroundImage"
-      | `BackgroundAlpha -> "backgroundAlpha"
-      | `FillPaint -> "fillPaint"
-      | `StrokePaint -> "strokePaint"
-      | `Ref _svg -> _svg in
-    user_attrib f "in2" x
+    user_attrib C.string_of_in_value "in2" x
 
   let a_aizmuth = number_attrib "azimuth"
 
@@ -504,150 +423,96 @@ struct
   let a_limitingconeangle = number_attrib "limitingConeAngle"
 
   let a_mode x =
-    let f = function
-      | `Normal -> "normal"
-      | `Multiply -> "multiply"
-      | `Screen -> "screen"
-      | `Darken -> "darken"
-      | `Lighten -> "lighten" in
-    user_attrib f "mode" x
+    user_attrib C.string_of_big_variant "mode" x
 
   let a_typefecolor x =
-    let f = function
-      | `Matrix -> "matrix"
-      | `Saturate -> "saturate"
-      | `HueRotate -> "hueRotate"
-      | `LuminanceToAlpha -> "luminanceToAlpha" in
-    user_attrib f "type" x
+    user_attrib C.string_of_big_variant "type" x
 
-  let a_values = user_attrib string_of_numbers "values"
+  let a_values = user_attrib C.string_of_numbers "values"
 
   let a_transferttype x =
-    let f = function
-      | `Identity -> "identity"
-      | `Table -> "table"
-      | `Discrete -> "discrete"
-      | `Linear -> "linear"
-      | `Gamma -> "gamma" in
-    user_attrib f "type" x
+    user_attrib C.string_of_big_variant "type" x
 
-  let a_tablevalues = user_attrib string_of_numbers "tableValues"
+  let a_tablevalues = user_attrib C.string_of_numbers "tableValues"
 
-  let a_intercept = user_attrib string_of_number "intercept"
+  let a_intercept = user_attrib C.string_of_number "intercept"
 
-  let a_amplitude = user_attrib string_of_number "amplitude"
+  let a_amplitude = user_attrib C.string_of_number "amplitude"
 
-  let a_exponent = user_attrib string_of_number "exponent"
+  let a_exponent = user_attrib C.string_of_number "exponent"
 
-  let a_offsettransfer = user_attrib string_of_number "offset"
+  let a_offsettransfer = user_attrib C.string_of_number "offset"
 
   let a_operator x =
-    let f = function
-      | `Over -> "over"
-      | `In -> "in"
-      | `Out -> "out"
-      | `Atop -> "atop"
-      | `Xor -> "xor"
-      | `Arithmetic -> "arithmetic" in
-    user_attrib f "operator" x
+    user_attrib C.string_of_big_variant "operator" x
 
-  let a_k1 = user_attrib string_of_number "k1"
+  let a_k1 = user_attrib C.string_of_number "k1"
 
-  let a_k2 = user_attrib string_of_number "k2"
+  let a_k2 = user_attrib C.string_of_number "k2"
 
-  let a_k3 = user_attrib string_of_number "k3"
+  let a_k3 = user_attrib C.string_of_number "k3"
 
-  let a_k4 = user_attrib string_of_number "k4"
+  let a_k4 = user_attrib C.string_of_number "k4"
 
-  let a_order = user_attrib string_of_number_optional_number "order"
+  let a_order = user_attrib C.string_of_number_optional_number "order"
 
-  let a_kernelmatrix = user_attrib string_of_numbers "kernelMatrix"
+  let a_kernelmatrix = user_attrib C.string_of_numbers "kernelMatrix"
 
-  let a_divisor = user_attrib string_of_number "divisor"
+  let a_divisor = user_attrib C.string_of_number "divisor"
 
-  let a_bias = user_attrib string_of_number "bias"
+  let a_bias = user_attrib C.string_of_number "bias"
 
   let a_kernelunitlength =
-    user_attrib string_of_number_optional_number "kernelUnitLength"
+    user_attrib C.string_of_number_optional_number "kernelUnitLength"
 
-  let a_targetX = user_attrib string_of_int "targetX"
+  let a_targetX = user_attrib C.string_of_int "targetX"
 
-  let a_targetY = user_attrib string_of_int "targetY"
+  let a_targetY = user_attrib C.string_of_int "targetY"
 
   let a_edgemode x =
-    let f = function
-      | `Duplicate -> "duplicate"
-      | `Wrap -> "wrap"
-      | `None -> "none" in
-    user_attrib f "targetY" x
+    user_attrib C.string_of_big_variant "targetY" x
 
-  let a_preservealpha = user_attrib string_of_bool "targetY"
+  let a_preservealpha = user_attrib C.string_of_bool "targetY"
 
-  let a_surfacescale = user_attrib string_of_number "surfaceScale"
+  let a_surfacescale = user_attrib C.string_of_number "surfaceScale"
 
-  let a_diffuseconstant = user_attrib string_of_number "diffuseConstant"
+  let a_diffuseconstant =
+    user_attrib C.string_of_number "diffuseConstant"
 
-  let a_scale = user_attrib string_of_number "scale"
+  let a_scale = user_attrib C.string_of_number "scale"
 
   let a_xchannelselector x =
-    let f = function
-      | `R -> "r"
-      | `G -> "g"
-      | `B -> "b"
-      | `A -> "a" in
-    user_attrib f "xChannelSelector" x
+    user_attrib C.string_of_big_variant "xChannelSelector" x
 
   let a_ychannelselector x =
-    let f = function
-      | `R -> "r"
-      | `G -> "g"
-      | `B -> "b"
-      | `A -> "a" in
-    user_attrib f "yChannelSelector" x
+    user_attrib C.string_of_big_variant "yChannelSelector" x
 
   let a_stddeviation =
-    user_attrib string_of_number_optional_number "stdDeviation"
+    user_attrib C.string_of_number_optional_number "stdDeviation"
 
   let a_operatormorphology x =
-    let f = function
-      | `Erode -> "erode"
-      | `Dilate -> "dilate" in
-    user_attrib f "operatorMorphology" x
+    user_attrib C.string_of_big_variant "operatorMorphology" x
 
-  let a_radius = user_attrib string_of_number_optional_number "radius"
+  let a_radius = user_attrib C.string_of_number_optional_number "radius"
 
   let a_basefrenquency =
-    user_attrib string_of_number_optional_number "baseFrequency"
+    user_attrib C.string_of_number_optional_number "baseFrequency"
 
-  let a_numoctaves = user_attrib string_of_int "numOctaves"
+  let a_numoctaves = user_attrib C.string_of_int "numOctaves"
 
-  let a_seed = user_attrib string_of_number "seed"
+  let a_seed = user_attrib C.string_of_number "seed"
 
   let a_stitchtiles x =
-    let f = function
-      | `Stitch -> "stitch"
-      | `NoStitch -> "noStitch" in
-    user_attrib f "stitchTiles" x
+    user_attrib C.string_of_big_variant "stitchTiles" x
 
   let a_stitchtype x =
-    let f = function
-      | `FractalNoise -> "fractalNoise"
-      | `Turbulence -> "turbulence" in
-    user_attrib f "typeStitch" x
+    user_attrib C.string_of_big_variant "typeStitch" x
 
   let a_xlinkshow x =
-    let f = function
-      | `New -> "new"
-      | `Replace -> "replace" in
-    user_attrib f "xlink:show" x
+    user_attrib C.string_of_big_variant "xlink:show" x
 
   let a_xlinkactuate x =
-    let f = function
-      | `OnRequest -> "onRequest"
-      | `OnLoad -> "onLoad"
-      | `Other -> "other"
-      | `None -> "none"
-    in user_attrib f "xlink:actuate" x
+    user_attrib C.string_of_big_variant "xlink:actuate" x
 
   let a_target = string_attrib "xlink:target"
 
@@ -656,11 +521,7 @@ struct
   let a_attributename = string_attrib "attributeName"
 
   let a_attributetype x =
-    let f = function
-      | `CSS -> "CSS"
-      | `XML -> "XML"
-      | `Auto -> "auto" in
-    user_attrib f "attributeType" x
+    user_attrib C.string_of_big_variant "attributeType" x
 
   let a_begin = string_attrib "begin"
 
@@ -671,31 +532,19 @@ struct
   let a_max = string_attrib "max"
 
   let a_restart x =
-    let f = function
-      | `Always -> "always"
-      | `WhenNotActive -> "whenNotActive"
-      | `Never -> "never" in
-    user_attrib f "restart" x
+    user_attrib C.string_of_big_variant "restart" x
 
   let a_repeatcount = string_attrib "repeatCount"
 
   let a_repeatdur = string_attrib "repeatDur"
 
-  let a_fill = user_attrib string_of_paint "fill"
+  let a_fill = user_attrib C.string_of_paint "fill"
 
   let a_fill_animation x =
-    let f = function
-      | `Freeze -> "freeze"
-      | `Remove -> "remove" in
-    user_attrib f "fill" x
+    user_attrib C.string_of_big_variant "fill" x
 
   let a_calcmode x =
-    let f = function
-      | `Discrete -> "discrete"
-      | `Linear -> "linear"
-      | `Paced -> "paced"
-      | `Spline -> "spline" in
-    user_attrib f "calcMode" x
+    user_attrib C.string_of_big_variant "calcMode" x
 
   let a_values_anim = Xml.comma_sep_attrib "values"
 
@@ -710,59 +559,39 @@ struct
   let a_by = string_attrib "by"
 
   let a_additive x =
-    let f = function
-      | `Replace -> "replace"
-      | `Sum -> "sum" in
-    user_attrib f "additive" x
+    user_attrib C.string_of_big_variant "additive" x
 
   let a_accumulate x =
-    let f = function
-      | `None -> "none"
-      | `Sum -> "sum" in
-    user_attrib f "accumulate" x
+    user_attrib C.string_of_big_variant "accumulate" x
 
-  let a_keypoints = user_attrib string_of_numbers_semicolon "keyPoints"
+  let a_keypoints = user_attrib C.string_of_numbers_semicolon "keyPoints"
 
   let a_path = string_attrib "path"
 
-  let a_typeanimatecolor x =
-    let f = function
-      | `Translate -> "translate"
-      | `Scale -> "scale"
-      | `Rotate -> "rotate"
-      | `SkewX -> "skewX"
-      | `SkewY -> "skewY" in
-    user_attrib f "type" x
+  let a_typeanimatecolor =
+    user_attrib C.string_of_big_variant "type"
 
-  let a_horiz_origin_x = user_attrib string_of_number "horiz-origin-x"
+  let a_horiz_origin_x = user_attrib C.string_of_number "horiz-origin-x"
 
-  let a_horiz_origin_y = user_attrib string_of_number "horiz-origin-y"
+  let a_horiz_origin_y = user_attrib C.string_of_number "horiz-origin-y"
 
-  let a_horiz_adv_x = user_attrib string_of_number "horiz-adv-x"
+  let a_horiz_adv_x = user_attrib C.string_of_number "horiz-adv-x"
 
-  let a_vert_origin_x = user_attrib string_of_number "vert-origin-x"
+  let a_vert_origin_x = user_attrib C.string_of_number "vert-origin-x"
 
-  let a_vert_origin_y = user_attrib string_of_number "vert-origin-y"
+  let a_vert_origin_y = user_attrib C.string_of_number "vert-origin-y"
 
-  let a_vert_adv_y = user_attrib string_of_number "vert-adv-y"
+  let a_vert_adv_y = user_attrib C.string_of_number "vert-adv-y"
 
   let a_unicode = string_attrib "unicode"
 
   let a_glyphname = string_attrib "glyphname"
 
   let a_orientation x =
-    let f = function
-      | `H -> "h"
-      | `V -> "v" in
-    user_attrib f "orientation" x
+    user_attrib C.string_of_big_variant "orientation" x
 
   let a_arabicform x =
-    let f = function
-      | `Initial -> "initial"
-      | `Medial -> "medial"
-      | `Terminal -> "terminal"
-      | `Isolated -> "isolated" in
-    user_attrib f "arabic-form" x
+    user_attrib C.string_of_big_variant "arabic-form" x
 
   let a_lang = string_attrib "lang"
 
@@ -792,96 +621,66 @@ struct
 
   let a_unitsperem = string_attrib "units-per-em"
 
-  let a_stemv = user_attrib string_of_number "stemv"
+  let a_stemv = user_attrib C.string_of_number "stemv"
 
-  let a_stemh = user_attrib string_of_number "stemh"
+  let a_stemh = user_attrib C.string_of_number "stemh"
 
-  let a_slope = user_attrib string_of_number "slope"
+  let a_slope = user_attrib C.string_of_number "slope"
 
-  let a_capheight = user_attrib string_of_number "cap-height"
+  let a_capheight = user_attrib C.string_of_number "cap-height"
 
-  let a_xheight = user_attrib string_of_number "x-height"
+  let a_xheight = user_attrib C.string_of_number "x-height"
 
-  let a_accentheight = user_attrib string_of_number "accent-height"
+  let a_accentheight = user_attrib C.string_of_number "accent-height"
 
-  let a_ascent = user_attrib string_of_number "ascent"
+  let a_ascent = user_attrib C.string_of_number "ascent"
 
   let a_widths = string_attrib "widths"
 
   let a_bbox = string_attrib "bbox"
 
-  let a_ideographic = user_attrib string_of_number "ideographic"
+  let a_ideographic = user_attrib C.string_of_number "ideographic"
 
-  let a_alphabetic = user_attrib string_of_number "alphabetic"
+  let a_alphabetic = user_attrib C.string_of_number "alphabetic"
 
-  let a_mathematical = user_attrib string_of_number "mathematical"
+  let a_mathematical = user_attrib C.string_of_number "mathematical"
 
-  let a_hanging = user_attrib string_of_number "hanging"
+  let a_hanging = user_attrib C.string_of_number "hanging"
 
-  let a_videographic = user_attrib string_of_number "v-ideographic"
+  let a_videographic = user_attrib C.string_of_number "v-ideographic"
 
-  let a_valphabetic = user_attrib string_of_number "v-alphabetic"
+  let a_valphabetic = user_attrib C.string_of_number "v-alphabetic"
 
-  let a_vmathematical = user_attrib string_of_number "v-mathematical"
+  let a_vmathematical = user_attrib C.string_of_number "v-mathematical"
 
-  let a_vhanging = user_attrib string_of_number "v-hanging"
+  let a_vhanging = user_attrib C.string_of_number "v-hanging"
 
   let a_underlineposition =
-    user_attrib string_of_number "underline-position"
+    user_attrib C.string_of_number "underline-position"
 
   let a_underlinethickness =
-    user_attrib string_of_number "underline-thickness"
+    user_attrib C.string_of_number "underline-thickness"
 
   let a_strikethroughposition =
-    user_attrib string_of_number "strikethrough-position"
+    user_attrib C.string_of_number "strikethrough-position"
 
   let a_strikethroughthickness =
-    user_attrib string_of_number "strikethrough-thickness"
+    user_attrib C.string_of_number "strikethrough-thickness"
 
-  let a_overlineposition = user_attrib string_of_number "overline-position"
+  let a_overlineposition = user_attrib C.string_of_number "overline-position"
 
   let a_overlinethickness =
-    user_attrib string_of_number "overline-thickness"
+    user_attrib C.string_of_number "overline-thickness"
 
   let a_string = string_attrib "string"
 
   let a_name = string_attrib "name"
 
-  let string_of_alignment_baseline = function
-    | `Auto -> "auto"
-    | `Baseline -> "baseline"
-    | `Before_edge -> "before-edge"
-    | `Text_before_edge -> "text-before-edge"
-    | `Middle -> "middle"
-    | `Central -> "central"
-    | `After_edge -> "after-edge"
-    | `Text_after_edge -> "text-after-edge"
-    | `Ideographic -> "ideographic"
-    | `Alphabetic -> "alphabetic"
-    | `Hanging-> "hanging"
-    | `Mathematical -> "mathematical"
-    | `Inherit -> "inherit"
-
   let a_alignment_baseline x =
-    user_attrib string_of_alignment_baseline "alignment-baseline" x
-
-  let string_of_dominant_baseline = function
-    | `Auto -> "auto"
-    | `Use_script -> "use-script"
-    | `No_change -> "no-change"
-    | `Reset_size -> "reset-size"
-    | `Ideographic -> "ideographic"
-    | `Alphabetic -> "alphabetic"
-    | `Hanging -> "hanging"
-    | `Mathematical -> "mathematical"
-    | `Central -> "central"
-    | `Middle -> "middle"
-    | `Text_after_edge -> "text-after-edge"
-    | `Text_before_edge -> "text-before-edge"
-    | `Inherit -> "inherit"
+    user_attrib C.string_of_alignment_baseline "alignment-baseline" x
 
   let a_dominant_baseline x =
-    user_attrib string_of_dominant_baseline "dominant-baseline" x
+    user_attrib C.string_of_dominant_baseline "dominant-baseline" x
 
   (** Javascript events *)
 
@@ -908,43 +707,31 @@ struct
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
   let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
 
+  let a_stopcolor = color_attrib "stop-color"
 
-  let a_stopcolor = user_attrib string_of_color "stop-color"
+  let a_stopopacity = user_attrib C.string_of_number "stop-opacity"
 
-  let a_stopopacity = user_attrib string_of_number "stop-opacity"
+  let a_stroke = user_attrib C.string_of_paint "stroke"
 
-  let a_stroke = user_attrib string_of_paint "stroke"
-
-  let a_strokewidth = user_attrib string_of_length "stroke-width"
+  let a_strokewidth = user_attrib C.string_of_length "stroke-width"
 
   let a_strokelinecap x =
-    let f = function
-      | `Butt -> "butt"
-      | `Round -> "round"
-      | `Square -> "square" in
-    user_attrib f "stroke-linecap" x
+    user_attrib C.string_of_big_variant "stroke-linecap" x
 
   let a_strokelinejoin x =
-    let f = function
-      | `Miter -> "miter"
-      | `Round -> "round"
-      | `Bever -> "bevel" in
-    user_attrib f "stroke-linejoin" x
+    user_attrib C.string_of_big_variant "stroke-linejoin" x
 
   let a_strokemiterlimit =
-    user_attrib string_of_number "stroke-miterlimit"
+    user_attrib C.string_of_number "stroke-miterlimit"
 
   let a_strokedasharray x =
-    let f = function
-      | [] -> "none"
-      | l -> list string_of_length l in
-    user_attrib f "stroke-dasharray" x
+    user_attrib C.string_of_strokedasharray "stroke-dasharray" x
 
   let a_strokedashoffset =
-    user_attrib string_of_length "stroke-dashoffset"
+    user_attrib C.string_of_length "stroke-dashoffset"
 
   let a_strokeopacity =
-    user_attrib string_of_number "stroke-opacity"
+    user_attrib C.string_of_number "stroke-opacity"
 
   (* xlink namespace given a nickname since some attributes mandated by
      the svg standard such as xlink:href live in that namespace, and we
@@ -956,7 +743,7 @@ struct
       :: string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
       :: to_xmlattribs a
     in
-    star ~a:(attribs) "svg" (W.map toeltl children)
+    star ~a:(attribs) "svg" children
 
   (* also generated *)
   let g = star "g"
@@ -1137,3 +924,208 @@ struct
   end
 
 end
+
+module Wrapped_functions = struct
+
+  type (-'a, 'b) ft = 'a -> 'b
+
+  let string_of_alignment_baseline = function
+    | `Auto -> "auto"
+    | `Baseline -> "baseline"
+    | `Before_edge -> "before-edge"
+    | `Text_before_edge -> "text-before-edge"
+    | `Middle -> "middle"
+    | `Central -> "central"
+    | `After_edge -> "after-edge"
+    | `Text_after_edge -> "text-after-edge"
+    | `Ideographic -> "ideographic"
+    | `Alphabetic -> "alphabetic"
+    | `Hanging-> "hanging"
+    | `Mathematical -> "mathematical"
+    | `Inherit -> "inherit"
+
+  let string_of_big_variant = function
+    | `A -> "a"
+    | `Absolute_colorimetric -> "absolute_colorimetric"
+    | `Align -> ""
+    | `Always -> "always"
+    | `Atop -> "atop"
+    | `Arithmetic -> "arithmetic"
+    | `Auto -> "auto"
+    | `B -> "b"
+    | `Bever -> "bevel"
+    | `Blink -> "blink"
+    | `Butt -> "butt"
+    | `CSS -> "CSS"
+    | `Darken -> "darken"
+    | `Default -> "default"
+    | `Dilate -> "dilate"
+    | `Disable -> "disable"
+    | `Discrete -> "discrete"
+    | `Duplicate -> "duplicate"
+    | `End -> "end"
+    | `Erode -> "erode"
+    | `Exact -> "exact"
+    | `FractalNoise -> "fractalNoise"
+    | `Freeze -> "freeze"
+    | `HueRotate -> "hueRotate"
+    | `G -> "g"
+    | `Gamma -> "gamma"
+    | `GeometricPrecision -> "geometricPrecision"
+    | `H -> "h"
+    | `Identity -> "identity"
+    | `In -> "in"
+    | `Inherit -> "inherit"
+    | `Initial -> "initial"
+    | `Isolated -> "isolated"
+    | `Lighten -> "lighten"
+    | `Line_through -> "line-through"
+    | `Linear -> "linear"
+    | `LuminanceToAlpha -> "luminanceToAlpha"
+    | `Magnify -> "magnify"
+    | `Matrix -> "matrix"
+    | `Medial -> "medial"
+    | `Middle -> "middle"
+    | `Miter -> "miter"
+    | `Multiply -> "multiply"
+    | `Never -> "never"
+    | `New -> "new"
+    | `None -> "none"
+    | `Normal -> "normal"
+    | `NoStitch -> "noStitch"
+    | `ObjectBoundingBox -> "objectBoundingBox"
+    | `OnLoad -> "onLoad"
+    | `OnRequest -> "onRequest"
+    | `OptimizeLegibility -> "optimizeLegibility"
+    | `OptimizeSpeed -> "optimizeSpeed"
+    | `Other -> "other"
+    | `Out -> "out"
+    | `Over -> "over"
+    | `Overline -> "overline"
+    | `Paced -> "paced"
+    | `Pad -> "pad"
+    | `Perceptual -> "perceptual"
+    | `Preserve -> "preserve"
+    | `R -> "r"
+    | `Reflect -> "reflect"
+    | `Remove -> "remove"
+    | `Repeat -> "repeat"
+    | `Replace -> "replace"
+    | `Relative_colorimetric -> "relative_colorimetric"
+    | `Rotate -> "rotate"
+    | `Round -> "round"
+    | `Saturate -> "saturate"
+    | `Saturation -> "saturation"
+    | `Scale -> "scale"
+    | `Screen -> "screen"
+    | `SkewX -> "skewX"
+    | `SkewY -> "skewY"
+    | `Spacing -> "spacing"
+    | `SpacingAndGlyphs -> "spacingAndGlyphs"
+    | `Spline -> "spline"
+    | `Square -> "square"
+    | `Start -> "start"
+    | `Stitch -> "stitch"
+    | `Stretch -> "stretch"
+    | `StrokeWidth -> "stroke-width"
+    | `Sum -> "sum"
+    | `Table -> "table"
+    | `Terminal -> "terminal"
+    | `Translate -> "translate"
+    | `Turbulence -> "turbulence"
+    | `Underline -> "underline"
+    | `UserSpaceOnUse -> "userSpaceOnUse"
+    | `V -> "v"
+    | `WhenNotActive -> "whenNotActive"
+    | `Wrap -> "wrap"
+    | `XML -> "XML"
+    | `Xor -> "xor"
+
+  let string_of_bool = string_of_bool
+
+  let string_of_coords =
+    list (fun (a, b) -> Printf.sprintf "%g, %g" a b)
+
+  let string_of_dominant_baseline = function
+    | `Auto -> "auto"
+    | `Use_script -> "usescript"
+    | `No_change -> "nochange"
+    | `Reset_size -> "resetsize"
+    | `Ideographic -> "ideographic"
+    | `Alphabetic -> "alphabetic"
+    | `Hanging -> "hanging"
+    | `Mathematical -> "mathematical"
+    | `Central -> "central"
+    | `Middle -> "middle"
+    | `Text_after_edge -> "textafteredge"
+    | `Text_before_edge -> "textbeforeedge"
+    | `Inherit -> "inherit"
+
+  let string_of_fourfloats (a, b, c, d) =
+    Printf.sprintf "%g %g %g %g" a b c d
+
+  let string_of_in_value = function
+    | `SourceGraphic -> "sourceGraphic"
+    | `SourceAlpha -> "sourceAlpha"
+    | `BackgroundImage -> "backgroundImage"
+    | `BackgroundAlpha -> "backgroundAlpha"
+    | `FillPaint -> "fillPaint"
+    | `StrokePaint -> "strokePaint"
+    | `Ref _svg -> _svg
+
+  let string_of_int = string_of_int
+
+  let string_of_length = Unit.string_of_length
+
+  let string_of_lengths = list string_of_length
+
+  let string_of_number = string_of_float
+
+  let string_of_number_optional_number = function
+    | x, Some y -> Printf.sprintf "%g, %g" x y
+    | x, None -> Printf.sprintf "%g" x
+
+  let string_of_numbers = list string_of_float
+
+  let string_of_numbers_semicolon = list ~sep:"; " string_of_float
+
+  let string_of_offset = function
+    | `Number x -> string_of_number x
+    | `Percentage x -> string_of_percentage x
+
+  let string_of_orient = function
+    | `Auto -> "auto"
+    | `Angle __svg -> string_of_angle __svg
+
+  let string_of_paint = string_of_paint
+
+  let string_of_strokedasharray = function
+    | [] -> "none"
+    | l -> list string_of_length l
+
+  let string_of_transform = function
+    | Matrix (a, b, c, d, e, f) ->
+      Printf.sprintf "matrix(%g %g %g %g %g %g)" a b c d e f
+    | Translate x ->
+      Printf.sprintf "translate(%s)"
+        (string_of_number_optional_number x)
+    | Scale x ->
+      Printf.sprintf "scale(%s)" (string_of_number_optional_number x)
+    | Rotate ((angle, x)) ->
+      Printf.sprintf "rotate(%s %s)" (string_of_angle angle)
+        (match x with
+         | Some ((x, y)) -> Printf.sprintf "%g %g" x y
+         | None -> "")
+    | SkewX angle ->
+      Printf.sprintf "skewX(%s)" (string_of_angle angle)
+    | SkewY angle ->
+      Printf.sprintf "skewY(%s)" (string_of_angle angle)
+
+  let string_of_transforms l =
+    String.concat " " (List.map string_of_transform l)
+
+end
+
+module Make
+    (Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b)) =
+  Make_with_wrapped_functions(Xml)(Wrapped_functions)

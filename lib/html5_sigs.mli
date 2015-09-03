@@ -1190,6 +1190,46 @@ end
 
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
+module type Wrapped_functions = sig
+
+  type (-'a, 'b) ft
+
+  val string_of_big_variant :
+    ([< Html5_types.big_variant], string) ft
+
+  val string_of_bool : (bool, string) ft
+
+  val string_of_character : (Html5_types.character, string) ft
+
+  val string_of_input_type :
+    ([< Html5_types.input_type], string) ft
+
+  val string_of_linktypes :
+    ([< Html5_types.linktype] list, string) ft
+
+  val string_of_mediadesc :
+    ([< Html5_types.mediadesc_token] list, string) ft
+
+  val string_of_multilength :
+    ([< Html5_types.multilength], string) ft
+
+  val string_of_multilengths :
+    ([< Html5_types.multilength] list, string) ft
+
+  val string_of_numbers : (Html5_types.numbers, string) ft
+
+  val string_of_sandbox :
+    ([< Html5_types.sandbox_token] list, string) ft
+
+  val string_of_sizes :
+    ([< Html5_types.sizes], string) ft
+
+  val string_of_step : (float option, string) ft
+
+  val unoption_string : (string option, string) ft
+
+end
+
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 

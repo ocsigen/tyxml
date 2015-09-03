@@ -80,7 +80,18 @@ val string_of_transform : transform -> string
 val string_of_transforms : transforms -> string
 *)
 
-module Make(Xml : Xml_sigs.T)
+module Make(Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b))
+  : Svg_sigs.Make(Xml).T
+    with type +'a elt = Xml.elt
+     and type +'a attrib = Xml.attrib
+
+module Wrapped_functions :
+  Svg_sigs.Wrapped_functions with type (-'a, 'b) ft = 'a -> 'b
+
+module Make_with_wrapped_functions
+    (Xml : Xml_sigs.T)
+    (C : Svg_sigs.Wrapped_functions
+     with type (-'a, 'b) ft = ('a, 'b) Xml.W.ft)
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
