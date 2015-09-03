@@ -85,11 +85,13 @@ module Make(Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b))
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
 
-module Conv : Svg_sigs.Conv with type (-'a, 'b) ft = 'a -> 'b
+module Wrapped_functions :
+  Svg_sigs.Wrapped_functions with type (-'a, 'b) ft = 'a -> 'b
 
-module Make'
+module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
-    (C : Svg_sigs.Conv with type (-'a, 'b) ft = ('a, 'b) Xml.W.ft)
+    (C : Svg_sigs.Wrapped_functions
+     with type (-'a, 'b) ft = ('a, 'b) Xml.W.ft)
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib

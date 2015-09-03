@@ -1190,7 +1190,7 @@ end
 
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
-module type Conv = sig
+module type Wrapped_functions = sig
 
   type (-'a, 'b) ft
 

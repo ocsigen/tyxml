@@ -104,10 +104,11 @@ let string_of_paint = function
     (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
-module Make'
+module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)
-    (C : Svg_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
+    (C : Svg_sigs.Wrapped_functions
+     with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
 
 struct
 
@@ -924,7 +925,7 @@ struct
 
 end
 
-module Conv = struct
+module Wrapped_functions = struct
 
   type (-'a, 'b) ft = 'a -> 'b
 
@@ -1127,4 +1128,4 @@ end
 
 module Make
     (Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b)) =
-  Make'(Xml)(Conv)
+  Make_with_wrapped_functions(Xml)(Wrapped_functions)

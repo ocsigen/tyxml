@@ -895,7 +895,7 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 (** {2 Signature functors} *)
 (** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
 
-module type Conv = sig
+module type Wrapped_functions = sig
 
   type (-'a, 'b) ft
 

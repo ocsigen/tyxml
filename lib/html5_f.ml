@@ -32,10 +32,11 @@
 
 open Html5_types
 
-module Make'
+module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)
-    (C : Html5_sigs.Conv with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
+    (C : Html5_sigs.Wrapped_functions
+     with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
     (Svg : Svg_sigs.T with module Xml := Xml) =
 
 struct
@@ -833,7 +834,7 @@ struct
 
 end
 
-module Conv = struct
+module Wrapped_functions = struct
 
   type ('a, 'b) ft = 'a -> 'b
 
@@ -1049,4 +1050,4 @@ end
 module Make
     (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
     (Svg : Svg_sigs.T with module Xml := Xml) =
-  Make'(Xml)(Conv)(Svg)
+  Make_with_wrapped_functions(Xml)(Wrapped_functions)(Svg)
