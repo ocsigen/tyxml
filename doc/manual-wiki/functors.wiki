@@ -59,12 +59,12 @@ needs to be satisfied. The ##ft## values are wrapped functions that
 the functor uses internally to operate on wrapped elements.
 
 The motivation of providing the ##Make_with_wrapped_functions## is as
-follows. Certain monads ##('a, 'b) ft## can only be operated upon by
-wrapped functions, and not by plain OCaml functions. The wrapped
-functions cannot be produced internally by TyXML, and thus have to be
-provided to the functor. Our intended application is with Eliom shared
-(i.e., client-server) signals. Such signals can only be operated upon
-with Eliom shared functions.
+follows. Certain monads ##'a t## can only be operated upon by wrapped
+functions, and not by plain OCaml functions. The wrapped functions
+cannot be produced internally by TyXML, and thus have to be provided
+to the functor. Our intended application is with Eliom shared (i.e.,
+client-server) signals. Such signals can only be operated upon with
+Eliom shared functions.
 
 The ##Make## functors are implemented by applying the
 ##Make_with_wrapped_functions## functors with TyXML-provided
