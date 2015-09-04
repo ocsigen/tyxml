@@ -52,8 +52,9 @@ the ##Make## functors by requiring an additional argument ##C## (of
 type <<a_api | module Html5_f.Wrapped_functions >> and
 <<a_api | module Svg_f.Wrapped_functions >> respectively).
 
-##C## defines a type ##(-'a, 'b) ft##, and a collection of ##ft##
-values.  For applying the functor, the type constraint
+The ##C## functor argument defines a type ##(-'a, 'b) ft##, and a
+collection of ##ft## values. For applying the functor, the type
+constraint
 <<code language="ocaml"| ('a, 'b) Xml.W.ft = ('a, 'b) C.ft>>
 needs to be satisfied. The ##ft## values are wrapped functions that
 the functor uses internally to operate on wrapped elements.
@@ -66,10 +67,10 @@ to the functor. Our intended application is with Eliom shared (i.e.,
 client-server) signals. Such signals can only be operated upon with
 Eliom shared functions.
 
-The ##Make## functors are implemented by applying the
-##Make_with_wrapped_functions## functors with TyXML-provided
-##Wrapped_functions## modules that do not wrap the functions, i.e.,
-with: <<code language="ocaml"|(-'a, 'b) ft = 'a -> 'b>>.
+The ##Make## functors simply apply the ##Make_with_wrapped_functions##
+functors with TyXML-provided ##Wrapped_functions## modules. The latter
+modules do not wrap the functions, i.e., they satisfy:
+<<code language="ocaml"|(-'a, 'b) ft = 'a -> 'b>>.
 
 
 ==@@id="sig"@@ Exporting the correct signature ==
