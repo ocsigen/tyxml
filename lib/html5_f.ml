@@ -60,6 +60,7 @@ struct
 
   type 'a wrap = 'a W.t
   type 'a list_wrap = 'a W.tlist
+  type 'a attr_wrap = 'a W.attr
 
   type uri = Xml.uri
   let string_of_uri = Xml.string_of_uri

@@ -141,6 +141,7 @@ struct
 
   type 'a wrap = 'a W.t
   type 'a list_wrap = 'a W.tlist
+  type 'a attr_wrap = 'a W.attr
 
   type +'a elts = Xml.elt list
 

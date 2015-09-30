@@ -29,6 +29,7 @@ module type T = sig
 
   type 'a wrap = 'a Xml.W.t
   type 'a list_wrap = 'a Xml.W.tlist
+  type 'a attr_wrap = 'a Xml.W.attr
 
   type uri = Xml.uri
   val string_of_uri : uri -> string
@@ -48,92 +49,92 @@ module type T = sig
       NB: It might be possible to use polymorphic variants directly, without
       phantom types, but the implementation is likely to be more involved. *)
 
-  val a_autocomplete : [< | `On | `Off] wrap -> [> | `Autocomplete] attrib
+  val a_autocomplete : [< | `On | `Off] attr_wrap -> [> | `Autocomplete] attrib
 
-  val a_async : [< | `Async] wrap -> [> | `Async] attrib
+  val a_async : [< | `Async] attr_wrap -> [> | `Async] attrib
 
-  val a_autofocus : [< | `Autofocus] wrap -> [> | `Autofocus] attrib
+  val a_autofocus : [< | `Autofocus] attr_wrap -> [> | `Autofocus] attrib
 
-  val a_autoplay : [< | `Autoplay] wrap -> [> | `Autoplay] attrib
+  val a_autoplay : [< | `Autoplay] attr_wrap -> [> | `Autoplay] attrib
 
-  val a_muted : [< | `Muted] wrap -> [> | `Muted] attrib
+  val a_muted : [< | `Muted] attr_wrap -> [> | `Muted] attrib
 
   val a_crossorigin :
-    [< | `Anonymous | `Use_credentials ] wrap -> [> | `Crossorigin ] attrib
+    [< | `Anonymous | `Use_credentials ] attr_wrap -> [> | `Crossorigin ] attrib
 
-  val a_mediagroup : string wrap -> [> | `Mediagroup ] attrib
+  val a_mediagroup : string attr_wrap -> [> | `Mediagroup ] attrib
 
-  val a_challenge : text wrap -> [> | `Challenge] attrib
+  val a_challenge : text attr_wrap -> [> | `Challenge] attrib
 
-  val a_contenteditable : bool wrap -> [> | `Contenteditable] attrib
+  val a_contenteditable : bool attr_wrap -> [> | `Contenteditable] attrib
 
-  val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
+  val a_contextmenu : idref attr_wrap -> [> | `Contextmenu] attrib
 
-  val a_controls : [< | `Controls] wrap -> [> | `Controls] attrib
+  val a_controls : [< | `Controls] attr_wrap -> [> | `Controls] attrib
 
-  val a_dir : [< | `Rtl | `Ltr] wrap -> [> | `Dir] attrib
+  val a_dir : [< | `Rtl | `Ltr] attr_wrap -> [> | `Dir] attrib
 
-  val a_draggable : bool wrap -> [> | `Draggable] attrib
+  val a_draggable : bool attr_wrap -> [> | `Draggable] attrib
 
-  val a_form : idref wrap -> [> | `Form] attrib
+  val a_form : idref attr_wrap -> [> | `Form] attrib
 
-  val a_formaction : Xml.uri wrap -> [> | `Formaction] attrib
+  val a_formaction : Xml.uri attr_wrap -> [> | `Formaction] attrib
 
-  val a_formenctype : contenttype wrap -> [> | `Formenctype] attrib
+  val a_formenctype : contenttype attr_wrap -> [> | `Formenctype] attrib
 
   val a_formmethod :
-    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Formmethod] attrib
+    [< | `Get | `Post | `Put | `Delete] attr_wrap -> [> | `Formmethod] attrib
 
   val a_formnovalidate :
-    [< | `Formnovalidate] wrap -> [> | `Formnovalidate] attrib
+    [< | `Formnovalidate] attr_wrap -> [> | `Formnovalidate] attrib
 
-  val a_formtarget : text wrap -> [> | `Formtarget] attrib
+  val a_formtarget : text attr_wrap -> [> | `Formtarget] attrib
 
-  val a_hidden : [< | `Hidden] wrap -> [> | `Hidden] attrib
+  val a_hidden : [< | `Hidden] attr_wrap -> [> | `Hidden] attrib
 
-  val a_high : float_number wrap -> [> | `High] attrib
+  val a_high : float_number attr_wrap -> [> | `High] attrib
 
-  val a_icon : Xml.uri wrap -> [> | `Icon] attrib
+  val a_icon : Xml.uri attr_wrap -> [> | `Icon] attrib
 
-  val a_ismap : [< | `Ismap] wrap -> [> | `Ismap] attrib
+  val a_ismap : [< | `Ismap] attr_wrap -> [> | `Ismap] attrib
 
-  val a_keytype : text wrap -> [> | `Keytype] attrib
+  val a_keytype : text attr_wrap -> [> | `Keytype] attrib
 
-  val a_list : idref wrap -> [> | `List] attrib
+  val a_list : idref attr_wrap -> [> | `List] attrib
 
-  val a_loop : [< | `Loop] wrap -> [> | `Loop] attrib
+  val a_loop : [< | `Loop] attr_wrap -> [> | `Loop] attrib
 
-  val a_low : float_number wrap -> [> | `High] attrib
+  val a_low : float_number attr_wrap -> [> | `High] attrib
 
-  val a_max : float_number wrap -> [> | `Max] attrib
+  val a_max : float_number attr_wrap -> [> | `Max] attrib
 
-  val a_input_max : float_number wrap -> [> | `Input_Max] attrib
+  val a_input_max : float_number attr_wrap -> [> | `Input_Max] attrib
 
-  val a_min : float_number wrap -> [> | `Min] attrib
+  val a_min : float_number attr_wrap -> [> | `Min] attrib
 
-  val a_input_min : float_number wrap -> [> | `Input_Min] attrib
+  val a_input_min : float_number attr_wrap -> [> | `Input_Min] attrib
 
-  val a_novalidate : [< | `Novalidate] wrap -> [> | `Novalidate] attrib
+  val a_novalidate : [< | `Novalidate] attr_wrap -> [> | `Novalidate] attrib
 
-  val a_open : [< | `Open] wrap -> [> | `Open] attrib
+  val a_open : [< | `Open] attr_wrap -> [> | `Open] attrib
 
-  val a_optimum : float_number wrap -> [> | `Optimum] attrib
+  val a_optimum : float_number attr_wrap -> [> | `Optimum] attrib
 
-  val a_pattern : text wrap -> [> | `Pattern] attrib
+  val a_pattern : text attr_wrap -> [> | `Pattern] attrib
 
-  val a_placeholder : text wrap -> [> | `Placeholder] attrib
+  val a_placeholder : text attr_wrap -> [> | `Placeholder] attrib
 
-  val a_poster : Xml.uri wrap -> [> | `Poster] attrib
+  val a_poster : Xml.uri attr_wrap -> [> | `Poster] attrib
 
-  val a_preload : [< | `None | `Metadata | `Audio] wrap -> [> | `Preload] attrib
+  val a_preload : [< | `None | `Metadata | `Audio] attr_wrap -> [> | `Preload] attrib
 
-  val a_pubdate : [< | `Pubdate] wrap -> [> | `Pubdate] attrib
+  val a_pubdate : [< | `Pubdate] attr_wrap -> [> | `Pubdate] attrib
 
-  val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
+  val a_radiogroup : text attr_wrap -> [> | `Radiogroup] attrib
 
-  val a_required : [< | `Required] wrap -> [> | `Required] attrib
+  val a_required : [< | `Required] attr_wrap -> [> | `Required] attrib
 
-  val a_reversed : [< | `Reversed] wrap -> [> | `Reversed] attrib
+  val a_reversed : [< | `Reversed] attr_wrap -> [> | `Reversed] attrib
 
   val a_sandbox :
     [<
@@ -142,45 +143,45 @@ module type T = sig
      | `AllowScript
      | `AllowPointerLock
      | `AllowPopups
-     | `AllowTopNavigation ] list wrap ->
+     | `AllowTopNavigation ] list attr_wrap ->
     [> | `Sandbox] attrib
 
-  val a_spellcheck : bool wrap -> [> | `Spellcheck] attrib
+  val a_spellcheck : bool attr_wrap -> [> | `Spellcheck] attrib
 
-  val a_scoped : [< | `Scoped] wrap -> [> | `Scoped] attrib
+  val a_scoped : [< | `Scoped] attr_wrap -> [> | `Scoped] attrib
 
-  val a_seamless : [< | `Seamless] wrap -> [> | `Seamless] attrib
+  val a_seamless : [< | `Seamless] attr_wrap -> [> | `Seamless] attrib
 
-  val a_sizes : [< | `Sizes of (number * number) list | `Any] wrap -> [> | `Sizes] attrib
+  val a_sizes : [< | `Sizes of (number * number) list | `Any] attr_wrap -> [> | `Sizes] attrib
 
-  val a_span : number wrap -> [> | `Span] attrib
+  val a_span : number attr_wrap -> [> | `Span] attrib
 
   (** This attribute is deprecated, you should use {! a_xml_lang}. *)
-  val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
+  val a_srclang : nmtoken attr_wrap -> [> | `XML_lang] attrib
 
-  val a_start : number wrap -> [> | `Start] attrib
+  val a_start : number attr_wrap -> [> | `Start] attrib
 
-  val a_step : float_number option wrap -> [> | `Step] attrib
+  val a_step : float_number option attr_wrap -> [> | `Step] attrib
 
-  val a_wrap : [< | `Soft | `Hard] wrap -> [> | `Wrap] attrib
+  val a_wrap : [< | `Soft | `Hard] attr_wrap -> [> | `Wrap] attrib
 
-  val a_class : nmtokens wrap -> [> | `Class] attrib
+  val a_class : nmtokens attr_wrap -> [> | `Class] attrib
   (** This attribute assigns a class name or set of class names to an
       element. Any number of elements may be assigned the same class
       name or names.  *)
 
-  val a_user_data : nmtoken -> text wrap -> [> | `User_data] attrib
+  val a_user_data : nmtoken -> text attr_wrap -> [> | `User_data] attrib
   (** May be used to specify custom attribs.
       The example given by the W3C is as follows :
       {v <ol>
       <li data-length="2m11s">Beyond The Sea</li>
       </ol> v}
       It should be used for preprocessing ends only. *)
-  val a_id : text wrap -> [> | `Id] attrib
+  val a_id : text attr_wrap -> [> | `Id] attrib
   (** This attribute assigns a name to an element. This name must be
       unique in a document. The text should be without any space. *)
 
-  val a_title : text wrap -> [> | `Title] attrib
+  val a_title : text attr_wrap -> [> | `Title] attrib
   (** This attribute offers advisory information about the element for
       which it is set. *)
 
@@ -196,9 +197,9 @@ module type T = sig
 
   (** {2 I18N} *)
 
-  val a_xml_lang : languagecode wrap -> [> | `XML_lang] attrib
+  val a_xml_lang : languagecode attr_wrap -> [> | `XML_lang] attrib
 
-  val a_lang : languagecode wrap -> [> | `Lang] attrib
+  val a_lang : languagecode attr_wrap -> [> | `Lang] attrib
 
   (** {2 Events} *)
 
@@ -278,43 +279,43 @@ module type T = sig
   val a_onkeyup : Xml.keyboard_event_handler -> [> | `OnKeyUp] attrib
 
 
-  val a_version : cdata wrap -> [> | `Version] attrib
+  val a_version : cdata attr_wrap -> [> | `Version] attrib
 
-  val a_xmlns : [< | `W3_org_1999_xhtml] wrap -> [> | `XMLns] attrib
+  val a_xmlns : [< | `W3_org_1999_xhtml] attr_wrap -> [> | `XMLns] attrib
 
-  val a_manifest : Xml.uri wrap -> [> | `Manifest] attrib
+  val a_manifest : Xml.uri attr_wrap -> [> | `Manifest] attrib
 
-  val a_cite : Xml.uri wrap -> [> | `Cite] attrib
+  val a_cite : Xml.uri attr_wrap -> [> | `Cite] attrib
 
-  val a_xml_space : [< | `Default | `Preserve] wrap -> [> | `XML_space] attrib
+  val a_xml_space : [< | `Default | `Preserve] attr_wrap -> [> | `XML_space] attrib
 
-  val a_accesskey : character wrap -> [> | `Accesskey] attrib
+  val a_accesskey : character attr_wrap -> [> | `Accesskey] attrib
   (** This attribute assigns an access key to an element. An access key
       is a single character from the document character
       set. NB: authors should consider the input method of the
       expected reader when specifying an accesskey. *)
 
-  val a_charset : charset wrap -> [> | `Charset] attrib
+  val a_charset : charset attr_wrap -> [> | `Charset] attrib
   (** This attribute specifies the character encoding of the resource
       designated by the link. Please consult the section on character
       encodings for more details. *)
 
-  val a_accept_charset : charsets wrap -> [> | `Accept_charset] attrib
+  val a_accept_charset : charsets attr_wrap -> [> | `Accept_charset] attrib
 
-  val a_accept : contenttypes wrap -> [> | `Accept] attrib
+  val a_accept : contenttypes attr_wrap -> [> | `Accept] attrib
 
-  val a_href : Xml.uri wrap -> [> | `Href] attrib
+  val a_href : Xml.uri attr_wrap -> [> | `Href] attrib
   (** This attribute specifies the location of a Web resource, thus
       defining a link between the current element (the source anchor)
       and the destination anchor defined by this attribute. *)
 
-  val a_hreflang : languagecode wrap -> [> | `Hreflang] attrib
+  val a_hreflang : languagecode attr_wrap -> [> | `Hreflang] attrib
   (** This attribute specifies the base language of the resource
       designated by href and may only be used when href is specified. *)
 
-  val a_download : string option wrap -> [> | `Download] attrib
+  val a_download : string option attr_wrap -> [> | `Download] attrib
 
-  val a_rel : linktypes wrap -> [> | `Rel] attrib
+  val a_rel : linktypes attr_wrap -> [> | `Rel] attrib
   (** This attribute describes the relationship from the current
       document to the anchor specified by the href attribute. The
       value of this attribute is a space-separated list of link
@@ -325,13 +326,13 @@ module type T = sig
       document. The value of this attribute is a space-separated
       list of link types. *)
 
-  val a_tabindex : number wrap -> [> | `Tabindex] attrib
+  val a_tabindex : number attr_wrap -> [> | `Tabindex] attrib
   (** This attribute specifies the position of the current
       element in the tabbing order for the current document. This
       value must be a number between 0 and 32767. User agents
       should ignore leading zeros. *)
 
-  val a_mime_type : contenttype wrap -> [> | `Mime_type] attrib
+  val a_mime_type : contenttype attr_wrap -> [> | `Mime_type] attrib
   (** This attribute gives an advisory hint as to the content type
       of the content available at the link target address. It
       allows user agents to opt to use a fallback mechanism rather
@@ -341,57 +342,57 @@ module type T = sig
       risk that it may become inconsistent with the content
       available at the link target address. *)
 
-  val a_datetime : cdata wrap -> [> | `Datetime] attrib
+  val a_datetime : cdata attr_wrap -> [> | `Datetime] attrib
 
-  val a_action : Xml.uri wrap -> [> | `Action] attrib
+  val a_action : Xml.uri attr_wrap -> [> | `Action] attrib
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
 
-  val a_checked : [< | `Checked] wrap -> [> | `Checked] attrib
+  val a_checked : [< | `Checked] attr_wrap -> [> | `Checked] attrib
   (** When the [type] attribute has the value ["radio"] or
       ["checkbox"], this boolean attribute specifies that the
       button is on. User agents must ignore this attribute for
       other control types. *)
 
-  val a_cols : number wrap -> [> | `Cols] attrib
+  val a_cols : number attr_wrap -> [> | `Cols] attrib
   (** This attribute specifies the visible width in average
       character widths. Users should be able to enter longer lines
       than this, so user agents should provide some means to
       scroll through the contents of the control when the contents
-      extend beyond the visible area. User agents may wrap visible
+      extend beyond the visible area. User agents may attr_wrap visible
       text lines to keep long lines visible without the need for
       scrolling. *)
 
-  val a_enctype : contenttype wrap -> [> | `Enctype] attrib
+  val a_enctype : contenttype attr_wrap -> [> | `Enctype] attrib
 
-  val a_for : idref wrap -> [> | `For] attrib
+  val a_for : idref attr_wrap -> [> | `For] attrib
 
-  val a_for_list : idrefs wrap -> [> | `For_List] attrib
+  val a_for_list : idrefs attr_wrap -> [> | `For_List] attrib
 
-  val a_maxlength : number wrap -> [> | `Maxlength] attrib
+  val a_maxlength : number attr_wrap -> [> | `Maxlength] attrib
 
   val a_method :
-    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+    [< | `Get | `Post | `Put | `Delete] attr_wrap -> [> | `Method] attrib
 
-  val a_multiple : [< | `Multiple] wrap -> [> | `Multiple] attrib
+  val a_multiple : [< | `Multiple] attr_wrap -> [> | `Multiple] attrib
 
-  val a_name : text wrap -> [> | `Name] attrib
+  val a_name : text attr_wrap -> [> | `Name] attrib
   (** This attribute assigns the control name. *)
 
-  val a_rows : number wrap -> [> | `Rows] attrib
+  val a_rows : number attr_wrap -> [> | `Rows] attrib
   (** This attribute specifies the number of visible text
       lines. Users should be able to enter more lines than this,
       so user agents should provide some means to scroll through
       the contents of the control when the contents extend beyond
       the visible area. *)
 
-  val a_selected : [< | `Selected] wrap -> [> | `Selected] attrib
+  val a_selected : [< | `Selected] attr_wrap -> [> | `Selected] attrib
   (** When set, this boolean attribute specifies that
       this option is pre-selected. *)
 
-  val a_size : number wrap -> [> | `Size] attrib
+  val a_size : number attr_wrap -> [> | `Size] attrib
 
-  val a_src : Xml.uri wrap -> [> | `Src] attrib
+  val a_src : Xml.uri attr_wrap -> [> | `Src] attrib
 
   val a_input_type : [<
     | `Url
@@ -416,107 +417,107 @@ module type T = sig
     | `Datetime
     | `Date
     | `Color
-    | `Button] wrap -> [> | `Input_Type] attrib
+    | `Button] attr_wrap -> [> | `Input_Type] attrib
 
-  val a_text_value : text wrap -> [> | `Text_Value] attrib
+  val a_text_value : text attr_wrap -> [> | `Text_Value] attrib
   (** This attribute specifies the initial value of the
       control. If this attribute is not set, the initial value is
       set to the contents of the [option] element. *)
 
-  val a_int_value : number wrap -> [> | `Int_Value] attrib
+  val a_int_value : number attr_wrap -> [> | `Int_Value] attrib
 
   (*VVV NO *)
-  val a_value : cdata wrap -> [> | `Value] attrib
+  val a_value : cdata attr_wrap -> [> | `Value] attrib
 
-  val a_float_value : float_number wrap -> [> | `Float_Value] attrib
+  val a_float_value : float_number attr_wrap -> [> | `Float_Value] attrib
 
-  val a_disabled : [< | `Disabled] wrap -> [> | `Disabled] attrib
+  val a_disabled : [< | `Disabled] attr_wrap -> [> | `Disabled] attrib
 
-  val a_readonly : [< | `ReadOnly] wrap -> [> | `ReadOnly] attrib
+  val a_readonly : [< | `ReadOnly] attr_wrap -> [> | `ReadOnly] attrib
   val a_button_type :
-    [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
+    [< | `Button | `Submit | `Reset] attr_wrap -> [> | `Button_Type] attrib
 
   val a_command_type :
-    [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
+    [< | `Command | `Checkbox | `Radio] attr_wrap -> [> | `Command_Type] attrib
 
-  val a_menu_type : [< | `Context | `Toolbar] wrap -> [> | `Menu_Type] attrib
+  val a_menu_type : [< | `Context | `Toolbar] attr_wrap -> [> | `Menu_Type] attrib
 
-  val a_label : text wrap -> [> | `Label] attrib
+  val a_label : text attr_wrap -> [> | `Label] attrib
 
   val a_align :
-    [< | `Left | `Right | `Justify | `Char] wrap -> [> | `Align] attrib
+    [< | `Left | `Right | `Justify | `Char] attr_wrap -> [> | `Align] attrib
 
-  val a_axis : cdata wrap -> [> | `Axis] attrib
+  val a_axis : cdata attr_wrap -> [> | `Axis] attrib
 
-  val a_colspan : number wrap -> [> | `Colspan] attrib
+  val a_colspan : number attr_wrap -> [> | `Colspan] attrib
 
-  val a_headers : idrefs wrap -> [> | `Headers] attrib
+  val a_headers : idrefs attr_wrap -> [> | `Headers] attrib
 
-  val a_rowspan : number wrap -> [> | `Rowspan] attrib
+  val a_rowspan : number attr_wrap -> [> | `Rowspan] attrib
 
   val a_scope :
-    [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
+    [< | `Row | `Col | `Rowgroup | `Colgroup] attr_wrap -> [> | `Scope] attrib
 
-  val a_summary : text wrap -> [> | `Summary] attrib
+  val a_summary : text attr_wrap -> [> | `Summary] attrib
 
-  val a_border : pixels wrap -> [> | `Border] attrib
+  val a_border : pixels attr_wrap -> [> | `Border] attrib
 
-  val a_cellpadding : length wrap -> [> | `Cellpadding] attrib
+  val a_cellpadding : length attr_wrap -> [> | `Cellpadding] attrib
 
-  val a_cellspacing : length wrap -> [> | `Cellspacing] attrib
+  val a_cellspacing : length attr_wrap -> [> | `Cellspacing] attrib
 
-  val a_datapagesize : cdata wrap -> [> | `Datapagesize] attrib
+  val a_datapagesize : cdata attr_wrap -> [> | `Datapagesize] attrib
 
   val a_rules :
-    [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
+    [< | `None | `Groups | `Rows | `Cols | `All] attr_wrap -> [> | `Rules] attrib
 
-  val a_char : character wrap -> [> | `Char] attrib
+  val a_char : character attr_wrap -> [> | `Char] attrib
 
-  val a_charoff : length wrap -> [> | `Charoff] attrib
+  val a_charoff : length attr_wrap -> [> | `Charoff] attrib
 
-  val a_alt : text wrap -> [> | `Alt] attrib
+  val a_alt : text attr_wrap -> [> | `Alt] attrib
 
-  val a_height : number wrap -> [> | `Height] attrib
+  val a_height : number attr_wrap -> [> | `Height] attrib
 
-  val a_width : number wrap -> [> | `Width] attrib
+  val a_width : number attr_wrap -> [> | `Width] attrib
 
   type shape = [ | `Rect | `Circle | `Poly | `Default ]
 
-  val a_shape : shape wrap -> [> | `Shape] attrib
+  val a_shape : shape attr_wrap -> [> | `Shape] attrib
 
-  val a_coords : numbers wrap -> [> | `Coords] attrib
+  val a_coords : numbers attr_wrap -> [> | `Coords] attrib
 
-  val a_usemap : idref wrap -> [> | `Usemap] attrib
+  val a_usemap : idref attr_wrap -> [> | `Usemap] attrib
 
-  val a_data : Xml.uri wrap -> [> | `Data] attrib
+  val a_data : Xml.uri attr_wrap -> [> | `Data] attrib
 
-  val a_codetype : contenttype wrap -> [> | `Codetype] attrib
+  val a_codetype : contenttype attr_wrap -> [> | `Codetype] attrib
 
-  val a_fs_rows : multilengths wrap -> [> | `FS_Rows] attrib
+  val a_fs_rows : multilengths attr_wrap -> [> | `FS_Rows] attrib
 
-  val a_fs_cols : multilengths wrap -> [> | `FS_Cols] attrib
+  val a_fs_cols : multilengths attr_wrap -> [> | `FS_Cols] attrib
 
-  val a_frameborder : [< | `Zero | `One] wrap -> [> | `Frameborder] attrib
+  val a_frameborder : [< | `Zero | `One] attr_wrap -> [> | `Frameborder] attrib
 
-  val a_marginheight : pixels wrap -> [> | `Marginheight] attrib
+  val a_marginheight : pixels attr_wrap -> [> | `Marginheight] attrib
 
-  val a_marginwidth : pixels wrap -> [> | `Marginwidth] attrib
+  val a_marginwidth : pixels attr_wrap -> [> | `Marginwidth] attrib
 
-  val a_scrolling : [< | `Yes | `No | `Auto] wrap -> [> | `Scrolling] attrib
+  val a_scrolling : [< | `Yes | `No | `Auto] attr_wrap -> [> | `Scrolling] attrib
 
-  val a_target : frametarget wrap -> [> | `Target] attrib
+  val a_target : frametarget attr_wrap -> [> | `Target] attrib
 
-  val a_content : text wrap -> [> | `Content] attrib
+  val a_content : text attr_wrap -> [> | `Content] attrib
 
-  val a_http_equiv : text wrap -> [> | `Http_equiv] attrib
+  val a_http_equiv : text attr_wrap -> [> | `Http_equiv] attrib
 
-  val a_defer : [< | `Defer] wrap -> [> | `Defer] attrib
+  val a_defer : [< | `Defer] attr_wrap -> [> | `Defer] attrib
 
-  val a_media : mediadesc wrap -> [> | `Media] attrib
+  val a_media : mediadesc attr_wrap -> [> | `Media] attrib
 
-  val a_style : string wrap -> [> | `Style_Attr] attrib
+  val a_style : string attr_wrap -> [> | `Style_Attr] attrib
 
-  val a_property : string wrap -> [> | `Property] attrib
+  val a_property : string attr_wrap -> [> | `Property] attrib
 
   (** {1 Phantom types and XML elements} *)
 
@@ -710,7 +711,7 @@ module type T = sig
   val wbr : ([< | wbr_attrib], [> | wbr]) nullary
 
   val bdo :
-    dir: [< | `Ltr | `Rtl] wrap ->
+    dir: [< | `Ltr | `Rtl] attr_wrap ->
     ([< | common], [< | phrasing], [> | `Bdo]) star
 
   val abbr : ([< | abbr_attrib], [< | abbr_content_fun], [> | abbr]) star
@@ -771,8 +772,8 @@ module type T = sig
   (** {2 Embedded} *)
 
   val img :
-    src: Xml.uri wrap ->
-    alt: text wrap ->
+    src: Xml.uri attr_wrap ->
+    alt: text attr_wrap ->
     ([< img_attrib], [> img]) nullary
 
   val iframe : (*| `Srcdoc*)
@@ -826,12 +827,12 @@ module type T = sig
   (*   element descendants.             *)
   (**************************************)
   val audio :
-    ?src:Xml.uri wrap ->
+    ?src:Xml.uri attr_wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
 
   val video :
-    ?src:Xml.uri wrap ->
+    ?src:Xml.uri attr_wrap ->
     ?srcs: (([< | source] elt) list_wrap) ->
     ([< | video_attrib], 'a, [> 'a video]) star
 
@@ -848,7 +849,7 @@ module type T = sig
   (*   attribute is not present.  *)
   (********************************)
   val area :
-    alt: text wrap ->
+    alt: text attr_wrap ->
     ([<
       | common
       | `Alt
@@ -989,7 +990,7 @@ module type T = sig
       ]) -> ([< | common], [> | `Datalist]) nullary
 
   val optgroup :
-    label: text wrap  ->
+    label: text attr_wrap  ->
     ([< | common | `Disabled | `Label], [< | `Option], [> | `Optgroup]) star
 
   val option :
@@ -1011,7 +1012,7 @@ module type T = sig
 
   (** {2 Data} *)
 
-  val pcdata : string wrap -> [> | `PCDATA] elt
+  val pcdata : string attr_wrap -> [> | `PCDATA] elt
 
   val entity : string -> [> | `PCDATA] elt
 
@@ -1036,7 +1037,7 @@ module type T = sig
     ([< | summary_attrib], [< | summary_content_fun], [> | summary]) star
 
   val command :
-    label: text wrap ->
+    label: text attr_wrap ->
     ([<
       | common
       | `Icon
@@ -1110,8 +1111,8 @@ module type T = sig
   (** {2 Link} *)
 
   val link :
-    rel: linktypes wrap ->
-    href: Xml.uri wrap ->
+    rel: linktypes attr_wrap ->
+    href: Xml.uri attr_wrap ->
     ([<
       | common
       | `Hreflang
@@ -1143,7 +1144,7 @@ module type T = sig
     *)
 
     (** Insert raw text without any encoding *)
-    val data : string wrap -> 'a elt
+    val data : string attr_wrap -> 'a elt
 
     (** Insert an XML node that is not implemented in this module.
         If it is a standard HTML5 node which is missing,
@@ -1167,22 +1168,22 @@ module type T = sig
         If it is a standard HTML5 attribute which is missing,
         please report to the Ocsigen team.
     *)
-    val string_attrib : string -> string wrap -> 'a attrib
+    val string_attrib : string -> string attr_wrap -> 'a attrib
 
     (** Same, for float attribute *)
-    val float_attrib : string -> float wrap -> 'a attrib
+    val float_attrib : string -> float attr_wrap -> 'a attrib
 
     (** Same, for int attribute *)
-    val int_attrib : string -> int wrap -> 'a attrib
+    val int_attrib : string -> int attr_wrap -> 'a attrib
 
     (** Same, for URI attribute *)
-    val uri_attrib : string -> uri wrap -> 'a attrib
+    val uri_attrib : string -> uri attr_wrap -> 'a attrib
 
     (** Same, for a space separated list of values *)
-    val space_sep_attrib : string -> string list wrap -> 'a attrib
+    val space_sep_attrib : string -> string list attr_wrap -> 'a attrib
 
     (** Same, for a comma separated list of values *)
-    val comma_sep_attrib : string -> string list wrap -> 'a attrib
+    val comma_sep_attrib : string -> string list attr_wrap -> 'a attrib
 
   end
 
@@ -1243,6 +1244,7 @@ sig
   module type T = T
     with type 'a Xml.W.t = 'a Xml.W.t
      and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type 'a Xml.W.attr = 'a Xml.W.attr
      and type Xml.uri = Xml.uri
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler

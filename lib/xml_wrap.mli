@@ -18,22 +18,23 @@
 *)
 
 module type T = sig
-  type 'a t
-  val return : 'a -> 'a t
+  type 'a attr
+  val return : 'a -> 'a attr
 
   type (-'a, 'b) ft
-  val fmap : ('a, 'b) ft -> 'a t -> 'b t
+  val fmap : ('a, 'b) ft -> 'a attr -> 'b attr
 
+  type 'a t
   type 'a tlist
   val nil : unit -> 'a tlist
   val singleton : 'a t -> 'a tlist
   val cons : 'a t -> 'a tlist -> 'a tlist
   val append : 'a tlist -> 'a tlist -> 'a tlist
-  val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
 end
 
 module type NoWrap =
-  T with type 'a t = 'a
+  T with type 'a attr = 'a
+     and type 'a t = 'a
      and type 'a tlist = 'a list
      and type (-'a, 'b) ft = 'a -> 'b
 

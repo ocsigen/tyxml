@@ -24,6 +24,7 @@ module type T = sig
 
   type 'a wrap = 'a W.t
   type 'a list_wrap = 'a W.tlist
+  type 'a attr_wrap = 'a W.attr
 
   type uri
   val string_of_uri : uri -> string
@@ -36,16 +37,16 @@ module type T = sig
 
   type attrib
 
-  val float_attrib : aname -> float wrap -> attrib
-  val int_attrib : aname -> int wrap -> attrib
-  val string_attrib : aname -> string wrap -> attrib
-  val space_sep_attrib : aname -> string list wrap -> attrib
-  val comma_sep_attrib : aname -> string list wrap -> attrib
+  val float_attrib : aname -> float W.attr -> attrib
+  val int_attrib : aname -> int W.attr -> attrib
+  val string_attrib : aname -> string W.attr -> attrib
+  val space_sep_attrib : aname -> string list W.attr -> attrib
+  val comma_sep_attrib : aname -> string list W.attr -> attrib
   val event_handler_attrib : aname -> event_handler -> attrib
   val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
   val keyboard_event_handler_attrib : aname -> keyboard_event_handler -> attrib
-  val uri_attrib : aname -> uri wrap -> attrib
-  val uris_attrib : aname -> uri list wrap -> attrib
+  val uri_attrib : aname -> uri W.attr -> attrib
+  val uris_attrib : aname -> uri list W.attr -> attrib
 
   type elt
   type ename = string
@@ -53,8 +54,8 @@ module type T = sig
   val empty : unit -> elt
   val comment : string -> elt
 
-  val pcdata : string wrap -> elt
-  val encodedpcdata : string wrap -> elt
+  val pcdata : string W.attr -> elt
+  val encodedpcdata : string W.attr -> elt
   val entity : string -> elt
 
   val leaf : ?a:(attrib list) -> ename -> elt

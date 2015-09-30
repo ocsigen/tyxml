@@ -23,6 +23,7 @@
 
 type 'a wrap = 'a
 type 'a list_wrap = 'a list
+type 'a attr_wrap = 'a
 module W : Xml_wrap.NoWrap
 type uri = string
 val string_of_uri : uri -> string
