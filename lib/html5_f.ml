@@ -1020,7 +1020,7 @@ module Wrapped_functions = struct
     | None -> ""
 
   let string_of_step = function
-    | Some x -> string_of_float x
+    | Some x -> Xml_print.string_of_number x
     | None -> "any"
 
   let string_of_sizes = function
