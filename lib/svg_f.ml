@@ -1061,8 +1061,6 @@ module Wrapped_functions = struct
     | `Text_before_edge -> "textbeforeedge"
     | `Inherit -> "inherit"
 
-  let string_of_fourfloats (a, b, c, d) =
-    Printf.sprintf "%g %g %g %g" a b c d
 
   let string_of_in_value = function
     | `SourceGraphic -> "sourceGraphic"
@@ -1079,15 +1077,19 @@ module Wrapped_functions = struct
 
   let string_of_lengths = list string_of_length
 
-  let string_of_number = string_of_float
+  let string_of_number = Xml_print.string_of_number
+
+  let string_of_fourfloats (a, b, c, d) =
+    Printf.sprintf "%s %s %s %s"
+      (string_of_number a) (string_of_number b) (string_of_number c) (string_of_number d)
 
   let string_of_number_optional_number = function
     | x, Some y -> Printf.sprintf "%g, %g" x y
     | x, None -> Printf.sprintf "%g" x
 
-  let string_of_numbers = list string_of_float
+  let string_of_numbers = list string_of_number
 
-  let string_of_numbers_semicolon = list ~sep:"; " string_of_float
+  let string_of_numbers_semicolon = list ~sep:"; " string_of_number
 
   let string_of_offset = function
     | `Number x -> string_of_number x
