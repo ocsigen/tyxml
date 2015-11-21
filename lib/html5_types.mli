@@ -905,6 +905,7 @@ type core_flow5 =
     | `Figure
     | `Dl
     | `Details
+    | `Main
   ]
 
 type core_flow5_without_interactive =
@@ -1320,6 +1321,15 @@ type aside_content = [ | flow5 ]
 type aside_content_fun = [ | flow5 ]
 
 type aside_attrib = [ | common ]
+
+(* NAME: main, KIND: star, TYPE: [= common ], [= flow5 ], [=`Main], ARG: [= flow5 ], ATTRIB:  OUT: [=`Main] *)
+type main = [ | `Main ]
+
+type main_content = [ | flow5 ]
+
+type main_content_fun = [ | flow5 ]
+
+type main_attrib = [ | common ]
 
 (* NAME: p, KIND: star, TYPE: [= common ], [=phrasing ], [=`P], ARG: [=phrasing ], ATTRIB:  OUT: [=`P] *)
 type p = [ | `P ]

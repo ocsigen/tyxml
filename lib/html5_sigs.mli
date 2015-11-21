@@ -603,6 +603,9 @@ module type T = sig
   val aside :
     ([< | aside_attrib], [< | aside_content_fun], [> | aside]) star
 
+  val main :
+    ([< | main_attrib], [< | main_content_fun], [> | main]) star
+
   (** {2 Grouping content} *)
 
   val p : ([< | p_attrib], [< | p_content_fun], [> | p]) star

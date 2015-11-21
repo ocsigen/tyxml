@@ -661,6 +661,8 @@ struct
 
   let aside = star "aside"
 
+  let main = star "main"
+
   let video_audio name ?src ?srcs ?(a = []) elts =
     let a =
       match src with
