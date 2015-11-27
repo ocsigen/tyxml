@@ -905,6 +905,7 @@ type core_flow5 =
     | `Figure
     | `Dl
     | `Details
+    | `Main
   ]
 
 type core_flow5_without_interactive =
@@ -921,6 +922,7 @@ type core_flow5_without_interactive =
     | `Form
     | `Figure
     | `Dl
+    | `Main
   ]
 
 type core_flow5_without_noscript =
@@ -938,6 +940,7 @@ type core_flow5_without_noscript =
     | `Figure
     | `Dl
     | `Details
+    | `Main
   ]
 type core_flow5_without_media =
   [
@@ -954,7 +957,7 @@ type core_flow5_without_media =
     | `Figure
     | `Dl
     | `Details
-
+    | `Main
   ]
 
 type flow5_without_interactive =
@@ -997,6 +1000,7 @@ type flow5_without_table =
     | `Figure
     | `Dl
     | `Details
+    | `Main
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1021,6 +1025,7 @@ type flow5_without_interactive_header_footer =
     | `Form
     | `Figure
     | `Dl
+    | `Main
     | (flow5_without_noscript, flow5, flow5_without_media)
         transparent_without_interactive
   ]
@@ -1046,6 +1051,7 @@ type flow5_without_header_footer =
     | `Figure
     | `Dl
     | `Details
+    | `Main
     | (flow5_without_interactive_header_footer,
        flow5_without_noscript, flow5,
        flow5_without_media) transparent
@@ -1091,6 +1097,7 @@ type flow5_without_form =
     | `Figure
     | `Dl
     | `Details
+    | `Main
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1113,6 +1120,7 @@ type flow5_without_sectioning_heading_header_footer_address =
     | `Figure
     | `Dl
     | `Details
+    | `Main
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1320,6 +1328,15 @@ type aside_content = [ | flow5 ]
 type aside_content_fun = [ | flow5 ]
 
 type aside_attrib = [ | common ]
+
+(* NAME: main, KIND: star, TYPE: [= common ], [= flow5 ], [=`Main], ARG: [= flow5 ], ATTRIB:  OUT: [=`Main] *)
+type main = [ | `Main ]
+
+type main_content = [ | flow5 ]
+
+type main_content_fun = [ | flow5 ]
+
+type main_attrib = [ | common ]
 
 (* NAME: p, KIND: star, TYPE: [= common ], [=phrasing ], [=`P], ARG: [=phrasing ], ATTRIB:  OUT: [=`P] *)
 type p = [ | `P ]
