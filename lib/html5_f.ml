@@ -212,7 +212,7 @@ struct
 
   let a_accept_charset = space_sep_attrib "accept-charset"
 
-  let a_accept = space_sep_attrib "accept"
+  let a_accept = comma_sep_attrib "accept"
 
   let a_href = uri_attrib "href"
 
