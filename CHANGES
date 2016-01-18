@@ -1,4 +1,4 @@
-===== dev ====
+===== 3.6.0 ====
 
   * Improves and simplify the wrapping interface. Breaking change.
   * Add the possibility to specify converters, for constants functions.
