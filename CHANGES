@@ -1,3 +1,12 @@
+===== dev ====
+
+  * Improves and simplify the wrapping interface. Breaking change.
+  * Add the possibility to specify converters, for constants functions.
+    See also eliom's shared react.
+  * Fix printing of floating numbers.
+  * Add the main element.
+  * Fix the accept attribute.
+
 ===== 3.5.0 ====
 
   * Add Tyxml_name, which allows to derive tyxml identifiers from HTML
