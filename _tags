@@ -1,4 +1,39 @@
 # OASIS_START
+# DO NOT EDIT (digest: fa14ee70b6a48b09ce560d188d71cf18)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
+# useless stuff for the build process
+true: annot, bin_annot
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library tyxml
+"lib/tyxml.cmxs": use_tyxml
+<lib/*.ml{,i,y}>: pkg_str
+# Library tyxml_f
+"lib/tyxml_f.cmxs": use_tyxml_f
+<lib/*.ml{,i,y}>: pkg_uutf
+# Library tyxml_tools
+"tools/tyxml_tools.cmxs": use_tyxml_tools
+# Executable autoname
+"tools/autoname.byte": pkg_bytes
+"tools/autoname.byte": use_tyxml_tools
+<tools/*.ml{,i,y}>: pkg_bytes
+<tools/*.ml{,i,y}>: use_tyxml_tools
+# Library pa_tyxml
+"syntax/pa_tyxml.cmxs": use_pa_tyxml
+<syntax/*.ml{,i,y}>: pkg_camlp4
+# Library tymlx_p
+"syntax/tymlx_p.cmxs": use_tymlx_p
+<syntax/*.ml{,i,y}>: pkg_bytes
+<syntax/*.ml{,i,y}>: pkg_camlp4.lib
 # OASIS_STOP
 "syntax/basic_types.ml": camlp4rf
 "syntax/xhtmlparser.ml": camlp4rf
