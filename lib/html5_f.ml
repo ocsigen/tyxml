@@ -99,6 +99,9 @@ struct
   let mediadesc_attrib name x =
     user_attrib C.string_of_mediadesc name x
 
+  let srcset_attrib name x =
+    user_attrib C.string_of_srcset name x
+
   (* Core: *)
   let a_class = space_sep_attrib "class"
 
@@ -393,6 +396,8 @@ struct
 
   (*let a_srcdoc*)
   let a_srclang = string_attrib "xml:lang"
+
+  let a_srcset = srcset_attrib "srcset"
 
   let a_start = int_attrib "start"
 
@@ -1046,6 +1051,17 @@ module Wrapped_functions = struct
 
   let string_of_linktypes l =
     String.concat " " (List.map string_of_linktype l)
+
+  let string_of_srcset l =
+    let f = function
+    | `Img_cand_url url ->
+      Xml.string_of_uri url
+    | `Img_cand_width (url, v) ->
+      (Xml.string_of_uri url) ^ " " ^ (string_of_number v) ^ "w"
+    | `Img_cand_pixel (url, v) ->
+      (Xml.string_of_uri url) ^ " " ^ (string_of_float v) ^ "x"
+    in
+    String.concat ", " (List.map f l)
 
 end
 
