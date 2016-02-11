@@ -1054,12 +1054,12 @@ module Wrapped_functions = struct
 
   let string_of_srcset l =
     let f = function
-    | `Img_cand_url url ->
+    | `Url url ->
       Xml.string_of_uri url
-    | `Img_cand_width (url, v) ->
+    | `Url_width (url, v) ->
       (Xml.string_of_uri url) ^ " " ^ (string_of_number v) ^ "w"
-    | `Img_cand_pixel (url, v) ->
-      (Xml.string_of_uri url) ^ " " ^ (string_of_float v) ^ "x"
+    | `Url_pixel (url, v) ->
+      (Xml.string_of_uri url) ^ " " ^ (Xml_print.string_of_number v) ^ "x"
     in
     String.concat ", " (List.map f l)
 

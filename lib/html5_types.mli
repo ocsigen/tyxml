@@ -1757,9 +1757,9 @@ type embed_content_fun = notag
 type embed_attrib = [ | common | `Src | `Height | `Mime_type | `Width ]
 
 type image_candidate =
-  [ `Img_cand_url of Xml.uri
-  | `Img_cand_width of Xml.uri * number
-  | `Img_cand_pixel of Xml.uri * float_number ]
+  [ `Url of Xml.uri
+  | `Url_width of Xml.uri * number
+  | `Url_pixel of Xml.uri * float_number ]
 
 type img = [ `Img ]
 type img_interactive = [ `Img | `Img_interactive ]
