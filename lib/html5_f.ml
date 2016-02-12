@@ -1057,9 +1057,9 @@ module Wrapped_functions = struct
     | `Url url ->
       Xml.string_of_uri url
     | `Url_width (url, v) ->
-      (Xml.string_of_uri url) ^ " " ^ (string_of_number v) ^ "w"
+      Printf.sprintf "%s %sw" (Xml.string_of_uri url) (string_of_number v)
     | `Url_pixel (url, v) ->
-      (Xml.string_of_uri url) ^ " " ^ (Xml_print.string_of_number v) ^ "x"
+      Printf.sprintf "%s %sx" (Xml.string_of_uri url) (Xml_print.string_of_number v)
     in
     String.concat ", " (List.map f l)
 
