@@ -158,6 +158,8 @@ module type T = sig
   (** This attribute is deprecated, you should use {! a_xml_lang}. *)
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
 
+  val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
+
   val a_start : number wrap -> [> | `Start] attrib
 
   val a_step : float_number option wrap -> [> | `Step] attrib
@@ -1226,6 +1228,9 @@ module type Wrapped_functions = sig
 
   val string_of_sizes :
     ([< Html5_types.sizes], string) ft
+
+  val string_of_srcset :
+    ([< Html5_types.image_candidate] list, string) ft
 
   val string_of_step : (float option, string) ft
 
