@@ -160,6 +160,8 @@ module type T = sig
 
   val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
 
+  val a_src_sizes : text list wrap -> [> | `Src_sizes] attrib
+
   val a_start : number wrap -> [> | `Start] attrib
 
   val a_step : float_number option wrap -> [> | `Step] attrib

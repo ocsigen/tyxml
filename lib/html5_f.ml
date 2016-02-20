@@ -102,6 +102,8 @@ struct
   let srcset_attrib name x =
     user_attrib C.string_of_srcset name x
 
+  let src_sizes_attrib = comma_sep_attrib "sizes"
+
   (* Core: *)
   let a_class = space_sep_attrib "class"
 
@@ -398,6 +400,8 @@ struct
   let a_srclang = string_attrib "xml:lang"
 
   let a_srcset = srcset_attrib "srcset"
+
+  let a_src_sizes = comma_sep_attrib "sizes"
 
   let a_start = int_attrib "start"
 
