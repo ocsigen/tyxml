@@ -102,8 +102,6 @@ struct
   let srcset_attrib name x =
     user_attrib C.string_of_srcset name x
 
-  let img_sizes_attrib = comma_sep_attrib "sizes"
-
   (* Core: *)
   let a_class = space_sep_attrib "class"
 
