@@ -1953,14 +1953,14 @@ type legend_content_fun = [ | phrasing ]
 
 type legend_attrib = [ | common ]
 
-(* NAME: label, KIND: star, TYPE: [= common | `For | `Form ],[= phrasing_without_label], [=`Label], ARG: [= phrasing_without_label], ATTRIB:  OUT: [=`Label] *)
+(* NAME: label, KIND: star, TYPE: [= common | `Label_for | `Form ],[= phrasing_without_label], [=`Label], ARG: [= phrasing_without_label], ATTRIB:  OUT: [=`Label] *)
 type label = [ | `Label ]
 
 type label_content = [ | phrasing_without_label ]
 
 type label_content_fun = [ | phrasing_without_label ]
 
-type label_attrib = [ | common | `For | `Form ]
+type label_attrib = [ | common | `Label_for | `Form ]
 
 (* NAME: input, KIND: nullary, TYPE: [= input_attr ], [=`Input], ARG: notag, ATTRIB:  OUT: [=`Input] *)
 type input = [ | `Input ]
@@ -2117,14 +2117,14 @@ type meter_attrib =
   [ | common | `Float_Value | `Min | `Max | `Low | `High | `Optimum | `Form
   ]
 
-(* NAME: output_elt, KIND: star, TYPE: [= common |`Form |`For_List |`Name],[= phrasing ],[=`Output], ARG: [= phrasing ], ATTRIB:  OUT: [=`Output] *)
+(* NAME: output_elt, KIND: star, TYPE: [= common |`Form |`Output_for |`Name],[= phrasing ],[=`Output], ARG: [= phrasing ], ATTRIB:  OUT: [=`Output] *)
 type output_elt = [ | `Output ]
 
 type output_elt_content = [ | phrasing ]
 
 type output_elt_content_fun = [ | phrasing ]
 
-type output_elt_attrib = [ | common | `Form | `For_List | `Name ]
+type output_elt_attrib = [ | common | `Form | `Output_for | `Name ]
 
 (* NAME: details, KIND: star, TYPE: [= common | `Open ], [= flow5] elt, [= `Details], ARG: [= flow5] elt, ATTRIB:  OUT: [= `Details] *)
 type details = [ | `Details ]
