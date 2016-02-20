@@ -399,6 +399,8 @@ struct
 
   let a_srcset = srcset_attrib "srcset"
 
+  let a_img_sizes = comma_sep_attrib "sizes"
+
   let a_start = int_attrib "start"
 
   let a_step step =
