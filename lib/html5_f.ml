@@ -157,7 +157,7 @@ struct
   let a_onwaiting = Xml.event_handler_attrib "onwaiting"
   let a_onload = Xml.event_handler_attrib "onload"
   let a_onloadeddata = Xml.event_handler_attrib "onloadeddata"
-  let a_onloadedmetadata = Xml.event_handler_attrib ""
+  let a_onloadedmetadata = Xml.event_handler_attrib "onloadedmetadata"
   let a_onloadstart = Xml.event_handler_attrib "onloadstart"
   let a_onmessage = Xml.event_handler_attrib "onmessage"
   let a_onmousewheel = Xml.event_handler_attrib "onmousewheel"
