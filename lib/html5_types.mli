@@ -2263,8 +2263,6 @@ type big_variant =
   | `Checked
   | `Disabled
   | `ReadOnly
-  | `On
-  | `Off
   | `Async
   | `Autofocus
   | `Autoplay

@@ -277,7 +277,7 @@ struct
   let a_name = string_attrib "name"
 
   let a_autocomplete x =
-    user_attrib C.string_of_big_variant "autocomplete" x
+    user_attrib C.onoff_of_bool "autocomplete" x
 
   let a_async =
     constant_attrib "async"
@@ -913,8 +913,6 @@ module Wrapped_functions = struct
     | `Defer -> "defer"
     | `Disabled -> "disabled"
     | `Muted -> "muted"
-    | `Off -> "off"
-    | `On -> "on"
     | `ReadOnly -> "readonly"
     | `Rect -> "rect"
     | `Selected -> "selected"
@@ -1026,6 +1024,10 @@ module Wrapped_functions = struct
   let string_of_number = string_of_int
 
   let string_of_bool = string_of_bool
+
+  let onoff_of_bool = function
+    | false -> "off"
+    | true -> "on"
 
   let unoption_string = function
     | Some x -> x

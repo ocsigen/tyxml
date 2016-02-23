@@ -48,7 +48,7 @@ module type T = sig
       NB: It might be possible to use polymorphic variants directly, without
       phantom types, but the implementation is likely to be more involved. *)
 
-  val a_autocomplete : [< | `On | `Off] wrap -> [> | `Autocomplete] attrib
+  val a_autocomplete : bool wrap -> [> | `Autocomplete] attrib
 
   val a_async : [> | `Async] attrib
 
@@ -1196,6 +1196,8 @@ module type Wrapped_functions = sig
     ([< Html5_types.big_variant], string) ft
 
   val string_of_bool : (bool, string) ft
+
+  val onoff_of_bool : (bool, string) ft
 
   val string_of_character : (Html5_types.character, string) ft
 
