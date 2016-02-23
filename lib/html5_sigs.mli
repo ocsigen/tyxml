@@ -48,15 +48,15 @@ module type T = sig
       NB: It might be possible to use polymorphic variants directly, without
       phantom types, but the implementation is likely to be more involved. *)
 
-  val a_autocomplete : [< | `On | `Off] wrap -> [> | `Autocomplete] attrib
+  val a_autocomplete : bool wrap -> [> | `Autocomplete] attrib
 
-  val a_async : [< | `Async] wrap -> [> | `Async] attrib
+  val a_async : [> | `Async] attrib
 
-  val a_autofocus : [< | `Autofocus] wrap -> [> | `Autofocus] attrib
+  val a_autofocus : [> | `Autofocus] attrib
 
-  val a_autoplay : [< | `Autoplay] wrap -> [> | `Autoplay] attrib
+  val a_autoplay : [> | `Autoplay] attrib
 
-  val a_muted : [< | `Muted] wrap -> [> | `Muted] attrib
+  val a_muted : [> | `Muted] attrib
 
   val a_crossorigin :
     [< | `Anonymous | `Use_credentials ] wrap -> [> | `Crossorigin ] attrib
@@ -69,7 +69,7 @@ module type T = sig
 
   val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
 
-  val a_controls : [< | `Controls] wrap -> [> | `Controls] attrib
+  val a_controls : [> | `Controls] attrib
 
   val a_dir : [< | `Rtl | `Ltr] wrap -> [> | `Dir] attrib
 
@@ -84,24 +84,23 @@ module type T = sig
   val a_formmethod :
     [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Formmethod] attrib
 
-  val a_formnovalidate :
-    [< | `Formnovalidate] wrap -> [> | `Formnovalidate] attrib
+  val a_formnovalidate : [> | `Formnovalidate] attrib
 
   val a_formtarget : text wrap -> [> | `Formtarget] attrib
 
-  val a_hidden : [< | `Hidden] wrap -> [> | `Hidden] attrib
+  val a_hidden : [> | `Hidden] attrib
 
   val a_high : float_number wrap -> [> | `High] attrib
 
   val a_icon : Xml.uri wrap -> [> | `Icon] attrib
 
-  val a_ismap : [< | `Ismap] wrap -> [> | `Ismap] attrib
+  val a_ismap : [> | `Ismap] attrib
 
   val a_keytype : text wrap -> [> | `Keytype] attrib
 
   val a_list : idref wrap -> [> | `List] attrib
 
-  val a_loop : [< | `Loop] wrap -> [> | `Loop] attrib
+  val a_loop : [> | `Loop] attrib
 
   val a_low : float_number wrap -> [> | `High] attrib
 
@@ -113,9 +112,9 @@ module type T = sig
 
   val a_input_min : float_number wrap -> [> | `Input_Min] attrib
 
-  val a_novalidate : [< | `Novalidate] wrap -> [> | `Novalidate] attrib
+  val a_novalidate : [> | `Novalidate] attrib
 
-  val a_open : [< | `Open] wrap -> [> | `Open] attrib
+  val a_open : [> | `Open] attrib
 
   val a_optimum : float_number wrap -> [> | `Optimum] attrib
 
@@ -127,21 +126,21 @@ module type T = sig
 
   val a_preload : [< | `None | `Metadata | `Audio] wrap -> [> | `Preload] attrib
 
-  val a_pubdate : [< | `Pubdate] wrap -> [> | `Pubdate] attrib
+  val a_pubdate : [> | `Pubdate] attrib
 
   val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
 
-  val a_required : [< | `Required] wrap -> [> | `Required] attrib
+  val a_required : [> | `Required] attrib
 
-  val a_reversed : [< | `Reversed] wrap -> [> | `Reversed] attrib
+  val a_reversed : [> | `Reversed] attrib
 
   val a_sandbox : [< | sandbox_token ] list wrap -> [> | `Sandbox] attrib
 
   val a_spellcheck : bool wrap -> [> | `Spellcheck] attrib
 
-  val a_scoped : [< | `Scoped] wrap -> [> | `Scoped] attrib
+  val a_scoped : [> | `Scoped] attrib
 
-  val a_seamless : [< | `Seamless] wrap -> [> | `Seamless] attrib
+  val a_seamless : [> | `Seamless] attrib
 
   val a_sizes : [< | `Sizes of (number * number) list | `Any] wrap -> [> | `Sizes] attrib
 
@@ -343,7 +342,7 @@ module type T = sig
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
 
-  val a_checked : [< | `Checked] wrap -> [> | `Checked] attrib
+  val a_checked : [> | `Checked] attrib
   (** When the [type] attribute has the value ["radio"] or
       ["checkbox"], this boolean attribute specifies that the
       button is on. User agents must ignore this attribute for
@@ -369,7 +368,7 @@ module type T = sig
   val a_method :
     [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
 
-  val a_multiple : [< | `Multiple] wrap -> [> | `Multiple] attrib
+  val a_multiple : [> | `Multiple] attrib
 
   val a_name : text wrap -> [> | `Name] attrib
   (** This attribute assigns the control name. *)
@@ -381,7 +380,7 @@ module type T = sig
       the contents of the control when the contents extend beyond
       the visible area. *)
 
-  val a_selected : [< | `Selected] wrap -> [> | `Selected] attrib
+  val a_selected : [> | `Selected] attrib
   (** When set, this boolean attribute specifies that
       this option is pre-selected. *)
 
@@ -426,9 +425,9 @@ module type T = sig
 
   val a_float_value : float_number wrap -> [> | `Float_Value] attrib
 
-  val a_disabled : [< | `Disabled] wrap -> [> | `Disabled] attrib
+  val a_disabled : [> | `Disabled] attrib
 
-  val a_readonly : [< | `ReadOnly] wrap -> [> | `ReadOnly] attrib
+  val a_readonly : [> | `ReadOnly] attrib
   val a_button_type :
     [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
 
@@ -506,7 +505,7 @@ module type T = sig
 
   val a_http_equiv : text wrap -> [> | `Http_equiv] attrib
 
-  val a_defer : [< | `Defer] wrap -> [> | `Defer] attrib
+  val a_defer :[> | `Defer] attrib
 
   val a_media : mediadesc wrap -> [> | `Media] attrib
 
@@ -1197,6 +1196,8 @@ module type Wrapped_functions = sig
     ([< Html5_types.big_variant], string) ft
 
   val string_of_bool : (bool, string) ft
+
+  val onoff_of_bool : (bool, string) ft
 
   val string_of_character : (Html5_types.character, string) ft
 

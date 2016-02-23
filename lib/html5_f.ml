@@ -87,6 +87,9 @@ struct
 
   let bool_attrib = user_attrib C.string_of_bool
 
+  let constant_attrib a =
+    string_attrib a (W.return a)
+
   (* space-separated *)
   let length_attrib = user_attrib C.string_of_multilength
 
@@ -242,8 +245,8 @@ struct
 
   let a_for_list = space_sep_attrib "for"
 
-  let a_selected x =
-    user_attrib C.string_of_big_variant "selected" x
+  let a_selected =
+    constant_attrib "selected"
 
   let a_text_value = string_attrib "value"
 
@@ -260,33 +263,33 @@ struct
 
   let a_enctype = string_attrib "enctype"
 
-  let a_checked x =
-    user_attrib C.string_of_big_variant "checked" x
+  let a_checked =
+    constant_attrib "checked"
 
-  let a_disabled x =
-    user_attrib C.string_of_big_variant "disabled" x
+  let a_disabled =
+    constant_attrib "disabled"
 
-  let a_readonly x =
-    user_attrib C.string_of_big_variant "readonly" x
+  let a_readonly =
+    constant_attrib "readonly"
 
   let a_maxlength = int_attrib "maxlength"
 
   let a_name = string_attrib "name"
 
   let a_autocomplete x =
-    user_attrib C.string_of_big_variant "autocomplete" x
+    user_attrib C.onoff_of_bool "autocomplete" x
 
-  let a_async x =
-    user_attrib C.string_of_big_variant "async" x
+  let a_async =
+    constant_attrib "async"
 
-  let a_autofocus x =
-    user_attrib C.string_of_big_variant "autofocus" x
+  let a_autofocus =
+    constant_attrib "autofocus"
 
-  let a_autoplay x =
-    user_attrib C.string_of_big_variant "autoplay" x
+  let a_autoplay =
+    constant_attrib "autoplay"
 
-  let a_muted x =
-    user_attrib C.string_of_big_variant "muted" x
+  let a_muted =
+    constant_attrib "muted"
 
   let a_crossorigin x =
     user_attrib C.string_of_big_variant "crossorigin" x
@@ -300,8 +303,8 @@ struct
 
   let a_contextmenu = string_attrib "contextmenu"
 
-  let a_controls x =
-    user_attrib C.string_of_big_variant "controls" x
+  let a_controls =
+    constant_attrib "controls"
 
   let a_dir x =
     user_attrib C.string_of_big_variant "dir" x
@@ -317,27 +320,27 @@ struct
 
   let a_formmethod = a_method
 
-  let a_formnovalidate x =
-    user_attrib C.string_of_big_variant "formnovalidate" x
+  let a_formnovalidate =
+    constant_attrib "formnovalidate"
 
   let a_formtarget = string_attrib "formtarget"
 
-  let a_hidden x =
-    user_attrib C.string_of_big_variant "hidden" x
+  let a_hidden =
+    constant_attrib "hidden"
 
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
 
-  let a_ismap x =
-    user_attrib C.string_of_big_variant "ismap" x
+  let a_ismap =
+    constant_attrib "ismap"
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
 
-  let a_loop x =
-    user_attrib C.string_of_big_variant "loop" x
+  let a_loop =
+    constant_attrib "loop"
 
   let a_low = float_attrib "low"
 
@@ -349,11 +352,11 @@ struct
 
   let a_input_min = float_attrib "min"
 
-  let a_novalidate x =
-    user_attrib C.string_of_big_variant "novalidate" x
+  let a_novalidate =
+    constant_attrib "novalidate"
 
-  let a_open x =
-    user_attrib C.string_of_big_variant "open" x
+  let a_open =
+    constant_attrib "open"
 
   let a_optimum = float_attrib "optimum"
 
@@ -366,16 +369,16 @@ struct
   let a_preload x =
     user_attrib C.string_of_big_variant "preload" x
 
-  let a_pubdate x =
-    user_attrib C.string_of_big_variant "pubdate" x
+  let a_pubdate =
+    constant_attrib "pubdate"
 
   let a_radiogroup = string_attrib "radiogroup"
 
-  let a_required x =
-    user_attrib C.string_of_big_variant "required" x
+  let a_required =
+    constant_attrib "required"
 
-  let a_reversed x =
-    user_attrib C.string_of_big_variant "reserved" x
+  let a_reversed =
+    constant_attrib "reserved"
 
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
@@ -383,11 +386,11 @@ struct
   let a_spellcheck sc =
     bool_attrib "spellcheck" sc
 
-  let a_scoped x =
-    user_attrib C.string_of_big_variant "scoped" x
+  let a_scoped =
+    constant_attrib "scoped"
 
-  let a_seamless x =
-    user_attrib C.string_of_big_variant "seamless" x
+  let a_seamless =
+    constant_attrib "seamless"
 
   let a_sizes sizes =
     user_attrib C.string_of_sizes "sizes" sizes
@@ -423,8 +426,8 @@ struct
   let a_button_type bt =
     user_attrib C.string_of_input_type "type" bt
 
-  let a_multiple x =
-    user_attrib C.string_of_big_variant "multiple" x
+  let a_multiple =
+    constant_attrib "multiple"
 
   let a_cols = int_attrib "cols"
 
@@ -647,8 +650,8 @@ struct
 
   let a_usemap = string_attrib "usemap"
 
-  let a_defer x =
-    user_attrib C.string_of_big_variant "defer" x
+  let a_defer =
+    constant_attrib "defer"
 
   let a_label = string_attrib "label"
 
@@ -910,8 +913,6 @@ module Wrapped_functions = struct
     | `Defer -> "defer"
     | `Disabled -> "disabled"
     | `Muted -> "muted"
-    | `Off -> "off"
-    | `On -> "on"
     | `ReadOnly -> "readonly"
     | `Rect -> "rect"
     | `Selected -> "selected"
@@ -1023,6 +1024,10 @@ module Wrapped_functions = struct
   let string_of_number = string_of_int
 
   let string_of_bool = string_of_bool
+
+  let onoff_of_bool = function
+    | false -> "off"
+    | true -> "on"
 
   let unoption_string = function
     | Some x -> x
