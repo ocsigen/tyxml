@@ -1825,12 +1825,12 @@ type vkern = [ | `Vkern ]
 (* nullary *)
 type vkern_attr = [ | core_attr | `U1 | `G1 | `U2 | `G2 | `K ]
 
-type fontface = [ | `Font_Face ]
+type font_face = [ | `Font_Face ]
 
 (* nullary *)
-type fontface_content = [ | descriptive_element | `Font_Face_Src ]
+type font_face_content = [ | descriptive_element | `Font_Face_Src ]
 
-type fontface_attr =
+type font_face_attr =
   [
     | core_attr
     | `Font_Family
@@ -1868,29 +1868,29 @@ type fontface_attr =
     | `OverlineThickness
   ]
 
-type fontfacesrc = [ | `Font_Face_Src ]
+(* star *)
+type font_face_src = [ | `Font_Face_Src ]
+
+type font_face_src_content = [ | `Font_Face_Name | `Font_Face_Uri ]
+
+type font_face_src_attr = core_attr
 
 (* star *)
-type fontfacesrc_content = [ | `Font_Face_Name | `Font_Face_Uri ]
+type font_face_uri = [ | `Font_Face_Uri ]
 
-type fontfacesrc_attr = core_attr
+type font_face_uri_content = [ | `Font_Face_Format ]
 
-type fontfaceuri = [ | `Font_Face_Uri ]
-
-(* star *)
-type fontfaceuri_content = [ | `Font_Face_Format ]
-
-type fontfaceuri_attr = [ | core_attr | xlink_attr | `Xlink_href ]
-
-type fontfaceformat = [ | `Font_Face_Format ]
+type font_face_uri_attr = [ | core_attr | xlink_attr | `Xlink_href ]
 
 (* nullary *)
-type fontfaceformat_attr = [ | core_attr | `String ]
+type font_face_format = [ | `Font_Face_Format ]
 
-type fontfacename = [ | `Font_Face_Name ]
+type font_face_format_attr = [ | core_attr | `String ]
 
 (* nullary *)
-type fontfacename_attr = [ | core_attr | `Name ]
+type font_face_name = [ | `Font_Face_Name ]
+
+type font_face_name_attr = [ | core_attr | `Name ]
 
 type metadata = [ | `Metadata ]
 

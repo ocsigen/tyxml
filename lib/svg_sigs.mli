@@ -806,20 +806,20 @@ module type T = sig
 
   val vkern : ([< | vkern_attr], [> | vkern]) nullary
 
-  val fontface : ([< | fontface_attr], [> | fontface]) nullary
+  val font_face : ([< | font_face_attr], [> | font_face]) nullary
 
-  val fontfacesrc :
-    ([< | fontfacesrc_attr], [< | fontfacesrc_content], [> | fontfacesrc])
+  val font_face_src :
+    ([< | font_face_src_attr], [< | font_face_src_content], [> | font_face_src])
       star
 
-  val fontfaceuri :
-    ([< | fontfaceuri_attr], [< | fontfaceuri_content], [> | fontfaceuri])
+  val font_face_uri :
+    ([< | font_face_uri_attr], [< | font_face_uri_content], [> | font_face_uri])
       star
 
-  val fontfaceformat :
-    ([< | fontfaceformat_attr], [> | fontfaceformat]) nullary
+  val font_face_format :
+    ([< | font_face_format_attr], [> | font_face_format]) nullary
 
-  val fontfacename : ([< | fontfacename_attr], [> | fontfacename]) nullary
+  val font_face_name : ([< | font_face_name_attr], [> | font_face_name]) nullary
 
   val tot : Xml.elt -> 'a elt
 

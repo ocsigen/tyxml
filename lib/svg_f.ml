@@ -886,15 +886,15 @@ struct
 
   let vkern = nullary "vkern"
 
-  let fontface = nullary "fontFace"
+  let font_face = nullary "font-face"
 
-  let fontfacesrc = star "font-face-src"
+  let font_face_src = star "font-face-src"
 
-  let fontfaceuri = star "font-face-uri"
+  let font_face_uri = star "font-face-uri"
 
-  let fontfaceformat = nullary "font-face-uri"
+  let font_face_format = nullary "font-face-uri"
 
-  let fontfacename = nullary "font-face-name"
+  let font_face_name = nullary "font-face-name"
 
   type doc = [ `Svg ] elt
   let doc_toelt x = x
