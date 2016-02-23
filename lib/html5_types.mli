@@ -2322,12 +2322,12 @@ type big_variant =
   ]
 
 type sandbox_token =
-  [ `AllowForms
-  | `AllowPointerLock
-  | `AllowPopups
-  | `AllowTopNavigation
-  | `AllowSameOrigin
-  | `AllowScript ]
+  [ `Allow_forms
+  | `Allow_pointer_lock
+  | `Allow_popups
+  | `Allow_top_navigation
+  | `Allow_same_origin
+  | `Allow_script ]
 
 
 type input_type =

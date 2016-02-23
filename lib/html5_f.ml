@@ -848,12 +848,12 @@ module Wrapped_functions = struct
   type ('a, 'b) ft = 'a -> 'b
 
   let string_of_sandbox_token = function
-    | `AllowForms -> "allow-forms"
-    | `AllowPointerLock -> "allow-pointer-lock"
-    | `AllowPopups -> "allow-popups"
-    | `AllowTopNavigation -> "allow-top-navigation"
-    | `AllowSameOrigin -> "allow-same-origin"
-    | `AllowScript -> "allow-script"
+    | `Allow_forms -> "allow-forms"
+    | `Allow_pointer_lock -> "allow-pointer-lock"
+    | `Allow_popups -> "allow-popups"
+    | `Allow_top_navigation -> "allow-top-navigation"
+    | `Allow_same_origin -> "allow-same-origin"
+    | `Allow_script -> "allow-script"
 
   let string_of_multilength = function
     | `Percent p -> (string_of_int p) ^ "%"
