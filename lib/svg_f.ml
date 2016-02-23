@@ -210,14 +210,14 @@ struct
 
   let metadata ?a children = Xml.node ?a "metadata" children
 
-  let foreignobject ?a children = Xml.node ?a "foreignObject" children
+  let foreignObject ?a children = Xml.node ?a "foreignObject" children
 
   let pcdata s = Xml.pcdata s
 
   (* generated *)
   let a_version = string_attrib "version"
 
-  let a_baseprofile = string_attrib "baseProfile"
+  let a_baseProfile = string_attrib "baseProfile"
 
   let a_x = user_attrib string_of_coord "x"
 
@@ -227,29 +227,29 @@ struct
 
   let a_height = user_attrib string_of_length "height"
 
-  let a_preserveaspectratio =
+  let a_preserveAspectRatio =
     string_attrib "preserveAspectRatio"
 
-  let a_contentscripttype =
+  let a_contentScriptType =
     string_attrib "contentScriptType"
 
-  let a_contentstyletype = string_attrib "contentStyleType"
+  let a_contentStyleType = string_attrib "contentStyleType"
 
   let a_zoomAndPan x =
     user_attrib C.string_of_big_variant "zoomAndSpan" x
 
   let a_xlink_href = string_attrib "xlink:href"
 
-  let a_requiredfeatures =
+  let a_requiredFeatures =
     Xml.space_sep_attrib "requiredFeatures"
 
-  let a_requiredextensions =
+  let a_requiredExtensions =
     Xml.space_sep_attrib "requiredExtension"
 
-  let a_systemlanguage =
+  let a_systemLanguage =
     Xml.comma_sep_attrib "systemLanguage"
 
-  let a_externalressourcesrequired =
+  let a_externalRessourcesRequired =
     user_attrib C.string_of_bool "externalRessourcesRequired"
 
   let a_id = string_attrib "id"
@@ -273,11 +273,11 @@ struct
 
   let a_transform = user_attrib C.string_of_transform "transform"
 
-  let a_viewbox = user_attrib C.string_of_fourfloats "viewBox"
+  let a_viewBox = user_attrib C.string_of_fourfloats "viewBox"
 
   let a_d = string_attrib "d"
 
-  let a_pathlength = number_attrib "pathLength"
+  let a_pathLength = number_attrib "pathLength"
 
   let a_rx = user_attrib string_of_length "rx"
 
@@ -311,10 +311,10 @@ struct
 
   let a_dy_list = user_attrib string_of_lengths "dy"
 
-  let a_lengthadjust x =
+  let a_lengthAdjust x =
     user_attrib C.string_of_big_variant "lengthAdjust" x
 
-  let a_textlength = user_attrib string_of_length "textLength"
+  let a_textLength = user_attrib string_of_length "textLength"
 
   let a_text_anchor x =
     user_attrib C.string_of_big_variant "text-anchor" x
@@ -327,7 +327,7 @@ struct
 
   let a_rotate = user_attrib C.string_of_numbers "rotate"
 
-  let a_startoffset = user_attrib string_of_length "startOffset"
+  let a_startOffset = user_attrib string_of_length "startOffset"
 
   let a_method x =
     user_attrib C.string_of_big_variant "method" x
@@ -335,36 +335,36 @@ struct
   let a_spacing x =
     user_attrib C.string_of_big_variant "spacing" x
 
-  let a_glyphref = string_attrib "glyphRef"
+  let a_glyphRef = string_attrib "glyphRef"
 
   let a_format = string_attrib "format"
 
-  let a_markerunits x =
+  let a_markerUnits x =
     user_attrib C.string_of_big_variant "markerUnits" x
 
-  let a_refx = user_attrib string_of_coord "refX"
+  let a_refX = user_attrib string_of_coord "refX"
 
-  let a_refy = user_attrib string_of_coord "refY"
+  let a_refY = user_attrib string_of_coord "refY"
 
-  let a_markerwidth = user_attrib string_of_length "markerWidth"
+  let a_markerWidth = user_attrib string_of_length "markerWidth"
 
-  let a_markerheight = user_attrib string_of_length "markerHeight"
+  let a_markerHeight = user_attrib string_of_length "markerHeight"
 
   let a_orient x =
     user_attrib C.string_of_orient "orient" x
 
   let a_local = string_attrib "local"
 
-  let a_renderingindent x =
-    user_attrib C.string_of_big_variant "rendering:indent" x
+  let a_rendering_intent x =
+    user_attrib C.string_of_big_variant "rendering-intent" x
 
-  let a_gradientunits x =
+  let a_gradientUnits x =
     user_attrib C.string_of_big_variant "gradientUnits" x
 
-  let a_gradienttransform =
-    user_attrib C.string_of_transforms "gradient:transform"
+  let a_gradientTransform =
+    user_attrib C.string_of_transforms "gradientTransform"
 
-  let a_spreadmethod x =
+  let a_spreadMethod x =
     user_attrib C.string_of_big_variant "spreadMethod" x
 
   let a_fx = user_attrib string_of_coord "fx"
@@ -374,28 +374,28 @@ struct
   let a_offset x =
     user_attrib C.string_of_offset "offset" x
 
-  let a_patternunits x =
+  let a_patternUnits x =
     user_attrib C.string_of_big_variant "patternUnits" x
 
-  let a_patterncontentunits x =
+  let a_patternContentUnits x =
     user_attrib C.string_of_big_variant "patternContentUnits" x
 
-  let a_patterntransform x =
+  let a_patternTransform x =
     user_attrib C.string_of_transforms "patternTransform" x
 
-  let a_clippathunits x =
+  let a_clipPathUnits x =
     user_attrib C.string_of_big_variant "clipPathUnits" x
 
-  let a_maskunits x =
+  let a_maskUnits x =
     user_attrib C.string_of_big_variant "maskUnits" x
 
-  let a_maskcontentunits x =
+  let a_maskContentUnits x =
     user_attrib C.string_of_big_variant "maskContentUnits" x
 
-  let a_primitiveunits x =
+  let a_primitiveUnits x =
     user_attrib C.string_of_big_variant "primitiveUnits" x
 
-  let a_filterres =
+  let a_filterRes =
     user_attrib C.string_of_number_optional_number "filterResUnits"
 
   let a_result = string_attrib "result"
@@ -406,34 +406,34 @@ struct
   let a_in2 x =
     user_attrib C.string_of_in_value "in2" x
 
-  let a_aizmuth = number_attrib "azimuth"
+  let a_azimuth = number_attrib "azimuth"
 
   let a_elevation = number_attrib "elevation"
 
-  let a_pointatx = number_attrib "pointsAtX"
+  let a_pointsAtX = number_attrib "pointsAtX"
 
-  let a_pointaty = number_attrib "pointsAtY"
+  let a_pointsAtY = number_attrib "pointsAtY"
 
-  let a_pointatz = number_attrib "pointsAtZ"
+  let a_pointsAtZ = number_attrib "pointsAtZ"
 
-  let a_specularexponent = number_attrib "specularExponent"
+  let a_specularExponent = number_attrib "specularExponent"
 
-  let a_specularconstant = number_attrib "specularConstant"
+  let a_specularConstant = number_attrib "specularConstant"
 
-  let a_limitingconeangle = number_attrib "limitingConeAngle"
+  let a_limitingConeAngle = number_attrib "limitingConeAngle"
 
   let a_mode x =
     user_attrib C.string_of_big_variant "mode" x
 
-  let a_typefecolor x =
+  let a_feColorMatrix_type x =
     user_attrib C.string_of_big_variant "type" x
 
   let a_values = user_attrib C.string_of_numbers "values"
 
-  let a_transferttype x =
+  let a_type_transfer x =
     user_attrib C.string_of_big_variant "type" x
 
-  let a_tablevalues = user_attrib C.string_of_numbers "tableValues"
+  let a_tableValues = user_attrib C.string_of_numbers "tableValues"
 
   let a_intercept = user_attrib C.string_of_number "intercept"
 
@@ -441,7 +441,7 @@ struct
 
   let a_exponent = user_attrib C.string_of_number "exponent"
 
-  let a_offsettransfer = user_attrib C.string_of_number "offset"
+  let a_offset_transfer = user_attrib C.string_of_number "offset"
 
   let a_operator x =
     user_attrib C.string_of_big_variant "operator" x
@@ -456,71 +456,71 @@ struct
 
   let a_order = user_attrib C.string_of_number_optional_number "order"
 
-  let a_kernelmatrix = user_attrib C.string_of_numbers "kernelMatrix"
+  let a_kernelMatrix = user_attrib C.string_of_numbers "kernelMatrix"
 
   let a_divisor = user_attrib C.string_of_number "divisor"
 
   let a_bias = user_attrib C.string_of_number "bias"
 
-  let a_kernelunitlength =
+  let a_kernelUnitLength =
     user_attrib C.string_of_number_optional_number "kernelUnitLength"
 
   let a_targetX = user_attrib C.string_of_int "targetX"
 
   let a_targetY = user_attrib C.string_of_int "targetY"
 
-  let a_edgemode x =
+  let a_edgeMode x =
     user_attrib C.string_of_big_variant "targetY" x
 
-  let a_preservealpha = user_attrib C.string_of_bool "targetY"
+  let a_preserveAlpha = user_attrib C.string_of_bool "preserveAlpha"
 
-  let a_surfacescale = user_attrib C.string_of_number "surfaceScale"
+  let a_surfaceScale = user_attrib C.string_of_number "surfaceScale"
 
-  let a_diffuseconstant =
+  let a_diffuseConstant =
     user_attrib C.string_of_number "diffuseConstant"
 
   let a_scale = user_attrib C.string_of_number "scale"
 
-  let a_xchannelselector x =
+  let a_xChannelSelector x =
     user_attrib C.string_of_big_variant "xChannelSelector" x
 
-  let a_ychannelselector x =
+  let a_yChannelSelector x =
     user_attrib C.string_of_big_variant "yChannelSelector" x
 
-  let a_stddeviation =
+  let a_stdDeviation =
     user_attrib C.string_of_number_optional_number "stdDeviation"
 
-  let a_operatormorphology x =
-    user_attrib C.string_of_big_variant "operatorMorphology" x
+  let a_feMorphology_operator x =
+    user_attrib C.string_of_big_variant "operator" x
 
   let a_radius = user_attrib C.string_of_number_optional_number "radius"
 
-  let a_basefrenquency =
+  let a_baseFrenquency =
     user_attrib C.string_of_number_optional_number "baseFrequency"
 
-  let a_numoctaves = user_attrib C.string_of_int "numOctaves"
+  let a_numOctaves = user_attrib C.string_of_int "numOctaves"
 
   let a_seed = user_attrib C.string_of_number "seed"
 
-  let a_stitchtiles x =
+  let a_stitchTiles x =
     user_attrib C.string_of_big_variant "stitchTiles" x
 
-  let a_stitchtype x =
-    user_attrib C.string_of_big_variant "typeStitch" x
+  let a_feTurbulence_type x =
+    user_attrib C.string_of_big_variant "type" x
 
-  let a_xlinkshow x =
+  let a_xlink_show x =
     user_attrib C.string_of_big_variant "xlink:show" x
 
-  let a_xlinkactuate x =
+  let a_xlink_actuate x =
     user_attrib C.string_of_big_variant "xlink:actuate" x
 
   let a_target = string_attrib "xlink:target"
 
-  let a_viewtarget = string_attrib "viewTarget"
+  let a_viewTarget = string_attrib "viewTarget"
 
-  let a_attributename = string_attrib "attributeName"
+  let a_attributeName = string_attrib "attributeName"
 
-  let a_attributetype x =
+  let a_attributeType x =
     user_attrib C.string_of_big_variant "attributeType" x
 
   let a_begin = string_attrib "begin"
@@ -534,23 +534,23 @@ struct
   let a_restart x =
     user_attrib C.string_of_big_variant "restart" x
 
-  let a_repeatcount = string_attrib "repeatCount"
+  let a_repeatCount = string_attrib "repeatCount"
 
-  let a_repeatdur = string_attrib "repeatDur"
+  let a_repeatDur = string_attrib "repeatDur"
 
   let a_fill = user_attrib C.string_of_paint "fill"
 
-  let a_fill_animation x =
+  let a_animation_fill x =
     user_attrib C.string_of_big_variant "fill" x
 
-  let a_calcmode x =
+  let a_calcMode x =
     user_attrib C.string_of_big_variant "calcMode" x
 
-  let a_values_anim = Xml.comma_sep_attrib "values"
+  let a_animation_values = Xml.comma_sep_attrib "values"
 
-  let a_keytimes = Xml.comma_sep_attrib "keyTimes"
+  let a_keyTimes = Xml.comma_sep_attrib "keyTimes"
 
-  let a_keysplines = Xml.comma_sep_attrib "keySplines"
+  let a_keySplines = Xml.comma_sep_attrib "keySplines"
 
   let a_from = string_attrib "from"
 
@@ -564,11 +564,11 @@ struct
   let a_accumulate x =
     user_attrib C.string_of_big_variant "accumulate" x
 
-  let a_keypoints = user_attrib C.string_of_numbers_semicolon "keyPoints"
+  let a_keyPoints = user_attrib C.string_of_numbers_semicolon "keyPoints"
 
   let a_path = string_attrib "path"
 
-  let a_typeanimatecolor =
+  let a_animateColor_type =
     user_attrib C.string_of_big_variant "type"
 
   let a_horiz_origin_x = user_attrib C.string_of_number "horiz-origin-x"
@@ -585,12 +585,12 @@ struct
 
   let a_unicode = string_attrib "unicode"
 
-  let a_glyphname = string_attrib "glyphname"
+  let a_glyph_name = string_attrib "glyphname"
 
   let a_orientation x =
     user_attrib C.string_of_big_variant "orientation" x
 
-  let a_arabicform x =
+  let a_arabic_form x =
     user_attrib C.string_of_big_variant "arabic-form" x
 
   let a_lang = string_attrib "lang"
@@ -605,21 +605,21 @@ struct
 
   let a_k = string_attrib "k"
 
-  let a_fontfamily = string_attrib "font-family"
+  let a_font_family = string_attrib "font-family"
 
-  let a_fontstyle = string_attrib "font-style"
+  let a_font_style = string_attrib "font-style"
 
-  let a_fontvariant = string_attrib "font-variant"
+  let a_font_variant = string_attrib "font-variant"
 
-  let a_fontweight = string_attrib "font-weight"
+  let a_font_weight = string_attrib "font-weight"
 
-  let a_fontstretch = string_attrib "font-stretch"
+  let a_font_stretch = string_attrib "font-stretch"
 
-  let a_fontsize = string_attrib "font-size"
+  let a_font_size = string_attrib "font-size"
 
-  let a_unicoderange = string_attrib "unicode-range"
+  let a_unicode_range = string_attrib "unicode-range"
 
-  let a_unitsperem = string_attrib "units-per-em"
+  let a_units_per_em = string_attrib "units-per-em"
 
   let a_stemv = user_attrib C.string_of_number "stemv"
 
@@ -627,11 +627,11 @@ struct
 
   let a_slope = user_attrib C.string_of_number "slope"
 
-  let a_capheight = user_attrib C.string_of_number "cap-height"
+  let a_cap_height = user_attrib C.string_of_number "cap-height"
 
-  let a_xheight = user_attrib C.string_of_number "x-height"
+  let a_x_height = user_attrib C.string_of_number "x-height"
 
-  let a_accentheight = user_attrib C.string_of_number "accent-height"
+  let a_accent_height = user_attrib C.string_of_number "accent-height"
 
   let a_ascent = user_attrib C.string_of_number "ascent"
 
@@ -649,27 +649,27 @@ struct
 
   let a_videographic = user_attrib C.string_of_number "v-ideographic"
 
-  let a_valphabetic = user_attrib C.string_of_number "v-alphabetic"
+  let a_v_alphabetic = user_attrib C.string_of_number "v-alphabetic"
 
-  let a_vmathematical = user_attrib C.string_of_number "v-mathematical"
+  let a_v_mathematical = user_attrib C.string_of_number "v-mathematical"
 
-  let a_vhanging = user_attrib C.string_of_number "v-hanging"
+  let a_v_hanging = user_attrib C.string_of_number "v-hanging"
 
-  let a_underlineposition =
+  let a_underline_position =
     user_attrib C.string_of_number "underline-position"
 
-  let a_underlinethickness =
+  let a_underline_thickness =
     user_attrib C.string_of_number "underline-thickness"
 
-  let a_strikethroughposition =
+  let a_strikethrough_position =
     user_attrib C.string_of_number "strikethrough-position"
 
-  let a_strikethroughthickness =
+  let a_strikethrough_thickness =
     user_attrib C.string_of_number "strikethrough-thickness"
 
-  let a_overlineposition = user_attrib C.string_of_number "overline-position"
+  let a_overline_position = user_attrib C.string_of_number "overline-position"
 
-  let a_overlinethickness =
+  let a_overline_thickness =
     user_attrib C.string_of_number "overline-thickness"
 
   let a_string = string_attrib "string"
@@ -707,30 +707,30 @@ struct
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
   let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
 
-  let a_stopcolor = color_attrib "stop-color"
+  let a_stop_color = color_attrib "stop-color"
 
-  let a_stopopacity = user_attrib C.string_of_number "stop-opacity"
+  let a_stop_opacity = user_attrib C.string_of_number "stop-opacity"
 
   let a_stroke = user_attrib C.string_of_paint "stroke"
 
-  let a_strokewidth = user_attrib C.string_of_length "stroke-width"
+  let a_stroke_width = user_attrib C.string_of_length "stroke-width"
 
-  let a_strokelinecap x =
+  let a_stroke_linecap x =
     user_attrib C.string_of_big_variant "stroke-linecap" x
 
-  let a_strokelinejoin x =
+  let a_stroke_linejoin x =
     user_attrib C.string_of_big_variant "stroke-linejoin" x
 
-  let a_strokemiterlimit =
+  let a_stroke_miterlimit =
     user_attrib C.string_of_number "stroke-miterlimit"
 
-  let a_strokedasharray x =
+  let a_stroke_dasharray x =
     user_attrib C.string_of_strokedasharray "stroke-dasharray" x
 
-  let a_strokedashoffset =
+  let a_stroke_dashoffset =
     user_attrib C.string_of_length "stroke-dashoffset"
 
-  let a_strokeopacity =
+  let a_stroke_opacity =
     user_attrib C.string_of_number "stroke-opacity"
 
   (* xlink namespace given a nickname since some attributes mandated by
