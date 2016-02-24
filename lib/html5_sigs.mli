@@ -1246,6 +1246,7 @@ sig
   module type T = T
     with type 'a Xml.W.t = 'a Xml.W.t
      and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
      and type Xml.uri = Xml.uri
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
