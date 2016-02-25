@@ -142,7 +142,7 @@ module type T = sig
 
   val a_seamless : [> | `Seamless] attrib
 
-  val a_sizes : [< | `Sizes of (number * number) list | `Any] wrap -> [> | `Sizes] attrib
+  val a_sizes : (number * number) list option wrap -> [> | `Sizes] attrib
 
   val a_span : number wrap -> [> | `Span] attrib
 
@@ -1222,7 +1222,7 @@ module type Wrapped_functions = sig
     ([< Html5_types.sandbox_token] list, string) ft
 
   val string_of_sizes :
-    ([< Html5_types.sizes], string) ft
+    ((Html5_types.number * Html5_types.number) list option, string) ft
 
   val string_of_srcset :
     ([< Html5_types.image_candidate] list, string) ft

@@ -2352,7 +2352,3 @@ type input_type =
   | `Time
   | `Url
   | `Week ]
-
-type sizes =
-  [ `Sizes of (number * number) list
-  | `Any ]

@@ -1038,10 +1038,10 @@ module Wrapped_functions = struct
     | None -> "any"
 
   let string_of_sizes = function
-    | `Sizes l ->
+    | Some l ->
       String.concat " "
         (List.map (fun (x, y) -> Printf.sprintf "%dx%d" x y) l)
-    | `Any ->
+    | None ->
       "any"
 
   let string_of_sandbox l =
