@@ -1958,10 +1958,6 @@ type offset =
   [ `Number of float
   | `Percentage of int ]
 
-type orient =
-  [ `Auto
-  | `Angle of Unit.angle ]
-
 type big_variant =
   [ `A
   | `Absolute_colorimetric
