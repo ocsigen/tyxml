@@ -309,10 +309,12 @@ module type T = sig
   val a_max : float_number wrap -> [> | `Max] attrib
 
   val a_input_max : float_number wrap -> [> | `Input_Max] attrib
+    [@@reflect.attribute "max" ["input"]]
 
   val a_min : float_number wrap -> [> | `Min] attrib
 
   val a_input_min : float_number wrap -> [> | `Input_Min] attrib
+    [@@reflect.attribute "min" ["input"]]
 
   val a_novalidate : [> | `Novalidate] attrib
 
@@ -360,6 +362,7 @@ module type T = sig
   val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
 
   val a_img_sizes : text list wrap -> [> | `Img_sizes] attrib
+    [@@reflect.attribute "sizes" ["img"]]
 
   val a_start : number wrap -> [> | `Start] attrib
 
@@ -456,6 +459,7 @@ module type T = sig
   val a_for : idref wrap -> [> | `For] attrib
 
   val a_for_list : idrefs wrap -> [> | `For_List] attrib
+    [@@reflect.attribute "for" ["output"]]
 
   val a_maxlength : number wrap -> [> | `Maxlength] attrib
 
@@ -506,29 +510,36 @@ module type T = sig
     | `Date
     | `Color
     | `Button] wrap -> [> | `Input_Type] attrib
+      [@@reflect.attribute "type" ["input"]]
 
   val a_text_value : text wrap -> [> | `Text_Value] attrib
+    [@@reflect.attribute "value" ["param"; "button"; "option"]]
   (** This attribute specifies the initial value of the
       control. If this attribute is not set, the initial value is
       set to the contents of the [option] element. *)
 
   val a_int_value : number wrap -> [> | `Int_Value] attrib
+    [@@reflect.attribute "value" ["li"]]
 
   (*VVV NO *)
   val a_value : cdata wrap -> [> | `Value] attrib
 
   val a_float_value : float_number wrap -> [> | `Float_Value] attrib
+    [@@reflect.attribute "value" ["progress"; "meter"]]
 
   val a_disabled : [> | `Disabled] attrib
 
   val a_readonly : [> | `ReadOnly] attrib
   val a_button_type :
     [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
+      [@@reflect.attribute "type" ["button"]]
 
   val a_command_type :
     [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
+      [@@reflect.attribute "type" ["command"]]
 
   val a_menu_type : [< | `Context | `Toolbar] wrap -> [> | `Menu_Type] attrib
+    [@@reflect.attribute "type" ["menu"]]
 
   val a_label : text wrap -> [> | `Label] attrib
 
@@ -614,10 +625,12 @@ module type T = sig
   val html :
     ?a: ((html_attrib attrib) list) ->
     [< | `Head] elt wrap -> [< | `Body] elt wrap -> [> | `Html] elt
+      [@@reflect.element "html"]
 
   val head :
     ?a: ((head_attrib attrib) list) ->
     [< | `Title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
+      [@@reflect.element "head"]
 
   val base : ([< | base_attrib], [> | base]) nullary
 
@@ -698,6 +711,7 @@ module type T = sig
   val figure :
     ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
     ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
+      [@@reflect.element "figure"]
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
 
@@ -783,6 +797,7 @@ module type T = sig
       | `Name
       | `Usemap
     ], 'a, [> | `Object of 'a ]) star
+      [@@reflect.element "object_" "object"]
 
   val param : ([< | param_attrib], [> | param]) nullary
 
@@ -793,11 +808,13 @@ module type T = sig
     ?src:Xml.uri wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
+      [@@reflect.element "audio_video"]
 
   val video :
     ?src:Xml.uri wrap ->
     ?srcs: (([< | source] elt) list_wrap) ->
     ([< | video_attrib], 'a, [> 'a video]) star
+      [@@reflect.element "audio_video"]
 
   val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
 
@@ -830,6 +847,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | table_attrib], [< | table_content_fun], [> | table]) star
+      [@@reflect.element "table"]
 
   val tablex :
     ?caption: [< | caption] elt wrap ->
@@ -837,6 +855,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
+      [@@reflect.element "table" "table"]
 
   val colgroup :
     ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup]) star
@@ -866,6 +885,7 @@ module type T = sig
     ?legend: [ | `Legend ] elt wrap ->
     ([< | common | `Disabled | `Form | `Name], [< | flow5],
      [> | `Fieldset]) star
+      [@@reflect.element "fieldset"]
 
   val legend :
     ([< | legend_attrib], [< | legend_content_fun], [> | legend]) star
@@ -891,6 +911,7 @@ module type T = sig
         | `Options of ([< | `Option] elt) list_wrap
         | `Phras of ([< | phrasing] elt) list_wrap
       ]) -> ([< | common], [> | `Datalist]) nullary
+        [@@reflect.element "datalist"]
 
   val optgroup :
     label: text wrap  ->
@@ -929,6 +950,7 @@ module type T = sig
   val details :
     [< | `Summary] elt wrap ->
     ([< | common | `Open], [< | flow5], [> | `Details]) star
+      [@@reflect.element "details"]
 
   val summary :
     ([< | summary_attrib], [< | summary_content_fun], [> | summary]) star
@@ -950,6 +972,7 @@ module type T = sig
         | `Lis of ([< | `Li of [< | common]] elt) list_wrap
         | `Flows of ([< | flow5] elt) list_wrap
       ]) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
+        [@@reflect.element "menu"]
 
   (** {3 Scripting} *)
 

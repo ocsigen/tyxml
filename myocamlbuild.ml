@@ -25,6 +25,21 @@
 
 open Ocamlbuild_plugin
 
+let reflect_ppx () =
+  let ppx_reflect = "ppx/ppx_reflect.byte" in
+
+  let prod = "ppx/%_reflected.ml" in
+  let dep = "lib/%.mli" in
+
+  rule "ppx_reflect: mli -> _reflected.ml" ~prod ~deps:[dep; ppx_reflect]
+    begin fun env _ ->
+      Cmd (S
+        [A "ocamlc";
+         A "-I"; A "lib";
+         A "-ppx"; A (Printf.sprintf "%s %s" ppx_reflect (env prod));
+         A "-c"; A (env dep)])
+    end
+
 let () =
   dispatch
     (fun hook ->
@@ -43,6 +58,8 @@ let () =
          (* the "bin_annot" tag was only introduced in ocamlbuild-4.01 *)
          if String.sub Sys.ocaml_version 0 4 = "4.00" then
            flag ["ocaml"; "bin_annot"; "compile"] (A "-bin-annot");
+
+        reflect_ppx ()
 
        | _ ->
          ())

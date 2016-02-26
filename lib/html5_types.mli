@@ -122,7 +122,7 @@ type linktype =
     | `Sidebar
     | `Tag
     | `Up
-    | `Other of string ]
+    | `Other of string ] [@@reflect.total_variant]
 
 type linktypes = linktype list
 (** Authors may use the following recognized link types, listed here with
@@ -194,7 +194,7 @@ type mediadesc_token =
   | `Speech
   | `TTY
   | `TV
-  | `Raw_mediadesc of string ]
+  | `Raw_mediadesc of string ] [@@reflect.total_variant]
 
 type mediadesc = mediadesc_token list
 

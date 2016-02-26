@@ -1952,7 +1952,7 @@ type in_value =
   | `BackgroundAlpha
   | `FillPaint
   | `StrokePaint
-  | `Ref of string ]
+  | `Ref of string ] [@@reflect.total_variant]
 
 type offset =
   [ `Number of float

@@ -106,6 +106,28 @@ Library tymlx_p
   Modules:
     Simplexmlparser
 
+Library ppx
+  FindlibName: ppx
+  FindlibParent: tyxml
+  Path: ppx
+  InternalModules: Ppx_tyxml
+  XMETADescription:
+    HTML5 and SVG syntax extension (ppx)
+  XMETARequires: tyxml
+  XMETAExtraLines: ppx = "ppx_tyxml"
+
+Executable ppx_tyxml
+  Path: ppx
+  MainIs: ppx_tyxml.ml
+  BuildDepends:
+    str, ppx_tools.metaquot, markup, tyxml.tools
+
+Executable ppx_reflect
+  Path: ppx
+  MainIs: ppx_reflect.ml
+  BuildDepends:
+    compiler-libs.common
+
 ## Tests
 
 Executable emit_big
@@ -173,4 +195,4 @@ Document "tyxml-api"
   BuildTools: ocamldoc
   XOCamlbuildPath: ./
   XOCamlbuildLibraries:
-    tyxml, tyxml.functor, tyxml.parser, tyxml.syntax
+    tyxml, tyxml.functor, tyxml.parser, tyxml.syntax, tyxml.ppx
