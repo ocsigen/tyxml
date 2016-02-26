@@ -179,7 +179,7 @@ module type T = sig
 
   val a_markerHeight : Unit.length wrap -> [> | `MarkerHeight ] attrib
 
-  val a_orient : [< `Auto | `Angle of angle ] wrap -> [> | `Orient ] attrib
+  val a_orient : Unit.angle option wrap -> [> | `Orient ] attrib
 
   val a_local : string wrap -> [> | `Local ] attrib
 
@@ -930,7 +930,7 @@ module type Wrapped_functions = sig
 
   val string_of_offset : ([< Svg_types.offset], string) ft
 
-  val string_of_orient : ([< Svg_types.orient], string) ft
+  val string_of_orient : (Svg_types.Unit.angle option, string) ft
 
   val string_of_paint : ([< Svg_types.paint], string) ft
 

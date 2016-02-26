@@ -1096,8 +1096,8 @@ module Wrapped_functions = struct
     | `Percentage x -> string_of_percentage x
 
   let string_of_orient = function
-    | `Auto -> "auto"
-    | `Angle __svg -> string_of_angle __svg
+    | None -> "auto"
+    | Some __svg -> string_of_angle __svg
 
   let string_of_paint = string_of_paint
 
