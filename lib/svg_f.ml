@@ -95,6 +95,11 @@ let string_of_paint_whitout_icc = function
   | `CurrentColor -> "currentColor"
   | `Color (c, icc) -> opt_concat (string_of_color c) string_of_icccolor icc
 
+let string_of_clip_path = function
+  | `None -> "none"
+  | `Inherit -> "inherit"
+  | `Iri iri -> string_of_iri iri
+
 let string_of_paint = function
   | `Icc (iri, None) -> string_of_iri iri
   | `Icc (iri, Some b) ->
@@ -528,6 +533,8 @@ struct
   let a_repeatDur = string_attrib "repeatDur"
 
   let a_fill = user_attrib C.string_of_paint "fill"
+
+  let a_clip_path = user_attrib C.string_of_clip_path "clip-path"
 
   let a_animation_fill x =
     user_attrib C.string_of_big_variant "fill" x
@@ -1093,6 +1100,8 @@ struct
     | Some __svg -> string_of_angle __svg
 
   let string_of_paint = string_of_paint
+
+  let string_of_clip_path = string_of_clip_path
 
   let string_of_strokedasharray = function
     | [] -> "none"

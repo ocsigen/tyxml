@@ -288,6 +288,11 @@ type paint =
   [ paint_whitout_icc
   | `Icc of (iri * paint_whitout_icc option) ]
 
+type clip_path =
+  [ `None
+  | `Inherit
+  | `Iri of iri ]
+
 (* Transformation *)
 type transform =
   [ `Matrix of (float * float * float * float * float * float)

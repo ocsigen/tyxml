@@ -483,6 +483,8 @@ module type T = sig
 
   val a_fill : paint wrap -> [> | `Fill ] attrib
 
+  val a_clip_path : clip_path wrap -> [> | `Clip_Path ] attrib
+
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
     [@@reflect.attribute "fill" ["animation"]]
 
@@ -1080,6 +1082,10 @@ module type Wrapped_functions = sig
   val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
 
   val string_of_paint : ([< Svg_types.paint], string) Xml.W.ft
+
+  val string_of_clip_path : ([< Svg_types.clip_path], string) ft
+
+  val string_of_strokedasharray : (Svg_types.lengths, string) ft
 
   val string_of_strokedasharray : (Svg_types.lengths, string) Xml.W.ft
 
