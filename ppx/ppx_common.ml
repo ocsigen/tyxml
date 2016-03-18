@@ -35,9 +35,9 @@ let lang = function
   | Html -> "HTML"
   | Svg -> "SVG"
 
-let qualify module_ identifier = Printf.sprintf "%s.%s" module_ identifier
-let identifier loc s = Exp.ident ~loc (Location.mkloc (Longident.parse s) loc)
-let make ~loc i s = identifier loc (qualify (implementation i) s)
+let make ~loc i s =
+  let lid = Longident.parse @@ implementation i ^ "." ^ s in
+  Exp.ident ~loc @@ Location.mkloc lid loc
 
 (** Generic *)
 
