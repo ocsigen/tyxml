@@ -44,7 +44,7 @@ let option none (parser : parser) ?separated_by:_ ?default:_ loc name s =
 
 (* Lists. *)
 
-let _filter_map f l =
+let filter_map f l =
   l
   |> List.fold_left (fun acc v ->
     match f v with
@@ -56,26 +56,26 @@ let _filter_map f l =
 (* Splits the given string on the given delimiter (a regular expression), then
    applies [element_parser] to each resulting component. Each such application
    resulting in [Some expr] is included in the resulting expression list. *)
-let _exp_list delimiter separated_by (element_parser : parser) loc name s =
+let exp_list delimiter separated_by (element_parser : parser) loc name s =
   Str.split delimiter s
-  |> _filter_map (element_parser ~separated_by loc name)
+  |> filter_map (element_parser ~separated_by loc name)
 
 (* Behaves as _expr_list, but wraps the resulting expression list as a list
    expression. *)
-let _list
+let list
     delimiter separated_by element_parser ?separated_by:_ ?default:_ loc name s =
 
-  _exp_list delimiter separated_by element_parser loc name s
+  exp_list delimiter separated_by element_parser loc name s
   |> Ppx_common.list_exp loc
   |> fun e -> Some e
 
-let spaces = _list (Str.regexp " +") "space"
-let commas = _list (Str.regexp " *, *") "comma"
-let semicolons = _list (Str.regexp " *; *") "semicolon"
+let spaces = list (Str.regexp " +") "space"
+let commas = list (Str.regexp " *, *") "comma"
+let semicolons = list (Str.regexp " *; *") "semicolon"
 
-let _spaces_or_commas_regexp = Str.regexp "\\( *, *\\)\\| +"
-let _spaces_or_commas = _exp_list _spaces_or_commas_regexp "space- or comma"
-let spaces_or_commas = _list _spaces_or_commas_regexp "space- or comma"
+let spaces_or_commas_regexp = Str.regexp "\\( *, *\\)\\| +"
+let spaces_or_commas_ = exp_list spaces_or_commas_regexp "space- or comma"
+let spaces_or_commas = list spaces_or_commas_regexp "space- or comma"
 
 
 
@@ -93,7 +93,7 @@ let nowrap (parser : parser) _ ?separated_by:_ ?default:_ loc name s =
 
 (* Error reporting for values in lists and options. *)
 
-let _must_be_a
+let must_be_a
     singular_description plural_description separated_by default loc name =
 
   let description =
@@ -114,20 +114,20 @@ let _must_be_a
 
 (* Checks that the given string matches the given regular expression exactly,
    i.e. the match begins at position 0 and ends at the end of the string. *)
-let _does_match regexp s =
+let does_match regexp s =
   Str.string_match regexp s 0 && Str.match_end () = String.length s
 
 (* Checks that the group with the given index was matched in the given
    string. *)
-let _group_matched index s =
+let group_matched index s =
   try Str.matched_group index s |> ignore; true
   with Not_found -> false
 
-let _int_exp loc s =
+let int_exp loc s =
   try Some (Ppx_common.int_exp loc (int_of_string s))
   with Failure "int_of_string" -> None
 
-let _float_exp loc s =
+let float_exp loc s =
   try
     float_of_string s |> ignore;
     Some (Ppx_common.float_exp loc s)
@@ -174,21 +174,21 @@ let bool ?separated_by:_ ?default:_ loc name s =
   Some (Exp.construct ~loc (Location.mkloc (Longident.parse s) loc) None)
 
 let int ?separated_by ?default loc name s =
-  match _int_exp loc s with
+  match int_exp loc s with
   | Some _ as e -> e
   | None ->
-    _must_be_a "a whole number" "whole numbers" separated_by default loc name
+    must_be_a "a whole number" "whole numbers" separated_by default loc name
 
 let float ?separated_by ?default loc name s =
-  match _float_exp loc s with
+  match float_exp loc s with
   | Some _ as e -> e
   | None ->
-    _must_be_a
+    must_be_a
       "a number (decimal fraction)" "numbers (decimal fractions)"
       separated_by default loc name
 
 let points ?separated_by:_ ?default:_ loc name s =
-  let expressions = _spaces_or_commas float loc name s in
+  let expressions = spaces_or_commas_ float loc name s in
 
   let rec pair acc = function
     | [] -> List.rev acc |> Ppx_common.list_exp loc
@@ -200,7 +200,7 @@ let points ?separated_by:_ ?default:_ loc name s =
 
 let number_pair ?separated_by:_ ?default:_ loc name s =
   let e =
-    begin match _spaces_or_commas float loc name s with
+    begin match spaces_or_commas_ float loc name s with
     | [orderx] -> [%expr [%e orderx], None]
     | [orderx; ordery] -> [%expr [%e orderx], Some [%e ordery]]
     | _ -> Ppx_common.error loc "%s requires one or two numbers" name
@@ -210,7 +210,7 @@ let number_pair ?separated_by:_ ?default:_ loc name s =
   Some e
 
 let fourfloats ?separated_by:_ ?default:_ loc name s =
-  match _spaces_or_commas float loc name s with
+  match spaces_or_commas_ float loc name s with
   | [min_x; min_y; width; height] ->
     Some [%expr ([%e min_x], [%e min_y], [%e width], [%e height])]
       [@metaloc loc]
@@ -221,7 +221,7 @@ let icon_size =
   let regexp = Str.regexp "\\([0-9]+\\)[xX]\\([0-9]+\\)" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ _does_match regexp s then
+    if not @@ does_match regexp s then
       Ppx_common.error loc "Value of %s must be a %s, or %s"
         name "space-separated list of icon sizes, such as 16x16" "any";
 
@@ -246,12 +246,12 @@ let length =
   let regexp = Str.regexp "\\([0-9]+\\)\\([^0-9]+\\)" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ _does_match regexp s then
+    if not @@ does_match regexp s then
       Ppx_common.error
         loc "Value of %s must be a length, such as 100px or 50%%" name;
 
     let n =
-      match _int_exp loc (Str.matched_group 1 s) with
+      match int_exp loc (Str.matched_group 1 s) with
       | Some n -> n
       | None ->
         Ppx_common.error loc "Value of %s out of range" name
@@ -272,14 +272,14 @@ let multilength =
   let regexp = Str.regexp "\\([0-9]+\\)\\(%\\|px\\)\\|\\([0-9]+\\)?\\*" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ _does_match regexp s then
+    if not @@ does_match regexp s then
       Ppx_common.error loc "Value of %s must be a %s"
         name "list of relative lengths, such as 100px, 50%, or *";
 
     begin
-      if _group_matched 1 s then
+      if group_matched 1 s then
         let n =
-          match _int_exp loc (Str.matched_group 1 s) with
+          match int_exp loc (Str.matched_group 1 s) with
           | Some n -> n
           | None ->
             Ppx_common.error loc "Value in %s out of range" name
@@ -292,7 +292,7 @@ let multilength =
 
       else
         let n =
-          match _int_exp loc (Str.matched_group 3 s) with
+          match int_exp loc (Str.matched_group 3 s) with
           | exception Not_found -> [%expr 1]
           | Some n -> n
           | None ->
@@ -302,7 +302,7 @@ let multilength =
         Some [%expr `Relative [%e n]]
     end [@metaloc loc]
 
-let _svg_quantity =
+let svg_quantity =
   let integer = "[+-]?[0-9]+" in
   let integer_scientific = Printf.sprintf "%s\\([Ee]%s\\)?" integer integer in
   let fraction = Printf.sprintf "[+-]?[0-9]*\\.[0-9]+\\([Ee]%s\\)?" integer in
@@ -311,11 +311,11 @@ let _svg_quantity =
   let regexp = Str.regexp quantity in
 
   fun kind_singular kind_plural parse_unit ?separated_by ?default loc name s ->
-    if not @@ _does_match regexp s then
-      _must_be_a kind_singular kind_plural separated_by default loc name;
+    if not @@ does_match regexp s then
+      must_be_a kind_singular kind_plural separated_by default loc name;
 
     let n =
-      match _float_exp loc (Str.matched_group 1 s) with
+      match float_exp loc (Str.matched_group 1 s) with
       | Some n -> n
       | None -> Ppx_common.error loc "Number out of range in %s" name
     in
@@ -346,10 +346,10 @@ let svg_length =
 
   fun ?separated_by ?default loc name s ->
     Some
-      (_svg_quantity "an SVG length" "SVG lengths" parse_unit
+      (svg_quantity "an SVG length" "SVG lengths" parse_unit
         ?separated_by ?default loc name s)
 
-let _angle =
+let angle_ =
   let parse_unit loc name unit =
     begin match unit with
     | "deg" -> [%expr `Deg]
@@ -359,10 +359,10 @@ let _angle =
     end [@metaloc loc]
   in
 
-  _svg_quantity "an SVG angle" "SVG angles" parse_unit
+  svg_quantity "an SVG angle" "SVG angles" parse_unit
 
 let angle ?separated_by ?default loc name s =
-  Some (_angle ?separated_by ?default loc name s)
+  Some (angle_ ?separated_by ?default loc name s)
 
 let offset =
   let bad_form name loc =
@@ -371,12 +371,12 @@ let offset =
   let regexp = Str.regexp "\\([-+0-9eE.]+\\)$\\|\\([0-9]+\\)%" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ _does_match regexp s then bad_form name loc;
+    if not @@ does_match regexp s then bad_form name loc;
 
     begin
-      if _group_matched 1 s then
+      if group_matched 1 s then
         let n =
-          match _float_exp loc s with
+          match float_exp loc s with
           | Some n -> n
           | None -> bad_form name loc
         in
@@ -385,7 +385,7 @@ let offset =
 
       else
         let n =
-          match _int_exp loc (Str.matched_group 2 s) with
+          match int_exp loc (Str.matched_group 2 s) with
           | Some n -> n
           | None ->
             Ppx_common.error loc "Percentage out of range in %s" name
@@ -398,7 +398,7 @@ let transform =
   let regexp = Str.regexp "\\([^(]+\\)(\\([^)]*\\))" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ _does_match regexp s then
+    if not @@ does_match regexp s then
       Ppx_common.error loc "Value of %s must be an SVG transform" name;
 
     let kind = Str.matched_group 1 s in
@@ -407,7 +407,7 @@ let transform =
     let e =
       begin match kind with
       | "matrix" ->
-        begin match _spaces_or_commas float loc "matrix" values with
+        begin match spaces_or_commas_ float loc "matrix" values with
         | [a; b; c; d; e; f] ->
           [%expr Svg_types.Matrix
             ([%e a], [%e b], [%e c], [%e d], [%e e], [%e f])]
@@ -416,7 +416,7 @@ let transform =
         end
 
       | "translate" ->
-        begin match _spaces_or_commas float loc "translate" values with
+        begin match spaces_or_commas_ float loc "translate" values with
         | [tx; ty] -> [%expr Svg_types.Translate ([%e tx], Some [%e ty])]
         | [tx] -> [%expr Svg_types.Translate ([%e tx], None)]
         | _ ->
@@ -424,7 +424,7 @@ let transform =
         end
 
       | "scale" ->
-        begin match _spaces_or_commas float loc "scale" values with
+        begin match spaces_or_commas_ float loc "scale" values with
         | [sx; sy] -> [%expr Svg_types.Scale ([%e sx], Some [%e sy])]
         | [sx] -> [%expr Svg_types.Scale ([%e sx], None)]
         | _ ->
@@ -432,14 +432,14 @@ let transform =
         end
 
       | "rotate" ->
-        begin match Str.bounded_split _spaces_or_commas_regexp values 2 with
-        | [angle] ->
-          [%expr Svg_types.Rotate ([%e _angle loc "rotate" angle], None)]
-        | [angle; axis] ->
-          begin match _spaces_or_commas float loc "rotate axis" axis with
+        begin match Str.bounded_split spaces_or_commas_regexp values 2 with
+        | [a] ->
+          [%expr Svg_types.Rotate ([%e angle_ loc "rotate" a], None)]
+        | [a; axis] ->
+          begin match spaces_or_commas_ float loc "rotate axis" axis with
           | [cx; cy] ->
             [%expr Svg_types.Rotate
-              ([%e _angle loc "rotate" angle], Some ([%e cx], [%e cy]))]
+              ([%e angle_ loc "rotate" a], Some ([%e cx], [%e cy]))]
           | _ ->
             Ppx_common.error loc "%s: rotate center requires two numbers" name
           end
@@ -448,9 +448,9 @@ let transform =
             "%s: rotate requires an angle and an optional center" name
         end
 
-      | "skewX" -> [%expr Svg_types.SkewX [%e _angle loc "skewX" values]]
+      | "skewX" -> [%expr Svg_types.SkewX [%e angle_ loc "skewX" values]]
 
-      | "skewY" -> [%expr Svg_types.SkewY [%e _angle loc "skewY" values]]
+      | "skewY" -> [%expr Svg_types.SkewY [%e angle_ loc "skewY" values]]
 
       | s -> Ppx_common.error loc "%s: %s is not a valid transform type" name s
       end [@metaloc loc]
@@ -465,7 +465,7 @@ let transform =
 let string ?separated_by:_ ?default:_ loc _ s =
   Some (Exp.constant ~loc (Const_string (s, None)))
 
-let _variand s =
+let variand s =
   let without_backtick s =
     let length = String.length s in
     String.sub s 1 (length - 1)
@@ -474,10 +474,10 @@ let _variand s =
   s |> Tyxml_name.polyvar |> without_backtick
 
 let variant ?separated_by:_ ?default:_ loc _ s =
-  Some (Exp.variant ~loc (_variand s) None)
+  Some (Exp.variant ~loc (variand s) None)
 
 let total_variant (unary, nullary) ?separated_by:_ ?default:_ loc _name s =
-  let variand = _variand s in
+  let variand = variand s in
   if List.mem variand nullary then Some (Exp.variant ~loc variand None)
   else Some (Exp.variant ~loc unary (Some (Ppx_common.string_exp loc s)))
 
@@ -487,7 +487,7 @@ let total_variant (unary, nullary) ?separated_by:_ ?default:_ loc _name s =
 
 let presence ?separated_by:_ ?default:_ _ _ _ = None
 
-let _paint_without_icc loc _name s =
+let paint_without_icc loc _name s =
   begin match s with
   | "none" ->
     [%expr `None]
@@ -513,7 +513,7 @@ let _paint_without_icc loc _name s =
 
 let paint ?separated_by:_ ?default:_ loc name s =
   if not @@ Str.string_match (Str.regexp "url(\\([^)]+\\))") s 0 then
-    Some (_paint_without_icc loc name s)
+    Some (paint_without_icc loc name s)
   else
     let iri = Str.matched_group 1 s |> Ppx_common.string_exp loc in
     let remainder_start = Str.group_end 0 in
@@ -527,7 +527,7 @@ let paint ?separated_by:_ ?default:_ loc name s =
       else
         Some
           [%expr
-            `Icc ([%e iri], Some [%e _paint_without_icc loc name remainder])]
+            `Icc ([%e iri], Some [%e paint_without_icc loc name remainder])]
     end [@metaloc loc]
 
 let srcset_element =
@@ -556,7 +556,7 @@ let srcset_element =
 
         if is_width then
           let n =
-            match _int_exp loc (String.sub descriptor 0 suffix_index) with
+            match int_exp loc (String.sub descriptor 0 suffix_index) with
             | Some n -> n
             | None ->
               Ppx_common.error loc "Bad number for width in %s" name
@@ -566,7 +566,7 @@ let srcset_element =
 
         else
           let n =
-            match _float_exp loc (String.sub descriptor 0 suffix_index) with
+            match float_exp loc (String.sub descriptor 0 suffix_index) with
             | Some n -> n
             | None ->
               Ppx_common.error loc "Bad number for pixel density in %s" name

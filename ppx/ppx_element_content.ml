@@ -39,7 +39,7 @@ type assembler =
    - If [implementation] is ["Html5"] and the child is an application of [svg]
      from any module, modifies the child to be an application of [Html5.svg]
    - Otherwise, evaluates to the child as passed. *)
-let _qualify_child implementation = function
+let qualify_child implementation = function
   | [%expr pcdata [%e? s]] as e ->
     let identifier =
       Ppx_common.identifier e.pexp_loc
@@ -62,7 +62,7 @@ let _qualify_child implementation = function
    argument [implementation] is as in [_qualify_child]. Applies [_qualify_child]
    to each child, then assembles the children into a parse tree representing a
    value of type [_ implementation.list_wrap]. *)
-let _list_wrap_exp implementation loc es =
+let list_wrap_exp implementation loc es =
   let nil =
     [%expr
       [%e Ppx_common.identifier loc
@@ -75,7 +75,7 @@ let _list_wrap_exp implementation loc es =
   in
 
   es
-  |> List.map (_qualify_child implementation)
+  |> List.map (qualify_child implementation)
   |> List.rev
   |> List.fold_left (fun wrapped e ->
     [%expr [%e cons] [%e e] [%e wrapped]] [@metaloc loc])
@@ -84,7 +84,7 @@ let _list_wrap_exp implementation loc es =
 (* Given a list of parse trees representing children of an element, filters out
    all children that consist of applications of [pcdata] to strings containing
    only whitespace. *)
-let _filter_whitespace children =
+let filter_whitespace children =
   children |> List.filter (function
     | [%expr pcdata [%e? {pexp_desc = Pexp_constant (Const_string (s, _))}]]
         when String.trim s = "" -> false
@@ -92,18 +92,18 @@ let _filter_whitespace children =
 
 (* Given a parse tree and a string [name], checks whether the parse tree is an
    application of a function with name [name]. *)
-let _is_element_with_name name = function
+let is_element_with_name name = function
   | {pexp_desc = Pexp_apply ({pexp_desc = Pexp_ident {txt}}, _)}
       when Longident.flatten txt |> String.concat "." = name -> true
   | _ -> false
 
 (* Partitions a list of elements according to [_is_element_with_name name]. *)
-let _partition name children =
-  List.partition (_is_element_with_name name) children
+let partition name children =
+  List.partition (is_element_with_name name) children
 
 (* Given the name [n] of a function in [Html5_sigs.T], evaluates to
    ["Html5." ^ n]. *)
-let _html5 local_name =
+let html5 local_name =
   Ppx_common.qualify Ppx_common.html5_implementation local_name
 
 
@@ -119,23 +119,23 @@ let unary implementation loc name children =
   match children with
   | [child] ->
     let child =
-      _qualify_child implementation child
+      qualify_child implementation child
       |> Ppx_common.wrap_exp implementation loc
     in
     ["", child]
   | _ -> Ppx_common.error loc "%s should have exactly one child" name
 
 let star implementation loc _ children =
-  ["", _list_wrap_exp implementation loc children]
+  ["", list_wrap_exp implementation loc children]
 
 
 
 (* Special-cased. *)
 
 let html implementation loc name children =
-  let children = _filter_whitespace children in
-  let head, others = _partition (_html5 "head") children in
-  let body, others = _partition (_html5 "body") others in
+  let children = filter_whitespace children in
+  let head, others = partition (html5 "head") children in
+  let body, others = partition (html5 "body") others in
 
   match head, body, others with
   | [head], [body], [] ->
@@ -146,7 +146,7 @@ let html implementation loc name children =
       "%s element must have exactly head and body child elements" name
 
 let head implementation loc name children =
-  let title, others = _partition (_html5 "title") children in
+  let title, others = partition (html5 "title") children in
 
   match title with
   | [title] ->
@@ -160,14 +160,14 @@ let figure implementation loc name children =
   begin match children with
   | [] -> star implementation loc name children
   | first::others ->
-    if _is_element_with_name (_html5 "figcaption") first then
+    if is_element_with_name (html5 "figcaption") first then
       ("figcaption",
        [%expr `Top [%e Ppx_common.wrap_exp implementation loc first]])::
           (star implementation loc name others)
     else
       let children_reversed = List.rev children in
       let last = List.hd children_reversed in
-      if _is_element_with_name (_html5 "figcaption") last then
+      if is_element_with_name (html5 "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
         ("figcaption",
          [%expr `Bottom [%e Ppx_common.wrap_exp implementation loc last]])::
@@ -177,28 +177,28 @@ let figure implementation loc name children =
   end [@metaloc loc]
 
 let object_ implementation loc name children =
-  let params, others = _partition (_html5 "param") children in
+  let params, others = partition (html5 "param") children in
 
   if params <> [] then
-    ("params", _list_wrap_exp implementation loc params)::
+    ("params", list_wrap_exp implementation loc params)::
       (star implementation loc name others)
   else
     star implementation loc name others
 
 let audio_video implementation loc name children =
-  let sources, others = _partition (_html5 "source") children in
+  let sources, others = partition (html5 "source") children in
 
   if sources <> [] then
-    ("srcs", _list_wrap_exp implementation loc sources)::
+    ("srcs", list_wrap_exp implementation loc sources)::
       (star implementation loc name others)
   else
     star implementation loc name others
 
 let table implementation loc name children =
-  let caption, others = _partition (_html5 "caption") children in
-  let columns, others = _partition (_html5 "colgroup") others in
-  let thead, others = _partition (_html5 "thead") others in
-  let tfoot, others = _partition (_html5 "tfoot") others in
+  let caption, others = partition (html5 "caption") children in
+  let columns, others = partition (html5 "colgroup") others in
+  let thead, others = partition (html5 "thead") others in
+  let tfoot, others = partition (html5 "tfoot") others in
 
   let one label = function
     | [] -> []
@@ -208,7 +208,7 @@ let table implementation loc name children =
 
   let columns =
     if columns = [] then []
-    else ["columns", _list_wrap_exp implementation loc columns]
+    else ["columns", list_wrap_exp implementation loc columns]
   in
 
   (one "caption" caption) @
@@ -218,7 +218,7 @@ let table implementation loc name children =
     (star implementation loc name others)
 
 let fieldset implementation loc name children =
-  let legend, others = _partition (_html5 "legend") children in
+  let legend, others = partition (html5 "legend") children in
 
   match legend with
   | [] -> star implementation loc name others
@@ -228,24 +228,24 @@ let fieldset implementation loc name children =
   | _ -> Ppx_common.error loc "%s cannot have more than one legend" name
 
 let datalist implementation loc name children =
-  let options, others = _partition (_html5 "option") children in
+  let options, others = partition (html5 "option") children in
 
   let children =
     begin match others with
     | [] ->
       "children",
-      [%expr `Options [%e _list_wrap_exp implementation loc options]]
+      [%expr `Options [%e list_wrap_exp implementation loc options]]
 
     | _ ->
       "children",
-      [%expr `Phras [%e _list_wrap_exp implementation loc children]]
+      [%expr `Phras [%e list_wrap_exp implementation loc children]]
     end [@metaloc loc]
   in
 
   children::(nullary implementation loc name [])
 
 let details implementation loc name children =
-  let summary, others = _partition (_html5 "summary") children in
+  let summary, others = partition (html5 "summary") children in
 
   match summary with
   | [summary] ->
@@ -256,7 +256,7 @@ let details implementation loc name children =
 let menu implementation loc name children =
   let children =
     "child",
-    [%expr `Flows [%e _list_wrap_exp implementation loc children]]
+    [%expr `Flows [%e list_wrap_exp implementation loc children]]
       [@metaloc loc]
   in
   children::(nullary implementation loc name [])
