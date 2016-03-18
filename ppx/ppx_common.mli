@@ -22,7 +22,7 @@ val find : ('a -> bool) -> 'a list -> 'a option
     [Not_found]. *)
 
 
-(** Module implementations *)
+(** Markup language *)
 
 type lang = Html | Svg
 val lang : lang -> string
