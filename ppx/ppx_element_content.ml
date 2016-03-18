@@ -40,7 +40,7 @@ type assembler =
      from any module, modifies the child to be an application of [Html5.svg]
    - Otherwise, evaluates to the child as passed. *)
 let _qualify_child implementation = function
-  | [%expr pcdata [%e ? s]] as e ->
+  | [%expr pcdata [%e? s]] as e ->
     let identifier =
       Ppx_common.identifier e.pexp_loc
         (Ppx_common.qualify implementation "pcdata")
@@ -86,7 +86,7 @@ let _list_wrap_exp implementation loc es =
    only whitespace. *)
 let _filter_whitespace children =
   children |> List.filter (function
-    | [%expr pcdata [%e ? {pexp_desc = Pexp_constant (Const_string (s, _))}]]
+    | [%expr pcdata [%e? {pexp_desc = Pexp_constant (Const_string (s, _))}]]
         when String.trim s = "" -> false
     | _ -> true)
 

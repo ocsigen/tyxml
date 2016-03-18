@@ -135,7 +135,7 @@ let type_to_attribute_parser name types =
     "wrap (option \"\" string)"
 
   | [[%type :
-      [%t ? {ptyp_desc = Ptyp_variant (_::_::_ as constructors, _, _)}] wrap]]
+      [%t? {ptyp_desc = Ptyp_variant (_::_::_ as constructors, _, _)}] wrap]]
       when no_constructor_arguments constructors ->
     "wrap variant"
 
@@ -197,14 +197,14 @@ let ocaml_attributes_to_renamed_attribute name attributes =
   | Some ({loc}, payload) ->
     match payload with
     | PStr [%str
-        [%e ? {pexp_desc = Pexp_constant (Const_string (real_name, _))}]
-        [%e ? element_names]] ->
+        [%e? {pexp_desc = Pexp_constant (Const_string (real_name, _))}]
+        [%e? element_names]] ->
       let element_names =
         let rec traverse acc = function
           | [%expr
-              [%e ? {pexp_desc =
+              [%e? {pexp_desc =
                 Pexp_constant (Const_string (element_name, _))}]::
-                  [%e ? tail]] ->
+                  [%e? tail]] ->
             traverse (element_name::acc) tail
           | [%expr []] -> acc
           | {pexp_loc} ->
@@ -241,12 +241,12 @@ let val_item_to_element_info value_description =
     | Some ({loc}, payload) ->
       begin match payload with
       | PStr [%str
-          [%e ? {pexp_desc = Pexp_constant (Const_string (assembler, _))}]] ->
+          [%e? {pexp_desc = Pexp_constant (Const_string (assembler, _))}]] ->
         Some assembler, None
 
       | PStr [%str
-          [%e ? {pexp_desc = Pexp_constant (Const_string (assembler, _))}]
-          [%e ? {pexp_desc = Pexp_constant (Const_string (name, _))}]] ->
+          [%e? {pexp_desc = Pexp_constant (Const_string (assembler, _))}]
+          [%e? {pexp_desc = Pexp_constant (Const_string (name, _))}]] ->
         Some assembler, Some name
 
       | _ ->
@@ -264,9 +264,9 @@ let val_item_to_element_info value_description =
       in
 
       match result_type with
-      | [%type : ([%t ? _], [%t ? _]) nullary] -> Some "nullary", None
-      | [%type : ([%t ? _], [%t ? _], [%t ? _]) unary] -> Some "unary", None
-      | [%type : ([%t ? _], [%t ? _], [%t ? _]) star] -> Some "star", None
+      | [%type : ([%t? _], [%t ? _]) nullary] -> Some "nullary", None
+      | [%type : ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary", None
+      | [%type : ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star", None
       | _ -> None, None
   in
 
@@ -284,15 +284,15 @@ let val_item_to_element_info value_description =
           else begin
             let maybe_attribute_type =
               match t with
-              | [%type : [%t ? _] wrap] ->
+              | [%type : [%t? _] wrap] ->
                 Some t
 
-              | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t ? _] elt wrap]])}
+              | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] elt wrap]])}
                   when Longident.last lid.txt = "option" ->
                 None
 
               | {ptyp_desc =
-                  Ptyp_constr (lid, [[%type : [%t ? _] wrap] as t''])}
+                  Ptyp_constr (lid, [[%type : [%t? _] wrap] as t''])}
                   when Longident.last lid.txt = "option" ->
                 Some t''
 
