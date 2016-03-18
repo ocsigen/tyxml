@@ -148,7 +148,7 @@ let markup_to_expr loc expr =
         let message = Markup.Error.to_string error |> String.capitalize in
         Ppx_common.error loc "%s" message)
   in
-  let signals = parser |> Markup.signals in
+  let signals = Markup.signals parser in
 
   let rec assemble () =
     match Markup.next signals with

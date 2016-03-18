@@ -129,7 +129,7 @@ let parse loc (ns, element_name) attributes =
   in
 
   let labeled, regular =
-    attributes |> List.fold_left parse_attribute ([], []) in
+    List.fold_left parse_attribute ([], []) attributes in
 
   (* If there are any attributes to pass in ~a, assemble them into a parse tree
      for a list, and prefix that with the ~a label. *)

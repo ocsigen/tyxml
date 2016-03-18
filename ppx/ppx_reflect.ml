@@ -188,8 +188,8 @@ let type_to_attribute_parser name types =
    from markup name to TyXML name should be performed. *)
 let ocaml_attributes_to_renamed_attribute name attributes =
   let maybe_attribute =
-    attributes
-    |> Ppx_common.find (fun attr -> (fst attr).txt = "reflect.attribute")
+    Ppx_common.find (fun attr -> (fst attr).txt = "reflect.attribute")
+      attributes
   in
 
   match maybe_attribute with
@@ -238,8 +238,8 @@ let val_item_to_element_info value_description =
   let name = value_description.pval_name.txt in
 
   let maybe_attribute =
-    value_description.pval_attributes
-    |> Ppx_common.find (fun attr -> (fst attr).txt = "reflect.element")
+    Ppx_common.find (fun attr -> (fst attr).txt = "reflect.element")
+      value_description.pval_attributes
   in
 
   let maybe_assembler, real_name =
@@ -388,7 +388,7 @@ let type_declaration mapper declaration =
       in
 
       let nullary, unary =
-        rows |> List.partition (fun (_, types) -> types = []) in
+        List.partition (fun (_, types) -> types = []) rows in
 
       let unary =
         match unary with
@@ -398,7 +398,7 @@ let type_declaration mapper declaration =
             "Expected exactly one non-nullary constructor `C of string"
       in
 
-      let nullary = nullary |> List.map fst in
+      let nullary = List.map fst nullary in
 
       reflected_variants := (name, (unary, nullary))::!reflected_variants
 
