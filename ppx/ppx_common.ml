@@ -37,9 +37,7 @@ let list_exp loc l =
     [%expr [%e tree]::[%e acc]])
     [%expr []]) [@metaloc loc]
 
-let error loc =
-  Printf.ksprintf
-    (fun s -> raise (Location.Error (Location.error ~loc ("Error: " ^ s))))
+let error loc fmt = Location.raise_errorf ~loc ("Error: "^^fmt)
 
 let html5_implementation = "Html5"
 let svg_implementation = "Svg"
