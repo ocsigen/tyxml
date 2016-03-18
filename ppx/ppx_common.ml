@@ -17,18 +17,22 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-open Asttypes
 open Ast_helper
+
+module Label = Ast_convenience.Label
 
 let find f l =
   try Some (List.find f l)
   with Not_found -> None
 
-let int loc n = Exp.constant ~loc (Const_int n)
+let with_loc loc f x =
+  with_default_loc loc @@ fun () -> f x
 
-let float loc s = Exp.constant ~loc (Const_float s)
+let int loc = with_loc loc Ast_convenience.int
 
-let string loc s = Exp.constant ~loc (Const_string (s, None))
+let float loc = with_loc loc Ast_convenience.float
+
+let string loc = with_loc loc Ast_convenience.str
 
 let identifier loc s = Exp.ident ~loc (Location.mkloc (Longident.parse s) loc)
 

@@ -21,6 +21,7 @@ val find : ('a -> bool) -> 'a list -> 'a option
 (** Similar to [List.find], but evaluates to an option instead of raising
     [Not_found]. *)
 
+module Label = Ast_convenience.Label
 
 (** Markup language *)
 
@@ -34,7 +35,7 @@ val make :
 (** Expression helpers. *)
 
 val int : Location.t -> int -> Parsetree.expression
-val float : Location.t -> string -> Parsetree.expression
+val float : Location.t -> float -> Parsetree.expression
 val string : Location.t -> string -> Parsetree.expression
 val list : Location.t -> Parsetree.expression list -> Parsetree.expression
 

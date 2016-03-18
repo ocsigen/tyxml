@@ -129,8 +129,7 @@ let int_exp loc s =
 
 let float_exp loc s =
   try
-    float_of_string s |> ignore;
-    Some (Ppx_common.float loc s)
+    Some (Ppx_common.float loc @@ float_of_string s)
   with Failure "float_of_string" ->
     None
 

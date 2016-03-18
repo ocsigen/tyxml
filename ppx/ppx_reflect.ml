@@ -195,30 +195,36 @@ let ocaml_attributes_to_renamed_attribute name attributes =
   match maybe_attribute with
   | None -> []
   | Some ({loc}, payload) ->
-    match payload with
-    | PStr [%str
-        [%e? {pexp_desc = Pexp_constant (Const_string (real_name, _))}]
-        [%e? element_names]] ->
-      let element_names =
-        let rec traverse acc = function
-          | [%expr
-              [%e? {pexp_desc =
-                Pexp_constant (Const_string (element_name, _))}]::
-                  [%e? tail]] ->
-            traverse (element_name::acc) tail
-          | [%expr []] -> acc
-          | {pexp_loc} ->
-            Ppx_common.error pexp_loc
-              "List in [@@reflect.attribute] must contain strings"
-        in
-        traverse [] element_names
-      in
-
-      [name, real_name, element_names]
-
-    | _ ->
+    let error () =
       Ppx_common.error loc
         "Payload of [@@reflect.attribute] must be a string and a string list"
+    in
+    match payload with
+    | PStr [%str
+        [%e? const]
+        [%e? element_names]] ->
+      begin match Ast_convenience.get_str const with
+        | None -> error ()
+        | Some real_name ->
+          let element_names =
+            let error loc =
+              Ppx_common.error loc
+                "List in [@@reflect.attribute] must contain strings"
+            in
+            let rec traverse acc = function
+              | [%expr [%e? e]::[%e? tail]] ->
+                begin match Ast_convenience.get_str e with
+                  | Some element_name -> traverse (element_name::acc) tail
+                  | None -> error e.pexp_loc
+                end
+              | [%expr []] -> acc
+              | {pexp_loc} -> error pexp_loc
+            in
+            traverse [] element_names
+          in
+          [name, real_name, element_names]
+      end
+    | _ -> error ()
 
 (* Given a val declaration, determines whether it is for an element. If so,
    evaluates to the element's child assembler (from module
@@ -239,19 +245,18 @@ let val_item_to_element_info value_description =
   let maybe_assembler, real_name =
     match maybe_attribute with
     | Some ({loc}, payload) ->
-      begin match payload with
-      | PStr [%str
-          [%e? {pexp_desc = Pexp_constant (Const_string (assembler, _))}]] ->
-        Some assembler, None
-
-      | PStr [%str
-          [%e? {pexp_desc = Pexp_constant (Const_string (assembler, _))}]
-          [%e? {pexp_desc = Pexp_constant (Const_string (name, _))}]] ->
-        Some assembler, Some name
-
-      | _ ->
-        Ppx_common.error loc
-          "Payload of [@@reflect.element] must be a one or two strings"
+      let assembler, real_name = match payload with
+        | PStr [%str [%e? assembler] [%e? name]] ->
+          Ast_convenience.get_str assembler, Ast_convenience.get_str name
+        | PStr [%str [%e? assembler]] ->
+          Ast_convenience.get_str assembler , None
+        | _ -> None, None
+      in
+      begin match assembler with
+        | Some _ -> (assembler, real_name)
+        | None ->
+          Ppx_common.error loc
+            "Payload of [@@reflect.element] must be a one or two strings"
       end
 
     | None ->
@@ -276,33 +281,28 @@ let val_item_to_element_info value_description =
     let labeled_attributes =
       let rec scan acc = function
         | Ptyp_arrow (label, t, t') ->
-          let label =
-            if label = "" || label.[0] <> '?' then label
-            else String.sub label 1 (String.length label - 1)
+
+          let maybe_attribute_type =
+            match t with
+            | [%type : [%t? _] wrap] ->
+              Some t
+
+            | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] elt wrap]])}
+              when Longident.last lid.txt = "option" ->
+              None
+
+            | {ptyp_desc =
+                 Ptyp_constr (lid, [[%type : [%t? _] wrap] as t''])}
+              when Longident.last lid.txt = "option" ->
+              Some t''
+
+            | _ ->
+              None
           in
-          if label = "" then scan acc t'.ptyp_desc
-          else begin
-            let maybe_attribute_type =
-              match t with
-              | [%type : [%t? _] wrap] ->
-                Some t
 
-              | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] elt wrap]])}
-                  when Longident.last lid.txt = "option" ->
-                None
-
-              | {ptyp_desc =
-                  Ptyp_constr (lid, [[%type : [%t? _] wrap] as t''])}
-                  when Longident.last lid.txt = "option" ->
-                Some t''
-
-              | _ ->
-                None
-            in
-
-            match maybe_attribute_type with
-            | None -> scan acc t'.ptyp_desc
-            | Some t'' ->
+          begin match Ppx_common.Label.explode label, maybe_attribute_type with
+            | Nolabel, _ | _,None -> scan acc t'.ptyp_desc
+            | (Labelled label | Optional label), Some t'' ->
               let parser = type_to_attribute_parser label [t''] in
               scan ((name, label, parser)::acc) t'.ptyp_desc
           end

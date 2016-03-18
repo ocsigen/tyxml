@@ -19,9 +19,10 @@
 
 open Asttypes
 open Parsetree
+module Pc = Ppx_common
 
 type assembler =
-  Ppx_common.lang -> Location.t -> string -> Parsetree.expression list ->
+  Pc.lang -> Location.t -> string -> Parsetree.expression list ->
     (Asttypes.label * Parsetree.expression) list
 
 
@@ -40,14 +41,14 @@ type assembler =
 let qualify_child lang = function
   | [%expr pcdata [%e? s]] as e ->
     let identifier =
-      Ppx_common.make ~loc:e.pexp_loc lang "pcdata"
+      Pc.make ~loc:e.pexp_loc lang "pcdata"
     in
     [%expr [%e identifier] [%e s]] [@metaloc e.pexp_loc]
 
   | {pexp_desc =
       Pexp_apply ({pexp_desc = Pexp_ident lid}, arguments)} as e
       when Longident.last lid.txt = "svg" && lang = Html ->
-    let identifier = Ppx_common.make ~loc:lid.loc Html "svg" in
+    let identifier = Pc.make ~loc:lid.loc Html "svg" in
     {e with pexp_desc = Pexp_apply (identifier, arguments)}
 
   | e -> e
@@ -59,10 +60,10 @@ let qualify_child lang = function
 let list_wrap_exp implementation loc es =
   let nil =
     [%expr
-      [%e Ppx_common.make ~loc implementation "Xml.W.nil"]
+      [%e Pc.make ~loc implementation "Xml.W.nil"]
       ()] [@metaloc loc]
   in
-  let cons = Ppx_common.make ~loc implementation "Xml.W.cons" in
+  let cons = Pc.make ~loc implementation "Xml.W.cons" in
 
   es
   |> List.map (qualify_child implementation)
@@ -76,8 +77,11 @@ let list_wrap_exp implementation loc es =
    only whitespace. *)
 let filter_whitespace children =
   children |> List.filter (function
-    | [%expr pcdata [%e? {pexp_desc = Pexp_constant (Const_string (s, _))}]]
-        when String.trim s = "" -> false
+    | [%expr pcdata [%e? s]]-> begin
+        match Ast_convenience.get_str s with
+        | Some s when String.trim s = "" -> false
+        | _ -> true
+      end
     | _ -> true)
 
 (* Given a parse tree and a string [name], checks whether the parse tree is an
@@ -94,7 +98,7 @@ let partition name children =
 (* Given the name [n] of a function in [Html5_sigs.T], evaluates to
    ["Html5." ^ n]. *)
 let html5 local_name =
-  Longident.Ldot (Lident Ppx_common.(implementation Html), local_name)
+  Longident.Ldot (Lident Pc.(implementation Html), local_name)
 
 
 
@@ -102,21 +106,21 @@ let html5 local_name =
 
 let nullary _ loc name children =
   if children <> [] then
-    Ppx_common.error loc "%s should have no content" name;
-  ["", [%expr ()] [@metaloc loc]]
+    Pc.error loc "%s should have no content" name;
+  [Pc.Label.nolabel, [%expr ()] [@metaloc loc]]
 
 let unary implementation loc name children =
   match children with
   | [child] ->
     let child =
       qualify_child implementation child
-      |> Ppx_common.wrap implementation loc
+      |> Pc.wrap implementation loc
     in
-    ["", child]
-  | _ -> Ppx_common.error loc "%s should have exactly one child" name
+    [Pc.Label.nolabel, child]
+  | _ -> Pc.error loc "%s should have exactly one child" name
 
 let star implementation loc _ children =
-  ["", list_wrap_exp implementation loc children]
+  [Pc.Label.nolabel, list_wrap_exp implementation loc children]
 
 
 
@@ -129,10 +133,10 @@ let html implementation loc name children =
 
   match head, body, others with
   | [head], [body], [] ->
-    ["", Ppx_common.wrap implementation loc head;
-     "", Ppx_common.wrap implementation loc body]
+    [Pc.Label.nolabel, Pc.wrap implementation loc head;
+     Pc.Label.nolabel, Pc.wrap implementation loc body]
   | _ ->
-    Ppx_common.error loc
+    Pc.error loc
       "%s element must have exactly head and body child elements" name
 
 let head implementation loc name children =
@@ -140,10 +144,10 @@ let head implementation loc name children =
 
   match title with
   | [title] ->
-    ("", Ppx_common.wrap implementation loc title)::
+    (Pc.Label.nolabel, Pc.wrap implementation loc title)::
       (star implementation loc name others)
   | _ ->
-    Ppx_common.error loc
+    Pc.error loc
       "%s element must have exactly one title child element" name
 
 let figure implementation loc name children =
@@ -152,7 +156,7 @@ let figure implementation loc name children =
   | first::others ->
     if is_element_with_name (html5 "figcaption") first then
       ("figcaption",
-       [%expr `Top [%e Ppx_common.wrap implementation loc first]])::
+       [%expr `Top [%e Pc.wrap implementation loc first]])::
           (star implementation loc name others)
     else
       let children_reversed = List.rev children in
@@ -160,7 +164,7 @@ let figure implementation loc name children =
       if is_element_with_name (html5 "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
         ("figcaption",
-         [%expr `Bottom [%e Ppx_common.wrap implementation loc last]])::
+         [%expr `Bottom [%e Pc.wrap implementation loc last]])::
             (star implementation loc name others)
       else
         star implementation loc name children
@@ -192,8 +196,8 @@ let table implementation loc name children =
 
   let one label = function
     | [] -> []
-    | [child] -> [label, Ppx_common.wrap implementation loc child]
-    | _ -> Ppx_common.error loc "%s cannot have more than one %s" name label
+    | [child] -> [label, Pc.wrap implementation loc child]
+    | _ -> Pc.error loc "%s cannot have more than one %s" name label
   in
 
   let columns =
@@ -213,9 +217,9 @@ let fieldset implementation loc name children =
   match legend with
   | [] -> star implementation loc name others
   | [legend] ->
-    ("legend", Ppx_common.wrap implementation loc legend)::
+    ("legend", Pc.wrap implementation loc legend)::
       (star implementation loc name others)
-  | _ -> Ppx_common.error loc "%s cannot have more than one legend" name
+  | _ -> Pc.error loc "%s cannot have more than one legend" name
 
 let datalist implementation loc name children =
   let options, others = partition (html5 "option") children in
@@ -239,9 +243,9 @@ let details implementation loc name children =
 
   match summary with
   | [summary] ->
-    ("", Ppx_common.wrap implementation loc summary)::
+    (Pc.Label.nolabel, Pc.wrap implementation loc summary)::
       (star implementation loc name others)
-  | _ -> Ppx_common.error loc "%s must have exactly one summary child" name
+  | _ -> Pc.error loc "%s must have exactly one summary child" name
 
 let menu implementation loc name children =
   let children =

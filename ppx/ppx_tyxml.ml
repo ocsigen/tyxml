@@ -85,6 +85,7 @@ let markup_to_expr loc expr =
     let strings_and_antiquotations =
       expressions |> List.map (fun expr ->
         match expr.pexp_desc with
+        (* TODO: Doesn't work in 4.03, can't pattern match. *)
         | Pexp_constant (Const_string (s, maybe_delimiter)) ->
           let delimiter_length =
             match maybe_delimiter with
