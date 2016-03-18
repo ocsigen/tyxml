@@ -22,7 +22,7 @@
 
 
 val reflect :
-  Location.t -> string -> string * string * (module Ppx_sigs_reflected.S)
+  Location.t -> string -> Ppx_common.lang * (module Ppx_sigs_reflected.S)
 (** When given either [Markup.Ns.html] or [Markup.Ns.svg] as argument, evaluates
     to the title of the corresponding markup language, the name of the run-time
     module containing its TyXML implementation, and a preprocessing-time module

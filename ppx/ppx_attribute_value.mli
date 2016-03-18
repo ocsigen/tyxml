@@ -72,11 +72,11 @@ val semicolons : parser -> parser
 val spaces_or_commas : parser -> parser
 (** Similar to [spaces], but splits on both spaces and commas. *)
 
-val wrap : parser -> string -> parser
+val wrap : parser -> Ppx_common.lang -> parser
 (** [wrap parser module_ _ _ s] applies [parser _ _ s] to get a parse tree for
     [e], then evaluates to the parse tree for [module_.Xml.W.return e]. *)
 
-val nowrap : parser -> string -> parser
+val nowrap : parser -> Ppx_common.lang -> parser
 (** [nowrap parser _ _ _ s] evaluates to [parser _ _ s]. The purpose of this
     combinator is provide a signature similar to [wrap] in situations where
     wrapping is not wanted. *)

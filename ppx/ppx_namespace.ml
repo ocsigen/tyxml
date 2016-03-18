@@ -19,13 +19,9 @@
 
 let reflect loc = function
   | ns when ns = Markup.Ns.html ->
-    "HTML",
-    Ppx_common.html5_implementation,
-    (module Html5_sigs_reflected : Ppx_sigs_reflected.S)
+    Ppx_common.Html ,(module Html5_sigs_reflected : Ppx_sigs_reflected.S)
 
   | ns when ns = Markup.Ns.svg ->
-    "SVG",
-    Ppx_common.svg_implementation,
-    (module Svg_sigs_reflected : Ppx_sigs_reflected.S)
+    Ppx_common.Svg, (module Svg_sigs_reflected : Ppx_sigs_reflected.S)
 
   | ns -> Ppx_common.error loc "Unknown namespace %s" ns

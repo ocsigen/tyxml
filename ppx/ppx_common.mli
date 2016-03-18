@@ -22,32 +22,30 @@ val find : ('a -> bool) -> 'a list -> 'a option
     [Not_found]. *)
 
 
+(** Module implementations *)
+
+type lang = Html | Svg
+val lang : lang -> string
+val implementation : lang -> string
+
+val make :
+  loc:Location.t -> lang -> string -> Parsetree.expression
 
 (** Expression helpers. *)
 
-val int_exp : Location.t -> int -> Parsetree.expression
-val float_exp : Location.t -> string -> Parsetree.expression
-val string_exp : Location.t -> string -> Parsetree.expression
+val int : Location.t -> int -> Parsetree.expression
+val float : Location.t -> string -> Parsetree.expression
+val string : Location.t -> string -> Parsetree.expression
 val identifier : Location.t -> string -> Parsetree.expression
-val list_exp : Location.t -> Parsetree.expression list -> Parsetree.expression
+val list : Location.t -> Parsetree.expression list -> Parsetree.expression
 
-val wrap_exp :
-  string -> Location.t -> Parsetree.expression -> Parsetree.expression
+val wrap :
+  lang -> Location.t -> Parsetree.expression -> Parsetree.expression
 (** [wrap_exp implementation loc e] creates a parse tree for
     [implementation.Xml.W.return e]. *)
 
-
-
 val error : Location.t -> ('b, unit, string, 'a) format4 -> 'b
 (** Raises an error using compiler module [Location]. *)
-
-
-
-val html5_implementation : string
-(** The module name ["Html5"]. *)
-
-val svg_implementation : string
-(** The module name ["Svg"]. *)
 
 val qualify : string -> string -> string
 (** [qualify m i] is [m ^ "." ^ i]. *)

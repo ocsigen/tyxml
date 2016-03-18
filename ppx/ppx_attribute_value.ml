@@ -66,7 +66,7 @@ let list
     delimiter separated_by element_parser ?separated_by:_ ?default:_ loc name s =
 
   exp_list delimiter separated_by element_parser loc name s
-  |> Ppx_common.list_exp loc
+  |> Ppx_common.list loc
   |> fun e -> Some e
 
 let spaces = list (Str.regexp " +") "space"
@@ -84,7 +84,7 @@ let spaces_or_commas = list spaces_or_commas_regexp "space- or comma"
 let wrap (parser : parser) implementation ?separated_by:_ ?default:_ loc name s =
   match parser loc name s with
   | None -> Ppx_common.error loc "wrap applied to presence; nothing to wrap"
-  | Some e -> Some (Ppx_common.wrap_exp implementation loc e)
+  | Some e -> Some (Ppx_common.wrap implementation loc e)
 
 let nowrap (parser : parser) _ ?separated_by:_ ?default:_ loc name s =
   parser loc name s
@@ -124,13 +124,13 @@ let group_matched index s =
   with Not_found -> false
 
 let int_exp loc s =
-  try Some (Ppx_common.int_exp loc (int_of_string s))
+  try Some (Ppx_common.int loc (int_of_string s))
   with Failure "int_of_string" -> None
 
 let float_exp loc s =
   try
     float_of_string s |> ignore;
-    Some (Ppx_common.float_exp loc s)
+    Some (Ppx_common.float loc s)
   with Failure "float_of_string" ->
     None
 
@@ -191,7 +191,7 @@ let points ?separated_by:_ ?default:_ loc name s =
   let expressions = spaces_or_commas_ float loc name s in
 
   let rec pair acc = function
-    | [] -> List.rev acc |> Ppx_common.list_exp loc
+    | [] -> List.rev acc |> Ppx_common.list loc
     | [_] -> Ppx_common.error loc "Unpaired coordinate in %s" name
     | ex::ey::rest -> pair (([%expr [%e ex], [%e ey]] [@metaloc loc])::acc) rest
   in
@@ -235,8 +235,8 @@ let icon_size =
 
     Some
       [%expr
-        [%e Ppx_common.int_exp loc width],
-        [%e Ppx_common.int_exp loc height]] [@metaloc loc]
+        [%e Ppx_common.int loc width],
+        [%e Ppx_common.int loc height]] [@metaloc loc]
 
 
 
@@ -479,7 +479,7 @@ let variant ?separated_by:_ ?default:_ loc _ s =
 let total_variant (unary, nullary) ?separated_by:_ ?default:_ loc _name s =
   let variand = variand s in
   if List.mem variand nullary then Some (Exp.variant ~loc variand None)
-  else Some (Exp.variant ~loc unary (Some (Ppx_common.string_exp loc s)))
+  else Some (Exp.variant ~loc unary (Some (Ppx_common.string loc s)))
 
 
 
@@ -502,20 +502,20 @@ let paint_without_icc loc _name s =
     in
 
     match icc_color_start with
-    | None -> [%expr `Color ([%e Ppx_common.string_exp loc s], None)]
+    | None -> [%expr `Color ([%e Ppx_common.string loc s], None)]
     | Some i ->
       let icc_color = Str.matched_group 1 s in
       let color = String.sub s 0 i in
       [%expr `Color
-        ([%e Ppx_common.string_exp loc color],
-         Some [%e Ppx_common.string_exp loc icc_color])]
+        ([%e Ppx_common.string loc color],
+         Some [%e Ppx_common.string loc icc_color])]
   end [@metaloc loc]
 
 let paint ?separated_by:_ ?default:_ loc name s =
   if not @@ Str.string_match (Str.regexp "url(\\([^)]+\\))") s 0 then
     Some (paint_without_icc loc name s)
   else
-    let iri = Str.matched_group 1 s |> Ppx_common.string_exp loc in
+    let iri = Str.matched_group 1 s |> Ppx_common.string loc in
     let remainder_start = Str.group_end 0 in
     let remainder_length = String.length s - remainder_start in
     let remainder =
@@ -537,13 +537,13 @@ let srcset_element =
     let e =
       begin match Str.bounded_split space s 2 with
       | [url] ->
-        [%expr `Url [%e Ppx_common.string_exp loc url]]
+        [%expr `Url [%e Ppx_common.string loc url]]
 
       | [url; descriptor] ->
         let bad_descriptor () =
           Ppx_common.error loc "Bad width or density descriptor in %s" name in
 
-        let url = Ppx_common.string_exp loc url in
+        let url = Ppx_common.string loc url in
         let suffix_index = String.length descriptor - 1 in
 
         let is_width =

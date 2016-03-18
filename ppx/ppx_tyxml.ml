@@ -157,7 +157,7 @@ let markup_to_expr loc expr =
     | Some (`Text ss) ->
       let loc = parser |> Markup.location |> !current_adjust_location in
       let node =
-        [%expr pcdata [%e Ppx_common.string_exp loc (String.concat "" ss)]]
+        [%expr pcdata [%e Ppx_common.string loc (String.concat "" ss)]]
           [@metaloc loc]
       in
       current_children := node::!current_children;
@@ -181,7 +181,7 @@ let markup_to_expr loc expr =
   in
 
   assemble ();
-  Ppx_common.list_exp loc !current_children
+  Ppx_common.list loc !current_children
 
 
 

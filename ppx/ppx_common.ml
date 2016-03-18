@@ -24,27 +24,39 @@ let find f l =
   try Some (List.find f l)
   with Not_found -> None
 
-let int_exp loc n = Exp.constant ~loc (Const_int n)
+let int loc n = Exp.constant ~loc (Const_int n)
 
-let float_exp loc s = Exp.constant ~loc (Const_float s)
+let float loc s = Exp.constant ~loc (Const_float s)
 
-let string_exp loc s = Exp.constant ~loc (Const_string (s, None))
+let string loc s = Exp.constant ~loc (Const_string (s, None))
 
 let identifier loc s = Exp.ident ~loc (Location.mkloc (Longident.parse s) loc)
 
-let list_exp loc l =
+let list loc l =
   (l |> List.rev |> List.fold_left (fun acc tree ->
     [%expr [%e tree]::[%e acc]])
     [%expr []]) [@metaloc loc]
 
 let error loc fmt = Location.raise_errorf ~loc ("Error: "^^fmt)
 
+type lang = Html | Svg
+
 let html5_implementation = "Html5"
 let svg_implementation = "Svg"
 
+let implementation = function
+  | Html -> html5_implementation
+  | Svg -> svg_implementation
+
+let lang = function
+  | Html -> "HTML"
+  | Svg -> "SVG"
+
 let qualify module_ identifier = Printf.sprintf "%s.%s" module_ identifier
 
-let wrap_exp implementation loc e =
+let make ~loc i s = identifier loc (qualify (implementation i) s)
+
+let wrap implementation loc e =
   [%expr
-    [%e identifier loc (qualify implementation "Xml.W.return")]
+    [%e make ~loc implementation "Xml.W.return"]
     [%e e]] [@metaloc loc]

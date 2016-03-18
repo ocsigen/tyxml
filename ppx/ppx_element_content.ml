@@ -20,10 +20,8 @@
 open Asttypes
 open Parsetree
 
-
-
 type assembler =
-  string -> Location.t -> string -> Parsetree.expression list ->
+  Ppx_common.lang -> Location.t -> string -> Parsetree.expression list ->
     (Asttypes.label * Parsetree.expression) list
 
 
@@ -39,19 +37,17 @@ type assembler =
    - If [implementation] is ["Html5"] and the child is an application of [svg]
      from any module, modifies the child to be an application of [Html5.svg]
    - Otherwise, evaluates to the child as passed. *)
-let qualify_child implementation = function
+let qualify_child lang = function
   | [%expr pcdata [%e? s]] as e ->
     let identifier =
-      Ppx_common.identifier e.pexp_loc
-        (Ppx_common.qualify implementation "pcdata")
+      Ppx_common.make ~loc:e.pexp_loc lang "pcdata"
     in
     [%expr [%e identifier] [%e s]] [@metaloc e.pexp_loc]
 
   | {pexp_desc =
       Pexp_apply ({pexp_desc = Pexp_ident lid} as e', arguments)} as e
-      when Longident.last lid.txt = "svg"
-        && implementation = Ppx_common.html5_implementation ->
-    let html5_svg = Ppx_common.qualify Ppx_common.html5_implementation "svg" in
+      when Longident.last lid.txt = "svg" && lang = Html ->
+    let html5_svg = Ppx_common.qualify Ppx_common.(implementation Html) "svg" in
     let lid = {lid with txt = Longident.parse html5_svg} in
     let identifier = {e' with pexp_desc = Pexp_ident lid} in
     {e with pexp_desc = Pexp_apply (identifier, arguments)}
@@ -65,14 +61,10 @@ let qualify_child implementation = function
 let list_wrap_exp implementation loc es =
   let nil =
     [%expr
-      [%e Ppx_common.identifier loc
-        (Ppx_common.qualify implementation "Xml.W.nil")]
+      [%e Ppx_common.make ~loc implementation "Xml.W.nil"]
       ()] [@metaloc loc]
   in
-  let cons =
-    Ppx_common.identifier loc
-      (Ppx_common.qualify implementation "Xml.W.cons")
-  in
+  let cons = Ppx_common.make ~loc implementation "Xml.W.cons" in
 
   es
   |> List.map (qualify_child implementation)
@@ -104,7 +96,7 @@ let partition name children =
 (* Given the name [n] of a function in [Html5_sigs.T], evaluates to
    ["Html5." ^ n]. *)
 let html5 local_name =
-  Ppx_common.qualify Ppx_common.html5_implementation local_name
+  Ppx_common.qualify Ppx_common.(implementation Html) local_name
 
 
 
@@ -120,7 +112,7 @@ let unary implementation loc name children =
   | [child] ->
     let child =
       qualify_child implementation child
-      |> Ppx_common.wrap_exp implementation loc
+      |> Ppx_common.wrap implementation loc
     in
     ["", child]
   | _ -> Ppx_common.error loc "%s should have exactly one child" name
@@ -139,8 +131,8 @@ let html implementation loc name children =
 
   match head, body, others with
   | [head], [body], [] ->
-    ["", Ppx_common.wrap_exp implementation loc head;
-     "", Ppx_common.wrap_exp implementation loc body]
+    ["", Ppx_common.wrap implementation loc head;
+     "", Ppx_common.wrap implementation loc body]
   | _ ->
     Ppx_common.error loc
       "%s element must have exactly head and body child elements" name
@@ -150,7 +142,7 @@ let head implementation loc name children =
 
   match title with
   | [title] ->
-    ("", Ppx_common.wrap_exp implementation loc title)::
+    ("", Ppx_common.wrap implementation loc title)::
       (star implementation loc name others)
   | _ ->
     Ppx_common.error loc
@@ -162,7 +154,7 @@ let figure implementation loc name children =
   | first::others ->
     if is_element_with_name (html5 "figcaption") first then
       ("figcaption",
-       [%expr `Top [%e Ppx_common.wrap_exp implementation loc first]])::
+       [%expr `Top [%e Ppx_common.wrap implementation loc first]])::
           (star implementation loc name others)
     else
       let children_reversed = List.rev children in
@@ -170,7 +162,7 @@ let figure implementation loc name children =
       if is_element_with_name (html5 "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
         ("figcaption",
-         [%expr `Bottom [%e Ppx_common.wrap_exp implementation loc last]])::
+         [%expr `Bottom [%e Ppx_common.wrap implementation loc last]])::
             (star implementation loc name others)
       else
         star implementation loc name children
@@ -202,7 +194,7 @@ let table implementation loc name children =
 
   let one label = function
     | [] -> []
-    | [child] -> [label, Ppx_common.wrap_exp implementation loc child]
+    | [child] -> [label, Ppx_common.wrap implementation loc child]
     | _ -> Ppx_common.error loc "%s cannot have more than one %s" name label
   in
 
@@ -223,7 +215,7 @@ let fieldset implementation loc name children =
   match legend with
   | [] -> star implementation loc name others
   | [legend] ->
-    ("legend", Ppx_common.wrap_exp implementation loc legend)::
+    ("legend", Ppx_common.wrap implementation loc legend)::
       (star implementation loc name others)
   | _ -> Ppx_common.error loc "%s cannot have more than one legend" name
 
@@ -249,7 +241,7 @@ let details implementation loc name children =
 
   match summary with
   | [summary] ->
-    ("", Ppx_common.wrap_exp implementation loc summary)::
+    ("", Ppx_common.wrap implementation loc summary)::
       (star implementation loc name others)
   | _ -> Ppx_common.error loc "%s must have exactly one summary child" name
 

@@ -23,7 +23,7 @@
 
 
 type assembler =
-  string -> Location.t -> string -> Parsetree.expression list ->
+  Ppx_common.lang -> Location.t -> string -> Parsetree.expression list ->
     (Asttypes.label * Parsetree.expression) list
 (** Assemblers satisfy: [assembler implementation loc name children] evaluates
     to a list of optionally-labeled parse trees for passing [children] to the

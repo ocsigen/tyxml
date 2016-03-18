@@ -20,24 +20,21 @@
 let parse loc ((ns, name) as element_name) attributes children =
   let attributes = Ppx_attributes.parse loc element_name attributes in
 
-  let language, implementation, (module Reflected) =
+  let language, (module Reflected) =
     Ppx_namespace.reflect loc ns in
 
   let name =
     try List.assoc name Reflected.renamed_elements
     with Not_found -> name
   in
-
-  let element_function =
-    Ppx_common.qualify implementation name
-    |> Ppx_common.identifier loc
-  in
+  let element_function = Ppx_common.make ~loc language name in
 
   let assembler =
     try List.assoc name Reflected.element_assemblers
-    with Not_found -> Ppx_common.error loc "Unknown %s element %s" language name
+    with Not_found ->
+      Ppx_common.error loc "Unknown %s element %s" (Ppx_common.lang language) name
   in
 
-  let children = assembler implementation loc name children in
+  let children = assembler language loc name children in
 
   Ast_helper.Exp.apply ~loc element_function (attributes @ children)

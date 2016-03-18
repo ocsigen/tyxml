@@ -24,14 +24,15 @@
 
 module type S =
 sig
-  val attribute_parsers : (string * (string -> Ppx_attribute_value.parser)) list
+  val attribute_parsers :
+    (string * (Ppx_common.lang -> Ppx_attribute_value.parser)) list
   (** Pairs [tyxml_attribute_name, wrapped_attribute_value_parser]. *)
 
   val renamed_attributes : (string * string * string list) list
   (** Triples [tyxml_attribute_name, markup_name, in_element_types]. *)
 
   val labeled_attributes :
-    (string * string * (string -> Ppx_attribute_value.parser)) list
+    (string * string * (Ppx_common.lang -> Ppx_attribute_value.parser)) list
   (** Triples [tyxml_element_name, label, wrapped_attribute_value_parser]. *)
 
   val element_assemblers : (string * Ppx_element_content.assembler) list
