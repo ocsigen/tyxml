@@ -17,24 +17,23 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-let parse loc ((ns, name) as element_name) attributes children =
-  let attributes = Ppx_attributes.parse loc element_name attributes in
+let parse ~loc ~name:((ns, name) as element_name) ~attributes children =
 
-  let language, (module Reflected) =
-    Ppx_namespace.reflect loc ns in
+  let attributes = Ppx_attributes.parse loc element_name attributes in
+  let lang, (module Reflected) = Ppx_namespace.reflect loc ns in
 
   let name =
     try List.assoc name Reflected.renamed_elements
     with Not_found -> name
   in
-  let element_function = Ppx_common.make ~loc language name in
+  let element_function = Ppx_common.make ~loc lang name in
 
   let assembler =
     try List.assoc name Reflected.element_assemblers
     with Not_found ->
-      Ppx_common.error loc "Unknown %s element %s" (Ppx_common.lang language) name
+      Ppx_common.error loc "Unknown %s element %s" (Ppx_common.lang lang) name
   in
 
-  let children = assembler language loc name children in
+  let children = assembler ~lang ~loc ~name children in
 
   Ast_helper.Exp.apply ~loc element_function (attributes @ children)

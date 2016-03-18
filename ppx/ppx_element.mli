@@ -19,12 +19,12 @@
 
 (** Element parsing. *)
 
-
-
 val parse :
-  Location.t ->
-  Markup.name -> (Markup.name * string) list -> Parsetree.expression list ->
-    Parsetree.expression
-(** [parse loc name attributes children] evaluates to a parse tree for applying
+  loc:Location.t ->
+  name:Markup.name ->
+  attributes:(Markup.name * string) list ->
+  Parsetree.expression list ->
+  Parsetree.expression
+(** [parse ~loc ~name ~attributes children] evaluates to a parse tree for applying
     the TyXML function corresponding to element [name] to suitable arguments
     representing [attributes] and [children]. *)

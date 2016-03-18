@@ -172,7 +172,7 @@ let markup_to_expr loc expr =
       assemble ();
       let children = !current_children in
 
-      let node = Ppx_element.parse loc name attributes children in
+      let node = Ppx_element.parse ~loc ~name ~attributes children in
 
       current_children := node::accumulator;
       assemble ()

@@ -20,12 +20,13 @@
 (** Element child argument assemblers. These are almost parsers, except they
     only tell how to pass already-parsed children to element functions. *)
 
-
-
 type assembler =
-  Ppx_common.lang -> Location.t -> string -> Parsetree.expression list ->
-    (Asttypes.label * Parsetree.expression) list
-(** Assemblers satisfy: [assembler implementation loc name children] evaluates
+  lang:Ppx_common.lang ->
+  loc:Location.t ->
+  name:string ->
+  Parsetree.expression list ->
+  (Ppx_common.Label.t * Parsetree.expression) list
+(** Assemblers satisfy: [assembler ~lang ~loc ~name children] evaluates
     to a list of optionally-labeled parse trees for passing [children] to the
     the element function for element [name]. For example, for a table element
 
@@ -58,15 +59,11 @@ type assembler =
 
     The [name] argument is used for error reporting. *)
 
-
-
 (** {2 Generic} *)
 
 val nullary : assembler
 val unary : assembler
 val star : assembler
-
-
 
 (** {2 Special-cased} *)
 

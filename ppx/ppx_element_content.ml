@@ -22,8 +22,11 @@ open Parsetree
 module Pc = Ppx_common
 
 type assembler =
-  Pc.lang -> Location.t -> string -> Parsetree.expression list ->
-    (Asttypes.label * Parsetree.expression) list
+  lang:Ppx_common.lang ->
+  loc:Location.t ->
+  name:string ->
+  Parsetree.expression list ->
+  (Pc.Label.t * Parsetree.expression) list
 
 
 
@@ -54,7 +57,7 @@ let qualify_child lang = function
   | e -> e
 
 (* Called on a list of parse trees representing children of an element. The
-   argument [implementation] is as in [_qualify_child]. Applies [_qualify_child]
+   argument [implementation] is as in [qualify_child]. Applies [qualify_child]
    to each child, then assembles the children into a parse tree representing a
    value of type [_ implementation.list_wrap]. *)
 let list_wrap_exp lang loc es =
@@ -81,7 +84,7 @@ let is_element_with_name name = function
       when txt = name -> true
   | _ -> false
 
-(* Partitions a list of elements according to [_is_element_with_name name]. *)
+(* Partitions a list of elements according to [is_element_with_name name]. *)
 let partition name children =
   List.partition (is_element_with_name name) children
 
@@ -94,91 +97,88 @@ let html5 local_name =
 
 (* Generic. *)
 
-let nullary _ loc name children =
+let nullary ~lang:_ ~loc ~name children =
   if children <> [] then
     Pc.error loc "%s should have no content" name;
   [Pc.Label.nolabel, [%expr ()] [@metaloc loc]]
 
-let unary implementation loc name children =
+let unary ~lang ~loc ~name children =
   match children with
   | [child] ->
     let child =
-      qualify_child implementation child
-      |> Pc.wrap implementation loc
+      qualify_child lang child
+      |> Pc.wrap lang loc
     in
     [Pc.Label.nolabel, child]
   | _ -> Pc.error loc "%s should have exactly one child" name
 
-let star implementation loc _ children =
-  [Pc.Label.nolabel, list_wrap_exp implementation loc children]
+let star ~lang ~loc ~name:_ children =
+  [Pc.Label.nolabel, list_wrap_exp lang loc children]
 
 
 
 (* Special-cased. *)
 
-let html implementation loc name children =
+let html ~lang ~loc ~name children =
   let children = filter_whitespace children in
   let head, others = partition (html5 "head") children in
   let body, others = partition (html5 "body") others in
 
   match head, body, others with
   | [head], [body], [] ->
-    [Pc.Label.nolabel, Pc.wrap implementation loc head;
-     Pc.Label.nolabel, Pc.wrap implementation loc body]
+    [Pc.Label.nolabel, Pc.wrap lang loc head;
+     Pc.Label.nolabel, Pc.wrap lang loc body]
   | _ ->
     Pc.error loc
       "%s element must have exactly head and body child elements" name
 
-let head implementation loc name children =
+let head ~lang ~loc ~name children =
   let title, others = partition (html5 "title") children in
 
   match title with
   | [title] ->
-    (Pc.Label.nolabel, Pc.wrap implementation loc title)::
-      (star implementation loc name others)
+    (Pc.Label.nolabel, Pc.wrap lang loc title) :: star ~lang ~loc ~name others
   | _ ->
     Pc.error loc
       "%s element must have exactly one title child element" name
 
-let figure implementation loc name children =
+let figure ~lang ~loc ~name children =
   begin match children with
-  | [] -> star implementation loc name children
+  | [] -> star ~lang ~loc ~name children
   | first::others ->
     if is_element_with_name (html5 "figcaption") first then
       ("figcaption",
-       [%expr `Top [%e Pc.wrap implementation loc first]])::
-          (star implementation loc name others)
+       [%expr `Top [%e Pc.wrap lang loc first]])::
+          (star ~lang ~loc ~name others)
     else
       let children_reversed = List.rev children in
       let last = List.hd children_reversed in
       if is_element_with_name (html5 "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
         ("figcaption",
-         [%expr `Bottom [%e Pc.wrap implementation loc last]])::
-            (star implementation loc name others)
+         [%expr `Bottom [%e Pc.wrap lang loc last]])::
+            (star ~lang ~loc ~name others)
       else
-        star implementation loc name children
+        star ~lang ~loc ~name children
   end [@metaloc loc]
 
-let object_ implementation loc name children =
+let object_ ~lang ~loc ~name children =
   let params, others = partition (html5 "param") children in
 
   if params <> [] then
-    ("params", list_wrap_exp implementation loc params)::
-      (star implementation loc name others)
+    ("params", list_wrap_exp lang loc params) :: star ~lang ~loc ~name others
   else
-    star implementation loc name others
+    star ~lang ~loc ~name others
 
-let audio_video implementation loc name children =
+let audio_video ~lang ~loc ~name children =
   let sources, others = partition (html5 "source") children in
 
   if sources <> [] then
-    ("srcs", list_wrap_exp implementation loc sources)::
-      (star implementation loc name others)
+    ("srcs", list_wrap_exp lang loc sources) :: star ~lang ~loc ~name others
   else
-    star implementation loc name others
+    star ~lang ~loc ~name others
 
-let table implementation loc name children =
+let table ~lang ~loc ~name children =
   let caption, others = partition (html5 "caption") children in
   let columns, others = partition (html5 "colgroup") others in
   let thead, others = partition (html5 "thead") others in
@@ -186,61 +186,61 @@ let table implementation loc name children =
 
   let one label = function
     | [] -> []
-    | [child] -> [label, Pc.wrap implementation loc child]
+    | [child] -> [label, Pc.wrap lang loc child]
     | _ -> Pc.error loc "%s cannot have more than one %s" name label
   in
 
   let columns =
     if columns = [] then []
-    else ["columns", list_wrap_exp implementation loc columns]
+    else ["columns", list_wrap_exp lang loc columns]
   in
 
   (one "caption" caption) @
     columns @
     (one "thead" thead) @
     (one "tfoot" tfoot) @
-    (star implementation loc name others)
+    (star ~lang ~loc ~name others)
 
-let fieldset implementation loc name children =
+let fieldset ~lang ~loc ~name children =
   let legend, others = partition (html5 "legend") children in
 
   match legend with
-  | [] -> star implementation loc name others
+  | [] -> star ~lang ~loc ~name others
   | [legend] ->
-    ("legend", Pc.wrap implementation loc legend)::
-      (star implementation loc name others)
+    ("legend", Pc.wrap lang loc legend)::
+      (star ~lang ~loc ~name others)
   | _ -> Pc.error loc "%s cannot have more than one legend" name
 
-let datalist implementation loc name children =
+let datalist ~lang ~loc ~name children =
   let options, others = partition (html5 "option") children in
 
   let children =
     begin match others with
     | [] ->
       "children",
-      [%expr `Options [%e list_wrap_exp implementation loc options]]
+      [%expr `Options [%e list_wrap_exp lang loc options]]
 
     | _ ->
       "children",
-      [%expr `Phras [%e list_wrap_exp implementation loc children]]
+      [%expr `Phras [%e list_wrap_exp lang loc children]]
     end [@metaloc loc]
   in
 
-  children::(nullary implementation loc name [])
+  children::(nullary ~lang ~loc ~name [])
 
-let details implementation loc name children =
+let details ~lang ~loc ~name children =
   let summary, others = partition (html5 "summary") children in
 
   match summary with
   | [summary] ->
-    (Pc.Label.nolabel, Pc.wrap implementation loc summary)::
-      (star implementation loc name others)
+    (Pc.Label.nolabel, Pc.wrap lang loc summary)::
+      (star ~lang ~loc ~name others)
   | _ -> Pc.error loc "%s must have exactly one summary child" name
 
-let menu implementation loc name children =
+let menu ~lang ~loc ~name children =
   let children =
     "child",
-    [%expr `Flows [%e list_wrap_exp implementation loc children]]
+    [%expr `Flows [%e list_wrap_exp lang loc children]]
       [@metaloc loc]
   in
-  children::(nullary implementation loc name [])
+  children::(nullary ~lang ~loc ~name [])
