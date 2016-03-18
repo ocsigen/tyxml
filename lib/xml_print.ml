@@ -98,7 +98,7 @@ module Utf8 = struct
     let warn = ref false in
     let buffer = Buffer.create (String.length src) in
     Uutf.String.fold_utf_8
-      (fun _ i d ->
+      (fun _ _ d ->
          match d with
          | `Uchar code -> Uutf.Buffer.add_utf_8 buffer code
          | `Malformed _ ->
@@ -127,7 +127,7 @@ module Utf8 = struct
       let warn = ref false in
       let buffer = Buffer.create (String.length src) in
       Uutf.String.fold_utf_8
-        (fun _ i d ->
+        (fun _ _ d ->
            match d with
            | `Uchar 34 ->
                Buffer.add_string buffer "&quot;"
@@ -200,8 +200,6 @@ struct
     | attr::queue ->
       O.put (" "^ attrib_to_string encode attr)
       ++ xh_print_attrs encode queue
-
-  and xh_print_text texte = O.put texte
 
   and xh_print_closedtag encode tag attrs =
     if F.emptytags = [] || List.mem tag F.emptytags
@@ -309,8 +307,6 @@ module Make_simple
     (I : sig val emptytags : string list end) =
 struct
 
-  type elt = Xml.elt
-  type out = unit
   let print_list ~output =
     let module M = Make(Xml)(I)(Simple_output(struct let put = output end)) in
     M.print_list
@@ -321,10 +317,6 @@ module Make_typed_simple
     (Xml : Xml_sigs.Iterable)
     (Typed_xml : Xml_sigs.Typed_xml with  module Xml := Xml) =
 struct
-
-  type out = unit
-  type 'a elt = 'a Typed_xml.elt
-  type doc = Typed_xml.doc
 
   let print_list ~output =
     let module M =

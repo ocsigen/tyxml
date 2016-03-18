@@ -22,12 +22,6 @@ let to_ocaml_bytes s =
 let to_ocaml s =
   Bytes.to_string (to_ocaml_bytes s)
 
-
-let mapi f s =
-  let l = String.length s in
-  Bytes.init l (fun i -> f i (String.get s i))
-
-
 let ident s =
   let s = to_ocaml_bytes s in
   let s = Bytes.mapi (fun i c ->

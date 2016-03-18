@@ -373,7 +373,8 @@ type events =
 (** Common attributes *)
 type common = [ | core | i18n | events ]
 
-(** {1 Categegories of HTML5 elements} *)
+(** {1 Categories of HTML5 elements} *)
+
 (** These category are mainly subdivised in
     - interactive,
     - phrasing,
@@ -495,6 +496,7 @@ type metadata = [ | metadata_without_title | `Title ]
 
 (** Interactive contents : contents that require user-interaction
         (Forms, link, etc.) *)
+
 (** Core element types are element types without transparent. *)
 type core_interactive =
   [

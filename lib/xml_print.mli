@@ -55,6 +55,7 @@ Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, th
 module Utf8 : sig
 
   type utf8 = string
+
   (** [normalize str] take a possibly invalid utf-8 string
       and return a valid utf-8 string
       where invalid bytes have been replaced by

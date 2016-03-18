@@ -37,23 +37,23 @@ let string_of_iri x = Printf.sprintf "url(%s)" x
 
 module Unit = struct
 
-  let rel x     = (x, None)
-  let deg x     = (x, Some `Deg)
-  let grad x    = (x, Some `Grad)
-  let rad x     = (x, Some `Rad)
-  let ms x      = (x, Some `Ms)
-  let s x       = (x, Some `S)
-  let em x      = (x, Some `Em)
-  let ex x      = (x, Some `Ex)
-  let px x      = (x, Some `Px)
-  let in_ x     = (x, Some `In)
-  let cm x      = (x, Some `Cm)
-  let mm x      = (x, Some `Mm)
-  let pt x      = (x, Some `Pt)
-  let pc x      = (x, Some `Pc)
-  let percent x = (x, Some `Percent)
-  let hz x      = (x, Some `Hz)
-  let khz x     = (x, Some `KHz)
+  (* let rel x     = (x, None) *)
+  (* let deg x     = (x, Some `Deg) *)
+  (* let grad x    = (x, Some `Grad) *)
+  (* let rad x     = (x, Some `Rad) *)
+  (* let ms x      = (x, Some `Ms) *)
+  (* let s x       = (x, Some `S) *)
+  (* let em x      = (x, Some `Em) *)
+  (* let ex x      = (x, Some `Ex) *)
+  (* let px x      = (x, Some `Px) *)
+  (* let in_ x     = (x, Some `In) *)
+  (* let cm x      = (x, Some `Cm) *)
+  (* let mm x      = (x, Some `Mm) *)
+  (* let pt x      = (x, Some `Pt) *)
+  (* let pc x      = (x, Some `Pc) *)
+  (* let percent x = (x, Some `Percent) *)
+  (* let hz x      = (x, Some `Hz) *)
+  (* let khz x     = (x, Some `KHz) *)
 
   let to_string f (n, unit) = Printf.sprintf "%g%s" n begin
     match unit with
@@ -64,16 +64,16 @@ module Unit = struct
   let angle_names = function `Deg -> "deg" | `Grad -> "grad" | `Rad -> "rad"
   let string_of_angle a = to_string angle_names a
 
-  let time_names = function `Ms -> "ms" | `S -> "s"
-  let string_of_time a = to_string time_names a
+  (* let time_names = function `Ms -> "ms" | `S -> "s" *)
+  (* let string_of_time a = to_string time_names a *)
 
   let length_names = function
     | `Em -> "em" | `Ex -> "ex" | `Px -> "px" | `In -> "in" | `Cm -> "cm"
     | `Mm -> "mm" | `Pt -> "pt" | `Pc -> "pc" | `Percent -> "%"
   let string_of_length (a: length) = to_string length_names a
 
-  let freq_names = function `Hz -> "Hz" | `KHz -> "kHz"
-  let string_of_freq a = to_string freq_names a
+  (* let freq_names = function `Hz -> "Hz" | `KHz -> "kHz" *)
+  (* let string_of_freq a = to_string freq_names a *)
 
 end
 
@@ -84,7 +84,6 @@ let opt_concat ?(sep=" ") s f = function
   | None -> s
 
 let list ?(sep=" ") f l = String.concat sep (List.map f l)
-let comma_list = list ~sep:", "
 
 let string_of_percentage = Printf.sprintf "%d%%"
 
@@ -142,8 +141,6 @@ struct
   type 'a wrap = 'a W.t
   type 'a list_wrap = 'a W.tlist
 
-  type +'a elts = Xml.elt list
-
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
@@ -159,9 +156,6 @@ struct
 
   let toeltl x = x
 
-  let string_of_string x = x
-
-  let to_xmlattribs x = x
   let to_attrib x = x
 
   let nullary tag ?a () =
@@ -181,11 +175,7 @@ struct
 
   let float_attrib = Xml.float_attrib
 
-  let int_attrib = Xml.int_attrib
-
   let string_attrib = Xml.string_attrib
-
-  let uri_attrib = Xml.uri_attrib
 
   (* wrap C module functions *)
 

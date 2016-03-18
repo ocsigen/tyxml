@@ -30,8 +30,6 @@
      only advantage are a potentially better mapping of the XHTML modularization
      to O'Caml modules. *)
 
-open Html5_types
-
 module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)

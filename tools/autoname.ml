@@ -15,7 +15,7 @@ let spec = [
 ]
 
 let usage =
-  "Accepts HTML attributes and elements and returns their tyxml names.
-Names without option are treated as elements."
+  "Accepts HTML attributes and elements and returns their tyxml names.\
+   Names without option are treated as elements."
 
 let () = Arg.parse spec (answer_elem ~attrib:false) usage
