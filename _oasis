@@ -32,6 +32,10 @@ Flag syntax
   Description: Build the camlp4 syntax extension.
   Default: true
 
+Flag ppx
+  Description: Build the ppx syntax extension.
+  Default: false
+
 Library tyxml
   FindlibName: tyxml
   Path: implem
@@ -107,6 +111,7 @@ Library tymlx_p
     Simplexmlparser
 
 Library ppx
+  Build$: flag(ppx)
   FindlibName: ppx
   FindlibParent: tyxml
   Path: ppx
@@ -117,6 +122,7 @@ Library ppx
   XMETAExtraLines: ppx = "ppx_tyxml"
 
 Executable ppx_tyxml
+  Build$: flag(ppx)
   Path: ppx
   MainIs: ppx_tyxml.ml
   BuildDepends:
@@ -126,7 +132,7 @@ Executable ppx_reflect
   Path: ppx
   MainIs: ppx_reflect.ml
   BuildDepends:
-    compiler-libs.common
+    compiler-libs.common, ppx_tools.metaquot
 
 ## Tests
 
