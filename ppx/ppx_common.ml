@@ -18,30 +18,9 @@
 *)
 
 open Ast_helper
-
 module Label = Ast_convenience.Label
 
-let find f l =
-  try Some (List.find f l)
-  with Not_found -> None
-
-let with_loc loc f x =
-  with_default_loc loc @@ fun () -> f x
-
-let int loc = with_loc loc Ast_convenience.int
-
-let float loc = with_loc loc Ast_convenience.float
-
-let string loc = with_loc loc Ast_convenience.str
-
-let identifier loc s = Exp.ident ~loc (Location.mkloc (Longident.parse s) loc)
-
-let list loc l =
-  (l |> List.rev |> List.fold_left (fun acc tree ->
-    [%expr [%e tree]::[%e acc]])
-    [%expr []]) [@metaloc loc]
-
-let error loc fmt = Location.raise_errorf ~loc ("Error: "^^fmt)
+(** Lang utilities *)
 
 type lang = Html | Svg
 
@@ -57,8 +36,45 @@ let lang = function
   | Svg -> "SVG"
 
 let qualify module_ identifier = Printf.sprintf "%s.%s" module_ identifier
-
+let identifier loc s = Exp.ident ~loc (Location.mkloc (Longident.parse s) loc)
 let make ~loc i s = identifier loc (qualify (implementation i) s)
+
+(** Generic *)
+
+let find f l =
+  try Some (List.find f l)
+  with Not_found -> None
+
+let with_loc loc f x =
+  with_default_loc loc @@ fun () -> f x
+let error loc fmt = Location.raise_errorf ~loc ("Error: "^^fmt)
+
+(** Ast manipulation *)
+
+let int loc = with_loc loc Ast_convenience.int
+
+let float loc = with_loc loc Ast_convenience.float
+
+let string loc = with_loc loc Ast_convenience.str
+
+let list_gen cons nil l =
+  (l |> List.rev |> List.fold_left cons nil)
+
+let list loc =
+  let nil = [%expr []][@metaloc loc] in
+  let cons acc x = [%expr [%e x]::[%e acc]][@metaloc loc] in
+  list_gen cons nil
+
+let list_wrap lang loc =
+  let nil =
+    [%expr
+      [%e make ~loc lang "Xml.W.nil"]
+      ()] [@metaloc loc]
+  in
+  let cons acc x =
+    [%expr [%e make ~loc lang "Xml.W.cons"] [%e x] [%e acc]][@metaloc loc]
+  in
+  list_gen cons nil
 
 let wrap implementation loc e =
   [%expr

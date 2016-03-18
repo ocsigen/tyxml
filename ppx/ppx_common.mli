@@ -38,6 +38,7 @@ val int : Location.t -> int -> Parsetree.expression
 val float : Location.t -> float -> Parsetree.expression
 val string : Location.t -> string -> Parsetree.expression
 val list : Location.t -> Parsetree.expression list -> Parsetree.expression
+val list_wrap : lang -> Location.t -> Parsetree.expression list -> Parsetree.expression
 
 val wrap :
   lang -> Location.t -> Parsetree.expression -> Parsetree.expression

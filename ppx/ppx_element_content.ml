@@ -57,20 +57,10 @@ let qualify_child lang = function
    argument [implementation] is as in [_qualify_child]. Applies [_qualify_child]
    to each child, then assembles the children into a parse tree representing a
    value of type [_ implementation.list_wrap]. *)
-let list_wrap_exp implementation loc es =
-  let nil =
-    [%expr
-      [%e Pc.make ~loc implementation "Xml.W.nil"]
-      ()] [@metaloc loc]
-  in
-  let cons = Pc.make ~loc implementation "Xml.W.cons" in
-
+let list_wrap_exp lang loc es =
   es
-  |> List.map (qualify_child implementation)
-  |> List.rev
-  |> List.fold_left (fun wrapped e ->
-    [%expr [%e cons] [%e e] [%e wrapped]] [@metaloc loc])
-    nil
+  |> List.map (qualify_child lang)
+  |> Pc.list_wrap lang loc
 
 (* Given a list of parse trees representing children of an element, filters out
    all children that consist of applications of [pcdata] to strings containing
