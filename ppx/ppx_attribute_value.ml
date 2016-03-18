@@ -33,7 +33,7 @@ type parser =
 
 (* Options. *)
 
-let option none (parser : parser) ?separated_by ?default:_ loc name s =
+let option none (parser : parser) ?separated_by:_ ?default:_ loc name s =
   if s = none then Some [%expr None] [@metaloc loc]
   else
     match parser ~default:none loc name s with
@@ -63,7 +63,7 @@ let _exp_list delimiter separated_by (element_parser : parser) loc name s =
 (* Behaves as _expr_list, but wraps the resulting expression list as a list
    expression. *)
 let _list
-    delimiter separated_by element_parser ?separated_by:_ ?default loc name s =
+    delimiter separated_by element_parser ?separated_by:_ ?default:_ loc name s =
 
   _exp_list delimiter separated_by element_parser loc name s
   |> Ppx_common.list_exp loc
@@ -81,12 +81,12 @@ let spaces_or_commas = _list _spaces_or_commas_regexp "space- or comma"
 
 (* Wrapping. *)
 
-let wrap (parser : parser) implementation ?separated_by ?default loc name s =
+let wrap (parser : parser) implementation ?separated_by:_ ?default:_ loc name s =
   match parser loc name s with
   | None -> Ppx_common.error loc "wrap applied to presence; nothing to wrap"
   | Some e -> Some (Ppx_common.wrap_exp implementation loc e)
 
-let nowrap (parser : parser) _ ?separated_by ?default loc name s =
+let nowrap (parser : parser) _ ?separated_by:_ ?default:_ loc name s =
   parser loc name s
 
 
@@ -138,7 +138,7 @@ let _float_exp loc s =
 
 (* Numeric. *)
 
-let char ?separated_by ?default loc name s =
+let char ?separated_by:_ ?default:_ loc name s =
   let open Markup in
   let open Markup.Encoding in
 
@@ -164,7 +164,7 @@ let char ?separated_by ?default loc name s =
 
   Some (Exp.constant ~loc (Const_char c))
 
-let bool ?separated_by ?default loc name s =
+let bool ?separated_by:_ ?default:_ loc name s =
   begin
     try bool_of_string s |> ignore
     with Invalid_argument "bool_of_string" ->
@@ -187,7 +187,7 @@ let float ?separated_by ?default loc name s =
       "a number (decimal fraction)" "numbers (decimal fractions)"
       separated_by default loc name
 
-let points ?separated_by ?default loc name s =
+let points ?separated_by:_ ?default:_ loc name s =
   let expressions = _spaces_or_commas float loc name s in
 
   let rec pair acc = function
@@ -198,18 +198,18 @@ let points ?separated_by ?default loc name s =
 
   Some (pair [] expressions)
 
-let number_pair ?separated_by ?default loc name s =
+let number_pair ?separated_by:_ ?default:_ loc name s =
   let e =
     begin match _spaces_or_commas float loc name s with
     | [orderx] -> [%expr [%e orderx], None]
-    | [orderx; ordery] -> [%expr [%e orderx], Some [%e orderx]]
+    | [orderx; ordery] -> [%expr [%e orderx], Some [%e ordery]]
     | _ -> Ppx_common.error loc "%s requires one or two numbers" name
     end [@metaloc loc]
   in
 
   Some e
 
-let fourfloats ?separated_by ?default loc name s =
+let fourfloats ?separated_by:_ ?default:_ loc name s =
   match _spaces_or_commas float loc name s with
   | [min_x; min_y; width; height] ->
     Some [%expr ([%e min_x], [%e min_y], [%e width], [%e height])]
@@ -220,7 +220,7 @@ let fourfloats ?separated_by ?default loc name s =
 let icon_size =
   let regexp = Str.regexp "\\([0-9]+\\)[xX]\\([0-9]+\\)" in
 
-  fun ?separated_by ?default loc name s ->
+  fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ _does_match regexp s then
       Ppx_common.error loc "Value of %s must be a %s, or %s"
         name "space-separated list of icon sizes, such as 16x16" "any";
@@ -245,7 +245,7 @@ let icon_size =
 let length =
   let regexp = Str.regexp "\\([0-9]+\\)\\([^0-9]+\\)" in
 
-  fun ?separated_by ?default loc name s ->
+  fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ _does_match regexp s then
       Ppx_common.error
         loc "Value of %s must be a length, such as 100px or 50%%" name;
@@ -271,7 +271,7 @@ let length =
 let multilength =
   let regexp = Str.regexp "\\([0-9]+\\)\\(%\\|px\\)\\|\\([0-9]+\\)?\\*" in
 
-  fun ?separated_by ?default loc name s ->
+  fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ _does_match regexp s then
       Ppx_common.error loc "Value of %s must be a %s"
         name "list of relative lengths, such as 100px, 50%, or *";
@@ -370,7 +370,7 @@ let offset =
 
   let regexp = Str.regexp "\\([-+0-9eE.]+\\)$\\|\\([0-9]+\\)%" in
 
-  fun ?separated_by ?default loc name s ->
+  fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ _does_match regexp s then bad_form name loc;
 
     begin
@@ -397,7 +397,7 @@ let offset =
 let transform =
   let regexp = Str.regexp "\\([^(]+\\)(\\([^)]*\\))" in
 
-  fun ?separated_by ?default loc name s ->
+  fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ _does_match regexp s then
       Ppx_common.error loc "Value of %s must be an SVG transform" name;
 
@@ -462,7 +462,7 @@ let transform =
 
 (* String-like. *)
 
-let string ?separated_by ?default loc _ s =
+let string ?separated_by:_ ?default:_ loc _ s =
   Some (Exp.constant ~loc (Const_string (s, None)))
 
 let _variand s =
@@ -473,10 +473,10 @@ let _variand s =
 
   s |> Tyxml_name.polyvar |> without_backtick
 
-let variant ?separated_by ?default loc _ s =
+let variant ?separated_by:_ ?default:_ loc _ s =
   Some (Exp.variant ~loc (_variand s) None)
 
-let total_variant (unary, nullary) ?separated_by ?default loc name s =
+let total_variant (unary, nullary) ?separated_by:_ ?default:_ loc _name s =
   let variand = _variand s in
   if List.mem variand nullary then Some (Exp.variant ~loc variand None)
   else Some (Exp.variant ~loc unary (Some (Ppx_common.string_exp loc s)))
@@ -485,9 +485,9 @@ let total_variant (unary, nullary) ?separated_by ?default loc name s =
 
 (* Miscellaneous. *)
 
-let presence ?separated_by ?default _ _ _ = None
+let presence ?separated_by:_ ?default:_ _ _ _ = None
 
-let _paint_without_icc loc name s =
+let _paint_without_icc loc _name s =
   begin match s with
   | "none" ->
     [%expr `None]
@@ -511,7 +511,7 @@ let _paint_without_icc loc name s =
          Some [%e Ppx_common.string_exp loc icc_color])]
   end [@metaloc loc]
 
-let paint ?separated_by ?default loc name s =
+let paint ?separated_by:_ ?default:_ loc name s =
   if not @@ Str.string_match (Str.regexp "url(\\([^)]+\\))") s 0 then
     Some (_paint_without_icc loc name s)
   else
@@ -533,7 +533,7 @@ let paint ?separated_by ?default loc name s =
 let srcset_element =
   let space = Str.regexp " +" in
 
-  fun ?separated_by ?default loc name s ->
+  fun ?separated_by:_ ?default:_ loc name s ->
     let e =
       begin match Str.bounded_split space s 2 with
       | [url] ->
@@ -590,7 +590,7 @@ let in_ = total_variant Svg_types_reflected.in_value
 
 let in2 = in_
 
-let xmlns ?separated_by ?default loc name s =
+let xmlns ?separated_by:_ ?default:_ loc name s =
   if s <> Markup.Ns.html then
     Ppx_common.error loc "%s: namespace must be %s" name Markup.Ns.html;
 
