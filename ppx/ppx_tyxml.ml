@@ -67,7 +67,7 @@ let adjust_location start_loc delimiter_length consumed (line, column) =
    reads the Markup.ml signal (output) stream and recursively assembles the
    TyXML expression.
 
-   The current implementation stores the child list in a reference, becuase it
+   The current implementation stores the child list in a reference, because it
    is modified by both the assembler and the input stream function. A better
    implementation would scan the payload for the locations of literal TyXML
    expressions, and merge them into the child list in the assembler. *)
