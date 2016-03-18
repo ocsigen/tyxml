@@ -45,11 +45,9 @@ let qualify_child lang = function
     [%expr [%e identifier] [%e s]] [@metaloc e.pexp_loc]
 
   | {pexp_desc =
-      Pexp_apply ({pexp_desc = Pexp_ident lid} as e', arguments)} as e
+      Pexp_apply ({pexp_desc = Pexp_ident lid}, arguments)} as e
       when Longident.last lid.txt = "svg" && lang = Html ->
-    let html5_svg = Ppx_common.qualify Ppx_common.(implementation Html) "svg" in
-    let lid = {lid with txt = Longident.parse html5_svg} in
-    let identifier = {e' with pexp_desc = Pexp_ident lid} in
+    let identifier = Ppx_common.make ~loc:lid.loc Html "svg" in
     {e with pexp_desc = Pexp_apply (identifier, arguments)}
 
   | e -> e
@@ -86,7 +84,7 @@ let filter_whitespace children =
    application of a function with name [name]. *)
 let is_element_with_name name = function
   | {pexp_desc = Pexp_apply ({pexp_desc = Pexp_ident {txt}}, _)}
-      when Longident.flatten txt |> String.concat "." = name -> true
+      when txt = name -> true
   | _ -> false
 
 (* Partitions a list of elements according to [_is_element_with_name name]. *)
@@ -96,7 +94,7 @@ let partition name children =
 (* Given the name [n] of a function in [Html5_sigs.T], evaluates to
    ["Html5." ^ n]. *)
 let html5 local_name =
-  Ppx_common.qualify Ppx_common.(implementation Html) local_name
+  Longident.Ldot (Lident Ppx_common.(implementation Html), local_name)
 
 
 

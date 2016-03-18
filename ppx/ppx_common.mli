@@ -36,7 +36,6 @@ val make :
 val int : Location.t -> int -> Parsetree.expression
 val float : Location.t -> string -> Parsetree.expression
 val string : Location.t -> string -> Parsetree.expression
-val identifier : Location.t -> string -> Parsetree.expression
 val list : Location.t -> Parsetree.expression list -> Parsetree.expression
 
 val wrap :
@@ -46,6 +45,3 @@ val wrap :
 
 val error : Location.t -> ('b, unit, string, 'a) format4 -> 'b
 (** Raises an error using compiler module [Location]. *)
-
-val qualify : string -> string -> string
-(** [qualify m i] is [m ^ "." ^ i]. *)
