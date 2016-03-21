@@ -112,6 +112,23 @@ Library tymlx_p
   Modules:
     Simplexmlparser
 
+Executable test_html
+  Install: false
+  Build$: flag(tests)
+  Path: tests
+  MainIs: test_html.ml
+  BuildDepends: tyxml, alcotest
+
+Test html
+  Command: $test_html
+  TestTools: test_html
+  Run$: flag(tests)
+
+Test html_fail
+  Command: ocamlbuild tests/html_fail.stamp
+  TestTools: test_html
+  Run$: flag(tests)
+
 Document "tyxml-api"
   Title: API reference for TyXML
   Type: ocamlbuild (0.3)

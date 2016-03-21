@@ -1,7 +1,7 @@
 opam pin add --no-action tyxml .
 opam install camlp4
-opam install --deps-only tyxml
-opam install --verbose tyxml
+opam install -t --deps-only tyxml
+opam install -t --verbose tyxml
 
 do_build_doc () {
   make wikidoc
