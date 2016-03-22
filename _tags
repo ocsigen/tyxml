@@ -9,3 +9,5 @@ true: bin_annot
 not <syntax/*>: warn(A-4-9-40-42-44-48)
 not <syntax/*>: warn_error(+1..49), warn_error(-45-3)
 not <syntax/*>: strict_sequence, safe_string, short_paths
+
+true: keep_locs
