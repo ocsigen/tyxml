@@ -21,68 +21,11 @@
 
 (** Basic functions for construction and manipulation of XML tree. *)
 
-type 'a wrap = 'a
-type 'a list_wrap = 'a list
-module W : Xml_wrap.NoWrap
-type uri = string
-val string_of_uri : uri -> string
-val uri_of_string : string -> uri
-
-type aname = string
-type separator = Space | Comma
-type event_handler = string
-type mouse_event_handler = string
-type keyboard_event_handler = string
-
-type attrib
-val aname : attrib -> aname
-
-type acontent = private
-  | AFloat of float
-  | AInt of int
-  | AStr of string
-  | AStrL of separator * string list
-val acontent : attrib -> acontent
-
-val float_attrib : aname -> float -> attrib
-val int_attrib : aname -> int -> attrib
-val string_attrib : aname -> string -> attrib
-val space_sep_attrib : aname -> string list -> attrib
-val comma_sep_attrib : aname -> string list -> attrib
-val event_handler_attrib : aname -> event_handler -> attrib
-val mouse_event_handler_attrib : aname -> event_handler -> attrib
-val keyboard_event_handler_attrib : aname -> event_handler -> attrib
-val uri_attrib : aname -> uri -> attrib
-val uris_attrib : aname -> uri list -> attrib
-
-type ename = string
-
-type elt
-type econtent = private
-  | Empty
-  | Comment of string
-  | EncodedPCDATA of string
-  | PCDATA of string
-  | Entity of string
-  | Leaf of ename * attrib list
-  | Node of ename * attrib list * elt list
-val content : elt -> econtent
-
-val empty : unit -> elt
-
-val comment : string -> elt
-val pcdata : string -> elt
-val encodedpcdata : string -> elt
-val entity : string -> elt
-(** Neither [comment], [pcdata] nor [entity] check their argument for invalid
-    characters.  Unsafe characters will be escaped later by the output routines.  *)
-
-val leaf : ?a:(attrib list) -> ename -> elt
-val node : ?a:(attrib list) -> ename -> elt list -> elt
-
-val cdata : string -> elt
-val cdata_script : string -> elt
-val cdata_style : string -> elt
+include Xml_sigs.Iterable
+  with type uri = string
+   and type event_handler = string
+   and type mouse_event_handler = string
+   and type keyboard_event_handler = string
 
 (** {2 Iterators} *)
 
