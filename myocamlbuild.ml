@@ -55,7 +55,7 @@ let () =
     let tags = tags_of_pathname arg in
     Cmd(S[Sh "TERM=dumb ocaml -noinit -noprompt";
           T tags ; Sh " < " ; P arg;
-          Sh " 2>&1 | tail -n +17 >"; P out ])
+          Sh " 2>&1 | tail -n +19 >"; P out ])
   in
   Rule.rule
     "toplevel: %.top.ml -> %.result"

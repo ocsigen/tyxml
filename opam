@@ -30,6 +30,7 @@ depends: [
   "ocamlbuild" {build}
   "uutf"
   "base-bytes"
+  "re"
   "alcotest" {test}
   ## OASIS is not required in released version
   "oasis" {build & >= "0.4.4"}
