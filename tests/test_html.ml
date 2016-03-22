@@ -29,6 +29,14 @@ let elements_html = "elements", tyxml_tests M.[
 ]]>
 |} ;
 
+  "cdata multi",
+  cdata "<bar>]]>foo<b]]>ar/>",
+  {|
+<![CDATA[
+<bar>foo<bar/>
+]]>
+|} ;
+
   "cdata_script" ,
   cdata_script "<bar>]]>foo<bar/>" ,
   {|
