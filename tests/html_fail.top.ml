@@ -1,6 +1,6 @@
 #use "topfind" ;;
 #require "uutf" ;;
-#require "str" ;;
+#require "re" ;;
 #directory "lib" ;;
 #load "tyxml.cma" ;;
 

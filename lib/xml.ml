@@ -85,12 +85,14 @@ module M = struct
   let encodedpcdata d = { elt = EncodedPCDATA d }
   let entity e = { elt = Entity e }
 
+  let re_end_cdata = Re.(compile @@ str "]]>")
+
   let cdata s = (* GK *)
     (* For security reasons, we do not allow "]]>" inside CDATA
        (as this string is to be considered as the end of the cdata)
     *)
     let s' = "\n<![CDATA[\n"^
-             (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
+             Re.replace_string ~all:true re_end_cdata ~by:"" s
              ^"\n]]>\n" in
     encodedpcdata s'
 
@@ -99,7 +101,7 @@ module M = struct
        (as this string is to be considered as the end of the cdata)
     *)
     let s' = "\n//<![CDATA[\n"^
-             (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
+             Re.replace_string ~all:true re_end_cdata ~by:"" s
              ^"\n//]]>\n" in
     encodedpcdata s'
 
@@ -108,7 +110,7 @@ module M = struct
        (as this string is to be considered as the end of the cdata)
     *)
     let s' = "\n/* <![CDATA[ */\n"^
-             (Str.global_replace (Str.regexp (Str.quote "]]>")) "" s)
+             Re.replace_string ~all:true re_end_cdata ~by:"" s
              ^"\n/* ]]> */\n" in
     encodedpcdata s'
 

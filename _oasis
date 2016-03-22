@@ -45,7 +45,7 @@ Library tyxml
     Xml_print,
     Svg_f,
     Html5_f
-  BuildDepends: str, uutf
+  BuildDepends: re, uutf
 
 Library tyxml_f
   FindlibName: functor
