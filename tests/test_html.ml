@@ -21,6 +21,29 @@ let elements_html = "elements", tyxml_tests M.[
   canvas [a []],
   "<canvas><a></a></canvas>";
 
+  "cdata",
+  cdata "<bar>]]>foo<bar/>",
+  {|
+<![CDATA[
+<bar>foo<bar/>
+]]>
+|} ;
+
+  "cdata_script" ,
+  cdata_script "<bar>]]>foo<bar/>" ,
+  {|
+//<![CDATA[
+<bar>foo<bar/>
+//]]>
+|} ;
+
+  "cdata_style" ,
+  cdata_style "<bar>]]>foo<bar/>" ,
+  {|
+/* <![CDATA[ */
+<bar>foo<bar/>
+/* ]]> */
+|} ;
 
 ]
 
