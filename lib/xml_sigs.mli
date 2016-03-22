@@ -26,8 +26,8 @@ module type T = sig
   type 'a list_wrap = 'a W.tlist
 
   type uri
-  val string_of_uri : uri -> string
-  val uri_of_string : string -> uri
+  val string_of_uri : (uri, string) W.ft
+  val uri_of_string : (string, uri) W.ft
 
   type aname = string
   type event_handler

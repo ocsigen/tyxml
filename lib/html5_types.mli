@@ -1758,11 +1758,6 @@ type embed_content_fun = notag
 
 type embed_attrib = [ | common | `Src | `Height | `Mime_type | `Width ]
 
-type image_candidate =
-  [ `Url of Xml.uri
-  | `Url_width of Xml.uri * number
-  | `Url_pixel of Xml.uri * float_number ]
-
 type img = [ `Img ]
 type img_interactive = [ `Img | `Img_interactive ]
 type img_content = notag

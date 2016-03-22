@@ -26,8 +26,8 @@ module type T = sig
   module Info : Xml_sigs.Info
 
   type uri = Xml.uri
-  val string_of_uri : uri -> string
-  val uri_of_string : string -> uri
+  val string_of_uri : (uri, string) Xml.W.ft
+  val uri_of_string : (string, uri) Xml.W.ft
 
   (** {1 Abstraction over XML's types} *)
 
