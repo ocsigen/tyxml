@@ -47,6 +47,33 @@ let () =
        | _ ->
          ())
 
+(* Rules for testing non-typable things *)
+open Ocamlbuild_pack
+let () =
+  let toplevel env _build =
+    let arg = env "%.top.ml" and out = env "%.result" in
+    let tags = tags_of_pathname arg in
+    Cmd(S[Sh "TERM=dumb ocaml -noinit -noprompt";
+          T tags ; Sh " < " ; P arg;
+          Sh " 2>&1 | tail -n +17 >"; P out ])
+  in
+  Rule.rule
+    "toplevel: %.top.ml -> %.result"
+      ~dep:"%.top.ml"
+      ~prod:"%.result"
+      toplevel
+
+let () =
+  let diff env _build =
+    let res = env "%.result" and exp = env "%.expected" in
+    Cmd(S[A "diff"; P res ; P exp ])
+  in
+  Rule.rule
+    "diff: %.result + %.expected -> %.stamp"
+      ~stamp:"%.stamp"
+      ~deps:["%.result"; "%.expected"]
+      diff
+
 (* Compile the wiki version of the Ocamldoc.
 
    Thanks to Till Varoquaux on usenet:

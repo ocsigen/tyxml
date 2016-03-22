@@ -11,3 +11,4 @@ setup.exe
 setup-dev.exe
 *.byte
 *.native
+_tests

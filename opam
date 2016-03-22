@@ -14,12 +14,23 @@ build: [
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
 ]
+build-test: [
+  ["ocaml" "setup.ml" "-configure"
+      "--%{camlp4:enable}%-syntax"
+      "--enable-tests"
+      "--prefix" prefix]
+  ["ocaml" "setup.ml" "-build"]
+  ["ocaml" "setup.ml" "-test"]
+]
+build-doc: ["ocaml" "setup.ml" "-doc"]
 install: ["ocaml" "setup.ml" "-install"]
 remove: ["ocamlfind" "remove" "tyxml"]
 depends: [
   "ocamlfind" {build}
+  "ocamlbuild" {build}
   "uutf"
   "base-bytes"
+  "alcotest" {test}
   ## OASIS is not required in released version
   "oasis" {build & >= "0.4.4"}
 ]
