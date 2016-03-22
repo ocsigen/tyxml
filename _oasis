@@ -34,18 +34,12 @@ Flag syntax
 
 Library tyxml
   FindlibName: tyxml
-  Path: lib
+  Path: implem
   Modules:
     Xml,
     Svg,
     Html5
-  InternalModules:
-    Xml_iter,
-    Xml_wrap,
-    Xml_print,
-    Svg_f,
-    Html5_f
-  BuildDepends: re, uutf
+  BuildDepends: tyxml.functor, re, uutf
 
 Library tyxml_f
   FindlibName: functor
