@@ -125,6 +125,24 @@ Test html_fail
   TestTools: main_test
   Run$: flag(tests)
 
+## Examples
+
+Executable basic_website
+  Install: false
+  Build$: flag(tests)
+  Path: examples/basic_website
+  MainIs: site_html.ml
+  BuildDepends: tyxml
+  CompiledObject: best
+
+Test basic_website
+  WorkingDirectory: examples/basic_website
+  Command: $basic_website
+  TestTools: basic_website
+  Run$: flag(tests)
+
+## Documentation
+
 Document "tyxml-api"
   Title: API reference for TyXML
   Type: ocamlbuild (0.3)
