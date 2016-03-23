@@ -109,5 +109,6 @@ end
 include M
 include Xml_print.Make_simple(M)(struct let emptytags = [] end)
 include Xml_iter.Make(M)
+include Xml_print.Make_fmt(M)(struct let emptytags = [] end)
 
 let print fmt x = print_list ~output:(Format.pp_print_string fmt) [x]

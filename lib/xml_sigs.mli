@@ -125,18 +125,6 @@ module type Typed_xml = sig
 
 end
 
-module type Iterable_typed_xml = sig
-
-  module Xml : Iterable
-  module Info : Info
-
-  type 'a elt
-  type doc
-  val toelt : 'a elt -> Xml.elt
-  val doc_toelt : doc -> Xml.elt
-
-end
-
 module type Printer = sig
 
   type xml_elt
@@ -183,5 +171,25 @@ module type Typed_simple_printer = sig
     output:(string -> unit) ->
     ?encode:(string -> string) -> ?advert:string->
     doc -> unit
+
+end
+
+module type Pp = sig
+
+  type elt
+
+  val pp:
+    ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
+end
+
+module type Typed_pp = sig
+
+  type 'a elt
+  type doc
+
+  val pp_elt :
+    ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+  val pp:
+    ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
 
 end

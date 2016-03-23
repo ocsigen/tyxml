@@ -171,6 +171,8 @@ module Utf8 = struct
 
 end
 
+(** Format based printers *)
+
 let pp_noop _fmt _ = ()
 
 (* Present only in ocaml >= 4.02 *)
@@ -258,14 +260,14 @@ struct
   and pp_elts encode =
     pp_print_list ~pp_sep:pp_noop (pp_elt encode)
 
-  let print_list ?(encode=encode_unsafe_char) =
-    pp_elts encode
+  let pp ?(encode=encode_unsafe_char) () =
+    pp_elt encode
 
 end
 
 module Make_typed_fmt
     (Xml : Xml_sigs.Iterable)
-    (Typed_xml : Xml_sigs.Iterable_typed_xml with module Xml := Xml) =
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml) =
 struct
 
   module P = Make_fmt(Xml)(Typed_xml.Info)
@@ -283,10 +285,10 @@ struct
       Xml.node ~a n c
     | _ -> doc
 
-  let print_list ?(encode=encode_unsafe_char) fmt foret =
-    P.pp_elts encode fmt (List.map Typed_xml.toelt foret)
+  let pp_elt ?(encode=encode_unsafe_char) () fmt foret =
+    P.pp_elt encode fmt (Typed_xml.toelt foret)
 
-  let print ?(encode = encode_unsafe_char) ?advert fmt doc =
+  let pp ?(encode = encode_unsafe_char) ?advert () fmt doc =
     Format.pp_print_string fmt Typed_xml.Info.doctype ;
 
     begin match advert with
@@ -393,7 +395,7 @@ end
 
 module Make_typed
     (Xml : Xml_sigs.Iterable)
-    (Typed_xml : Xml_sigs.Iterable_typed_xml with module Xml := Xml)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
     (O : Xml_sigs.Output) =
 struct
 

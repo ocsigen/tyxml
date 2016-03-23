@@ -23,7 +23,7 @@
 val encode_unsafe_char : string -> string
 (** The encoder maps strings to HTML and {e must} encode the unsafe characters
     ['<'], ['>'], ['"'], ['&'] and the control characters 0-8, 11-12, 14-31, 127
-    to HTML entities.  [encode_unsafe] is the default for [?encode] in [output]
+    to HTML entities.  [encode_unsafe_char] is the default for [?encode] in [output]
     and [pretty_print] below.  Other implementations are provided by the module
     [Netencoding] in the
     {{:http://www.ocaml-programming.de/programming/ocamlnet.html}OcamlNet}
@@ -77,18 +77,15 @@ end
 module Make_fmt
     (Xml : Xml_sigs.Iterable)
     (I : sig val emptytags : string list end)
-  : sig
-    val print_list: ?encode:(string -> string) -> Format.formatter -> Xml.elt list -> unit
-  end
+  : Xml_sigs.Pp with type elt := Xml.elt
 
 module Make_typed_fmt
     (Xml : Xml_sigs.Iterable)
     (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
-  : sig
+  : Xml_sigs.Typed_pp
+    with type 'a elt := 'a Typed_xml.elt
+     and type doc := Typed_xml.doc
 
-    val print_list: ?encode:(string -> string) -> Format.formatter -> 'a Typed_xml.elt list -> unit
-    val print: ?encode:(string -> string) -> ?advert:string -> Format.formatter -> Typed_xml.doc -> unit
-  end
 
 module Make
     (Xml : Xml_sigs.Iterable)

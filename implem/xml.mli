@@ -27,6 +27,10 @@ include Xml_sigs.Iterable
    and type mouse_event_handler = string
    and type keyboard_event_handler = string
 
+
+val pp : ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
+
+
 (** {2 Iterators} *)
 
 val amap : (ename -> attrib list -> attrib list) -> elt -> elt
@@ -71,7 +75,7 @@ val translate :
   ('state -> ename -> attrib list -> elt list -> elt list) ->
   (ename -> attrib list -> 'state -> 'state) -> 'state -> elt -> elt
 
-(** {2 Printer} *)
+(** {2 Deprecated printers} *)
 
 val print_list:
   output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
