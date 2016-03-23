@@ -60,13 +60,13 @@ let compose_doctype dt args =
 
 
 (* copied form js_of_ocaml: compiler/javascript.ml *)
-let string_of_number v =
+let pp_number fmt v =
   if v = infinity
-  then "Infinity"
+  then Format.pp_print_string fmt "Infinity"
   else if v = neg_infinity
-  then "-Infinity"
+  then Format.pp_print_string fmt "-Infinity"
   else if v <> v
-  then "NaN"
+  then Format.pp_print_string fmt "NaN"
   else
     let vint = int_of_float v in
     (* compiler 1000 into 1e3 *)
@@ -77,19 +77,21 @@ let string_of_number v =
         then div (n/10) (succ i)
         else
         if i > 2
-        then Printf.sprintf "%de%d" n i
-        else string_of_int vint in
+        then Format.fprintf fmt "%de%d" n i
+        else Format.pp_print_int fmt vint in
       div vint 0
     else
       let s1 = Printf.sprintf "%.12g" v in
       if v = float_of_string s1
-      then s1
+      then Format.pp_print_string fmt s1
       else
         let s2 = Printf.sprintf "%.15g" v in
         if v = float_of_string s2
-        then s2
-        else  Printf.sprintf "%.18g" v
+        then Format.pp_print_string fmt s2
+        else  Format.fprintf fmt "%.18g" v
 
+let string_of_number v =
+  Format.asprintf "%a" pp_number v
 
 module Utf8 = struct
   type utf8 = string

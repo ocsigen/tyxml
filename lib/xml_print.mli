@@ -45,6 +45,9 @@ val compose_doctype : string -> string list -> string
 val string_of_number : float -> string
 (** Convert a float to a string using a compact representation compatible with Javascript norme. *)
 
+val pp_number : Format.formatter -> float -> unit
+(** See {!string_of_number}. *)
+
 (** Utf8 normalizer and encoder for HTML.
 
 Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, this modules is used as following:
