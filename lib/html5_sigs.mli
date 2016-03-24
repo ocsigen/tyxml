@@ -17,10 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+(** Html5 signatures for the functorial interface. *)
+
+(** Signature of typesafe constructors for HTML5 documents. *)
 module type T = sig
 
   open Html5_types
 
+  (** Underlying XML data-structure *)
   module Xml : Xml_sigs.T
 
   module Svg : Svg_sigs.T with module Xml := Xml
@@ -45,8 +49,8 @@ module type T = sig
 
   type +'a attrib
 
-  val to_xmlattribs : ('a attrib) list -> Xml.attrib list (* VB *)
-  val to_attrib : Xml.attrib -> 'a attrib (* GH *)
+  val to_xmlattribs : ('a attrib) list -> Xml.attrib list
+  val to_attrib : Xml.attrib -> 'a attrib
   (** ['a] is known as a {i phantom type}.  The implementation is
       actually monomorphic (the different element types are distinguished
       by a homogeneous variable, such as their textual representation)
@@ -153,8 +157,9 @@ module type T = sig
 
   val a_span : number wrap -> [> | `Span] attrib
 
-  (** This attribute is deprecated, you should use {! a_xml_lang}. *)
+  (** @deprecated Use {!a_xml_lang} instead. *)
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
+    [@@ocaml.deprecated "Use a_xml_lang instead."]
 
   val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
 
@@ -185,15 +190,15 @@ module type T = sig
 
   val a_title : text wrap -> [> | `Title] attrib
   (** This attribute offers advisory information about the element for
-      which it is set. *)
+      which it is set.
 
-  (** Values of the title attribute may be rendered by user agents in a
+      Values of the title attribute may be rendered by user agents in a
       variety of ways. For instance, visual browsers frequently display
       the title as a {i tool tip} (a short message that appears when the
       pointing device pauses over an object). Audio user agents may
-      speak the title information in a similar context.  *)
+      speak the title information in a similar context.
 
-  (** The title attribute has an additional role when used with the [link]
+      The title attribute has an additional role when used with the [link]
       element to designate an external style sheet. Please consult the
       section on links and style sheets for details.  *)
 
@@ -926,18 +931,17 @@ module type T = sig
   val toelt : 'a elt -> Xml.elt
   val toeltl : ('a elt) list -> Xml.elt list
 
-  (** *)
-
   type doc = [ `Html ] elt
   val doc_toelt : doc -> Xml.elt
 
+  (** Unsafe features.
 
+      Warning using this module can break
+      HTML5 validity and may introduce security problems like
+      code injection.
+      Use it with care.
+  *)
   module Unsafe : sig
-    (** Unsafe features. Warning using this module can break
-        HTML5 validity and may introduce security problems like
-        code injection.
-        Use it with care.
-    *)
 
     (** Insert raw text without any encoding *)
     val data : string wrap -> 'a elt
@@ -985,8 +989,34 @@ module type T = sig
 
 end
 
+(** Equivalent to {!T}, but without wrapping. *)
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
+
+(** {2 Signature functors} *)
+(** {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %} *)
+
+(** Signature functor for {!Html5_f.Make}. *)
+module Make
+    (Xml : Xml_sigs.T)
+    (Svg : Svg_sigs.T with module Xml := Xml) :
+sig
+
+  (** See {!modtype:Html5_sigs.T}. *)
+  module type T = T
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
+     and type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
+     and module Svg := Svg
+end
+
+(** Wrapped functions, to be used with {!Html5_f.Make_with_wrapped_functions}. *)
 module type Wrapped_functions = sig
 
   module Xml : Xml_sigs.T
@@ -1035,27 +1065,4 @@ module type Wrapped_functions = sig
 
   val unoption_string : (string option, string) Xml.W.ft
 
-end
-
-(** {2 Signature functors} *)
-(** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
-
-(** Signature functor for {!Html5_f.Make}. *)
-module Make
-    (Xml : Xml_sigs.T)
-    (Svg : Svg_sigs.T with module Xml := Xml) :
-sig
-
-  (** See {!modtype:Html5_sigs.T}. *)
-  module type T = T
-    with type 'a Xml.W.t = 'a Xml.W.t
-     and type 'a Xml.W.tlist = 'a Xml.W.tlist
-     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
-     and type Xml.uri = Xml.uri
-     and type Xml.event_handler = Xml.event_handler
-     and type Xml.mouse_event_handler = Xml.mouse_event_handler
-     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
-     and type Xml.attrib = Xml.attrib
-     and type Xml.elt = Xml.elt
-     and module Svg := Svg
 end
