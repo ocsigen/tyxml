@@ -30,7 +30,7 @@ module type T = sig
   type 'a wrap = 'a Xml.W.t
   type 'a list_wrap = 'a Xml.W.tlist
 
-  (** {1 Uri} *)
+  (** {2 Uri} *)
 
   type uri = Xml.uri
   val string_of_uri : (uri, string) Xml.W.ft
@@ -41,7 +41,7 @@ module type T = sig
     | `Url_width of uri * number
     | `Url_pixel of uri * float_number ]
 
-  (** {1 Common Attributes} *)
+  (** {2 Common Attributes} *)
 
   type +'a attrib
 
@@ -197,15 +197,16 @@ module type T = sig
       element to designate an external style sheet. Please consult the
       section on links and style sheets for details.  *)
 
-  (** {2 I18N} *)
+  (** {3 I18N} *)
 
   val a_xml_lang : languagecode wrap -> [> | `XML_lang] attrib
 
   val a_lang : languagecode wrap -> [> | `Lang] attrib
 
-  (** {2 Events} *)
+  (** {3 Events} *)
 
-  (** Javascript events *)
+  (** {4 Javascript events} *)
+
   val a_onabort : Xml.event_handler -> [> | `OnAbort] attrib
   val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
   val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
@@ -258,7 +259,8 @@ module type T = sig
   val a_onloadstart : Xml.event_handler -> [> | `OnLoadStart] attrib
   val a_onmessage : Xml.event_handler -> [> | `OnMessage] attrib
 
-  (** Javascript mouse events *)
+  (** {4 Mouse events} *)
+
   val a_onclick : Xml.mouse_event_handler -> [> | `OnClick] attrib
   val a_oncontextmenu : Xml.mouse_event_handler -> [> | `OnContextMenu] attrib
   val a_ondblclick : Xml.mouse_event_handler -> [> | `OnDblClick] attrib
@@ -275,7 +277,8 @@ module type T = sig
   val a_onmousemove : Xml.mouse_event_handler -> [> | `OnMouseMove] attrib
   val a_onmouseout : Xml.mouse_event_handler -> [> | `OnMouseOut] attrib
 
-  (** Javascript keyboard events *)
+  (** {4 Keyboard events} *)
+
   val a_onkeypress : Xml.keyboard_event_handler -> [> | `OnKeyPress] attrib
   val a_onkeydown : Xml.keyboard_event_handler -> [> | `OnKeyDown] attrib
   val a_onkeyup : Xml.keyboard_event_handler -> [> | `OnKeyUp] attrib
@@ -521,7 +524,7 @@ module type T = sig
 
   val a_property : string wrap -> [> | `Property] attrib
 
-  (** {1 Phantom types and XML elements} *)
+  (** {2 Phantom types and XML elements} *)
 
   type +'a elt
 
@@ -536,20 +539,7 @@ module type T = sig
   (** Root element *)
   type html = [ | `Html ] elt
 
-  (** {1 Combined Element Sets:} *)
-
-  (********************************)
-  (*  If the document is an       *)
-  (*  iframe srcdoc document or if*)
-  (*title information is available*)
-  (*from a higher-level protocol: *)
-  (*   Zero or more elements of   *)
-  (*   metadata content.          *)
-  (*Otherwise:                    *)
-  (*   One or more elements of    *)
-  (*   metadata content, of which *)
-  (*exactly one is a title element*)
-  (********************************)
+  (** {2 Combined Element Sets:} *)
 
   val html :
     ?a: ((html_attrib attrib) list) ->
@@ -568,7 +558,7 @@ module type T = sig
 
   val svg : ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list_wrap -> [> svg ] elt
 
-  (** {2 Section} *)
+  (** {3 Section} *)
 
   val footer :
     ([< | common], [< | flow5_without_header_footer], [> | `Footer]) star
@@ -593,7 +583,6 @@ module type T = sig
 
   val h6 : ([< | h6_attrib], [< | h6_content_fun], [> | h6]) star
 
-  (* theoretically a plus, simplified into star *)
   val hgroup :
     ([< | hgroup_attrib], [< | hgroup_content_fun], [> | hgroup]) star
 
@@ -609,33 +598,18 @@ module type T = sig
   val main :
     ([< | main_attrib], [< | main_content_fun], [> | main]) star
 
-  (** {2 Grouping content} *)
+  (** {3 Grouping content} *)
 
   val p : ([< | p_attrib], [< | p_content_fun], [> | p]) star
 
   val pre : ([< | pre_attrib], [< | pre_content_fun], [> | pre]) star
 
   val blockquote :
-    ([< | blockquote_attrib], [< | blockquote_content_fun], [> | blockquote
-                                                            ]) star
+    ([< | blockquote_attrib], [< | blockquote_content_fun], [> | blockquote])
+      star
 
   val div : ([< | div_attrib], [< | div_content_fun], [> | div]) star
 
-  (********************************)
-  (*            In Dl             *)
-  (********************************)
-  (*   Zero or more groups each   *)
-  (*   consisting of              *)
-  (*      one or more dt element  *)
-  (*      followed by             *)
-  (*      one or more dd  elements*)
-  (********************************)
-  (* theoretically
-    val dl :
-      ?a: (([< | common] attrib) list) ->
-      ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
-       (([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
-   but we simplify into star *)
   val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
@@ -646,57 +620,26 @@ module type T = sig
 
   val dt : ([< | dt_attrib], [< | dt_content_fun], [> | dt]) star
 
-  (********************************)
-  (*            In Li             *)
-  (********************************)
-  (*  Only if the element is a    *)
-  (*  child of an ol element:     *)
-  (*          value attribute     *)
-  (********************************)
-
-  (** A list element.
-      The 'a type is used to know whether the element has
-      a int_value attribute or not. *)
   val li : ([< | li_attrib], [< | li_content_fun], [> | li]) star
 
   val figcaption :
     ([< | figcaption_attrib], [< | figcaption_content_fun], [> | figcaption]) star
 
-  (********************************)
-  (*          In Figure           *)
-  (********************************)
-  (*Either: One figcaption element*)
-  (*     followed by flow content.*)
-  (*Or: Flow content followed by  *)
-  (*     one figcaption element.  *)
-  (*Or: Flow content.             *)
-  (********************************)
   val figure :
     ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
     ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
 
-  (** {2 Ruby} *)
+  (** {3 Ruby} *)
 
-  (**********************************)
-  (*            In Ruby             *)
-  (**********************************)
-  (* One or more groups of:         *)
-  (*phrasing content followed either*)
-  (*    by a single rt element,     *)
-  (*    or an rp element            *)
-  (*       an rt element, and       *)
-  (*       another rp element.      *)
-  (**********************************)
-  (* simplified with simple stars *)
   val rt : ([< | rt_attrib], [< | rt_content_fun], [> | rt]) star
 
   val rp : ([< | rp_attrib], [< | rp_content_fun], [> | rp]) star
 
   val ruby : ([< | ruby_attrib], [< | ruby_content_fun], [> | ruby]) star
 
-  (** {2 Semantic} *)
+  (** {3 Semantic} *)
 
   val b : ([< | b_attrib], [< | b_content_fun], [> | b]) star
 
@@ -746,42 +689,23 @@ module type T = sig
 
   val var : ([< | var_attrib], [< | var_content_fun], [> | var]) star
 
-  (** {2 Hypertext} *)
+  (** {3 Hypertext} *)
 
-  (********************************)
-  (*             In A             *)
-  (********************************)
-  (*    The target, rel, media,   *)
-  (* hreflang, and type attributes*)
-  (*  must be omitted if the href *)
-  (*   attribute is not present.  *)
-  (********************************)
-  (*Only phasing instead of flow ?*)
-  (********************************)
-  (* a's children are transparents*)
-  (********************************)
   val a : ([< | a_attrib], 'a, [> | `A of 'a]) star
 
-  (** {2 Edit} *)
+  (** {3 Edit} *)
 
-  (**********************************)
-  (* del's children are transparents*)
-  (**********************************)
   val del : ([< | del_attrib], 'a, [> | `Del of 'a]) star
-
-  (**********************************)
-  (* ins's children are transparents*)
-  (**********************************)
   val ins : ([< | ins_attrib], 'a, [> | `Ins of 'a]) star
 
-  (** {2 Embedded} *)
+  (** {3 Embedded} *)
 
   val img :
     src: Xml.uri wrap ->
     alt: text wrap ->
     ([< img_attrib], [> img]) nullary
 
-  val iframe : (*| `Srcdoc*)
+  val iframe :
     ([< | common | `Src | `Name | `Sandbox | `Seamless | `Width | `Height],
      [< | `PCDATA], [> | `Iframe]) star
 
@@ -800,37 +724,9 @@ module type T = sig
 
   val param : ([< | param_attrib], [> | param]) nullary
 
-  (**********************************)
-  (*            In Embed            *)
-  (**********************************)
-  (*  Any namespace-less attribute  *)
-  (* other than name, align, hspace,*)
-  (* and vspace  may be specified on*)
-  (* the embed element, so long as  *)
-  (* its name is XML-compatible and *)
-  (* contains no characters in the  *)
-  (* range U+0041 to U+005A         *)
-  (*(LATIN CAPITAL LETTER A to LATIN*)
-  (*CAPITAL LETTER Z).              *)
-  (*These attributes are then passed*)
-  (*  as parameters to the plugin.  *)
-  (**********************************)
   val embed :
-    ([< | common | `Src | `Height | `Mime_type | `Width], [> | `Embed])
-      nullary
+    ([< | common | `Src | `Height | `Mime_type | `Width], [> | `Embed]) nullary
 
-  (**************************************)
-  (*         In Audio and Video         *)
-  (**************************************)
-  (* If the element has a src attribute:*)
-  (*   transparent, but with no media   *)
-  (*   element descendants.             *)
-  (* If the element does not have a src *)
-  (* attribute:                         *)
-  (*   one or more source elements, then*)
-  (*   transparent, but with no media   *)
-  (*   element descendants.             *)
-  (**************************************)
   val audio :
     ?src:Xml.uri wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
@@ -845,14 +741,6 @@ module type T = sig
 
   val source : ([< | source_attrib], [> | source]) nullary
 
-  (********************************)
-  (*           In Area            *)
-  (********************************)
-  (* The alt, target, rel, media, *)
-  (* hreflang, and type attributes*)
-  (*  must be omitted if the href *)
-  (*   attribute is not present.  *)
-  (********************************)
   val area :
     alt: text wrap ->
     ([<
@@ -867,37 +755,13 @@ module type T = sig
       | `Mime_type
     ], [> | `Area]) nullary
 
-  (* XXX: SC : the current system doesn't allow
-     to put <area> tag inside a map (a priori) *)
-  (* theoretically a plus, simplified into star *)
   val map : ([< | map_attrib], 'a, [> | `A of 'a]) star
 
-  (** {2 Tables Data} *)
+  (** {3 Tables Data} *)
 
   val caption :
     ([< | caption_attrib], [< | caption_content_fun], [> | caption]) star
 
-  (********************************)
-  (*      In Table and Tablex     *)
-  (********************************)
-  (*    In this order:            *)
-  (* optionally a caption element,*)
-  (* followed by either           *)
-  (*zero or more colgroup elements*)
-  (* followed optionally by a     *)
-  (*thead element,                *)
-  (* followed optionally by a     *)
-  (*tfoot element,                *)
-  (* followed by either           *)
-  (*zero or more tbody elements   *)
-  (*or one or more tr elements,   *)
-  (* followed optionally by       *)
-  (*a tfoot element               *)
-  (********************************)
-  (*   BUT ONLY ONE FOOT ELEMENT  *)
-  (*         CHILD IN TOTAL       *)
-  (********************************)
-  (* theoretically a plus, simplified into star *)
   val table :
     ?caption: [< | caption] elt wrap ->
     ?columns: [< | colgroup] elt list_wrap ->
@@ -912,14 +776,6 @@ module type T = sig
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
 
-  (********************************)
-  (*          In Colgroup         *)
-  (********************************)
-  (*   If span attribute is:      *)
-  (*       -present: Empty.       *)
-  (*       -absent: Zero or more  *)
-  (*                col elements. *)
-  (********************************)
   val colgroup :
     ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup]) star
 
@@ -938,18 +794,10 @@ module type T = sig
 
   val th : ([< | th_attrib], [< | th_content_fun], [> | th]) star
 
-  (****************************************)
-  (*                 In Tr                *)
-  (****************************************)
-  (*If the parent node is a thead element:*)
-  (*      Zero or more th elements        *)
-  (* Otherwise:                           *)
-  (*    Zero or more td or th elements    *)
-  (****************************************)
   val tr : ([< | tr_attrib], [< | tr_content_fun], [> | tr]) star
 
-  (** {2 Forms} *)
-  (* theoretically a plus, simplified into star *)
+  (** {3 Forms} *)
+
   val form : ([< | form_attrib], [< | form_content_fun], [> | form]) star
 
   val fieldset :
@@ -960,27 +808,15 @@ module type T = sig
   val legend :
     ([< | legend_attrib], [< | legend_content_fun], [> | legend]) star
 
-  (** Label authorizes only one  control inside them
+  (** Label authorizes only one control inside them
       that should be labelled with a [for] attribute
       (although it is not necessary). Such constraints are not currently
       enforced by the type-system *)
   val label :
     ([< | label_attrib], [< | label_content_fun], [> | label]) star
 
-  (** If the [type] attribute is not "hidden", must be considered
-      as interactive. Distinction not made for now. *)
   val input : ([< | input_attrib], [> | input]) nullary
 
-  (********************************)
-  (*          In Button           *)
-  (********************************)
-  (* The formaction, formenctype, *)
-  (*  formmethod, formnovalidate, *)
-  (*  and formtarget must not be  *)
-  (*  specified if the element's  *)
-  (* type  attribute is not in the*)
-  (*     Submit Button  state.    *)
-  (********************************)
   val button :
     ([< | button_attrib], [< | button_content_fun], [> | button]) star
 
@@ -1015,7 +851,7 @@ module type T = sig
   val output_elt :
     ([< | output_elt_attrib], [< | output_elt_content_fun], [> | output_elt]) star
 
-  (** {2 Data} *)
+  (** {3 Data} *)
 
   val pcdata : string wrap -> [> | `PCDATA] elt
 
@@ -1024,15 +860,11 @@ module type T = sig
   val space : unit -> [> | `PCDATA] elt
 
   val cdata : string -> [> | `PCDATA] elt
-
-  (* GK *)
   val cdata_script : string -> [> | `PCDATA] elt
-
-  (* GK *)
   val cdata_style : string -> [> | `PCDATA] elt
 
 
-  (** {2 Interactive} *)
+  (** {3 Interactive} *)
 
   val details :
     [< | `Summary] elt wrap ->
@@ -1059,61 +891,20 @@ module type T = sig
         | `Flows of ([< | flow5] elt) list_wrap
       ]) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
 
-  (** {2 Scripting} *)
+  (** {3 Scripting} *)
 
   val script :
     ([< | script_attrib], [< | script_content_fun], [> | script]) unary
 
-  (****************************************************)
-  (*                   In Noscript                    *)
-  (****************************************************)
-  (*When scripting is DISABLED, IN a HEAD element:    *)
-  (*   in any order, zero or more link elements,      *)
-  (*   zero or more style elements, and zero or more  *)
-  (*   meta elements.                                 *)
-  (*When scripting is DISABLED, NOT IN a HEAD element:*)
-  (*   transparent, but there must be no noscript     *)
-  (*   element descendants.                           *)
-  (*When scripting is ENABLED, IN a HEAD element:     *)
-  (*   only text, except that invoking the HTML       *)
-  (*   fragment parsing algorithm with the noscript   *)
-  (*   element as the context element and the text    *)
-  (*   contents as the input must result in a list of *)
-  (*   nodes that consists only of link, style, and   *)
-  (*   meta elements that would be conforming if they *)
-  (*   were children of the noscript element, and no  *)
-  (*   parse errors.                                  *)
-  (*When scripting is ENABLED, NOT IN a HEAD element: *)
-  (*   only text, except that the text must be such   *)
-  (*   that running the following algorithm results in*)
-  (*   a conforming document with no noscript elements*)
-  (*   and no script elements, and such that no step  *)
-  (*   in the algorithm causes an HTML parser to flag *)
-  (*   a parse error                                  *)
-  (****************************************************)
-  (* PLUS ?? simplified into star *)
   val noscript :
-    ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript])
-      star
+    ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript]) star
 
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
-  (** {2 Style Sheets} *)
+  (** {3 Style Sheets} *)
 
-  (*********************************)
-  (*            In Style           *)
-  (*********************************)
-  (* the content model depends on  *)
-  (*the value of the type attribute*)
-  (*********************************)
-  (*          BUT WHAT ???         *)
-  (* SC: contenttype defaults to   *)
-  (*  text/css                     *)
-  (*********************************)
   val style :
     ([< | style_attrib], [< | style_content_fun], [> | style]) star
-
-  (** {2 Link} *)
 
   val link :
     rel: linktypes wrap ->
@@ -1128,7 +919,7 @@ module type T = sig
       | `Mime_type
     ], [> | `Link]) nullary
 
-  (** {1 Tools} *)
+  (** {2 Tools} *)
 
   val tot : Xml.elt -> 'a elt
   val totl : Xml.elt list -> ('a elt) list

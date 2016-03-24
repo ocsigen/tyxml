@@ -19,17 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(* TODO :
-   - MathML and SVG
-   - forbid construction like that noscript (a [a []])
-   by playing on interactive_without*
-*)
-
-(* IDEAS:
-     The [a_] prefix would have to be maintained and the
-     only advantage are a potentially better mapping of the XHTML modularization
-     to O'Caml modules. *)
-
 module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)

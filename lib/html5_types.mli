@@ -19,29 +19,14 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(*
-  TODO, Issues:
-  -> Map cannot contain area children for now
-  -> noscript (a [a []]) should not be typed.
-  -> mathml !
-*)
-
 (* _fun prefix are the types that must be used
    in Html5.M. They are more restrictive as
    some param are already taken as seperate argument,
    to ensure better compatibility.
    SC *)
 
-(*
-  TODO: from draft 8 may 2011:
-  * add bdi element
-  * add s element
-  * add u element
-  * area is only allowed inside a phrasing if included inside a map element
 
-*)
-
-(** HTML5 types with variants. (See also {!Html5.M})
+(** HTML5 types with variants, goes with {!Html5_sigs.T}.
 
     @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
 *)
