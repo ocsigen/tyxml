@@ -79,5 +79,7 @@ val translate :
 
 val print_list:
   output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
+  [@@ocaml.deprecated "Use Xml.pp instead."]
 
 val print : Format.formatter -> elt -> unit
+  [@@ocaml.deprecated "Use Xml.pp instead."]

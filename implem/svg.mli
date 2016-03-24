@@ -21,7 +21,9 @@
 
     @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
 
-(** Concrete implementation of SVG typesafe constructors *)
+(** Concrete implementation of SVG typesafe constructors.
+    See {!modtype:Svg_sigs.T}.
+*)
 include Svg_sigs.Make(Xml).T
 
 (** Simple printer for SVG documents *)
@@ -29,8 +31,11 @@ include Xml_sigs.Typed_pp
   with type 'a elt := 'a elt
    and type doc := doc
 
-(** Parametrized stream printer for SVG documents *)
+(** Parametrized stream printer for SVG documents.
+    @deprecated Use {!Svg.pp} instead.
+*)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
                           and type 'a elt := 'a elt
                           and type doc := doc
+     [@@ocaml.deprecated "Use Svg.pp instead."]

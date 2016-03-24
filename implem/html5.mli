@@ -21,7 +21,9 @@
 
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
-(** Concrete implementation of HTML5 typesafe constructors *)
+(** Concrete implementation of HTML5 typesafe constructors.
+    See {!modtype:Html5_sigs.T}.
+*)
 include Html5_sigs.Make(Xml)(Svg).T
 
 (** Simple printer for HTML5 documents *)
@@ -29,8 +31,11 @@ include Xml_sigs.Typed_pp
   with type 'a elt := 'a elt
    and type doc := doc
 
-(** Parametrized stream printer for HTML5 documents *)
+(** Parametrized stream printer for HTML5 documents.
+    @deprecated Use {!Html5.pp} instead.
+*)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
                           and type 'a elt := 'a elt
                           and type doc := doc
+     [@@ocaml.deprecated "Use Html5.pp instead."]
