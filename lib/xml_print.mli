@@ -18,7 +18,16 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Printer for XML. *)
+(** Printing utilities.
+
+    This module contains various encoding functions that can be used
+    with {!Html5.pp} and {!Svg.pp}.
+
+    It also contains functors to create printers for your own XML data structure.
+
+*)
+
+(** {2 Encoding functions} *)
 
 val encode_unsafe_char : string -> string
 (** The encoder maps strings to HTML and {e must} encode the unsafe characters
@@ -28,7 +37,9 @@ val encode_unsafe_char : string -> string
     [Netencoding] in the
     {{:http://www.ocaml-programming.de/programming/ocamlnet.html}OcamlNet}
     library, e.g.:
-    [let encode = Netencoding.Html.encode ~in_enc:`Enc_iso88591 ~out_enc:`Enc_usascii ()],
+    {[
+let encode = Netencoding.Html.encode ~in_enc:`Enc_iso88591 ~out_enc:`Enc_usascii ()
+    ]}
     Where national characters are replaced by HTML entities.
     The user is of course free to write her own implementation.
     @see <http://www.ocaml-programming.de/programming/ocamlnet.html> OcamlNet *)
@@ -37,23 +48,12 @@ val encode_unsafe_char_and_at : string -> string
 (** In addition, encode ["@"] as ["&#64;"] in the hope that this will fool
     simple minded email address harvesters. *)
 
-val compose_decl : ?version:string -> ?encoding:string -> unit -> string
-(** [encoding] is the name of the character encoding, e.g. ["US-ASCII"] or ["UTF-8"] *)
-
-val compose_doctype : string -> string list -> string
-
-val string_of_number : float -> string
-(** Convert a float to a string using a compact representation compatible with Javascript norme. *)
-
-val pp_number : Format.formatter -> float -> unit
-(** See {!string_of_number}. *)
-
 (** Utf8 normalizer and encoder for HTML.
 
 Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, this modules is used as following:
   {[
     let encode x = fst (Utf8.normalize_html x) in
-    Htmlprinter.print ~encode document
+    Printf.printf "%a" (Html5.pp ~encode ()) document
   ]} *)
 module Utf8 : sig
 
@@ -74,11 +74,22 @@ module Utf8 : sig
 
 end
 
-module Make_fmt
-    (Xml : Xml_sigs.Iterable)
-    (I : sig val emptytags : string list end)
-  : Xml_sigs.Pp with type elt := Xml.elt
+(** {2 Utilities} *)
 
+val compose_decl : ?version:string -> ?encoding:string -> unit -> string
+(** [encoding] is the name of the character encoding, e.g. ["US-ASCII"] or ["UTF-8"] *)
+
+val compose_doctype : string -> string list -> string
+
+val string_of_number : float -> string
+(** Convert a float to a string using a compact representation compatible with Javascript norme. *)
+
+val pp_number : Format.formatter -> float -> unit
+(** See {!string_of_number}. *)
+
+(** {2 Formatter functors} *)
+
+(** Printers for typed XML module, such as the one produced by {!Svg_f} and {!Html5_f}. *)
 module Make_typed_fmt
     (Xml : Xml_sigs.Iterable)
     (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
@@ -86,10 +97,23 @@ module Make_typed_fmt
     with type 'a elt := 'a Typed_xml.elt
      and type doc := Typed_xml.doc
 
+(** List of tags that can be printed as empty tags: [<foo />]. *)
+module type TagList = sig val emptytags : string list end
+
+(** Printers for raw XML modules. *)
+module Make_fmt
+    (Xml : Xml_sigs.Iterable)
+    (I : TagList)
+  : Xml_sigs.Pp with type elt := Xml.elt
+
+(** {2 Deprecated functors}
+
+    Use {!Make_fmt} and {!Make_typed_fmt} instead.
+*)
 
 module Make
     (Xml : Xml_sigs.Iterable)
-    (I : sig val emptytags : string list end)
+    (I : TagList)
     (O : Xml_sigs.Output)
   : Xml_sigs.Printer with type out := O.out and type xml_elt := Xml.elt
 
@@ -103,7 +127,7 @@ module Make_typed
 
 module Make_simple
     (Xml : Xml_sigs.Iterable)
-    (F : sig val emptytags : string list end)
+    (I : TagList)
   : Xml_sigs.Simple_printer with type xml_elt := Xml.elt
 
 module Make_typed_simple

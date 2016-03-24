@@ -171,6 +171,8 @@ module Utf8 = struct
 
 end
 
+module type TagList = sig val emptytags : string list end
+
 (** Format based printers *)
 
 let pp_noop _fmt _ = ()
@@ -187,12 +189,12 @@ let rec pp_print_list ~pp_sep pp_v ppf = function
 
 module Make_fmt
     (Xml : Xml_sigs.Iterable)
-    (F : sig val emptytags : string list end) =
+    (I : TagList) =
 struct
   open Xml
 
   module S = Set.Make(String)
-  let is_emptytag = match F.emptytags with
+  let is_emptytag = match I.emptytags with
     | [] -> fun _ -> false
     | l ->
       let set = List.fold_left (fun s x -> S.add x s) S.empty l in
@@ -302,7 +304,7 @@ end
 
 module Make
     (Xml : Xml_sigs.Iterable)
-    (F : sig val emptytags : string list end)
+    (I : TagList)
     (O : Xml_sigs.Output) =
 struct
 
@@ -332,7 +334,7 @@ struct
       ++ xh_print_attrs encode queue
 
   and xh_print_closedtag encode tag attrs =
-    if F.emptytags = [] || List.mem tag F.emptytags
+    if I.emptytags = [] || List.mem tag I.emptytags
     then
       (O.put ("<"^tag)
        ++ xh_print_attrs encode attrs
@@ -434,7 +436,7 @@ end
 
 module Make_simple
     (Xml : Xml_sigs.Iterable)
-    (I : sig val emptytags : string list end) =
+    (I : TagList) =
 struct
 
   let print_list ~output =
