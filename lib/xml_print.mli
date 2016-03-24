@@ -116,6 +116,7 @@ module Make
     (I : TagList)
     (O : Xml_sigs.Output)
   : Xml_sigs.Printer with type out := O.out and type xml_elt := Xml.elt
+    [@@ocaml.deprecated "Use Xml_print.Make_fmt instead."]
 
 module Make_typed
     (Xml : Xml_sigs.Iterable)
@@ -124,14 +125,17 @@ module Make_typed
   : Xml_sigs.Typed_printer with type out := O.out
                             and type 'a elt := 'a Typed_xml.elt
                             and type doc := Typed_xml.doc
+    [@@ocaml.deprecated "Use Xml_print.Make_typed_fmt instead."]
 
 module Make_simple
     (Xml : Xml_sigs.Iterable)
     (I : TagList)
   : Xml_sigs.Simple_printer with type xml_elt := Xml.elt
+    [@@ocaml.deprecated "Use Xml_print.Make_fmt instead."]
 
 module Make_typed_simple
     (Xml : Xml_sigs.Iterable)
     (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
   : Xml_sigs.Typed_simple_printer with type 'a elt := 'a Typed_xml.elt
                                    and type doc := Typed_xml.doc
+    [@@ocaml.deprecated "Use Xml_print.Make_typed_fmt instead."]
