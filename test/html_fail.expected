@@ -2,9 +2,9 @@ Characters 6-14:
   div [a [a []]] ;;
        ^^^^^^^^
 Error: This expression has type
-         ([> `A of [> `A of 'c ] as 'b ] as 'a) Html5.M.elt
+         ([> `A of [> `A of 'c ] as 'b ] as 'a) Html5.elt
        but an expression was expected of type
-         ([< Html5_types.div_content_fun ] as 'd) Html5.M.elt
+         ([< Html5_types.div_content_fun ] as 'd) Html5.elt
        Type 'a is not compatible with type
          'd =
            [< `A of Html5_types.flow5_without_interactive

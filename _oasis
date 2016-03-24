@@ -111,7 +111,7 @@ Library tymlx_p
 Executable emit_big
   Install: false
   Build$: flag(tests)
-  Path: tests
+  Path: test
   MainIs: emitbig.ml
   BuildDepends: tyxml, unix
   CompiledObject: best

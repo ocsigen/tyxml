@@ -11,38 +11,26 @@ let rec unfold n =
       unfold (n-2) ;
     ]
   in
-  Html5.M.(div ~a:[a_class ["fibo" ^ string_of_int n]] l)
-
-module FmtP = Xml_print.Make_typed_fmt(Xml)(Html5.M)
+  Html5.(div ~a:[a_class ["fibo" ^ string_of_int n]] l)
 
 let emit_page_pp page =
   let file_handle = open_out "fibo.html" in
   let fmt = Format.formatter_of_out_channel file_handle in
-  FmtP.pp fmt page;
-  close_out file_handle
-
-let emit_page_str page =
-  let file_handle = open_out "fibo.html" in
-  Html5.P.print ~output:(output_string file_handle) page;
+  Html5.pp () fmt page;
   close_out file_handle
 
 let () =
-  let p = Html5.M.(
+  let p = Html5.(
     html (head (title (pcdata "fibo")) []) (body [unfold 22])
   ) in
-  let time_std = ref 0. in
   let time_pp = ref 0. in
   let n = 10 in
   for _ = 1 to n do
     let t = Unix.gettimeofday () in
-    emit_page_str p ;
-    let t' = Unix.gettimeofday () in
     emit_page_pp p ;
-    let tpp = Unix.gettimeofday () -. t' in
-    time_std := !time_std +. t' -. t ;
+    let tpp = Unix.gettimeofday () -. t in
     time_pp := !time_pp +. tpp ;
   done ;
   Printf.printf
-    "Time std: %f\nTime pp:  %f\n%!"
-    (!time_std /. float n)
+    "Time:  %f\n%!"
     (!time_pp /. float n)

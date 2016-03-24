@@ -1,17 +1,13 @@
-open Html5
 
-let to_string x =
-  let b = Buffer.create 17 in
-  P.print_list ~output:(Buffer.add_string b) x ;
-  Buffer.contents b
+let to_string = Format.asprintf "%a" (Html5.pp_elt ())
 
 let tyxml_tests l =
-  let f (name, (ty : Html5_types.body_content M.elt), s) =
-    name, `Quick, fun () -> Alcotest.(check string) name (to_string @@ [ty]) s
+  let f (name, (ty : Html5_types.body_content Html5.elt), s) =
+    name, `Quick, fun () -> Alcotest.(check string) name (to_string ty) s
   in
   List.map f l
 
-let html_elements = "html elements", tyxml_tests M.[
+let html_elements = "html elements", tyxml_tests Html5.[
 
   "div",
   div [a []],
@@ -23,7 +19,7 @@ let html_elements = "html elements", tyxml_tests M.[
 
 ]
 
-let escaping = "html escaping", tyxml_tests M.[
+let escaping = "html escaping", tyxml_tests Html5.[
 
   "cdata",
   cdata "<bar>]]>foo<bar/>",
