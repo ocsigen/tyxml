@@ -18,7 +18,8 @@
 *)
 
 module M = Svg_f.Make(Xml)
-
-module P = Xml_print.Make_typed_simple(Xml)(M)
-
+module P = Xml_print.Make_typed_fmt(Xml)(M)
 module Make_printer = Xml_print.Make_typed(Xml)(M)
+
+include M
+include P

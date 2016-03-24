@@ -1,4 +1,4 @@
-open Html5.M
+open Html5
 
 let this_title = title (pcdata "Your Cool Web Page")
 
@@ -57,7 +57,8 @@ let pages = [("index.html", home_page_doc)]
 let emit_page (name, page) =
   Printf.printf "Generating: %s\n" name ;
   let file_handle = open_out name in
-  Html5.P.print ~output:(output_string file_handle) page;
+  let fmt = Format.formatter_of_out_channel file_handle in
+  pp () fmt page;
   close_out file_handle
 
 let () = List.iter emit_page pages

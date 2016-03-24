@@ -22,14 +22,15 @@
     @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
 
 (** Concrete implementation of SVG typesafe constructors *)
-module M : Svg_sigs.Make(Xml).T
+include Svg_sigs.Make(Xml).T
 
 (** Simple printer for SVG documents *)
-module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
-                                          and type doc := M.doc
+include Xml_sigs.Typed_pp
+  with type 'a elt := 'a elt
+   and type doc := doc
 
 (** Parametrized stream printer for SVG documents *)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
-                          and type 'a elt := 'a M.elt
-                          and type doc := M.doc
+                          and type 'a elt := 'a elt
+                          and type doc := doc
