@@ -1,23 +1,35 @@
-TyXML allows you to build XML trees whose validity is ensured by the
-typechecker. It's based on a traduction of XML types into polymorphic
-variants, originally written by Thorsten Ohl. Currently, the
-transcription has been done for HTML5 and SVG.
+= TyXML =
 
-TyXML also provides a generic printer and some low-level (and untyped)
-iterators over XML trees. The printer has options for printing HTML
-in more browser-friendly way when served as {{{"text/html"}}} (instead
-of {{{"text/xml"}}}). HTML5 is always printed with those options.
+Tyxml is a library to build statically correct Html5 and Svg documents.
 
-All modules provided by TyXML are also provided in functorial
-interface, where every module is parameterised by the underlying XML
-representation.
+<<code language="ocaml"|
+let to_ocaml = Html5.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
+>>
 
-A camlp4 extension, named <<a_api | module Pa_tyxml >>, allows to
-write HTML pages or HTML fragments with the usual syntax.
-For creating HTML5- or SVG-nodes, the syntax extension relies on the
-presence of a module called ##Html5## or ##Svg## which keeps the
-actual implementation, e.g.
-{{{
-  let module Html5 = Eliom_content.Html5.F in
-  <:html5< <div>xyz</div> >>
-}}}
+==@@id="usage"@@ Using TyXML ==
+
+=== Standalone Use ===
+
+To use TyXML in standalone manner, simply link the ##tyxml## ocamlfind package
+and use the <<a_api|module Html5>> and <<a_api|module Svg>> modules.
+
+=== Use with another library ===
+
+TyXML combinators can be used in conjunction to another library, please consult the relevent document. For example, for
+<<a_manual project="eliom" chapter="clientserver-html"|Eliom>>
+and
+<<a_api project="js_of_ocaml" text="Js_of_ocaml"|module Tyxml_js>>.
+
+==@@id="creation"@@ Creating documents with TyXML ==
+
+This section assumes you have at your disposal an {{{Html5}}} or {{{Svg}}} module, as instructed in <<a_manual section="usage"|the previous section>>.
+
+The documentation for TyXML combinators is provided in <<a_api|modtype Html5_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html5}}} and {{{Svg}}}.
+
+TODO
+
+
+==@@id="custom"@@ Using your own underlying implementation ==
+
+You can use TyXML with any underlying implementation. In order to do so, we provide a set of functors.
+Please consult <<a_manual chapter="functors"|the relevant manual>>.

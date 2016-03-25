@@ -1,17 +1,17 @@
-{1 TyXML – API reference }
-
-{2 Building valid XML tree }
+{1 TyXML }
 
 {!modules:
-Svg
 Html5
+Svg
 }
 
-{2 Common DTD's transcriptions}
+{2 Types and signatures}
 
 {!modules:
-Svg_types
+Html5_sig
 Html5_types
+Svg_sig
+Svg_types
 }
 
 {2 Low-level XML manipulation}
@@ -20,22 +20,22 @@ Html5_types
 Xml
 }
 
-{2 Functorial interface }
+{1 TyXML Functors }
 
 {!modules:
-Svg_f
 Html5_f
+Svg_f
 Xml_iter
 Xml_print
 }
 
-{2 Syntax extension and simple parser}
+{1 Camlp4 Syntax extension and parser}
 
 {!modules:
 Pa_tyxml
 Simplexmlparser
 }
 
-{2 Indexes}
+{1 Indexes}
 
 {!indexlist}
