@@ -17,42 +17,97 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+(** Svg signatures for the functorial interface. *)
+
+(** Signature of typesafe constructors for Svg documents. *)
 module type T = sig
 
-  open Svg_types
-  open Unit
+  (** Svg elements.
 
+      Element constructors are in section {!elements}. Most elements constructors
+      are either {{!nullary}[nullary]}, {{!unary}[unary]} or {{!star}[star]},
+      depending on the number of children they accept.
+      Children are usually given as a list of elements.
+      {{!pcdata}[pcdata]} is used for text.
+
+      The type variable ['a] is used to track the element's type. This
+      allows the OCaml typechecker to check Svg validity.
+
+      Note that the concrete implementation of this type can vary.
+      See {{!Xml}[Xml]} for details.
+  *)
+  type +'a elt
+
+  (** A complete Svg document. *)
+  type doc = [ `Svg ] elt
+
+  (** Svg attributes
+
+      Attribute constructors are in section {!attributes} and their name starts
+      with [a_]. Attributes are given to elements with the [~a] optional argument.
+
+      Similarly to {{!elt}[elt]}, attributes use the OCaml type system to enforce
+      Html validity.
+
+      In some cases, attributes have to be disambiguated.
+      The [max] attribute has two version,
+      {{!a_fill}[a_fill]} and {{!a_animation_fill}[a_animation_fill]},
+      depending on the element.
+      Such disambiguated attribute will contain the name of the associated element.
+  *)
+  type +'a attrib
+
+  (** Underlying XML data-structure
+
+      The type variables in {!elt} and {!attrib} are know as {i phantom types}.
+      The implementation, defined here, is actually monomorphic.
+
+      In particular, tyxml doesn't impose any overhead over the underlying
+      representation. The {!tot} and {!toelt} functions allows to convert
+      between the typed and the untyped representation without any cost.
+
+      Note that some implementation may not be iterable or printable, such as the
+      Dom representation exposed by js_of_ocaml.
+  *)
   module Xml : Xml_sigs.T
+
+  (** [wrap] is a container for elements and values.
+
+      In most cases, ['a wrap = 'a]. For [R] modules (in eliom or js_of_ocaml),
+      It will be {!React.S.t}.
+  *)
+  type 'a wrap = 'a Xml.W.t
+
+  (** [list_wrap] is a containre for list of elements.
+
+      In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
+      It will be {!ReactiveData.RList.t}.
+  *)
+  type 'a list_wrap = 'a Xml.W.tlist
+
+  (** A nullary element is an element that doesn't have any children. *)
+  type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
+
+  (** A unary element is an element that have exactly one children. *)
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
+
+  (** A star element is an element that has any number of children, including zero. *)
+  type ('a, 'b, 'c) star =
+    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
+
+  (** Various information about Svg, such as the doctype, ... *)
   module Info : Xml_sigs.Info
+
+  (** {3 Uri} *)
 
   type uri = Xml.uri
   val string_of_uri : (uri, string) Xml.W.ft
   val uri_of_string : (string, uri) Xml.W.ft
 
-  (** {1 Abstraction over XML's types} *)
+  open Svg_types
+  open Unit
 
-  type +'a attrib
-
-  type 'a wrap = 'a Xml.W.t
-  type 'a list_wrap = 'a Xml.W.tlist
-
-  type +'a elt
-
-  type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
-
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
-
-  type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
-
-  (* to be processed by a script *)
-  type altglyphdef_content =
-    [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
-    ]
-
-  val pcdata : string wrap -> [> | `PCDATA] elt
-
-  (** {1 attributes } *)
+  (** {2:attributes Attributes } *)
 
   val a_version : string wrap -> [> | `Version ] attrib
 
@@ -380,22 +435,17 @@ module type T = sig
 
   val a_dur : string wrap -> [> | `Dur ] attrib
 
-  (* XXX*)
   val a_min : string wrap -> [> | `Min ] attrib
 
-  (* XXX *)
   val a_max : string wrap -> [> | `Max ] attrib
 
-  (* XXX *)
   val a_restart :
     [< | `Always | `WhenNotActive | `Never ] wrap -> [> | `Restart ] attrib
 
   val a_repeatCount : string wrap -> [> | `RepeatCount ] attrib
 
-  (* XXX *)
   val a_repeatDur : string wrap -> [> | `RepeatDur ] attrib
 
-  (* XXX *)
   val a_fill : paint wrap -> [> | `Fill ] attrib
 
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
@@ -541,7 +591,9 @@ module type T = sig
        | `Text_after_edge | `Text_before_edge | `Inherit ] wrap ->
     [> | `Dominant_Baseline ] attrib
 
-  (** Javascript events *)
+  (** {2 Events}
+
+      {3 Javascript events} *)
 
   val a_onabort : Xml.event_handler  -> [> | `OnAbort ] attrib
   val a_onactivate : Xml.event_handler  -> [> | `OnActivate ] attrib
@@ -557,7 +609,7 @@ module type T = sig
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
 
-  (** Javascript mouse events *)
+  (** {3 Javascript mouse events} *)
 
   val a_onclick : Xml.mouse_event_handler  -> [> | `OnClick ] attrib
   val a_onmousedown : Xml.mouse_event_handler  -> [> | `OnMouseDown ] attrib
@@ -565,7 +617,6 @@ module type T = sig
   val a_onmouseover : Xml.mouse_event_handler  -> [> | `OnMouseOver ] attrib
   val a_onmouseout : Xml.mouse_event_handler  -> [> | `OnMouseOut ] attrib
   val a_onmousemove : Xml.mouse_event_handler  -> [> | `OnMouseMove ] attrib
-
 
   val metadata :
     ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt
@@ -597,9 +648,10 @@ module type T = sig
 
   val a_stroke_opacity : float wrap -> [> `Stroke_Opacity ] attrib
 
-  (** {1 Elements} *)
+  (** {2:elements Elements} *)
 
-  (* generated *)
+  val pcdata : string wrap -> [> | `PCDATA] elt
+
   val svg : ([< | svg_attr], [< | svg_content], [> | svg]) star
 
   val g : ([< | g_attr], [< | g_content], [> | g]) star
@@ -649,11 +701,14 @@ module type T = sig
   val altglyph :
     ([< | altglyph_attr], [< | altglyph_content], [> | altglyph]) unary
 
+  type altglyphdef_content =
+    [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
+    ]
+
   val altglyphdef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
 
-  (* theoretically a plus, simplified into star *)
   val altglyphitem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
                                                           ]) star
@@ -821,23 +876,25 @@ module type T = sig
 
   val font_face_name : ([< | font_face_name_attr], [> | font_face_name]) nullary
 
+  (** {2 Conversion with untyped representation} *)
+
   val tot : Xml.elt -> 'a elt
-
   val totl : Xml.elt list -> ('a elt) list
-
   val toelt : 'a elt -> Xml.elt
-
   val toeltl : ('a elt) list -> Xml.elt list
 
+  val doc_toelt : doc -> Xml.elt
   val to_xmlattribs : ('a attrib) list -> Xml.attrib list
   val to_attrib : Xml.attrib -> 'a attrib
 
+  (** Unsafe features.
+
+      Using this module can break
+      Svg validity and may introduce security problems like
+      code injection.
+      Use it with care.
+  *)
   module Unsafe : sig
-    (** Unsafe features. Warning using this module can break
-        validity and may introduce security problems like
-        code injection.
-        Use it with care.
-    *)
 
     (** Insert raw text without any encoding *)
     val data : string wrap -> 'a elt
@@ -883,16 +940,33 @@ module type T = sig
 
   end
 
-  (** {2 ... } *)
+end
 
-  type doc = [ `Svg ] elt
-  val doc_toelt : doc -> Xml.elt
+(** Equivalent to {!T}, but without wrapping. *)
+module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
+
+(** {2 Signature functors}
+    See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
+
+(** Signature functor for {!Svg_f.Make}. *)
+module Make (Xml : Xml_sigs.T) : sig
+
+  (** See {!modtype:Svg_sigs.T}. *)
+  module type T = T
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
+     and type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
 
 end
 
-module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
-
+(** Wrapped functions, to be used with {!Svg_f.Make_with_wrapped_functions}. *)
 module type Wrapped_functions = sig
 
   type (-'a, 'b) ft
@@ -939,25 +1013,5 @@ module type Wrapped_functions = sig
   val string_of_transform : (Svg_types.transform, string) ft
 
   val string_of_transforms : (Svg_types.transforms, string) ft
-
-end
-
-(** {2 Signature functors}
-    See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
-
-(** Signature functor for {!Svg_f.Make}. *)
-module Make (Xml : Xml_sigs.T) : sig
-
-  (** See {!modtype:Svg_sigs.T}. *)
-  module type T = T
-    with type 'a Xml.W.t = 'a Xml.W.t
-     and type 'a Xml.W.tlist = 'a Xml.W.tlist
-     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
-     and type Xml.uri = Xml.uri
-     and type Xml.event_handler = Xml.event_handler
-     and type Xml.mouse_event_handler = Xml.mouse_event_handler
-     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
-     and type Xml.attrib = Xml.attrib
-     and type Xml.elt = Xml.elt
 
 end
