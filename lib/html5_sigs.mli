@@ -1057,8 +1057,8 @@ end
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
 
-(** {2 Signature functors} *)
-(** {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %} *)
+(** {2 Signature functors}
+    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %} *)
 
 (** Signature functor for {!Html5_f.Make}. *)
 module Make

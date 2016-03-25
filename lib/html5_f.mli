@@ -19,8 +19,18 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Typesafe constructors for HTML5 documents (Functorial interface) *)
+(** Typesafe constructors for HTML5 documents (Functorial interface)
 
+    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %}
+*)
+
+(** Create a new implementation of [Html5], using the given underlying [Xml]
+    and [Svg] implementation. Will output a module of type {!Html5_sigs.T} with
+    the various type equalities.
+
+    If your [Xml] implementation uses a special function wrapping, use
+    {!Make_with_wrapped_functions}.
+*)
 module Make
     (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
     (Svg : Svg_sigs.T with module Xml := Xml)
@@ -28,10 +38,12 @@ module Make
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
 
+(** The standard set of wrapped functions, when [W.ft] is the regular function. *)
 module Wrapped_functions
     (Xml: Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
   : Html5_sigs.Wrapped_functions with module Xml = Xml
 
+(** Similar to {!Make} but with a custom set of wrapped functions. *)
 module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
     (C : Html5_sigs.Wrapped_functions with module Xml = Xml)
