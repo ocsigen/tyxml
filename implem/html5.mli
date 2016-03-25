@@ -26,10 +26,19 @@
 *)
 include Html5_sigs.Make(Xml)(Svg).T
 
-(** Simple printer for HTML5 documents *)
-include Xml_sigs.Typed_pp
-  with type 'a elt := 'a elt
-   and type doc := doc
+(** {2 Printers} *)
+
+(** [pp ()] is a {!Format} printer for Html5 documents.
+
+    It can be used in combination with ["%a"]. For example, to get a string:
+    {[let s = Format.sprintf "%a" (Html5.pp ()) my_svg]}
+*)
+val pp:
+  ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+
+(** [pp_elt ()] is a {!Format} printer for svg elements. *)
+val pp_elt :
+  ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
 (** Parametrized stream printer for HTML5 documents.
     @deprecated Use {!Html5.pp} instead.
