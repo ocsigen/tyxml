@@ -1,51 +1,33 @@
-# TypedXML
+# TyXML
 
-TyXML allows you to build XML trees whose validity is ensured by the typechecker.
-It's based on a traduction of XML types into polymorphic variants, originally written by Thorsten Ohl.
-Currently, the transcription has been done for HTML5 and SVG.
+TyXML is a library to build statically correct Html5 and Svg documents.
 
-TyXML also provides a generic printer and some low-level (and untyped) iterators over XML trees.
-The printer has options for printing HTML in more browser-friendly way when served as `"text/html"` (instead of `"text/xml"`).
-HTML5 is always printed with those options.
-
-All modules provided by TyXML are also provided in functorial interface, where every module is parameterised by the underlying XML representation.
-
-A camlp4 extension, named `Pa_tyxml`, allows to write HTML pages or HTML fragments with the usual syntax.
-For creating HTML5- or SVG-nodes, the syntax extension relies on the presence of a module called Html5 or Svg which keeps the actual implementation, e.g.
 ```ocaml
-let module Html5 = Eliom_content.Html5.F in
-<:html5< <div>xyz</div> >>
+let to_ocaml = Html5.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 ```
 
-You can find the documentation [on the TyXML website](http://ocsigen.org/tyxml/api/).
+TyXML provides a set of combinators to build Html5 and Svg documents. These combinators use the OCaml type-system to ensure the validity of the generated Html5 and Svg.
+TyXML's combinators are used in various libraries, such as [Eliom][] and [Js_of_ocaml][], but a builtin implementation is also provided by the `tyxml` ocamlfind package.
+
+The documentation can be consulted [on the TyXML website](https://ocsigen.org/tyxml/manual/). Examples are available in the [examples](examples) directory.
+
+[Eliom]: https://ocsigen.org/eliom/manual/clientserver-html
+[Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/api/Tyxml_js
 
 ## How to
 
 ### Installation
 
-TyXML is available in [opam](http://opam.ocamlpro.com) : `opam install tyxml`
+TyXML is available in [opam](https://opam.ocaml.org/):
+```sh
+opam install tyxml
+```
 
-You can also use the ocsigen opam repository for the dev version :
-`opam repository add ocsigen-dev http://ocsigen.org/opam`
+To use the development version, pin it:
+```sh
+opam pin add tyxml --dev
+```
 
 ### Manual build
 
-#### Requirements:
-
-* ocaml and camlp4
-* findlib
-
-#### Build instructions:
-
-```
-./configure
-make
-make install
-```
-
-#### API documentation:
-
-```
-make doc
-${BROWSER} _build/tyxml-api.docdir/index.html
-```
+For manual builds, please consult [the included opam file](opam).
