@@ -485,8 +485,6 @@ struct
 
   type 'a elt = Xml.elt
 
-  type html = [ | `Html ] elt
-
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
   type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
