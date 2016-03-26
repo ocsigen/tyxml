@@ -30,9 +30,16 @@ module type T = sig
   type 'a wrap = 'a Xml.W.t
   type 'a list_wrap = 'a Xml.W.tlist
 
+  (** {1 Uri} *)
+
   type uri = Xml.uri
-  val string_of_uri : uri -> string
-  val uri_of_string : string -> uri
+  val string_of_uri : (uri, string) Xml.W.ft
+  val uri_of_string : (string, uri) Xml.W.ft
+
+  type image_candidate =
+    [ `Url of uri
+    | `Url_width of uri * number
+    | `Url_pixel of uri * float_number ]
 
   (** {1 Common Attributes} *)
 
@@ -1191,46 +1198,51 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
 module type Wrapped_functions = sig
 
-  type (-'a, 'b) ft
+  module Xml : Xml_sigs.T
 
   val string_of_big_variant :
-    ([< Html5_types.big_variant], string) ft
+    ([< Html5_types.big_variant], string) Xml.W.ft
 
-  val string_of_bool : (bool, string) ft
+  val string_of_bool : (bool, string) Xml.W.ft
 
-  val onoff_of_bool : (bool, string) ft
+  val onoff_of_bool : (bool, string) Xml.W.ft
 
-  val string_of_character : (Html5_types.character, string) ft
+  val string_of_character : (Html5_types.character, string) Xml.W.ft
 
   val string_of_input_type :
-    ([< Html5_types.input_type], string) ft
+    ([< Html5_types.input_type], string) Xml.W.ft
 
   val string_of_linktypes :
-    ([< Html5_types.linktype] list, string) ft
+    ([< Html5_types.linktype] list, string) Xml.W.ft
 
   val string_of_mediadesc :
-    ([< Html5_types.mediadesc_token] list, string) ft
+    ([< Html5_types.mediadesc_token] list, string) Xml.W.ft
 
   val string_of_multilength :
-    ([< Html5_types.multilength], string) ft
+    ([< Html5_types.multilength], string) Xml.W.ft
 
   val string_of_multilengths :
-    ([< Html5_types.multilength] list, string) ft
+    ([< Html5_types.multilength] list, string) Xml.W.ft
 
-  val string_of_numbers : (Html5_types.numbers, string) ft
+  val string_of_numbers : (Html5_types.numbers, string) Xml.W.ft
 
   val string_of_sandbox :
-    ([< Html5_types.sandbox_token] list, string) ft
+    ([< Html5_types.sandbox_token] list, string) Xml.W.ft
 
   val string_of_sizes :
-    ((Html5_types.number * Html5_types.number) list option, string) ft
+    ((Html5_types.number * Html5_types.number) list option, string) Xml.W.ft
+
+  type image_candidate =
+    [ `Url of Xml.uri
+    | `Url_width of Xml.uri * Html5_types.number
+    | `Url_pixel of Xml.uri * Html5_types.float_number ]
 
   val string_of_srcset :
-    ([< Html5_types.image_candidate] list, string) ft
+    ([< image_candidate] list, string) Xml.W.ft
 
-  val string_of_step : (float option, string) ft
+  val string_of_step : (float option, string) Xml.W.ft
 
-  val unoption_string : (string option, string) ft
+  val unoption_string : (string option, string) Xml.W.ft
 
 end
 

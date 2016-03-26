@@ -33,8 +33,7 @@
 module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)
-    (C : Html5_sigs.Wrapped_functions
-     with type ('a, 'b) ft = ('a, 'b) Xml.W.ft)
+    (C : Html5_sigs.Wrapped_functions with module Xml = Xml)
     (Svg : Svg_sigs.T with module Xml := Xml) =
 
 struct
@@ -62,6 +61,12 @@ struct
   type uri = Xml.uri
   let string_of_uri = Xml.string_of_uri
   let uri_of_string = Xml.uri_of_string
+
+  type image_candidate =
+    [ `Url of uri
+    | `Url_width of uri * Html5_types.number
+    | `Url_pixel of uri * Html5_types.float_number ]
+
 
   type 'a attrib = Xml.attrib
 
@@ -844,9 +849,11 @@ struct
 
 end
 
-module Wrapped_functions = struct
+module Wrapped_functions
+    (Xml : Xml_sigs.T with type ('a,'b) W.ft = 'a -> 'b) =
+struct
 
-  type ('a, 'b) ft = 'a -> 'b
+  module Xml = Xml
 
   let string_of_sandbox_token = function
     | `Allow_forms -> "allow-forms"
@@ -1057,14 +1064,18 @@ module Wrapped_functions = struct
   let string_of_linktypes l =
     String.concat " " (List.map string_of_linktype l)
 
-  let string_of_srcset l =
+  type image_candidate =
+    [ `Url of Xml.uri
+    | `Url_width of Xml.uri * Html5_types.number
+    | `Url_pixel of Xml.uri * Html5_types.float_number ]
+
+  let string_of_srcset (l : [< image_candidate] list) =
     let f = function
-    | `Url url ->
-      url
+    | `Url url -> Xml.string_of_uri url
     | `Url_width (url, v) ->
-      Printf.sprintf "%s %sw" url (string_of_number v)
+      Printf.sprintf "%s %sw" (Xml.string_of_uri url) (string_of_number v)
     | `Url_pixel (url, v) ->
-      Printf.sprintf "%s %sx" url (Xml_print.string_of_number v)
+      Printf.sprintf "%s %sx" (Xml.string_of_uri url) (Xml_print.string_of_number v)
     in
     String.concat ", " (List.map f l)
 
@@ -1073,4 +1084,4 @@ end
 module Make
     (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
     (Svg : Svg_sigs.T with module Xml := Xml) =
-  Make_with_wrapped_functions(Xml)(Wrapped_functions)(Svg)
+  Make_with_wrapped_functions(Xml)(Wrapped_functions(Xml))(Svg)
