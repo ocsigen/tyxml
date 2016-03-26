@@ -44,6 +44,8 @@ Library tyxml
     Svg,
     Html5
   BuildDepends: tyxml.functor, re, uutf
+  XMETAExtraLines:
+    archive(byte,toploop) += "tyxml_top.cma"
 
 Library tyxml_f
   FindlibName: functor
@@ -63,6 +65,16 @@ Library tyxml_f
     Html5_types,
     Html5_f
   BuildDepends: uutf
+
+Library tyxml_top
+  FindlibName: top
+  FindlibParent: tyxml
+  BuildDepends: compiler-libs.toplevel
+  Path: implem/top
+  Modules: Tyxml_top
+  XMETARequires: tyxml
+  XMETADescription:
+    Toplevel printers for Html, Svg and Xml
 
 Library tyxml_tools
   FindlibName: tools
