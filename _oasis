@@ -127,6 +127,7 @@ Executable ppx_tyxml
   MainIs: ppx_tyxml.ml
   BuildDepends:
     re.str, ppx_tools.metaquot, markup, tyxml.tools
+  CompiledObject: best
 
 Executable ppx_reflect
   Path: ppx
