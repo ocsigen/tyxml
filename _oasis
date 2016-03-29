@@ -133,6 +133,7 @@ Executable ppx_reflect
   MainIs: ppx_reflect.ml
   BuildDepends:
     compiler-libs.common, ppx_tools.metaquot
+  CompiledObject: best
 
 ## Tests
 

@@ -25,19 +25,24 @@
 
 open Ocamlbuild_plugin
 
+(* Determine extension of CompiledObject: best *)
+let native_suffix =
+  let env =
+    BaseEnvLight.load ~allow_empty:true
+      ~filename:MyOCamlbuildBase.env_filename ()
+  in
+  if BaseEnvLight.var_get "is_native" env = "true"
+  then "native" else "byte"
+
 let reflect_ppx () =
-  let ppx_reflect = "ppx/ppx_reflect.byte" in
+  let ppx_reflect = "ppx/ppx_reflect."^native_suffix in
 
   let prod = "ppx/%_reflected.ml" in
   let dep = "lib/%.mli" in
 
   rule "ppx_reflect: mli -> _reflected.ml" ~prod ~deps:[dep; ppx_reflect]
     begin fun env _ ->
-      Cmd (S
-        [A "ocamlc";
-         A "-I"; A "lib";
-         A "-ppx"; A (Printf.sprintf "%s %s" ppx_reflect (env prod));
-         A "-c"; A (env dep)])
+      Cmd (S [A ppx_reflect ; A (env dep); A (env prod)])
     end
 
 let () =

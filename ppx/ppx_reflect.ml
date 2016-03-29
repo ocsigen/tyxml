@@ -411,6 +411,7 @@ let type_declaration mapper declaration =
 
   default_mapper.type_declaration mapper declaration
 
+let mapper = {default_mapper with signature_item; type_declaration}
 
 (** Small set of combinators to help {!make_module}. *)
 module Combi = struct
@@ -424,7 +425,7 @@ end
 
 (** Create a module based on the various things collected while reading the file. *)
 let emit_module () =
-
+  default_loc := Location.(in_file !input_name) ;
   begin if !attribute_parsers <> [] then [%str
     open Ppx_attribute_value
 
@@ -448,22 +449,51 @@ let emit_module () =
   List.map Combi.(let_ AC.pvar (tuple2 str (list str))) !reflected_variants
 
 
-(* Creates an AST mapper that applies [signature_item] and [type_declaration],
-   then formats the generated reflection information as ML code to the file
-   whose name is given in the first argument to the PPX reflector. *)
+let reflected_struct sig_ =
+  ignore @@ mapper.signature mapper sig_ ;
+  emit_module ()
+
+
+(* Crude I/O tools to read a signature and output a structure.
+   The executable will take as first argument the name of the signature
+   and as second argument the name of the structure.
+
+*)
+
+let read_sig filename =
+  Location.input_name := filename ;
+  let handle =
+    try open_in filename
+    with Sys_error msg -> prerr_endline msg; exit 1
+  in
+  let buf = Lexing.from_channel handle in
+  Location.init buf filename ;
+  let ast = Parse.interface buf in
+  close_in handle ;
+  ast
+
+let write_struct filename ast =
+  let handle =
+    try open_out filename
+    with Sys_error msg -> prerr_endline msg; exit 1
+  in
+  let fmt = Format.formatter_of_out_channel handle in
+  Format.fprintf fmt "%a@." Pprintast.structure ast ;
+  close_out handle
+
 let () =
-  if Array.length Sys.argv < 2 then begin
-    Printf.eprintf "Usage: %s FILE\n" Sys.argv.(0);
+  if Array.length Sys.argv < 3 then begin
+    Printf.eprintf "Usage: %s IN OUT\n" Sys.argv.(0);
     exit 2
   end;
 
-  let filename = Sys.argv.(1) in
+  let in_file = Sys.argv.(1) in
+  let out_file = Sys.argv.(2) in
 
-  register "reflect_sig" (fun _ ->
-    {default_mapper with signature_item; type_declaration});
-
-  let reflected_struct = emit_module () in
-  let channel = open_out filename in
-  let fmt = Format.formatter_of_out_channel channel in
-  Format.fprintf fmt "%a%!" Pprintast.structure reflected_struct ;
-  close_out channel
+  try
+    read_sig in_file
+    |> reflected_struct
+    |> write_struct out_file
+  with exn ->
+    Location.report_exception Format.err_formatter exn;
+    exit 2
