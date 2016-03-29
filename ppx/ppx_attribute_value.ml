@@ -18,11 +18,7 @@
 *)
 
 open Asttypes
-
-(* Not opening all of Ast_helper in order to avoid shadowing stdlib's Str with
-   Ast_helper.Str. *)
-module Exp = Ast_helper.Exp
-
+open Ast_helper
 
 
 type parser =
@@ -57,7 +53,7 @@ let filter_map f l =
    applies [element_parser] to each resulting component. Each such application
    resulting in [Some expr] is included in the resulting expression list. *)
 let exp_list delimiter separated_by (element_parser : parser) loc name s =
-  Str.split delimiter s
+  Re_str.split delimiter s
   |> filter_map (element_parser ~separated_by loc name)
 
 (* Behaves as _expr_list, but wraps the resulting expression list as a list
@@ -69,11 +65,11 @@ let list
   |> Ppx_common.list loc
   |> fun e -> Some e
 
-let spaces = list (Str.regexp " +") "space"
-let commas = list (Str.regexp " *, *") "comma"
-let semicolons = list (Str.regexp " *; *") "semicolon"
+let spaces = list (Re_str.regexp " +") "space"
+let commas = list (Re_str.regexp " *, *") "comma"
+let semicolons = list (Re_str.regexp " *; *") "semicolon"
 
-let spaces_or_commas_regexp = Str.regexp "\\( *, *\\)\\| +"
+let spaces_or_commas_regexp = Re_str.regexp "\\( *, *\\)\\| +"
 let spaces_or_commas_ = exp_list spaces_or_commas_regexp "space- or comma"
 let spaces_or_commas = list spaces_or_commas_regexp "space- or comma"
 
@@ -115,12 +111,12 @@ let must_be_a
 (* Checks that the given string matches the given regular expression exactly,
    i.e. the match begins at position 0 and ends at the end of the string. *)
 let does_match regexp s =
-  Str.string_match regexp s 0 && Str.match_end () = String.length s
+  Re_str.string_match regexp s 0 && Re_str.match_end () = String.length s
 
 (* Checks that the group with the given index was matched in the given
    string. *)
 let group_matched index s =
-  try Str.matched_group index s |> ignore; true
+  try Re_str.matched_group index s |> ignore; true
   with Not_found -> false
 
 let int_exp loc s =
@@ -217,7 +213,7 @@ let fourfloats ?separated_by:_ ?default:_ loc name s =
 
 (* These are always in a list; hence the error message. *)
 let icon_size =
-  let regexp = Str.regexp "\\([0-9]+\\)[xX]\\([0-9]+\\)" in
+  let regexp = Re_str.regexp "\\([0-9]+\\)[xX]\\([0-9]+\\)" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
@@ -226,8 +222,8 @@ let icon_size =
 
     let width, height =
       try
-        int_of_string (Str.matched_group 1 s),
-        int_of_string (Str.matched_group 2 s)
+        int_of_string (Re_str.matched_group 1 s),
+        int_of_string (Re_str.matched_group 2 s)
       with Invalid_argument "int_of_string" ->
         Ppx_common.error loc "Icon dimension out of range in %s" name
     in
@@ -242,7 +238,7 @@ let icon_size =
 (* Dimensional. *)
 
 let length =
-  let regexp = Str.regexp "\\([0-9]+\\)\\([^0-9]+\\)" in
+  let regexp = Re_str.regexp "\\([0-9]+\\)\\([^0-9]+\\)" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
@@ -250,14 +246,14 @@ let length =
         loc "Value of %s must be a length, such as 100px or 50%%" name;
 
     let n =
-      match int_exp loc (Str.matched_group 1 s) with
+      match int_exp loc (Re_str.matched_group 1 s) with
       | Some n -> n
       | None ->
         Ppx_common.error loc "Value of %s out of range" name
     in
 
     let e =
-      begin match Str.matched_group 2 s with
+      begin match Re_str.matched_group 2 s with
       | "%" -> [%expr `Percent [%e n]]
       | "px" -> [%expr `Pixels [%e n]]
       | unit -> Ppx_common.error loc "Unknown unit %s in %s" unit name
@@ -268,7 +264,7 @@ let length =
 
 (* This is only called by the commas combinator; hence the error message. *)
 let multilength =
-  let regexp = Str.regexp "\\([0-9]+\\)\\(%\\|px\\)\\|\\([0-9]+\\)?\\*" in
+  let regexp = Re_str.regexp "\\([0-9]+\\)\\(%\\|px\\)\\|\\([0-9]+\\)?\\*" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
@@ -278,20 +274,20 @@ let multilength =
     begin
       if group_matched 1 s then
         let n =
-          match int_exp loc (Str.matched_group 1 s) with
+          match int_exp loc (Re_str.matched_group 1 s) with
           | Some n -> n
           | None ->
             Ppx_common.error loc "Value in %s out of range" name
         in
 
-        match Str.matched_group 2 s with
+        match Re_str.matched_group 2 s with
         | "%" -> Some [%expr `Percent [%e n]]
         | "px" -> Some [%expr `Pixels [%e n]]
         | _ -> Ppx_common.error loc "Internal error: Ppx_attribute.multilength"
 
       else
         let n =
-          match int_exp loc (Str.matched_group 3 s) with
+          match int_exp loc (Re_str.matched_group 3 s) with
           | exception Not_found -> [%expr 1]
           | Some n -> n
           | None ->
@@ -307,19 +303,19 @@ let svg_quantity =
   let fraction = Printf.sprintf "[+-]?[0-9]*\\.[0-9]+\\([Ee]%s\\)?" integer in
   let number = Printf.sprintf "%s\\|%s" integer_scientific fraction in
   let quantity = Printf.sprintf "\\(%s\\)\\([^0-9]*\\)$" number in
-  let regexp = Str.regexp quantity in
+  let regexp = Re_str.regexp quantity in
 
   fun kind_singular kind_plural parse_unit ?separated_by ?default loc name s ->
     if not @@ does_match regexp s then
       must_be_a kind_singular kind_plural separated_by default loc name;
 
     let n =
-      match float_exp loc (Str.matched_group 1 s) with
+      match float_exp loc (Re_str.matched_group 1 s) with
       | Some n -> n
       | None -> Ppx_common.error loc "Number out of range in %s" name
     in
 
-    let unit_string = Str.matched_group 4 s in
+    let unit_string = Re_str.matched_group 4 s in
     let unit =
       (if unit_string = "" then [%expr None]
       else [%expr Some [%e parse_unit loc name unit_string]]) [@metaloc loc]
@@ -367,7 +363,7 @@ let offset =
   let bad_form name loc =
     Ppx_common.error loc "Value of %s must be a number or percentage" name in
 
-  let regexp = Str.regexp "\\([-+0-9eE.]+\\)$\\|\\([0-9]+\\)%" in
+  let regexp = Re_str.regexp "\\([-+0-9eE.]+\\)$\\|\\([0-9]+\\)%" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then bad_form name loc;
@@ -384,7 +380,7 @@ let offset =
 
       else
         let n =
-          match int_exp loc (Str.matched_group 2 s) with
+          match int_exp loc (Re_str.matched_group 2 s) with
           | Some n -> n
           | None ->
             Ppx_common.error loc "Percentage out of range in %s" name
@@ -394,14 +390,14 @@ let offset =
     end [@metaloc loc]
 
 let transform =
-  let regexp = Str.regexp "\\([^(]+\\)(\\([^)]*\\))" in
+  let regexp = Re_str.regexp "\\([^(]+\\)(\\([^)]*\\))" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
       Ppx_common.error loc "Value of %s must be an SVG transform" name;
 
-    let kind = Str.matched_group 1 s in
-    let values = Str.matched_group 2 s in
+    let kind = Re_str.matched_group 1 s in
+    let values = Re_str.matched_group 2 s in
 
     let e =
       begin match kind with
@@ -431,7 +427,7 @@ let transform =
         end
 
       | "rotate" ->
-        begin match Str.bounded_split spaces_or_commas_regexp values 2 with
+        begin match Re_str.bounded_split spaces_or_commas_regexp values 2 with
         | [a] ->
           [%expr Svg_types.Rotate ([%e angle_ loc "rotate" a], None)]
         | [a; axis] ->
@@ -496,14 +492,14 @@ let paint_without_icc loc _name s =
 
   | _ ->
     let icc_color_start =
-      try Some (Str.search_forward (Str.regexp "icc-color(\\([^)]*\\))") s 0)
+      try Some (Re_str.search_forward (Re_str.regexp "icc-color(\\([^)]*\\))") s 0)
       with Not_found -> None
     in
 
     match icc_color_start with
     | None -> [%expr `Color ([%e Ppx_common.string loc s], None)]
     | Some i ->
-      let icc_color = Str.matched_group 1 s in
+      let icc_color = Re_str.matched_group 1 s in
       let color = String.sub s 0 i in
       [%expr `Color
         ([%e Ppx_common.string loc color],
@@ -511,11 +507,11 @@ let paint_without_icc loc _name s =
   end [@metaloc loc]
 
 let paint ?separated_by:_ ?default:_ loc name s =
-  if not @@ Str.string_match (Str.regexp "url(\\([^)]+\\))") s 0 then
+  if not @@ Re_str.string_match (Re_str.regexp "url(\\([^)]+\\))") s 0 then
     Some (paint_without_icc loc name s)
   else
-    let iri = Str.matched_group 1 s |> Ppx_common.string loc in
-    let remainder_start = Str.group_end 0 in
+    let iri = Re_str.matched_group 1 s |> Ppx_common.string loc in
+    let remainder_start = Re_str.group_end 0 in
     let remainder_length = String.length s - remainder_start in
     let remainder =
       String.sub s remainder_start remainder_length |> String.trim in
@@ -530,11 +526,11 @@ let paint ?separated_by:_ ?default:_ loc name s =
     end [@metaloc loc]
 
 let srcset_element =
-  let space = Str.regexp " +" in
+  let space = Re_str.regexp " +" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     let e =
-      begin match Str.bounded_split space s 2 with
+      begin match Re_str.bounded_split space s 2 with
       | [url] ->
         [%expr `Url [%e Ppx_common.string loc url]]
 
