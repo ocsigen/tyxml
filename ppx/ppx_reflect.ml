@@ -26,6 +26,8 @@
 open Ast_mapper
 open Asttypes
 open Parsetree
+open Ast_helper
+module AC = Ast_convenience
 
 
 
@@ -410,6 +412,41 @@ let type_declaration mapper declaration =
   default_mapper.type_declaration mapper declaration
 
 
+(** Small set of combinators to help {!make_module}. *)
+module Combi = struct
+  let list f l = AC.list @@ List.map f l
+  let tuple2 f1 f2 (x1, x2) = Exp.tuple [f1 x1; f2 x2]
+  let tuple3 f1 f2 f3 (x1, x2, x3) = Exp.tuple [f1 x1; f2 x2; f3 x3]
+  let str = AC.str
+  let id = AC.evar
+  let let_ p f (x,e) = Str.value Nonrecursive [Vb.mk (p x) (f e)]
+end
+
+(** Create a module based on the various things collected while reading the file. *)
+let emit_module () =
+
+  begin if !attribute_parsers <> [] then [%str
+    open Ppx_attribute_value
+
+    let attribute_parsers =
+      [%e Combi.(list @@ tuple2 str id) !attribute_parsers ]
+    let renamed_attributes =
+      [%e Combi.(list @@ tuple3 str str (list str)) !renamed_attributes ]
+    let labeled_attributes =
+      [%e Combi.(list @@ tuple3 str str id) !labeled_attributes ]
+
+    open Ppx_element_content
+
+    let element_assemblers =
+      [%e Combi.(list @@ tuple2 str id) !element_assemblers ]
+    let renamed_elements =
+      [%e Combi.(list @@ tuple2 str str) !renamed_elements ]
+
+    ] else []
+  end @
+
+  List.map Combi.(let_ AC.pvar (tuple2 str (list str))) !reflected_variants
+
 
 (* Creates an AST mapper that applies [signature_item] and [type_declaration],
    then formats the generated reflection information as ML code to the file
@@ -425,47 +462,8 @@ let () =
   register "reflect_sig" (fun _ ->
     {default_mapper with signature_item; type_declaration});
 
-  (* The channel will be closed on process exit. *)
+  let reflected_struct = emit_module () in
   let channel = open_out filename in
-  let write f = Printf.fprintf channel f in
-
-  if !attribute_parsers <> [] then begin
-    write "open Ppx_attribute_value\n";
-
-    write "\nlet attribute_parsers = [\n";
-    !attribute_parsers |> List.iter (fun (name, parser) ->
-      write "  %S, %s;\n" name parser);
-    write "]\n";
-
-    write "\nlet renamed_attributes = [\n";
-    !renamed_attributes |> List.iter (fun (name, real_name, element_names) ->
-      write "  %S, %S, [" name real_name;
-      element_names
-      |> List.map (Printf.sprintf "%S")
-      |> String.concat "; "
-      |> write "%s];\n");
-    write "]\n";
-
-    write "\nlet labeled_attributes = [\n";
-    !labeled_attributes |> List.iter (fun (name, label, parser) ->
-      write "  %S, %S, %s;\n" name label parser);
-    write "]\n";
-
-    write "\nopen Ppx_element_content\n";
-
-    write "\nlet element_assemblers = [\n";
-    !element_assemblers |> List.iter (fun (name, assembler) ->
-      write "  %S, %s;\n" name assembler);
-    write "]\n";
-
-    write "\nlet renamed_elements = [\n";
-    !renamed_elements |> List.iter (fun (real_name, name) ->
-      write "  %S, %S;\n" real_name name);
-    write "]\n"
-  end;
-
-  !reflected_variants |> List.iter (fun (name, (unary, nullary)) ->
-    write "\nlet %s = %S, [\n" name unary;
-    nullary |> List.iter (fun nullary ->
-      write "  %S;\n" nullary);
-    write "]\n")
+  let fmt = Format.formatter_of_out_channel channel in
+  Format.fprintf fmt "%a%!" Pprintast.structure reflected_struct ;
+  close_out channel
