@@ -130,6 +130,7 @@ Executable ppx_tyxml
   CompiledObject: best
 
 Executable ppx_reflect
+  Build$: flag(ppx)
   Path: ppx
   MainIs: ppx_reflect.ml
   BuildDepends:

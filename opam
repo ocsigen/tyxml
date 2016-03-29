@@ -11,12 +11,14 @@ dev-repo: "https://github.com/ocsigen/tyxml.git"
 build: [
   ["ocaml" "setup.ml" "-configure"
       "--%{camlp4:enable}%-syntax"
+      "--%{ppx_tools:enable}%-ppx"
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
 ]
 build-test: [
   ["ocaml" "setup.ml" "-configure"
       "--%{camlp4:enable}%-syntax"
+      "--%{ppx_tools:enable}%-ppx"
       "--enable-tests"
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
@@ -31,6 +33,7 @@ depends: [
   "uutf"
   "base-bytes"
   "re"
+  ( "base-no-ppx" | "ppx_tools" )
   "alcotest" {test}
   ## OASIS is not required in released version
   "oasis" {build & >= "0.4.4"}
