@@ -11,7 +11,7 @@ let tyxml_tests l =
   in
   List.map f l
 
-let elements_html = "elements", tyxml_tests M.[
+let html_elements = "html elements", tyxml_tests M.[
 
   "div",
   div [a []],
@@ -20,6 +20,10 @@ let elements_html = "elements", tyxml_tests M.[
   "a",
   canvas [a []],
   "<canvas><a></a></canvas>";
+
+]
+
+let escaping = "html escaping", tyxml_tests M.[
 
   "cdata",
   cdata "<bar>]]>foo<bar/>",
@@ -56,7 +60,7 @@ let elements_html = "elements", tyxml_tests M.[
 ]
 
 
-let () =
-  Alcotest.run "html" [
-    elements_html ;
-  ]
+let tests = [
+  html_elements ;
+  escaping ;
+]
