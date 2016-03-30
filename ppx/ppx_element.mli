@@ -22,7 +22,7 @@
 val parse :
   loc:Location.t ->
   name:Markup.name ->
-  attributes:(Markup.name * string) list ->
+  attributes:(Markup.name * Ppx_attribute_value.value) list ->
   Parsetree.expression list ->
   Parsetree.expression
 (** [parse ~loc ~name ~attributes children] evaluates to a parse tree for applying

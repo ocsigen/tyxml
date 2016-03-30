@@ -20,12 +20,25 @@
 open Asttypes
 open Ast_helper
 
+type value = [
+  | `String of string
+  | `Expr of Parsetree.expression
+]
 
-type parser =
-  ?separated_by:string -> ?default:string -> Location.t -> string -> string ->
+type 'a gparser =
+  ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
     Parsetree.expression option
 
+type parser = string gparser
+type vparser = value gparser
 
+(* Handle expr *)
+
+let expr (parser : parser) : vparser =
+  fun ?separated_by ?default loc name v ->
+    match v with
+    | `Expr e -> Some e
+    | `String s -> parser ?separated_by ?default loc name s
 
 (* Options. *)
 
@@ -77,12 +90,16 @@ let spaces_or_commas = list spaces_or_commas_regexp "space- or comma"
 
 (* Wrapping. *)
 
-let wrap (parser : parser) implementation ?separated_by:_ ?default:_ loc name s =
+let wrap (parser : parser) implementation =
+  expr @@
+  fun ?separated_by:_ ?default:_ loc name s ->
   match parser loc name s with
   | None -> Ppx_common.error loc "wrap applied to presence; nothing to wrap"
   | Some e -> Some (Ppx_common.wrap implementation loc e)
 
-let nowrap (parser : parser) _ ?separated_by:_ ?default:_ loc name s =
+let nowrap (parser : parser) _ =
+  expr @@
+  fun ?separated_by:_ ?default:_ loc name s ->
   parser loc name s
 
 

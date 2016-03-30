@@ -20,10 +20,19 @@
 (** Attribute value parsers and parser combinators. *)
 
 
+type value = [
+  | `String of string
+  | `Expr of Parsetree.expression
+]
+(** Values are either an OCaml expression, provided through an antiquotations
+    or a string parser from a literal.
+*)
 
-type parser =
-  ?separated_by:string -> ?default:string -> Location.t -> string -> string ->
-    Parsetree.expression option
+type 'a gparser =
+  ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
+  Parsetree.expression option
+and parser = string gparser
+and vparser = value gparser
 (** Attribute value parsers are assigned to each attribute depending on the type
     of the attribute's argument, though some attributes have special parsers
     based on their name, or on a [[@@reflect]] annotation. A parser is a
@@ -72,13 +81,16 @@ val semicolons : parser -> parser
 val spaces_or_commas : parser -> parser
 (** Similar to [spaces], but splits on both spaces and commas. *)
 
-val wrap : parser -> Ppx_common.lang -> parser
+(** {3 Top combinators}
+    Exported parsers should always use one of those combinators last. *)
+
+val wrap : parser -> Ppx_common.lang -> vparser
 (** [wrap parser module_ _ _ s] applies [parser _ _ s] to get a parse tree for
     [e], then evaluates to the parse tree for [module_.Xml.W.return e]. *)
 
-val nowrap : parser -> Ppx_common.lang -> parser
+val nowrap : parser -> Ppx_common.lang -> vparser
 (** [nowrap parser _ _ _ s] evaluates to [parser _ _ s]. The purpose of this
-    combinator is provide a signature similar to [wrap] in situations where
+    combinator is to provide a signature similar to [wrap] in situations where
     wrapping is not wanted. *)
 
 
