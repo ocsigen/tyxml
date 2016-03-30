@@ -20,6 +20,48 @@
 open Asttypes
 open Parsetree
 
+
+module Loc = struct
+
+  let shift (pos:Lexing.position) x = {pos with pos_cnum = pos.pos_cnum + x}
+
+  (** Returns the real (OCaml) location of a string, taking delimiters into
+      account. *)
+  let string_start delimiter loc =
+    let delimiter_length = match delimiter with
+      | None -> 1
+      | Some d -> String.length d + 2
+    in
+    shift loc.Location.loc_start delimiter_length
+
+  (** Converts a Markup.ml input location into an OCaml location. [loc] is the
+      start of the OCaml location of the string being parsed by Markup.ml.
+      [consumed] is the number of bytes consumed by Markup.ml before the
+      beginning of the current string.
+      [(line, column)] is the Markup.ml location to be converted. *)
+  let adjust loc consumed (line, column) =
+    let open Location in
+    let open Lexing in
+
+    let column =
+      if line <> 1 then column
+      else loc.pos_cnum - loc.pos_bol + column - consumed
+    in
+    let line = loc.pos_lnum + line - 1 in
+
+    let position =
+      {pos_fname = loc.pos_fname;
+       pos_lnum  = line;
+       pos_bol   = 0;
+       pos_cnum  = column};
+    in
+
+    {loc_start = position;
+     loc_end = position;
+     loc_ghost = false}
+
+end
+
 (** Antiquotations
 
     We replace antiquotations expressions by a dummy token "(tyxmlX)".
@@ -109,99 +151,66 @@ let replace_attribute ~loc (attr,value) =
       Ppx_common.error loc
       "Mixing literals and OCaml expressions is not authorized in attribute values."
 
-(* Converts a Markup.ml input location into an OCaml location. [start_loc] is
-   the OCaml location of the string being parsed by Markup.ml.
-   [delimiter_length] is the length of string delimiter. For a regular string,
-   this is [1] (for the quote). For a delimited string, it is the length of the
-   delimiter plus two for the [{] and [|] characters. [consumed] is the number
-   of bytes consumed by Markup.ml before the beginning of the current string.
-   [(line, column)] is the Markup.ml location to be converted. *)
-let adjust_location start_loc delimiter_length consumed (line, column) =
-  let open Location in
-  let open Lexing in
 
-  let column =
-    if line <> 1 then column
-    else
-      start_loc.loc_start.pos_cnum - start_loc.loc_start.pos_bol +
-        column + delimiter_length - consumed
-  in
-  let line = start_loc.loc_start.pos_lnum + line - 1 in
+(** Processing *)
 
-  let position =
-    {pos_fname = start_loc.loc_start.pos_fname;
-     pos_lnum  = line;
-     pos_bol   = 0;
-     pos_cnum  = column};
+(** Takes the ast and transforms it into a Markup.ml char stream.
+
+    The payload [expr] is either a single token, or an application (that is, a list).
+    A token is either a string or an antiquotation, which is transformed into
+    a string (see {!Antiquot}).
+
+    Each token is equipped with a starting (but no ending) position.
+*)
+let ast_to_stream expr =
+  let current_adjust_location = ref (Loc.adjust Lexing.dummy_pos 0) in
+
+  let expressions =
+    match expr.pexp_desc with
+    | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
+    | _ -> [expr]
   in
 
-  {loc_start = position;
-   loc_end = position;
-   loc_ghost = false}
+  let strings =
+    expressions |> List.map @@ fun expr ->
+    match expr.pexp_desc with
+    (* TODO: Doesn't work in 4.03, can't pattern match. *)
+    | Pexp_constant (Const_string (s, delimiter)) ->
+      (s, Loc.string_start delimiter expr.pexp_loc)
+    | _ ->
+      (Antiquot.create expr, expr.pexp_loc.loc_start)
+  in
 
-(* Given the payload of a [%tyxml ...] expression, converts it to a TyXML
-   expression representing the markup contained therein.
+  let items = ref strings in
+  let offset = ref 0 in
+  let consumed = ref 0 in
 
-   The payload [expr] is either a single string, or an application expression
-   involving strings and literal TyXML expressions.
+  let rec next () = match !items with
+    | [] -> None
+    | (s, loc)::rest ->
+      if !offset = 0 then begin
+        current_adjust_location := Loc.adjust loc !consumed;
+        consumed := !consumed + String.length s
+      end;
 
-   [markup_to_expr] first converts the payload to a list of strings and TyXML
-   expressions. It then builds an input stream for Markup.ml, which walks this
-   list. Bytes in strings encountered are passed to Markup.ml. When a TyXML
-   expression is encountered, a dummy token is inserted that is later replaced by
-   the proper expression. *)
+      if !offset < String.length s then begin
+        offset := !offset + 1;
+        Some (s.[!offset - 1])
+      end
+      else begin
+        offset := 0;
+        items := rest;
+        next ()
+      end
+  in
+
+  Markup.fn next, (fun x -> !current_adjust_location x)
+
+(** Given the payload of a [%tyxml ...] expression, converts it to a TyXML
+    expression representing the markup contained therein. *)
 let markup_to_expr loc expr =
-  let current_adjust_location = ref (adjust_location Location.none 0 0) in
 
-  let input_stream =
-    let expressions =
-      match expr.pexp_desc with
-      | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
-      | _ -> [expr]
-    in
-
-    let strings_and_antiquotations =
-      expressions |> List.map @@ fun expr ->
-      match expr.pexp_desc with
-      (* TODO: Doesn't work in 4.03, can't pattern match. *)
-      | Pexp_constant (Const_string (s, maybe_delimiter)) ->
-        let delimiter_length =
-          match maybe_delimiter with
-          | None -> 1
-          | Some d -> String.length d + 2
-        in
-        (s, expr.pexp_loc, delimiter_length)
-
-      | _ ->
-        (Antiquot.create expr, expr.pexp_loc, 0)
-    in
-
-    let items = ref strings_and_antiquotations in
-    let offset = ref 0 in
-    let consumed = ref 0 in
-
-    let rec next () = match !items with
-      | [] -> None
-      | (s, loc, delimiter_length)::rest ->
-        if !offset = 0 then begin
-          current_adjust_location :=
-            adjust_location loc delimiter_length !consumed;
-          consumed := !consumed + String.length s
-        end;
-
-        if !offset < String.length s then begin
-          offset := !offset + 1;
-          Some (s.[!offset - 1])
-        end
-        else begin
-          offset := 0;
-          items := rest;
-          next ()
-        end
-    in
-
-    Markup.fn next
-  in
+  let input_stream, adjust_location = ast_to_stream expr in
 
   (* The encoding is specified as a workaround: when not specified, Markup.ml
      prescans the input looking for byte-order marks or <meta> tags. We don't
@@ -210,19 +219,16 @@ let markup_to_expr loc expr =
      before the expression assembler starts running. This is fragile and will be
      fixed by merging TyXML expressions in the assembler instead of as now. *)
   let parser =
-    input_stream
-    |> Markup.parse_html
+    Markup.parse_html
       ~encoding:Markup.Encoding.utf_8
       ~report:(fun loc error ->
-        let loc = !current_adjust_location loc in
+        let loc = adjust_location loc in
         let message = Markup.Error.to_string error |> String.capitalize in
         Ppx_common.error loc "%s" message)
+      input_stream
   in
   let signals = Markup.signals parser in
-
-  let get_loc () =
-    parser |> Markup.location |> !current_adjust_location
-  in
+  let get_loc () = adjust_location @@ Markup.location parser in
 
   let rec assemble children =
     match Markup.next signals with
