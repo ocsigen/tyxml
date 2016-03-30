@@ -11,3 +11,6 @@ not <syntax/*>: warn_error(+1..49), warn_error(-45-3)
 not <syntax/*>: strict_sequence, safe_string, short_paths
 
 true: keep_locs
+
+# Tests use the tyxml ppx
+<test/*.ml>: ppx_tyxml

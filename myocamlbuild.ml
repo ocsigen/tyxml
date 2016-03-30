@@ -42,8 +42,12 @@ let reflect_ppx () =
 
   rule "ppx_reflect: mli -> _reflected.ml" ~prod ~deps:[dep; ppx_reflect]
     begin fun env _ ->
-      Cmd (S [A ppx_reflect ; A (env dep); A (env prod)])
+      Cmd (S [A ppx_reflect ; P (env dep); P (env prod)])
     end
+
+let tyxml_ppx () =
+  let ppx_tyxml = "ppx/ppx_tyxml."^native_suffix in
+  flag_and_dep [ "ocaml" ; "compile" ; "ppx_tyxml" ] (S [A "-ppx"; P ppx_tyxml])
 
 let () =
   dispatch
@@ -64,7 +68,8 @@ let () =
          if String.sub Sys.ocaml_version 0 4 = "4.00" then
            flag ["ocaml"; "bin_annot"; "compile"] (A "-bin-annot");
 
-        reflect_ppx ()
+         reflect_ppx () ;
+         tyxml_ppx () ;
 
        | _ ->
          ())
