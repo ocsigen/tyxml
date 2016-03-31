@@ -80,143 +80,131 @@ module FunTyp = struct
       | Nolabel, _ | _, None -> None
       | (Labelled lab | Optional lab), Some t -> Some (lab, t)
 
-end
-
-(* Given the name of a TyXML attribute function and a list of its argument
-   types, selects the attribute value parser (in module [Ppx_attribute_value])
-   that should be used for that attribute. *)
-let type_to_attribute_parser name types =
   let rec no_constructor_arguments = function
     | [] -> true
     | (Rinherit _)::_
     | (Rtag (_, _, _, _::_))::_ -> false
     | (Rtag (_, _, _, []))::more -> no_constructor_arguments more
-  in
 
-  match types with
-  | [] ->
-    "nowrap presence"
 
-  | [[%type : character wrap]] ->
-    "wrap char"
+(* Given the name of a TyXML attribute function and a list of its argument
+   types, selects the attribute value parser (in module [Ppx_attribute_value])
+   that should be used for that attribute. *)
+let rec to_attribute_parser name = function
+  | [] -> [%expr nowrap presence]
+  | [[%type: [%t? ty] wrap]] ->
+    [%expr wrap [%e to_attribute_parser name [ty]]]
 
-  | [[%type : bool wrap]] ->
-    "wrap bool"
+  | [[%type: character]] -> [%expr char]
+  | [[%type: bool]] -> [%expr bool]
 
-  | [[%type : number wrap]]
-  | [[%type : pixels wrap]]
-  | [[%type : int wrap]] ->
-    "wrap int"
+  | [[%type: number]]
+  | [[%type: pixels]]
+  | [[%type: int]] -> [%expr int]
+  | [[%type: numbers]] -> [%expr commas int]
+  | [[%type : float_number]] | [[%type : float]] -> [%expr float]
+  | [[%type : float_number option]] ->
+    [%expr option "any" float]
 
-  | [[%type : numbers wrap]] ->
-    "wrap (commas int)"
+  | [[%type : numbers_semicolon]] ->
+    [%expr semicolons float]
 
-  | [[%type : float_number wrap]]
-  | [[%type : float wrap]] ->
-    "wrap float"
+  | [[%type : fourfloats]] ->
+    [%expr fourfloats]
 
-  | [[%type : float_number option wrap]] ->
-    "wrap (option \"any\" float)"
+  | [[%type : number_optional_number]] ->
+    [%expr number_pair]
 
-  | [[%type : numbers_semicolon wrap]] ->
-    "wrap (semicolons float)"
+  | [[%type : coords]] ->
+    [%expr points]
 
-  | [[%type : fourfloats wrap]] ->
-    "wrap fourfloats"
+  | [[%type : (number * number) list option]] ->
+    [%expr option "any" (spaces icon_size)]
 
-  | [[%type : number_optional_number wrap]] ->
-    "wrap number_pair"
+  | [[%type : length]] ->
+    [%expr length]
 
-  | [[%type : coords wrap]] ->
-    "wrap points"
+  | [[%type : multilengths]] ->
+    [%expr commas multilength]
 
-  | [[%type : (number * number) list option wrap]] ->
-    "wrap (option \"any\" (spaces icon_size))"
+  | [[%type : coord]] | [[%type : Unit.length]] ->
+    [%expr svg_length]
 
-  | [[%type : length wrap]] ->
-    "wrap length"
+  | [[%type : Unit.length list]] ->
+    [%expr spaces_or_commas svg_length]
 
-  | [[%type : multilengths wrap]] ->
-    "wrap (commas multilength)"
+  | [[%type : Unit.angle option]] ->
+    [%expr option "auto" angle]
 
-  | [[%type : coord wrap]]
-  | [[%type : Unit.length wrap]] ->
-    "wrap svg_length"
+  | [[%type: string]]
+  | [[%type: text]]
+  | [[%type: nmtoken]]
+  | [[%type: idref]]
+  | [[%type: Xml.uri]]
+  | [[%type: contenttype]]
+  | [[%type: languagecode]]
+  | [[%type: cdata]]
+  | [[%type: charset]]
+  | [[%type: frametarget]]
+  | [[%type: iri]]
+  | [[%type: color]] -> [%expr string]
 
-  | [[%type : Unit.length list wrap]] ->
-    "wrap (spaces_or_commas svg_length)"
-
-  | [[%type : Unit.angle option wrap]] ->
-    "wrap (option \"auto\" angle)"
-
-  | [[%type : string wrap]]
-  | [[%type : text wrap]]
-  | [[%type : nmtoken wrap]]
-  | [[%type : idref wrap]]
-  | [[%type : Xml.uri wrap]]
-  | [[%type : contenttype wrap]]
-  | [[%type : languagecode wrap]]
-  | [[%type : cdata wrap]]
-  | [[%type : charset wrap]]
-  | [[%type : frametarget wrap]]
-  | [[%type : iri wrap]]
-  | [[%type : color wrap]]
-  | [[%type : nmtoken]; [%type : text wrap]] ->
-    "wrap string"
+  | [[%type: nmtoken]; [%type: text wrap]] -> [%expr wrap string]
 
   | [[%type : Xml.event_handler]]
   | [[%type : Xml.mouse_event_handler]]
   | [[%type : Xml.keyboard_event_handler]] ->
-    "nowrap string"
+    [%expr nowrap string]
 
-  | [[%type : string option wrap]] ->
-    "wrap (option \"\" string)"
+  | [[%type : string option]] ->
+    [%expr (option "" string)]
 
-  | [[%type :
-      [%t? {ptyp_desc = Ptyp_variant (_::_::_ as constructors, _, _)}] wrap]]
+  | [{ptyp_desc = Ptyp_variant (_::_::_ as constructors, _, _)}]
       when no_constructor_arguments constructors ->
-    "wrap variant"
+    [%expr variant]
 
-  | [[%type : shape wrap]] ->
-    "wrap variant"
+  | [[%type : shape]] ->
+    [%expr variant]
 
-  | [[%type : nmtokens wrap]]
-  | [[%type : idrefs wrap]]
-  | [[%type : charsets wrap]]
-  | [[%type : spacestrings wrap]]
-  | [[%type : strings wrap]] ->
-    "wrap (spaces string)"
+  | [[%type : nmtokens]]
+  | [[%type : idrefs]]
+  | [[%type : charsets]]
+  | [[%type : spacestrings]]
+  | [[%type : strings]] ->
+    [%expr spaces string]
 
-  | [[%type : commastrings wrap]]
-  | [[%type : text list wrap]]
-  | [[%type : contenttypes wrap]] ->
-    "wrap (commas string)"
+  | [[%type : commastrings]]
+  | [[%type : text list]]
+  | [[%type : contenttypes]] ->
+    [%expr commas string]
 
-  | [[%type : linktypes wrap]] ->
-    "wrap (spaces (total_variant Html5_types_reflected.linktype))"
+  | [[%type : linktypes]] ->
+    [%expr spaces (total_variant Html5_types_reflected.linktype)]
 
-  | [[%type : mediadesc wrap]] ->
-    "wrap (commas (total_variant Html5_types_reflected.mediadesc_token))"
+  | [[%type : mediadesc]] ->
+    [%expr commas (total_variant Html5_types_reflected.mediadesc_token)]
 
-  | [[%type : transform wrap]] ->
-    "wrap transform"
+  | [[%type : transform]] ->
+    [%expr transform]
 
-  | [[%type : lengths wrap]] ->
-    "wrap (spaces_or_commas svg_length)"
+  | [[%type : lengths]] ->
+    [%expr spaces_or_commas svg_length]
 
-  | [[%type : transforms wrap]] ->
-    "wrap (spaces_or_commas transform)"
+  | [[%type : transforms]] ->
+    [%expr spaces_or_commas transform]
 
-  | [[%type : paint wrap]] ->
-    "wrap paint"
+  | [[%type : paint]] ->
+    [%expr paint]
 
-  | [[%type : image_candidate list wrap]] ->
-    "wrap (commas srcset_element)"
+  | [[%type : image_candidate list]] ->
+    [%expr commas srcset_element]
 
   | _ ->
     let name = strip_a name in
     let name = if name = "in" then "in_" else name in
-    Printf.sprintf "wrap %s" name
+    AC.evar name
+
+end
 
 (* Given a list of attributes from a val declaration whose name begins with a_,
    checks if the declaration has a [@@reflect.attribute] annotation. If so, the
@@ -317,7 +305,7 @@ let val_item_to_element_info value_description =
       let aux x acc = match FunTyp.extract_attribute_argument x with
         | None -> acc
         | Some (label, ty) ->
-          let parser = type_to_attribute_parser label [ty] in
+          let parser = FunTyp.to_attribute_parser label [ty] in
           (name, label, parser) :: acc
       in
       List.fold_right aux arguments []
@@ -351,7 +339,7 @@ let signature_item mapper item =
 
     let argument_types = List.map snd @@ FunTyp.arguments type_ in
     let attribute_parser_mapping =
-      name, type_to_attribute_parser name argument_types in
+      name, FunTyp.to_attribute_parser name argument_types in
     attribute_parsers := attribute_parser_mapping::!attribute_parsers;
 
     let renaming = ocaml_attributes_to_renamed_attribute name pval_attributes in
@@ -429,6 +417,7 @@ module Combi = struct
   let tuple3 f1 f2 f3 (x1, x2, x3) = Exp.tuple [f1 x1; f2 x2; f3 x3]
   let str = AC.str
   let id = AC.evar
+  let expr x = x
   let let_ p f (x,e) = Str.value Nonrecursive [Vb.mk (p x) (f e)]
 end
 
@@ -439,11 +428,11 @@ let emit_module () =
     open Ppx_attribute_value
 
     let attribute_parsers =
-      [%e Combi.(list @@ tuple2 str id) !attribute_parsers ]
+      [%e Combi.(list @@ tuple2 str expr) !attribute_parsers ]
     let renamed_attributes =
       [%e Combi.(list @@ tuple3 str str (list str)) !renamed_attributes ]
     let labeled_attributes =
-      [%e Combi.(list @@ tuple3 str str id) !labeled_attributes ]
+      [%e Combi.(list @@ tuple3 str str expr) !labeled_attributes ]
 
     open Ppx_element_content
 
