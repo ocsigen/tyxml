@@ -37,14 +37,50 @@ let strip_a s =
   if String.length s < 2 || String.sub s 0 2 <> "a_" then s
   else String.sub s 2 (String.length s - 2)
 
-let argument_types t =
-  let rec scan acc = function
-    | Ptyp_arrow (_, t, t') -> scan (t::acc) t'.ptyp_desc
-    | _ -> List.rev acc
-  in
-  scan [] t.ptyp_desc
+(** Utilities for types of functions. *)
+module FunTyp = struct
 
+  (* Extract the tuple (arguments, return) of a function type. *)
+  let get t =
+    let rec scan acc = function
+      | {ptyp_desc = Ptyp_arrow (lab, t, t')} -> scan ((lab,t)::acc) t'
+      | ret -> (List.rev acc, ret)
+    in
+    scan [] t
 
+  let arguments t = fst @@ get t
+  let result t = snd @@ get t
+
+  exception Found
+
+  (** Check if a type contains the "elt" constructor, somewhere. *)
+  let contains_elt t =
+    (* Ast_iterator is not available in 4.02, so we use a mapper. *)
+    let typ mapper = function
+      | [%type: [%t? _] elt] -> raise Found
+      | ty -> default_mapper.typ mapper ty
+    in
+    let m = {Ast_mapper.default_mapper with typ} in
+    try ignore (m.typ m t) ; false
+    with Found -> true
+
+  (** Extract the type inside [wrap]. *)
+  let unwrap = function
+    (* Optional argument are [_ wrap *predef*.option], In 4.02 *)
+    | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] wrap] as t])}
+      when Longident.last lid.txt = "option" ->
+      Some t
+    | [%type : [%t? _] wrap] as t -> Some t
+    | _ -> None
+
+  (** Extract the type of for html/svg attributes. *)
+  let extract_attribute_argument (lab, t) =
+    if contains_elt t then None
+    else match AC.Label.explode lab, unwrap t with
+      | Nolabel, _ | _, None -> None
+      | (Labelled lab | Optional lab), Some t -> Some (lab, t)
+
+end
 
 (* Given the name of a TyXML attribute function and a list of its argument
    types, selects the attribute value parser (in module [Ppx_attribute_value])
@@ -251,67 +287,40 @@ let val_item_to_element_info value_description =
         | PStr [%str [%e? assembler] [%e? name]] ->
           Ast_convenience.get_str assembler, Ast_convenience.get_str name
         | PStr [%str [%e? assembler]] ->
-          Ast_convenience.get_str assembler , None
+          Ast_convenience.get_str assembler, None
         | _ -> None, None
       in
       begin match assembler with
         | Some _ -> (assembler, real_name)
         | None ->
           Ppx_common.error loc
-            "Payload of [@@reflect.element] must be a one or two strings"
+            "Payload of [@@reflect.element] must be one or two strings"
       end
 
     | None ->
-      let result_type =
-        let rec scan = function
-          | {ptyp_desc = Ptyp_arrow (_, _, t')} -> scan t'
-          | t -> t
-        in
-        scan value_description.pval_type
-      in
-
-      match result_type with
-      | [%type : ([%t? _], [%t ? _]) nullary] -> Some "nullary", None
-      | [%type : ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary", None
-      | [%type : ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star", None
-      | _ -> None, None
+      let result_type = FunTyp.result value_description.pval_type in
+      let assembler = match result_type with
+        | [%type : ([%t? _], [%t ? _]) nullary] -> Some "nullary"
+        | [%type : ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary"
+        | [%type : ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star"
+        | _ -> None
+      in assembler, None
   in
 
   match maybe_assembler with
   | None -> None
   | Some assembler ->
+
+    (* We gather all the labeled arguments that are attributes. *)
+    let arguments = FunTyp.arguments value_description.pval_type in
     let labeled_attributes =
-      let rec scan acc = function
-        | Ptyp_arrow (label, t, t') ->
-
-          let maybe_attribute_type =
-            match t with
-            | [%type : [%t? _] wrap] ->
-              Some t
-
-            | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] elt wrap]])}
-              when Longident.last lid.txt = "option" ->
-              None
-
-            | {ptyp_desc =
-                 Ptyp_constr (lid, [[%type : [%t? _] wrap] as t''])}
-              when Longident.last lid.txt = "option" ->
-              Some t''
-
-            | _ ->
-              None
-          in
-
-          begin match Ppx_common.Label.explode label, maybe_attribute_type with
-            | Nolabel, _ | _,None -> scan acc t'.ptyp_desc
-            | (Labelled label | Optional label), Some t'' ->
-              let parser = type_to_attribute_parser label [t''] in
-              scan ((name, label, parser)::acc) t'.ptyp_desc
-          end
-
-        | _ -> acc
+      let aux x acc = match FunTyp.extract_attribute_argument x with
+        | None -> acc
+        | Some (label, ty) ->
+          let parser = type_to_attribute_parser label [ty] in
+          (name, label, parser) :: acc
       in
-      scan [] value_description.pval_type.ptyp_desc
+      List.fold_right aux arguments []
     in
 
     let rename =
@@ -340,7 +349,7 @@ let signature_item mapper item =
       when is_attribute name ->
     (* Attribute declaration. *)
 
-    let argument_types = argument_types type_ in
+    let argument_types = List.map snd @@ FunTyp.arguments type_ in
     let attribute_parser_mapping =
       name, type_to_attribute_parser name argument_types in
     attribute_parsers := attribute_parser_mapping::!attribute_parsers;
