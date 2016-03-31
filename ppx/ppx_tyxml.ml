@@ -208,7 +208,7 @@ let ast_to_stream expr =
 
 (** Given the payload of a [%tyxml ...] expression, converts it to a TyXML
     expression representing the markup contained therein. *)
-let markup_to_expr loc expr =
+let markup_to_expr ?context loc expr =
 
   let input_stream, adjust_location = ast_to_stream expr in
 
@@ -221,6 +221,7 @@ let markup_to_expr loc expr =
   let parser =
     Markup.parse_html
       ~encoding:Markup.Encoding.utf_8
+      ?context
       ~report:(fun loc error ->
         let loc = adjust_location loc in
         let message = Markup.Error.to_string error |> String.capitalize in
@@ -258,19 +259,66 @@ let markup_to_expr loc expr =
 
   Ppx_common.list loc @@ assemble Ppx_common.Html []
 
+let context_of_lang = function
+  | None -> None
+  | Some Ppx_common.Svg -> Some (`Fragment "svg")
+  | Some Html -> Some (`Fragment "html")
 
+let markup_to_expr_with_implementation lang modname loc expr =
+  let context = context_of_lang lang in
+  match lang, modname with
+  | Some lang, Some modname ->
+    let current_modname = Ppx_common.implementation lang in
+    Ppx_common.set_implementation lang modname ;
+    let res = markup_to_expr ?context loc expr in
+    Ppx_common.set_implementation lang current_modname ;
+    res
+  | _ ->
+    markup_to_expr ?context loc expr
+
+
+let is_capitalized s =
+  if String.length s < 0 then false
+  else match s.[0] with
+    | 'A'..'Z' -> true
+    | _ -> false
+
+let get_modname ~loc l =
+  if l = [] then None
+  else if not (List.for_all is_capitalized l) then
+    Ppx_common.error loc
+      "This identifier is not a module name."
+  else Some (String.concat "." l)
+
+let re_dot = Re.(compile @@ char '.')
+let dispatch_ext {txt ; loc} =
+  let l = Re.split re_dot txt in
+  match l with
+  | "html5" :: l
+  | "tyxml" :: "html5" :: l ->
+    Some (Some Ppx_common.Html, get_modname ~loc l)
+  | "svg" :: l
+  | "tyxml" :: "svg" :: l ->
+    Some (Some Ppx_common.Svg, get_modname ~loc l)
+  | "tyxml" :: []
+    -> Some (None, None)
+  | "tyxml" :: (_ :: _) ->
+    Ppx_common.error loc
+      "Module names are only accepted for html5 and svg quotations."
+  | _ -> None
 
 open Ast_mapper
 
 let map_expr mapper e =
   match e.pexp_desc with
-  | Pexp_extension ({txt = "tyxml"; loc}, payload) ->
-    begin match payload with
-    | PStr [{pstr_desc = Pstr_eval (e, _)}] ->
-      markup_to_expr loc e
-    | _ ->
+  | Pexp_extension (ext, payload) ->
+    begin match dispatch_ext ext, payload with
+    | Some (lang, modname), PStr [{pstr_desc = Pstr_eval (e, _)}] ->
+      markup_to_expr_with_implementation lang modname e.pexp_loc e
+    | Some _, _ ->
       Ppx_common.error e.pexp_loc
         "Error: Payload of [%%tyxml] must be a single string"
+    | None, _ -> default_mapper.expr mapper e
     end
   | _ -> default_mapper.expr mapper e
 
