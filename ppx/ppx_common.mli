@@ -28,6 +28,7 @@ module Label = Ast_convenience.Label
 type lang = Html | Svg
 val lang : lang -> string
 val implementation : lang -> string
+val set_implementation : lang -> string -> unit
 
 val make :
   loc:Location.t -> lang -> string -> Parsetree.expression

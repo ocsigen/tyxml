@@ -24,12 +24,18 @@ module Label = Ast_convenience.Label
 
 type lang = Html | Svg
 
-let html5_implementation = "Html5"
-let svg_implementation = "Svg"
+let html5_implementation = ref "Html5"
+let svg_implementation = ref "Svg"
 
-let implementation = function
+let implemenentation_ref = function
   | Html -> html5_implementation
   | Svg -> svg_implementation
+
+let set_implementation lang s =
+  (implemenentation_ref lang) := s
+
+let implementation lang =
+  !(implemenentation_ref lang)
 
 let lang = function
   | Html -> "HTML"
