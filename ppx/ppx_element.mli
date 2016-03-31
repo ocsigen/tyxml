@@ -28,3 +28,10 @@ val parse :
 (** [parse ~loc ~name ~attributes children] evaluates to a parse tree for applying
     the TyXML function corresponding to element [name] to suitable arguments
     representing [attributes] and [children]. *)
+
+val comment :
+  loc:Location.t ->
+  lang:Ppx_common.lang ->
+  string ->
+  Parsetree.expression
+(** [comment ~loc ~ns s] evaluates to a parse tree that represents an XML comment. *)

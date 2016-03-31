@@ -44,6 +44,10 @@ let basics = "ppx basics", tyxml_tests M.[
   [%tyxml "<p id=foo class=bar></p>"],
   [p ~a:[a_id "foo"; a_class ["bar"] ] []] ;
 
+  "comment",
+  [%tyxml "<!--foo-->"],
+  [tot @@ Xml.comment "foo"]
+
 ]
 
 let elt1 = M.(span [pcdata "one"])

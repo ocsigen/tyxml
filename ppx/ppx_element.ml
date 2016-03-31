@@ -37,3 +37,10 @@ let parse ~loc ~name:((ns, name) as element_name) ~attributes children =
   let children = assembler ~lang ~loc ~name children in
 
   Ast_helper.Exp.apply ~loc element_function (attributes @ children)
+
+let comment ~loc ~lang s =
+  let tot = Ppx_common.make ~loc lang "tot" in
+  let comment = Ppx_common.make ~loc lang "Xml.comment" in
+  let s = Ppx_common.string loc s in
+  (* Using metaquot here avoids fiddling with labels. *)
+  [%expr [%e tot] ([%e comment] [%e s])][@metaloc loc]

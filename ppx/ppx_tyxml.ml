@@ -230,29 +230,33 @@ let markup_to_expr loc expr =
   let signals = Markup.signals parser in
   let get_loc () = adjust_location @@ Markup.location parser in
 
-  let rec assemble children =
+  let rec assemble lang children =
     match Markup.next signals with
     | None | Some `End_element -> List.rev children
 
     | Some (`Text ss) ->
       let loc = get_loc () in
       let node = make_text ~loc ss in
-      assemble (node @ children)
+      assemble lang (node @ children)
 
     | Some (`Start_element (name, attributes)) ->
+      let lang = Ppx_namespace.to_lang loc @@ fst name in
       let loc = get_loc () in
 
-      let sub_children = assemble [] in
+      let sub_children = assemble lang [] in
       Antiquot.assert_no_antiquot ~loc "element" name ;
       let attributes = List.map (replace_attribute ~loc) attributes in
       let node = Ppx_element.parse ~loc ~name ~attributes sub_children in
-      assemble (node :: children)
+      assemble lang (node :: children)
+
+    | Some (`Comment s) ->
+      [Ppx_element.comment ~loc ~lang s]
 
     | Some _ ->
-      assemble children
+      assemble lang children
   in
 
-  Ppx_common.list loc @@ assemble []
+  Ppx_common.list loc @@ assemble Ppx_common.Html []
 
 
 
