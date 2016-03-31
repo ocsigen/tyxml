@@ -252,7 +252,7 @@ let markup_to_expr loc expr =
     | Some (`Comment s) ->
       [Ppx_element.comment ~loc ~lang s]
 
-    | Some _ ->
+    | Some (`Xml _ | `Doctype _ | `PI _)  ->
       assemble lang children
   in
 
