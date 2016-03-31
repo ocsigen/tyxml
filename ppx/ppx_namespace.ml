@@ -17,11 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-let reflect loc = function
-  | ns when ns = Markup.Ns.html ->
-    Ppx_common.Html ,(module Html5_sigs_reflected : Ppx_sigs_reflected.S)
+let get : Ppx_common.lang -> (module Ppx_sigs_reflected.S) = function
+  | Html -> (module Html5_sigs_reflected)
+  | Svg  -> (module Svg_sigs_reflected)
 
-  | ns when ns = Markup.Ns.svg ->
-    Ppx_common.Svg, (module Svg_sigs_reflected : Ppx_sigs_reflected.S)
+let to_lang loc ns =
+  if ns = Markup.Ns.html then Ppx_common.Html
+  else if ns = Markup.Ns.svg then Ppx_common.Svg
+  else Ppx_common.error loc "Unknown namespace %s" ns
 
-  | ns -> Ppx_common.error loc "Unknown namespace %s" ns
+let reflect loc ns =
+  let l = to_lang loc ns in (l, get l)
