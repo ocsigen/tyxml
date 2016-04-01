@@ -15,7 +15,7 @@ and use the <<a_api|module Html5>> and <<a_api|module Svg>> modules.
 
 === Use with another library ===
 
-TyXML combinators can be used in conjunction to another library, please consult the relevent document. For example, for
+TyXML combinators can be used in conjunction with other libraries, please consult the relevant document. For example, for
 <<a_manual project="eliom" chapter="clientserver-html"|Eliom>>
 and
 <<a_api project="js_of_ocaml" text="Js_of_ocaml"|module Tyxml_js>>.
@@ -27,7 +27,7 @@ For standalone use, examples are available in the [[https://github.com/ocsigen/t
 
 The documentation for TyXML combinators is provided in <<a_api|module Html5_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html5}}} and {{{Svg}}}.
 
-A first thing to understand about TyXML is that for most intent and purposes, it is exactly like Html. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|Html reference]] is still very useful. For each Html elements or attributes, there is a combinator implemeting it. The main differences are that you can use OCaml to manipulate the elements and that invalid Html produces a type error.
+The first thing to understand about TyXML is that for most intents and purposes, it is exactly like Html. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|Html reference]] is still very useful. For each Html elements or attributes, there is a combinator implementing it. The main differences are that you can use OCaml to manipulate the elements and that invalid Html produces a type error.
 
 In this tutorial, we will build the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website|Mini website]].
 
