@@ -34,7 +34,7 @@ module type T = sig
       allows the OCaml typechecker to check Svg validity.
 
       Note that the concrete implementation of this type can vary.
-      See {{!Xml}Xml} for details.
+      See {!Xml} for details.
   *)
   type +'a elt
 
@@ -51,7 +51,7 @@ module type T = sig
 
       In some cases, attributes have to be disambiguated.
       The [max] attribute has two version,
-      {{!a_fill}a_fill} and {{!a_animation_fill}a_animation_fill},
+      {!a_fill} and {!a_animation_fill},
       depending on the element.
       Such disambiguated attribute will contain the name of the associated element.
   *)
