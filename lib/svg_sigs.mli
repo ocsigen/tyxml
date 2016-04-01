@@ -25,16 +25,16 @@ module type T = sig
   (** Svg elements.
 
       Element constructors are in section {!elements}. Most elements constructors
-      are either {{!nullary}[nullary]}, {{!unary}[unary]} or {{!star}[star]},
+      are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
       depending on the number of children they accept.
       Children are usually given as a list of elements.
-      {{!pcdata}[pcdata]} is used for text.
+      {{!pcdata}pcdata} is used for text.
 
       The type variable ['a] is used to track the element's type. This
       allows the OCaml typechecker to check Svg validity.
 
       Note that the concrete implementation of this type can vary.
-      See {{!Xml}[Xml]} for details.
+      See {{!Xml}Xml} for details.
   *)
   type +'a elt
 
@@ -46,12 +46,12 @@ module type T = sig
       Attribute constructors are in section {!attributes} and their name starts
       with [a_]. Attributes are given to elements with the [~a] optional argument.
 
-      Similarly to {{!elt}[elt]}, attributes use the OCaml type system to enforce
+      Similarly to {{!elt}elt}, attributes use the OCaml type system to enforce
       Html validity.
 
       In some cases, attributes have to be disambiguated.
       The [max] attribute has two version,
-      {{!a_fill}[a_fill]} and {{!a_animation_fill}[a_animation_fill]},
+      {{!a_fill}a_fill} and {{!a_animation_fill}a_animation_fill},
       depending on the element.
       Such disambiguated attribute will contain the name of the associated element.
   *)

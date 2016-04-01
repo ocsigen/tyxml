@@ -24,11 +24,11 @@ module type T = sig
 
   (** Html5 elements.
 
-      Element constructors are in section {!elements}. Most elements constructors
-      are either {{!nullary}[nullary]}, {{!unary}[unary]} or {{!star}[star]},
+      Element constructors are in section {{!elements}elements}. Most elements constructors
+      are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
       depending on the number of children they accept.
       Children are usually given as a list of elements.
-      {{!pcdata}[pcdata]} is used for text.
+      {{!pcdata}pcdata} is used for text.
 
       [div [a [pcdata "Foo"]]]
       is equivalent to
@@ -38,12 +38,12 @@ module type T = sig
       allows the OCaml typechecker to check Html validity.
 
       For example, [div []] is of type [[> `Div] elt].
-      The {{!span}[span]} function only accepts children of type
+      The {{!span}span} function only accepts children of type
       {!Html5_types.span_content}.
       Since [`Div] is not part of it. [span [div []]] will not typecheck.
 
       Note that the concrete implementation of this type can vary.
-      See {{!Xml}[Xml]} for details.
+      See {{!Xml}Xml} for details.
   *)
   type +'a elt
 
@@ -52,25 +52,25 @@ module type T = sig
 
   (** Html5 attributes
 
-      Attribute constructors are in section {!attributes} and their name starts
+      Attribute constructors are in section {{!attributes}attributes} and their name starts
       with [a_]. Attributes are given to elements with the [~a] optional argument.
 
       [a ~a:[a_href "ocsigen.org"] [pcdata "link!"]]
       is equivalent to
       [<a href="ocsigen.org">link!</a>]
 
-      Similarly to {{!elt}[elt]}, attributes use the OCaml type system to enforce
+      Similarly to {{!elt}elt}, attributes use the OCaml type system to enforce
       Html validity.
 
-      For example {{!a_href}[a_href]} returns a value of type [[> `Href] attrib].
-      The {{!div}[div]} function only accepts attributes of type
+      For example {{!a_href}a_href} returns a value of type [[> `Href] attrib].
+      The {{!div}div} function only accepts attributes of type
       {!Html5_types.div_attrib}.
       Since [`Href] is not part of it,
       [div ~a:[a_href "ocsigen.org"] []] will not typecheck.
 
       In some cases, attributes have to be disambiguated.
       The [max] attribute has two version,
-      {{!a_max}[a_max]} and {{!a_input_max}[a_input_max]}, depending on the
+      {{!a_max}a_max} and {{!a_input_max}a_input_max}, depending on the
       element.
       Such disambiguated attribute will contain the name of the associated element.
   *)
@@ -97,7 +97,7 @@ module type T = sig
   *)
   type 'a wrap = 'a Xml.W.t
 
-  (** [list_wrap] is a containre for list of elements.
+  (** [list_wrap] is a container for list of elements.
 
       In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!ReactiveData.RList.t}.
