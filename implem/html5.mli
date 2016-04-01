@@ -17,11 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Typesafe constructors and printers for HTML5 documents.
+(** Typesafe constructors and printers for Html5 documents.
 
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
-(** Concrete implementation of HTML5 typesafe constructors.
+(** Concrete implementation of Html5 typesafe constructors.
     See {!modtype:Html5_sigs.T}.
 *)
 include Html5_sigs.Make(Xml)(Svg).T
@@ -36,11 +36,11 @@ include Html5_sigs.Make(Xml)(Svg).T
 val pp:
   ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
 
-(** [pp_elt ()] is a {!Format} printer for svg elements. *)
+(** [pp_elt ()] is a {!Format} printer for Html5 elements. *)
 val pp_elt :
   ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
-(** Parametrized stream printer for HTML5 documents.
+(** Parametrized stream printer for Html5 documents.
     @deprecated Use {!Html5.pp} instead.
 *)
 module Make_printer(O : Xml_sigs.Output) :

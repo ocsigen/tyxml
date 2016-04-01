@@ -17,11 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Typesafe constructors and printers for SVG documents.
+(** Typesafe constructors and printers for Svg documents.
 
     @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
 
-(** Concrete implementation of SVG typesafe constructors.
+(** Concrete implementation of Svg typesafe constructors.
     See {!modtype:Svg_sigs.T}.
 *)
 include Svg_sigs.Make(Xml).T
@@ -36,11 +36,11 @@ include Svg_sigs.Make(Xml).T
 val pp:
   ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
 
-(** [pp_elt ()] is a {!Format} printer for svg elements. *)
+(** [pp_elt ()] is a {!Format} printer for Svg elements. *)
 val pp_elt :
   ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
-(** Parametrized stream printer for SVG documents.
+(** Parametrized stream printer for Svg documents.
     @deprecated Use {!Svg.pp} instead.
 *)
 module Make_printer(O : Xml_sigs.Output) :
