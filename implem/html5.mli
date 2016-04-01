@@ -21,15 +21,30 @@
 
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
-(** Concrete implementation of HTML5 typesafe constructors *)
-module M : Html5_sigs.Make(Xml)(Svg.M).T
+(** Concrete implementation of HTML5 typesafe constructors.
+    See {!modtype:Html5_sigs.T}.
+*)
+include Html5_sigs.Make(Xml)(Svg).T
 
-(** Simple printer for HTML5 documents *)
-module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
-                                          and type doc := M.doc
+(** {2 Printers} *)
 
-(** Parametrized stream printer for HTML5 documents *)
+(** [pp ()] is a {!Format} printer for Html5 documents.
+
+    It can be used in combination with ["%a"]. For example, to get a string:
+    {[let s = Format.sprintf "%a" (Html5.pp ()) my_svg]}
+*)
+val pp:
+  ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+
+(** [pp_elt ()] is a {!Format} printer for svg elements. *)
+val pp_elt :
+  ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+
+(** Parametrized stream printer for HTML5 documents.
+    @deprecated Use {!Html5.pp} instead.
+*)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
-                          and type 'a elt := 'a M.elt
-                          and type doc := M.doc
+                          and type 'a elt := 'a elt
+                          and type doc := doc
+     [@@ocaml.deprecated "Use Html5.pp instead."]

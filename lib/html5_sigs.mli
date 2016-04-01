@@ -17,43 +17,238 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+(** Html5 signatures for the functorial interface. *)
+
+(** Signature of typesafe constructors for HTML5 documents. *)
 module type T = sig
+
+  (** Html5 elements.
+
+      Element constructors are in section {!elements}. Most elements constructors
+      are either {{!nullary}[nullary]}, {{!unary}[unary]} or {{!star}[star]},
+      depending on the number of children they accept.
+      Children are usually given as a list of elements.
+      {{!pcdata}[pcdata]} is used for text.
+
+      [div [a [pcdata "Foo"]]]
+      is equivalent to
+      [<div><a>foo</a></div>]
+
+      The type variable ['a] is used to track the element's type. This
+      allows the OCaml typechecker to check Html validity.
+
+      For example, [div []] is of type [[> `Div] elt].
+      The {{!span}[span]} function only accepts children of type
+      {!Html5_types.span_content}.
+      Since [`Div] is not part of it. [span [div []]] will not typecheck.
+
+      Note that the concrete implementation of this type can vary.
+      See {{!Xml}[Xml]} for details.
+  *)
+  type +'a elt
+
+  (** A complete Html document. *)
+  type doc = [ `Html ] elt
+
+  (** Html5 attributes
+
+      Attribute constructors are in section {!attributes} and their name starts
+      with [a_]. Attributes are given to elements with the [~a] optional argument.
+
+      [a ~a:[a_href "ocsigen.org"] [pcdata "link!"]]
+      is equivalent to
+      [<a href="ocsigen.org">link!</a>]
+
+      Similarly to {{!elt}[elt]}, attributes use the OCaml type system to enforce
+      Html validity.
+
+      For example {{!a_href}[a_href]} returns a value of type [[> `Href] attrib].
+      The {{!div}[div]} function only accepts attributes of type
+      {!Html5_types.div_attrib}.
+      Since [`Href] is not part of it,
+      [div ~a:[a_href "ocsigen.org"] []] will not typecheck.
+
+      In some cases, attributes have to be disambiguated.
+      The [max] attribute has two version,
+      {{!a_max}[a_max]} and {{!a_input_max}[a_input_max]}, depending on the
+      element.
+      Such disambiguated attribute will contain the name of the associated element.
+  *)
+  type +'a attrib
+
+  (** Underlying XML data-structure
+
+      The type variables in {!elt} and {!attrib} are know as {i phantom types}.
+      The implementation, defined here, is actually monomorphic.
+
+      In particular, tyxml doesn't impose any overhead over the underlying
+      representation. The {!tot} and {!toelt} functions allows to convert
+      between the typed and the untyped representation without any cost.
+
+      Note that some implementation may not be iterable or printable, such as the
+      Dom representation exposed by js_of_ocaml.
+  *)
+  module Xml : Xml_sigs.T
+
+  (** [wrap] is a container for elements and values.
+
+      In most cases, ['a wrap = 'a]. For [R] modules (in eliom or js_of_ocaml),
+      It will be {!React.S.t}.
+  *)
+  type 'a wrap = 'a Xml.W.t
+
+  (** [list_wrap] is a containre for list of elements.
+
+      In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
+      It will be {!ReactiveData.RList.t}.
+  *)
+  type 'a list_wrap = 'a Xml.W.tlist
+
+  (** A nullary element is an element that doesn't have any children. *)
+  type ('a, 'b) nullary = ?a:('a attrib list) -> unit -> 'b elt
+
+  (** A unary element is an element that have exactly one children. *)
+  type ('a, 'b, 'c) unary = ?a:('a attrib list) -> 'b elt wrap -> 'c elt
+
+  (** A star element is an element that has any number of children, including zero. *)
+  type ('a, 'b, 'c) star =
+    ?a:('a attrib list) -> 'b elt list_wrap -> 'c elt
+
+  (** Associated Svg module, for the {!svg} combinator. *)
+  module Svg : Svg_sigs.T with module Xml := Xml
+
+  (** Various information about Html, such as the doctype, ... *)
+  module Info : Xml_sigs.Info
 
   open Html5_types
 
-  module Xml : Xml_sigs.T
-
-  module Svg : Svg_sigs.T with module Xml := Xml
-
-  module Info : Xml_sigs.Info
-
-  type 'a wrap = 'a Xml.W.t
-  type 'a list_wrap = 'a Xml.W.tlist
-
-  (** {1 Uri} *)
+  (** {3 Uri} *)
 
   type uri = Xml.uri
   val string_of_uri : (uri, string) Xml.W.ft
   val uri_of_string : (string, uri) Xml.W.ft
 
-  type image_candidate =
-    [ `Url of uri
-    | `Url_width of uri * number
-    | `Url_pixel of uri * float_number ]
+  (** {2:attributes Attributes} *)
 
-  (** {1 Common Attributes} *)
+  val a_class : nmtokens wrap -> [> | `Class] attrib
+  (** This attribute assigns a class name or set of class names to an
+      element. Any number of elements may be assigned the same class
+      name or names.  *)
 
-  type +'a attrib
+  val a_user_data : nmtoken -> text wrap -> [> | `User_data] attrib
+  (** May be used to specify custom attributes.
+      The example given by the W3C is as follows :
+      {v
+<ol>
+  <li data-length="2m11s">Beyond The Sea</li>
+</ol> v}
+      It should be used for preprocessing ends only. *)
 
-  val to_xmlattribs : ('a attrib) list -> Xml.attrib list (* VB *)
-  val to_attrib : Xml.attrib -> 'a attrib (* GH *)
-  (** ['a] is known as a {i phantom type}.  The implementation is
-      actually monomorphic (the different element types are distinguished
-      by a homogeneous variable, such as their textual representation)
-      and the type variable [`a] is just used by the type checker.
+  val a_id : text wrap -> [> | `Id] attrib
+  (** This attribute assigns a name to an element. This name must be
+      unique in a document. The text should be without any space. *)
 
-      NB: It might be possible to use polymorphic variants directly, without
-      phantom types, but the implementation is likely to be more involved. *)
+  val a_title : text wrap -> [> | `Title] attrib
+  (** This attribute offers advisory information about the element for
+      which it is set.
+
+      Values of the title attribute may be rendered by user agents in a
+      variety of ways. For instance, visual browsers frequently display
+      the title as a {i tool tip} (a short message that appears when the
+      pointing device pauses over an object). Audio user agents may
+      speak the title information in a similar context.
+
+      The title attribute has an additional role when used with the [link]
+      element to designate an external style sheet. Please consult the
+      section on links and style sheets for details.  *)
+
+  (** {3 I18N} *)
+
+  val a_xml_lang : languagecode wrap -> [> | `XML_lang] attrib
+
+  val a_lang : languagecode wrap -> [> | `Lang] attrib
+
+  (** {3 Events}
+
+      {4 Javascript events} *)
+
+  val a_onabort : Xml.event_handler -> [> | `OnAbort] attrib
+  val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
+  val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
+  val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload] attrib
+  val a_onblur : Xml.event_handler -> [> | `OnBlur] attrib
+  val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
+  val a_oncanplaythrough : Xml.event_handler -> [> | `OnCanPlayThrough] attrib
+  val a_onchange : Xml.event_handler -> [> | `OnChange] attrib
+  val a_ondurationchange : Xml.event_handler -> [> | `OnDurationChange] attrib
+  val a_onemptied : Xml.event_handler -> [> | `OnEmptied] attrib
+  val a_onended : Xml.event_handler -> [> | `OnEnded] attrib
+  val a_onerror : Xml.event_handler -> [> | `OnError] attrib
+  val a_onfocus : Xml.event_handler -> [> | `OnFocus] attrib
+  val a_onformchange : Xml.event_handler -> [> | `OnFormChange] attrib
+  val a_onforminput : Xml.event_handler -> [> | `OnFormInput] attrib
+  val a_onhashchange : Xml.event_handler -> [> | `OnHashChange] attrib
+  val a_oninput : Xml.event_handler -> [> | `OnInput] attrib
+  val a_oninvalid : Xml.event_handler -> [> | `OnInvalid] attrib
+  val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel] attrib
+  val a_onoffline : Xml.event_handler -> [> | `OnOffLine] attrib
+  val a_ononline : Xml.event_handler -> [> | `OnOnLine] attrib
+  val a_onpause : Xml.event_handler -> [> | `OnPause] attrib
+  val a_onplay : Xml.event_handler -> [> | `OnPlay] attrib
+  val a_onplaying : Xml.event_handler -> [> | `OnPlaying] attrib
+  val a_onpagehide : Xml.event_handler -> [> | `OnPageHide] attrib
+  val a_onpageshow : Xml.event_handler -> [> | `OnPageShow] attrib
+  val a_onpopstate : Xml.event_handler -> [> | `OnPopState] attrib
+  val a_onprogress : Xml.event_handler -> [> | `OnProgress] attrib
+  val a_onratechange : Xml.event_handler -> [> | `OnRateChange] attrib
+  val a_onreadystatechange : Xml.event_handler -> [> | `OnReadyStateChange] attrib
+  val a_onredo : Xml.event_handler -> [> | `OnRedo] attrib
+  val a_onresize : Xml.event_handler -> [> | `OnResize] attrib
+  val a_onscroll : Xml.event_handler -> [> | `OnScroll] attrib
+  val a_onseeked : Xml.event_handler -> [> | `OnSeeked] attrib
+  val a_onseeking : Xml.event_handler -> [> | `OnSeeking] attrib
+  val a_onselect : Xml.event_handler -> [> | `OnSelect] attrib
+  val a_onshow : Xml.event_handler -> [> | `OnShow] attrib
+  val a_onstalled : Xml.event_handler -> [> | `OnStalled] attrib
+  val a_onstorage : Xml.event_handler -> [> | `OnStorage] attrib
+  val a_onsubmit : Xml.event_handler -> [> | `OnSubmit] attrib
+  val a_onsuspend : Xml.event_handler -> [> | `OnSuspend] attrib
+  val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate] attrib
+  val a_onundo : Xml.event_handler -> [> | `OnUndo] attrib
+  val a_onunload : Xml.event_handler -> [> | `OnUnload] attrib
+  val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange] attrib
+  val a_onwaiting : Xml.event_handler -> [> | `OnWaiting] attrib
+  val a_onload : Xml.event_handler -> [> | `OnLoad] attrib
+  val a_onloadeddata : Xml.event_handler -> [> | `OnLoadedData] attrib
+  val a_onloadedmetadata : Xml.event_handler -> [> | `OnLoadedMetaData] attrib
+  val a_onloadstart : Xml.event_handler -> [> | `OnLoadStart] attrib
+  val a_onmessage : Xml.event_handler -> [> | `OnMessage] attrib
+
+  (** {4 Mouse events} *)
+
+  val a_onclick : Xml.mouse_event_handler -> [> | `OnClick] attrib
+  val a_oncontextmenu : Xml.mouse_event_handler -> [> | `OnContextMenu] attrib
+  val a_ondblclick : Xml.mouse_event_handler -> [> | `OnDblClick] attrib
+  val a_ondrag : Xml.mouse_event_handler -> [> | `OnDrag] attrib
+  val a_ondragend : Xml.mouse_event_handler -> [> | `OnDragEnd] attrib
+  val a_ondragenter : Xml.mouse_event_handler -> [> | `OnDragEnter] attrib
+  val a_ondragleave : Xml.mouse_event_handler -> [> | `OnDragLeave] attrib
+  val a_ondragover : Xml.mouse_event_handler -> [> | `OnDragOver] attrib
+  val a_ondragstart : Xml.mouse_event_handler -> [> | `OnDragStart] attrib
+  val a_ondrop : Xml.mouse_event_handler -> [> | `OnDrop] attrib
+  val a_onmousedown : Xml.mouse_event_handler -> [> | `OnMouseDown] attrib
+  val a_onmouseup : Xml.mouse_event_handler -> [> | `OnMouseUp] attrib
+  val a_onmouseover : Xml.mouse_event_handler -> [> | `OnMouseOver] attrib
+  val a_onmousemove : Xml.mouse_event_handler -> [> | `OnMouseMove] attrib
+  val a_onmouseout : Xml.mouse_event_handler -> [> | `OnMouseOut] attrib
+
+  (** {4 Keyboard events} *)
+
+  val a_onkeypress : Xml.keyboard_event_handler -> [> | `OnKeyPress] attrib
+  val a_onkeydown : Xml.keyboard_event_handler -> [> | `OnKeyDown] attrib
+  val a_onkeyup : Xml.keyboard_event_handler -> [> | `OnKeyUp] attrib
+
+  (** {3 Other attributes} *)
 
   val a_autocomplete : bool wrap -> [> | `Autocomplete] attrib
 
@@ -153,8 +348,14 @@ module type T = sig
 
   val a_span : number wrap -> [> | `Span] attrib
 
-  (** This attribute is deprecated, you should use {! a_xml_lang}. *)
+  (** @deprecated Use {!a_xml_lang} instead. *)
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
+    [@@ocaml.deprecated "Use a_xml_lang instead."]
+
+  type image_candidate =
+    [ `Url of uri
+    | `Url_width of uri * number
+    | `Url_pixel of uri * float_number ]
 
   val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
 
@@ -165,121 +366,6 @@ module type T = sig
   val a_step : float_number option wrap -> [> | `Step] attrib
 
   val a_wrap : [< | `Soft | `Hard] wrap -> [> | `Wrap] attrib
-
-  val a_class : nmtokens wrap -> [> | `Class] attrib
-  (** This attribute assigns a class name or set of class names to an
-      element. Any number of elements may be assigned the same class
-      name or names.  *)
-
-  val a_user_data : nmtoken -> text wrap -> [> | `User_data] attrib
-  (** May be used to specify custom attribs.
-      The example given by the W3C is as follows :
-      {v <ol>
-      <li data-length="2m11s">Beyond The Sea</li>
-      </ol> v}
-      It should be used for preprocessing ends only. *)
-
-  val a_id : text wrap -> [> | `Id] attrib
-  (** This attribute assigns a name to an element. This name must be
-      unique in a document. The text should be without any space. *)
-
-  val a_title : text wrap -> [> | `Title] attrib
-  (** This attribute offers advisory information about the element for
-      which it is set. *)
-
-  (** Values of the title attribute may be rendered by user agents in a
-      variety of ways. For instance, visual browsers frequently display
-      the title as a {i tool tip} (a short message that appears when the
-      pointing device pauses over an object). Audio user agents may
-      speak the title information in a similar context.  *)
-
-  (** The title attribute has an additional role when used with the [link]
-      element to designate an external style sheet. Please consult the
-      section on links and style sheets for details.  *)
-
-  (** {2 I18N} *)
-
-  val a_xml_lang : languagecode wrap -> [> | `XML_lang] attrib
-
-  val a_lang : languagecode wrap -> [> | `Lang] attrib
-
-  (** {2 Events} *)
-
-  (** Javascript events *)
-  val a_onabort : Xml.event_handler -> [> | `OnAbort] attrib
-  val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
-  val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
-  val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload] attrib
-  val a_onblur : Xml.event_handler -> [> | `OnBlur] attrib
-  val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
-  val a_oncanplaythrough : Xml.event_handler -> [> | `OnCanPlayThrough] attrib
-  val a_onchange : Xml.event_handler -> [> | `OnChange] attrib
-  val a_ondurationchange : Xml.event_handler -> [> | `OnDurationChange] attrib
-  val a_onemptied : Xml.event_handler -> [> | `OnEmptied] attrib
-  val a_onended : Xml.event_handler -> [> | `OnEnded] attrib
-  val a_onerror : Xml.event_handler -> [> | `OnError] attrib
-  val a_onfocus : Xml.event_handler -> [> | `OnFocus] attrib
-  val a_onformchange : Xml.event_handler -> [> | `OnFormChange] attrib
-  val a_onforminput : Xml.event_handler -> [> | `OnFormInput] attrib
-  val a_onhashchange : Xml.event_handler -> [> | `OnHashChange] attrib
-  val a_oninput : Xml.event_handler -> [> | `OnInput] attrib
-  val a_oninvalid : Xml.event_handler -> [> | `OnInvalid] attrib
-  val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel] attrib
-  val a_onoffline : Xml.event_handler -> [> | `OnOffLine] attrib
-  val a_ononline : Xml.event_handler -> [> | `OnOnLine] attrib
-  val a_onpause : Xml.event_handler -> [> | `OnPause] attrib
-  val a_onplay : Xml.event_handler -> [> | `OnPlay] attrib
-  val a_onplaying : Xml.event_handler -> [> | `OnPlaying] attrib
-  val a_onpagehide : Xml.event_handler -> [> | `OnPageHide] attrib
-  val a_onpageshow : Xml.event_handler -> [> | `OnPageShow] attrib
-  val a_onpopstate : Xml.event_handler -> [> | `OnPopState] attrib
-  val a_onprogress : Xml.event_handler -> [> | `OnProgress] attrib
-  val a_onratechange : Xml.event_handler -> [> | `OnRateChange] attrib
-  val a_onreadystatechange : Xml.event_handler -> [> | `OnReadyStateChange] attrib
-  val a_onredo : Xml.event_handler -> [> | `OnRedo] attrib
-  val a_onresize : Xml.event_handler -> [> | `OnResize] attrib
-  val a_onscroll : Xml.event_handler -> [> | `OnScroll] attrib
-  val a_onseeked : Xml.event_handler -> [> | `OnSeeked] attrib
-  val a_onseeking : Xml.event_handler -> [> | `OnSeeking] attrib
-  val a_onselect : Xml.event_handler -> [> | `OnSelect] attrib
-  val a_onshow : Xml.event_handler -> [> | `OnShow] attrib
-  val a_onstalled : Xml.event_handler -> [> | `OnStalled] attrib
-  val a_onstorage : Xml.event_handler -> [> | `OnStorage] attrib
-  val a_onsubmit : Xml.event_handler -> [> | `OnSubmit] attrib
-  val a_onsuspend : Xml.event_handler -> [> | `OnSuspend] attrib
-  val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate] attrib
-  val a_onundo : Xml.event_handler -> [> | `OnUndo] attrib
-  val a_onunload : Xml.event_handler -> [> | `OnUnload] attrib
-  val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange] attrib
-  val a_onwaiting : Xml.event_handler -> [> | `OnWaiting] attrib
-  val a_onload : Xml.event_handler -> [> | `OnLoad] attrib
-  val a_onloadeddata : Xml.event_handler -> [> | `OnLoadedData] attrib
-  val a_onloadedmetadata : Xml.event_handler -> [> | `OnLoadedMetaData] attrib
-  val a_onloadstart : Xml.event_handler -> [> | `OnLoadStart] attrib
-  val a_onmessage : Xml.event_handler -> [> | `OnMessage] attrib
-
-  (** Javascript mouse events *)
-  val a_onclick : Xml.mouse_event_handler -> [> | `OnClick] attrib
-  val a_oncontextmenu : Xml.mouse_event_handler -> [> | `OnContextMenu] attrib
-  val a_ondblclick : Xml.mouse_event_handler -> [> | `OnDblClick] attrib
-  val a_ondrag : Xml.mouse_event_handler -> [> | `OnDrag] attrib
-  val a_ondragend : Xml.mouse_event_handler -> [> | `OnDragEnd] attrib
-  val a_ondragenter : Xml.mouse_event_handler -> [> | `OnDragEnter] attrib
-  val a_ondragleave : Xml.mouse_event_handler -> [> | `OnDragLeave] attrib
-  val a_ondragover : Xml.mouse_event_handler -> [> | `OnDragOver] attrib
-  val a_ondragstart : Xml.mouse_event_handler -> [> | `OnDragStart] attrib
-  val a_ondrop : Xml.mouse_event_handler -> [> | `OnDrop] attrib
-  val a_onmousedown : Xml.mouse_event_handler -> [> | `OnMouseDown] attrib
-  val a_onmouseup : Xml.mouse_event_handler -> [> | `OnMouseUp] attrib
-  val a_onmouseover : Xml.mouse_event_handler -> [> | `OnMouseOver] attrib
-  val a_onmousemove : Xml.mouse_event_handler -> [> | `OnMouseMove] attrib
-  val a_onmouseout : Xml.mouse_event_handler -> [> | `OnMouseOut] attrib
-
-  (** Javascript keyboard events *)
-  val a_onkeypress : Xml.keyboard_event_handler -> [> | `OnKeyPress] attrib
-  val a_onkeydown : Xml.keyboard_event_handler -> [> | `OnKeyDown] attrib
-  val a_onkeyup : Xml.keyboard_event_handler -> [> | `OnKeyUp] attrib
-
 
   val a_version : cdata wrap -> [> | `Version] attrib
 
@@ -521,35 +607,9 @@ module type T = sig
 
   val a_property : string wrap -> [> | `Property] attrib
 
-  (** {1 Phantom types and XML elements} *)
+  (** {2:elements Elements} *)
 
-  type +'a elt
-
-  type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
-
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
-
-  type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
-  (** Star '*' denotes any number of children, uncluding zero. *)
-
-  (** Root element *)
-  type html = [ | `Html ] elt
-
-  (** {1 Combined Element Sets:} *)
-
-  (********************************)
-  (*  If the document is an       *)
-  (*  iframe srcdoc document or if*)
-  (*title information is available*)
-  (*from a higher-level protocol: *)
-  (*   Zero or more elements of   *)
-  (*   metadata content.          *)
-  (*Otherwise:                    *)
-  (*   One or more elements of    *)
-  (*   metadata content, of which *)
-  (*exactly one is a title element*)
-  (********************************)
+  val pcdata : string wrap -> [> | `PCDATA] elt
 
   val html :
     ?a: ((html_attrib attrib) list) ->
@@ -568,7 +628,7 @@ module type T = sig
 
   val svg : ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list_wrap -> [> svg ] elt
 
-  (** {2 Section} *)
+  (** {3 Section} *)
 
   val footer :
     ([< | common], [< | flow5_without_header_footer], [> | `Footer]) star
@@ -593,7 +653,6 @@ module type T = sig
 
   val h6 : ([< | h6_attrib], [< | h6_content_fun], [> | h6]) star
 
-  (* theoretically a plus, simplified into star *)
   val hgroup :
     ([< | hgroup_attrib], [< | hgroup_content_fun], [> | hgroup]) star
 
@@ -609,33 +668,18 @@ module type T = sig
   val main :
     ([< | main_attrib], [< | main_content_fun], [> | main]) star
 
-  (** {2 Grouping content} *)
+  (** {3 Grouping content} *)
 
   val p : ([< | p_attrib], [< | p_content_fun], [> | p]) star
 
   val pre : ([< | pre_attrib], [< | pre_content_fun], [> | pre]) star
 
   val blockquote :
-    ([< | blockquote_attrib], [< | blockquote_content_fun], [> | blockquote
-                                                            ]) star
+    ([< | blockquote_attrib], [< | blockquote_content_fun], [> | blockquote])
+      star
 
   val div : ([< | div_attrib], [< | div_content_fun], [> | div]) star
 
-  (********************************)
-  (*            In Dl             *)
-  (********************************)
-  (*   Zero or more groups each   *)
-  (*   consisting of              *)
-  (*      one or more dt element  *)
-  (*      followed by             *)
-  (*      one or more dd  elements*)
-  (********************************)
-  (* theoretically
-    val dl :
-      ?a: (([< | common] attrib) list) ->
-      ((([< | `Dt] elt) * (([< | `Dt] elt) list)) *
-       (([< | `Dd] elt) * (([< | `Dd] elt) list))) list wrap -> [> | `Dl] elt
-   but we simplify into star *)
   val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
@@ -646,57 +690,18 @@ module type T = sig
 
   val dt : ([< | dt_attrib], [< | dt_content_fun], [> | dt]) star
 
-  (********************************)
-  (*            In Li             *)
-  (********************************)
-  (*  Only if the element is a    *)
-  (*  child of an ol element:     *)
-  (*          value attribute     *)
-  (********************************)
-
-  (** A list element.
-      The 'a type is used to know whether the element has
-      a int_value attribute or not. *)
   val li : ([< | li_attrib], [< | li_content_fun], [> | li]) star
 
   val figcaption :
     ([< | figcaption_attrib], [< | figcaption_content_fun], [> | figcaption]) star
 
-  (********************************)
-  (*          In Figure           *)
-  (********************************)
-  (*Either: One figcaption element*)
-  (*     followed by flow content.*)
-  (*Or: Flow content followed by  *)
-  (*     one figcaption element.  *)
-  (*Or: Flow content.             *)
-  (********************************)
   val figure :
     ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
     ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
 
-  (** {2 Ruby} *)
-
-  (**********************************)
-  (*            In Ruby             *)
-  (**********************************)
-  (* One or more groups of:         *)
-  (*phrasing content followed either*)
-  (*    by a single rt element,     *)
-  (*    or an rp element            *)
-  (*       an rt element, and       *)
-  (*       another rp element.      *)
-  (**********************************)
-  (* simplified with simple stars *)
-  val rt : ([< | rt_attrib], [< | rt_content_fun], [> | rt]) star
-
-  val rp : ([< | rp_attrib], [< | rp_content_fun], [> | rp]) star
-
-  val ruby : ([< | ruby_attrib], [< | ruby_content_fun], [> | ruby]) star
-
-  (** {2 Semantic} *)
+  (** {3 Semantic} *)
 
   val b : ([< | b_attrib], [< | b_content_fun], [> | b]) star
 
@@ -746,42 +751,23 @@ module type T = sig
 
   val var : ([< | var_attrib], [< | var_content_fun], [> | var]) star
 
-  (** {2 Hypertext} *)
+  (** {3 Hypertext} *)
 
-  (********************************)
-  (*             In A             *)
-  (********************************)
-  (*    The target, rel, media,   *)
-  (* hreflang, and type attributes*)
-  (*  must be omitted if the href *)
-  (*   attribute is not present.  *)
-  (********************************)
-  (*Only phasing instead of flow ?*)
-  (********************************)
-  (* a's children are transparents*)
-  (********************************)
   val a : ([< | a_attrib], 'a, [> | `A of 'a]) star
 
-  (** {2 Edit} *)
+  (** {3 Edit} *)
 
-  (**********************************)
-  (* del's children are transparents*)
-  (**********************************)
   val del : ([< | del_attrib], 'a, [> | `Del of 'a]) star
-
-  (**********************************)
-  (* ins's children are transparents*)
-  (**********************************)
   val ins : ([< | ins_attrib], 'a, [> | `Ins of 'a]) star
 
-  (** {2 Embedded} *)
+  (** {3 Embedded} *)
 
   val img :
     src: Xml.uri wrap ->
     alt: text wrap ->
     ([< img_attrib], [> img]) nullary
 
-  val iframe : (*| `Srcdoc*)
+  val iframe :
     ([< | common | `Src | `Name | `Sandbox | `Seamless | `Width | `Height],
      [< | `PCDATA], [> | `Iframe]) star
 
@@ -800,37 +786,9 @@ module type T = sig
 
   val param : ([< | param_attrib], [> | param]) nullary
 
-  (**********************************)
-  (*            In Embed            *)
-  (**********************************)
-  (*  Any namespace-less attribute  *)
-  (* other than name, align, hspace,*)
-  (* and vspace  may be specified on*)
-  (* the embed element, so long as  *)
-  (* its name is XML-compatible and *)
-  (* contains no characters in the  *)
-  (* range U+0041 to U+005A         *)
-  (*(LATIN CAPITAL LETTER A to LATIN*)
-  (*CAPITAL LETTER Z).              *)
-  (*These attributes are then passed*)
-  (*  as parameters to the plugin.  *)
-  (**********************************)
   val embed :
-    ([< | common | `Src | `Height | `Mime_type | `Width], [> | `Embed])
-      nullary
+    ([< | common | `Src | `Height | `Mime_type | `Width], [> | `Embed]) nullary
 
-  (**************************************)
-  (*         In Audio and Video         *)
-  (**************************************)
-  (* If the element has a src attribute:*)
-  (*   transparent, but with no media   *)
-  (*   element descendants.             *)
-  (* If the element does not have a src *)
-  (* attribute:                         *)
-  (*   one or more source elements, then*)
-  (*   transparent, but with no media   *)
-  (*   element descendants.             *)
-  (**************************************)
   val audio :
     ?src:Xml.uri wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
@@ -845,14 +803,6 @@ module type T = sig
 
   val source : ([< | source_attrib], [> | source]) nullary
 
-  (********************************)
-  (*           In Area            *)
-  (********************************)
-  (* The alt, target, rel, media, *)
-  (* hreflang, and type attributes*)
-  (*  must be omitted if the href *)
-  (*   attribute is not present.  *)
-  (********************************)
   val area :
     alt: text wrap ->
     ([<
@@ -867,37 +817,13 @@ module type T = sig
       | `Mime_type
     ], [> | `Area]) nullary
 
-  (* XXX: SC : the current system doesn't allow
-     to put <area> tag inside a map (a priori) *)
-  (* theoretically a plus, simplified into star *)
   val map : ([< | map_attrib], 'a, [> | `A of 'a]) star
 
-  (** {2 Tables Data} *)
+  (** {3 Tables Data} *)
 
   val caption :
     ([< | caption_attrib], [< | caption_content_fun], [> | caption]) star
 
-  (********************************)
-  (*      In Table and Tablex     *)
-  (********************************)
-  (*    In this order:            *)
-  (* optionally a caption element,*)
-  (* followed by either           *)
-  (*zero or more colgroup elements*)
-  (* followed optionally by a     *)
-  (*thead element,                *)
-  (* followed optionally by a     *)
-  (*tfoot element,                *)
-  (* followed by either           *)
-  (*zero or more tbody elements   *)
-  (*or one or more tr elements,   *)
-  (* followed optionally by       *)
-  (*a tfoot element               *)
-  (********************************)
-  (*   BUT ONLY ONE FOOT ELEMENT  *)
-  (*         CHILD IN TOTAL       *)
-  (********************************)
-  (* theoretically a plus, simplified into star *)
   val table :
     ?caption: [< | caption] elt wrap ->
     ?columns: [< | colgroup] elt list_wrap ->
@@ -912,14 +838,6 @@ module type T = sig
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
 
-  (********************************)
-  (*          In Colgroup         *)
-  (********************************)
-  (*   If span attribute is:      *)
-  (*       -present: Empty.       *)
-  (*       -absent: Zero or more  *)
-  (*                col elements. *)
-  (********************************)
   val colgroup :
     ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup]) star
 
@@ -938,18 +856,10 @@ module type T = sig
 
   val th : ([< | th_attrib], [< | th_content_fun], [> | th]) star
 
-  (****************************************)
-  (*                 In Tr                *)
-  (****************************************)
-  (*If the parent node is a thead element:*)
-  (*      Zero or more th elements        *)
-  (* Otherwise:                           *)
-  (*    Zero or more td or th elements    *)
-  (****************************************)
   val tr : ([< | tr_attrib], [< | tr_content_fun], [> | tr]) star
 
-  (** {2 Forms} *)
-  (* theoretically a plus, simplified into star *)
+  (** {3 Forms} *)
+
   val form : ([< | form_attrib], [< | form_content_fun], [> | form]) star
 
   val fieldset :
@@ -960,27 +870,15 @@ module type T = sig
   val legend :
     ([< | legend_attrib], [< | legend_content_fun], [> | legend]) star
 
-  (** Label authorizes only one  control inside them
+  (** Label authorizes only one control inside them
       that should be labelled with a [for] attribute
       (although it is not necessary). Such constraints are not currently
       enforced by the type-system *)
   val label :
     ([< | label_attrib], [< | label_content_fun], [> | label]) star
 
-  (** If the [type] attribute is not "hidden", must be considered
-      as interactive. Distinction not made for now. *)
   val input : ([< | input_attrib], [> | input]) nullary
 
-  (********************************)
-  (*          In Button           *)
-  (********************************)
-  (* The formaction, formenctype, *)
-  (*  formmethod, formnovalidate, *)
-  (*  and formtarget must not be  *)
-  (*  specified if the element's  *)
-  (* type  attribute is not in the*)
-  (*     Submit Button  state.    *)
-  (********************************)
   val button :
     ([< | button_attrib], [< | button_content_fun], [> | button]) star
 
@@ -1015,24 +913,18 @@ module type T = sig
   val output_elt :
     ([< | output_elt_attrib], [< | output_elt_content_fun], [> | output_elt]) star
 
-  (** {2 Data} *)
-
-  val pcdata : string wrap -> [> | `PCDATA] elt
+  (** {3 Data} *)
 
   val entity : string -> [> | `PCDATA] elt
 
   val space : unit -> [> | `PCDATA] elt
 
   val cdata : string -> [> | `PCDATA] elt
-
-  (* GK *)
   val cdata_script : string -> [> | `PCDATA] elt
-
-  (* GK *)
   val cdata_style : string -> [> | `PCDATA] elt
 
 
-  (** {2 Interactive} *)
+  (** {3 Interactive} *)
 
   val details :
     [< | `Summary] elt wrap ->
@@ -1059,61 +951,20 @@ module type T = sig
         | `Flows of ([< | flow5] elt) list_wrap
       ]) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
 
-  (** {2 Scripting} *)
+  (** {3 Scripting} *)
 
   val script :
     ([< | script_attrib], [< | script_content_fun], [> | script]) unary
 
-  (****************************************************)
-  (*                   In Noscript                    *)
-  (****************************************************)
-  (*When scripting is DISABLED, IN a HEAD element:    *)
-  (*   in any order, zero or more link elements,      *)
-  (*   zero or more style elements, and zero or more  *)
-  (*   meta elements.                                 *)
-  (*When scripting is DISABLED, NOT IN a HEAD element:*)
-  (*   transparent, but there must be no noscript     *)
-  (*   element descendants.                           *)
-  (*When scripting is ENABLED, IN a HEAD element:     *)
-  (*   only text, except that invoking the HTML       *)
-  (*   fragment parsing algorithm with the noscript   *)
-  (*   element as the context element and the text    *)
-  (*   contents as the input must result in a list of *)
-  (*   nodes that consists only of link, style, and   *)
-  (*   meta elements that would be conforming if they *)
-  (*   were children of the noscript element, and no  *)
-  (*   parse errors.                                  *)
-  (*When scripting is ENABLED, NOT IN a HEAD element: *)
-  (*   only text, except that the text must be such   *)
-  (*   that running the following algorithm results in*)
-  (*   a conforming document with no noscript elements*)
-  (*   and no script elements, and such that no step  *)
-  (*   in the algorithm causes an HTML parser to flag *)
-  (*   a parse error                                  *)
-  (****************************************************)
-  (* PLUS ?? simplified into star *)
   val noscript :
-    ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript])
-      star
+    ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript]) star
 
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
-  (** {2 Style Sheets} *)
+  (** {3 Style Sheets} *)
 
-  (*********************************)
-  (*            In Style           *)
-  (*********************************)
-  (* the content model depends on  *)
-  (*the value of the type attribute*)
-  (*********************************)
-  (*          BUT WHAT ???         *)
-  (* SC: contenttype defaults to   *)
-  (*  text/css                     *)
-  (*********************************)
   val style :
     ([< | style_attrib], [< | style_content_fun], [> | style]) star
-
-  (** {2 Link} *)
 
   val link :
     rel: linktypes wrap ->
@@ -1128,25 +979,33 @@ module type T = sig
       | `Mime_type
     ], [> | `Link]) nullary
 
-  (** {1 Tools} *)
+  (** {3 Ruby} *)
+
+  val rt : ([< | rt_attrib], [< | rt_content_fun], [> | rt]) star
+
+  val rp : ([< | rp_attrib], [< | rp_content_fun], [> | rp]) star
+
+  val ruby : ([< | ruby_attrib], [< | ruby_content_fun], [> | ruby]) star
+
+  (** {2 Conversion with untyped representation} *)
 
   val tot : Xml.elt -> 'a elt
-  val totl : Xml.elt list -> ('a elt) list
+  val totl : Xml.elt list_wrap -> 'a elt list_wrap
   val toelt : 'a elt -> Xml.elt
-  val toeltl : ('a elt) list -> Xml.elt list
+  val toeltl : 'a elt list_wrap -> Xml.elt list_wrap
 
-  (** *)
-
-  type doc = [ `Html ] elt
   val doc_toelt : doc -> Xml.elt
+  val to_xmlattribs : 'a attrib list -> Xml.attrib list
+  val to_attrib : Xml.attrib -> 'a attrib
 
+  (** Unsafe features.
 
+      Using this module can break
+      HTML5 validity and may introduce security problems like
+      code injection.
+      Use it with care.
+  *)
   module Unsafe : sig
-    (** Unsafe features. Warning using this module can break
-        HTML5 validity and may introduce security problems like
-        code injection.
-        Use it with care.
-    *)
 
     (** Insert raw text without any encoding *)
     val data : string wrap -> 'a elt
@@ -1194,8 +1053,34 @@ module type T = sig
 
 end
 
+(** Equivalent to {!T}, but without wrapping. *)
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 
+
+(** {2 Signature functors}
+    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %} *)
+
+(** Signature functor for {!Html5_f.Make}. *)
+module Make
+    (Xml : Xml_sigs.T)
+    (Svg : Svg_sigs.T with module Xml := Xml) :
+sig
+
+  (** See {!modtype:Html5_sigs.T}. *)
+  module type T = T
+    with type 'a Xml.W.t = 'a Xml.W.t
+     and type 'a Xml.W.tlist = 'a Xml.W.tlist
+     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
+     and type Xml.uri = Xml.uri
+     and type Xml.event_handler = Xml.event_handler
+     and type Xml.mouse_event_handler = Xml.mouse_event_handler
+     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.attrib = Xml.attrib
+     and type Xml.elt = Xml.elt
+     and module Svg := Svg
+end
+
+(** Wrapped functions, to be used with {!Html5_f.Make_with_wrapped_functions}. *)
 module type Wrapped_functions = sig
 
   module Xml : Xml_sigs.T
@@ -1244,27 +1129,4 @@ module type Wrapped_functions = sig
 
   val unoption_string : (string option, string) Xml.W.ft
 
-end
-
-(** {2 Signature functors} *)
-(** See {% <<a_manual chapter="functors"|the manual of the functorial interface>> %}. *)
-
-(** Signature functor for {!Html5_f.Make}. *)
-module Make
-    (Xml : Xml_sigs.T)
-    (Svg : Svg_sigs.T with module Xml := Xml) :
-sig
-
-  (** See {!modtype:Html5_sigs.T}. *)
-  module type T = T
-    with type 'a Xml.W.t = 'a Xml.W.t
-     and type 'a Xml.W.tlist = 'a Xml.W.tlist
-     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
-     and type Xml.uri = Xml.uri
-     and type Xml.event_handler = Xml.event_handler
-     and type Xml.mouse_event_handler = Xml.mouse_event_handler
-     and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
-     and type Xml.attrib = Xml.attrib
-     and type Xml.elt = Xml.elt
-     and module Svg := Svg
 end

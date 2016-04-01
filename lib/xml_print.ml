@@ -60,13 +60,13 @@ let compose_doctype dt args =
 
 
 (* copied form js_of_ocaml: compiler/javascript.ml *)
-let string_of_number v =
+let pp_number fmt v =
   if v = infinity
-  then "Infinity"
+  then Format.pp_print_string fmt "Infinity"
   else if v = neg_infinity
-  then "-Infinity"
+  then Format.pp_print_string fmt "-Infinity"
   else if v <> v
-  then "NaN"
+  then Format.pp_print_string fmt "NaN"
   else
     let vint = int_of_float v in
     (* compiler 1000 into 1e3 *)
@@ -77,19 +77,21 @@ let string_of_number v =
         then div (n/10) (succ i)
         else
         if i > 2
-        then Printf.sprintf "%de%d" n i
-        else string_of_int vint in
+        then Format.fprintf fmt "%de%d" n i
+        else Format.pp_print_int fmt vint in
       div vint 0
     else
       let s1 = Printf.sprintf "%.12g" v in
       if v = float_of_string s1
-      then s1
+      then Format.pp_print_string fmt s1
       else
         let s2 = Printf.sprintf "%.15g" v in
         if v = float_of_string s2
-        then s2
-        else  Printf.sprintf "%.18g" v
+        then Format.pp_print_string fmt s2
+        else  Format.fprintf fmt "%.18g" v
 
+let string_of_number v =
+  Format.asprintf "%a" pp_number v
 
 module Utf8 = struct
   type utf8 = string
@@ -169,10 +171,140 @@ module Utf8 = struct
 
 end
 
+module type TagList = sig val emptytags : string list end
+
+(** Format based printers *)
+
+let pp_noop _fmt _ = ()
+
+(* Present only in ocaml >= 4.02 *)
+let rec pp_print_list ~pp_sep pp_v ppf = function
+  | [] -> ()
+  | [v] -> pp_v ppf v
+  | v :: vs ->
+    pp_v ppf v;
+    pp_sep ppf ();
+    pp_print_list ~pp_sep pp_v ppf vs
+
+
+module Make_fmt
+    (Xml : Xml_sigs.Iterable)
+    (I : TagList) =
+struct
+  open Xml
+
+  module S = Set.Make(String)
+  let is_emptytag = match I.emptytags with
+    | [] -> fun _ -> false
+    | l ->
+      let set = List.fold_left (fun s x -> S.add x s) S.empty l in
+      fun x -> S.mem x set
+
+  let pp_encode encode fmt s =
+    Format.pp_print_string fmt (encode s)
+
+  let pp_sep = function
+    | Space -> fun fmt () -> Format.pp_print_char fmt ' '
+    | Comma -> fun fmt () -> Format.pp_print_string fmt ", "
+
+  let pp_attrib_value encode fmt a = match acontent a with
+    | AFloat f -> Format.fprintf fmt "\"%a\"" pp_number f
+    | AInt i -> Format.fprintf fmt "\"%d\"" i
+    | AStr s -> Format.fprintf fmt "%S" (encode s)
+    | AStrL (sep, slist) ->
+      Format.fprintf fmt "\"%a\""
+        (pp_print_list ~pp_sep:(pp_sep sep) (pp_encode encode)) slist
+
+  let pp_attrib encode fmt a =
+    Format.fprintf fmt
+      " %s=%a" (aname a) (pp_attrib_value encode) a
+
+  let pp_attribs encode =
+    pp_print_list ~pp_sep:pp_noop (pp_attrib encode)
+
+  let pp_closedtag encode fmt tag attrs =
+    if is_emptytag tag then
+      Format.fprintf fmt "<%s%a/>" tag (pp_attribs encode) attrs
+    else
+      Format.fprintf fmt "<%s%a></%s>" tag (pp_attribs encode) attrs tag
+
+  let rec pp_tag encode fmt tag attrs taglist =
+    match taglist with
+    | [] -> pp_closedtag encode fmt tag attrs
+    | _ ->
+      Format.fprintf fmt "<%s%a>%a</%s>"
+        tag
+        (pp_attribs encode) attrs
+        (pp_elts encode) taglist
+        tag
+
+  and pp_elt encode fmt elt = match content elt with
+    | Comment texte ->
+      Format.fprintf fmt "<!--%a-->" (pp_encode encode) texte
+
+    | Entity e ->
+      Format.fprintf fmt "&%s;" e
+
+    | PCDATA texte ->
+      Format.pp_print_string fmt (encode texte)
+
+    | EncodedPCDATA texte ->
+      Format.pp_print_string fmt texte
+
+    | Node (name, xh_attrs, xh_taglist) ->
+      pp_tag encode fmt name xh_attrs xh_taglist
+
+    | Leaf (name, xh_attrs) ->
+      pp_closedtag encode fmt name xh_attrs
+
+    | Empty -> ()
+
+  and pp_elts encode =
+    pp_print_list ~pp_sep:pp_noop (pp_elt encode)
+
+  let pp ?(encode=encode_unsafe_char) () =
+    pp_elt encode
+
+end
+
+module Make_typed_fmt
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml) =
+struct
+
+  module P = Make_fmt(Xml)(Typed_xml.Info)
+
+  (* Add an xmlns tag on the html element if it's not already present *)
+  let prepare_document doc =
+    let doc = Typed_xml.doc_toelt doc in
+    match Xml.content doc with
+    | Xml.Node (n, a, c) ->
+      let a =
+        if List.exists (fun a -> Xml.aname a = "xmlns") a
+        then a
+        else Xml.string_attrib "xmlns" Typed_xml.Info.namespace :: a
+      in
+      Xml.node ~a n c
+    | _ -> doc
+
+  let pp_elt ?(encode=encode_unsafe_char) () fmt foret =
+    P.pp_elt encode fmt (Typed_xml.toelt foret)
+
+  let pp ?(encode = encode_unsafe_char) ?advert () fmt doc =
+    Format.pp_print_string fmt Typed_xml.Info.doctype ;
+
+    begin match advert with
+      | Some s -> Format.fprintf fmt "<!-- %s -->\n" s
+      | None -> Format.pp_print_newline fmt ()
+    end ;
+
+    P.pp_elt encode fmt (prepare_document doc)
+
+end
 
 module Make
     (Xml : Xml_sigs.Iterable)
-    (F : sig val emptytags : string list end)
+    (I : TagList)
     (O : Xml_sigs.Output) =
 struct
 
@@ -202,7 +334,7 @@ struct
       ++ xh_print_attrs encode queue
 
   and xh_print_closedtag encode tag attrs =
-    if F.emptytags = [] || List.mem tag F.emptytags
+    if I.emptytags = [] || List.mem tag I.emptytags
     then
       (O.put ("<"^tag)
        ++ xh_print_attrs encode attrs
@@ -265,7 +397,7 @@ end
 
 module Make_typed
     (Xml : Xml_sigs.Iterable)
-    (Typed_xml : Xml_sigs.Iterable_typed_xml with module Xml := Xml)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
     (O : Xml_sigs.Output) =
 struct
 
@@ -304,7 +436,7 @@ end
 
 module Make_simple
     (Xml : Xml_sigs.Iterable)
-    (I : sig val emptytags : string list end) =
+    (I : TagList) =
 struct
 
   let print_list ~output =

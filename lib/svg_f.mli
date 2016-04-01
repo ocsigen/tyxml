@@ -17,15 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Typesafe constructors for SVG documents (Functorial interface) *)
-
-(** This module defines basic data types for data, attributes
-    and element occuring in SVG documents.
-    It is based on the specification available at http://www.w3.org/TR/SVG/.
+(** Typesafe constructors for SVG documents (Functorial interface)
 
     This module is experimental, it may lack of some attributes,
     and the interface is very low level and do not take deeply into account
-    the needs of SVG elements. *)
+    the needs of SVG elements.
+
+    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %}
+*)
 
 (*
 open Svg_types
@@ -80,14 +79,23 @@ val string_of_transform : transform -> string
 val string_of_transforms : transforms -> string
 *)
 
+(** Create a new implementation of [Svg], using the given underlying [Xml]
+    implementation. Will output a module of type {!Svg_sigs.T} with
+    the various type equalities.
+
+    If your [Xml] implementation uses a special function wrapping, use
+    {!Make_with_wrapped_functions}.
+*)
 module Make(Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b))
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
 
+(** The standard set of wrapped functions, when [W.ft] is the regular function. *)
 module Wrapped_functions :
   Svg_sigs.Wrapped_functions with type (-'a, 'b) ft = 'a -> 'b
 
+(** Similar to {!Make} but with a custom set of wrapped functions. *)
 module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
     (C : Svg_sigs.Wrapped_functions

@@ -108,6 +108,14 @@ Library tymlx_p
 
 ## Tests
 
+Executable emit_big
+  Install: false
+  Build$: flag(tests)
+  Path: test
+  MainIs: emitbig.ml
+  BuildDepends: tyxml, unix
+  CompiledObject: best
+
 Executable main_test
   Install: false
   Build$: flag(tests)
@@ -124,6 +132,38 @@ Test html_fail
   Command: ocamlbuild test/html_fail.stamp
   TestTools: main_test
   Run$: flag(tests)
+
+## Examples
+
+Executable basic_website
+  Install: false
+  Build$: flag(tests)
+  Path: examples/basic_website
+  MainIs: site_html.ml
+  BuildDepends: tyxml
+  CompiledObject: best
+
+Test basic_website
+  WorkingDirectory: examples/basic_website
+  Command: $basic_website
+  TestTools: basic_website
+  Run$: flag(tests)
+
+Executable mini_website
+  Install: false
+  Build$: flag(tests)
+  Path: examples/mini_website
+  MainIs: minihtml.ml
+  BuildDepends: tyxml
+  CompiledObject: best
+
+Test mini_website
+  WorkingDirectory: examples/mini_website
+  Command: $mini_website
+  TestTools: mini_website
+  Run$: flag(tests)
+
+## Documentation
 
 Document "tyxml-api"
   Title: API reference for TyXML

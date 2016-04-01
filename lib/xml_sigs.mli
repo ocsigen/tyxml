@@ -125,18 +125,6 @@ module type Typed_xml = sig
 
 end
 
-module type Iterable_typed_xml = sig
-
-  module Xml : Iterable
-  module Info : Info
-
-  type 'a elt
-  type doc
-  val toelt : 'a elt -> Xml.elt
-  val doc_toelt : doc -> Xml.elt
-
-end
-
 module type Printer = sig
 
   type xml_elt
@@ -183,5 +171,37 @@ module type Typed_simple_printer = sig
     output:(string -> unit) ->
     ?encode:(string -> string) -> ?advert:string->
     doc -> unit
+
+end
+
+module type Pp = sig
+
+  type elt
+
+(** [pp ()] is a {!Format} printer for untyped XML.
+
+    It can be used in combination with ["%a"]. For example, to get a string:
+    {[let s = Format.sprintf "%a" (pp ()) my_xml]}
+*)
+  val pp:
+    ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
+end
+
+module type Typed_pp = sig
+
+  type 'a elt
+  type doc
+
+(** [pp_elt ()] is a {!Format} printer for individual elements. *)
+  val pp_elt :
+    ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+
+(** [pp ()] is a {!Format} printer for complete documents.
+
+    It can be used in combination with ["%a"]. For example, to get a string:
+    {[let s = Format.sprintf "%a" (pp ()) my_document]}
+*)
+  val pp:
+    ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
 
 end

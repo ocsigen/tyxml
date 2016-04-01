@@ -21,15 +21,30 @@
 
     @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
 
-(** Concrete implementation of SVG typesafe constructors *)
-module M : Svg_sigs.Make(Xml).T
+(** Concrete implementation of SVG typesafe constructors.
+    See {!modtype:Svg_sigs.T}.
+*)
+include Svg_sigs.Make(Xml).T
 
-(** Simple printer for SVG documents *)
-module P : Xml_sigs.Typed_simple_printer with type 'a elt := 'a M.elt
-                                          and type doc := M.doc
+(** {2 Printers} *)
 
-(** Parametrized stream printer for SVG documents *)
+(** [pp ()] is a {!Format} printer for Svg documents.
+
+    It can be used in combination with ["%a"]. For example, to get a string:
+    {[let s = Format.sprintf "%a" (Svg.pp ()) my_svg]}
+*)
+val pp:
+  ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+
+(** [pp_elt ()] is a {!Format} printer for svg elements. *)
+val pp_elt :
+  ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+
+(** Parametrized stream printer for SVG documents.
+    @deprecated Use {!Svg.pp} instead.
+*)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
-                          and type 'a elt := 'a M.elt
-                          and type doc := M.doc
+                          and type 'a elt := 'a elt
+                          and type doc := doc
+     [@@ocaml.deprecated "Use Svg.pp instead."]

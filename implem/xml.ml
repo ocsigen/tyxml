@@ -19,7 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Attributes *)
 
 module M = struct
 
@@ -34,6 +33,8 @@ module M = struct
 
   type separator = Space | Comma
 
+  (** Attributes *)
+
   type aname = string
   type acontent =
     | AFloat of float
@@ -41,6 +42,7 @@ module M = struct
     | AStr of string
     | AStrL of separator * string list
   type attrib = aname * acontent
+
   type event_handler = string
   type mouse_event_handler = string
   type keyboard_event_handler = string
@@ -70,68 +72,43 @@ module M = struct
     | PCDATA of string
     | Entity of string
     | Leaf of ename * attrib list
-    | Node of ename * attrib list * elt list
-  and elt = {
-    elt : econtent ;
-  }
+    | Node of ename * attrib list * econtent list
 
-  let content elt = elt.elt
+  type elt =  econtent
 
-  let empty () = { elt = Empty }
+  let content elt = elt
 
-  let comment c = { elt = Comment c }
+  let empty () = Empty
 
-  let pcdata d = { elt = PCDATA d }
-  let encodedpcdata d = { elt = EncodedPCDATA d }
-  let entity e = { elt = Entity e }
+  let comment c = Comment c
 
+  let pcdata d = PCDATA d
+  let encodedpcdata d = EncodedPCDATA d
+  let entity e = Entity e
+
+  (* For security reasons, we do not allow "]]>" inside CDATA
+     (as this string is to be considered as the end of the cdata)
+  *)
   let re_end_cdata = Re.(compile @@ str "]]>")
+  let encoded_cdata s1 s2 s =
+    encodedpcdata
+      (Printf.sprintf "\n%s\n%s\n%s\n"
+         s1
+         (Re.replace_string ~all:true re_end_cdata ~by:"" s)
+         s2 )
 
-  let cdata s = (* GK *)
-    (* For security reasons, we do not allow "]]>" inside CDATA
-       (as this string is to be considered as the end of the cdata)
-    *)
-    let s' = "\n<![CDATA[\n"^
-             Re.replace_string ~all:true re_end_cdata ~by:"" s
-             ^"\n]]>\n" in
-    encodedpcdata s'
+  let cdata = encoded_cdata "<![CDATA[" "]]>"
+  let cdata_script = encoded_cdata "//<![CDATA[" "//]]>"
+  let cdata_style = encoded_cdata "/* <![CDATA[ */" "/* ]]> */"
 
-  let cdata_script s = (* GK *)
-    (* For security reasons, we do not allow "]]>" inside CDATA
-       (as this string is to be considered as the end of the cdata)
-    *)
-    let s' = "\n//<![CDATA[\n"^
-             Re.replace_string ~all:true re_end_cdata ~by:"" s
-             ^"\n//]]>\n" in
-    encodedpcdata s'
-
-  let cdata_style s = (* GK *)
-    (* For security reasons, we do not allow "]]>" inside CDATA
-       (as this string is to be considered as the end of the cdata)
-    *)
-    let s' = "\n/* <![CDATA[ */\n"^
-             Re.replace_string ~all:true re_end_cdata ~by:"" s
-             ^"\n/* ]]> */\n" in
-    encodedpcdata s'
-
-  let leaf ?a name =
-    { elt =
-        (match a with
-         | Some a -> Leaf (name, a)
-         | None -> Leaf (name, [])) }
-
-  let node ?a name children =
-    { elt =
-        (match a with
-         | Some a -> Node (name, a, children)
-         | None -> Node (name, [], children)) }
-
+  let leaf ?(a=[]) name = Leaf (name, a)
+  let node ?(a=[]) name children = Node (name, a, children)
 
 end
 
 include M
 include Xml_print.Make_simple(M)(struct let emptytags = [] end)
 include Xml_iter.Make(M)
+include Xml_print.Make_fmt(M)(struct let emptytags = [] end)
 
 let print fmt x = print_list ~output:(Format.pp_print_string fmt) [x]
-let print fmt x = Format.fprintf fmt "<< %a >>" print x

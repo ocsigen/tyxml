@@ -19,29 +19,14 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(*
-  TODO, Issues:
-  -> Map cannot contain area children for now
-  -> noscript (a [a []]) should not be typed.
-  -> mathml !
-*)
-
 (* _fun prefix are the types that must be used
    in Html5.M. They are more restrictive as
    some param are already taken as seperate argument,
    to ensure better compatibility.
    SC *)
 
-(*
-  TODO: from draft 8 may 2011:
-  * add bdi element
-  * add s element
-  * add u element
-  * area is only allowed inside a phrasing if included inside a map element
 
-*)
-
-(** HTML5 types with variants. (See also {!Html5.M})
+(** HTML5 types with variants, goes with {!Html5_sigs.T}.
 
     @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
 *)
@@ -373,13 +358,14 @@ type events =
 (** Common attributes *)
 type common = [ | core | i18n | events ]
 
-(** {1 Categories of HTML5 elements} *)
+(** {1 Categories of HTML5 elements}
 
-(** These category are mainly subdivised in
+    These category are mainly subdivised in
     - interactive,
     - phrasing,
     - flow5,
     these categories may overlap *)
+
 type heading = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 | `Hgroup ]
 
 type sectioning = [ | `Section | `Nav | `Aside | `Article ]
@@ -415,14 +401,14 @@ type formassociated = [ | listed | `Progress | `Meter | `Label ]
 
 
 (** Transparent elements.
-        Such elements have a part of they children in their dataconsigor,
-        and behaves like them. We could do something like [=a: 'a elt list -> 'a elt]
-        but the information about the node name would be forgotten and would allow
-        things like that : [=p [a [a []]]].
-        This system allow to build non-conforming terms such as [a [a []]] but when passed
-        to a standard element (such as [p]), it will yield an error.
-        Exception to that : if you embdedd the element in another transparent (of an
-        another kind) : [p [noscript (a [a []])]] will be correctly typed.
+    Such elements have a part of they children in their data
+    and behaves like them. We could do something like [a: 'a elt list -> 'a elt]
+    but the information about the node name would be forgotten and would allow
+    things like that : [p [a [a []]]].
+    This system allow to build non-conforming terms such as [a [a []]] but when passed
+    to a standard element (such as [p]), it will yield an error.
+    Exception to that : if you embdedd the element in another transparent (of an
+    another kind) : [p [noscript (a [a []])]] will be correctly typed.
 *)
 type (+'interactive, +'noscript, +'regular, +'media) transparent =
   [

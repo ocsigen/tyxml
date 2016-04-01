@@ -1,4 +1,4 @@
-open Html5.M
+open Html5
 
 let this_title = title (pcdata "Your Cool Web Page")
 
@@ -50,17 +50,15 @@ let home_page_doc =
           [link ~rel:[`Stylesheet] ~href:"home.css" ();])
     (body [image_box; content_box; main_script])
 
+(** The set of pages in your website. *)
 let pages = [("index.html", home_page_doc)]
 
-let () =
-  List.iter begin fun (page_name, a_page) ->
-    Printf.sprintf "Generating: %s" page_name |> print_endline;
-    let file_handle = open_out page_name in
-    Html5.P.print (output_string file_handle) a_page;
-    close_out file_handle;
-    match Sys.command (Printf.sprintf "tidy -im -ashtml %s" page_name) with
-    | 0 -> ()
-    | c ->
-      print_endline "You don't have tidy, no pretty printing of html"
-  end
-    pages
+(** Small code to emit all the pages. *)
+let emit_page (name, page) =
+  Printf.printf "Generating: %s\n" name ;
+  let file_handle = open_out name in
+  let fmt = Format.formatter_of_out_channel file_handle in
+  pp () fmt page;
+  close_out file_handle
+
+let () = List.iter emit_page pages
