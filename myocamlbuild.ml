@@ -25,6 +25,30 @@
 
 open Ocamlbuild_plugin
 
+(* Determine extension of CompiledObject: best *)
+let native_suffix =
+  let env =
+    BaseEnvLight.load ~allow_empty:true
+      ~filename:MyOCamlbuildBase.env_filename ()
+  in
+  if BaseEnvLight.var_get "is_native" env = "true"
+  then "native" else "byte"
+
+let reflect_ppx () =
+  let ppx_reflect = "ppx/ppx_reflect."^native_suffix in
+
+  let prod = "ppx/%_reflected.ml" in
+  let dep = "lib/%.mli" in
+
+  rule "ppx_reflect: mli -> _reflected.ml" ~prod ~deps:[dep; ppx_reflect]
+    begin fun env _ ->
+      Cmd (S [A ppx_reflect ; P (env dep); P (env prod)])
+    end
+
+let tyxml_ppx () =
+  let ppx_tyxml = "ppx/ppx_tyxml."^native_suffix in
+  flag_and_dep [ "ocaml" ; "compile" ; "ppx_tyxml" ] (S [A "-ppx"; P ppx_tyxml])
+
 let () =
   dispatch
     (fun hook ->
@@ -43,6 +67,9 @@ let () =
          (* the "bin_annot" tag was only introduced in ocamlbuild-4.01 *)
          if String.sub Sys.ocaml_version 0 4 = "4.00" then
            flag ["ocaml"; "bin_annot"; "compile"] (A "-bin-annot");
+
+         reflect_ppx () ;
+         tyxml_ppx () ;
 
        | _ ->
          ())

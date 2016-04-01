@@ -122,7 +122,7 @@ type linktype =
     | `Sidebar
     | `Tag
     | `Up
-    | `Other of string ]
+    | `Other of string ] [@@reflect.total_variant]
 
 type linktypes = linktype list
 (** Authors may use the following recognized link types, listed here with
@@ -194,7 +194,7 @@ type mediadesc_token =
   | `Speech
   | `TTY
   | `TV
-  | `Raw_mediadesc of string ]
+  | `Raw_mediadesc of string ] [@@reflect.total_variant]
 
 type mediadesc = mediadesc_token list
 
@@ -236,10 +236,6 @@ type multilength = [ | length | `Relative of int ]
         and percentage space, and the competing relative lengths are ["1*"],
         ["2*"], and ["3*"], the ["1*"] will be allotted 10 pixels, the ["2*"] will be
         allotted 20 pixels, and the ["3*"] will be allotted 30 pixels. *)
-
-(* comma-separated *)
-type multilengths = multilength list
-(** A comma separated list of items of type MultiLength. *)
 
 type number = int
 

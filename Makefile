@@ -1,3 +1,6 @@
+OCAMLFIND_IGNORE_DUPS_IN = $(shell ocamlfind query compiler-libs)
+export OCAMLFIND_IGNORE_DUPS_IN
+
 # OASIS_START
 # DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
 

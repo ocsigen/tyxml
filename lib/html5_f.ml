@@ -85,9 +85,6 @@ struct
   (* space-separated *)
   let length_attrib = user_attrib C.string_of_multilength
 
-  let multilengths_attrib name x =
-    user_attrib C.string_of_multilengths name x
-
   let linktypes_attrib name x =
     user_attrib C.string_of_linktypes name x
 
@@ -460,10 +457,6 @@ struct
   let a_data = uri_attrib "data"
 
   let a_codetype = string_attrib "codetype"
-
-  let a_fs_rows mls = multilengths_attrib "rows" mls
-
-  let a_fs_cols mls = multilengths_attrib "cols" mls
 
   let a_frameborder x =
     user_attrib C.string_of_big_variant "frameborder" x
@@ -1041,9 +1034,6 @@ struct
 
   let string_of_numbers l =
     String.concat "," (List.map string_of_number l)
-
-  let string_of_multilengths l =
-    String.concat ", " (List.map string_of_multilength l)
 
   let string_of_mediadesc l =
     String.concat ", " (List.map string_of_mediadesc_token l)

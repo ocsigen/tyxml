@@ -1,6 +1,7 @@
 S lib
 S syntax
 S tools
+S ppx
 
 B _build/*
 
@@ -9,3 +10,4 @@ FLG -w -32-34-37
 FLG -strict_sequence -safe_string
 
 PKG uutf re
+PKG compiler-libs.common ppx_tools.metaquot markup
