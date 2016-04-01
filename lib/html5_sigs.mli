@@ -43,7 +43,7 @@ module type T = sig
       Since [`Div] is not part of it. [span [div []]] will not typecheck.
 
       Note that the concrete implementation of this type can vary.
-      See {{!Xml}Xml} for details.
+      See {!Xml} for details.
   *)
   type +'a elt
 
@@ -62,7 +62,7 @@ module type T = sig
       Similarly to {{!elt}elt}, attributes use the OCaml type system to enforce
       Html validity.
 
-      For example {{!a_href}a_href} returns a value of type [[> `Href] attrib].
+      For example {!a_href} returns a value of type [[> `Href] attrib].
       The {{!div}div} function only accepts attributes of type
       {!Html5_types.div_attrib}.
       Since [`Href] is not part of it,
@@ -70,7 +70,7 @@ module type T = sig
 
       In some cases, attributes have to be disambiguated.
       The [max] attribute has two version,
-      {{!a_max}a_max} and {{!a_input_max}a_input_max}, depending on the
+      {!a_max} and {!a_input_max}, depending on the
       element.
       Such disambiguated attribute will contain the name of the associated element.
   *)
