@@ -25,7 +25,7 @@ and
 This section assumes you have at your disposal an {{{Html5}}} or {{{Svg}}} module, as instructed in <<a_manual fragment="usage"|the previous section>>.
 For standalone use, examples are available in the [[https://github.com/ocsigen/tyxml/tree/master/examples|examples]] directory.
 
-The documentation for TyXML combinators is provided in <<a_api|modtype Html5_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html5}}} and {{{Svg}}}.
+The documentation for TyXML combinators is provided in <<a_api|module Html5_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html5}}} and {{{Svg}}}.
 
 A first thing to understand about TyXML is that for most intent and purposes, it is exactly like Html. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|Html reference]] is still very useful. For each Html elements or attributes, there is a combinator implemeting it. The main differences are that you can use OCaml to manipulate the elements and that invalid Html produces a type error.
 
@@ -39,7 +39,7 @@ let mycontent =
   ]
 >>
 
-##mycontent## is of type {{{[> `Div] Html5.elt}}}.
+The variable ##mycontent## is of type {{{[> `Div] Html5.elt}}}.
 As we can see, the fact that this is a ##div## is reflected in the type. Html elements are of type <<a_api text="elt"|type Html5_sigs.T.elt>> and have a combinator of the same name, except when it's a reserved keyword (such as {{{object_}}}).
 
 Our content is fabulous, but for the sake of CSS styling (and still in true Web fashion) we want to add a ##class## to it.
@@ -68,8 +68,8 @@ There are also
 <<a_api text="nullary"|val Html5_sigs.T.nullary>> constructors,
 which accepts respectively one and zero child.
 
-An element of {{{unary}}} constructor is the
-<<a_api text="title"|val Html5_sigs.T.title>> combinator.
+<<a_api text="title"|val Html5_sigs.T.title>> is an example of {{{unary}}}
+combinator.
 <<code language="ocaml"|
 let mytitle = title (pcdata "A Fabulous Web Page")
 >>
@@ -103,7 +103,7 @@ In order to get reasonable type errors with TyXML, The ##-short-paths## options 
 ====@@id="finishing"@@ Finishing up the webpage ====
 
 To finish our webpage, we use the <<a_api text="body"|val Html5_sigs.T.body>>, <<a_api text="head"|val Html5_sigs.T.head>> and <<a_api text="html"|val Html5_sigs.T.html>>.
-The last two combinators have special types due to their specific constraints: <<a_api text="head"|val Html5_sigs.T.head>> only accepts one ##title## children and <<a_api text="html"|val Html5_sigs.T.html>> only accepts two children, ##head## and ##body##.
+The last two combinators have special types due to their specific constraints: <<a_api text="head"|val Html5_sigs.T.head>> only accepts one ##title## children and <<a_api text="html"|val Html5_sigs.T.html>> only accepts two children: ##head## and ##body##.
 
 <<code language="ocaml"|
 let mypage =
@@ -114,7 +114,7 @@ let mypage =
 
 If you are using <<a_manual project="eliom" chapter="clientserver-html"|Eliom>>
 or <<a_api project="js_of_ocaml" text="Js_of_ocaml"|module Tyxml_js>>,
-this is the end of TyXML's territory. However, for standalone use, we now need to print our document into an Html file. The standalone implementation comes with a printer, <<a_api|val Html5.pp>>, that we can use to print files:
+this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, <<a_api|val Html5.pp>>, that we can use to print files:
 
 <<code language="ocaml"|
 let () =

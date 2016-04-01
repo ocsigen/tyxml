@@ -24,7 +24,7 @@ The purpose of the ##Wrap## module is explained in the next section.
 
 ==@@id="wrap"@@ Wrapping up the nodes ==
 
-The ##W## module in <<a_api | modtype Xml_sigs.T >> allows to wrap Xml elements
+The ##W## module in <<a_api | module Xml_sigs.T >> allows to wrap Xml elements
 in a monad ##'a t##.  A good example of application is the ##R##
 modules with reactive nodes in Eliom. Here is the simplified signature
 of the {{{div}}} element:
