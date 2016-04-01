@@ -8,9 +8,9 @@ Svg
 {2 Types and signatures}
 
 {!modules:
-Html5_sig
+Html5_sigs
 Html5_types
-Svg_sig
+Svg_sigs
 Svg_types
 }
 
@@ -25,6 +25,7 @@ Xml
 {!modules:
 Html5_f
 Svg_f
+Xml_sigs
 Xml_iter
 Xml_print
 }
