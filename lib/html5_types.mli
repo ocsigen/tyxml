@@ -237,10 +237,6 @@ type multilength = [ | length | `Relative of int ]
         ["2*"], and ["3*"], the ["1*"] will be allotted 10 pixels, the ["2*"] will be
         allotted 20 pixels, and the ["3*"] will be allotted 30 pixels. *)
 
-(* comma-separated *)
-type multilengths = multilength list
-(** A comma separated list of items of type MultiLength. *)
-
 type number = int
 
 (* space-separated *)

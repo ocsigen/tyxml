@@ -124,9 +124,6 @@ let rec to_attribute_parser name = function
   | [[%type : length]] ->
     [%expr length]
 
-  | [[%type : multilengths]] ->
-    [%expr commas multilength]
-
   | [[%type : coord]] | [[%type : Unit.length]] ->
     [%expr svg_length]
 

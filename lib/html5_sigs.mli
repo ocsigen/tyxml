@@ -592,10 +592,6 @@ module type T = sig
 
   val a_codetype : contenttype wrap -> [> | `Codetype] attrib
 
-  val a_fs_rows : multilengths wrap -> [> | `FS_Rows] attrib
-
-  val a_fs_cols : multilengths wrap -> [> | `FS_Cols] attrib
-
   val a_frameborder : [< | `Zero | `One] wrap -> [> | `Frameborder] attrib
 
   val a_marginheight : pixels wrap -> [> | `Marginheight] attrib
@@ -1128,9 +1124,6 @@ module type Wrapped_functions = sig
 
   val string_of_multilength :
     ([< Html5_types.multilength], string) Xml.W.ft
-
-  val string_of_multilengths :
-    ([< Html5_types.multilength] list, string) Xml.W.ft
 
   val string_of_numbers : (Html5_types.numbers, string) Xml.W.ft
 

@@ -279,41 +279,6 @@ let length =
 
     Some e
 
-(* This is only called by the commas combinator; hence the error message. *)
-let multilength =
-  let regexp = Re_str.regexp "\\([0-9]+\\)\\(%\\|px\\)\\|\\([0-9]+\\)?\\*" in
-
-  fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ does_match regexp s then
-      Ppx_common.error loc "Value of %s must be a %s"
-        name "list of relative lengths, such as 100px, 50%, or *";
-
-    begin
-      if group_matched 1 s then
-        let n =
-          match int_exp loc (Re_str.matched_group 1 s) with
-          | Some n -> n
-          | None ->
-            Ppx_common.error loc "Value in %s out of range" name
-        in
-
-        match Re_str.matched_group 2 s with
-        | "%" -> Some [%expr `Percent [%e n]]
-        | "px" -> Some [%expr `Pixels [%e n]]
-        | _ -> Ppx_common.error loc "Internal error: Ppx_attribute.multilength"
-
-      else
-        let n =
-          match int_exp loc (Re_str.matched_group 3 s) with
-          | exception Not_found -> [%expr 1]
-          | Some n -> n
-          | None ->
-            Ppx_common.error loc "Relative length in %s out of range" name
-        in
-
-        Some [%expr `Relative [%e n]]
-    end [@metaloc loc]
-
 let svg_quantity =
   let integer = "[+-]?[0-9]+" in
   let integer_scientific = Printf.sprintf "%s\\([Ee]%s\\)?" integer integer in

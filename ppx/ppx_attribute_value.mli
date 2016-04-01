@@ -141,14 +141,6 @@ val length : parser
     - [`Pixels i] if [s] has form [(string_of_int i) ^ "px"], or
     - [`Percent i] if [s] has form [(string_of_int i) ^ "%"]. *)
 
-val multilength : parser
-(** [multilength _ _ s] produces a parse tree for
-
-    - [`Pixels i] if [s] has form [(string_of_int i) ^ "px"],
-    - [`Percent i] if [s] has form [(string_of_int i) ^ "%"],
-    - [`Relative i] if [s] has form [(string_of_int i) ^ "*"], or
-    - [`Relative 1] if [s] is ["*"]. *)
-
 val svg_length : parser
 (** [svg_length _ _ s] produces a parse tree for a value of type
     [Svg_types.Unit.(length quantity)]. [s] is expected to have form
