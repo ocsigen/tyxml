@@ -1,4 +1,4 @@
-ALCOTEST_SHOW_ERRORS=true
+export ALCOTEST_SHOW_ERRORS=true
 
 opam pin add --no-action tyxml .
 opam install camlp4
