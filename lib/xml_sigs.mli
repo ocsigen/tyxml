@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+(** XML Signatures. *)
+
 module type T = sig
 
   module W : Xml_wrap.T
