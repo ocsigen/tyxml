@@ -4,12 +4,12 @@
     html or svg should go to the other files.
 *)
 
-open Html5
-
 module TyTests = struct
   type t = Xml.elt list
   let pp fmt x =
-    P.print_list ~output:(Format.pp_print_string fmt) (M.totl x)
+    Format.pp_print_list ~pp_sep:(fun _ () -> ())
+      (Html5.pp_elt ())
+      fmt (Html5.totl x)
   let equal = (=)
 end
 
@@ -17,12 +17,11 @@ end
 let tyxml_tests l =
   let f (name, ty1, ty2) =
     name, `Quick, fun () ->
-      Alcotest.(check (module TyTests)) name (M.toeltl ty1) (M.toeltl ty2)
+      Alcotest.(check (module TyTests)) name (Html5.toeltl ty1) (Html5.toeltl ty2)
   in
   List.map f l
 
-module Html5 = M
-let basics = "ppx basics", tyxml_tests M.[
+let basics = "ppx basics", tyxml_tests Html5.[
 
   "elems",
   [%tyxml "<p></p>"],
@@ -50,11 +49,11 @@ let basics = "ppx basics", tyxml_tests M.[
 
 ]
 
-let elt1 = M.(span [pcdata "one"])
-let elt2 = M.(b [pcdata "two"])
+let elt1 = Html5.(span [pcdata "one"])
+let elt2 = Html5.(b [pcdata "two"])
 let id = "pata"
 
-let antiquot = "ppx antiquot", tyxml_tests M.[
+let antiquot = "ppx antiquot", tyxml_tests Html5.[
 
   "child",
   [%tyxml "<p>" elt1 "</p>"],
