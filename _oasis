@@ -30,11 +30,11 @@ Description:
 
 Flag syntax
   Description: Build the camlp4 syntax extension.
-  Default: true
+  Default: false
 
 Flag ppx
   Description: Build the ppx syntax extension.
-  Default: false
+  Default: true
 
 Library tyxml
   FindlibName: tyxml
@@ -122,38 +122,57 @@ Library tymlx_p
   Modules:
     Simplexmlparser
 
+## Ppx
+
 Library ppx
   Build$: flag(ppx)
+  Install$: flag(ppx)
   FindlibName: ppx
   FindlibParent: tyxml
   Path: ppx
-  InternalModules: Ppx_tyxml
   XMETADescription:
     HTML5 and SVG syntax extension (ppx)
   XMETARequires: tyxml
   XMETAExtraLines: ppx = "ppx_tyxml"
 
-Executable ppx_tyxml
+Library ppx_internal
   Build$: flag(ppx)
+  Install$: flag(ppx)
+  FindlibName: internal
+  FindlibParent: ppx
   Path: ppx
-  MainIs: ppx_tyxml.ml
+  InternalModules:
+    Ppx_attributes, Ppx_attribute_value, Ppx_common, Ppx_namespace,
+    Ppx_element_content, Ppx_element, Ppx_sigs_reflected,
+    Html5_sigs_reflected, Svg_sigs_reflected,
+    Html5_types_reflected, Svg_types_reflected
+  Modules: Ppx_tyxml
+  XMETADescription:
+    HTML5 and SVG ppx library
   BuildDepends:
     re.str, ppx_tools.metaquot, markup, tyxml.tools
+
+Executable ppx_tyxml
+  Build$: flag(ppx)
+  Install$: flag(ppx)
+  Path: ppx
+  MainIs: ppx_tyxml_ex.ml
+  BuildDepends: tyxml.ppx.internal
   CompiledObject: best
 
 Executable ppx_reflect
   Build$: flag(ppx)
+  Install: false
   Path: ppx
   MainIs: ppx_reflect.ml
-  BuildDepends:
-    compiler-libs.common, ppx_tools.metaquot
+  BuildDepends: ppx_tools.metaquot, tyxml.tools
   CompiledObject: best
 
 ## Tests
 
 Executable emit_big
   Install: false
-  Build$: flag(tests)
+  Build$: flag(tests) && flag(ppx)
   Path: test
   MainIs: emitbig.ml
   BuildDepends: tyxml, unix
@@ -161,7 +180,7 @@ Executable emit_big
 
 Executable main_test
   Install: false
-  Build$: flag(tests)
+  Build$: flag(tests) && flag(ppx)
   Path: test
   MainIs: main_test.ml
   BuildDepends: tyxml, alcotest
@@ -169,12 +188,12 @@ Executable main_test
 Test html
   Command: $main_test
   TestTools: main_test
-  Run$: flag(tests)
+  Run$: flag(tests) && flag(ppx)
 
 Test html_fail
   Command: ocamlbuild test/html_fail.stamp
   TestTools: main_test
-  Run$: flag(tests)
+  Run$: flag(tests) && flag(ppx)
 
 ## Examples
 
@@ -216,4 +235,4 @@ Document "tyxml-api"
   BuildTools: ocamldoc
   XOCamlbuildPath: ./
   XOCamlbuildLibraries:
-    tyxml, tyxml.functor, tyxml.parser, tyxml.syntax, tyxml.ppx
+    tyxml, tyxml.functor, tyxml.parser, tyxml.syntax, tyxml.ppx.internal
