@@ -54,21 +54,25 @@ let basics = "ppx basics", tyxml_tests Html5.[
 ]
 
 let elt1 = Html5.(span [pcdata "one"])
-let elt2 = Html5.(b [pcdata "two"])
+let elt2 = Html5.[b [pcdata "two"]]
 let id = "pata"
 
 let antiquot = "ppx antiquot", tyxml_tests Html5.[
 
   "child",
-  [%html5 "<p>" elt1 "</p>"],
+  [%html5 "<p>" [elt1] "</p>"],
   [p [elt1]];
 
+  "list child",
+  [%html5 "<p>" elt2 "</p>"],
+  [p elt2];
+
   "children",
-  [%html5 "<p>bar"elt1"foo"elt2"baz</p>"],
-  [p [pcdata "bar"; elt1 ; pcdata "foo" ; elt2 ; pcdata "baz" ]];
+  [%html5 "<p>bar"[elt1]"foo"elt2"baz</p>"],
+  [p ([pcdata "bar"; elt1 ; pcdata "foo" ] @ elt2 @ [pcdata "baz" ])];
 
   "insertion",
-  [%html5 "<p><em>" elt1 "</em></p>"],
+  [%html5 "<p><em>"[elt1]"</em></p>"],
   [p [em [elt1]]];
 
   "attrib",
