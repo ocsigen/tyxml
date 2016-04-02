@@ -24,11 +24,11 @@ let tyxml_tests l =
 let basics = "ppx basics", tyxml_tests Html5.[
 
   "elems",
-  [%html5 "<p></p>"],
+  [[%html5 "<p></p>"]],
   [p []] ;
 
   "child",
-  [%html5 "<p><span>foo</span></p>"],
+  [[%html5 "<p><span>foo</span></p>"]],
   [p [span [pcdata "foo"]]] ;
 
   "list",
@@ -36,19 +36,19 @@ let basics = "ppx basics", tyxml_tests Html5.[
   [p [] ; span [pcdata "foo"]] ;
 
   "attrib",
-  [%html5 "<p id=foo></p>"],
+  [[%html5 "<p id=foo></p>"]],
   [p ~a:[a_id "foo"] []] ;
 
   "attribs",
-  [%html5 "<p id=foo class=bar></p>"],
+  [[%html5 "<p id=foo class=bar></p>"]],
   [p ~a:[a_id "foo"; a_class ["bar"] ] []] ;
 
   "comment",
-  [%html5 "<!--foo-->"],
+  [[%html5 "<!--foo-->"]],
   [tot @@ Xml.comment "foo"] ;
 
   "pcdata",
-  [%html5 "foo"],
+  [[%html5 "foo"]],
   [pcdata "foo"] ;
 
 ]
@@ -60,23 +60,23 @@ let id = "pata"
 let antiquot = "ppx antiquot", tyxml_tests Html5.[
 
   "child",
-  [%html5 "<p>" [elt1] "</p>"],
+  [[%html5 "<p>" [elt1] "</p>"]],
   [p [elt1]];
 
   "list child",
-  [%html5 "<p>" elt2 "</p>"],
+  [[%html5 "<p>" elt2 "</p>"]],
   [p elt2];
 
   "children",
-  [%html5 "<p>bar"[elt1]"foo"elt2"baz</p>"],
+  [[%html5 "<p>bar"[elt1]"foo"elt2"baz</p>"]],
   [p ([pcdata "bar"; elt1 ; pcdata "foo" ] @ elt2 @ [pcdata "baz" ])];
 
   "insertion",
-  [%html5 "<p><em>"[elt1]"</em></p>"],
+  [[%html5 "<p><em>"[elt1]"</em></p>"]],
   [p [em [elt1]]];
 
   "attrib",
-  [%html5 "<p id="id">bla</p>"],
+  [[%html5 "<p id="id">bla</p>"]],
   [p ~a:[a_id id] [pcdata "bla"]];
 
   (* should succeed *)
