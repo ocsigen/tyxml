@@ -82,9 +82,6 @@ struct
   let constant_attrib a =
     string_attrib a (W.return a)
 
-  (* space-separated *)
-  let length_attrib = user_attrib C.string_of_multilength
-
   let linktypes_attrib name x =
     user_attrib C.string_of_linktypes name x
 
@@ -440,10 +437,6 @@ struct
 
   let a_border = int_attrib "border"
 
-  let a_cellpadding = length_attrib "cellpadding"
-
-  let a_cellspacing = length_attrib "cellspacing"
-
   let a_datapagesize = string_attrib "datapagesize"
 
   let a_rules x =
@@ -451,8 +444,6 @@ struct
 
   let a_char c =
     user_attrib C.string_of_character "char" c
-
-  let a_charoff = length_attrib "charoff"
 
   let a_data = uri_attrib "data"
 
@@ -842,12 +833,6 @@ struct
     | `Allow_top_navigation -> "allow-top-navigation"
     | `Allow_same_origin -> "allow-same-origin"
     | `Allow_script -> "allow-script"
-
-  let string_of_multilength = function
-    | `Percent p -> (string_of_int p) ^ "%"
-    | `Pixels p -> string_of_int p
-    | `Relative 1 -> "*"
-    | `Relative i -> (string_of_int i) ^ "*"
 
   let string_of_linktype = function
     | `Alternate -> "alternate"

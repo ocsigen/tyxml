@@ -121,9 +121,6 @@ let rec to_attribute_parser name = function
   | [[%type : (number * number) list option]] ->
     [%expr option "any" (spaces icon_size)]
 
-  | [[%type : length]] ->
-    [%expr length]
-
   | [[%type : coord]] | [[%type : Unit.length]] ->
     [%expr svg_length]
 

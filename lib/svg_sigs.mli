@@ -105,7 +105,6 @@ module type T = sig
   val uri_of_string : (string, uri) Xml.W.ft
 
   open Svg_types
-  open Unit
 
   (** {2:attributes Attributes } *)
 
@@ -631,7 +630,7 @@ module type T = sig
 
   val a_stroke : paint wrap -> [> | `Stroke ] attrib
 
-  val a_stroke_width : length wrap -> [> | `Stroke_Width ] attrib
+  val a_stroke_width : Unit.length wrap -> [> | `Stroke_Width ] attrib
 
   val a_stroke_linecap :
     [< `Butt | `Round | `Square ] wrap -> [> | `Stroke_Linecap ] attrib

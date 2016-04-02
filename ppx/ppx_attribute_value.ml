@@ -254,31 +254,6 @@ let icon_size =
 
 (* Dimensional. *)
 
-let length =
-  let regexp = Re_str.regexp "\\([0-9]+\\)\\([^0-9]+\\)" in
-
-  fun ?separated_by:_ ?default:_ loc name s ->
-    if not @@ does_match regexp s then
-      Ppx_common.error
-        loc "Value of %s must be a length, such as 100px or 50%%" name;
-
-    let n =
-      match int_exp loc (Re_str.matched_group 1 s) with
-      | Some n -> n
-      | None ->
-        Ppx_common.error loc "Value of %s out of range" name
-    in
-
-    let e =
-      begin match Re_str.matched_group 2 s with
-      | "%" -> [%expr `Percent [%e n]]
-      | "px" -> [%expr `Pixels [%e n]]
-      | unit -> Ppx_common.error loc "Unknown unit %s in %s" unit name
-      end [@metaloc loc]
-    in
-
-    Some e
-
 let svg_quantity =
   let integer = "[+-]?[0-9]+" in
   let integer_scientific = Printf.sprintf "%s\\([Ee]%s\\)?" integer integer in

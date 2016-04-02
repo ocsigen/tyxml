@@ -135,12 +135,6 @@ val icon_size : parser
 
 (** {2 Dimensional} *)
 
-val length : parser
-(** [length _ _ s] produces a parse tree for
-
-    - [`Pixels i] if [s] has form [(string_of_int i) ^ "px"], or
-    - [`Percent i] if [s] has form [(string_of_int i) ^ "%"]. *)
-
 val svg_length : parser
 (** [svg_length _ _ s] produces a parse tree for a value of type
     [Svg_types.Unit.(length quantity)]. [s] is expected to have form
