@@ -260,7 +260,7 @@ let markup_to_expr ?context loc expr =
 let context_of_lang = function
   | None -> None
   | Some Ppx_common.Svg -> Some (`Fragment "svg")
-  | Some Html -> Some (`Fragment "html")
+  | Some Html -> None
 
 let markup_to_expr_with_implementation lang modname loc expr =
   let context = context_of_lang lang in
@@ -298,11 +298,6 @@ let dispatch_ext {txt ; loc} =
   | "svg" :: l
   | "tyxml" :: "svg" :: l ->
     Some (Some Ppx_common.Svg, get_modname ~loc l)
-  | "tyxml" :: []
-    -> Some (None, None)
-  | "tyxml" :: (_ :: _) ->
-    Ppx_common.error loc
-      "Module names are only accepted for html5 and svg quotations."
   | _ -> None
 
 open Ast_mapper
