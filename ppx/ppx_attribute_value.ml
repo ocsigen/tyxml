@@ -17,7 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-open Asttypes
 open Ast_helper
 module Pc = Ppx_common
 
@@ -134,12 +133,12 @@ let group_matched index s =
 
 let int_exp loc s =
   try Some (Ppx_common.int loc (int_of_string s))
-  with Failure "int_of_string" -> None
+  with Failure _ -> None
 
 let float_exp loc s =
   try
     Some (Ppx_common.float loc @@ float_of_string s)
-  with Failure "float_of_string" ->
+  with Failure _ ->
     None
 
 let bool_exp loc b =
@@ -161,10 +160,9 @@ let char ?separated_by:_ ?default:_ loc name s =
   let c =
     match next decoded with
     | None -> Ppx_common.error loc "No character in attribute %s" name
-    | Some i ->
-      try Char.chr i
-      with Invalid_argument "Char.chr" ->
-        Ppx_common.error loc "Character out of range in attribute %s" name
+    | Some i when i <= 255 -> Char.chr i
+    | Some _ ->
+      Ppx_common.error loc "Character out of range in attribute %s" name
   in
 
   begin match next decoded with
@@ -256,7 +254,7 @@ let icon_size =
       try
         int_of_string (Re_str.matched_group 1 s),
         int_of_string (Re_str.matched_group 2 s)
-      with Invalid_argument "int_of_string" ->
+      with Invalid_argument _ ->
         Ppx_common.error loc "Icon dimension out of range in %s" name
     in
 
