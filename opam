@@ -11,14 +11,14 @@ dev-repo: "https://github.com/ocsigen/tyxml.git"
 build: [
   ["ocaml" "setup.ml" "-configure"
       "--%{camlp4:enable}%-syntax"
-      "--%{ppx_tools:enable}%-ppx"
+      "--%{markup+ppx_tools:enable}%-ppx"
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
 ]
 build-test: [
   ["ocaml" "setup.ml" "-configure"
       "--%{camlp4:enable}%-syntax"
-      "--%{ppx_tools:enable}%-ppx"
+      "--%{markup+ppx_tools:enable}%-ppx"
       "--enable-tests"
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
@@ -33,10 +33,17 @@ depends: [
   "uutf"
   "base-bytes"
   "re"
-  "markup"
-  ( "base-no-ppx" | "ppx_tools" )
   "alcotest" {test}
   ## OASIS is not required in released version
   "oasis" {build & >= "0.4.4"}
 ]
-depopts: "camlp4"
+depopts: [
+  "camlp4"
+  "markup"
+  "ppx_tools"
+]
+available: ocaml-version >= "4.02"
+messages: [
+  "For tyxml's ppx, please install markup and ppx_tools."
+  {!markup:installed | !ppx_tools:installed}
+]
