@@ -25,6 +25,7 @@
     See {!modtype:Html5_sigs.T}.
 *)
 include Html5_sigs.Make(Xml)(Svg).T
+  with module Xml.W = Xml_wrap.NoWrap
 
 (** {2 Printers} *)
 
