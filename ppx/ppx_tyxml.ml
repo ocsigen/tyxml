@@ -72,7 +72,6 @@ module Antiquot = struct
   let fmt_id = Printf.sprintf "(tyxml%i)"
   let regex_id = Re.(seq [ str "(tyxml" ; rep digit ; char ')' ])
   let re_id = Re.compile regex_id
-  let whole_re_id = Re.(compile @@ whole_string regex_id)
 
   let make_id =
     let r = ref 0 in
@@ -96,8 +95,6 @@ module Antiquot = struct
     else
       Ppx_common.error loc
         "Internal error: This expression placeholder is not registered."
-
-  let mem s = H.mem tbl s
 
   let contains loc s = match Re.exec_opt re_id s with
     | None -> `No
@@ -206,8 +203,9 @@ let ast_to_stream expr =
 
   Markup.fn next, (fun x -> !current_adjust_location x)
 
-(** Given the payload of a [%tyxml ...] expression, converts it to a TyXML
-    expression representing the markup contained therein. *)
+(** Given the payload of a [%html5 ...] or [%svg ...] expression,
+    converts it to a TyXML expression representing the markup
+    contained therein. *)
 let markup_to_expr ?context loc expr =
 
   let input_stream, adjust_location = ast_to_stream expr in
@@ -323,6 +321,5 @@ let map_expr mapper e =
   | _ -> default_mapper.expr mapper e
 
 
-
-let () =
-  register "tyxml" (fun _ -> {default_mapper with expr = map_expr})
+let mapper _ =
+  {default_mapper with expr = map_expr}
