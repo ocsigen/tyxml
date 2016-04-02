@@ -229,15 +229,8 @@ let markup_to_expr lang loc expr =
 
   let input_stream, adjust_location = ast_to_stream expr in
 
-  (* The encoding is specified as a workaround: when not specified, Markup.ml
-     prescans the input looking for byte-order marks or <meta> tags. We don't
-     want a prescan, because that will trigger premature insertion of literal
-     TyXML expressions into the initial, empty, child list, by the input stream,
-     before the expression assembler starts running. This is fragile and will be
-     fixed by merging TyXML expressions in the assembler instead of as now. *)
   let parser =
     Markup.parse_html
-      ~encoding:Markup.Encoding.utf_8
       ?context
       ~report:(fun loc error ->
         let loc = adjust_location loc in
