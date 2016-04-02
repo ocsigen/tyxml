@@ -129,6 +129,7 @@ Library ppx
   Install$: flag(ppx)
   FindlibName: ppx
   FindlibParent: tyxml
+  InternalModules: Ppx_tyxml_empty
   Path: ppx
   XMETADescription:
     HTML5 and SVG syntax extension (ppx)
