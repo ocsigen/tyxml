@@ -274,7 +274,9 @@ let markup_to_expr lang loc expr =
       assemble lang children
   in
 
-  Ppx_common.list_wrap_value lang loc @@ assemble lang []
+  match assemble lang [] with
+  | [ Val x | Antiquot x ] -> x
+  | l -> Ppx_common.list_wrap_value lang loc l
 
 let markup_to_expr_with_implementation lang modname loc expr =
   match modname with
