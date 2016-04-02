@@ -23,7 +23,7 @@ val parse :
   loc:Location.t ->
   parent_lang:Ppx_common.lang ->
   name:Markup.name ->
-  attributes:(Markup.name * Ppx_attribute_value.value) list ->
+  attributes:(Markup.name * string Ppx_common.value) list ->
   Parsetree.expression Ppx_common.value list ->
   Parsetree.expression
 (** [parse ~loc ~parent_lang ~name ~attributes children]

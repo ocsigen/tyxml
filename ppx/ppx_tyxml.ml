@@ -156,8 +156,8 @@ let make_text ~loc ~lang ss =
 let replace_attribute ~loc (attr,value) =
   Antiquot.assert_no_antiquot ~loc "attribute" attr ;
   match Antiquot.contains loc value with
-  | `No -> (attr, `String value)
-  | `Whole e -> (attr, `Expr e)
+  | `No -> (attr, Ppx_common.value value)
+  | `Whole e -> (attr, Ppx_common.antiquot e)
   | `Yes _ ->
       Ppx_common.error loc
       "Mixing literals and OCaml expressions is not authorized in attribute values."
