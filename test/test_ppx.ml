@@ -45,7 +45,11 @@ let basics = "ppx basics", tyxml_tests Html5.[
 
   "comment",
   [%html5 "<!--foo-->"],
-  [tot @@ Xml.comment "foo"]
+  [tot @@ Xml.comment "foo"] ;
+
+  "pcdata",
+  [%html5 "foo"],
+  [pcdata "foo"] ;
 
 ]
 

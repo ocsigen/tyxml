@@ -122,17 +122,19 @@ end
 
 (** Building block to rebuild the output with expressions intertwined. *)
 
-let make_pcdata ~loc s =
-  [%expr pcdata [%e Ppx_common.string loc s]][@metaloc loc]
+let make_pcdata ~loc ~lang s =
+  let pcdata = Ppx_common.make ~loc lang "pcdata" in
+  Ast_helper.Exp.apply ~loc pcdata
+    [Ppx_common.Label.nolabel, Ppx_common.string loc s]
 
 (** Walk the text list to replace placeholders by OCaml expressions when
     appropriate. Use {!make_pcdata} on the rest. *)
-let make_text ~loc ss =
+let make_text ~loc ~lang ss =
   let buf = Buffer.create 17 in
   let push_pcdata buf l =
     let s = Buffer.contents buf in
     Buffer.clear buf ;
-    if s = "" then l else make_pcdata ~loc s :: l
+    if s = "" then l else make_pcdata ~loc ~lang s :: l
   in
   let rec aux ~loc res = function
     | [] -> push_pcdata buf res
@@ -241,7 +243,7 @@ let markup_to_expr ?context loc expr =
 
     | Some (`Text ss) ->
       let loc = get_loc () in
-      let node = make_text ~loc ss in
+      let node = make_text ~loc ~lang ss in
       assemble lang (node @ children)
 
     | Some (`Start_element (name, attributes)) ->
