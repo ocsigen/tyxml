@@ -53,6 +53,27 @@ let escaping = "html escaping", tyxml_tests Html5.[
 /* ]]> */
 |} ;
 
+  "comment",
+  tot (Xml.comment
+         {|[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]|}),
+  {|<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->|} ;
+
+  "dodgy comment 1",
+  tot (Xml.comment {|><script BOUM/>|}),
+  {|<!--&gt;<script BOUM/>-->|} ;
+
+  "dodgy comment 2",
+  tot (Xml.comment {|-><script BOUM/>|}),
+  {|<!---&gt;<script BOUM/>-->|} ;
+
+  "dodgy comment 3",
+  tot (Xml.comment {|foo--><script BOUM/>|}),
+  {|<!--foo--&gt;<script BOUM/>-->|} ;
+
+  "dodgy comment 4",
+  tot (Xml.comment {|foo--!><script BOUM/>|}),
+  {|<!--foo--!&gt;<script BOUM/>-->|} ;
+
 ]
 
 
