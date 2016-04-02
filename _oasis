@@ -30,11 +30,11 @@ Description:
 
 Flag syntax
   Description: Build the camlp4 syntax extension.
-  Default: true
+  Default: false
 
 Flag ppx
   Description: Build the ppx syntax extension.
-  Default: false
+  Default: true
 
 Library tyxml
   FindlibName: tyxml
