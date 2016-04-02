@@ -217,10 +217,15 @@ let ast_to_stream expr =
 
   Markup.fn next, (fun x -> !current_adjust_location x)
 
+let context_of_lang = function
+  | Ppx_common.Svg -> Some (`Fragment "svg")
+  | Html -> None
+
 (** Given the payload of a [%html5 ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup
     contained therein. *)
-let markup_to_expr ?context loc expr =
+let markup_to_expr lang loc expr =
+  let context = context_of_lang lang in
 
   let input_stream, adjust_location = ast_to_stream expr in
 
@@ -271,22 +276,16 @@ let markup_to_expr ?context loc expr =
 
   Ppx_common.list loc @@ assemble Ppx_common.Html []
 
-let context_of_lang = function
-  | None -> None
-  | Some Ppx_common.Svg -> Some (`Fragment "svg")
-  | Some Html -> None
-
 let markup_to_expr_with_implementation lang modname loc expr =
-  let context = context_of_lang lang in
-  match lang, modname with
-  | Some lang, Some modname ->
+  match modname with
+  | Some modname ->
     let current_modname = Ppx_common.implementation lang in
     Ppx_common.set_implementation lang modname ;
-    let res = markup_to_expr ?context loc expr in
+    let res = markup_to_expr lang loc expr in
     Ppx_common.set_implementation lang current_modname ;
     res
   | _ ->
-    markup_to_expr ?context loc expr
+    markup_to_expr lang loc expr
 
 
 let is_capitalized s =
@@ -313,10 +312,10 @@ let dispatch_ext {txt ; loc} =
   match l with
   | "html5" :: l
   | "tyxml" :: "html5" :: l ->
-    Some (Some Ppx_common.Html, get_modname ~loc len l)
+    Some (Ppx_common.Html, get_modname ~loc len l)
   | "svg" :: l
   | "tyxml" :: "svg" :: l ->
-    Some (Some Ppx_common.Svg, get_modname ~loc len l)
+    Some (Ppx_common.Svg, get_modname ~loc len l)
   | _ -> None
 
 open Ast_mapper
