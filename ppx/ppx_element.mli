@@ -23,7 +23,7 @@ val parse :
   loc:Location.t ->
   name:Markup.name ->
   attributes:(Markup.name * Ppx_attribute_value.value) list ->
-  Parsetree.expression list ->
+  Parsetree.expression Ppx_common.value list ->
   Parsetree.expression
 (** [parse ~loc ~name ~attributes children] evaluates to a parse tree for applying
     the TyXML function corresponding to element [name] to suitable arguments

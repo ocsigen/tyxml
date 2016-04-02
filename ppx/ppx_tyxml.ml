@@ -140,7 +140,7 @@ let make_text ~loc ~lang ss =
   let push_pcdata buf l =
     let s = Buffer.contents buf in
     Buffer.clear buf ;
-    if s = "" then l else make_pcdata ~loc ~lang s :: l
+    if s = "" then l else Ppx_common.value (make_pcdata ~loc ~lang s) :: l
   in
   let rec aux ~loc res = function
     | [] -> push_pcdata buf res
@@ -149,7 +149,7 @@ let make_text ~loc ~lang ss =
         aux ~loc res t
     | `Delim g :: t ->
       let e = Antiquot.get loc @@ Re.get g 0 in
-      aux ~loc (e :: push_pcdata buf res) t
+      aux ~loc (Ppx_common.antiquot e :: push_pcdata buf res) t
   in
   aux ~loc [] @@ Re.split_full Antiquot.re_id @@ String.concat "" ss
 
@@ -265,16 +265,16 @@ let markup_to_expr lang loc expr =
       Antiquot.assert_no_antiquot ~loc "element" name ;
       let attributes = List.map (replace_attribute ~loc) attributes in
       let node = Ppx_element.parse ~loc ~name ~attributes sub_children in
-      assemble lang (node :: children)
+      assemble lang (Ppx_common.Val node :: children)
 
     | Some (`Comment s) ->
-      [Ppx_element.comment ~loc ~lang s]
+      [Ppx_common.value @@ Ppx_element.comment ~loc ~lang s]
 
     | Some (`Xml _ | `Doctype _ | `PI _)  ->
       assemble lang children
   in
 
-  Ppx_common.list loc @@ assemble Ppx_common.Html []
+  Ppx_common.list_wrap_value lang loc @@ assemble lang []
 
 let markup_to_expr_with_implementation lang modname loc expr =
   match modname with

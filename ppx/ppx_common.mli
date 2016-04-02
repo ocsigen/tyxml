@@ -46,5 +46,19 @@ val wrap :
 (** [wrap_exp implementation loc e] creates a parse tree for
     [implementation.Xml.W.return e]. *)
 
+type 'a value =
+  | Val of 'a
+  | Antiquot of Parsetree.expression
+
+val map_value : ('a -> 'b) -> 'a value -> 'b value
+val value : 'a -> 'a value
+val antiquot : Parsetree.expression -> _ value
+
+val wrap_value :
+  lang -> Location.t -> Parsetree.expression value -> Parsetree.expression
+val list_wrap_value :
+  lang -> Location.t -> Parsetree.expression value list -> Parsetree.expression
+
+
 val error : Location.t -> ('b, unit, string, 'a) format4 -> 'b
 (** Raises an error using compiler module [Location]. *)

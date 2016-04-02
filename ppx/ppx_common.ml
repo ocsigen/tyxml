@@ -63,15 +63,30 @@ let float loc = with_loc loc Ast_convenience.float
 
 let string loc = with_loc loc Ast_convenience.str
 
-let list_gen cons nil l =
-  (l |> List.rev |> List.fold_left cons nil)
+type 'a value =
+  | Val of 'a
+  | Antiquot of Parsetree.expression
 
-let list loc =
+let value x = Val x
+let antiquot e = Antiquot e
+let map_value f = function
+  | Val x -> Val (f x)
+  | Antiquot x -> Antiquot x
+
+let list_gen cons append nil l =
+  let f acc = function
+    | Val x -> cons acc x
+    | Antiquot e -> append acc e
+  in
+  (l |> List.rev |> List.fold_left f nil)
+
+let list loc l =
   let nil = [%expr []][@metaloc loc] in
   let cons acc x = [%expr [%e x]::[%e acc]][@metaloc loc] in
-  list_gen cons nil
+  let append acc x = [%expr [%e x]@[%e acc]][@metaloc loc] in
+  list_gen cons append nil @@ List.map (fun x -> Val x) l
 
-let list_wrap lang loc =
+let list_wrap_value lang loc =
   let nil =
     [%expr
       [%e make ~loc lang "Xml.W.nil"]
@@ -80,9 +95,20 @@ let list_wrap lang loc =
   let cons acc x =
     [%expr [%e make ~loc lang "Xml.W.cons"] [%e x] [%e acc]][@metaloc loc]
   in
-  list_gen cons nil
+  let append acc x =
+    [%expr [%e make ~loc lang "Xml.W.append"] [%e x] [%e acc]][@metaloc loc]
+  in
+  list_gen cons append nil
+
+let list_wrap lang loc l =
+  list_wrap_value lang loc @@ List.map (fun x -> Val x) l
+
 
 let wrap implementation loc e =
   [%expr
     [%e make ~loc implementation "Xml.W.return"]
     [%e e]] [@metaloc loc]
+
+let wrap_value lang loc = function
+  | Val x -> wrap lang loc x
+  | Antiquot e -> e
