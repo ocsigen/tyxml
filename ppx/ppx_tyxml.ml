@@ -40,18 +40,26 @@ module Loc = struct
     in
     shift loc.Location.loc_start delimiter_length
 
+  (** 0-width locations do not show in the toplevel. We expand them to
+      one-width.
+  *)
+  let one_width ?(ghost=false) pos =
+    { Location.loc_ghost = ghost ;
+      loc_start = pos ;
+      loc_end = shift pos 1
+    }
+
   (** Converts a Markup.ml input location into an OCaml location. [loc] is the
       start of the OCaml location of the string being parsed by Markup.ml.
       [consumed] is the number of bytes consumed by Markup.ml before the
       beginning of the current string.
       [(line, column)] is the Markup.ml location to be converted. *)
   let adjust loc consumed (line, column) =
-    let open Location in
     let open Lexing in
 
     let column =
-      if line <> 1 then column
-      else loc.pos_cnum - loc.pos_bol + column - consumed
+      if line <> 1 then column - 1
+      else loc.pos_cnum - loc.pos_bol + column - 1 - consumed
     in
     let line = loc.pos_lnum + line - 1 in
 
@@ -62,9 +70,7 @@ module Loc = struct
        pos_cnum  = column};
     in
 
-    {loc_start = position;
-     loc_end = position;
-     loc_ghost = false}
+    one_width position
 
 end
 
