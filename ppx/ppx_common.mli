@@ -62,5 +62,4 @@ val list_wrap_value :
   lang -> Location.t -> Parsetree.expression value list -> Parsetree.expression
 
 
-val error : Location.t -> ('b, unit, string, 'a) format4 -> 'b
-(** Raises an error using compiler module [Location]. *)
+val error : Location.t -> ('b, Format.formatter, unit, 'a) format4 -> 'b

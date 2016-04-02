@@ -127,7 +127,7 @@ let figure ~lang ~loc ~name children =
   | [] -> star ~lang ~loc ~name children
   | first::others ->
     if is_element_with_name (html "figcaption") first then
-      ("figcaption",
+      (Pc.Label.labelled "figcaption",
        [%expr `Top [%e Pc.wrap_value lang loc first]])::
           (star ~lang ~loc ~name others)
     else
@@ -135,7 +135,7 @@ let figure ~lang ~loc ~name children =
       let last = List.hd children_reversed in
       if is_element_with_name (html "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
-        ("figcaption",
+        (Pc.Label.labelled "figcaption",
          [%expr `Bottom [%e Pc.wrap_value lang loc last]])::
             (star ~lang ~loc ~name others)
       else
@@ -146,7 +146,8 @@ let object_ ~lang ~loc ~name children =
   let params, others = partition (html "param") children in
 
   if params <> [] then
-    ("params", Pc.list_wrap_value lang loc params) :: star ~lang ~loc ~name others
+    (Pc.Label.labelled "params", Pc.list_wrap_value lang loc params) ::
+    star ~lang ~loc ~name others
   else
     star ~lang ~loc ~name others
 
@@ -154,7 +155,8 @@ let audio_video ~lang ~loc ~name children =
   let sources, others = partition (html "source") children in
 
   if sources <> [] then
-    ("srcs", Pc.list_wrap_value lang loc sources) :: star ~lang ~loc ~name others
+    (Pc.Label.labelled "srcs", Pc.list_wrap_value lang loc sources) ::
+    star ~lang ~loc ~name others
   else
     star ~lang ~loc ~name others
 
@@ -166,13 +168,13 @@ let table ~lang ~loc ~name children =
 
   let one label = function
     | [] -> []
-    | [child] -> [label, Pc.wrap_value lang loc child]
+    | [child] -> [Pc.Label.labelled label, Pc.wrap_value lang loc child]
     | _ -> Pc.error loc "%s cannot have more than one %s" name label
   in
 
   let columns =
     if columns = [] then []
-    else ["columns", Pc.list_wrap_value lang loc columns]
+    else [Pc.Label.labelled "columns", Pc.list_wrap_value lang loc columns]
   in
 
   (one "caption" caption) @
@@ -187,7 +189,7 @@ let fieldset ~lang ~loc ~name children =
   match legend with
   | [] -> star ~lang ~loc ~name others
   | [legend] ->
-    ("legend", Pc.wrap_value lang loc legend)::
+    (Pc.Label.labelled "legend", Pc.wrap_value lang loc legend)::
       (star ~lang ~loc ~name others)
   | _ -> Pc.error loc "%s cannot have more than one legend" name
 
@@ -197,11 +199,11 @@ let datalist ~lang ~loc ~name children =
   let children =
     begin match others with
     | [] ->
-      "children",
+      Pc.Label.labelled "children",
       [%expr `Options [%e Pc.list_wrap_value lang loc options]]
 
     | _ ->
-      "children",
+      Pc.Label.labelled "children",
       [%expr `Phras [%e Pc.list_wrap_value lang loc children]]
     end [@metaloc loc]
   in
@@ -219,7 +221,7 @@ let details ~lang ~loc ~name children =
 
 let menu ~lang ~loc ~name children =
   let children =
-    "child",
+    Pc.Label.labelled "child",
     [%expr `Flows [%e Pc.list_wrap_value lang loc children]]
       [@metaloc loc]
   in

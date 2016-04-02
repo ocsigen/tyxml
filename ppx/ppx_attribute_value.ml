@@ -172,7 +172,7 @@ let char ?separated_by:_ ?default:_ loc name s =
   | Some _ -> Ppx_common.error loc "Multiple characters in attribute %s" name
   end;
 
-  Some (Exp.constant ~loc (Const_char c))
+  Some (with_default_loc loc @@ fun () -> Ast_convenience.char c)
 
 let onoff ?separated_by:_ ?default:_ loc name s =
   let b = match s with
@@ -417,7 +417,7 @@ let transform =
 (* String-like. *)
 
 let string ?separated_by:_ ?default:_ loc _ s =
-  Some (Exp.constant ~loc (Const_string (s, None)))
+  Some (with_default_loc loc @@ fun () -> Ast_convenience.str s)
 
 let variand s =
   let without_backtick s =

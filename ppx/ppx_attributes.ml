@@ -65,7 +65,7 @@ let parse loc (ns, element_name) attributes =
         | Some e -> e
       in
 
-      (label, e)::labeled, regular
+      (Ppx_common.Label.labelled label, e)::labeled, regular
 
     | None ->
       (* The attribute is not individually labeled, so it is passed in ~a.
@@ -135,5 +135,8 @@ let parse loc (ns, element_name) attributes =
      for a list, and prefix that with the ~a label. *)
   if regular = [] then List.rev labeled
   else
-    let regular = "a", Ppx_common.list loc (List.rev regular) in
+    let regular =
+      Ppx_common.Label.labelled "a",
+      Ppx_common.list loc (List.rev regular)
+    in
     List.rev (regular::labeled)
