@@ -172,7 +172,7 @@ Executable ppx_reflect
 
 Executable emit_big
   Install: false
-  Build$: flag(tests)
+  Build$: flag(tests) && flag(ppx)
   Path: test
   MainIs: emitbig.ml
   BuildDepends: tyxml, unix
@@ -180,7 +180,7 @@ Executable emit_big
 
 Executable main_test
   Install: false
-  Build$: flag(tests)
+  Build$: flag(tests) && flag(ppx)
   Path: test
   MainIs: main_test.ml
   BuildDepends: tyxml, alcotest
@@ -188,12 +188,12 @@ Executable main_test
 Test html
   Command: $main_test
   TestTools: main_test
-  Run$: flag(tests)
+  Run$: flag(tests) && flag(ppx)
 
 Test html_fail
   Command: ocamlbuild test/html_fail.stamp
   TestTools: main_test
-  Run$: flag(tests)
+  Run$: flag(tests) && flag(ppx)
 
 ## Examples
 
