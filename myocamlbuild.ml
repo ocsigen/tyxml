@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
  * 02111-1307, USA.
 *)
-
+[@@@ocaml.warning "-3"]
 (* OASIS_START *)
 (* OASIS_STOP *)
 # 26 "myocamlbuild.ml"
