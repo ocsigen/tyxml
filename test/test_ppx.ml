@@ -51,6 +51,27 @@ let basics = "ppx basics", tyxml_tests Html5.[
   [[%html5 "foo"]],
   [pcdata "foo"] ;
 
+
+]
+
+let ns_nesting = "namespace nesting" , tyxml_tests Html5.[
+
+  "html/svg",
+  [[%html5 "<svg><g></g></svg>"]],
+  [svg [Svg.g []]] ;
+
+  "nested svg",
+  [[%html5 "<div><svg><g></g></svg></div>"]],
+  [div [svg [Svg.g []]]] ;
+
+  "with_neighbour",
+  [[%html5 "<div><span></span><svg><g></g></svg>foo</div>"]],
+  [div [span [] ; svg [Svg.g []] ; pcdata "foo" ]] ;
+
+  "ambiguous tag",
+  [[%html5 "<svg><a></a></svg>"]],
+  [svg [Svg.a []]] ;
+
 ]
 
 let elt1 = Html5.(span [pcdata "one"])
@@ -91,5 +112,6 @@ let antiquot = "ppx antiquot", tyxml_tests Html5.[
 
 let tests = [
   basics ;
+  ns_nesting ;
   antiquot ;
 ]
