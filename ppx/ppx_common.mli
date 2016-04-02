@@ -30,6 +30,8 @@ val lang : lang -> string
 val implementation : lang -> string
 val set_implementation : lang -> string -> unit
 
+val make_lid :
+  loc:Location.t -> lang -> string -> Longident.t Location.loc
 val make :
   loc:Location.t -> lang -> string -> Parsetree.expression
 

@@ -41,9 +41,13 @@ let lang = function
   | Html -> "HTML"
   | Svg -> "SVG"
 
+let make_lid ~loc i s =
+  Location.mkloc
+    (Longident.parse @@ implementation i ^ "." ^ s)
+    loc
+
 let make ~loc i s =
-  let lid = Longident.parse @@ implementation i ^ "." ^ s in
-  Exp.ident ~loc @@ Location.mkloc lid loc
+  Exp.ident ~loc @@ make_lid ~loc i s
 
 (** Generic *)
 
@@ -62,6 +66,18 @@ let int loc = with_loc loc Ast_convenience.int
 let float loc = with_loc loc Ast_convenience.float
 
 let string loc = with_loc loc Ast_convenience.str
+
+let add_constraints ~list lang e =
+  let loc = {e.Parsetree.pexp_loc with loc_ghost = true} in
+  let elt = make_lid ~loc lang "elt" in
+  let wrap =
+    if list then make_lid ~loc lang "list_wrap"
+    else make_lid ~loc lang "wrap"
+  in
+  let ty =
+    Typ.(constr ~loc wrap [ constr ~loc elt [any ~loc ()]])
+  in
+  Exp.constraint_ ~loc e ty
 
 type 'a value =
   | Val of 'a
@@ -96,7 +112,10 @@ let list_wrap_value lang loc =
     [%expr [%e make ~loc lang "Xml.W.cons"] [%e x] [%e acc]][@metaloc loc]
   in
   let append acc x =
-    [%expr [%e make ~loc lang "Xml.W.append"] [%e x] [%e acc]][@metaloc loc]
+    [%expr
+      [%e make ~loc lang "Xml.W.append"]
+        [%e add_constraints ~list:true lang x] [%e acc]
+    ][@metaloc loc]
   in
   list_gen cons append nil
 
@@ -111,4 +130,4 @@ let wrap implementation loc e =
 
 let wrap_value lang loc = function
   | Val x -> wrap lang loc x
-  | Antiquot e -> e
+  | Antiquot e -> add_constraints ~list:false lang e
