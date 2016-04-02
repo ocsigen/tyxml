@@ -1,8 +1,10 @@
 export ALCOTEST_SHOW_ERRORS=true
 
 opam pin add --no-action tyxml .
-opam install camlp4
 opam install -t --deps-only tyxml
+opam install --verbose tyxml
+opam remove --verbose tyxml
+opam install camlp4 markup ppx_tools
 opam install -t --verbose tyxml
 
 do_build_doc () {
