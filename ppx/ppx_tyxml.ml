@@ -25,6 +25,12 @@ module Loc = struct
 
   let shift (pos:Lexing.position) x = {pos with pos_cnum = pos.pos_cnum + x}
 
+  let shrink {Location. loc_start ; loc_end ; loc_ghost } ~xbegin ~xend =
+    { Location.loc_ghost ;
+      loc_start = shift loc_start xbegin ;
+      loc_end = shift loc_end xend ;
+    }
+
   (** Returns the real (OCaml) location of a string, taking delimiters into
       account. *)
   let string_start delimiter loc =
@@ -281,23 +287,28 @@ let is_capitalized s =
     | 'A'..'Z' -> true
     | _ -> false
 
-let get_modname ~loc l =
+(** Extract and verify the modname in the annotation [%html5.Bar.Baz .. ].
+    We need to fiddle with length to provide a correct location. *)
+let get_modname ~loc len l =
+  let s = String.concat "." l in
+  let loc = Loc.shrink loc ~xbegin:(len - String.length s) ~xend:0 in
   if l = [] then None
   else if not (List.for_all is_capitalized l) then
     Ppx_common.error loc
       "This identifier is not a module name."
-  else Some (String.concat "." l)
+  else Some s
 
 let re_dot = Re.(compile @@ char '.')
 let dispatch_ext {txt ; loc} =
   let l = Re.split re_dot txt in
+  let len = String.length txt in
   match l with
   | "html5" :: l
   | "tyxml" :: "html5" :: l ->
-    Some (Some Ppx_common.Html, get_modname ~loc l)
+    Some (Some Ppx_common.Html, get_modname ~loc len l)
   | "svg" :: l
   | "tyxml" :: "svg" :: l ->
-    Some (Some Ppx_common.Svg, get_modname ~loc l)
+    Some (Some Ppx_common.Svg, get_modname ~loc len l)
   | _ -> None
 
 open Ast_mapper
