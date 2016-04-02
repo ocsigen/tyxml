@@ -258,13 +258,16 @@ let markup_to_expr lang loc expr =
       assemble lang (node @ children)
 
     | Some (`Start_element (name, attributes)) ->
-      let lang = Ppx_namespace.to_lang loc @@ fst name in
+      let newlang = Ppx_namespace.to_lang loc @@ fst name in
       let loc = get_loc () in
 
-      let sub_children = assemble lang [] in
+      let sub_children = assemble newlang [] in
       Antiquot.assert_no_antiquot ~loc "element" name ;
       let attributes = List.map (replace_attribute ~loc) attributes in
-      let node = Ppx_element.parse ~loc ~name ~attributes sub_children in
+      let node =
+        Ppx_element.parse
+          ~parent_lang:lang ~loc ~name ~attributes sub_children
+      in
       assemble lang (Ppx_common.Val node :: children)
 
     | Some (`Comment s) ->
