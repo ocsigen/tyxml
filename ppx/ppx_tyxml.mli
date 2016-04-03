@@ -17,7 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Internal functions to build tyxml's ppx. *)
+(** TyXML ppx library.
+
+    This is the documentation for the internal ppx library.
+    {% Documentation for the ppx itself is available
+    <<a_manual chapter="ppx"|here>>. %}
+*)
 
 val markup_to_expr :
   ?context:[ `Document | `Fragment of string ] ->

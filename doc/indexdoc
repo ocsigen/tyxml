@@ -26,8 +26,15 @@ Xml
 Html5_f
 Svg_f
 Xml_sigs
+Xml_wrap
 Xml_iter
 Xml_print
+}
+
+{1 Ppx library}
+
+{!modules:
+Ppx_tyxml
 }
 
 {1 Camlp4 Syntax extension and parser}

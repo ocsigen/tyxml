@@ -1,0 +1,83 @@
+= TyXML Ppx syntax extension =
+
+TyXML provides a ppx to allow writing Html5 and Svg documents
+in the standard syntax while still enjoying the benefits and type-safety of TyXML.
+For the ppx to be available, you need to install ##markup## and ##ppx_tools##.
+<<code|
+opam install markup ppx_tools tyxml
+>>
+
+==@@id="syntax"@@ Syntax ==
+
+The ppx provides two quotations, ##html5## and ##svg## (and two aliases, ##tyxml.html5## and ##tyxml.svg##).
+
+<<code lanuage="ocaml"|
+let content = [%html5{|<div id="content">some content</div>|}]
+val content : [> Html5_types.div ] Html5.elt
+>>
+
+<<code lanuage="ocaml"|
+let svgpath = [%svg{|<path d="M 0 1 L 1 0"></path>|}]
+val svgpath : [> Svg_types.path ] Svg.elt
+>>
+
+The quotations will use the {{{Html5}}} and {{{Svg}}} module that are available in scope. To use another module name, you can qualify the quotation:
+
+<<code lanuage="ocaml"|
+let content = [%html5.F {|<div id="content">some content</div>|}]
+val content : [> Html5_types.div ] F.elt
+>>
+
+A quotation containing multiple elements will automatically produce a list of elements:
+
+<<code lanuage="ocaml"|
+let my_text = [%html5
+  {|This is an <b>Html</b> formated <i>content</i>.|}]
+val my_text : [> `B | `I | `PCDATA ] Html5.elt list
+>>
+
+The produced elements can be used inside usual TyXML combinators:
+<<code language="ocaml"|
+let my_span = Html5.(span ~a:[a_class ["mytext"]] my_text)
+val my_span : [> Html5_types.span ] Html5.elt
+>>
+
+It is also possible to use tyxml elements inside quotations using #antiquotations#:
+
+<<code language="ocaml"|
+let my_paragraphs =
+  [%html5 "<p>"[my_span]"</p><p>more content</p>"]
+val my_paragraphs : [> Html5_types.p ] Html5.elt list
+>>
+
+Note here that since ##p## expects a list of children (it's a  <<a_api text="star"|val Html5_sigs.T.star>> element), the antiquotation must be of type list, hence the use of ##[##, ##]##.
+
+It is also possible to use antiquotations for attributes.
+<<code language="ocaml"|
+let my_id = "thediv"
+let my_div = [%html5 "<div id="my_id"></div>"]
+val my_div : [> Html5_types.div ] Html5.elt
+>>
+
+==@@id="notes"@@ Notes
+
+=== Locations ===
+
+Due to the code transformations done by the ppx, proper locations are difficult to provide.
+Please report examples of badly located code on [[https://github.com/ocsigen/tyxml/issues|the bug tracker]].
+
+=== Composability ===
+
+Due to various reasons, some ##Html## can not be composed properly using the ppx. For example, this will result in an error:
+
+<<code language="ocaml"|
+let my_title = [%html5 "<title>The title</title>"]
+let my_head = [%html5 "<head>"my_title"</head>"]
+>>
+
+You can, however, inline the title element inside the head element:
+
+<<code language="ocaml"|
+let my_title = [%html5 "The title"]
+let my_head = [%html5 "<head><title>"my_title"</title></head>"]
+>>
