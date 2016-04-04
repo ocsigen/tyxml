@@ -183,7 +183,7 @@ module type Pp = sig
 (** [pp ()] is a {!Format} printer for untyped XML.
 
     It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.sprintf "%a" (pp ()) my_xml]}
+    {[let s = Format.asprintf "%a" (pp ()) my_xml]}
 *)
   val pp:
     ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
@@ -201,7 +201,7 @@ module type Typed_pp = sig
 (** [pp ()] is a {!Format} printer for complete documents.
 
     It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.sprintf "%a" (pp ()) my_document]}
+    {[let s = Format.asprintf "%a" (pp ()) my_document]}
 *)
   val pp:
     ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit

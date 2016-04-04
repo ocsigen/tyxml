@@ -31,7 +31,7 @@ include Html5_sigs.Make(Xml)(Svg).T
 (** [pp ()] is a {!Format} printer for Html5 documents.
 
     It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.sprintf "%a" (Html5.pp ()) my_svg]}
+    {[let s = Format.asprintf "%a" (Html5.pp ()) my_svg]}
 *)
 val pp:
   ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit

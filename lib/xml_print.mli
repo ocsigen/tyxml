@@ -52,8 +52,8 @@ val encode_unsafe_char_and_at : string -> string
 
 Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, this modules is used as following:
   {[
-    let encode x = fst (Utf8.normalize_html x) in
-    Printf.printf "%a" (Html5.pp ~encode ()) document
+    let encode x = fst (Xml_print.Utf8.normalize_html x) in
+    Format.printf "%a" (Html5.pp ~encode ()) document
   ]} *)
 module Utf8 : sig
 
