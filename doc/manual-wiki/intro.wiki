@@ -63,10 +63,10 @@ let mycontent =
   ]
 >>
 
-Naturally, {{{div}}} accepts several children. In TyXML vocabulary, this is a <<a_api text="star"|val Html5_sigs.T.star>> constructor.
+Naturally, {{{div}}} accepts several children. In TyXML vocabulary, this is a <<a_api text="star"|type Html5_sigs.T.star>> constructor.
 There are also
-<<a_api text="unary"|val Html5_sigs.T.unary>> and
-<<a_api text="nullary"|val Html5_sigs.T.nullary>> constructors,
+<<a_api text="unary"|type Html5_sigs.T.unary>> and
+<<a_api text="nullary"|type Html5_sigs.T.nullary>> constructors,
 which accepts respectively one and zero child.
 
 <<a_api text="title"|val Html5_sigs.T.title>> is an example of {{{unary}}}
