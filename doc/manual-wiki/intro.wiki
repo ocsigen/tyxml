@@ -30,6 +30,7 @@ The documentation for TyXML combinators is provided in <<a_api|module Html5_sigs
 The first thing to understand about TyXML is that for most intents and purposes, it is exactly like Html. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|Html reference]] is still very useful. For each Html elements or attributes, there is a combinator implementing it. The main differences are that you can use OCaml to manipulate the elements and that invalid Html produces a type error.
 
 In this tutorial, we will build the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website|Mini website]].
+If you prefer the native Html syntax, you can also use the <<a_manual chapter="ppx"|ppx syntax extension>> and consult the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website_ppx|ppx mini website]].
 
 Let us start by building the content of our website. For text, we use the {{{pcdata}}} constructor. In traditional Web fashion, we put everything in a ##div##.
 <<code language="ocaml"|
@@ -62,10 +63,10 @@ let mycontent =
   ]
 >>
 
-Naturally, {{{div}}} accepts several children. In TyXML vocabulary, this is a <<a_api text="star"|val Html5_sigs.T.star>> constructor.
+Naturally, {{{div}}} accepts several children. In TyXML vocabulary, this is a <<a_api text="star"|type Html5_sigs.T.star>> constructor.
 There are also
-<<a_api text="unary"|val Html5_sigs.T.unary>> and
-<<a_api text="nullary"|val Html5_sigs.T.nullary>> constructors,
+<<a_api text="unary"|type Html5_sigs.T.unary>> and
+<<a_api text="nullary"|type Html5_sigs.T.nullary>> constructors,
 which accepts respectively one and zero child.
 
 <<a_api text="title"|val Html5_sigs.T.title>> is an example of {{{unary}}}
