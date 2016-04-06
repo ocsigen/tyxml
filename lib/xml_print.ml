@@ -48,16 +48,39 @@ let encode_unsafe_char_and_at s =
   Buffer.contents b
 
 let compose_decl ?(version = "1.0") ?(encoding = "UTF-8") () =
-  "<?xml version=\"" ^ version ^ "\" encoding=\"" ^ encoding ^ "\"?>\n"
+  Format.sprintf
+    {|<?xml version="%s" encoding="%s"?>\n|}
+    version encoding
 
 let compose_doctype dt args =
-  "<!DOCTYPE " ^ dt
-  ^ (if args = []
-     then ""
-     else
-       " PUBLIC " ^
-       String.concat " " (List.map (fun a -> "\"" ^ a ^ "\"") args)) ^ ">"
+  let pp_args fmt = function
+    | [] -> ()
+    | l ->
+      Format.fprintf fmt " PUBLIC %a"
+        (Format.pp_print_list ~pp_sep:Format.pp_print_space
+           (fun fmt -> Format.fprintf fmt "%S"))
+        l
+  in
+  Format.asprintf
+    "<!DOCTYPE %s%a>"
+    dt
+    pp_args args
 
+let re_end_comment = Re.(compile @@ alt [
+  seq [ bos ; str ">" ] ;
+  seq [ bos ; str "->" ] ;
+  str "-->" ;
+  str "--!>" ;
+])
+let escape_comment s =
+  let f g = match Re.Group.get g 0 with
+    | ">" -> "&gt;"
+    | "->" -> "-&gt;"
+    | "-->" -> "--&gt;"
+    | "--!>" -> "--!&gt;"
+    | s -> s
+  in
+  Re.replace ~all:true re_end_comment ~f s
 
 (* copied form js_of_ocaml: compiler/javascript.ml *)
 let pp_number fmt v =
@@ -177,16 +200,6 @@ module type TagList = sig val emptytags : string list end
 
 let pp_noop _fmt _ = ()
 
-(* Present only in ocaml >= 4.02 *)
-let rec pp_print_list ~pp_sep pp_v ppf = function
-  | [] -> ()
-  | [v] -> pp_v ppf v
-  | v :: vs ->
-    pp_v ppf v;
-    pp_sep ppf ();
-    pp_print_list ~pp_sep pp_v ppf vs
-
-
 module Make_fmt
     (Xml : Xml_sigs.Iterable)
     (I : TagList) =
@@ -213,14 +226,14 @@ struct
     | AStr s -> Format.fprintf fmt "%S" (encode s)
     | AStrL (sep, slist) ->
       Format.fprintf fmt "\"%a\""
-        (pp_print_list ~pp_sep:(pp_sep sep) (pp_encode encode)) slist
+        (Format.pp_print_list ~pp_sep:(pp_sep sep) (pp_encode encode)) slist
 
   let pp_attrib encode fmt a =
     Format.fprintf fmt
       " %s=%a" (aname a) (pp_attrib_value encode) a
 
   let pp_attribs encode =
-    pp_print_list ~pp_sep:pp_noop (pp_attrib encode)
+    Format.pp_print_list ~pp_sep:pp_noop (pp_attrib encode)
 
   let pp_closedtag encode fmt tag attrs =
     if is_emptytag tag then
@@ -240,13 +253,13 @@ struct
 
   and pp_elt encode fmt elt = match content elt with
     | Comment texte ->
-      Format.fprintf fmt "<!--%a-->" (pp_encode encode) texte
+      Format.fprintf fmt "<!--%s-->" (escape_comment texte)
 
     | Entity e ->
       Format.fprintf fmt "&%s;" e
 
     | PCDATA texte ->
-      Format.pp_print_string fmt (encode texte)
+      pp_encode encode fmt texte
 
     | EncodedPCDATA texte ->
       Format.pp_print_string fmt texte
@@ -260,7 +273,7 @@ struct
     | Empty -> ()
 
   and pp_elts encode =
-    pp_print_list ~pp_sep:pp_noop (pp_elt encode)
+    Format.pp_print_list ~pp_sep:pp_noop (pp_elt encode)
 
   let pp ?(encode=encode_unsafe_char) () =
     pp_elt encode
