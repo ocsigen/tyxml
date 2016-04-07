@@ -17,12 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Html signatures for the functorial interface. *)
+(** HTML signatures for the functorial interface. *)
 
-(** Signature of typesafe constructors for HTML5 documents. *)
+(** Signature of typesafe constructors for HTML documents. *)
 module type T = sig
 
-  (** Html elements.
+  (** HTML elements.
 
       Element constructors are in section {{!elements}elements}. Most elements constructors
       are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
@@ -35,7 +35,7 @@ module type T = sig
       [<div><a>foo</a></div>]
 
       The type variable ['a] is used to track the element's type. This
-      allows the OCaml typechecker to check Html validity.
+      allows the OCaml typechecker to check HTML validity.
 
       For example, [div []] is of type [[> `Div] elt].
       The {{!span}span} function only accepts children of type
@@ -47,10 +47,10 @@ module type T = sig
   *)
   type +'a elt
 
-  (** A complete Html document. *)
+  (** A complete HTML document. *)
   type doc = [ `Html ] elt
 
-  (** Html attributes
+  (** HTML attributes
 
       Attribute constructors are in section {{!attributes}attributes} and their name starts
       with [a_]. Attributes are given to elements with the [~a] optional argument.
@@ -60,7 +60,7 @@ module type T = sig
       [<a href="ocsigen.org">link!</a>]
 
       Similarly to {{!elt}elt}, attributes use the OCaml type system to enforce
-      Html validity.
+      HTML validity.
 
       For example {!a_href} returns a value of type [[> `Href] attrib].
       The {{!div}div} function only accepts attributes of type
@@ -114,10 +114,10 @@ module type T = sig
   type ('a, 'b, 'c) star =
     ?a:('a attrib list) -> 'b elt list_wrap -> 'c elt
 
-  (** Associated Svg module, for the {!svg} combinator. *)
+  (** Associated SVG module, for the {!svg} combinator. *)
   module Svg : Svg_sigs.T with module Xml := Xml
 
-  (** Various information about Html, such as the doctype, ... *)
+  (** Various information about HTML, such as the doctype, ... *)
   module Info : Xml_sigs.Info
 
   open Html_types
@@ -1032,7 +1032,7 @@ module type T = sig
   (** Unsafe features.
 
       Using this module can break
-      HTML5 validity and may introduce security problems like
+      HTML validity and may introduce security problems like
       code injection.
       Use it with care.
   *)
@@ -1042,14 +1042,14 @@ module type T = sig
     val data : string wrap -> 'a elt
 
     (** Insert an XML node that is not implemented in this module.
-        If it is a standard HTML5 node which is missing,
+        If it is a standard HTML node which is missing,
         please report to the Ocsigen team.
     *)
     val node : string -> ?a:'a attrib list -> 'b elt list_wrap -> 'c elt
 
     (** Insert an XML node without children
         that is not implemented in this module.
-        If it is a standard HTML5 node which is missing,
+        If it is a standard HTML node which is missing,
         please report to the Ocsigen team.
     *)
     val leaf : string -> ?a:'a attrib list -> unit -> 'b elt
@@ -1060,7 +1060,7 @@ module type T = sig
     val coerce_elt : 'a elt -> 'b elt
 
     (** Insert an attribute that is not implemented in this module.
-        If it is a standard HTML5 attribute which is missing,
+        If it is a standard HTML attribute which is missing,
         please report to the Ocsigen team.
     *)
     val string_attrib : string -> string wrap -> 'a attrib

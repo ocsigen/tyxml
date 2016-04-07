@@ -1,5 +1,5 @@
 
-(** Syntax extension for HTML5 or SVG tree creation. *)
+(** Syntax extension for HTML or SVG tree creation. *)
 
 (**
 
@@ -17,7 +17,7 @@ For example, the following code:
 ]}
 is a caml value of type {v Html_types.html Html.elt v}.
 
-In the following, [Html] is assumed to be an HTML5 implementation, such as
+In the following, [Html] is assumed to be an HTML implementation, such as
 {!Tyxml.Html}, but this could for example also be Eliom's [Eliom_content.Html.F].
 
 To compile a module containing this syntax, you need the camlp4 preprocessor:

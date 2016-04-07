@@ -19,12 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Typesafe constructors for HTML5 documents (Functorial interface)
+(** Typesafe constructors for HTML documents (Functorial interface)
 
     {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %}
 *)
 
-(** Create a new implementation of [Html], using the given underlying [Xml]
+(** Create a new implementation of [HTML], using the given underlying [Xml]
     and [Svg] implementation. Will output a module of type {!Html_sigs.T} with
     the various type equalities.
 

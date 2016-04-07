@@ -17,12 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Svg signatures for the functorial interface. *)
+(** SVG signatures for the functorial interface. *)
 
-(** Signature of typesafe constructors for Svg documents. *)
+(** Signature of typesafe constructors for SVG documents. *)
 module type T = sig
 
-  (** Svg elements.
+  (** SVG elements.
 
       Element constructors are in section {!elements}. Most elements constructors
       are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
@@ -31,17 +31,17 @@ module type T = sig
       {{!pcdata}pcdata} is used for text.
 
       The type variable ['a] is used to track the element's type. This
-      allows the OCaml typechecker to check Svg validity.
+      allows the OCaml typechecker to check SVG validity.
 
       Note that the concrete implementation of this type can vary.
       See {!Xml} for details.
   *)
   type +'a elt
 
-  (** A complete Svg document. *)
+  (** A complete SVG document. *)
   type doc = [ `Svg ] elt
 
-  (** Svg attributes
+  (** SVG attributes
 
       Attribute constructors are in section {!attributes} and their name starts
       with [a_]. Attributes are given to elements with the [~a] optional argument.
@@ -95,7 +95,7 @@ module type T = sig
   type ('a, 'b, 'c) star =
     ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
 
-  (** Various information about Svg, such as the doctype, ... *)
+  (** Various information about SVG, such as the doctype, ... *)
   module Info : Xml_sigs.Info
 
   (** {3 Uri} *)
@@ -889,7 +889,7 @@ module type T = sig
   (** Unsafe features.
 
       Using this module can break
-      Svg validity and may introduce security problems like
+      SVG validity and may introduce security problems like
       code injection.
       Use it with care.
   *)

@@ -1,6 +1,6 @@
 = TyXML Ppx syntax extension =
 
-TyXML provides a ppx to allow writing Html and Svg documents
+TyXML provides a ppx to allow writing HTML and SVG documents
 in the standard syntax while still enjoying the benefits and type-safety of TyXML.
 For the ppx to be available, you need to install ##markup## and ##ppx_tools##.
 <<code|
@@ -68,7 +68,7 @@ Please report examples of badly located code on [[https://github.com/ocsigen/tyx
 
 === Composability ===
 
-Due to various reasons, some ##Html## can not be composed properly using the ppx. For example, this will result in an error:
+Due to various reasons, some ##HTML## can not be composed properly using the ppx. For example, this will result in an error:
 
 <<code language="ocaml"|
 let my_title = [%html "<title>The title</title>"]

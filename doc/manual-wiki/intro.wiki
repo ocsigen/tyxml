@@ -1,6 +1,6 @@
 = TyXML =
 
-Tyxml is a library to build statically correct Html and Svg documents.
+Tyxml is a library to build statically correct HTML and SVG documents.
 
 <<code language="ocaml"|
 let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
@@ -27,10 +27,10 @@ For standalone use, examples are available in the [[https://github.com/ocsigen/t
 
 The documentation for TyXML combinators is provided in <<a_api|module Html_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html}}} and {{{Svg}}}.
 
-The first thing to understand about TyXML is that for most intents and purposes, it is exactly like Html. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|Html reference]] is still very useful. For each Html elements or attributes, there is a combinator implementing it. The main differences are that you can use OCaml to manipulate the elements and that invalid Html produces a type error.
+The first thing to understand about TyXML is that for most intents and purposes, it is exactly like HTML. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|HTML reference]] is still very useful. For each HTML elements or attributes, there is a combinator implementing it. The main differences are that you can use OCaml to manipulate the elements and that invalid HTML produces a type error.
 
 In this tutorial, we will build the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website|Mini website]].
-If you prefer the native Html syntax, you can also use the <<a_manual chapter="ppx"|ppx syntax extension>> and consult the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website_ppx|ppx mini website]].
+If you prefer the native HTML syntax, you can also use the <<a_manual chapter="ppx"|ppx syntax extension>> and consult the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website_ppx|ppx mini website]].
 
 Let us start by building the content of our website. For text, we use the {{{pcdata}}} constructor. In traditional Web fashion, we put everything in a ##div##.
 <<code language="ocaml"|
@@ -41,7 +41,7 @@ let mycontent =
 >>
 
 The variable ##mycontent## is of type {{{[> `Div] Html.elt}}}.
-As we can see, the fact that this is a ##div## is reflected in the type. Html elements are of type <<a_api text="elt"|type Html_sigs.T.elt>> and have a combinator of the same name, except when it's a reserved keyword (such as {{{object_}}}).
+As we can see, the fact that this is a ##div## is reflected in the type. HTML elements are of type <<a_api text="elt"|type Html_sigs.T.elt>> and have a combinator of the same name, except when it's a reserved keyword (such as {{{object_}}}).
 
 Our content is fabulous, but for the sake of CSS styling (and still in true Web fashion) we want to add a ##class## to it.
 <<code language="ocaml"|

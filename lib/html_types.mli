@@ -26,9 +26,9 @@
    SC *)
 
 
-(** HTML5 types with variants, goes with {!Html_sigs.T}.
+(** HTML types with variants, goes with {!Html_sigs.T}.
 
-    @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
+    @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML at W3C.
 *)
 
 
@@ -336,7 +336,7 @@ type events =
 (** Common attributes *)
 type common = [ | core | i18n | events ]
 
-(** {1 Categories of HTML5 elements}
+(** {1 Categories of HTML elements}
 
     These category are mainly subdivised in
     - interactive,
@@ -1092,7 +1092,7 @@ type flow5_without_sectioning_heading_header_footer_address =
   ]
 
 (*
-  Type for HTML5 for elements
+  Type for HTML for elements
 *)
 type pcdata = [ | `PCDATA ]
 
