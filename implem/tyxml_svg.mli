@@ -32,7 +32,7 @@ include Svg_sigs.Make(Tyxml_xml).T
 (** [pp ()] is a {!Format} printer for Svg documents.
 
     It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.asprintf "%a" (Svg.pp ()) my_svg]}
+    {[let s = Format.asprintf "%a" (Tyxml.Svg.pp ()) my_svg]}
 *)
 val pp:
   ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
@@ -42,7 +42,7 @@ val pp_elt :
   ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
 (** Parametrized stream printer for Svg documents.
-    @deprecated Use {!Svg.pp} instead.
+    @deprecated Use {!pp} instead.
 *)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out

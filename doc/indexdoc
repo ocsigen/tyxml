@@ -1,8 +1,7 @@
 {1 TyXML }
 
 {!modules:
-Html5
-Svg
+Tyxml
 }
 
 {2 Types and signatures}
@@ -12,12 +11,6 @@ Html5_sigs
 Html5_types
 Svg_sigs
 Svg_types
-}
-
-{2 Low-level XML manipulation}
-
-{!modules:
-Xml
 }
 
 {1 TyXML Functors }

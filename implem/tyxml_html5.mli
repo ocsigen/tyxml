@@ -32,7 +32,7 @@ include Html5_sigs.Make(Tyxml_xml)(Tyxml_svg).T
 (** [pp ()] is a {!Format} printer for Html5 documents.
 
     It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.asprintf "%a" (Html5.pp ()) my_svg]}
+    {[let s = Format.asprintf "%a" (Tyxml.Html5.pp ()) my_html]}
 *)
 val pp:
   ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
@@ -42,7 +42,7 @@ val pp_elt :
   ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
 (** Parametrized stream printer for Html5 documents.
-    @deprecated Use {!Html5.pp} instead.
+    @deprecated Use {!pp} instead.
 *)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out

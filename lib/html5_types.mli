@@ -20,7 +20,7 @@
 *)
 
 (* _fun prefix are the types that must be used
-   in Html5.M. They are more restrictive as
+   in Html5_sigs. They are more restrictive as
    some param are already taken as seperate argument,
    to ensure better compatibility.
    SC *)

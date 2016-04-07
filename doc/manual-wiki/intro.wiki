@@ -11,7 +11,7 @@ let to_ocaml = Html5.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 === Standalone Use ===
 
 To use TyXML in standalone manner, simply link the ##tyxml## ocamlfind package
-and use the <<a_api|module Html5>> and <<a_api|module Svg>> modules.
+and open <<a_api|module Tyxml>>.
 
 === Use with another library ===
 
@@ -115,7 +115,7 @@ let mypage =
 
 If you are using <<a_manual project="eliom" chapter="clientserver-html"|Eliom>>
 or <<a_api project="js_of_ocaml" text="Js_of_ocaml"|module Tyxml_js>>,
-this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, <<a_api|val Html5.pp>>, that we can use to print files:
+this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, <<a_api|val Tyxml.Html5.pp>>, that we can use to print files:
 
 <<code language="ocaml"|
 let () =
