@@ -7,10 +7,10 @@ let _svg_pp = Tyxml.Svg.pp () ;;
 let _svg_pp_elt fmt x = Tyxml.Svg.pp_elt () fmt x ;;
 #install_printer _svg_pp_elt ;;
 
-let _html5_pp = Tyxml.Html5.pp () ;;
-#install_printer _html5_pp ;;
-let _html5_pp_elt fmt x = Tyxml.Html5.pp_elt () fmt x ;;
-#install_printer _html5_pp_elt ;;
+let _html_pp = Tyxml.Html.pp () ;;
+#install_printer _html_pp ;;
+let _html_pp_elt fmt x = Tyxml.Html.pp_elt () fmt x ;;
+#install_printer _html_pp_elt ;;
 |}
 
 let eval_string

@@ -8,8 +8,11 @@
 
 (** Typesafe constructors and printers for HTML documents.
 
-    @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
-module Html5 = Tyxml_html5
+    @see <http://www.w3.org/TR/html/> W3C Recommendation *)
+module Html = Tyxml_html
+
+module Html5 = Tyxml_html
+  [@@ocaml.deprecated "Use Tyxml.Html"]
 
 (** Typesafe constructors and printers for Svg documents.
 

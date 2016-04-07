@@ -42,7 +42,7 @@ Library tyxml
   Modules:
     Tyxml_xml,
     Tyxml_svg,
-    Tyxml_html5,
+    Tyxml_html,
     Tyxml
   BuildDepends: tyxml.functor, re, uutf
   XMETAExtraLines:
