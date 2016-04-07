@@ -29,19 +29,19 @@ or
 ocamlc -pp "camlp4o -I <path/to/tyxml> pa_tyxml.cmo" -c your_module.ml
 ]}
 
-You can insert OCaml expressions of type {v 'a Html.M.elt v} inside html using {v $...$ v}, like this:
+You can insert OCaml expressions of type {v 'a Html.elt v} inside html using {v $...$ v}, like this:
 {[
 let oc = << <em>Ocsigen</em> >> in
 << <p>$oc$ will revolutionize web programming.</p> >>
 ]}
-You can insert OCaml expressions of type string inside html using {v $str:... $ v}, like this:
+You can insert OCaml expressions of type string inside HTML using {v $str:... $ v}, like this:
 {[
 let i = 4 in
 << <p>i is equal to $str:string_of_int i$</p> >>
 ]}
 If you want to use a dollar in your page, just write it twice.
 
-You can write a list of html expressions using the syntax {v <:htmllist<...>> v}, for example:
+You can write a list of HTML expressions using the syntax {v <:htmllist<...>> v}, for example:
 {[
 <:htmllist< <p>hello</p> <div></div> >>
 ]}
