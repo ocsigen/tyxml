@@ -315,6 +315,12 @@ module type T = sig
   val a_input_min : float_number wrap -> [> | `Input_Min] attrib
     [@@reflect.attribute "min" ["input"]]
 
+  val a_inputmode :
+    [< `Verbatim | `Latin | `Latin_name | `Latin_prose | `Full_width_latin
+    | `Kana | `Katakana | `Numeric | `Tel | `Email | `Url ] wrap ->
+    [> `Inputmode] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes> Input HTML documentation. *)
+
   val a_novalidate : [> | `Novalidate] attrib
 
   val a_open : [> | `Open] attrib

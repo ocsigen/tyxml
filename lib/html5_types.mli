@@ -2001,6 +2001,7 @@ type input_attrib =
     | `Input_Type
     | `Value
     | `Width
+    | `Inputmode
   ]
 
 type textarea = [ | `Textarea ]
@@ -2278,6 +2279,17 @@ type big_variant =
   | `No
   | `Yes
   | `Defer
+  | `Verbatim
+  | `Latin
+  | `Latin_name
+  | `Latin_prose
+  | `Full_width_latin
+  | `Kana
+  | `Katakana
+  | `Numeric
+  | `Tel
+  | `Email
+  | `Url
   ]
 
 type sandbox_token =

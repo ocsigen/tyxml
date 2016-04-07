@@ -340,6 +340,9 @@ struct
 
   let a_input_min = float_attrib "min"
 
+  let a_inputmode x =
+    user_attrib C.string_of_big_variant "inputmode" x
+
   let a_novalidate =
     constant_attrib "novalidate"
 
@@ -963,6 +966,17 @@ struct
     | `Sidebar -> "sidebar"
     | `Tag -> "tag"
     | `Up -> "up"
+    | `Verbatim -> "verbatim"
+    | `Latin -> "latin"
+    | `Latin_name -> "latin-name"
+    | `Latin_prose -> "latin-prose"
+    | `Full_width_latin -> "full-width-latin"
+    | `Kana -> "kana"
+    | `Katakana -> "katakana"
+    | `Numeric -> "numeric"
+    | `Tel -> "tel"
+    | `Email -> "email"
+    | `Url -> "url"
     | `Other s -> s
 
   let string_of_input_type = function
