@@ -157,7 +157,7 @@ struct
   let a_onwaiting = Xml.event_handler_attrib "onwaiting"
   let a_onload = Xml.event_handler_attrib "onload"
   let a_onloadeddata = Xml.event_handler_attrib "onloadeddata"
-  let a_onloadedmetadata = Xml.event_handler_attrib ""
+  let a_onloadedmetadata = Xml.event_handler_attrib "onloadedmetadata"
   let a_onloadstart = Xml.event_handler_attrib "onloadstart"
   let a_onmessage = Xml.event_handler_attrib "onmessage"
   let a_onmousewheel = Xml.event_handler_attrib "onmousewheel"
@@ -227,9 +227,11 @@ struct
 
   let a_width p = int_attrib "width" p
 
-  let a_for = string_attrib "for"
+  let a_label_for = string_attrib "for"
+  let a_for = a_label_for
 
-  let a_for_list = space_sep_attrib "for"
+  let a_output_for = space_sep_attrib "for"
+  let a_for_list = a_output_for
 
   let a_selected =
     constant_attrib "selected"
@@ -246,6 +248,8 @@ struct
 
   let a_method x =
     user_attrib C.string_of_big_variant "method" x
+
+  let a_formmethod = a_method
 
   let a_enctype = string_attrib "enctype"
 
@@ -304,8 +308,6 @@ struct
 
   let a_formenctype = string_attrib "formenctype"
 
-  let a_formmethod = a_method
-
   let a_formnovalidate =
     constant_attrib "formnovalidate"
 
@@ -337,6 +339,9 @@ struct
   let a_min = float_attrib "min"
 
   let a_input_min = float_attrib "min"
+
+  let a_inputmode x =
+    user_attrib C.string_of_big_variant "inputmode" x
 
   let a_novalidate =
     constant_attrib "novalidate"
@@ -961,6 +966,17 @@ struct
     | `Sidebar -> "sidebar"
     | `Tag -> "tag"
     | `Up -> "up"
+    | `Verbatim -> "verbatim"
+    | `Latin -> "latin"
+    | `Latin_name -> "latin-name"
+    | `Latin_prose -> "latin-prose"
+    | `Full_width_latin -> "full-width-latin"
+    | `Kana -> "kana"
+    | `Katakana -> "katakana"
+    | `Numeric -> "numeric"
+    | `Tel -> "tel"
+    | `Email -> "email"
+    | `Url -> "url"
     | `Other s -> s
 
   let string_of_input_type = function

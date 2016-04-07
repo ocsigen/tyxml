@@ -283,9 +283,6 @@ module type T = sig
 
   val a_formenctype : contenttype wrap -> [> | `Formenctype] attrib
 
-  val a_formmethod :
-    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Formmethod] attrib
-
   val a_formnovalidate : [> | `Formnovalidate] attrib
 
   val a_formtarget : text wrap -> [> | `Formtarget] attrib
@@ -307,14 +304,22 @@ module type T = sig
   val a_low : float_number wrap -> [> | `High] attrib
 
   val a_max : float_number wrap -> [> | `Max] attrib
+    [@@reflect.attribute "min" ["meter"; "progress"]]
 
   val a_input_max : float_number wrap -> [> | `Input_Max] attrib
     [@@reflect.attribute "max" ["input"]]
 
   val a_min : float_number wrap -> [> | `Min] attrib
+    [@@reflect.attribute "min" ["meter"]]
 
   val a_input_min : float_number wrap -> [> | `Input_Min] attrib
     [@@reflect.attribute "min" ["input"]]
+
+  val a_inputmode :
+    [< `Verbatim | `Latin | `Latin_name | `Latin_prose | `Full_width_latin
+    | `Kana | `Katakana | `Numeric | `Tel | `Email | `Url ] wrap ->
+    [> `Inputmode] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes> Input HTML documentation. *)
 
   val a_novalidate : [> | `Novalidate] attrib
 
@@ -456,15 +461,29 @@ module type T = sig
 
   val a_enctype : contenttype wrap -> [> | `Enctype] attrib
 
-  val a_for : idref wrap -> [> | `For] attrib
+  val a_label_for : idref wrap -> [> | `Label_for] attrib
 
-  val a_for_list : idrefs wrap -> [> | `For_List] attrib
+  val a_for : idref wrap -> [> | `Label_for] attrib
+    [@@reflect.attribute "for" ["label"]]
+    [@@ocaml.deprecated "Use a_label_fo"]
+  (** @deprecated Use a_label_for *)
+
+  val a_output_for : idrefs wrap -> [> | `Output_for] attrib
+
+  val a_for_list : idrefs wrap -> [> | `Output_for] attrib
     [@@reflect.attribute "for" ["output"]]
+    [@@ocaml.deprecated "Use a_output_for"]
+  (** @deprecated Use a_output_for *)
 
   val a_maxlength : number wrap -> [> | `Maxlength] attrib
 
   val a_method :
     [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+
+  val a_formmethod :
+    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+    [@@ocaml.deprecated "Use a_method"]
+  (** @deprecated Use a_method *)
 
   val a_multiple : [> | `Multiple] attrib
 
@@ -521,7 +540,6 @@ module type T = sig
   val a_int_value : number wrap -> [> | `Int_Value] attrib
     [@@reflect.attribute "value" ["li"]]
 
-  (*VVV NO *)
   val a_value : cdata wrap -> [> | `Value] attrib
 
   val a_float_value : float_number wrap -> [> | `Float_Value] attrib
