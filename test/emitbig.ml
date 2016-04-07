@@ -2,6 +2,8 @@
    It creates fibonacci(22) nested divs.
 *)
 
+open Tyxml
+
 let rec unfold n =
   let l =
     if n = 1 then []

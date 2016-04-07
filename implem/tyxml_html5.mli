@@ -24,7 +24,7 @@
 (** Concrete implementation of Html5 typesafe constructors.
     See {!modtype:Html5_sigs.T}.
 *)
-include Html5_sigs.Make(Xml)(Svg).T
+include Html5_sigs.Make(Tyxml_xml)(Tyxml_svg).T
   with module Xml.W = Xml_wrap.NoWrap
 
 (** {2 Printers} *)

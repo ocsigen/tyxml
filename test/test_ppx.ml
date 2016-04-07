@@ -4,6 +4,8 @@
     html or svg should go to the other files.
 *)
 
+open Tyxml
+
 module TyTests = struct
   type t = Xml.elt list
   let pp fmt x =

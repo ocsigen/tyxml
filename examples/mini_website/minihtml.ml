@@ -1,4 +1,4 @@
-open Html5
+open Tyxml.Html5
 
 let mycontent =
   div ~a:[a_class ["content"]] [

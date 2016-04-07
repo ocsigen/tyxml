@@ -1,4 +1,4 @@
-open Html5
+open Tyxml.Html5
 
 let this_title = title (pcdata "Your Cool Web Page")
 

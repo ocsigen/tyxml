@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-module M = Html5_f.Make(Xml)(Svg)
-module P = Xml_print.Make_typed_fmt(Xml)(M)
-module Make_printer = Xml_print.Make_typed(Xml)(M)
+module M = Html5_f.Make(Tyxml_xml)(Tyxml_svg)
+module P = Xml_print.Make_typed_fmt(Tyxml_xml)(M)
+module Make_printer = Xml_print.Make_typed(Tyxml_xml)(M)
 
 include M
 include P

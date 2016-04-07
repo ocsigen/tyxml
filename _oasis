@@ -40,9 +40,10 @@ Library tyxml
   FindlibName: tyxml
   Path: implem
   Modules:
-    Xml,
-    Svg,
-    Html5
+    Tyxml_xml,
+    Tyxml_svg,
+    Tyxml_html5,
+    Tyxml
   BuildDepends: tyxml.functor, re, uutf
   XMETAExtraLines:
     archive(byte,toploop) += "tyxml_top.cma"

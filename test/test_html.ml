@@ -1,3 +1,4 @@
+open Tyxml
 
 let to_string = Format.asprintf "%a" (Html5.pp_elt ())
 

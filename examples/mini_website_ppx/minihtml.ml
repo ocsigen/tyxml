@@ -1,3 +1,4 @@
+open Tyxml
 
 let mycontent = [%html5 {|
   <div class="content">
