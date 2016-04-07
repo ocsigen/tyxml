@@ -25,6 +25,12 @@ module Loc = struct
 
   let shift (pos:Lexing.position) x = {pos with pos_cnum = pos.pos_cnum + x}
 
+  let shrink {Location. loc_start ; loc_end ; loc_ghost } ~xbegin ~xend =
+    { Location.loc_ghost ;
+      loc_start = shift loc_start xbegin ;
+      loc_end = shift loc_end xend ;
+    }
+
   (** Returns the real (OCaml) location of a string, taking delimiters into
       account. *)
   let string_start delimiter loc =
@@ -34,18 +40,26 @@ module Loc = struct
     in
     shift loc.Location.loc_start delimiter_length
 
+  (** 0-width locations do not show in the toplevel. We expand them to
+      one-width.
+  *)
+  let one_width ?(ghost=false) pos =
+    { Location.loc_ghost = ghost ;
+      loc_start = pos ;
+      loc_end = shift pos 1
+    }
+
   (** Converts a Markup.ml input location into an OCaml location. [loc] is the
       start of the OCaml location of the string being parsed by Markup.ml.
       [consumed] is the number of bytes consumed by Markup.ml before the
       beginning of the current string.
       [(line, column)] is the Markup.ml location to be converted. *)
   let adjust loc consumed (line, column) =
-    let open Location in
     let open Lexing in
 
     let column =
-      if line <> 1 then column
-      else loc.pos_cnum - loc.pos_bol + column - consumed
+      if line <> 1 then column - 1
+      else loc.pos_cnum - loc.pos_bol + column - 1 - consumed
     in
     let line = loc.pos_lnum + line - 1 in
 
@@ -56,9 +70,7 @@ module Loc = struct
        pos_cnum  = column};
     in
 
-    {loc_start = position;
-     loc_end = position;
-     loc_ghost = false}
+    one_width position
 
 end
 
@@ -116,17 +128,19 @@ end
 
 (** Building block to rebuild the output with expressions intertwined. *)
 
-let make_pcdata ~loc s =
-  [%expr pcdata [%e Ppx_common.string loc s]][@metaloc loc]
+let make_pcdata ~loc ~lang s =
+  let pcdata = Ppx_common.make ~loc lang "pcdata" in
+  Ast_helper.Exp.apply ~loc pcdata
+    [Ppx_common.Label.nolabel, Ppx_common.string loc s]
 
 (** Walk the text list to replace placeholders by OCaml expressions when
     appropriate. Use {!make_pcdata} on the rest. *)
-let make_text ~loc ss =
+let make_text ~loc ~lang ss =
   let buf = Buffer.create 17 in
   let push_pcdata buf l =
     let s = Buffer.contents buf in
     Buffer.clear buf ;
-    if s = "" then l else make_pcdata ~loc s :: l
+    if s = "" then l else Ppx_common.value (make_pcdata ~loc ~lang s) :: l
   in
   let rec aux ~loc res = function
     | [] -> push_pcdata buf res
@@ -135,15 +149,15 @@ let make_text ~loc ss =
         aux ~loc res t
     | `Delim g :: t ->
       let e = Antiquot.get loc @@ Re.get g 0 in
-      aux ~loc (e :: push_pcdata buf res) t
+      aux ~loc (Ppx_common.antiquot e :: push_pcdata buf res) t
   in
   aux ~loc [] @@ Re.split_full Antiquot.re_id @@ String.concat "" ss
 
 let replace_attribute ~loc (attr,value) =
   Antiquot.assert_no_antiquot ~loc "attribute" attr ;
   match Antiquot.contains loc value with
-  | `No -> (attr, `String value)
-  | `Whole e -> (attr, `Expr e)
+  | `No -> (attr, Ppx_common.value value)
+  | `Whole e -> (attr, Ppx_common.antiquot e)
   | `Yes _ ->
       Ppx_common.error loc
       "Mixing literals and OCaml expressions is not authorized in attribute values."
@@ -203,22 +217,20 @@ let ast_to_stream expr =
 
   Markup.fn next, (fun x -> !current_adjust_location x)
 
+let context_of_lang = function
+  | Ppx_common.Svg -> Some (`Fragment "svg")
+  | Html -> None
+
 (** Given the payload of a [%html5 ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup
     contained therein. *)
-let markup_to_expr ?context loc expr =
+let markup_to_expr lang loc expr =
+  let context = context_of_lang lang in
 
   let input_stream, adjust_location = ast_to_stream expr in
 
-  (* The encoding is specified as a workaround: when not specified, Markup.ml
-     prescans the input looking for byte-order marks or <meta> tags. We don't
-     want a prescan, because that will trigger premature insertion of literal
-     TyXML expressions into the initial, empty, child list, by the input stream,
-     before the expression assembler starts running. This is fragile and will be
-     fixed by merging TyXML expressions in the assembler instead of as now. *)
   let parser =
     Markup.parse_html
-      ~encoding:Markup.Encoding.utf_8
       ?context
       ~report:(fun loc error ->
         let loc = adjust_location loc in
@@ -235,44 +247,43 @@ let markup_to_expr ?context loc expr =
 
     | Some (`Text ss) ->
       let loc = get_loc () in
-      let node = make_text ~loc ss in
+      let node = make_text ~loc ~lang ss in
       assemble lang (node @ children)
 
     | Some (`Start_element (name, attributes)) ->
-      let lang = Ppx_namespace.to_lang loc @@ fst name in
+      let newlang = Ppx_namespace.to_lang loc @@ fst name in
       let loc = get_loc () in
 
-      let sub_children = assemble lang [] in
+      let sub_children = assemble newlang [] in
       Antiquot.assert_no_antiquot ~loc "element" name ;
       let attributes = List.map (replace_attribute ~loc) attributes in
-      let node = Ppx_element.parse ~loc ~name ~attributes sub_children in
-      assemble lang (node :: children)
+      let node =
+        Ppx_element.parse
+          ~parent_lang:lang ~loc ~name ~attributes sub_children
+      in
+      assemble lang (Ppx_common.Val node :: children)
 
     | Some (`Comment s) ->
-      [Ppx_element.comment ~loc ~lang s]
+      [Ppx_common.value @@ Ppx_element.comment ~loc ~lang s]
 
     | Some (`Xml _ | `Doctype _ | `PI _)  ->
       assemble lang children
   in
 
-  Ppx_common.list loc @@ assemble Ppx_common.Html []
-
-let context_of_lang = function
-  | None -> None
-  | Some Ppx_common.Svg -> Some (`Fragment "svg")
-  | Some Html -> Some (`Fragment "html")
+  match assemble lang [] with
+  | [ Val x | Antiquot x ] -> x
+  | l -> Ppx_common.list_wrap_value lang loc l
 
 let markup_to_expr_with_implementation lang modname loc expr =
-  let context = context_of_lang lang in
-  match lang, modname with
-  | Some lang, Some modname ->
+  match modname with
+  | Some modname ->
     let current_modname = Ppx_common.implementation lang in
     Ppx_common.set_implementation lang modname ;
-    let res = markup_to_expr ?context loc expr in
+    let res = markup_to_expr lang loc expr in
     Ppx_common.set_implementation lang current_modname ;
     res
   | _ ->
-    markup_to_expr ?context loc expr
+    markup_to_expr lang loc expr
 
 
 let is_capitalized s =
@@ -281,28 +292,28 @@ let is_capitalized s =
     | 'A'..'Z' -> true
     | _ -> false
 
-let get_modname ~loc l =
+(** Extract and verify the modname in the annotation [%html5.Bar.Baz .. ].
+    We need to fiddle with length to provide a correct location. *)
+let get_modname ~loc len l =
+  let s = String.concat "." l in
+  let loc = Loc.shrink loc ~xbegin:(len - String.length s) ~xend:0 in
   if l = [] then None
   else if not (List.for_all is_capitalized l) then
     Ppx_common.error loc
       "This identifier is not a module name."
-  else Some (String.concat "." l)
+  else Some s
 
 let re_dot = Re.(compile @@ char '.')
 let dispatch_ext {txt ; loc} =
   let l = Re.split re_dot txt in
+  let len = String.length txt in
   match l with
   | "html5" :: l
   | "tyxml" :: "html5" :: l ->
-    Some (Some Ppx_common.Html, get_modname ~loc l)
+    Some (Ppx_common.Html, get_modname ~loc len l)
   | "svg" :: l
   | "tyxml" :: "svg" :: l ->
-    Some (Some Ppx_common.Svg, get_modname ~loc l)
-  | "tyxml" :: []
-    -> Some (None, None)
-  | "tyxml" :: (_ :: _) ->
-    Ppx_common.error loc
-      "Module names are only accepted for html5 and svg quotations."
+    Some (Ppx_common.Svg, get_modname ~loc len l)
   | _ -> None
 
 open Ast_mapper

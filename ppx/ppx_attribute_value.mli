@@ -20,19 +20,11 @@
 (** Attribute value parsers and parser combinators. *)
 
 
-type value = [
-  | `String of string
-  | `Expr of Parsetree.expression
-]
-(** Values are either an OCaml expression, provided through an antiquotations
-    or a string parser from a literal.
-*)
-
 type 'a gparser =
   ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
-  Parsetree.expression option
-and parser = string gparser
-and vparser = value gparser
+    Parsetree.expression option
+type parser = string gparser
+type vparser = string Ppx_common.value gparser
 (** Attribute value parsers are assigned to each attribute depending on the type
     of the attribute's argument, though some attributes have special parsers
     based on their name, or on a [[@@reflect]] annotation. A parser is a

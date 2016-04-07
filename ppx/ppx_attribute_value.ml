@@ -19,26 +19,22 @@
 
 open Asttypes
 open Ast_helper
-
-type value = [
-  | `String of string
-  | `Expr of Parsetree.expression
-]
+module Pc = Ppx_common
 
 type 'a gparser =
   ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
     Parsetree.expression option
 
 type parser = string gparser
-type vparser = value gparser
+type vparser = string Pc.value gparser
 
 (* Handle expr *)
 
 let expr (parser : parser) : vparser =
   fun ?separated_by ?default loc name v ->
     match v with
-    | `Expr e -> Some e
-    | `String s -> parser ?separated_by ?default loc name s
+    | Antiquot e -> Some e
+    | Val s -> parser ?separated_by ?default loc name s
 
 (* Options. *)
 

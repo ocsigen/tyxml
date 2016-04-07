@@ -226,6 +226,20 @@ Test mini_website
   TestTools: mini_website
   Run$: flag(tests)
 
+Executable mini_website_ppx
+  Install: false
+  Build$: flag(tests) && flag(tests)
+  Path: examples/mini_website_ppx
+  MainIs: minihtml.ml
+  BuildDepends: tyxml
+  CompiledObject: best
+
+Test mini_website_ppx
+  WorkingDirectory: examples/mini_website_ppx
+  Command: $mini_website
+  TestTools: mini_website
+  Run$: flag(tests) && flag(tests)
+
 ## Documentation
 
 Document "tyxml-api"

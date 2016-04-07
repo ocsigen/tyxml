@@ -22,7 +22,7 @@
 
 
 val parse :
-  Location.t -> Markup.name -> (Markup.name * Ppx_attribute_value.value) list ->
+  Location.t -> Markup.name -> (Markup.name * string Ppx_common.value) list ->
     (Asttypes.label * Parsetree.expression) list
 (** [parse loc element_name attributes] evaluates to a list of labeled parse
     trees, each representing an attribute argument to the element function for

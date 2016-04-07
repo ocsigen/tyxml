@@ -17,10 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-let parse ~loc ~name:((ns, name) as element_name) ~attributes children =
+let parse
+    ~loc ~parent_lang
+    ~name:((ns, name) as element_name) ~attributes children =
 
   let attributes = Ppx_attributes.parse loc element_name attributes in
   let lang, (module Reflected) = Ppx_namespace.reflect loc ns in
+
+  let lang = match parent_lang, lang with
+    | Ppx_common.Html, Svg -> Ppx_common.Html
+    | Html, Html | Svg, Svg -> lang
+    | Svg, Html ->
+      Ppx_common.error loc
+        "Nesting of Html element inside svg element is not authorized."
+  in
 
   let name =
     try List.assoc name Reflected.renamed_elements

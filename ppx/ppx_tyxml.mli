@@ -25,7 +25,7 @@
 *)
 
 val markup_to_expr :
-  ?context:[ `Document | `Fragment of string ] ->
+  Ppx_common.lang ->
   Location.t -> Parsetree.expression -> Parsetree.expression
 (** Given the payload of a [%html5 ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup
