@@ -561,18 +561,12 @@ module type T = sig
 
   val a_border : pixels wrap -> [> | `Border] attrib
 
-  val a_cellpadding : length wrap -> [> | `Cellpadding] attrib
-
-  val a_cellspacing : length wrap -> [> | `Cellspacing] attrib
-
   val a_datapagesize : cdata wrap -> [> | `Datapagesize] attrib
 
   val a_rules :
     [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
 
   val a_char : character wrap -> [> | `Char] attrib
-
-  val a_charoff : length wrap -> [> | `Charoff] attrib
 
   val a_alt : text wrap -> [> | `Alt] attrib
 
@@ -1121,9 +1115,6 @@ module type Wrapped_functions = sig
 
   val string_of_mediadesc :
     ([< Html5_types.mediadesc_token] list, string) Xml.W.ft
-
-  val string_of_multilength :
-    ([< Html5_types.multilength], string) Xml.W.ft
 
   val string_of_numbers : (Html5_types.numbers, string) Xml.W.ft
 

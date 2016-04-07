@@ -93,11 +93,6 @@ type languagecode = string
 (** A language code, as per RFC5646/BCP47.
     @see <http://tools.ietf.org/html/rfc5646> RFC5646 *)
 
-type length = [ | `Pixels of int | `Percent of int ]
-(** The value may be either in pixels or a percentage of the available
-    horizontal or vertical space. Thus, the value [`Percent 50] means half of
-    the available space. *)
-
 type linktype =
   [
     | `Alternate
@@ -223,19 +218,6 @@ type mediadesc = mediadesc_token list
         For more complex (untyped) media descriptors.}}
 
 *)
-
-type multilength = [ | length | `Relative of int ]
-(** The value may be a Length or a relative length. A relative length
-        has the form ["i*"], where ["i"] is an integer. When allotting space
-        among elements competing for that space, user agents allot pixel
-        and percentage lengths first, then divide up remaining available
-        space among relative lengths. Each relative length receives a
-        portion of the available space that is proportional to the integer
-        preceding the ["*"]. The value ["*"] is equivalent to ["1*"]. Thus, if
-        60 pixels of space are available after the user agent allots pixel
-        and percentage space, and the competing relative lengths are ["1*"],
-        ["2*"], and ["3*"], the ["1*"] will be allotted 10 pixels, the ["2*"] will be
-        allotted 20 pixels, and the ["3*"] will be allotted 30 pixels. *)
 
 type number = int
 
