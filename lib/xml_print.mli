@@ -21,7 +21,7 @@
 (** Printing utilities.
 
     This module contains various encoding functions that can be used
-    with {!Html.pp} and {!Svg.pp}.
+    with {!Tyxml.Html.pp} and {!Tyxml.Svg.pp}.
 
     It also contains functors to create printers for your own XML data structure.
 
@@ -50,7 +50,7 @@ val encode_unsafe_char_and_at : string -> string
 
 (** Utf8 normalizer and encoder for HTML.
 
-Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, this modules is used as following:
+Given a module [pp] functions produced by one of the functors in {!Xml_print}, this modules is used as following:
   {[
     let encode x = fst (Xml_print.Utf8.normalize_html x) in
     Format.printf "%a" (Html.pp ~encode ()) document

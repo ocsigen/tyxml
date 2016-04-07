@@ -11,28 +11,28 @@ opam install markup ppx_tools tyxml
 
 The ppx provides two quotations, ##html5## and ##svg## (and two aliases, ##tyxml.html5## and ##tyxml.svg##).
 
-<<code lanuage="ocaml"|
-let content = [%html{|<div id="content">some content</div>|}]
-val content : [> Html_types.div ] Html.elt
->>
+<<code language="ocaml"|
+open Tyxml ;;
 
-<<code lanuage="ocaml"|
-let svgpath = [%svg{|<path d="M 0 1 L 1 0"></path>|}]
+let content = [%html{|<div id="content">some content</div>|}] ;;
+val content : [> Html_types.div ] Html.elt
+
+let svgpath = [%svg{|<path d="M 0 1 L 1 0"></path>|}] ;;
 val svgpath : [> Svg_types.path ] Svg.elt
 >>
 
 The quotations will use the {{{Html}}} and {{{Svg}}} module that are available in scope. To use another module name, you can qualify the quotation:
 
-<<code lanuage="ocaml"|
-let content = [%html.F {|<div id="content">some content</div>|}
+<<code language="ocaml"|
+let content = [%html.F {|<div id="content">some content</div>|}]
 val content : [> Html_types.div ] F.elt
 >>
 
 A quotation containing multiple elements will automatically produce a list of elements:
 
-<<code lanuage="ocaml"|
+<<code language="ocaml"|
 let my_text = [%html
-  {|This is an <b>Html</b> formated <i>content</i>.|}]
+  {|This is an <b>HTML</b> formated <i>content</i>.|}]
 val my_text : [> `B | `I | `PCDATA ] Html.elt list
 >>
 
