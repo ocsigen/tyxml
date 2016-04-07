@@ -1981,7 +1981,7 @@ type input_attrib =
     | `Form
     | `Formation
     | `Formenctype
-    | `Formmethod
+    | `Method
     | `Formnovalidate
     | `Formtarget
     | `Height
@@ -2040,7 +2040,7 @@ type button_attrib =
     | `Form
     | `Formaction
     | `Formenctype
-    | `Formmethod
+    | `Method
     | `Formnovalidate
     | `Formtarget
     | `Name

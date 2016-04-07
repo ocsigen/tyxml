@@ -283,9 +283,6 @@ module type T = sig
 
   val a_formenctype : contenttype wrap -> [> | `Formenctype] attrib
 
-  val a_formmethod :
-    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Formmethod] attrib
-
   val a_formnovalidate : [> | `Formnovalidate] attrib
 
   val a_formtarget : text wrap -> [> | `Formtarget] attrib
@@ -476,6 +473,11 @@ module type T = sig
 
   val a_method :
     [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+
+  val a_formmethod :
+    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+    [@@ocaml.deprecated "Use a_method"]
+  (** @deprecated Use a_method *)
 
   val a_multiple : [> | `Multiple] attrib
 

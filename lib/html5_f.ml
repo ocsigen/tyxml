@@ -249,6 +249,8 @@ struct
   let a_method x =
     user_attrib C.string_of_big_variant "method" x
 
+  let a_formmethod = a_method
+
   let a_enctype = string_attrib "enctype"
 
   let a_checked =
@@ -305,8 +307,6 @@ struct
   let a_formaction = uri_attrib "formaction"
 
   let a_formenctype = string_attrib "formenctype"
-
-  let a_formmethod = a_method
 
   let a_formnovalidate =
     constant_attrib "formnovalidate"
