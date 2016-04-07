@@ -52,9 +52,9 @@ Library tyxml_f
     Svg_sigs,
     Svg_types,
     Svg_f,
-    Html5_sigs,
-    Html5_types,
-    Html5_f
+    Html_sigs,
+    Html_types,
+    Html_f
   BuildDepends: uutf, re
 
 Library tyxml_top
