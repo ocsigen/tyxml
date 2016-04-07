@@ -83,19 +83,6 @@ let star ~lang ~loc ~name:_ children =
 
 (* Special-cased. *)
 
-let html ~lang ~loc ~name children =
-  let children = filter_whitespace children in
-  let head, others = partition (html "head") children in
-  let body, others = partition (html "body") others in
-
-  match head, body, others with
-  | [head], [body], [] ->
-    [Pc.Label.nolabel, Pc.wrap_value lang loc head;
-     Pc.Label.nolabel, Pc.wrap_value lang loc body]
-  | _ ->
-    Pc.error loc
-      "%s element must have exactly head and body child elements" name
-
 let head ~lang ~loc ~name children =
   let title, others = partition (html "title") children in
 
@@ -208,3 +195,16 @@ let menu ~lang ~loc ~name children =
       [@metaloc loc]
   in
   children::(nullary ~lang ~loc ~name [])
+
+let html ~lang ~loc ~name children =
+  let children = filter_whitespace children in
+  let head, others = partition (html "head") children in
+  let body, others = partition (html "body") others in
+
+  match head, body, others with
+  | [head], [body], [] ->
+    [Pc.Label.nolabel, Pc.wrap_value lang loc head;
+     Pc.Label.nolabel, Pc.wrap_value lang loc body]
+  | _ ->
+    Pc.error loc
+      "%s element must have exactly head and body child elements" name
