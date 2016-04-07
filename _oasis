@@ -16,17 +16,7 @@ Plugins: META (0.3), DevFiles (0.3)
 BuildTools: ocamlbuild
 AlphaFeatures: pure_interface
 
-Synopsis: HTML5 pages typed with polymorphic variants
-Description:
-   HTML typing based on Thorsten Ohl's XHTML.M library to validate
-   xml tree at compile-time, adapted to support HTML5 and SVG.
-
-   The implementation uses a XML module for generating well
-   formed---but not necessarily valid with respect to some DTD---XML
-   documents.  The elements of type XML.elt and attributes of type
-   XML.attrib are then hidden behind polymorphic phantom types type 'a
-   elt = XML.elt and type 'a attrib = XML.attrib with 'a set to
-   appropriate polymorphic variants.
+Synopsis: Statically correct HTML and SVG documents
 
 Flag syntax
   Description: Build the camlp4 syntax extension.
@@ -52,7 +42,7 @@ Library tyxml_f
   FindlibName: functor
   FindlibParent: tyxml
   XMETADescription:
-    HTML5 pages typed with polymorphic variants (Functor version)
+    Statically correct HTML and SVG documents (Functor version)
   Path: lib
   Modules:
     Xml_iter,
@@ -75,7 +65,7 @@ Library tyxml_top
   Modules: Tyxml_top
   XMETARequires: tyxml
   XMETADescription:
-    Toplevel printers for Html, Svg and Xml
+    Toplevel printers for HTML, SVG and XML
 
 Library tyxml_tools
   FindlibName: tools
@@ -96,7 +86,7 @@ Library pa_tyxml
   FindlibParent: tyxml
   XMETAType: syntax
   XMETADescription:
-    HTML5 and SVG syntax extension
+    HTML and SVG syntax extension
   XMETAExtraLines: requires(toploop) = "tyxml"
   Path: syntax
   BuildDepends:
@@ -133,7 +123,7 @@ Library ppx
   InternalModules: Ppx_tyxml_empty
   Path: ppx
   XMETADescription:
-    HTML5 and SVG syntax extension (ppx)
+    HTML and SVG syntax extension (ppx)
   XMETARequires: tyxml
   XMETAExtraLines: ppx = "ppx_tyxml"
 
@@ -150,7 +140,7 @@ Library ppx_internal
     Html5_types_reflected, Svg_types_reflected
   Modules: Ppx_tyxml
   XMETADescription:
-    HTML5 and SVG ppx library
+    HTML and SVG ppx library
   BuildDepends:
     re.str, ppx_tools.metaquot, markup, tyxml.tools
 
