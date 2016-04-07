@@ -3,7 +3,7 @@
 
 (**
 
-To choose actual XML-implementation you have to provide a module named [Html5]
+To choose actual XML-implementation you have to provide a module named [Html]
 (or [Svg]):
 
 For example, the following code:
@@ -15,10 +15,10 @@ For example, the following code:
    </html> >>
 )
 ]}
-is a caml value of type {v Html5_types.html Html5.elt v}.
+is a caml value of type {v Html_types.html Html.elt v}.
 
-In the following, [Html5] is assumed to be an HTML5 implementation, such as
-{!Tyxml.Html5}, but this could for example also be Eliom's [Eliom_content.Html5.F].
+In the following, [Html] is assumed to be an HTML5 implementation, such as
+{!Tyxml.Html}, but this could for example also be Eliom's [Eliom_content.Html.F].
 
 To compile a module containing this syntax, you need the camlp4 preprocessor:
 {[
@@ -29,7 +29,7 @@ or
 ocamlc -pp "camlp4o -I <path/to/tyxml> pa_tyxml.cmo" -c your_module.ml
 ]}
 
-You can insert OCaml expressions of type {v 'a Html5.M.elt v} inside html using {v $...$ v}, like this:
+You can insert OCaml expressions of type {v 'a Html.M.elt v} inside html using {v $...$ v}, like this:
 {[
 let oc = << <em>Ocsigen</em> >> in
 << <p>$oc$ will revolutionize web programming.</p> >>
@@ -41,9 +41,9 @@ let i = 4 in
 ]}
 If you want to use a dollar in your page, just write it twice.
 
-You can write a list of html5 expressions using the syntax {v <:html5list<...>> v}, for example:
+You can write a list of html expressions using the syntax {v <:htmllist<...>> v}, for example:
 {[
-<:html5list< <p>hello</p> <div></div> >>
+<:htmllist< <p>hello</p> <div></div> >>
 ]}
 
 Here are some other examples showing what you can do:

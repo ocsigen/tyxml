@@ -21,7 +21,7 @@
 (** Printing utilities.
 
     This module contains various encoding functions that can be used
-    with {!Html5.pp} and {!Svg.pp}.
+    with {!Html.pp} and {!Svg.pp}.
 
     It also contains functors to create printers for your own XML data structure.
 
@@ -53,7 +53,7 @@ val encode_unsafe_char_and_at : string -> string
 Given a module [Htmlprinter] produced by one of the functors in {!Xml_print}, this modules is used as following:
   {[
     let encode x = fst (Xml_print.Utf8.normalize_html x) in
-    Format.printf "%a" (Html5.pp ~encode ()) document
+    Format.printf "%a" (Html.pp ~encode ()) document
   ]} *)
 module Utf8 : sig
 
@@ -89,7 +89,7 @@ val pp_number : Format.formatter -> float -> unit
 
 (** {2 Formatter functors} *)
 
-(** Printers for typed XML module, such as the one produced by {!Svg_f} and {!Html5_f}. *)
+(** Printers for typed XML module, such as the one produced by {!Svg_f} and {!Html_f}. *)
 module Make_typed_fmt
     (Xml : Xml_sigs.Iterable)
     (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)

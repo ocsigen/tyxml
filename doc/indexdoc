@@ -7,8 +7,8 @@ Tyxml
 {2 Types and signatures}
 
 {!modules:
-Html5_sigs
-Html5_types
+Html_sigs
+Html_types
 Svg_sigs
 Svg_types
 }
@@ -16,7 +16,7 @@ Svg_types
 {1 TyXML Functors }
 
 {!modules:
-Html5_f
+Html_f
 Svg_f
 Xml_sigs
 Xml_wrap

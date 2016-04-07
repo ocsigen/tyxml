@@ -17,12 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Html5 signatures for the functorial interface. *)
+(** Html signatures for the functorial interface. *)
 
 (** Signature of typesafe constructors for HTML5 documents. *)
 module type T = sig
 
-  (** Html5 elements.
+  (** Html elements.
 
       Element constructors are in section {{!elements}elements}. Most elements constructors
       are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
@@ -39,7 +39,7 @@ module type T = sig
 
       For example, [div []] is of type [[> `Div] elt].
       The {{!span}span} function only accepts children of type
-      {!Html5_types.span_content}.
+      {!Html_types.span_content}.
       Since [`Div] is not part of it. [span [div []]] will not typecheck.
 
       Note that the concrete implementation of this type can vary.
@@ -50,7 +50,7 @@ module type T = sig
   (** A complete Html document. *)
   type doc = [ `Html ] elt
 
-  (** Html5 attributes
+  (** Html attributes
 
       Attribute constructors are in section {{!attributes}attributes} and their name starts
       with [a_]. Attributes are given to elements with the [~a] optional argument.
@@ -64,7 +64,7 @@ module type T = sig
 
       For example {!a_href} returns a value of type [[> `Href] attrib].
       The {{!div}div} function only accepts attributes of type
-      {!Html5_types.div_attrib}.
+      {!Html_types.div_attrib}.
       Since [`Href] is not part of it,
       [div ~a:[a_href "ocsigen.org"] []] will not typecheck.
 
@@ -120,7 +120,7 @@ module type T = sig
   (** Various information about Html, such as the doctype, ... *)
   module Info : Xml_sigs.Info
 
-  open Html5_types
+  open Html_types
 
   (** {3 Uri} *)
 
@@ -1091,13 +1091,13 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 (** {2 Signature functors}
     {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %} *)
 
-(** Signature functor for {!Html5_f.Make}. *)
+(** Signature functor for {!Html_f.Make}. *)
 module Make
     (Xml : Xml_sigs.T)
     (Svg : Svg_sigs.T with module Xml := Xml) :
 sig
 
-  (** See {!modtype:Html5_sigs.T}. *)
+  (** See {!modtype:Html_sigs.T}. *)
   module type T = T
     with type 'a Xml.W.t = 'a Xml.W.t
      and type 'a Xml.W.tlist = 'a Xml.W.tlist
@@ -1111,41 +1111,41 @@ sig
      and module Svg := Svg
 end
 
-(** Wrapped functions, to be used with {!Html5_f.Make_with_wrapped_functions}. *)
+(** Wrapped functions, to be used with {!Html_f.Make_with_wrapped_functions}. *)
 module type Wrapped_functions = sig
 
   module Xml : Xml_sigs.T
 
   val string_of_big_variant :
-    ([< Html5_types.big_variant], string) Xml.W.ft
+    ([< Html_types.big_variant], string) Xml.W.ft
 
   val string_of_bool : (bool, string) Xml.W.ft
 
   val onoff_of_bool : (bool, string) Xml.W.ft
 
-  val string_of_character : (Html5_types.character, string) Xml.W.ft
+  val string_of_character : (Html_types.character, string) Xml.W.ft
 
   val string_of_input_type :
-    ([< Html5_types.input_type], string) Xml.W.ft
+    ([< Html_types.input_type], string) Xml.W.ft
 
   val string_of_linktypes :
-    ([< Html5_types.linktype] list, string) Xml.W.ft
+    ([< Html_types.linktype] list, string) Xml.W.ft
 
   val string_of_mediadesc :
-    ([< Html5_types.mediadesc_token] list, string) Xml.W.ft
+    ([< Html_types.mediadesc_token] list, string) Xml.W.ft
 
-  val string_of_numbers : (Html5_types.numbers, string) Xml.W.ft
+  val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
 
   val string_of_sandbox :
-    ([< Html5_types.sandbox_token] list, string) Xml.W.ft
+    ([< Html_types.sandbox_token] list, string) Xml.W.ft
 
   val string_of_sizes :
-    ((Html5_types.number * Html5_types.number) list option, string) Xml.W.ft
+    ((Html_types.number * Html_types.number) list option, string) Xml.W.ft
 
   type image_candidate =
     [ `Url of Xml.uri
-    | `Url_width of Xml.uri * Html5_types.number
-    | `Url_pixel of Xml.uri * Html5_types.float_number ]
+    | `Url_width of Xml.uri * Html_types.number
+    | `Url_pixel of Xml.uri * Html_types.float_number ]
 
   val string_of_srcset :
     ([< image_candidate] list, string) Xml.W.ft

@@ -9,11 +9,11 @@ a DOM version of the HTML implementation.
 ==@@id="make"@@ The ##Make## functors ==
 
 These interfaces are available in the modules
-<<a_api | module Html5_f >> and <<a_api | module Svg_f >>.
+<<a_api | module Html_f >> and <<a_api | module Svg_f >>.
 They provide a functor ##Make## which takes a concrete implementation
 of Xml following <<a_api | module Xml_sigs.T >>. A default
 implementation is provided by the <<a_api | module Xml >> module.  The
-functor <<a_api | module Html5_f.Make >> also needs an Svg
+functor <<a_api | module Html_f.Make >> also needs an Svg
 implementation that one can obtain, for example, with the functor
 <<a_api | module Svg_f.Make >>.  The ##Xml## always needs to provide a
 module ##W## of type <<a_api | module Xml_wrap.T >>, along with types
@@ -47,9 +47,9 @@ functor without wrapping the elements.
 ==@@id="wrapped_functions"@@ The ##Make_with_wrapped_functions## functors ==
 
 The ##Make_with_wrapped_functions## functors (available in the modules
-<<a_api | module Html5_f >> and <<a_api | module Svg_f >>) differ from
+<<a_api | module Html_f >> and <<a_api | module Svg_f >>) differ from
 the ##Make## functors by requiring an additional argument ##C## (of
-type <<a_api | module Html5_f.Wrapped_functions >> and
+type <<a_api | module Html_f.Wrapped_functions >> and
 <<a_api | module Svg_f.Wrapped_functions >> respectively).
 
 The ##C## functor argument defines a type ##(-'a, 'b) ft##, and a
@@ -77,7 +77,7 @@ modules do not wrap the functions, i.e., they satisfy:
 
 In order to help export the correct signature after a functor
 application, two signature functors are provided:
-<<a_api| module Svg_sigs.Make >> and <<a_api| module Html5_sigs.Make >>.
+<<a_api| module Svg_sigs.Make >> and <<a_api| module Html_sigs.Make >>.
 
 As an example of use, let us look at the module <<a_api| module Svg.M >>.
 Here is the definition of the module:
@@ -104,7 +104,7 @@ There are some important notes about theses signature functors:
   simpler) module. This is the case in <<a_api| module Tyxml_js.R >>,
   for example.
 
-* <<a_api | module Html5_f >> and <<a_api | module Svg_f >> functors
+* <<a_api | module Html_f >> and <<a_api | module Svg_f >> functors
   export two additional equalities, {{{+'a elt = Xml.elt}}} and
   {{{+'a attrib = Xml.attrib}}}. These equalities **should never be
   exported in a public interface**. Exporting them would break HTML

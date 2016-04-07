@@ -22,7 +22,7 @@
 module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)
-    (C : Html5_sigs.Wrapped_functions with module Xml = Xml)
+    (C : Html_sigs.Wrapped_functions with module Xml = Xml)
     (Svg : Svg_sigs.T with module Xml := Xml) =
 
 struct
@@ -53,8 +53,8 @@ struct
 
   type image_candidate =
     [ `Url of uri
-    | `Url_width of uri * Html5_types.number
-    | `Url_pixel of uri * Html5_types.float_number ]
+    | `Url_width of uri * Html_types.number
+    | `Url_pixel of uri * Html_types.float_number ]
 
 
   type 'a attrib = Xml.attrib
@@ -1044,8 +1044,8 @@ struct
 
   type image_candidate =
     [ `Url of Xml.uri
-    | `Url_width of Xml.uri * Html5_types.number
-    | `Url_pixel of Xml.uri * Html5_types.float_number ]
+    | `Url_width of Xml.uri * Html_types.number
+    | `Url_pixel of Xml.uri * Html_types.float_number ]
 
   let string_of_srcset (l : [< image_candidate] list) =
     let f = function

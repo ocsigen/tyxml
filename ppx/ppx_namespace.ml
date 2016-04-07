@@ -18,7 +18,7 @@
 *)
 
 let get : Ppx_common.lang -> (module Ppx_sigs_reflected.S) = function
-  | Html -> (module Html5_sigs_reflected)
+  | Html -> (module Html_sigs_reflected)
   | Svg  -> (module Svg_sigs_reflected)
 
 let to_lang loc ns =

@@ -17,8 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Signature of [Html5_sigs_reflected] and [Svg_sigs_reflected] (but not
-    [Html5_types_reflected]). *)
+(** Signature of [Html_sigs_reflected] and [Svg_sigs_reflected] (but not
+    [Html_types_reflected]). *)
 
 
 

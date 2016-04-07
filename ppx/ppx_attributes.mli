@@ -35,4 +35,4 @@ val parse :
 ]}
 
     This satisfies the attribute arguments in the signature of
-    [Html5_sigs.T.img]. *)
+    [Html_sigs.T.img]. *)

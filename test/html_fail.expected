@@ -5,28 +5,28 @@ Error: This expression has type
          ([> `A of [> `A of 'c ] as 'b ] as 'a) Tyxml.Html.elt =
            'a Tyxml_html.elt
        but an expression was expected of type
-         ([< Html5_types.div_content_fun ] as 'd) Tyxml.Html.elt =
+         ([< Html_types.div_content_fun ] as 'd) Tyxml.Html.elt =
            'd Tyxml_html.elt
        Type 'a is not compatible with type
          'd =
-           [< `A of Html5_types.flow5_without_interactive
+           [< `A of Html_types.flow5_without_interactive
             | `Abbr
             | `Address
             | `Article
             | `Aside
-            | `Audio of Html5_types.flow5_without_media
-            | `Audio_interactive of Html5_types.flow5_without_media
+            | `Audio of Html_types.flow5_without_media
+            | `Audio_interactive of Html_types.flow5_without_media
             | `B
             | `Bdo
             | `Blockquote
             | `Br
             | `Button
-            | `Canvas of Html5_types.flow5
+            | `Canvas of Html_types.flow5
             | `Cite
             | `Code
             | `Command
             | `Datalist
-            | `Del of Html5_types.flow5
+            | `Del of Html_types.flow5
             | `Details
             | `Dfn
             | `Div
@@ -51,19 +51,19 @@ Error: This expression has type
             | `Img
             | `Img_interactive
             | `Input
-            | `Ins of Html5_types.flow5
+            | `Ins of Html_types.flow5
             | `Kbd
             | `Keygen
             | `Label
             | `Main
-            | `Map of Html5_types.flow5
+            | `Map of Html_types.flow5
             | `Mark
             | `Menu
             | `Meter
             | `Nav
-            | `Noscript of Html5_types.flow5_without_noscript
-            | `Object of Html5_types.flow5
-            | `Object_interactive of Html5_types.flow5
+            | `Noscript of Html_types.flow5_without_noscript
+            | `Object of Html_types.flow5
+            | `Object_interactive of Html_types.flow5
             | `Ol
             | `Output
             | `P
@@ -89,27 +89,27 @@ Error: This expression has type
             | `U
             | `Ul
             | `Var
-            | `Video of Html5_types.flow5_without_media
-            | `Video_interactive of Html5_types.flow5_without_media
+            | `Video of Html_types.flow5_without_media
+            | `Video_interactive of Html_types.flow5_without_media
             | `Wbr ] 
        Type 'b is not compatible with type
-         Html5_types.flow5_without_interactive =
+         Html_types.flow5_without_interactive =
            [ `Abbr
            | `Address
            | `Article
            | `Aside
-           | `Audio of Html5_types.flow5_without_media
+           | `Audio of Html_types.flow5_without_media
            | `B
            | `Bdo
            | `Blockquote
            | `Br
            | `Button
-           | `Canvas of Html5_types.flow5
+           | `Canvas of Html_types.flow5
            | `Cite
            | `Code
            | `Command
            | `Datalist
-           | `Del of Html5_types.flow5
+           | `Del of Html_types.flow5
            | `Dfn
            | `Div
            | `Dl
@@ -130,18 +130,18 @@ Error: This expression has type
            | `I
            | `Img
            | `Input
-           | `Ins of Html5_types.flow5
+           | `Ins of Html_types.flow5
            | `Kbd
            | `Keygen
            | `Label
            | `Main
-           | `Map of Html5_types.flow5
+           | `Map of Html_types.flow5
            | `Mark
            | `Menu
            | `Meter
            | `Nav
-           | `Noscript of Html5_types.flow5_without_noscript
-           | `Object of Html5_types.flow5
+           | `Noscript of Html_types.flow5_without_noscript
+           | `Object of Html_types.flow5
            | `Ol
            | `Output
            | `P
@@ -167,7 +167,7 @@ Error: This expression has type
            | `U
            | `Ul
            | `Var
-           | `Video of Html5_types.flow5_without_media
+           | `Video of Html_types.flow5_without_media
            | `Wbr ] 
        The second variant type does not allow tag(s) `A
 

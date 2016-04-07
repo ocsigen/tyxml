@@ -20,13 +20,13 @@
 *)
 
 (* _fun prefix are the types that must be used
-   in Html5_sigs. They are more restrictive as
+   in Html_sigs. They are more restrictive as
    some param are already taken as seperate argument,
    to ensure better compatibility.
    SC *)
 
 
-(** HTML5 types with variants, goes with {!Html5_sigs.T}.
+(** HTML5 types with variants, goes with {!Html_sigs.T}.
 
     @see <http://dev.w3.org/html5/spec/Overview.html> information concerning HTML5 at W3C.
 *)
