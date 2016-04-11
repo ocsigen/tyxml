@@ -51,6 +51,14 @@ let basics = "ppx basics", tyxml_tests Html5.[
   [[%html5 "foo"]],
   [pcdata "foo"] ;
 
+  "document",
+  [[%html5 "<html><head><title>foo</title></head></html>"]],
+  [html (head (title (pcdata "foo")) []) (body [])] ;
+
+  "whitespace in html element",
+  [[%html5 "<html><head><title>foo</title></head> </html>"]],
+  [html (head (title (pcdata "foo")) []) (body [])] ;
+
 
 ]
 

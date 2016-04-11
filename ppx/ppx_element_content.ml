@@ -32,13 +32,23 @@ type assembler =
 
 (* Helpers. *)
 
+(* Given a parse tree [e], if [e] represents [_.pcdata s], where [s] is a string
+   constant, evaluates to [Some s]. Otherwise, evaluates to [None]. *)
+let to_pcdata = function
+  | [%expr [%e? {pexp_desc = Pexp_ident f; _}] [%e? arg]] -> begin
+      match Longident.last f.txt, Ast_convenience.get_str arg with
+      | "pcdata", Some s -> Some s
+      | _ -> None
+    end
+  | _ -> None
+
 (* Given a list of parse trees representing children of an element, filters out
    all children that consist of applications of [pcdata] to strings containing
    only whitespace. *)
 let filter_whitespace children =
   children |> List.filter (function
-    | Pc.Val [%expr pcdata [%e? s]]-> begin
-        match Ast_convenience.get_str s with
+    | Pc.Val e -> begin
+        match to_pcdata e with
         | Some s when String.trim s = "" -> false
         | _ -> true
       end
