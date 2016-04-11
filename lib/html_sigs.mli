@@ -704,8 +704,10 @@ module type T = sig
   val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
+      [@@reflect.element "ol"]
 
   val ul : ([< | ul_attrib], [< | ul_content_fun], [> | ul]) star
+      [@@reflect.element "ul"]
 
   val dd : ([< | dd_attrib], [< | dd_content_fun], [> | dd]) star
 

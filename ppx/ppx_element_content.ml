@@ -103,6 +103,14 @@ let star ~lang ~loc ~name:_ children =
 
 (* Special-cased. *)
 
+let ul ~lang ~loc ~name children =
+  let children = filter_whitespace children in
+  star ~lang ~loc ~name children
+
+let ol ~lang ~loc ~name children =
+  let children = filter_whitespace children in
+  star ~lang ~loc ~name children
+
 let head ~lang ~loc ~name children =
   let children = filter_whitespace children in
   let title, others = partition (html "title") children in
