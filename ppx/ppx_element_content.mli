@@ -77,3 +77,11 @@ val fieldset : assembler
 val datalist : assembler
 val details : assembler
 val menu : assembler
+
+(** {1 Misc utilities} *)
+
+(** Remove pcdata containing only whitespace that are at the beginning or the end
+    of the list. *)
+val filter_surrounding_whitespace :
+  Parsetree.expression Ppx_common.value list ->
+  Parsetree.expression Ppx_common.value list

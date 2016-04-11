@@ -270,7 +270,12 @@ let markup_to_expr lang loc expr =
       assemble lang children
   in
 
-  match assemble lang [] with
+  let l =
+    Ppx_element_content.filter_surrounding_whitespace @@
+    assemble lang []
+  in
+
+  match l  with
   | [ Val x | Antiquot x ] -> x
   | l -> Ppx_common.list_wrap_value lang loc l
 
