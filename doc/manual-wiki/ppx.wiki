@@ -9,7 +9,7 @@ opam install markup ppx_tools tyxml
 
 ==@@id="syntax"@@ Syntax ==
 
-The ppx provides two quotations, ##html5## and ##svg## (and two aliases, ##tyxml.html5## and ##tyxml.svg##).
+The ppx provides two quotations, ##html## and ##svg## (and two aliases, ##tyxml.html## and ##tyxml.svg##).
 
 <<code language="ocaml"|
 open Tyxml ;;
