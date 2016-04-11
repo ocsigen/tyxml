@@ -106,8 +106,7 @@ let string_of_paint = function
 module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)
-    (C : Svg_sigs.Wrapped_functions
-     with type ('a, 'b) ft = ('a, 'b) Xml.W.ft) =
+    (C : Svg_sigs.Wrapped_functions with module Xml = Xml) =
 
 struct
 
@@ -915,9 +914,11 @@ struct
 
 end
 
-module Wrapped_functions = struct
+module Wrapped_functions
+    (Xml : Xml_sigs.T with type ('a,'b) W.ft = 'a -> 'b) =
+struct
 
-  type (-'a, 'b) ft = 'a -> 'b
+  module Xml = Xml
 
   let string_of_alignment_baseline = function
     | `Auto -> "auto"
@@ -1120,4 +1121,4 @@ end
 
 module Make
     (Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b)) =
-  Make_with_wrapped_functions(Xml)(Wrapped_functions)
+  Make_with_wrapped_functions(Xml)(Wrapped_functions(Xml))
