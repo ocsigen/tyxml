@@ -97,6 +97,7 @@ let rec to_attribute_parser name = function
 
   | [[%type: character]] -> [%expr char]
   | [[%type: bool]] -> [%expr bool]
+  | [[%type: unit]] -> [%expr nowrap unit]
 
   | [[%type: number]]
   | [[%type: pixels]]

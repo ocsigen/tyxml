@@ -97,6 +97,9 @@ val bool : parser
 (** [bool _ _ s] produces a parse tree for the boolean [true] if [s = "true"]
     and [false] if [s = "false"]. *)
 
+val unit : parser
+(** [unit _ name s] produces a parse tree for [()]. It fails if [name <> s]. *)
+
 val int : parser
 (** [int _ _ s] produces a parse tree for [int_of_string s]. *)
 

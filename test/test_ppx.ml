@@ -64,6 +64,18 @@ let basics = "ppx basics", tyxml_tests Html.[
 
 ]
 
+let attribs = "ppx attribs", tyxml_tests Html.[
+
+  "unit absent",
+  [[%html "<div hidden></div>"]],
+  [div ~a:[a_hidden ()] []] ;
+
+  "unit present",
+  [[%html "<div hidden=hidden></div>"]],
+  [div ~a:[a_hidden ()] []] ;
+
+]
+
 let ns_nesting = "namespace nesting" , tyxml_tests Html.[
 
   "html/svg",
@@ -122,6 +134,7 @@ let antiquot = "ppx antiquot", tyxml_tests Html.[
 
 let tests = [
   basics ;
+  attribs ;
   ns_nesting ;
   antiquot ;
 ]

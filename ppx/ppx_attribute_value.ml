@@ -181,6 +181,14 @@ let bool ?separated_by:_ ?default:_ loc name s =
 
   Some (Exp.construct ~loc (Location.mkloc (Longident.parse s) loc) None)
 
+let unit ?separated_by:_ ?default:_ loc name s =
+  if s = "" || s = name then
+    Some (Ast_convenience.(with_default_loc loc unit))
+  else
+    Ppx_common.error loc
+      {|Value of %s must be %s or "".|}
+      name name
+
 let int ?separated_by ?default loc name s =
   match int_exp loc s with
   | Some _ as e -> e
