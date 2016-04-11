@@ -92,14 +92,14 @@ module Make(Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b))
      and type +'a attrib = Xml.attrib
 
 (** The standard set of wrapped functions, when [W.ft] is the regular function. *)
-module Wrapped_functions :
-  Svg_sigs.Wrapped_functions with type (-'a, 'b) ft = 'a -> 'b
+module Wrapped_functions
+    (Xml: Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
+  : Svg_sigs.Wrapped_functions with module Xml = Xml
 
 (** Similar to {!Make} but with a custom set of wrapped functions. *)
 module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
-    (C : Svg_sigs.Wrapped_functions
-     with type (-'a, 'b) ft = ('a, 'b) Xml.W.ft)
+    (C : Svg_sigs.Wrapped_functions with module Xml = Xml)
   : Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
