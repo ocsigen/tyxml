@@ -250,7 +250,7 @@ module type T = sig
 
   (** {3 Other attributes} *)
 
-  val a_autocomplete : bool wrap -> [> | `Autocomplete] attrib
+  val a_autocomplete : (bool[@onoff]) wrap -> [> | `Autocomplete] attrib
 
   val a_async : unit -> [> | `Async] attrib
 

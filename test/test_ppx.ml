@@ -74,6 +74,30 @@ let attribs = "ppx attribs", tyxml_tests Html.[
   [[%html "<div hidden=hidden></div>"]],
   [div ~a:[a_hidden ()] []] ;
 
+  "bool default",
+  [[%html "<div draggable></div>"]],
+  [div ~a:[a_draggable true] []] ;
+
+  "bool true",
+  [[%html "<div draggable=true></div>"]],
+  [div ~a:[a_draggable true] []] ;
+
+  "bool false",
+  [[%html "<div draggable=false></div>"]],
+  [div ~a:[a_draggable false] []] ;
+
+  "onoff default",
+  [[%html "<form autocomplete></form>"]],
+  [form ~a:[a_autocomplete true] []] ;
+
+  "bool true",
+  [[%html "<form autocomplete=on></form>"]],
+  [form ~a:[a_autocomplete true] []] ;
+
+  "bool false",
+  [[%html "<form autocomplete=off></form>"]],
+  [form ~a:[a_autocomplete false] []] ;
+
 ]
 
 let ns_nesting = "namespace nesting" , tyxml_tests Html.[

@@ -96,6 +96,8 @@ let rec to_attribute_parser name = function
     [%expr wrap [%e to_attribute_parser name [ty]]]
 
   | [[%type: character]] -> [%expr char]
+  | [[%type: bool] as ty]
+    when AC.has_attr "onoff" ty.ptyp_attributes -> [%expr onoff]
   | [[%type: bool]] -> [%expr bool]
   | [[%type: unit]] -> [%expr nowrap unit]
 
