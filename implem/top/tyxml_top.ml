@@ -1,16 +1,16 @@
 let file = {|
-let _xml_pp = Xml.pp () ;;
+let _xml_pp = Tyxml.Xml.pp () ;;
 #install_printer _xml_pp ;;
 
-let _svg_pp = Svg.pp () ;;
+let _svg_pp = Tyxml.Svg.pp () ;;
 #install_printer _svg_pp ;;
-let _svg_pp_elt fmt x = Svg.pp_elt () fmt x ;;
+let _svg_pp_elt fmt x = Tyxml.Svg.pp_elt () fmt x ;;
 #install_printer _svg_pp_elt ;;
 
-let _html5_pp = Html5.pp () ;;
-#install_printer _html5_pp ;;
-let _html5_pp_elt fmt x = Html5.pp_elt () fmt x ;;
-#install_printer _html5_pp_elt ;;
+let _html_pp = Tyxml.Html.pp () ;;
+#install_printer _html_pp ;;
+let _html_pp_elt fmt x = Tyxml.Html.pp_elt () fmt x ;;
+#install_printer _html_pp_elt ;;
 |}
 
 let eval_string

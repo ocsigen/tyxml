@@ -1,13 +1,14 @@
+open Tyxml
 
-let to_string = Format.asprintf "%a" (Html5.pp_elt ())
+let to_string = Format.asprintf "%a" (Html.pp_elt ())
 
 let tyxml_tests l =
-  let f (name, (ty : Html5_types.body_content Html5.elt), s) =
+  let f (name, (ty : Html_types.body_content Html.elt), s) =
     name, `Quick, fun () -> Alcotest.(check string) name (to_string ty) s
   in
   List.map f l
 
-let html_elements = "html elements", tyxml_tests Html5.[
+let html_elements = "html elements", tyxml_tests Html.[
 
   "div",
   div [a []],
@@ -19,7 +20,7 @@ let html_elements = "html elements", tyxml_tests Html5.[
 
 ]
 
-let escaping = "html escaping", tyxml_tests Html5.[
+let escaping = "html escaping", tyxml_tests Html.[
 
   "cdata",
   cdata "<bar>]]>foo<bar/>",

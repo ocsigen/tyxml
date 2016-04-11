@@ -6,6 +6,6 @@
 #load "tyxml_f.cma" ;;
 #load "tyxml.cma" ;;
 
-open Html5 ;;
+open Tyxml.Html ;;
 
 div [a [a []]] ;;

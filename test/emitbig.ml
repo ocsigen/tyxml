@@ -2,6 +2,8 @@
    It creates fibonacci(22) nested divs.
 *)
 
+open Tyxml
+
 let rec unfold n =
   let l =
     if n = 1 then []
@@ -11,16 +13,16 @@ let rec unfold n =
       unfold (n-2) ;
     ]
   in
-  Html5.(div ~a:[a_class ["fibo" ^ string_of_int n]] l)
+  Html.(div ~a:[a_class ["fibo" ^ string_of_int n]] l)
 
 let emit_page_pp page =
   let file_handle = open_out "fibo.html" in
   let fmt = Format.formatter_of_out_channel file_handle in
-  Html5.pp () fmt page;
+  Html.pp () fmt page;
   close_out file_handle
 
 let () =
-  let p = Html5.(
+  let p = Html.(
     html (head (title (pcdata "fibo")) []) (body [unfold 22])
   ) in
   let time_pp = ref 0. in

@@ -1,3 +1,35 @@
+===== 4.0.0 ====
+
+====== Features ======
+* A new PPX has been added that allows to use tyxml with the HTML/SVG syntax, using the markup library (contribution by Anton 'aantron' Bachin).
+* New Format-based printers are available, both as functors and has `pp` functions in the various implementations. Old printers are deprecated.
+* Toplevel printers are now available for the `tyxml` library.
+* The `str` library has been replaced by `re`.
+* Various attributes arguments have been simplified. In particular:
+  * Constants arguments have been removed
+  * `` `On|`Off `` arguments are now replaced by booleans.
+  * Some arguments now use an option type.
+
+* XML comments are now properly serialized (without escaping but with sanitization).
+
+====== Elements and attributes ======
+* Add srcset and sizes attributes (contribution by Stéphane 'slegrand45' Legrand).
+* The arguments of the `sandbox` attributes are now more consistent (contributino by Anton 'aantron' Bachin).
+* Various SVG attributes and elements are now properly named (contributino by Anton 'aantron' Bachin).
+* Add inputmode attribute.
+
+====== Documentation ======
+* Both the API documentation and the manual have been completely rewritten! Do not hesitate to read them and provide feedback.
+* Various examples have been added in the `example/` directory. (basic_website contributed by Edgar 'fxfactorial' Aroutiounian).
+
+====== Renaming and deprecations ======
+* Files in the `tyxml` library are now packed in a `Tyxml` module.
+  If you were using one of `Html5`, `Svg` and `Xml` module, simply open `Tyxml`.
+* All Html5 modules are now named Html
+* Various attributes and elements have been renamed. The original versions have been kept and marked deprecated.
+* Various elements that were both deprecated in the HTML specification and not usable due to typing constraints have been removed.
+
+
 ===== 3.6.0 ====
 
   * Improves and simplify the wrapping interface. Breaking change.

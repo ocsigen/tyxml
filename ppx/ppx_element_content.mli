@@ -48,12 +48,12 @@ type assembler =
 ]}
 
     This satisfies the child arguments in the signature of
-    [Html5_sigs.T.tablex]. The [~table] label is represented by the string
+    [Html_sigs.T.tablex]. The [~table] label is represented by the string
     ["table"], and the unlabeled list argument is paired with the empty string.
 
     The argument [implementation] is the name of the module providing the
     run-time implementation of the element function that will be applied to the
-    children. It is either [Html5] or [Svg], and is based on the element's
+    children. It is either [Html] or [Svg], and is based on the element's
     namespace. It is used for wrapping child elements, and for scoping child
     [pcdata] elements.
 

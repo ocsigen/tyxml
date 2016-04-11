@@ -65,9 +65,9 @@ let is_element_with_name name = function
 let partition name children =
   List.partition (is_element_with_name name) children
 
-(* Given the name [n] of a function in [Html5_sigs.T], evaluates to
-   ["Html5." ^ n]. *)
-let html5 local_name =
+(* Given the name [n] of a function in [Html_sigs.T], evaluates to
+   ["Html." ^ n]. *)
+let html local_name =
   Longident.Ldot (Lident Pc.(implementation Html), local_name)
 
 
@@ -93,21 +93,8 @@ let star ~lang ~loc ~name:_ children =
 
 (* Special-cased. *)
 
-let html ~lang ~loc ~name children =
-  let children = filter_whitespace children in
-  let head, others = partition (html5 "head") children in
-  let body, others = partition (html5 "body") others in
-
-  match head, body, others with
-  | [head], [body], [] ->
-    [Pc.Label.nolabel, Pc.wrap_value lang loc head;
-     Pc.Label.nolabel, Pc.wrap_value lang loc body]
-  | _ ->
-    Pc.error loc
-      "%s element must have exactly head and body child elements" name
-
 let head ~lang ~loc ~name children =
-  let title, others = partition (html5 "title") children in
+  let title, others = partition (html "title") children in
 
   match title with
   | [title] ->
@@ -120,14 +107,14 @@ let figure ~lang ~loc ~name children =
   begin match children with
   | [] -> star ~lang ~loc ~name children
   | first::others ->
-    if is_element_with_name (html5 "figcaption") first then
+    if is_element_with_name (html "figcaption") first then
       ("figcaption",
        [%expr `Top [%e Pc.wrap_value lang loc first]])::
           (star ~lang ~loc ~name others)
     else
       let children_reversed = List.rev children in
       let last = List.hd children_reversed in
-      if is_element_with_name (html5 "figcaption") last then
+      if is_element_with_name (html "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
         ("figcaption",
          [%expr `Bottom [%e Pc.wrap_value lang loc last]])::
@@ -137,7 +124,7 @@ let figure ~lang ~loc ~name children =
   end [@metaloc loc]
 
 let object_ ~lang ~loc ~name children =
-  let params, others = partition (html5 "param") children in
+  let params, others = partition (html "param") children in
 
   if params <> [] then
     ("params", Pc.list_wrap_value lang loc params) :: star ~lang ~loc ~name others
@@ -145,7 +132,7 @@ let object_ ~lang ~loc ~name children =
     star ~lang ~loc ~name others
 
 let audio_video ~lang ~loc ~name children =
-  let sources, others = partition (html5 "source") children in
+  let sources, others = partition (html "source") children in
 
   if sources <> [] then
     ("srcs", Pc.list_wrap_value lang loc sources) :: star ~lang ~loc ~name others
@@ -153,10 +140,10 @@ let audio_video ~lang ~loc ~name children =
     star ~lang ~loc ~name others
 
 let table ~lang ~loc ~name children =
-  let caption, others = partition (html5 "caption") children in
-  let columns, others = partition (html5 "colgroup") others in
-  let thead, others = partition (html5 "thead") others in
-  let tfoot, others = partition (html5 "tfoot") others in
+  let caption, others = partition (html "caption") children in
+  let columns, others = partition (html "colgroup") others in
+  let thead, others = partition (html "thead") others in
+  let tfoot, others = partition (html "tfoot") others in
 
   let one label = function
     | [] -> []
@@ -176,7 +163,7 @@ let table ~lang ~loc ~name children =
     (star ~lang ~loc ~name others)
 
 let fieldset ~lang ~loc ~name children =
-  let legend, others = partition (html5 "legend") children in
+  let legend, others = partition (html "legend") children in
 
   match legend with
   | [] -> star ~lang ~loc ~name others
@@ -186,7 +173,7 @@ let fieldset ~lang ~loc ~name children =
   | _ -> Pc.error loc "%s cannot have more than one legend" name
 
 let datalist ~lang ~loc ~name children =
-  let options, others = partition (html5 "option") children in
+  let options, others = partition (html "option") children in
 
   let children =
     begin match others with
@@ -203,7 +190,7 @@ let datalist ~lang ~loc ~name children =
   children::(nullary ~lang ~loc ~name [])
 
 let details ~lang ~loc ~name children =
-  let summary, others = partition (html5 "summary") children in
+  let summary, others = partition (html "summary") children in
 
   match summary with
   | [summary] ->
@@ -218,3 +205,16 @@ let menu ~lang ~loc ~name children =
       [@metaloc loc]
   in
   children::(nullary ~lang ~loc ~name [])
+
+let html ~lang ~loc ~name children =
+  let children = filter_whitespace children in
+  let head, others = partition (html "head") children in
+  let body, others = partition (html "body") others in
+
+  match head, body, others with
+  | [head], [body], [] ->
+    [Pc.Label.nolabel, Pc.wrap_value lang loc head;
+     Pc.Label.nolabel, Pc.wrap_value lang loc body]
+  | _ ->
+    Pc.error loc
+      "%s element must have exactly head and body child elements" name

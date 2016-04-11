@@ -17,35 +17,35 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Typesafe constructors and printers for Svg documents.
+(** Typesafe constructors and printers for Html documents.
 
-    @see <http://www.w3.org/TR/SVG> W3C Recommendation *)
+    @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
-(** Concrete implementation of Svg typesafe constructors.
-    See {!modtype:Svg_sigs.T}.
+(** Concrete implementation of Html typesafe constructors.
+    See {!modtype:Html_sigs.T}.
 *)
-include Svg_sigs.Make(Xml).T
+include Html_sigs.Make(Tyxml_xml)(Tyxml_svg).T
   with module Xml.W = Xml_wrap.NoWrap
 
 (** {2 Printers} *)
 
-(** [pp ()] is a {!Format} printer for Svg documents.
+(** [pp ()] is a {!Format} printer for Html documents.
 
     It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.asprintf "%a" (Svg.pp ()) my_svg]}
+    {[let s = Format.asprintf "%a" (Tyxml.Html.pp ()) my_html]}
 *)
 val pp:
   ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
 
-(** [pp_elt ()] is a {!Format} printer for Svg elements. *)
+(** [pp_elt ()] is a {!Format} printer for Html elements. *)
 val pp_elt :
   ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
-(** Parametrized stream printer for Svg documents.
-    @deprecated Use {!Svg.pp} instead.
+(** Parametrized stream printer for Html documents.
+    @deprecated Use {!pp} instead.
 *)
 module Make_printer(O : Xml_sigs.Output) :
   Xml_sigs.Typed_printer with type out := O.out
                           and type 'a elt := 'a elt
                           and type doc := doc
-     [@@ocaml.deprecated "Use Svg.pp instead."]
+     [@@ocaml.deprecated "Use Html.pp instead."]

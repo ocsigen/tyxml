@@ -17,10 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(* Runs on [html5_sigs.mli], [svg_sigs.mli], and [html5_types.mli]. Certain type
+(* Runs on [html_sigs.mli], [svg_sigs.mli], and [html_types.mli]. Certain type
    and value declarations are read for type information, which is stored in
-   corresponding [_reflected] files - for example, [html5_sigs.mli] results in
-   [html5_sigs_reflected.ml]. See comments by functions below and in
+   corresponding [_reflected] files - for example, [html_sigs.mli] results in
+   [html_sigs_reflected.ml]. See comments by functions below and in
    [ppx_sigs_reflected.mli] for details. *)
 
 open Ast_mapper
@@ -173,10 +173,10 @@ let rec to_attribute_parser name = function
     [%expr commas string]
 
   | [[%type : linktypes]] ->
-    [%expr spaces (total_variant Html5_types_reflected.linktype)]
+    [%expr spaces (total_variant Html_types_reflected.linktype)]
 
   | [[%type : mediadesc]] ->
-    [%expr commas (total_variant Html5_types_reflected.mediadesc_token)]
+    [%expr commas (total_variant Html_types_reflected.mediadesc_token)]
 
   | [[%type : transform]] ->
     [%expr transform]
@@ -323,7 +323,7 @@ let renamed_elements = ref []
 
 (* Walks over signature items, looking for elements and attributes. Calls the
    functions immediately above, and accumulates their results in the above
-   references. This function is relevant for [html5_sigs.mli] and
+   references. This function is relevant for [html_sigs.mli] and
    [svg_sigs.mli]. *)
 let signature_item mapper item =
   begin match item.psig_desc with
@@ -364,7 +364,7 @@ let reflected_variants = ref []
    variant. Splits the constructors into those that have no arguments, and one
    constructor that has one string argument. This constructor information is
    accumulated in [reflected_variants]. This function is relevant for
-   [html5_types.mli]. *)
+   [html_types.mli]. *)
 let type_declaration mapper declaration =
   let is_reflect attr = (fst attr).txt = "reflect.total_variant" in
   if List.exists is_reflect declaration.ptype_attributes then begin

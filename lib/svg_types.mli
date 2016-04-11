@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** SVG types with variants. (See also {!Svg.M}) *)
+(** SVG types with variants, goes with {!Svg_sigs.T}. *)
 
 (** This module defines basic data types for data, attributes
     and element occuring in SVG documents.

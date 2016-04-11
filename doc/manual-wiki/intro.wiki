@@ -1,9 +1,9 @@
 = TyXML =
 
-Tyxml is a library to build statically correct Html5 and Svg documents.
+Tyxml is a library to build statically correct HTML and SVG documents.
 
 <<code language="ocaml"|
-let to_ocaml = Html5.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
+let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 >>
 
 ==@@id="usage"@@ Using TyXML ==
@@ -11,7 +11,7 @@ let to_ocaml = Html5.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 === Standalone Use ===
 
 To use TyXML in standalone manner, simply link the ##tyxml## ocamlfind package
-and use the <<a_api|module Html5>> and <<a_api|module Svg>> modules.
+and open <<a_api|module Tyxml>>.
 
 === Use with another library ===
 
@@ -22,15 +22,15 @@ and
 
 ==@@id="creation"@@ Creating documents with TyXML ==
 
-This section assumes you have at your disposal an {{{Html5}}} or {{{Svg}}} module, as instructed in <<a_manual fragment="usage"|the previous section>>.
+This section assumes you have at your disposal an {{{Html}}} or {{{Svg}}} module, as instructed in <<a_manual fragment="usage"|the previous section>>.
 For standalone use, examples are available in the [[https://github.com/ocsigen/tyxml/tree/master/examples|examples]] directory.
 
-The documentation for TyXML combinators is provided in <<a_api|module Html5_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html5}}} and {{{Svg}}}.
+The documentation for TyXML combinators is provided in <<a_api|module Html_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html}}} and {{{Svg}}}.
 
-The first thing to understand about TyXML is that for most intents and purposes, it is exactly like Html. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|Html reference]] is still very useful. For each Html elements or attributes, there is a combinator implementing it. The main differences are that you can use OCaml to manipulate the elements and that invalid Html produces a type error.
+The first thing to understand about TyXML is that for most intents and purposes, it is exactly like HTML. As such, the [[https://developer.mozilla.org/en-US/docs/Web/HTML/Element|HTML reference]] is still very useful. For each HTML elements or attributes, there is a combinator implementing it. The main differences are that you can use OCaml to manipulate the elements and that invalid HTML produces a type error.
 
 In this tutorial, we will build the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website|Mini website]].
-If you prefer the native Html syntax, you can also use the <<a_manual chapter="ppx"|ppx syntax extension>> and consult the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website_ppx|ppx mini website]].
+If you prefer the native HTML syntax, you can also use the <<a_manual chapter="ppx"|ppx syntax extension>> and consult the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website_ppx|ppx mini website]].
 
 Let us start by building the content of our website. For text, we use the {{{pcdata}}} constructor. In traditional Web fashion, we put everything in a ##div##.
 <<code language="ocaml"|
@@ -40,8 +40,8 @@ let mycontent =
   ]
 >>
 
-The variable ##mycontent## is of type {{{[> `Div] Html5.elt}}}.
-As we can see, the fact that this is a ##div## is reflected in the type. Html elements are of type <<a_api text="elt"|type Html5_sigs.T.elt>> and have a combinator of the same name, except when it's a reserved keyword (such as {{{object_}}}).
+The variable ##mycontent## is of type {{{[> `Div] Html.elt}}}.
+As we can see, the fact that this is a ##div## is reflected in the type. HTML elements are of type <<a_api text="elt"|type Html_sigs.T.elt>> and have a combinator of the same name, except when it's a reserved keyword (such as {{{object_}}}).
 
 Our content is fabulous, but for the sake of CSS styling (and still in true Web fashion) we want to add a ##class## to it.
 <<code language="ocaml"|
@@ -51,10 +51,10 @@ let mycontent =
   ]
 >>
 
-The <<a_api text="a_class"|val Html5_sigs.T.a_class>> creates a new ##class## attribute of type {{{[> `Class] attrib}}}. Similarly to elements, the kind of attribute is reflect in the <<a_api text="attrib"|type Html5_sigs.T.attrib>> type.
+The <<a_api text="a_class"|val Html_sigs.T.a_class>> creates a new ##class## attribute of type {{{[> `Class] attrib}}}. Similarly to elements, the kind of attribute is reflect in the <<a_api text="attrib"|type Html_sigs.T.attrib>> type.
 We use the optional argument {{{~a}}} to pass the list of attributes. This optional argument is available on all element combinators.
 
-In order to add a title to our fabulous content, we use the <<a_api text="h1"|val Html5_sigs.T.a>> combinator.
+In order to add a title to our fabulous content, we use the <<a_api text="h1"|val Html_sigs.T.a>> combinator.
 <<code language="ocaml"|
 let mycontent =
   div ~a:[a_class ["content"]] [
@@ -63,13 +63,13 @@ let mycontent =
   ]
 >>
 
-Naturally, {{{div}}} accepts several children. In TyXML vocabulary, this is a <<a_api text="star"|type Html5_sigs.T.star>> constructor.
+Naturally, {{{div}}} accepts several children. In TyXML vocabulary, this is a <<a_api text="star"|type Html_sigs.T.star>> constructor.
 There are also
-<<a_api text="unary"|type Html5_sigs.T.unary>> and
-<<a_api text="nullary"|type Html5_sigs.T.nullary>> constructors,
+<<a_api text="unary"|type Html_sigs.T.unary>> and
+<<a_api text="nullary"|type Html_sigs.T.nullary>> constructors,
 which accepts respectively one and zero child.
 
-<<a_api text="title"|val Html5_sigs.T.title>> is an example of {{{unary}}}
+<<a_api text="title"|val Html_sigs.T.title>> is an example of {{{unary}}}
 combinator.
 <<code language="ocaml"|
 let mytitle = title (pcdata "A Fabulous Web Page")
@@ -81,9 +81,9 @@ However, what would happen if we were to try to put **bold** text in our title? 
 <<code language="ocaml"|
 let mytitle = title (b [pcdata "A Bold Web Page"])
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Error: This expression has type ([> Html5_types.b ] as 'a) elt
+Error: This expression has type ([> Html_types.b ] as 'a) elt
        but an expression was expected of type
-         ([< Html5_types.title_content_fun ] as 'b) elt = 'b elt
+         ([< Html_types.title_content_fun ] as 'b) elt = 'b elt
        Type 'a = [> `B ] is not compatible with type 'b = [< `PCDATA ]
        The second variant type does not allow tag(s) `B
 >>
@@ -103,8 +103,8 @@ In order to get reasonable type errors with TyXML, The ##-short-paths## options 
 
 ====@@id="finishing"@@ Finishing up the webpage ====
 
-To finish our webpage, we use the <<a_api text="body"|val Html5_sigs.T.body>>, <<a_api text="head"|val Html5_sigs.T.head>> and <<a_api text="html"|val Html5_sigs.T.html>>.
-The last two combinators have special types due to their specific constraints: <<a_api text="head"|val Html5_sigs.T.head>> only accepts one ##title## children and <<a_api text="html"|val Html5_sigs.T.html>> only accepts two children: ##head## and ##body##.
+To finish our webpage, we use the <<a_api text="body"|val Html_sigs.T.body>>, <<a_api text="head"|val Html_sigs.T.head>> and <<a_api text="html"|val Html_sigs.T.html>>.
+The last two combinators have special types due to their specific constraints: <<a_api text="head"|val Html_sigs.T.head>> only accepts one ##title## children and <<a_api text="html"|val Html_sigs.T.html>> only accepts two children: ##head## and ##body##.
 
 <<code language="ocaml"|
 let mypage =
@@ -115,7 +115,7 @@ let mypage =
 
 If you are using <<a_manual project="eliom" chapter="clientserver-html"|Eliom>>
 or <<a_api project="js_of_ocaml" text="Js_of_ocaml"|module Tyxml_js>>,
-this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, <<a_api|val Html5.pp>>, that we can use to print files:
+this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, <<a_api|val Tyxml.Html.pp>>, that we can use to print files:
 
 <<code language="ocaml"|
 let () =

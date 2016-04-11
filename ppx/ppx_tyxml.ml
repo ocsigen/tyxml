@@ -221,7 +221,7 @@ let context_of_lang = function
   | Ppx_common.Svg -> Some (`Fragment "svg")
   | Html -> None
 
-(** Given the payload of a [%html5 ...] or [%svg ...] expression,
+(** Given the payload of a [%html ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup
     contained therein. *)
 let markup_to_expr lang loc expr =
@@ -292,7 +292,7 @@ let is_capitalized s =
     | 'A'..'Z' -> true
     | _ -> false
 
-(** Extract and verify the modname in the annotation [%html5.Bar.Baz .. ].
+(** Extract and verify the modname in the annotation [%html.Bar.Baz .. ].
     We need to fiddle with length to provide a correct location. *)
 let get_modname ~loc len l =
   let s = String.concat "." l in
@@ -308,8 +308,8 @@ let dispatch_ext {txt ; loc} =
   let l = Re.split re_dot txt in
   let len = String.length txt in
   match l with
-  | "html5" :: l
-  | "tyxml" :: "html5" :: l ->
+  | "html" :: l
+  | "tyxml" :: "html" :: l ->
     Some (Ppx_common.Html, get_modname ~loc len l)
   | "svg" :: l
   | "tyxml" :: "svg" :: l ->

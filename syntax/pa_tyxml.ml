@@ -24,15 +24,15 @@ open Xhtmlparser;
 open Camlp4.PreCast;
 
 module Parser5 = Xhtmlparser.Make(Syntax)(struct
-  value xml_encodedpcdata _loc = <:expr< Html5.Xml.encodedpcdata >>;
-  value xml_pcdata _loc = <:expr< Html5.Xml.pcdata >>;
-  value xml_comment _loc = <:expr< Html5.Xml.comment >>;
-  value xml_node _loc = <:expr< Html5.Xml.node >>;
-  value xml_string_attrib _loc = <:expr< Html5.Xml.string_attrib >>;
-  value tot _loc = <:expr< Html5.tot >>;
-  value toeltl _loc = <:expr< Html5.toeltl >>;
-  value to_xmlattribs _loc = <:expr< Html5.to_xmlattribs >>;
-  value to_attrib _loc = <:expr< Html5.to_attrib >>;
+  value xml_encodedpcdata _loc = <:expr< Html.Xml.encodedpcdata >>;
+  value xml_pcdata _loc = <:expr< Html.Xml.pcdata >>;
+  value xml_comment _loc = <:expr< Html.Xml.comment >>;
+  value xml_node _loc = <:expr< Html.Xml.node >>;
+  value xml_string_attrib _loc = <:expr< Html.Xml.string_attrib >>;
+  value tot _loc = <:expr< Html.tot >>;
+  value toeltl _loc = <:expr< Html.toeltl >>;
+  value to_xmlattribs _loc = <:expr< Html.to_xmlattribs >>;
+  value to_attrib _loc = <:expr< Html.to_attrib >>;
   value make_type _loc tag =
     let tag = match String.lowercase tag with
       [ "object" -> "object__"
@@ -45,10 +45,10 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | "ins_" -> "del_"
       | x -> x ] in
     match tag with
-      [ "a" -> <:ctyp< Html5.elt [> Html5_types.a 'a ] >>
-      | tag -> <:ctyp< Html5.elt [> Html5_types.$lid:tag$ ] >> ];
+      [ "a" -> <:ctyp< Html.elt [> Html_types.a 'a ] >>
+      | tag -> <:ctyp< Html.elt [> Html_types.$lid:tag$ ] >> ];
   value make_content_type _loc tag =
-    <:ctyp< Html5.elt [< Html5_types.$lid:String.lowercase tag^"_content"$] >>;
+    <:ctyp< Html.elt [< Html_types.$lid:String.lowercase tag^"_content"$] >>;
   value make_attrib_type _loc tag =
       let tag = match String.lowercase tag with
       [ "button_type" -> "Button_Type"
@@ -134,11 +134,11 @@ module Parser5 = Xhtmlparser.Make(Syntax)(struct
       | "onwaiting" -> "OnWaiting"
       | "onebeforeunload" -> "OneBeforeUnload"
       | tag -> String.capitalize tag ] in
-    <:ctyp< Html5.attrib [> `$uid:tag$ ] >>;
+    <:ctyp< Html.attrib [> `$uid:tag$ ] >>;
   value make_attribs_type _loc tag =
     match String.lowercase tag with
-    [ "img" -> <:ctyp< Html5.attrib [< `Alt | `Src | Html5_types.img_attrib] >>
-    | tag -> <:ctyp< Html5.attrib [< Html5_types.$lid:tag^"_attrib"$] >>
+    [ "img" -> <:ctyp< Html.attrib [< `Alt | `Src | Html_types.img_attrib] >>
+    | tag -> <:ctyp< Html.attrib [< Html_types.$lid:tag^"_attrib"$] >>
     ] ;
 end);
 
@@ -313,10 +313,10 @@ module ParserSvg = Xhtmlparser.Make(Syntax)(struct
 end);
 
 do {
-  Syntax.Quotation.add "html5" Syntax.Quotation.DynAst.expr_tag Parser5.xml_exp ;
-  Syntax.Quotation.add "html5list" Syntax.Quotation.DynAst.expr_tag
+  Syntax.Quotation.add "html" Syntax.Quotation.DynAst.expr_tag Parser5.xml_exp ;
+  Syntax.Quotation.add "htmllist" Syntax.Quotation.DynAst.expr_tag
         Parser5.xml_expl;
-  Syntax.Quotation.default.val := "html5";
+  Syntax.Quotation.default.val := "html";
   Syntax.Quotation.add "svg" Syntax.Quotation.DynAst.expr_tag ParserSvg.xml_exp ;
   Syntax.Quotation.add "svglist" Syntax.Quotation.DynAst.expr_tag
         ParserSvg.xml_expl
