@@ -61,6 +61,25 @@ let basics = "ppx basics", tyxml_tests Html.[
   [[%html "<html><head><title>foo</title></head> </html>"]],
   [html (head (title (pcdata "foo")) []) (body [])] ;
 
+  "whitespace around html element",
+  [[%html "  <html><head><title>foo</title></head></html>  "]],
+  [html (head (title (pcdata "foo")) []) (body [])] ;
+
+  "whitespace around element",
+  [[%html "   <p></p>   "]],
+  [p []] ;
+
+  "whitespace in element",
+  [[%html "   <p>  </p>   "]],
+  [p [pcdata "  "]] ;
+
+  "whitespace around lists",
+  [%html "   <p></p><span></span>   "],
+  [p [] ; span []] ;
+
+  "whitespace around pcdata",
+  [%html "   bar<p></p>foo   "],
+  [pcdata "   bar" ; p [] ; pcdata "foo   " ] ;
 
 ]
 
