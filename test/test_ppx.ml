@@ -81,6 +81,14 @@ let basics = "ppx basics", tyxml_tests Html.[
   [%html "   bar<p></p>foo   "],
   [pcdata "   bar" ; p [] ; pcdata "foo   " ] ;
 
+  "whitespace in ul",
+  [[%html "<ul>   <li>foo</li>  <li>bar</li>   </ul>"]],
+  [ul [li [pcdata "foo"] ; li [pcdata "bar"]]] ;
+
+  "whitespace in ol",
+  [[%html "<ol>   <li>foo</li>  <li>bar</li>   </ol>"]],
+  [ol [li [pcdata "foo"] ; li [pcdata "bar"]]] ;
+
 ]
 
 let attribs = "ppx attribs", tyxml_tests Html.[
