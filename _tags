@@ -15,4 +15,4 @@ true: keep_locs
 # Tests use the tyxml ppx
 <test/*.ml>: ppx_tyxml
 
-<examples/mini_website_ppx/*.ml>: ppx_tyxml
+<examples/*_ppx/*.ml>: ppx_tyxml

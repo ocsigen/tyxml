@@ -42,17 +42,27 @@ let to_pcdata = function
     end
   | _ -> None
 
+(** Test if the expression is a pcdata containing only whitespaces. *)
+let is_whitespace = function
+  | Pc.Val e -> begin
+      match to_pcdata e with
+      | Some s when String.trim s = "" -> true
+      | _ -> false
+    end
+  | _ -> true
+
 (* Given a list of parse trees representing children of an element, filters out
    all children that consist of applications of [pcdata] to strings containing
    only whitespace. *)
-let filter_whitespace children =
-  children |> List.filter (function
-    | Pc.Val e -> begin
-        match to_pcdata e with
-        | Some s when String.trim s = "" -> false
-        | _ -> true
-      end
-    | _ -> true)
+let filter_whitespace = List.filter (fun e -> not @@ is_whitespace e)
+
+let filter_surrounding_whitespace children =
+  let rec aux = function
+    | [] -> []
+    | h :: t when is_whitespace h -> aux t
+    | l -> List.rev l
+  in
+  aux @@ aux children
 
 (* Given a parse tree and a string [name], checks whether the parse tree is an
    application of a function with name [name]. *)
@@ -93,7 +103,16 @@ let star ~lang ~loc ~name:_ children =
 
 (* Special-cased. *)
 
+let ul ~lang ~loc ~name children =
+  let children = filter_whitespace children in
+  star ~lang ~loc ~name children
+
+let ol ~lang ~loc ~name children =
+  let children = filter_whitespace children in
+  star ~lang ~loc ~name children
+
 let head ~lang ~loc ~name children =
+  let children = filter_whitespace children in
   let title, others = partition (html "title") children in
 
   match title with

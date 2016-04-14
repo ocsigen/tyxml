@@ -11,7 +11,13 @@ let mycontent = [%html {|
 let mytitle = Html.pcdata "A Fabulous Web Page"
 
 let mypage = [%html
-  "<html><head><title>"mytitle"</title></head><body>"mycontent"</body></html>"]
+  {|<html>
+     <head>
+       <title>|}mytitle{|</title>
+     </head>
+     <body>"mycontent"</body>
+   </html>
+  |}]
 
 let () =
   let file = open_out "index.html" in

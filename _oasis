@@ -203,6 +203,20 @@ Test basic_website
   TestTools: basic_website
   Run$: flag(tests)
 
+Executable basic_website_ppx
+  Install: false
+  Build$: flag(tests) && flag(tests)
+  Path: examples/basic_website_ppx
+  MainIs: site_html.ml
+  BuildDepends: tyxml
+  CompiledObject: best
+
+Test basic_website_ppx
+  WorkingDirectory: examples/basic_website_ppx
+  Command: $basic_website_ppx
+  TestTools: basic_website_ppx
+  Run$: flag(tests) && flag(tests)
+
 Executable mini_website
   Install: false
   Build$: flag(tests)
