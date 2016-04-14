@@ -79,7 +79,7 @@ struct
 
   let bool_attrib = user_attrib C.string_of_bool
 
-  let constant_attrib a =
+  let constant_attrib a () =
     string_attrib a (W.return a)
 
   let linktypes_attrib name x =

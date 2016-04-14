@@ -142,7 +142,9 @@ let float_exp loc s =
   with Failure "float_of_string" ->
     None
 
-
+let bool_exp loc b =
+  let s = if b then "true" else "false" in
+  Exp.construct ~loc (Location.mkloc (Longident.Lident s) loc) None
 
 (* Numeric. *)
 
@@ -172,14 +174,31 @@ let char ?separated_by:_ ?default:_ loc name s =
 
   Some (Exp.constant ~loc (Const_char c))
 
-let bool ?separated_by:_ ?default:_ loc name s =
-  begin
-    try bool_of_string s |> ignore
-    with Invalid_argument "bool_of_string" ->
-      Ppx_common.error loc "Value of %s must be \"true\" or \"false\"" name
-  end;
+let onoff ?separated_by:_ ?default:_ loc name s =
+  let b = match s with
+    | "" | "on" -> true
+    | "off" -> false
+    | _ ->
+      Ppx_common.error loc {|Value of %s must be "on", "" or "off"|} name
+  in
+  Some (bool_exp loc b)
 
-  Some (Exp.construct ~loc (Location.mkloc (Longident.parse s) loc) None)
+let bool ?separated_by:_ ?default:_ loc name s =
+  let b = match s with
+    | "" | "true" -> true
+    | "false" -> false
+    | _ ->
+      Ppx_common.error loc {|Value of %s must be "true", "" or "false"|} name
+  in
+  Some (bool_exp loc b)
+
+let unit ?separated_by:_ ?default:_ loc name s =
+  if s = "" || s = name then
+    Some (Ast_convenience.(with_default_loc loc unit))
+  else
+    Ppx_common.error loc
+      {|Value of %s must be %s or "".|}
+      name name
 
 let int ?separated_by ?default loc name s =
   match int_exp loc s with
