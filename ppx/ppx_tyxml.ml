@@ -237,12 +237,7 @@ let replace_attribute ~loc (attr,value) =
 
     Each token is equipped with a starting (but no ending) position.
 *)
-let ast_to_stream expr =
-  let expressions =
-    match expr.pexp_desc with
-    | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
-    | _ -> [expr]
-  in
+let ast_to_stream expressions =
 
   let strings =
     expressions |> List.map @@ fun expr ->
@@ -380,6 +375,12 @@ let dispatch_ext {txt ; loc} =
     Some (Ppx_common.Svg, get_modname ~loc len l)
   | _ -> None
 
+let application_to_list expr =
+  match expr.pexp_desc with
+  | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
+  | _ -> [expr]
+
+
 open Ast_mapper
 open Ast_helper
 
@@ -390,7 +391,8 @@ let markup_cases ~lang ~modname cases =
   let f ({pc_rhs} as case) =
     let loc = pc_rhs.pexp_loc in
     let pc_rhs =
-      markup_to_expr_with_implementation lang modname loc pc_rhs
+      markup_to_expr_with_implementation lang modname loc @@
+      application_to_list pc_rhs
     in {case with pc_rhs}
   in
   List.map f cases
@@ -405,7 +407,8 @@ let rec markup_function ~lang ~modname e =
     let cases = markup_cases ~lang ~modname cases in
     {e with pexp_desc = Pexp_function cases}
   | _ ->
-    markup_to_expr_with_implementation lang modname loc e
+    markup_to_expr_with_implementation lang modname loc @@
+    application_to_list e
 
 let markup_bindings ~lang ~modname l =
   let f ({pvb_expr} as b) =
@@ -424,7 +427,8 @@ let rec expr mapper e =
           let bindings = markup_bindings ~lang ~modname bindings in
           {e with pexp_desc = Pexp_let (recflag, bindings, expr mapper next)}
         | _ ->
-          markup_to_expr_with_implementation lang modname e.pexp_loc e
+          markup_to_expr_with_implementation lang modname e.pexp_loc  @@
+          application_to_list e
       end
     | Some _, _ -> error ext
     | None, _ -> default_mapper.expr mapper e
