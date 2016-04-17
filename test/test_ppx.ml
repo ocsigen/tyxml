@@ -173,6 +173,14 @@ let antiquot = "ppx antiquot", tyxml_tests Html.[
   [[%html "<p id="id">bla</p>"]],
   [p ~a:[a_id id] [pcdata "bla"]];
 
+  "first child",
+  [%html [elt1] "<p></p>"],
+  [elt1 ; p []];
+
+  "last child",
+  [%html "<p></p>" [elt1] ],
+  [p []; elt1];
+
   (* should succeed *)
   (* "escape", *)
   (* [%tyxml "<p>(tyxml4)</p>"], *)

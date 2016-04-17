@@ -49,7 +49,7 @@ let is_whitespace = function
       | Some s when String.trim s = "" -> true
       | _ -> false
     end
-  | _ -> true
+  | _ -> false
 
 (* Given a list of parse trees representing children of an element, filters out
    all children that consist of applications of [pcdata] to strings containing
