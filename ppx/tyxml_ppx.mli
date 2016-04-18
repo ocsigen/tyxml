@@ -29,6 +29,7 @@ open Migrate_parsetree.Ast_405
 type lang = Html | Svg
 
 val markup_to_expr :
+  ?simplify:bool ->
   lang ->
   Location.t -> Parsetree.expression list -> Parsetree.expression
 (** Given the payload of a [%html ...] or [%svg ...] expression,

@@ -279,7 +279,7 @@ let context_of_lang = function
 (** Given the payload of a [%html ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup
     contained therein. *)
-let markup_to_expr lang loc expr =
+let markup_to_expr ?(simplify=true) lang loc expr =
   let context = context_of_lang lang in
 
   let input_stream, adjust_location = ast_to_stream expr in
@@ -336,7 +336,7 @@ let markup_to_expr lang loc expr =
   in
 
   match l  with
-  | [ Val x | Antiquot x ] -> x
+  | [ Val x | Antiquot x ] when simplify -> x
   | l -> Common.list_wrap_value lang loc l
 
 let markup_to_expr_with_implementation lang modname loc expr =
