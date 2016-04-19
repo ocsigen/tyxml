@@ -57,6 +57,18 @@ let basics = "ppx basics", tyxml_tests Html.[
   [[%html "<html><head><title>foo</title></head></html>"]],
   [html (head (title (pcdata "foo")) []) (body [])] ;
 
+  "let",
+  [let%html x = "<p></p>" in x],
+  [p []] ;
+
+  "let and",
+  (let%html x = "<p></p>" and y = "<a></a>" in [x;y]),
+  [p []; a []] ;
+
+  "let fun",
+  [let%html f x = "<p>"x"</p>" in f [a []]],
+  [p [a []]] ;
+
   "whitespace in html element",
   [[%html "<html><head><title>foo</title></head> </html>"]],
   [html (head (title (pcdata "foo")) []) (body [])] ;
