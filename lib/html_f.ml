@@ -844,6 +844,7 @@ struct
     | `Archives -> "archives"
     | `Author -> "author"
     | `Bookmark -> "bookmark"
+    | `Canonical -> "canonical"
     | `External -> "external"
     | `First -> "first"
     | `Help -> "help"

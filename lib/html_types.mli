@@ -99,6 +99,7 @@ type linktype =
     | `Archives
     | `Author
     | `Bookmark
+    | `Canonical
     | `External
     | `First
     | `Help
@@ -139,6 +140,8 @@ type linktypes = linktype list
         Gives a link to the current document's author.}
         {- [`Bookmark]:
         Gives the permalink for the nearest ancestor section.}
+        {- [`Canonical]:
+        Gives the preferred location for accessing the current document.}
         {- [`External]:
         Indicates that the referenced document is not part of the same site as the current document.}
         {- [`First]:
