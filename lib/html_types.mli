@@ -187,8 +187,8 @@ type mediadesc_token =
   | `Projection
   | `Screen
   | `Speech
-  | `TTY
-  | `TV
+  | `Tty
+  | `Tv
   | `Raw_mediadesc of string ] [@@reflect.total_variant]
 
 type mediadesc = mediadesc_token list

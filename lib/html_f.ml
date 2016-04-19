@@ -875,8 +875,8 @@ struct
     | `Projection -> "projection"
     | `Screen -> "screen"
     | `Speech -> "speech"
-    | `TTY -> "tty"
-    | `TV -> "tv"
+    | `Tty -> "tty"
+    | `Tv -> "tv"
     | `Raw_mediadesc s -> s
 
   let string_of_big_variant = function
