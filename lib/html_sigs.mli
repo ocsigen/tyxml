@@ -429,6 +429,7 @@ module type T = sig
       should ignore leading zeros. *)
 
   val a_mime_type : contenttype wrap -> [> | `Mime_type] attrib
+    [@@reflect.attribute "type" ["object"; "embed"; "area"; "link"]]
   (** This attribute gives an advisory hint as to the content type
       of the content available at the link target address. It
       allows user agents to opt to use a fallback mechanism rather
