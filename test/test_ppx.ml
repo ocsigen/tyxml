@@ -125,6 +125,10 @@ let attribs = "ppx attribs", tyxml_tests Html.[
   [[%html "<form autocomplete=off></form>"]],
   [form ~a:[a_autocomplete false] []] ;
 
+  "link rel=canonical",
+  [[%html "<link rel=canonical href='/'>"]],
+  [link ~rel:[`Canonical] ~href:"/" ()] ;
+
 ]
 
 let ns_nesting = "namespace nesting" , tyxml_tests Html.[
