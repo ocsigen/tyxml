@@ -22,15 +22,13 @@
 
 (* OASIS_START *)
 (* OASIS_STOP *)
+# 26 "myocamlbuild.ml"
 
 open Ocamlbuild_plugin
 
 (* Determine extension of CompiledObject: best *)
 let native_suffix =
-  let env =
-    BaseEnvLight.load ~allow_empty:true
-      ~filename:MyOCamlbuildBase.env_filename ()
-  in
+  let env = BaseEnvLight.load () in
   if BaseEnvLight.var_get "is_native" env = "true"
   then "native" else "byte"
 
