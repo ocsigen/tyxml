@@ -590,6 +590,29 @@ module type T = sig
        | `Text_after_edge | `Text_before_edge | `Inherit ] wrap ->
     [> | `Dominant_Baseline ] attrib
 
+  val a_stop_color : color wrap -> [> | `Stop_Color ] attrib
+
+  val a_stop_opacity : number wrap -> [> | `Stop_Opacity ] attrib
+
+  val a_stroke : paint wrap -> [> | `Stroke ] attrib
+
+  val a_stroke_width : Unit.length wrap -> [> | `Stroke_Width ] attrib
+
+  val a_stroke_linecap :
+    [< `Butt | `Round | `Square ] wrap -> [> | `Stroke_Linecap ] attrib
+
+  val a_stroke_linejoin :
+    [< `Miter | `Round | `Bever ] wrap -> [> `Stroke_Linejoin ] attrib
+
+  val a_stroke_miterlimit : float wrap -> [> `Stroke_Miterlimit ] attrib
+
+  val a_stroke_dasharray :
+    Unit.length list wrap -> [> `Stroke_Dasharray ] attrib
+
+  val a_stroke_dashoffset : Unit.length wrap -> [> `Stroke_Dashoffset ] attrib
+
+  val a_stroke_opacity : float wrap -> [> `Stroke_Opacity ] attrib
+
   (** {2 Events}
 
       {3 Javascript events} *)
@@ -616,36 +639,6 @@ module type T = sig
   val a_onmouseover : Xml.mouse_event_handler  -> [> | `OnMouseOver ] attrib
   val a_onmouseout : Xml.mouse_event_handler  -> [> | `OnMouseOut ] attrib
   val a_onmousemove : Xml.mouse_event_handler  -> [> | `OnMouseMove ] attrib
-
-  val metadata :
-    ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt
-
-  val foreignObject :
-    ?a: ((foreignobject_attr attrib) list) ->
-    Xml.elt list_wrap -> [> | foreignobject] elt
-
-  val a_stop_color : color wrap -> [> | `Stop_Color ] attrib
-
-  val a_stop_opacity : number wrap -> [> | `Stop_Opacity ] attrib
-
-  val a_stroke : paint wrap -> [> | `Stroke ] attrib
-
-  val a_stroke_width : Unit.length wrap -> [> | `Stroke_Width ] attrib
-
-  val a_stroke_linecap :
-    [< `Butt | `Round | `Square ] wrap -> [> | `Stroke_Linecap ] attrib
-
-  val a_stroke_linejoin :
-    [< `Miter | `Round | `Bever ] wrap -> [> `Stroke_Linejoin ] attrib
-
-  val a_stroke_miterlimit : float wrap -> [> `Stroke_Miterlimit ] attrib
-
-  val a_stroke_dasharray :
-    Unit.length list wrap -> [> `Stroke_Dasharray ] attrib
-
-  val a_stroke_dashoffset : Unit.length wrap -> [> `Stroke_Dashoffset ] attrib
-
-  val a_stroke_opacity : float wrap -> [> `Stroke_Opacity ] attrib
 
   (** {2:elements Elements} *)
 
@@ -874,6 +867,13 @@ module type T = sig
     ([< | font_face_format_attr], [> | font_face_format]) nullary
 
   val font_face_name : ([< | font_face_name_attr], [> | font_face_name]) nullary
+
+  val metadata :
+    ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt
+
+  val foreignObject :
+    ?a: ((foreignobject_attr attrib) list) ->
+    Xml.elt list_wrap -> [> | foreignobject] elt
 
   (** {2 Conversion with untyped representation} *)
 
