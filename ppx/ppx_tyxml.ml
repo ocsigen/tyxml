@@ -322,20 +322,69 @@ let dispatch_ext {txt ; loc} =
   | _ -> None
 
 open Ast_mapper
+open Ast_helper
 
-let map_expr mapper e =
+let error { txt ; loc } =
+  Ppx_common.error loc "Invalid payload for [%%%s]." txt
+
+let markup_cases ~lang ~modname cases =
+  let f ({pc_rhs} as case) =
+    let loc = pc_rhs.pexp_loc in
+    let pc_rhs =
+      markup_to_expr_with_implementation lang modname loc pc_rhs
+    in {case with pc_rhs}
+  in
+  List.map f cases
+
+let rec markup_function ~lang ~modname e =
+  let loc = e.pexp_loc in
+  match e.pexp_desc with
+  | Pexp_fun (label,def,pat,content) ->
+    let content = markup_function ~lang ~modname content in
+    {e with pexp_desc = Pexp_fun (label,def,pat,content)}
+  | Pexp_function cases ->
+    let cases = markup_cases ~lang ~modname cases in
+    {e with pexp_desc = Pexp_function cases}
+  | _ ->
+    markup_to_expr_with_implementation lang modname loc e
+
+let markup_bindings ~lang ~modname l =
+  let f ({pvb_expr} as b) =
+    let pvb_expr = markup_function ~lang ~modname pvb_expr in
+    {b with pvb_expr}
+  in
+  List.map f l
+
+let expr mapper e =
   match e.pexp_desc with
   | Pexp_extension (ext, payload) ->
     begin match dispatch_ext ext, payload with
     | Some (lang, modname), PStr [{pstr_desc = Pstr_eval (e, _)}] ->
-      markup_to_expr_with_implementation lang modname e.pexp_loc e
-    | Some _, _ ->
-      Ppx_common.error e.pexp_loc
-        "Error: Payload of [%%tyxml] must be a single string"
+      begin match e.pexp_desc with
+        | Pexp_let (recflag, bindings, next) ->
+          let bindings = markup_bindings ~lang ~modname bindings in
+          {e with pexp_desc = Pexp_let (recflag, bindings, next)}
+        | _ ->
+          markup_to_expr_with_implementation lang modname e.pexp_loc e
+      end
+    | Some _, _ -> error ext
     | None, _ -> default_mapper.expr mapper e
     end
   | _ -> default_mapper.expr mapper e
 
+let structure_item mapper stri =
+  match stri.pstr_desc with
+  | Pstr_extension ((ext, payload), _attrs) ->
+    begin match dispatch_ext ext, payload with
+    | Some (lang, modname),
+      PStr [{pstr_desc = Pstr_value (recflag, bindings) }] ->
+      let bindings = markup_bindings ~lang ~modname bindings in
+      Str.value recflag bindings
+
+    | Some _, _ -> error ext
+    | None, _ -> default_mapper.structure_item mapper stri
+    end
+  | _ -> default_mapper.structure_item mapper stri
 
 let mapper _ =
-  {default_mapper with expr = map_expr}
+  {default_mapper with expr ; structure_item}

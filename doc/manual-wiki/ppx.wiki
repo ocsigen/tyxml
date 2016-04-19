@@ -59,6 +59,20 @@ let my_div = [%html "<div id="my_id"></div>"]
 val my_div : [> Html_types.div ] Html.elt
 >>
 
+==@@id="let"@@ Let notation
+
+It is also possible to use the ppx with the ##let## notation:
+<<code language="ocaml"|
+let%html content = {|<div id="content">some content</div>|} ;;
+val content : [> Html_types.div ] Html.elt
+>>
+
+All the capabilities provided by the ppx are still available with this form. Additionally, the modifiers ##and## or ##rec## are available. It is also possible to create functions:
+<<code language="ocaml"|
+let%html make_content id = "<div id="id" >some content</div>" ;;
+val make_content : string -> [> Html_types.div ] Html.elt
+>>
+
 ==@@id="notes"@@ Notes
 
 === Locations ===
