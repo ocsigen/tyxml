@@ -878,9 +878,9 @@ module type T = sig
   (** {2 Conversion with untyped representation} *)
 
   val tot : Xml.elt -> 'a elt
-  val totl : Xml.elt list -> ('a elt) list
+  val totl : Xml.elt list_wrap -> ('a elt) list_wrap
   val toelt : 'a elt -> Xml.elt
-  val toeltl : ('a elt) list -> Xml.elt list
+  val toeltl : ('a elt) list_wrap -> Xml.elt list_wrap
 
   val doc_toelt : doc -> Xml.elt
   val to_xmlattribs : ('a attrib) list -> Xml.attrib list
