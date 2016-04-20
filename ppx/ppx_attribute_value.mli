@@ -90,8 +90,9 @@ val nowrap : parser -> Ppx_common.lang -> vparser
 (** {2 Numeric} *)
 
 val char : parser
-(** [char _ _ s], where [s] is a string containing a single byte [c], produces
-    a parse tree for [c]. *)
+(** [char _ _ s], where [s] is a string containing a single UTF-8 character [c],
+    produces a parse tree for [c] of type [char]. Note that this means the range
+    is restricted to the first 256 code points. *)
 
 val bool : parser
 (** [bool _ _ s] produces a parse tree for the boolean [true]
