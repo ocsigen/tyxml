@@ -977,7 +977,7 @@ module type T = sig
     ], [> | `Command]) nullary
 
   val menu :
-    ?child:(
+    ?children:(
       [<
         | `Lis of ([< | `Li of [< | common]] elt) list_wrap
         | `Flows of ([< | flow5] elt) list_wrap
