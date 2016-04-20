@@ -158,7 +158,7 @@ module type T = sig
 
   val a_style : string wrap -> [> | `Style ] attrib
 
-  val a_transform : transform wrap -> [> | `Transform ] attrib
+  val a_transform : transforms wrap -> [> | `Transform ] attrib
 
   val a_viewBox : fourfloats wrap -> [> | `ViewBox ] attrib
 

@@ -224,8 +224,8 @@ let svg = "svg", SvgTests.make Svg.[
   [svg []] ;
 
   "transform",
-  [[%svg "<line transform='translate(1)'/>"]],
-  [line ~a:[a_transform (`Translate (1., None))] []]
+  [[%svg "<line transform='translate(1) translate(2)'/>"]],
+  [line ~a:[a_transform [`Translate (1., None); `Translate (2., None)]] []] ;
 
 ]
 

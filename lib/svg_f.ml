@@ -260,7 +260,7 @@ struct
 
   let a_style = string_attrib "style"
 
-  let a_transform = user_attrib C.string_of_transform "transform"
+  let a_transform = user_attrib C.string_of_transforms "transform"
 
   let a_viewBox = user_attrib C.string_of_fourfloats "viewBox"
 
