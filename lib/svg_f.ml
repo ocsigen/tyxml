@@ -85,8 +85,6 @@ let opt_concat ?(sep=" ") s f = function
 
 let list ?(sep=" ") f l = String.concat sep (List.map f l)
 
-let string_of_percentage = Printf.sprintf "%d%%"
-
 let string_of_color s = s
 (* For now just string, we may want something better in the future. *)
 
@@ -1069,6 +1067,8 @@ struct
   let string_of_lengths = list string_of_length
 
   let string_of_number = Xml_print.string_of_number
+
+  let string_of_percentage x = (string_of_number x) ^ "%"
 
   let string_of_fourfloats (a, b, c, d) =
     Printf.sprintf "%s %s %s %s"

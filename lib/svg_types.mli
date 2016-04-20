@@ -273,7 +273,7 @@ open Unit
 type coord = length
 type number = float
 type number_optional_number = (number * (number option))
-type percentage = int
+type percentage = float
 type strings = string list
 
 type color = string
@@ -1955,8 +1955,8 @@ type in_value =
   | `Ref of string ] [@@reflect.total_variant]
 
 type offset =
-  [ `Number of float
-  | `Percentage of int ]
+  [ `Number of number
+  | `Percentage of percentage ]
 
 type big_variant =
   [ `A

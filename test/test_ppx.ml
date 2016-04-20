@@ -227,6 +227,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<line transform='translate(1) translate(2)'/>"]],
   [line ~a:[a_transform [`Translate (1., None); `Translate (2., None)]] []] ;
 
+  "offset percentage",
+  [[%svg "<stop offset='50.1%'/>"]],
+  [stop ~a:[a_offset (`Percentage 50.1)] []] ;
+
 ]
 
 

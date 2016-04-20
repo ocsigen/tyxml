@@ -147,7 +147,7 @@ val offset : parser
 (** [offset _ _ s produces a parse tree for
 
     - [`Number n] if [s] = [string_of_float n], or
-    - [`Percentage i] if [s] has form [(string_of_int i) ^ "%"]. *)
+    - [`Percentage n] if [s] has form [(string_of_float n) ^ "%"]. *)
 
 val transform : parser
 (** Parses an SVG transform attribute value. See

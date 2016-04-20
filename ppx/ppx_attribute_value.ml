@@ -335,30 +335,20 @@ let offset =
   let bad_form name loc =
     Ppx_common.error loc "Value of %s must be a number or percentage" name in
 
-  let regexp = Re_str.regexp "\\([-+0-9eE.]+\\)$\\|\\([0-9]+\\)%" in
+  let regexp = Re_str.regexp "\\([-+0-9eE.]+\\)\\(%\\)?" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then bad_form name loc;
 
     begin
-      if group_matched 1 s then
-        let n =
-          match float_exp loc s with
-          | Some n -> n
-          | None -> bad_form name loc
-        in
+      let n =
+        match float_exp loc (Re_str.matched_group 1 s) with
+        | Some n -> n
+        | None -> bad_form name loc
+      in
 
-        Some [%expr `Number [%e n]]
-
-      else
-        let n =
-          match int_exp loc (Re_str.matched_group 2 s) with
-          | Some n -> n
-          | None ->
-            Ppx_common.error loc "Percentage out of range in %s" name
-        in
-
-        Some [%expr `Percentage [%e n]]
+      if group_matched 2 s then Some [%expr `Percentage [%e n]]
+      else Some [%expr `Number [%e n]]
     end [@metaloc loc]
 
 let transform =
