@@ -1097,21 +1097,21 @@ struct
     | l -> list string_of_length l
 
   let string_of_transform = function
-    | Matrix (a, b, c, d, e, f) ->
+    | `Matrix (a, b, c, d, e, f) ->
       Printf.sprintf "matrix(%g %g %g %g %g %g)" a b c d e f
-    | Translate x ->
+    | `Translate x ->
       Printf.sprintf "translate(%s)"
         (string_of_number_optional_number x)
-    | Scale x ->
+    | `Scale x ->
       Printf.sprintf "scale(%s)" (string_of_number_optional_number x)
-    | Rotate ((angle, x)) ->
+    | `Rotate ((angle, x)) ->
       Printf.sprintf "rotate(%s %s)" (string_of_angle angle)
         (match x with
          | Some ((x, y)) -> Printf.sprintf "%g %g" x y
          | None -> "")
-    | SkewX angle ->
+    | `SkewX angle ->
       Printf.sprintf "skewX(%s)" (string_of_angle angle)
-    | SkewY angle ->
+    | `SkewY angle ->
       Printf.sprintf "skewY(%s)" (string_of_angle angle)
 
   let string_of_transforms l =

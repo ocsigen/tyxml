@@ -376,36 +376,33 @@ let transform =
       | "matrix" ->
         begin match spaces_or_commas_ float loc "matrix" values with
         | [a; b; c; d; e; f] ->
-          [%expr Svg_types.Matrix
-            ([%e a], [%e b], [%e c], [%e d], [%e e], [%e f])]
+          [%expr `Matrix ([%e a], [%e b], [%e c], [%e d], [%e e], [%e f])]
         | _ ->
           Ppx_common.error loc "%s: matrix requires six numbers" name
         end
 
       | "translate" ->
         begin match spaces_or_commas_ float loc "translate" values with
-        | [tx; ty] -> [%expr Svg_types.Translate ([%e tx], Some [%e ty])]
-        | [tx] -> [%expr Svg_types.Translate ([%e tx], None)]
+        | [tx; ty] -> [%expr `Translate ([%e tx], Some [%e ty])]
+        | [tx] -> [%expr `Translate ([%e tx], None)]
         | _ ->
           Ppx_common.error loc "%s: translate requires one or two numbers" name
         end
 
       | "scale" ->
         begin match spaces_or_commas_ float loc "scale" values with
-        | [sx; sy] -> [%expr Svg_types.Scale ([%e sx], Some [%e sy])]
-        | [sx] -> [%expr Svg_types.Scale ([%e sx], None)]
-        | _ ->
-          Ppx_common.error loc "%s: scale requires one or two numbers" name
+        | [sx; sy] -> [%expr `Scale ([%e sx], Some [%e sy])]
+        | [sx] -> [%expr `Scale ([%e sx], None)]
+        | _ -> Ppx_common.error loc "%s: scale requires one or two numbers" name
         end
 
       | "rotate" ->
         begin match Re_str.bounded_split spaces_or_commas_regexp values 2 with
-        | [a] ->
-          [%expr Svg_types.Rotate ([%e angle_ loc "rotate" a], None)]
+        | [a] -> [%expr `Rotate ([%e angle_ loc "rotate" a], None)]
         | [a; axis] ->
           begin match spaces_or_commas_ float loc "rotate axis" axis with
           | [cx; cy] ->
-            [%expr Svg_types.Rotate
+            [%expr `Rotate
               ([%e angle_ loc "rotate" a], Some ([%e cx], [%e cy]))]
           | _ ->
             Ppx_common.error loc "%s: rotate center requires two numbers" name
@@ -415,9 +412,9 @@ let transform =
             "%s: rotate requires an angle and an optional center" name
         end
 
-      | "skewX" -> [%expr Svg_types.SkewX [%e angle_ loc "skewX" values]]
+      | "skewX" -> [%expr `SkewX [%e angle_ loc "skewX" values]]
 
-      | "skewY" -> [%expr Svg_types.SkewY [%e angle_ loc "skewY" values]]
+      | "skewY" -> [%expr `SkewY [%e angle_ loc "skewY" values]]
 
       | s -> Ppx_common.error loc "%s: %s is not a valid transform type" name s
       end [@metaloc loc]

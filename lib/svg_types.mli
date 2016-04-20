@@ -290,12 +290,12 @@ type paint =
 
 (* Transformation *)
 type transform =
-  | Matrix of (float * float * float * float * float * float)
-  | Translate of (float * (float option))
-  | Scale of (float * (float option))
-  | Rotate of (angle * ((float * float) option))
-  | SkewX of angle
-  | SkewY of angle
+  [ `Matrix of (float * float * float * float * float * float)
+  | `Translate of (float * (float option))
+  | `Scale of (float * (float option))
+  | `Rotate of (angle * ((float * float) option))
+  | `SkewX of angle
+  | `SkewY of angle ]
 
 type spacestrings = string list
 type commastrings = string list
