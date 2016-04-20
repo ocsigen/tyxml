@@ -585,6 +585,8 @@ module type T = sig
     [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
 
   val a_char : character wrap -> [> | `Char] attrib
+    [@@ocaml.deprecated "The char attribute is not supported in HTML5"]
+  (** @deprecated The char attribute is not supported in HTML5 *)
 
   val a_alt : text wrap -> [> | `Alt] attrib
 
