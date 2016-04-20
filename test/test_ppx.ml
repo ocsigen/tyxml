@@ -6,24 +6,36 @@
 
 open Tyxml
 
-module TyTests = struct
-  type t = Xml.elt list
-  let pp fmt x =
-    Format.pp_print_list ~pp_sep:(fun _ () -> ())
-      (Html.pp_elt ())
-      fmt (Html.totl x)
-  let equal = (=)
+module type LANGUAGE = sig
+  include Xml_sigs.Typed_pp
+  type 'a list_wrap = 'a Xml_wrap.NoWrap.tlist
+  val totl : Xml.elt list_wrap -> ('a elt) list_wrap
+  val toeltl : ('a elt) list_wrap -> Xml.elt list_wrap
 end
 
+module TyTests (Language : LANGUAGE) = struct
+  module Testable = struct
+    type t = Xml.elt list
+    let pp fmt x =
+      Format.pp_print_list ~pp_sep:(fun _ () -> ())
+        (Language.pp_elt ())
+        fmt (Language.totl x)
+    let equal = (=)
+  end
 
-let tyxml_tests l =
-  let f (name, ty1, ty2) =
-    name, `Quick, fun () ->
-      Alcotest.(check (module TyTests)) name (Html.toeltl ty1) (Html.toeltl ty2)
-  in
-  List.map f l
+  let make l =
+    let f (name, ty1, ty2) =
+      name, `Quick, fun () ->
+        Alcotest.(check (module Testable)) name
+          (Language.toeltl ty1) (Language.toeltl ty2)
+    in
+    List.map f l
+end
 
-let basics = "ppx basics", tyxml_tests Html.[
+module HtmlTests = TyTests (Html)
+module SvgTests = TyTests (Svg)
+
+let basics = "ppx basics", HtmlTests.make Html.[
 
   "elems",
   [[%html "<p></p>"]],
@@ -103,7 +115,7 @@ let basics = "ppx basics", tyxml_tests Html.[
 
 ]
 
-let attribs = "ppx attribs", tyxml_tests Html.[
+let attribs = "ppx attribs", HtmlTests.make Html.[
 
   "unit absent",
   [[%html "<div hidden></div>"]],
@@ -143,7 +155,7 @@ let attribs = "ppx attribs", tyxml_tests Html.[
 
 ]
 
-let ns_nesting = "namespace nesting" , tyxml_tests Html.[
+let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
 
   "html/svg",
   [[%html "<svg><g></g></svg>"]],
@@ -167,7 +179,7 @@ let elt1 = Html.(span [pcdata "one"])
 let elt2 = Html.[b [pcdata "two"]]
 let id = "pata"
 
-let antiquot = "ppx antiquot", tyxml_tests Html.[
+let antiquot = "ppx antiquot", HtmlTests.make Html.[
 
   "child",
   [[%html "<p>" [elt1] "</p>"]],
@@ -205,6 +217,14 @@ let antiquot = "ppx antiquot", tyxml_tests Html.[
 
 ]
 
+let svg = "svg", SvgTests.make Svg.[
+
+  "basic",
+  [[%svg "<svg/>"]],
+  [svg []] ;
+
+]
+
 
 
 let tests = [
@@ -212,4 +232,5 @@ let tests = [
   attribs ;
   ns_nesting ;
   antiquot ;
+  svg ;
 ]
