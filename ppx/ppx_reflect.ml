@@ -181,9 +181,6 @@ let rec to_attribute_parser name = function
   | [[%type : mediadesc]] ->
     [%expr commas (total_variant Html_types_reflected.mediadesc_token)]
 
-  | [[%type : transform]] ->
-    [%expr transform]
-
   | [[%type : lengths]] ->
     [%expr spaces_or_commas svg_length]
 

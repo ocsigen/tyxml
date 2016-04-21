@@ -273,7 +273,7 @@ open Unit
 type coord = length
 type number = float
 type number_optional_number = (number * (number option))
-type percentage = int
+type percentage = float
 type strings = string list
 
 type color = string
@@ -290,12 +290,12 @@ type paint =
 
 (* Transformation *)
 type transform =
-  | Matrix of (float * float * float * float * float * float)
-  | Translate of (float * (float option))
-  | Scale of (float * (float option))
-  | Rotate of (angle * ((float * float) option))
-  | SkewX of angle
-  | SkewY of angle
+  [ `Matrix of (float * float * float * float * float * float)
+  | `Translate of (float * (float option))
+  | `Scale of (float * (float option))
+  | `Rotate of (angle * ((float * float) option))
+  | `SkewX of angle
+  | `SkewY of angle ]
 
 type spacestrings = string list
 type commastrings = string list
@@ -1955,8 +1955,8 @@ type in_value =
   | `Ref of string ] [@@reflect.total_variant]
 
 type offset =
-  [ `Number of float
-  | `Percentage of int ]
+  [ `Number of number
+  | `Percentage of percentage ]
 
 type big_variant =
   [ `A
