@@ -141,6 +141,14 @@ let attribs = "ppx attribs", tyxml_tests Html.[
   [[%html "<link rel=canonical href='/'>"]],
   [link ~rel:[`Canonical] ~href:"/" ()] ;
 
+  "embed type",
+  [[%html "<embed type='text/plain'>"]],
+  [embed ~a:[a_mime_type "text/plain"] ()] ;
+
+  "output for",
+  [[%html "<output for=foo></output>"]],
+  [output_elt ~a:[a_output_for ["foo"]] []] ;
+
 ]
 
 let ns_nesting = "namespace nesting" , tyxml_tests Html.[

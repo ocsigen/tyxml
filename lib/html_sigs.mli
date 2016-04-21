@@ -429,6 +429,7 @@ module type T = sig
       should ignore leading zeros. *)
 
   val a_mime_type : contenttype wrap -> [> | `Mime_type] attrib
+    [@@reflect.attribute "type" ["object"; "embed"; "area"; "link"]]
   (** This attribute gives an advisory hint as to the content type
       of the content available at the link target address. It
       allows user agents to opt to use a fallback mechanism rather
@@ -462,16 +463,16 @@ module type T = sig
   val a_enctype : contenttype wrap -> [> | `Enctype] attrib
 
   val a_label_for : idref wrap -> [> | `Label_for] attrib
+    [@@reflect.attribute "for" ["label"]]
 
   val a_for : idref wrap -> [> | `Label_for] attrib
-    [@@reflect.attribute "for" ["label"]]
-    [@@ocaml.deprecated "Use a_label_fo"]
+    [@@ocaml.deprecated "Use a_label_for"]
   (** @deprecated Use a_label_for *)
 
   val a_output_for : idrefs wrap -> [> | `Output_for] attrib
+    [@@reflect.attribute "for" ["output"]]
 
   val a_for_list : idrefs wrap -> [> | `Output_for] attrib
-    [@@reflect.attribute "for" ["output"]]
     [@@ocaml.deprecated "Use a_output_for"]
   (** @deprecated Use a_output_for *)
 
@@ -945,6 +946,7 @@ module type T = sig
 
   val output_elt :
     ([< | output_elt_attrib], [< | output_elt_content_fun], [> | output_elt]) star
+      [@@reflect.element "star" "output"]
 
   (** {3 Data} *)
 
