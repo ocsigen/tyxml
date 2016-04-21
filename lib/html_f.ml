@@ -671,12 +671,12 @@ struct
   let command ~label ?(a = []) () =
     Xml.leaf ~a: ((a_label label) :: a) "command"
 
-  let menu ?child ?a () =
-    let child = match child with
+  let menu ?children ?a () =
+    let children = match children with
       | None -> W.nil ()
       | Some (`Lis l)
       | Some (`Flows l) -> l in
-    Xml.node ?a "menu" child
+    Xml.node ?a "menu" children
 
   let embed = terminal "embed"
 
