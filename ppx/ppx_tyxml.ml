@@ -106,7 +106,7 @@ module Antiquot = struct
     if H.mem tbl s then H.find tbl s
     else
       Ppx_common.error loc
-        "Internal error: This expression placeholder is not registered."
+        "Internal error: This expression placeholder is not registered"
 
   let contains loc s = match Re.exec_opt re_id s with
     | None -> `No
@@ -122,7 +122,7 @@ module Antiquot = struct
     | `No -> ()
     | `Yes e | `Whole e ->
       Ppx_common.error e.pexp_loc
-        "OCaml expressions are not accepted as %s names." kind
+        "OCaml expressions are not accepted as %s names" kind
 
 end
 
@@ -160,7 +160,7 @@ let replace_attribute ~loc (attr,value) =
   | `Whole e -> (attr, Ppx_common.antiquot e)
   | `Yes _ ->
       Ppx_common.error loc
-      "Mixing literals and OCaml expressions is not authorized in attribute values."
+      "Mixing literals and OCaml expressions is not supported in attribute values"
 
 
 (** Processing *)
@@ -304,8 +304,7 @@ let get_modname ~loc len l =
   let loc = Loc.shrink loc ~xbegin:(len - String.length s) ~xend:0 in
   if l = [] then None
   else if not (List.for_all is_capitalized l) then
-    Ppx_common.error loc
-      "This identifier is not a module name."
+    Ppx_common.error loc "This identifier is not a module name"
   else Some s
 
 let re_dot = Re.(compile @@ char '.')
@@ -325,7 +324,7 @@ open Ast_mapper
 open Ast_helper
 
 let error { txt ; loc } =
-  Ppx_common.error loc "Invalid payload for [%%%s]." txt
+  Ppx_common.error loc "Invalid payload for [%%%s]" txt
 
 let markup_cases ~lang ~modname cases =
   let f ({pc_rhs} as case) =
