@@ -355,7 +355,7 @@ let markup_bindings ~lang ~modname l =
   in
   List.map f l
 
-let expr mapper e =
+let rec expr mapper e =
   match e.pexp_desc with
   | Pexp_extension (ext, payload) ->
     begin match dispatch_ext ext, payload with
@@ -363,7 +363,7 @@ let expr mapper e =
       begin match e.pexp_desc with
         | Pexp_let (recflag, bindings, next) ->
           let bindings = markup_bindings ~lang ~modname bindings in
-          {e with pexp_desc = Pexp_let (recflag, bindings, next)}
+          {e with pexp_desc = Pexp_let (recflag, bindings, expr mapper next)}
         | _ ->
           markup_to_expr_with_implementation lang modname e.pexp_loc e
       end
