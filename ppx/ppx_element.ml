@@ -29,7 +29,7 @@ let parse
     | Html, Html | Svg, Svg -> lang
     | Svg, Html ->
       Ppx_common.error loc
-        "Nesting of Html element inside svg element is not authorized."
+        "Nesting of Html element inside svg element is not supported"
   in
 
   let name =
