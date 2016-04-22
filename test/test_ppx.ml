@@ -73,6 +73,12 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [let%html x = "<p></p>" in x],
   [p []] ;
 
+  "nested let",
+  [let%html _ = "<p></p>" in
+   let%html y = "<p></p>" in
+   y],
+  [p []] ;
+
   "let and",
   (let%html x = "<p></p>" and y = "<a></a>" in [x;y]),
   [p []; a []] ;
