@@ -902,8 +902,6 @@ struct
     | `Rtl -> "rtl"
     | `Get -> "GET"
     | `Post -> "POST"
-    | `Put -> "PUT"
-    | `Delete -> "DELETE"
     | `Formnovalidate -> "formnovalidate"
     | `Hidden -> "hidden"
     | `Ismap -> "ismap"

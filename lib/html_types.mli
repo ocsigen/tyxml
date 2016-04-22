@@ -2223,8 +2223,6 @@ type big_variant =
   | `Selected
   | `Get
   | `Post
-  | `Put
-  | `Delete
   | `Checked
   | `Disabled
   | `ReadOnly
