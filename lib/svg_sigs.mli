@@ -490,6 +490,7 @@ module type T = sig
     [< | `Discrete | `Linear | `Paced | `Spline ] wrap -> [> | `CalcMode ] attrib
 
   val a_animation_values : strings wrap -> [> | `Valuesanim ] attrib
+    [@@reflect.attribute "values" ["animation"]]
 
   val a_keyTimes : strings wrap -> [> | `KeyTimes ] attrib
 

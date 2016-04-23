@@ -155,7 +155,7 @@ type animation_timing_attr =
   ]
 
 type animation_value_attr =
-  [ | `CalcMode | `Values | `KeyTimes | `KeySplines | `From | `To | `By
+  [ | `CalcMode | `Valuesanim | `KeyTimes | `KeySplines | `From | `To | `By
   ]
 
 type animation_addition_attr = [ | `Additive | `Accumulate ]

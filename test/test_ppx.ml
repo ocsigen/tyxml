@@ -278,9 +278,9 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<feMorphology operator='erode'/>"]],
   [feMorphology ~a:[a_feMorphology_operator `Erode] []] ;
 
-  "animation fill",
-  [[%svg "<animation fill='freeze'/>"]],
-  [animation ~a:[a_animation_fill `Freeze] []] ;
+  "animation fill, values",
+  [[%svg "<animation fill='freeze' values='1 2'/>"]],
+  [animation ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
 ]
 
