@@ -304,13 +304,11 @@ module type T = sig
   val a_low : float_number wrap -> [> | `High] attrib
 
   val a_max : float_number wrap -> [> | `Max] attrib
-    [@@reflect.attribute "max" ["meter"; "progress"]]
 
   val a_input_max : float_number wrap -> [> | `Input_Max] attrib
     [@@reflect.attribute "max" ["input"]]
 
   val a_min : float_number wrap -> [> | `Min] attrib
-    [@@reflect.attribute "min" ["meter"]]
 
   val a_input_min : float_number wrap -> [> | `Input_Min] attrib
     [@@reflect.attribute "min" ["input"]]
