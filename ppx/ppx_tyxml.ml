@@ -31,8 +31,8 @@ module Loc = struct
       loc_end = shift loc_end xend ;
     }
 
-  (** Returns the real (OCaml) location of a string, taking delimiters into
-      account. *)
+  (** Returns the real (OCaml) location of the content of a string, taking
+      delimiters into account. *)
   let string_start delimiter loc =
     let delimiter_length = match delimiter with
       | None -> 1
@@ -49,29 +49,93 @@ module Loc = struct
       loc_end = shift pos 1
     }
 
-  (** Converts a Markup.ml input location into an OCaml location. [loc] is the
-      start of the OCaml location of the string being parsed by Markup.ml.
-      [consumed] is the number of bytes consumed by Markup.ml before the
-      beginning of the current string.
-      [(line, column)] is the Markup.ml location to be converted. *)
-  let adjust loc consumed (line, column) =
-    let open Lexing in
+  (** Given a list of input strings for Markup.ml, evaluates to a function that
+      converts Markup.ml locations of characters within these strings to their
+      OCaml locations. *)
+  let make_location_map located_strings =
+    (* [source] is a byte stream created from the string list, which calls
+       [!starting_a_string] each time it moves on to a new string in the
+       list. *)
+    let starting_a_string = ref (fun _ -> ()) in
+    let source =
+      let strings = ref located_strings in
+      let offset = ref 0 in
 
-    let column =
-      if line <> 1 then column - 1
-      else loc.pos_cnum - loc.pos_bol + column - 1 - consumed
+      let rec next_byte () = match !strings with
+        | [] -> None
+        | (s, loc)::rest ->
+          if !offset = 0 then !starting_a_string loc;
+
+          if !offset < String.length s then begin
+            offset := !offset + 1;
+            Some (s.[!offset - 1])
+          end
+          else begin
+            offset := 0;
+            strings := rest;
+            next_byte ()
+          end
+      in
+
+      Markup.fn next_byte
     in
-    let line = loc.pos_lnum + line - 1 in
 
-    let position =
-      {pos_fname = loc.pos_fname;
-       pos_lnum  = line;
-       pos_bol   = 0;
-       pos_cnum  = column};
+    (* Use Markup.ml to assign locations to characters in [source], and note
+       the Markup.ml and OCaml locations of the start of each string. *)
+    let location_map =
+      let preprocessed_input_stream, get_markupml_location =
+        source
+        |> Markup.Encoding.decode Markup.Encoding.utf_8
+        |> Markup.preprocess_input_stream
+      in
+
+      let location_map = ref [] in
+      starting_a_string := begin fun ocaml_position ->
+        location_map :=
+          (get_markupml_location (), ocaml_position)::!location_map
+      end;
+
+      Markup.drain preprocessed_input_stream;
+      List.rev !location_map
     in
 
-    one_width position
+    (* The function proper which translates Markup.ml locations into OCaml
+       locations. *)
+    fun given_markup_location ->
+      (* [bounded_maximum None location_map] evaluates to the greatest Markup.ml
+         location (and its paired OCaml location) in [location_map] that is less
+         than or equal to [given_markup_location]. [best] is [Some] of the
+         greatest candidate found so far, or [None] on the first iteration. *)
+      let rec bounded_maximum best = function
+        | [] -> best
+        | ((noted_markup_location, _) as loc)::rest ->
+          if Markup.compare_locations
+               noted_markup_location given_markup_location > 0 then best
+          else bounded_maximum (Some loc) rest
+      in
 
+      let preceding_markup_location, preceding_ocaml_position =
+        match bounded_maximum None location_map with
+        | Some loc -> loc
+        | None -> assert false
+      in
+
+      let line, column = given_markup_location in
+      let line', column' = preceding_markup_location in
+
+      let ocaml_position =
+        let open Lexing in
+        if line = line' then
+          {preceding_ocaml_position with
+            pos_cnum = preceding_ocaml_position.pos_cnum + column - column'}
+        else
+          {preceding_ocaml_position with
+            pos_lnum = preceding_ocaml_position.pos_lnum + line - line';
+            pos_bol = 0;
+            pos_cnum = column - 1}
+      in
+
+      one_width ocaml_position
 end
 
 (** Antiquotations
@@ -168,14 +232,12 @@ let replace_attribute ~loc (attr,value) =
 (** Takes the ast and transforms it into a Markup.ml char stream.
 
     The payload [expr] is either a single token, or an application (that is, a list).
-    A token is either a string or an antiquotation, which is transformed into
-    a string (see {!Antiquot}).
+    A token is either a string or an antiquotation. Antiquotations are replaced
+    by placeholder strings (see {!Antiquot}).
 
     Each token is equipped with a starting (but no ending) position.
 *)
 let ast_to_stream expr =
-  let current_adjust_location = ref (Loc.adjust Lexing.dummy_pos 0) in
-
   let expressions =
     match expr.pexp_desc with
     | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
@@ -192,30 +254,28 @@ let ast_to_stream expr =
       (Antiquot.create expr, expr.pexp_loc.loc_start)
   in
 
-  let items = ref strings in
-  let offset = ref 0 in
-  let consumed = ref 0 in
+  let source =
+    let items = ref strings in
+    let offset = ref 0 in
 
-  let rec next () = match !items with
-    | [] -> None
-    | (s, loc)::rest ->
-      if !offset = 0 then begin
-        current_adjust_location := Loc.adjust loc !consumed;
-        consumed := !consumed + String.length s
-      end;
+    let rec next_byte () = match !items with
+      | [] -> None
+      | (s, _)::rest ->
+        if !offset < String.length s then begin
+          offset := !offset + 1;
+          Some (s.[!offset - 1])
+        end
+        else begin
+          offset := 0;
+          items := rest;
+          next_byte ()
+        end
+    in
 
-      if !offset < String.length s then begin
-        offset := !offset + 1;
-        Some (s.[!offset - 1])
-      end
-      else begin
-        offset := 0;
-        items := rest;
-        next ()
-      end
+    Markup.fn next_byte
   in
 
-  Markup.fn next, (fun x -> !current_adjust_location x)
+  source, Loc.make_location_map strings
 
 let context_of_lang = function
   | Ppx_common.Svg -> Some (`Fragment "svg")
@@ -232,6 +292,7 @@ let markup_to_expr lang loc expr =
   let parser =
     Markup.parse_html
       ?context
+      ~encoding:Markup.Encoding.utf_8
       ~report:(fun loc error ->
         let loc = adjust_location loc in
         let message = Markup.Error.to_string error |> String.capitalize in
