@@ -247,6 +247,47 @@ let svg = "svg", SvgTests.make Svg.[
 
 ]
 
+let svg_element_names = "svg element names", SvgTests.make Svg.[
+
+  "textPath", [[%svg "<textPath/>"]], [textPath []] ;
+  "altGlyphItem", [[%svg "<altGlyphItem/>"]], [altGlyphItem []] ;
+  "glyphRef", [[%svg "<glyphRef/>"]], [glyphRef ()] ;
+  "color-profile", [[%svg "<color-profile/>"]], [color_profile []] ;
+  "linearGradient", [[%svg "<linearGradient/>"]], [linearGradient []] ;
+  "radialGradient", [[%svg "<radialGradient/>"]], [radialGradient []] ;
+  "clipPath", [[%svg "<clipPath/>"]], [clipPath []] ;
+  "feDistantLight", [[%svg "<feDistantLight/>"]], [feDistantLight []] ;
+  "fePointLight", [[%svg "<fePointLight/>"]], [fePointLight []] ;
+  "feSpotLight", [[%svg "<feSpotLight/>"]], [feSpotLight []] ;
+  "feBlend", [[%svg "<feBlend/>"]], [feBlend []] ;
+  "feColorMatrix", [[%svg "<feColorMatrix/>"]], [feColorMatrix []] ;
+  "feComponentTransfer",
+  [[%svg "<feComponentTransfer/>"]], [feComponentTransfer []] ;
+  "feFuncA", [[%svg "<feFuncA/>"]], [feFuncA []] ;
+  "feFuncG", [[%svg "<feFuncG/>"]], [feFuncG []] ;
+  "feFuncB", [[%svg "<feFuncB/>"]], [feFuncB []] ;
+  "feFuncR", [[%svg "<feFuncR/>"]], [feFuncR []] ;
+  "feComposite", [[%svg "<feComposite/>"]], [feComposite []] ;
+  "feConvolveMatrix", [[%svg "<feConvolveMatrix/>"]], [feConvolveMatrix []] ;
+  "feDiffuseLighting", [[%svg "<feDiffuseLighting/>"]], [feDiffuseLighting []] ;
+  "feDisplacementMap", [[%svg "<feDisplacementMap/>"]], [feDisplacementMap []] ;
+  "feFlood", [[%svg "<feFlood/>"]], [feFlood []] ;
+  "feGaussianBlur", [[%svg "<feGaussianBlur/>"]], [feGaussianBlur []] ;
+  "feImage", [[%svg "<feImage/>"]], [feImage []] ;
+  "feMerge", [[%svg "<feMerge/>"]], [feMerge []] ;
+  "feMorphology", [[%svg "<feMorphology/>"]], [feMorphology []] ;
+  "feOffset", [[%svg "<feOffset/>"]], [feOffset []] ;
+  "feSpecularLighting",
+  [[%svg "<feSpecularLighting/>"]], [feSpecularLighting []] ;
+  "feTile", [[%svg "<feTile/>"]], [feTile []] ;
+  "feTurbulence", [[%svg "<feTurbulence/>"]], [feTurbulence []] ;
+  "animateMotion", [[%svg "<animateMotion/>"]], [animateMotion []] ;
+  "animateColor", [[%svg "<animateColor/>"]], [animateColor []] ;
+  "animateTransform", [[%svg "<animateTransform/>"]], [animateTransform []] ;
+  "missing_glyph", [[%svg "<missing_glyph/>"]], [missing_glyph []] ;
+
+]
+
 
 
 let tests = [
@@ -255,4 +296,5 @@ let tests = [
   ns_nesting ;
   antiquot ;
   svg ;
+  svg_element_names ;
 ]

@@ -687,37 +687,37 @@ module type T = sig
 
   val tref : ([< | tref_attr], [< | tref_content], [> | tref]) star
 
-  val textpath :
+  val textPath :
     ([< | textpath_attr], [< | textpath_content], [> | textpath]) star
 
-  val altglyph :
+  val altGlyph :
     ([< | altglyph_attr], [< | altglyph_content], [> | altglyph]) unary
 
   type altglyphdef_content =
     [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
     ]
 
-  val altglyphdef :
+  val altGlyphDef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
 
-  val altglyphitem :
+  val altGlyphItem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
                                                           ]) star
 
-  val glyphref : ([< | glyphref_attr], [> | glyphref]) nullary
+  val glyphRef : ([< | glyphref_attr], [> | glyphref]) nullary
 
   val marker : ([< | marker_attr], [< | marker_content], [> | marker]) star
 
-  val colorprofile :
+  val color_profile :
     ([< | colorprofile_attr], [< | colorprofile_content], [> | colorprofile
                                                           ]) star
 
-  val lineargradient :
+  val linearGradient :
     ([< | lineargradient_attr], [< | lineargradient_content],
      [> | lineargradient]) star
 
-  val radialgradient :
+  val radialGradient :
     ([< | radialgradient_attr], [< | radialgradient_content],
      [> | radialgradient]) star
 
@@ -727,89 +727,89 @@ module type T = sig
   val pattern :
     ([< | pattern_attr], [< | pattern_content], [> | pattern]) star
 
-  val clippath :
+  val clipPath :
     ([< | clippath_attr], [< | clippath_content], [> | clippath]) star
 
   val filter : ([< | filter_attr], [< | filter_content], [> | filter]) star
 
-  val fedistantlight :
+  val feDistantLight :
     ([< | fedistantlight_attr], [< | fedistantlight_content],
      [> | fedistantlight]) star
 
-  val fepointlight :
+  val fePointLight :
     ([< | fepointlight_attr], [< | fepointlight_content], [> | fepointlight
                                                           ]) star
 
-  val fespotlight :
+  val feSpotLight :
     ([< | fespotlight_attr], [< | fespotlight_content], [> | fespotlight])
       star
 
-  val feblend :
+  val feBlend :
     ([< | feblend_attr], [< | feblend_content], [> | feblend]) star
 
-  val fecolormatrix :
+  val feColorMatrix :
     ([< | fecolormatrix_attr], [< | fecolormatrix_content],
      [> | fecolormatrix]) star
 
-  val fecomponenttransfer :
+  val feComponentTransfer :
     ([< | fecomponenttransfer_attr], [< | fecomponenttransfer_content],
      [> | fecomponenttransfer]) star
 
-  val fefunca :
+  val feFuncA :
     ([< | fefunca_attr], [< | fefunca_content], [> | fefunca]) star
 
-  val fefuncg :
+  val feFuncG :
     ([< | fefuncg_attr], [< | fefuncg_content], [> | fefuncg]) star
 
-  val fefuncb :
+  val feFuncB :
     ([< | fefuncb_attr], [< | fefuncb_content], [> | fefuncb]) star
 
-  val fefuncr :
+  val feFuncR :
     ([< | fefuncr_attr], [< | fefuncr_content], [> | fefuncr]) star
 
-  val fecomposite :
+  val feComposite :
     ([< | fecomposite_attr], [< | fecomposite_content], [> | fecomposite])
       star
 
-  val feconvolvematrix :
+  val feConvolveMatrix :
     ([< | feconvolvematrix_attr], [< | feconvolvematrix_content],
      [> | feconvolvematrix]) star
 
-  val fediffuselighting :
+  val feDiffuseLighting :
     ([< | fediffuselighting_attr], [< | fediffuselighting_content],
      [> | fediffuselighting]) star
 
-  val fedisplacementmap :
+  val feDisplacementMap :
     ([< | fedisplacementmap_attr], [< | fedisplacementmap_content],
      [> | fedisplacementmap]) star
 
-  val feflood :
+  val feFlood :
     ([< | feflood_attr], [< | feflood_content], [> | feflood]) star
 
-  val fegaussianblur :
+  val feGaussianBlur :
     ([< | fegaussianblur_attr], [< | fegaussianblur_content],
      [> | fegaussianblur]) star
 
-  val feimage :
+  val feImage :
     ([< | feimage_attr], [< | feimage_content], [> | feimage]) star
 
-  val femerge :
+  val feMerge :
     ([< | femerge_attr], [< | femerge_content], [> | femerge]) star
 
-  val femorphology :
+  val feMorphology :
     ([< | femorphology_attr], [< | femorphology_content], [> | femorphology
                                                           ]) star
 
-  val feoffset :
+  val feOffset :
     ([< | feoffset_attr], [< | feoffset_content], [> | feoffset]) star
 
-  val fespecularlighting :
+  val feSpecularLighting :
     ([< | fespecularlighting_attr], [< | fespecularlighting_content],
      [> | fespecularlighting]) star
 
-  val fetile : ([< | fetile_attr], [< | fetile_content], [> | fetile]) star
+  val feTile : ([< | fetile_attr], [< | fetile_content], [> | fetile]) star
 
-  val feturbulence :
+  val feTurbulence :
     ([< | feturbulence_attr], [< | feturbulence_content], [> | feturbulence
                                                           ]) star
 
@@ -827,17 +827,17 @@ module type T = sig
 
   val set : ([< | set_attr], [< | set_content], [> | set]) star
 
-  val animatemotion :
+  val animateMotion :
     ([< | animatemotion_attr], [< | animatemotion_content],
      [> | animatemotion]) star
 
   val mpath : ([< | mpath_attr], [< | mpath_content], [> | mpath]) star
 
-  val animatecolor :
+  val animateColor :
     ([< | animatecolor_attr], [< | animatecolor_content], [> | animatecolor
                                                           ]) star
 
-  val animatetransform :
+  val animateTransform :
     ([< | animatetransform_attr], [< | animatetransform_content],
      [> | animatetransform]) star
 
@@ -845,7 +845,7 @@ module type T = sig
 
   val glyph : ([< | glyph_attr], [< | glyph_content], [> | glyph]) star
 
-  val missingglyph :
+  val missing_glyph :
     ([< | missingglyph_attr], [< | missingglyph_content], [> | missingglyph
                                                           ]) star
 

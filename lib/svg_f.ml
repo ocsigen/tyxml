@@ -771,77 +771,77 @@ struct
 
   let tref = star "tref"
 
-  let textpath = star "textPath"
+  let textPath = star "textPath"
 
-  let altglyph = unary "altGlyph"
+  let altGlyph = unary "altGlyph"
 
-  let altglyphdef = unary "altGlyphDef"
+  let altGlyphDef = unary "altGlyphDef"
 
-  let altglyphitem = star "altGlyphItem"
+  let altGlyphItem = star "altGlyphItem"
 
-  let glyphref = nullary "glyphRef"
+  let glyphRef = nullary "glyphRef"
 
   let marker = star "marker"
 
-  let colorprofile = star "colorProfile"
+  let color_profile = star "color-profile"
 
-  let lineargradient = star "linearGradient"
+  let linearGradient = star "linearGradient"
 
-  let radialgradient = star "radialGradient"
+  let radialGradient = star "radialGradient"
 
   let stop = star "stop"
 
   let pattern = star "pattern"
 
-  let clippath = star "clipPath"
+  let clipPath = star "clipPath"
 
   let filter = star "filter"
 
-  let fedistantlight = star "feDistantLight"
+  let feDistantLight = star "feDistantLight"
 
-  let fepointlight = star "fePointLight"
+  let fePointLight = star "fePointLight"
 
-  let fespotlight = star "feSpotLight"
+  let feSpotLight = star "feSpotLight"
 
-  let feblend = star "feBlend"
+  let feBlend = star "feBlend"
 
-  let fecolormatrix = star "feColorMatrix"
+  let feColorMatrix = star "feColorMatrix"
 
-  let fecomponenttransfer = star "feComponentTransfer"
+  let feComponentTransfer = star "feComponentTransfer"
 
-  let fefunca = star "feFuncA"
+  let feFuncA = star "feFuncA"
 
-  let fefuncg = star "feFuncG"
+  let feFuncG = star "feFuncG"
 
-  let fefuncb = star "feFuncB"
+  let feFuncB = star "feFuncB"
 
-  let fefuncr = star "feFuncR"
+  let feFuncR = star "feFuncR"
 
-  let fecomposite = star "feComposite"
+  let feComposite = star "feComposite"
 
-  let feconvolvematrix = star "feConvolveMatrix"
+  let feConvolveMatrix = star "feConvolveMatrix"
 
-  let fediffuselighting = star "feDiffuseLighting"
+  let feDiffuseLighting = star "feDiffuseLighting"
 
-  let fedisplacementmap = star "feDisplacementMap"
+  let feDisplacementMap = star "feDisplacementMap"
 
-  let feflood = star "feFlood"
+  let feFlood = star "feFlood"
 
-  let fegaussianblur = star "feGaussianBlur"
+  let feGaussianBlur = star "feGaussianBlur"
 
-  let feimage = star "feImage"
+  let feImage = star "feImage"
 
-  let femerge = star "feMerge"
+  let feMerge = star "feMerge"
 
-  let femorphology = star "feMorphology"
+  let feMorphology = star "feMorphology"
 
-  let feoffset = star "feOffset"
+  let feOffset = star "feOffset"
 
-  let fespecularlighting = star "feSpecularLighting"
+  let feSpecularLighting = star "feSpecularLighting"
 
-  let fetile = star "feTile"
+  let feTile = star "feTile"
 
-  let feturbulence = star "feTurbulence"
+  let feTurbulence = star "feTurbulence"
 
   let cursor = star "cursor"
 
@@ -855,19 +855,19 @@ struct
 
   let set = star "set"
 
-  let animatemotion = star "animateMotion"
+  let animateMotion = star "animateMotion"
 
   let mpath = star "mpath"
 
-  let animatecolor = star "animateColor"
+  let animateColor = star "animateColor"
 
-  let animatetransform = star "animateTransform"
+  let animateTransform = star "animateTransform"
 
   let font = star "font"
 
   let glyph = star "glyph"
 
-  let missingglyph = star "missingGlyph"
+  let missing_glyph = star "missing-glyph"
 
   let hkern = nullary "hkern"
 
