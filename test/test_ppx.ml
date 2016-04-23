@@ -266,9 +266,9 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animateTransform type='translate'/>"]],
   [animateTransform ~a:[a_animateTransform_type `Translate] []] ;
 
-  "feFuncR type",
-  [[%svg "<feFuncR type='identity'/>"]],
-  [feFuncR ~a:[a_transfer_type `Identity] []] ;
+  "feFuncR type, offset",
+  [[%svg "<feFuncR type='identity' offset='0'/>"]],
+  [feFuncR ~a:[a_transfer_type `Identity; a_transfer_offset 0.] []] ;
 
 ]
 

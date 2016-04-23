@@ -375,7 +375,8 @@ module type T = sig
 
   val a_exponent : number wrap -> [> | `Exponent ] attrib
 
-  val a_offset_transfer : number wrap -> [> | `Offset_transfer ] attrib
+  val a_transfer_offset : number wrap -> [> | `Offset_transfer ] attrib
+    [@@reflect.attribute "offset" ["feFuncR"; "feFuncG"; "feFuncB"; "feFuncA"]]
 
   val a_operator :
     [< | `Over | `In | `Out | `Atop | `Xor | `Arithmetic ] wrap ->

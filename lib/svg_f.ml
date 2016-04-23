@@ -430,7 +430,7 @@ struct
 
   let a_exponent = user_attrib C.string_of_number "exponent"
 
-  let a_offset_transfer = user_attrib C.string_of_number "offset"
+  let a_transfer_offset = user_attrib C.string_of_number "offset"
 
   let a_operator x =
     user_attrib C.string_of_big_variant "operator" x
