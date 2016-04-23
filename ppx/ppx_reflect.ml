@@ -67,10 +67,10 @@ module FunTyp = struct
   (** Extract the type inside [wrap]. *)
   let unwrap = function
     (* Optional argument are [_ wrap *predef*.option], In 4.02 *)
-    | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] wrap] as t])}
+    | {ptyp_desc = Ptyp_constr (lid, [[%type: [%t? _] wrap] as t])}
       when Longident.last lid.txt = "option" ->
       Some t
-    | [%type : [%t? _] wrap] as t -> Some t
+    | [%type: [%t? _] wrap] as t -> Some t
     | _ -> None
 
   (** Extract the type of for html/svg attributes. *)
@@ -108,36 +108,36 @@ let rec to_attribute_parser lang name = function
   | [[%type: numbers]] when lang = Ppx_common.Html -> [%expr commas int]
 
   | [[%type: number]] when lang = Ppx_common.Svg -> [%expr float]
-  | [[%type : float_number]] | [[%type : float]] -> [%expr float]
+  | [[%type: float_number]] | [[%type: float]] -> [%expr float]
 
-  | [[%type : float_number option]] ->
+  | [[%type: float_number option]] ->
     [%expr option "any" float]
 
-  | [[%type : numbers_semicolon]] ->
+  | [[%type: numbers_semicolon]] ->
     [%expr semicolons float]
 
   | [[%type: numbers]] when lang = Ppx_common.Svg ->
     [%expr spaces_or_commas float]
 
-  | [[%type : fourfloats]] ->
+  | [[%type: fourfloats]] ->
     [%expr fourfloats]
 
-  | [[%type : number_optional_number]] ->
+  | [[%type: number_optional_number]] ->
     [%expr number_pair]
 
-  | [[%type : coords]] ->
+  | [[%type: coords]] ->
     [%expr points]
 
-  | [[%type : (number * number) list option]] ->
+  | [[%type: (number * number) list option]] ->
     [%expr option "any" (spaces icon_size)]
 
-  | [[%type : coord]] | [[%type : Unit.length]] ->
+  | [[%type: coord]] | [[%type: Unit.length]] ->
     [%expr svg_length]
 
-  | [[%type : Unit.length list]] ->
+  | [[%type: Unit.length list]] ->
     [%expr spaces_or_commas svg_length]
 
-  | [[%type : Unit.angle option]] ->
+  | [[%type: Unit.angle option]] ->
     [%expr option "auto" angle]
 
   | [[%type: string]]
@@ -155,49 +155,49 @@ let rec to_attribute_parser lang name = function
 
   | [[%type: nmtoken]; [%type: text wrap]] -> [%expr wrap string]
 
-  | [[%type : Xml.event_handler]]
-  | [[%type : Xml.mouse_event_handler]]
-  | [[%type : Xml.keyboard_event_handler]] ->
+  | [[%type: Xml.event_handler]]
+  | [[%type: Xml.mouse_event_handler]]
+  | [[%type: Xml.keyboard_event_handler]] ->
     [%expr nowrap string]
 
-  | [[%type : string option]] ->
+  | [[%type: string option]] ->
     [%expr (option "" string)]
 
   | [{ptyp_desc = Ptyp_variant (_::_::_ as constructors, _, _)}]
       when no_constructor_arguments constructors ->
     [%expr variant]
 
-  | [[%type : shape]] ->
+  | [[%type: shape]] ->
     [%expr variant]
 
-  | [[%type : nmtokens]]
-  | [[%type : idrefs]]
-  | [[%type : charsets]]
-  | [[%type : spacestrings]]
-  | [[%type : strings]] ->
+  | [[%type: nmtokens]]
+  | [[%type: idrefs]]
+  | [[%type: charsets]]
+  | [[%type: spacestrings]]
+  | [[%type: strings]] ->
     [%expr spaces string]
 
-  | [[%type : commastrings]]
-  | [[%type : text list]]
-  | [[%type : contenttypes]] ->
+  | [[%type: commastrings]]
+  | [[%type: text list]]
+  | [[%type: contenttypes]] ->
     [%expr commas string]
 
-  | [[%type : linktypes]] ->
+  | [[%type: linktypes]] ->
     [%expr spaces (total_variant Html_types_reflected.linktype)]
 
-  | [[%type : mediadesc]] ->
+  | [[%type: mediadesc]] ->
     [%expr commas (total_variant Html_types_reflected.mediadesc_token)]
 
-  | [[%type : lengths]] ->
+  | [[%type: lengths]] ->
     [%expr spaces_or_commas svg_length]
 
-  | [[%type : transforms]] ->
+  | [[%type: transforms]] ->
     [%expr spaces_or_commas transform]
 
-  | [[%type : paint]] ->
+  | [[%type: paint]] ->
     [%expr paint]
 
-  | [[%type : image_candidate list]] ->
+  | [[%type: image_candidate list]] ->
     [%expr commas srcset_element]
 
   | _ ->
@@ -289,9 +289,9 @@ let val_item_to_element_info lang value_description =
     | None ->
       let result_type = FunTyp.result value_description.pval_type in
       let assembler = match result_type with
-        | [%type : ([%t? _], [%t ? _]) nullary] -> Some "nullary"
-        | [%type : ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary"
-        | [%type : ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star"
+        | [%type: ([%t? _], [%t ? _]) nullary] -> Some "nullary"
+        | [%type: ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary"
+        | [%type: ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star"
         | _ -> None
       in assembler, None
   in
@@ -392,7 +392,7 @@ let type_declaration mapper declaration =
 
       let unary =
         match unary with
-        | [name, [[%type : string]]] -> name
+        | [name, [[%type: string]]] -> name
         | _ ->
           Ppx_common.error ptyp_loc
             "Expected exactly one non-nullary constructor `C of string"
