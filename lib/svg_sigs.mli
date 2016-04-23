@@ -208,16 +208,20 @@ module type T = sig
   val a_points : coords wrap -> [> | `Points ] attrib
 
   val a_x_list : lengths wrap -> [> | `X_list ] attrib
+    [@@reflect.attribute "x" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_y_list : lengths wrap -> [> | `Y_list ] attrib
+    [@@reflect.attribute "y" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_dx : number wrap -> [> | `Dx ] attrib
 
   val a_dy : number wrap -> [> | `Dy ] attrib
 
   val a_dx_list : lengths wrap -> [> | `Dx_list ] attrib
+    [@@reflect.attribute "dx" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_dy_list : lengths wrap -> [> | `Dy_list ] attrib
+    [@@reflect.attribute "dy" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_lengthAdjust :
     [< `Spacing | `SpacingAndGlyphs ] wrap -> [> | `LengthAdjust ] attrib

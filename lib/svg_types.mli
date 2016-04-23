@@ -893,8 +893,8 @@ type glyphref_attr =
     | `Style
     | `X
     | `Y
-    | `Dx_single
-    | `Dy_single
+    | `Dx
+    | `Dy
     | `GlyphRef
     | `Format
     | `Xlink_href

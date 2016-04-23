@@ -245,6 +245,15 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<stop offset='50.1%'/>"]],
   [stop ~a:[a_offset (`Percentage 50.1)] []] ;
 
+  "text x, y",
+  [[%svg "<text x='1 2' y='3 4'/>"]],
+  [text ~a:[a_x_list [1., None; 2., None]; a_y_list [3., None; 4., None]] []] ;
+
+  "text dx, dy",
+  [[%svg "<text dx='1 2' dy='3 4'/>"]],
+  [text
+    ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
+
 ]
 
 let svg_element_names = "svg element names", SvgTests.make Svg.[
