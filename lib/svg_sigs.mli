@@ -484,6 +484,7 @@ module type T = sig
   val a_fill : paint wrap -> [> | `Fill ] attrib
 
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
+    [@@reflect.attribute "fill" ["animation"]]
 
   val a_calcMode :
     [< | `Discrete | `Linear | `Paced | `Spline ] wrap -> [> | `CalcMode ] attrib
