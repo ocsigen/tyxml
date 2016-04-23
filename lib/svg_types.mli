@@ -155,7 +155,7 @@ type animation_timing_attr =
   ]
 
 type animation_value_attr =
-  [ | `CalcMode | `Values | `KeyTimes | `KeySplines | `From | `To | `By
+  [ | `CalcMode | `Valuesanim | `KeyTimes | `KeySplines | `From | `To | `By
   ]
 
 type animation_addition_attr = [ | `Additive | `Accumulate ]
@@ -893,8 +893,8 @@ type glyphref_attr =
     | `Style
     | `X
     | `Y
-    | `Dx_single
-    | `Dy_single
+    | `Dx
+    | `Dy
     | `GlyphRef
     | `Format
     | `Xlink_href
@@ -1287,7 +1287,7 @@ type fecomposite_attr =
     | `Style
     | `In
     | `In2
-    | `Operator
+    | `OperatorComposite
     | `K1
     | `K2
     | `K3
@@ -1420,7 +1420,7 @@ type femorphology_attr =
     | core_attr
     | presentation_attr
     | filter_primitive_attr
-    | `Operator_morphology
+    | `OperatorMorphology
     | `Class
     | `Style
     | `In
@@ -1497,7 +1497,7 @@ type feturbulence_attr =
     | `NumOctaves
     | `Seed
     | `StitchTiles
-    | `Type_stitch
+    | `TypeStitch
   ]
 
 type cursor = [ | `Cursor ]
@@ -1693,7 +1693,7 @@ type animatetransform_attr =
     | animation_value_attr
     | animation_addition_attr
     | `ExternalResourcesRequired
-    | `Typeanimatecolor
+    | `Typeanimatetransform
   ]
 
 type font = [ | `Font ]

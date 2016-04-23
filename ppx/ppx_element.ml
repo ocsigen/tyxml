@@ -34,7 +34,7 @@ let parse
 
   let name =
     try List.assoc name Reflected.renamed_elements
-    with Not_found -> name
+    with Not_found -> Tyxml_name.ident name
   in
   let element_function = Ppx_common.make ~loc lang name in
 

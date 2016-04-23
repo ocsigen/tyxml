@@ -67,10 +67,10 @@ module FunTyp = struct
   (** Extract the type inside [wrap]. *)
   let unwrap = function
     (* Optional argument are [_ wrap *predef*.option], In 4.02 *)
-    | {ptyp_desc = Ptyp_constr (lid, [[%type : [%t? _] wrap] as t])}
+    | {ptyp_desc = Ptyp_constr (lid, [[%type: [%t? _] wrap] as t])}
       when Longident.last lid.txt = "option" ->
       Some t
-    | [%type : [%t? _] wrap] as t -> Some t
+    | [%type: [%t? _] wrap] as t -> Some t
     | _ -> None
 
   (** Extract the type of for html/svg attributes. *)
@@ -90,10 +90,10 @@ module FunTyp = struct
 (* Given the name of a TyXML attribute function and a list of its argument
    types, selects the attribute value parser (in module [Ppx_attribute_value])
    that should be used for that attribute. *)
-let rec to_attribute_parser name = function
+let rec to_attribute_parser lang name = function
   | [] -> [%expr nowrap presence]
   | [[%type: [%t? ty] wrap]] ->
-    [%expr wrap [%e to_attribute_parser name [ty]]]
+    [%expr wrap [%e to_attribute_parser lang name [ty]]]
 
   | [[%type: character]] -> [%expr char]
   | [[%type: bool] as ty]
@@ -101,36 +101,43 @@ let rec to_attribute_parser name = function
   | [[%type: bool]] -> [%expr bool]
   | [[%type: unit]] -> [%expr nowrap unit]
 
-  | [[%type: number]]
+  | [[%type: number]] when lang = Ppx_common.Html -> [%expr int]
   | [[%type: pixels]]
   | [[%type: int]] -> [%expr int]
-  | [[%type: numbers]] -> [%expr commas int]
-  | [[%type : float_number]] | [[%type : float]] -> [%expr float]
-  | [[%type : float_number option]] ->
+
+  | [[%type: numbers]] when lang = Ppx_common.Html -> [%expr commas int]
+
+  | [[%type: number]] when lang = Ppx_common.Svg -> [%expr float]
+  | [[%type: float_number]] | [[%type: float]] -> [%expr float]
+
+  | [[%type: float_number option]] ->
     [%expr option "any" float]
 
-  | [[%type : numbers_semicolon]] ->
+  | [[%type: numbers_semicolon]] ->
     [%expr semicolons float]
 
-  | [[%type : fourfloats]] ->
+  | [[%type: numbers]] when lang = Ppx_common.Svg ->
+    [%expr spaces_or_commas float]
+
+  | [[%type: fourfloats]] ->
     [%expr fourfloats]
 
-  | [[%type : number_optional_number]] ->
+  | [[%type: number_optional_number]] ->
     [%expr number_pair]
 
-  | [[%type : coords]] ->
+  | [[%type: coords]] ->
     [%expr points]
 
-  | [[%type : (number * number) list option]] ->
+  | [[%type: (number * number) list option]] ->
     [%expr option "any" (spaces icon_size)]
 
-  | [[%type : coord]] | [[%type : Unit.length]] ->
+  | [[%type: coord]] | [[%type: Unit.length]] ->
     [%expr svg_length]
 
-  | [[%type : Unit.length list]] ->
+  | [[%type: Unit.length list]] ->
     [%expr spaces_or_commas svg_length]
 
-  | [[%type : Unit.angle option]] ->
+  | [[%type: Unit.angle option]] ->
     [%expr option "auto" angle]
 
   | [[%type: string]]
@@ -148,49 +155,49 @@ let rec to_attribute_parser name = function
 
   | [[%type: nmtoken]; [%type: text wrap]] -> [%expr wrap string]
 
-  | [[%type : Xml.event_handler]]
-  | [[%type : Xml.mouse_event_handler]]
-  | [[%type : Xml.keyboard_event_handler]] ->
+  | [[%type: Xml.event_handler]]
+  | [[%type: Xml.mouse_event_handler]]
+  | [[%type: Xml.keyboard_event_handler]] ->
     [%expr nowrap string]
 
-  | [[%type : string option]] ->
+  | [[%type: string option]] ->
     [%expr (option "" string)]
 
   | [{ptyp_desc = Ptyp_variant (_::_::_ as constructors, _, _)}]
       when no_constructor_arguments constructors ->
     [%expr variant]
 
-  | [[%type : shape]] ->
+  | [[%type: shape]] ->
     [%expr variant]
 
-  | [[%type : nmtokens]]
-  | [[%type : idrefs]]
-  | [[%type : charsets]]
-  | [[%type : spacestrings]]
-  | [[%type : strings]] ->
+  | [[%type: nmtokens]]
+  | [[%type: idrefs]]
+  | [[%type: charsets]]
+  | [[%type: spacestrings]]
+  | [[%type: strings]] ->
     [%expr spaces string]
 
-  | [[%type : commastrings]]
-  | [[%type : text list]]
-  | [[%type : contenttypes]] ->
+  | [[%type: commastrings]]
+  | [[%type: text list]]
+  | [[%type: contenttypes]] ->
     [%expr commas string]
 
-  | [[%type : linktypes]] ->
+  | [[%type: linktypes]] ->
     [%expr spaces (total_variant Html_types_reflected.linktype)]
 
-  | [[%type : mediadesc]] ->
+  | [[%type: mediadesc]] ->
     [%expr commas (total_variant Html_types_reflected.mediadesc_token)]
 
-  | [[%type : lengths]] ->
+  | [[%type: lengths]] ->
     [%expr spaces_or_commas svg_length]
 
-  | [[%type : transforms]] ->
+  | [[%type: transforms]] ->
     [%expr spaces_or_commas transform]
 
-  | [[%type : paint]] ->
+  | [[%type: paint]] ->
     [%expr paint]
 
-  | [[%type : image_candidate list]] ->
+  | [[%type: image_candidate list]] ->
     [%expr commas srcset_element]
 
   | _ ->
@@ -254,7 +261,7 @@ let ocaml_attributes_to_renamed_attribute name attributes =
 
    A val declaration is for an element if it either has a [@@reflect.element]
    attribute, or its result type is [_ nullary], [_ unary], or [_ star]. *)
-let val_item_to_element_info value_description =
+let val_item_to_element_info lang value_description =
   let name = value_description.pval_name.txt in
 
   let maybe_attribute =
@@ -282,9 +289,9 @@ let val_item_to_element_info value_description =
     | None ->
       let result_type = FunTyp.result value_description.pval_type in
       let assembler = match result_type with
-        | [%type : ([%t? _], [%t ? _]) nullary] -> Some "nullary"
-        | [%type : ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary"
-        | [%type : ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star"
+        | [%type: ([%t? _], [%t ? _]) nullary] -> Some "nullary"
+        | [%type: ([%t? _], [%t ? _], [%t ? _]) unary] -> Some "unary"
+        | [%type: ([%t? _], [%t ? _], [%t ? _]) star] -> Some "star"
         | _ -> None
       in assembler, None
   in
@@ -299,7 +306,7 @@ let val_item_to_element_info value_description =
       let aux x acc = match FunTyp.extract_attribute_argument x with
         | None -> acc
         | Some (label, ty) ->
-          let parser = FunTyp.to_attribute_parser label [ty] in
+          let parser = FunTyp.to_attribute_parser lang label [ty] in
           (name, label, parser) :: acc
       in
       List.fold_right aux arguments []
@@ -325,7 +332,7 @@ let renamed_elements = ref []
    functions immediately above, and accumulates their results in the above
    references. This function is relevant for [html_sigs.mli] and
    [svg_sigs.mli]. *)
-let signature_item mapper item =
+let signature_item lang mapper item =
   begin match item.psig_desc with
   | Psig_value {pval_name = {txt = name}; pval_type = type_; pval_attributes}
       when is_attribute name ->
@@ -333,7 +340,7 @@ let signature_item mapper item =
 
     let argument_types = List.map snd @@ FunTyp.arguments type_ in
     let attribute_parser_mapping =
-      name, FunTyp.to_attribute_parser name argument_types in
+      name, FunTyp.to_attribute_parser lang name argument_types in
     attribute_parsers := attribute_parser_mapping::!attribute_parsers;
 
     let renaming = ocaml_attributes_to_renamed_attribute name pval_attributes in
@@ -342,7 +349,7 @@ let signature_item mapper item =
   | Psig_value v ->
     (* Non-attribute, but potentially an element declaration. *)
 
-    begin match val_item_to_element_info v with
+    begin match val_item_to_element_info lang v with
     | None -> ()
     | Some (assembler, labeled_attributes', rename) ->
       element_assemblers := (v.pval_name.txt, assembler)::!element_assemblers;
@@ -385,7 +392,7 @@ let type_declaration mapper declaration =
 
       let unary =
         match unary with
-        | [name, [[%type : string]]] -> name
+        | [name, [[%type: string]]] -> name
         | _ ->
           Ppx_common.error ptyp_loc
             "Expected exactly one non-nullary constructor `C of string"
@@ -401,8 +408,6 @@ let type_declaration mapper declaration =
   end;
 
   default_mapper.type_declaration mapper declaration
-
-let mapper = {default_mapper with signature_item; type_declaration}
 
 (** Small set of combinators to help {!make_module}. *)
 module Combi = struct
@@ -441,11 +446,6 @@ let emit_module () =
   List.map Combi.(let_ AC.pvar (tuple2 str (list str))) !reflected_variants
 
 
-let reflected_struct sig_ =
-  ignore @@ mapper.signature mapper sig_ ;
-  emit_module ()
-
-
 (* Crude I/O tools to read a signature and output a structure.
    The executable will take as first argument the name of the signature
    and as second argument the name of the structure.
@@ -481,6 +481,25 @@ let () =
 
   let in_file = Sys.argv.(1) in
   let out_file = Sys.argv.(2) in
+
+  let lang =
+    let basename = Filename.basename in_file in
+    let svg_prefix = "svg_" in
+    if String.length basename >= String.length svg_prefix
+       && String.sub basename 0 (String.length svg_prefix) = svg_prefix
+    then Ppx_common.Svg
+    else Ppx_common.Html
+  in
+
+  let mapper =
+    let signature_item = signature_item lang in
+    {default_mapper with signature_item; type_declaration}
+  in
+
+  let reflected_struct sig_ =
+    ignore @@ mapper.signature mapper sig_ ;
+    emit_module ()
+  in
 
   try
     read_sig in_file

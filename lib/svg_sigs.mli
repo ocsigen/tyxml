@@ -109,8 +109,12 @@ module type T = sig
   (** {2:attributes Attributes } *)
 
   val a_version : string wrap -> [> | `Version ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_baseProfile : string wrap -> [> | `BaseProfile ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_x : coord wrap -> [> | `X ] attrib
 
@@ -123,14 +127,24 @@ module type T = sig
   val a_preserveAspectRatio : string wrap -> [> | `PreserveAspectRatio ] attrib
 
   val a_contentScriptType : string wrap -> [> | `ContentScriptType ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_contentStyleType : string wrap -> [> | `ContentStyleType ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_zoomAndPan : [< | `Disable | `Magnify ] wrap -> [> | `ZoomAndSpan ] attrib
 
+  val a_href : iri wrap -> [> | `Xlink_href ] attrib
+
   val a_xlink_href : iri wrap -> [> | `Xlink_href ] attrib
+    [@@ocaml.deprecated "Use a_href"]
+  (** @deprecated Use a_href *)
 
   val a_requiredFeatures : spacestrings wrap -> [> | `RequiredFeatures ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_requiredExtensions :
     spacestrings wrap -> [> | `RequiredExtension ] attrib
@@ -143,16 +157,22 @@ module type T = sig
   val a_id : string wrap -> [> | `Id ] attrib
 
   val a_xml_base : iri wrap -> [> | `Xml_Base ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_xml_lang : iri wrap -> [> | `Xml_Lang ] attrib
 
   val a_xml_space : [< `Default | `Preserve ] wrap -> [> | `Xml_Space ] attrib
+    [@@ocaml.deprecated "Use CSS white-space"]
+  (** @deprecated Use CSS white-space *)
 
   val a_type : string wrap -> [> | `Type ] attrib
 
   val a_media : commastrings wrap -> [> | `Media ] attrib
 
-  val a_title : string wrap -> [> | `Title ] attrib
+  val a_xlink_title : string wrap -> [> | `Title ] attrib
+    [@@ocaml.deprecated "Use a child title element"]
+  (** @deprecated Use a child title element *)
 
   val a_class : spacestrings wrap -> [> | `Class ] attrib
 
@@ -188,16 +208,20 @@ module type T = sig
   val a_points : coords wrap -> [> | `Points ] attrib
 
   val a_x_list : lengths wrap -> [> | `X_list ] attrib
+    [@@reflect.attribute "x" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_y_list : lengths wrap -> [> | `Y_list ] attrib
+    [@@reflect.attribute "y" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_dx : number wrap -> [> | `Dx ] attrib
 
   val a_dy : number wrap -> [> | `Dy ] attrib
 
   val a_dx_list : lengths wrap -> [> | `Dx_list ] attrib
+    [@@reflect.attribute "dx" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_dy_list : lengths wrap -> [> | `Dy_list ] attrib
+    [@@reflect.attribute "dy" ["text"; "tspan"; "tref"; "altGlyph"]]
 
   val a_lengthAdjust :
     [< `Spacing | `SpacingAndGlyphs ] wrap -> [> | `LengthAdjust ] attrib
@@ -334,12 +358,14 @@ module type T = sig
   val a_feColorMatrix_type :
     [< | `Matrix | `Saturate | `HueRotate | `LuminanceToAlpha ] wrap ->
     [> | `Typefecolor ] attrib
+    [@@reflect.attribute "type" ["feColorMatrix"]]
 
   val a_values : numbers wrap -> [> | `Values ] attrib
 
-  val a_type_transfer :
+  val a_transfer_type :
     [< | `Identity | `Table | `Discrete | `Linear | `Gamma ] wrap ->
     [> | `Type_transfert ] attrib
+    [@@reflect.attribute "type" ["feFuncR"; "feFuncG"; "feFuncB"; "feFuncA"]]
 
   val a_tableValues : numbers wrap -> [> | `TableValues ] attrib
 
@@ -349,11 +375,13 @@ module type T = sig
 
   val a_exponent : number wrap -> [> | `Exponent ] attrib
 
-  val a_offset_transfer : number wrap -> [> | `Offset_transfer ] attrib
+  val a_transfer_offset : number wrap -> [> | `Offset_transfer ] attrib
+    [@@reflect.attribute "offset" ["feFuncR"; "feFuncG"; "feFuncB"; "feFuncA"]]
 
-  val a_operator :
+  val a_feComposite_operator :
     [< | `Over | `In | `Out | `Atop | `Xor | `Arithmetic ] wrap ->
-    [> | `Operator ] attrib
+    [> | `OperatorComposite ] attrib
+    [@@reflect.attribute "operator" ["feComposite"]]
 
   val a_k1 : number wrap -> [> | `K1 ] attrib
 
@@ -399,6 +427,7 @@ module type T = sig
 
   val a_feMorphology_operator :
     [< | `Erode | `Dilate ] wrap -> [> | `OperatorMorphology ] attrib
+    [@@reflect.attribute "operator" ["feMorphology"]]
 
   val a_radius : number_optional_number wrap -> [> | `Radius ] attrib
 
@@ -414,16 +443,23 @@ module type T = sig
 
   val a_feTurbulence_type :
     [< | `FractalNoise | `Turbulence ] wrap -> [> | `TypeStitch ] attrib
+    [@@reflect.attribute "type" ["feTurbulence"]]
 
   val a_xlink_show : [< | `New | `Replace ] wrap -> [> | `Xlink_show ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_xlink_actuate :
     [< | `OnRequest | `OnLoad | `Other | `None ] wrap
     -> [> | `Xlink_actuate ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_target : string wrap -> [> | `Xlink_target ] attrib
 
   val a_viewTarget : string wrap -> [> | `ViewTarget ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_attributeName : string wrap -> [> | `AttributeName ] attrib
 
@@ -448,11 +484,13 @@ module type T = sig
   val a_fill : paint wrap -> [> | `Fill ] attrib
 
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
+    [@@reflect.attribute "fill" ["animation"]]
 
   val a_calcMode :
     [< | `Discrete | `Linear | `Paced | `Spline ] wrap -> [> | `CalcMode ] attrib
 
   val a_animation_values : strings wrap -> [> | `Valuesanim ] attrib
+    [@@reflect.attribute "values" ["animation"]]
 
   val a_keyTimes : strings wrap -> [> | `KeyTimes ] attrib
 
@@ -472,9 +510,10 @@ module type T = sig
 
   val a_path : string wrap -> [> | `Path ] attrib
 
-  val a_animateColor_type :
+  val a_animateTransform_type :
     [ | `Translate | `Scale | `Rotate | `SkewX | `SkewY ] wrap ->
-    [ | `Typeanimatecolor ] attrib
+    [ | `Typeanimatetransform ] attrib
+    [@@reflect.attribute "type" ["animateTransform"]]
 
   val a_horiz_origin_x : number wrap -> [> | `HorizOriginX ] attrib
 
@@ -625,6 +664,9 @@ module type T = sig
   val a_onfocusin : Xml.event_handler  -> [> | `OnFocusIn ] attrib
   val a_onfocusout : Xml.event_handler  -> [> | `OnFocusOut ] attrib
   val a_onload : Xml.event_handler  -> [> | `OnLoad ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
   val a_onrepeat : Xml.event_handler  -> [> | `OnRepeat ] attrib
   val a_onresize : Xml.event_handler  -> [> | `OnResize ] attrib
   val a_onscroll : Xml.event_handler  -> [> | `OnScroll ] attrib
@@ -686,38 +728,50 @@ module type T = sig
   val tspan : ([< | tspan_attr], [< | tspan_content], [> | tspan]) star
 
   val tref : ([< | tref_attr], [< | tref_content], [> | tref]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
-  val textpath :
+  val textPath :
     ([< | textpath_attr], [< | textpath_content], [> | textpath]) star
 
-  val altglyph :
+  val altGlyph :
     ([< | altglyph_attr], [< | altglyph_content], [> | altglyph]) unary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   type altglyphdef_content =
     [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
     ]
 
-  val altglyphdef :
+  val altGlyphDef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
-  val altglyphitem :
+  val altGlyphItem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
-  val glyphref : ([< | glyphref_attr], [> | glyphref]) nullary
+  val glyphRef : ([< | glyphref_attr], [> | glyphref]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val marker : ([< | marker_attr], [< | marker_content], [> | marker]) star
 
-  val colorprofile :
+  val color_profile :
     ([< | colorprofile_attr], [< | colorprofile_content], [> | colorprofile
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
-  val lineargradient :
+  val linearGradient :
     ([< | lineargradient_attr], [< | lineargradient_content],
      [> | lineargradient]) star
 
-  val radialgradient :
+  val radialGradient :
     ([< | radialgradient_attr], [< | radialgradient_content],
      [> | radialgradient]) star
 
@@ -727,89 +781,89 @@ module type T = sig
   val pattern :
     ([< | pattern_attr], [< | pattern_content], [> | pattern]) star
 
-  val clippath :
+  val clipPath :
     ([< | clippath_attr], [< | clippath_content], [> | clippath]) star
 
   val filter : ([< | filter_attr], [< | filter_content], [> | filter]) star
 
-  val fedistantlight :
+  val feDistantLight :
     ([< | fedistantlight_attr], [< | fedistantlight_content],
      [> | fedistantlight]) star
 
-  val fepointlight :
+  val fePointLight :
     ([< | fepointlight_attr], [< | fepointlight_content], [> | fepointlight
                                                           ]) star
 
-  val fespotlight :
+  val feSpotLight :
     ([< | fespotlight_attr], [< | fespotlight_content], [> | fespotlight])
       star
 
-  val feblend :
+  val feBlend :
     ([< | feblend_attr], [< | feblend_content], [> | feblend]) star
 
-  val fecolormatrix :
+  val feColorMatrix :
     ([< | fecolormatrix_attr], [< | fecolormatrix_content],
      [> | fecolormatrix]) star
 
-  val fecomponenttransfer :
+  val feComponentTransfer :
     ([< | fecomponenttransfer_attr], [< | fecomponenttransfer_content],
      [> | fecomponenttransfer]) star
 
-  val fefunca :
+  val feFuncA :
     ([< | fefunca_attr], [< | fefunca_content], [> | fefunca]) star
 
-  val fefuncg :
+  val feFuncG :
     ([< | fefuncg_attr], [< | fefuncg_content], [> | fefuncg]) star
 
-  val fefuncb :
+  val feFuncB :
     ([< | fefuncb_attr], [< | fefuncb_content], [> | fefuncb]) star
 
-  val fefuncr :
+  val feFuncR :
     ([< | fefuncr_attr], [< | fefuncr_content], [> | fefuncr]) star
 
-  val fecomposite :
+  val feComposite :
     ([< | fecomposite_attr], [< | fecomposite_content], [> | fecomposite])
       star
 
-  val feconvolvematrix :
+  val feConvolveMatrix :
     ([< | feconvolvematrix_attr], [< | feconvolvematrix_content],
      [> | feconvolvematrix]) star
 
-  val fediffuselighting :
+  val feDiffuseLighting :
     ([< | fediffuselighting_attr], [< | fediffuselighting_content],
      [> | fediffuselighting]) star
 
-  val fedisplacementmap :
+  val feDisplacementMap :
     ([< | fedisplacementmap_attr], [< | fedisplacementmap_content],
      [> | fedisplacementmap]) star
 
-  val feflood :
+  val feFlood :
     ([< | feflood_attr], [< | feflood_content], [> | feflood]) star
 
-  val fegaussianblur :
+  val feGaussianBlur :
     ([< | fegaussianblur_attr], [< | fegaussianblur_content],
      [> | fegaussianblur]) star
 
-  val feimage :
+  val feImage :
     ([< | feimage_attr], [< | feimage_content], [> | feimage]) star
 
-  val femerge :
+  val feMerge :
     ([< | femerge_attr], [< | femerge_content], [> | femerge]) star
 
-  val femorphology :
+  val feMorphology :
     ([< | femorphology_attr], [< | femorphology_content], [> | femorphology
                                                           ]) star
 
-  val feoffset :
+  val feOffset :
     ([< | feoffset_attr], [< | feoffset_content], [> | feoffset]) star
 
-  val fespecularlighting :
+  val feSpecularLighting :
     ([< | fespecularlighting_attr], [< | fespecularlighting_content],
      [> | fespecularlighting]) star
 
-  val fetile : ([< | fetile_attr], [< | fetile_content], [> | fetile]) star
+  val feTile : ([< | fetile_attr], [< | fetile_content], [> | fetile]) star
 
-  val feturbulence :
+  val feTurbulence :
     ([< | feturbulence_attr], [< | feturbulence_content], [> | feturbulence
                                                           ]) star
 
@@ -827,46 +881,66 @@ module type T = sig
 
   val set : ([< | set_attr], [< | set_content], [> | set]) star
 
-  val animatemotion :
+  val animateMotion :
     ([< | animatemotion_attr], [< | animatemotion_content],
      [> | animatemotion]) star
 
   val mpath : ([< | mpath_attr], [< | mpath_content], [> | mpath]) star
 
-  val animatecolor :
+  val animateColor :
     ([< | animatecolor_attr], [< | animatecolor_content], [> | animatecolor
                                                           ]) star
 
-  val animatetransform :
+  val animateTransform :
     ([< | animatetransform_attr], [< | animatetransform_content],
      [> | animatetransform]) star
 
   val font : ([< | font_attr], [< | font_content], [> | font]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val glyph : ([< | glyph_attr], [< | glyph_content], [> | glyph]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
-  val missingglyph :
+  val missing_glyph :
     ([< | missingglyph_attr], [< | missingglyph_content], [> | missingglyph
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val hkern : ([< | hkern_attr], [> | hkern]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val vkern : ([< | vkern_attr], [> | vkern]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face : ([< | font_face_attr], [> | font_face]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_src :
     ([< | font_face_src_attr], [< | font_face_src_content], [> | font_face_src])
       star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_uri :
     ([< | font_face_uri_attr], [< | font_face_uri_content], [> | font_face_uri])
       star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_format :
     ([< | font_face_format_attr], [> | font_face_format]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_name : ([< | font_face_name_attr], [> | font_face_name]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val metadata :
     ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt

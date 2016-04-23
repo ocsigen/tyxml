@@ -245,6 +245,80 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<stop offset='50.1%'/>"]],
   [stop ~a:[a_offset (`Percentage 50.1)] []] ;
 
+  "text x, y",
+  [[%svg "<text x='1 2' y='3 4'/>"]],
+  [text ~a:[a_x_list [1., None; 2., None]; a_y_list [3., None; 4., None]] []] ;
+
+  "text dx, dy",
+  [[%svg "<text dx='1 2' dy='3 4'/>"]],
+  [text
+    ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
+
+  "feColorMatrix type",
+  [[%svg "<feColorMatrix type='matrix'/>"]],
+  [feColorMatrix ~a:[a_feColorMatrix_type `Matrix] []] ;
+
+  "feTurbulence type",
+  [[%svg "<feTurbulence type='fractalNoise'/>"]],
+  [feTurbulence ~a:[a_feTurbulence_type `FractalNoise] []] ;
+
+  "animateTransform type",
+  [[%svg "<animateTransform type='translate'/>"]],
+  [animateTransform ~a:[a_animateTransform_type `Translate] []] ;
+
+  "feFuncR type, offset",
+  [[%svg "<feFuncR type='identity' offset='0'/>"]],
+  [feFuncR ~a:[a_transfer_type `Identity; a_transfer_offset 0.] []] ;
+
+  "feComposite operator",
+  [[%svg "<feComposite operator='xor'/>"]],
+  [feComposite ~a:[a_feComposite_operator `Xor] []] ;
+
+  "feMorphology operator",
+  [[%svg "<feMorphology operator='erode'/>"]],
+  [feMorphology ~a:[a_feMorphology_operator `Erode] []] ;
+
+  "animation fill, values",
+  [[%svg "<animation fill='freeze' values='1 2'/>"]],
+  [animation ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
+
+]
+
+let svg_element_names = "svg element names", SvgTests.make Svg.[
+
+  "textPath", [[%svg "<textPath/>"]], [textPath []] ;
+  "linearGradient", [[%svg "<linearGradient/>"]], [linearGradient []] ;
+  "radialGradient", [[%svg "<radialGradient/>"]], [radialGradient []] ;
+  "clipPath", [[%svg "<clipPath/>"]], [clipPath []] ;
+  "feDistantLight", [[%svg "<feDistantLight/>"]], [feDistantLight []] ;
+  "fePointLight", [[%svg "<fePointLight/>"]], [fePointLight []] ;
+  "feSpotLight", [[%svg "<feSpotLight/>"]], [feSpotLight []] ;
+  "feBlend", [[%svg "<feBlend/>"]], [feBlend []] ;
+  "feColorMatrix", [[%svg "<feColorMatrix/>"]], [feColorMatrix []] ;
+  "feComponentTransfer",
+  [[%svg "<feComponentTransfer/>"]], [feComponentTransfer []] ;
+  "feFuncA", [[%svg "<feFuncA/>"]], [feFuncA []] ;
+  "feFuncG", [[%svg "<feFuncG/>"]], [feFuncG []] ;
+  "feFuncB", [[%svg "<feFuncB/>"]], [feFuncB []] ;
+  "feFuncR", [[%svg "<feFuncR/>"]], [feFuncR []] ;
+  "feComposite", [[%svg "<feComposite/>"]], [feComposite []] ;
+  "feConvolveMatrix", [[%svg "<feConvolveMatrix/>"]], [feConvolveMatrix []] ;
+  "feDiffuseLighting", [[%svg "<feDiffuseLighting/>"]], [feDiffuseLighting []] ;
+  "feDisplacementMap", [[%svg "<feDisplacementMap/>"]], [feDisplacementMap []] ;
+  "feFlood", [[%svg "<feFlood/>"]], [feFlood []] ;
+  "feGaussianBlur", [[%svg "<feGaussianBlur/>"]], [feGaussianBlur []] ;
+  "feImage", [[%svg "<feImage/>"]], [feImage []] ;
+  "feMerge", [[%svg "<feMerge/>"]], [feMerge []] ;
+  "feMorphology", [[%svg "<feMorphology/>"]], [feMorphology []] ;
+  "feOffset", [[%svg "<feOffset/>"]], [feOffset []] ;
+  "feSpecularLighting",
+  [[%svg "<feSpecularLighting/>"]], [feSpecularLighting []] ;
+  "feTile", [[%svg "<feTile/>"]], [feTile []] ;
+  "feTurbulence", [[%svg "<feTurbulence/>"]], [feTurbulence []] ;
+  "animateMotion", [[%svg "<animateMotion/>"]], [animateMotion []] ;
+  "animateColor", [[%svg "<animateColor/>"]], [animateColor []] ;
+  "animateTransform", [[%svg "<animateTransform/>"]], [animateTransform []] ;
+
 ]
 
 
@@ -255,4 +329,5 @@ let tests = [
   ns_nesting ;
   antiquot ;
   svg ;
+  svg_element_names ;
 ]
