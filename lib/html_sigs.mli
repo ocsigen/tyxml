@@ -590,8 +590,6 @@ module type T = sig
     [@@ocaml.deprecated "Use CSS border and/or border-width"]
   (** @deprecated Use CSS border and/or border-width *)
 
-  val a_datapagesize : cdata wrap -> [> | `Datapagesize] attrib
-
   val a_rules :
     [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
     [@@ocaml.deprecated "Use CSS border"]
