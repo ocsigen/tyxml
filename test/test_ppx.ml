@@ -250,9 +250,6 @@ let svg = "svg", SvgTests.make Svg.[
 let svg_element_names = "svg element names", SvgTests.make Svg.[
 
   "textPath", [[%svg "<textPath/>"]], [textPath []] ;
-  "altGlyphItem", [[%svg "<altGlyphItem/>"]], [altGlyphItem []] ;
-  "glyphRef", [[%svg "<glyphRef/>"]], [glyphRef ()] ;
-  "color-profile", [[%svg "<color-profile/>"]], [color_profile []] ;
   "linearGradient", [[%svg "<linearGradient/>"]], [linearGradient []] ;
   "radialGradient", [[%svg "<radialGradient/>"]], [radialGradient []] ;
   "clipPath", [[%svg "<clipPath/>"]], [clipPath []] ;
@@ -284,7 +281,6 @@ let svg_element_names = "svg element names", SvgTests.make Svg.[
   "animateMotion", [[%svg "<animateMotion/>"]], [animateMotion []] ;
   "animateColor", [[%svg "<animateColor/>"]], [animateColor []] ;
   "animateTransform", [[%svg "<animateTransform/>"]], [animateTransform []] ;
-  "missing_glyph", [[%svg "<missing_glyph/>"]], [missing_glyph []] ;
 
 ]
 

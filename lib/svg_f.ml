@@ -225,6 +225,8 @@ struct
   let a_zoomAndPan x =
     user_attrib C.string_of_big_variant "zoomAndSpan" x
 
+  let a_href = string_attrib "href"
+
   let a_xlink_href = string_attrib "xlink:href"
 
   let a_requiredFeatures =

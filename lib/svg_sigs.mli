@@ -109,8 +109,12 @@ module type T = sig
   (** {2:attributes Attributes } *)
 
   val a_version : string wrap -> [> | `Version ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_baseProfile : string wrap -> [> | `BaseProfile ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_x : coord wrap -> [> | `X ] attrib
 
@@ -123,14 +127,24 @@ module type T = sig
   val a_preserveAspectRatio : string wrap -> [> | `PreserveAspectRatio ] attrib
 
   val a_contentScriptType : string wrap -> [> | `ContentScriptType ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_contentStyleType : string wrap -> [> | `ContentStyleType ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_zoomAndPan : [< | `Disable | `Magnify ] wrap -> [> | `ZoomAndSpan ] attrib
 
+  val a_href : iri wrap -> [> | `Xlink_href ] attrib
+
   val a_xlink_href : iri wrap -> [> | `Xlink_href ] attrib
+    [@@ocaml.deprecated "Use a_href"]
+  (** @deprecated Use a_href *)
 
   val a_requiredFeatures : spacestrings wrap -> [> | `RequiredFeatures ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_requiredExtensions :
     spacestrings wrap -> [> | `RequiredExtension ] attrib
@@ -143,10 +157,14 @@ module type T = sig
   val a_id : string wrap -> [> | `Id ] attrib
 
   val a_xml_base : iri wrap -> [> | `Xml_Base ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_xml_lang : iri wrap -> [> | `Xml_Lang ] attrib
 
   val a_xml_space : [< `Default | `Preserve ] wrap -> [> | `Xml_Space ] attrib
+    [@@ocaml.deprecated "Use CSS white-space"]
+  (** @deprecated Use CSS white-space *)
 
   val a_type : string wrap -> [> | `Type ] attrib
 
@@ -416,14 +434,20 @@ module type T = sig
     [< | `FractalNoise | `Turbulence ] wrap -> [> | `TypeStitch ] attrib
 
   val a_xlink_show : [< | `New | `Replace ] wrap -> [> | `Xlink_show ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_xlink_actuate :
     [< | `OnRequest | `OnLoad | `Other | `None ] wrap
     -> [> | `Xlink_actuate ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_target : string wrap -> [> | `Xlink_target ] attrib
 
   val a_viewTarget : string wrap -> [> | `ViewTarget ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_attributeName : string wrap -> [> | `AttributeName ] attrib
 
@@ -625,6 +649,9 @@ module type T = sig
   val a_onfocusin : Xml.event_handler  -> [> | `OnFocusIn ] attrib
   val a_onfocusout : Xml.event_handler  -> [> | `OnFocusOut ] attrib
   val a_onload : Xml.event_handler  -> [> | `OnLoad ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
   val a_onrepeat : Xml.event_handler  -> [> | `OnRepeat ] attrib
   val a_onresize : Xml.event_handler  -> [> | `OnResize ] attrib
   val a_onscroll : Xml.event_handler  -> [> | `OnScroll ] attrib
@@ -686,12 +713,16 @@ module type T = sig
   val tspan : ([< | tspan_attr], [< | tspan_content], [> | tspan]) star
 
   val tref : ([< | tref_attr], [< | tref_content], [> | tref]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val textPath :
     ([< | textpath_attr], [< | textpath_content], [> | textpath]) star
 
   val altGlyph :
     ([< | altglyph_attr], [< | altglyph_content], [> | altglyph]) unary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   type altglyphdef_content =
     [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
@@ -700,18 +731,26 @@ module type T = sig
   val altGlyphDef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val altGlyphItem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val glyphRef : ([< | glyphref_attr], [> | glyphref]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val marker : ([< | marker_attr], [< | marker_content], [> | marker]) star
 
   val color_profile :
     ([< | colorprofile_attr], [< | colorprofile_content], [> | colorprofile
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val linearGradient :
     ([< | lineargradient_attr], [< | lineargradient_content],
@@ -842,31 +881,51 @@ module type T = sig
      [> | animatetransform]) star
 
   val font : ([< | font_attr], [< | font_content], [> | font]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val glyph : ([< | glyph_attr], [< | glyph_content], [> | glyph]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val missing_glyph :
     ([< | missingglyph_attr], [< | missingglyph_content], [> | missingglyph
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val hkern : ([< | hkern_attr], [> | hkern]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val vkern : ([< | vkern_attr], [> | vkern]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face : ([< | font_face_attr], [> | font_face]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_src :
     ([< | font_face_src_attr], [< | font_face_src_content], [> | font_face_src])
       star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_uri :
     ([< | font_face_uri_attr], [< | font_face_uri_content], [> | font_face_uri])
       star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_format :
     ([< | font_face_format_attr], [> | font_face_format]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val font_face_name : ([< | font_face_name_attr], [> | font_face_name]) nullary
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val metadata :
     ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt
