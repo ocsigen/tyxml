@@ -1,33 +1,79 @@
 # TyXML
 
-TyXML is a library to build statically correct Html5 and Svg documents.
+TyXML is an HTML and SVG templating library. It uses OCaml's type system to
+validate markup at compile time:
 
 ```ocaml
-let to_ocaml = Html5.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
+open Tyxml
+
+let%html hello = "<li>Hello</li>"
+let%html world = "<li>World</li>"
+let%html image = "<img src='/like.png' alt='Like this'>"
+
+let%html greet = "<ul>" [hello; world; image] "</ul>"
+                                    (* ^^^^^
+> Error: This expression has type (... snip ...)
+         The second variant type does not allow tag(s) `Img *)
 ```
 
-TyXML provides a set of combinators to build Html5 and Svg documents. These combinators use the OCaml type-system to ensure the validity of the generated Html5 and Svg.
-TyXML's combinators are used in various libraries, such as [Eliom][] and [Js_of_ocaml][], but a builtin implementation is also provided by the `tyxml` ocamlfind package.
+since `<ul>` elements should not contain `<img>` elements directly. If you
+remove `image` from the list in `greet`, the example compiles, and you can
+print:
 
-The documentation can be consulted [on the TyXML website](https://ocsigen.org/tyxml/manual/). Examples are available in the [examples](examples) directory.
+```ocaml
+Format.printf "%a" (Html.pp_elt ()) greet     (*
+> <ul><li>Hello</li><li>World!</li></ul> *)
+```
 
-[Eliom]: https://ocsigen.org/eliom/manual/clientserver-html
-[Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/api/Tyxml_js
+TyXML checks element nesting, presence of correct attributes, attribute values,
+and some other properties. See the [documentation][manual] and
+[examples](examples).
 
-## How to
+[manual]: https://ocsigen.org/tyxml/manual/
 
-### Installation
+#### Combinators
 
-TyXML is available in [opam](https://opam.ocaml.org/):
+The above example uses TyXML's PPX syntax, which translates to TyXML
+combinators. If written directly with combinators, the example looks like this:
+
+```ocaml
+open Tyxml.Html
+
+let hello = li [pcdata "Hello"]
+let world = li [pcdata "World!"]
+let greet = ul [hello; world]
+```
+
+As you can see, combinators can be cleaner than HTML. They can, however, also be
+more complicated:
+
+```ocaml
+let field = input ~a:[a_input_type `Password] ()
+```
+
+For some purposes, combinators are the only option. Either way, the error
+messages and API reference deal with the combinators, so it's important to be
+aware of them even when using the PPX.
+
+## Installation
+
+Without the PPX:
+
 ```sh
 opam install tyxml
 ```
 
-To use the development version, pin it:
+With the PPX:
+
 ```sh
-opam pin add tyxml --dev
+opam install markup tyxml
 ```
 
-### Manual build
+This gives `ocamlfind` packages `tyxml` and, optionally, `tyxml.ppx`.
 
-For manual builds, please consult [the included opam file](opam).
+## Applications
+
+TyXML is used in [Eliom][] and [Js_of_ocaml][].
+
+[Eliom]: https://ocsigen.org/eliom/manual/clientserver-html
+[Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/api/Tyxml_js
