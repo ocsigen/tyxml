@@ -534,6 +534,12 @@ let srcset_element =
 
     Some e
 
+let number_or_datetime ?separated_by:_ ?default:_ loc _ s =
+  match int_exp loc s with
+  | Some n -> Some [%expr `Number [%e n]]
+  | None -> Some [%expr `Datetime [%e Pc.string loc s]]
+  [@metaloc loc]
+
 
 
 (* Special-cased. *)

@@ -196,6 +196,9 @@ val paint : parser
 val srcset_element : parser
 (** Used for [a_srcset]. *)
 
+val number_or_datetime : parser
+(** Used for [a_input_min] and [a_input_max]. *)
+
 
 
 (* {2 Special-cased}

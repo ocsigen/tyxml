@@ -197,6 +197,9 @@ let rec to_attribute_parser lang name = function
   | [[%type: paint]] ->
     [%expr paint]
 
+  | [[%type: number_or_datetime]] ->
+    [%expr number_or_datetime]
+
   | [[%type: image_candidate list]] ->
     [%expr commas srcset_element]
 
