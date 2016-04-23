@@ -77,11 +77,19 @@ type contenttypes = contenttype list
 (** A comma-separated list of media types, as per RFC2045 (MIME).
         @see <http://tools.ietf.org/html/rfc2045> RFC2045 *)
 
+type number = int
+
+(* space-separated *)
+type numbers = number list
+
 type coords = string list
 (** Comma- separated list of coordinates to use in defining areas. *)
 
 type datetime = string
 (** Date and time information. *)
+
+type number_or_datetime = [ | `Number of number | `Datetime of datetime ]
+(** Either a number or date and time information. *)
 
 type fpi = string
 (** A character string representing an SGML Formal Public Identifier. *)
@@ -221,11 +229,6 @@ type mediadesc = mediadesc_token list
         For more complex (untyped) media descriptors.}}
 
 *)
-
-type number = int
-
-(* space-separated *)
-type numbers = number list
 
 type float_number = float
 
