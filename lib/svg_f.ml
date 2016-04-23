@@ -254,7 +254,7 @@ struct
 
   let a_media = Xml.comma_sep_attrib "media"
 
-  let a_title = string_attrib "title"
+  let a_xlink_title = string_attrib "xlink:title"
 
   let a_class = Xml.space_sep_attrib "class"
 

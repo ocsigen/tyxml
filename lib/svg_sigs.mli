@@ -170,7 +170,9 @@ module type T = sig
 
   val a_media : commastrings wrap -> [> | `Media ] attrib
 
-  val a_title : string wrap -> [> | `Title ] attrib
+  val a_xlink_title : string wrap -> [> | `Title ] attrib
+    [@@ocaml.deprecated "Use a child title element"]
+  (** @deprecated Use a child title element *)
 
   val a_class : spacestrings wrap -> [> | `Class ] attrib
 
