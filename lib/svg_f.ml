@@ -432,7 +432,7 @@ struct
 
   let a_transfer_offset = user_attrib C.string_of_number "offset"
 
-  let a_operator x =
+  let a_feComposite_operator x =
     user_attrib C.string_of_big_variant "operator" x
 
   let a_k1 = user_attrib C.string_of_number "k1"

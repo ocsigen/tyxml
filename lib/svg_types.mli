@@ -1287,7 +1287,7 @@ type fecomposite_attr =
     | `Style
     | `In
     | `In2
-    | `Operator
+    | `OperatorComposite
     | `K1
     | `K2
     | `K3
@@ -1420,7 +1420,7 @@ type femorphology_attr =
     | core_attr
     | presentation_attr
     | filter_primitive_attr
-    | `Operator_morphology
+    | `OperatorMorphology
     | `Class
     | `Style
     | `In

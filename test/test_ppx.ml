@@ -270,6 +270,14 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<feFuncR type='identity' offset='0'/>"]],
   [feFuncR ~a:[a_transfer_type `Identity; a_transfer_offset 0.] []] ;
 
+  "feComposite operator",
+  [[%svg "<feComposite operator='xor'/>"]],
+  [feComposite ~a:[a_feComposite_operator `Xor] []] ;
+
+  "feMorphology operator",
+  [[%svg "<feMorphology operator='erode'/>"]],
+  [feMorphology ~a:[a_feMorphology_operator `Erode] []] ;
+
 ]
 
 let svg_element_names = "svg element names", SvgTests.make Svg.[

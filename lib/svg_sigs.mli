@@ -378,9 +378,10 @@ module type T = sig
   val a_transfer_offset : number wrap -> [> | `Offset_transfer ] attrib
     [@@reflect.attribute "offset" ["feFuncR"; "feFuncG"; "feFuncB"; "feFuncA"]]
 
-  val a_operator :
+  val a_feComposite_operator :
     [< | `Over | `In | `Out | `Atop | `Xor | `Arithmetic ] wrap ->
-    [> | `Operator ] attrib
+    [> | `OperatorComposite ] attrib
+    [@@reflect.attribute "operator" ["feComposite"]]
 
   val a_k1 : number wrap -> [> | `K1 ] attrib
 
@@ -426,6 +427,7 @@ module type T = sig
 
   val a_feMorphology_operator :
     [< | `Erode | `Dilate ] wrap -> [> | `OperatorMorphology ] attrib
+    [@@reflect.attribute "operator" ["feMorphology"]]
 
   val a_radius : number_optional_number wrap -> [> | `Radius ] attrib
 
