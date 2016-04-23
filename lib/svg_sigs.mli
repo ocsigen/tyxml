@@ -358,12 +358,14 @@ module type T = sig
   val a_feColorMatrix_type :
     [< | `Matrix | `Saturate | `HueRotate | `LuminanceToAlpha ] wrap ->
     [> | `Typefecolor ] attrib
+    [@@reflect.attribute "type" ["feColorMatrix"]]
 
   val a_values : numbers wrap -> [> | `Values ] attrib
 
-  val a_type_transfer :
+  val a_transfer_type :
     [< | `Identity | `Table | `Discrete | `Linear | `Gamma ] wrap ->
     [> | `Type_transfert ] attrib
+    [@@reflect.attribute "type" ["feFuncR"; "feFuncG"; "feFuncB"; "feFuncA"]]
 
   val a_tableValues : numbers wrap -> [> | `TableValues ] attrib
 
@@ -438,6 +440,7 @@ module type T = sig
 
   val a_feTurbulence_type :
     [< | `FractalNoise | `Turbulence ] wrap -> [> | `TypeStitch ] attrib
+    [@@reflect.attribute "type" ["feTurbulence"]]
 
   val a_xlink_show : [< | `New | `Replace ] wrap -> [> | `Xlink_show ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
@@ -502,9 +505,10 @@ module type T = sig
 
   val a_path : string wrap -> [> | `Path ] attrib
 
-  val a_animateColor_type :
+  val a_animateTransform_type :
     [ | `Translate | `Scale | `Rotate | `SkewX | `SkewY ] wrap ->
-    [ | `Typeanimatecolor ] attrib
+    [ | `Typeanimatetransform ] attrib
+    [@@reflect.attribute "type" ["animateTransform"]]
 
   val a_horiz_origin_x : number wrap -> [> | `HorizOriginX ] attrib
 

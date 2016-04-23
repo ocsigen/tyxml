@@ -1497,7 +1497,7 @@ type feturbulence_attr =
     | `NumOctaves
     | `Seed
     | `StitchTiles
-    | `Type_stitch
+    | `TypeStitch
   ]
 
 type cursor = [ | `Cursor ]
@@ -1693,7 +1693,7 @@ type animatetransform_attr =
     | animation_value_attr
     | animation_addition_attr
     | `ExternalResourcesRequired
-    | `Typeanimatecolor
+    | `Typeanimatetransform
   ]
 
 type font = [ | `Font ]

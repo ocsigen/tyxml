@@ -419,7 +419,7 @@ struct
 
   let a_values = user_attrib C.string_of_numbers "values"
 
-  let a_type_transfer x =
+  let a_transfer_type x =
     user_attrib C.string_of_big_variant "type" x
 
   let a_tableValues = user_attrib C.string_of_numbers "tableValues"
@@ -557,7 +557,7 @@ struct
 
   let a_path = string_attrib "path"
 
-  let a_animateColor_type =
+  let a_animateTransform_type =
     user_attrib C.string_of_big_variant "type"
 
   let a_horiz_origin_x = user_attrib C.string_of_number "horiz-origin-x"

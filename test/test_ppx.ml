@@ -254,6 +254,22 @@ let svg = "svg", SvgTests.make Svg.[
   [text
     ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
 
+  "feColorMatrix type",
+  [[%svg "<feColorMatrix type='matrix'/>"]],
+  [feColorMatrix ~a:[a_feColorMatrix_type `Matrix] []] ;
+
+  "feTurbulence type",
+  [[%svg "<feTurbulence type='fractalNoise'/>"]],
+  [feTurbulence ~a:[a_feTurbulence_type `FractalNoise] []] ;
+
+  "animateTransform type",
+  [[%svg "<animateTransform type='translate'/>"]],
+  [animateTransform ~a:[a_animateTransform_type `Translate] []] ;
+
+  "feFuncR type",
+  [[%svg "<feFuncR type='identity'/>"]],
+  [feFuncR ~a:[a_transfer_type `Identity] []] ;
+
 ]
 
 let svg_element_names = "svg element names", SvgTests.make Svg.[
