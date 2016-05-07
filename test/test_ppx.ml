@@ -167,6 +167,10 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<output for=foo></output>"]],
   [output_elt ~a:[a_output_for ["foo"]] []] ;
 
+  "input min time",
+  [[%html "<input min='2002-10-02T15:00:00Z'>"]],
+  [input ~a:[a_input_min (`Datetime "2002-10-02T15:00:00Z")] ()] ;
+
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[

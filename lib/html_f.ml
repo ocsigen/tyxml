@@ -334,11 +334,11 @@ struct
 
   let a_max = float_attrib "max"
 
-  let a_input_max = float_attrib "max"
+  let a_input_max = user_attrib C.string_of_number_or_datetime "max"
 
   let a_min = float_attrib "min"
 
-  let a_input_min = float_attrib "min"
+  let a_input_min = user_attrib C.string_of_number_or_datetime "min"
 
   let a_inputmode x =
     user_attrib C.string_of_big_variant "inputmode" x
@@ -1001,6 +1001,10 @@ struct
     | `Time -> "time"
     | `Url -> "url"
     | `Week -> "week"
+
+  let string_of_number_or_datetime = function
+    | `Number n -> string_of_int n
+    | `Datetime t -> t
 
   let string_of_character = String.make 1
 

@@ -304,15 +304,13 @@ module type T = sig
   val a_low : float_number wrap -> [> | `High] attrib
 
   val a_max : float_number wrap -> [> | `Max] attrib
-    [@@reflect.attribute "max" ["meter"; "progress"]]
 
-  val a_input_max : float_number wrap -> [> | `Input_Max] attrib
+  val a_input_max : number_or_datetime wrap -> [> | `Input_Max] attrib
     [@@reflect.attribute "max" ["input"]]
 
   val a_min : float_number wrap -> [> | `Min] attrib
-    [@@reflect.attribute "min" ["meter"]]
 
-  val a_input_min : float_number wrap -> [> | `Input_Min] attrib
+  val a_input_min : number_or_datetime wrap -> [> | `Input_Min] attrib
     [@@reflect.attribute "min" ["input"]]
 
   val a_inputmode :
@@ -1151,6 +1149,9 @@ module type Wrapped_functions = sig
 
   val string_of_input_type :
     ([< Html_types.input_type], string) Xml.W.ft
+
+  val string_of_number_or_datetime :
+    ([< Html_types.number_or_datetime], string) Xml.W.ft
 
   val string_of_linktypes :
     ([< Html_types.linktype] list, string) Xml.W.ft
