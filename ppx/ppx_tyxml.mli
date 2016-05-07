@@ -26,7 +26,7 @@
 
 val markup_to_expr :
   Ppx_common.lang ->
-  Location.t -> Parsetree.expression -> Parsetree.expression
+  Location.t -> Parsetree.expression list -> Parsetree.expression
 (** Given the payload of a [%html ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup
     contained therein. *)
