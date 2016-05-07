@@ -442,8 +442,6 @@ struct
 
   let a_border = int_attrib "border"
 
-  let a_datapagesize = string_attrib "datapagesize"
-
   let a_rules x =
     user_attrib C.string_of_big_variant "rules" x
 

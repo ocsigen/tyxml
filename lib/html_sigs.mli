@@ -564,8 +564,12 @@ module type T = sig
 
   val a_align :
     [< | `Left | `Right | `Justify | `Char] wrap -> [> | `Align] attrib
+    [@@ocaml.deprecated "Use CSS text-align"]
+  (** @deprecated Use CSS text-align *)
 
   val a_axis : cdata wrap -> [> | `Axis] attrib
+    [@@ocaml.deprecated "Not supported in HTML5"]
+  (** @deprecated Not supported in HTML5 *)
 
   val a_colspan : number wrap -> [> | `Colspan] attrib
 
@@ -575,15 +579,21 @@ module type T = sig
 
   val a_scope :
     [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
+    [@@ocaml.deprecated "Not supported in HTML5"]
+  (** @deprecated Not supported in HTML5 *)
 
   val a_summary : text wrap -> [> | `Summary] attrib
+    [@@ocaml.deprecated "Move content elsewhere or to a <caption> child"]
+  (** @deprecated Move content elsewhere or to a <caption> child *)
 
   val a_border : pixels wrap -> [> | `Border] attrib
-
-  val a_datapagesize : cdata wrap -> [> | `Datapagesize] attrib
+    [@@ocaml.deprecated "Use CSS border and/or border-width"]
+  (** @deprecated Use CSS border and/or border-width *)
 
   val a_rules :
     [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
+    [@@ocaml.deprecated "Use CSS border"]
+  (** @deprecated Use CSS border *)
 
   val a_char : character wrap -> [> | `Char] attrib
     [@@ocaml.deprecated "The char attribute is not supported in HTML5"]
@@ -606,12 +616,20 @@ module type T = sig
   val a_data : Xml.uri wrap -> [> | `Data] attrib
 
   val a_codetype : contenttype wrap -> [> | `Codetype] attrib
+    [@@ocaml.deprecated "Not supported in HTML5"]
+  (** @deprecated Not supported in HTML5 *)
 
   val a_frameborder : [< | `Zero | `One] wrap -> [> | `Frameborder] attrib
+    [@@ocaml.deprecated "Use CSS border"]
+  (** @deprecated Use CSS border *)
 
   val a_marginheight : pixels wrap -> [> | `Marginheight] attrib
+    [@@ocaml.deprecated "Use CSS margin"]
+  (** @deprecated Use CSS *)
 
   val a_marginwidth : pixels wrap -> [> | `Marginwidth] attrib
+    [@@ocaml.deprecated "Use CSS margin"]
+  (** @deprecated Use CSS *)
 
   val a_scrolling : [< | `Yes | `No | `Auto] wrap -> [> | `Scrolling] attrib
 
