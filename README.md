@@ -7,7 +7,7 @@ open Tyxml
 let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 ```
 
-Tyxml can also be used with the standard HTML syntax, using the ppx:
+Tyxml can also be used with the standard HTML syntax, using the PPX:
 
 ```ocaml
 open Tyxml
@@ -32,7 +32,7 @@ TyXML is available in [OPAM](https://opam.ocaml.org/):
 opam install tyxml
 ```
 
-To install the ppx:
+To install the PPX:
 ```sh
 opam install tyxml_ppx
 ```
