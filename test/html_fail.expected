@@ -7,7 +7,7 @@ Error: This expression has type
        but an expression was expected of type
          ([< Html_types.div_content_fun ] as 'd) Tyxml.Html.elt =
            'd Tyxml_html.elt
-       Type 'a is not compatible with type
+       Type [> `A of 'b ] as 'a is not compatible with type
          'd =
            [< `A of Html_types.flow5_without_interactive
             | `Abbr
@@ -92,7 +92,7 @@ Error: This expression has type
             | `Video of Html_types.flow5_without_media
             | `Video_interactive of Html_types.flow5_without_media
             | `Wbr ] 
-       Type 'b is not compatible with type
+       Type [> `A of 'c ] as 'b is not compatible with type
          Html_types.flow5_without_interactive =
            [ `Abbr
            | `Address

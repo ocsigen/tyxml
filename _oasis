@@ -15,6 +15,7 @@ License: LGPL-2.1 with OCaml linking exception
 Plugins: META (0.3), DevFiles (0.3)
 BuildTools: ocamlbuild
 AlphaFeatures: pure_interface
+OCamlVersion: >= 4.02.0
 
 Synopsis: Statically correct HTML and SVG documents
 
@@ -182,10 +183,12 @@ Test html
   TestTools: main_test
   Run$: flag(tests) && flag(ppx)
 
-Test html_fail
-  Command: ocamlbuild test/html_fail.stamp
-  TestTools: main_test
-  Run$: flag(tests) && flag(ppx)
+## This test is disabled as it can't run on both 4.03 and 4.02
+## Curent oasis doesn't allow to restrict the version just for this test.
+# Test html_fail
+#   Command: ocamlbuild -use-ocamlfind test/html_fail.stamp
+#   TestTools: main_test
+#   Run$: flag(tests) && flag(ppx)
 
 ## Examples
 

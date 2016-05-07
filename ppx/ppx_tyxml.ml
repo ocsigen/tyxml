@@ -246,11 +246,10 @@ let ast_to_stream expr =
 
   let strings =
     expressions |> List.map @@ fun expr ->
-    match expr.pexp_desc with
-    (* TODO: Doesn't work in 4.03, can't pattern match. *)
-    | Pexp_constant (Const_string (s, delimiter)) ->
+    match Ast_convenience.get_str_with_quotation_delimiter expr with
+    | Some (s, delimiter) ->
       (s, Loc.string_start delimiter expr.pexp_loc)
-    | _ ->
+    | None ->
       (Antiquot.create expr, expr.pexp_loc.loc_start)
   in
 

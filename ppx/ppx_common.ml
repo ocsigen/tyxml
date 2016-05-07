@@ -57,7 +57,17 @@ let find f l =
 
 let with_loc loc f x =
   with_default_loc loc @@ fun () -> f x
-let error loc fmt = Location.raise_errorf ~loc ("Error: "^^fmt)
+
+let error_prefix : _ format6 = "Error: "
+(* We use a custom implementation because the type of Location.raise_errorf
+   changed in 4.03 *)
+let error loc ppf =
+  let buf = Buffer.create 17 in
+  let fmt = Format.formatter_of_buffer buf in
+  Format.kfprintf
+    (fun _ -> Location.raise_errorf ~loc "%s" (Buffer.contents buf))
+    fmt
+    (error_prefix^^ppf)
 
 (** Ast manipulation *)
 

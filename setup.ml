@@ -1,5 +1,6 @@
 (* setup.ml generated for the first time by OASIS v0.3.0 *)
 
+[@@@ocaml.warning "-3"]
 (* OASIS_START *)
 (* DO NOT EDIT (digest: 9852805d5c19ca1cb6abefde2dcea323) *)
 (******************************************************************************)
