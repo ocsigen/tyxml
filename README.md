@@ -3,12 +3,14 @@
 TyXML is a library for building statically correct HTML5 and SVG documents:
 
 ```ocaml
+open Tyxml
 let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 ```
 
-or
+Tyxml can also be used with the standard HTML syntax, using the ppx:
 
 ```ocaml
+open Tyxml
 let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 ```
 
@@ -28,4 +30,9 @@ available in the [examples](examples) directory.
 TyXML is available in [OPAM](https://opam.ocaml.org/):
 ```sh
 opam install tyxml
+```
+
+To install the ppx:
+```sh
+opam install tyxml_ppx
 ```
