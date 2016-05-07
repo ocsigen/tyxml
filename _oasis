@@ -208,7 +208,7 @@ Test basic_website
 
 Executable basic_website_ppx
   Install: false
-  Build$: flag(tests) && flag(tests)
+  Build$: flag(tests) && flag(ppx)
   Path: examples/basic_website_ppx
   MainIs: site_html.ml
   BuildDepends: tyxml
@@ -236,7 +236,7 @@ Test mini_website
 
 Executable mini_website_ppx
   Install: false
-  Build$: flag(tests) && flag(tests)
+  Build$: flag(tests) && flag(ppx)
   Path: examples/mini_website_ppx
   MainIs: minihtml.ml
   BuildDepends: tyxml
