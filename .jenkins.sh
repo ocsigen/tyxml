@@ -1,7 +1,5 @@
 export ALCOTEST_SHOW_ERRORS=true
 
-opam pin add --no-action markup https://github.com/aantron/markup.ml.git\#input-stream
-
 opam pin add --no-action tyxml .
 opam pin add --no-action tyxml_ppx .
 
