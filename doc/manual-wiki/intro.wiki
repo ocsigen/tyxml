@@ -3,6 +3,7 @@
 Tyxml is a library to build statically correct HTML and SVG documents.
 
 <<code language="ocaml"|
+open Tyxml
 let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 >>
 
@@ -10,8 +11,7 @@ let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
 
 === Standalone Use ===
 
-To use TyXML in standalone manner, simply link the ##tyxml## ocamlfind package
-and open <<a_api|module Tyxml>>.
+To use TyXML in standalone manner, simply install the ##tyxml## OPAM package, link the ##tyxml## ocamlfind library and open <<a_api|module Tyxml>>.
 
 === Use with another library ===
 
@@ -19,6 +19,16 @@ TyXML combinators can be used in conjunction with other libraries, please consul
 <<a_manual project="eliom" chapter="clientserver-html"|Eliom>>
 and
 <<a_api project="js_of_ocaml" text="Js_of_ocaml"|module Tyxml_js>>.
+
+=== Use with the ppx ===
+
+Tyxml can also be used with the standard HTML syntax, using <<a_manual chapter="ppx"|the ppx syntax extension>>:
+<<code language="ocaml"|
+open Tyxml
+let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
+>>
+
+This syntax is available both while using tyxml standalone, or with another library. In order to do so, install the ##tyxml_ppx## OPAM package and link the ##tyxml.ppx## ocamlfind library.
 
 ==@@id="creation"@@ Creating documents with TyXML ==
 
