@@ -218,7 +218,7 @@ Test basic_website_ppx
   WorkingDirectory: examples/basic_website_ppx
   Command: $basic_website_ppx
   TestTools: basic_website_ppx
-  Run$: flag(tests) && flag(tests)
+  Run$: flag(tests) && flag(ppx)
 
 Executable mini_website
   Install: false
@@ -246,7 +246,7 @@ Test mini_website_ppx
   WorkingDirectory: examples/mini_website_ppx
   Command: $mini_website
   TestTools: mini_website
-  Run$: flag(tests) && flag(tests)
+  Run$: flag(tests) && flag(ppx)
 
 ## Documentation
 
