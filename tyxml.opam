@@ -47,6 +47,6 @@ conflicts: [
 ]
 available: ocaml-version >= "4.02"
 messages: [
-  "For tyxml's ppx, please install markup and ppx_tools."
+  "For tyxml's ppx, please install tyxml_ppx."
   {!markup:installed | !ppx_tools:installed}
 ]
