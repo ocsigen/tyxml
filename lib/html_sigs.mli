@@ -479,10 +479,10 @@ module type T = sig
   val a_maxlength : number wrap -> [> | `Maxlength] attrib
 
   val a_method :
-    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+    [< | `Get | `Post] wrap -> [> | `Method] attrib
 
   val a_formmethod :
-    [< | `Get | `Post | `Put | `Delete] wrap -> [> | `Method] attrib
+    [< | `Get | `Post] wrap -> [> | `Method] attrib
     [@@ocaml.deprecated "Use a_method"]
   (** @deprecated Use a_method *)
 
