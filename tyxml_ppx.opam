@@ -11,7 +11,7 @@ dev-repo: "https://github.com/ocsigen/tyxml.git"
 build: ["ocamlfind" "query" "tyxml.ppx"]
 depends: [
   "tyxml"
-  "markup"
+  "markup" {>= "0.7.2"}
   "ppx_tools"
 ]
 available: ocaml-version >= "4.02"
