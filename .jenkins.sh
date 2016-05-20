@@ -1,14 +1,14 @@
 export ALCOTEST_SHOW_ERRORS=true
 
 opam pin add --no-action tyxml .
-opam pin add --no-action tyxml_ppx .
+opam pin add --no-action tyxml-ppx .
 
 opam install -t --deps-only tyxml
 opam install --verbose tyxml
 opam remove --verbose tyxml
 opam install camlp4
 opam install -t --verbose tyxml
-opam install -t --verbose tyxml_ppx
+opam install -t --verbose tyxml-ppx
 
 do_build_doc () {
   make wikidoc
