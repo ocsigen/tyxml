@@ -34,5 +34,5 @@ opam install tyxml
 
 To install the PPX:
 ```sh
-opam install tyxml_ppx
+opam install tyxml-ppx
 ```

@@ -28,7 +28,7 @@ open Tyxml
 let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 >>
 
-This syntax is available both while using TyXML standalone, or with another library. In order to do so, install the ##tyxml_ppx## OPAM package and link the ##tyxml.ppx## ##ocamlfind## library.
+This syntax is available both while using TyXML standalone, or with another library. In order to do so, install the ##tyxml-ppx## OPAM package and link the ##tyxml.ppx## ##ocamlfind## library.
 
 ==@@id="creation"@@ Creating documents with TyXML ==
 

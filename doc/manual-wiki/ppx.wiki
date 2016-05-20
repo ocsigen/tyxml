@@ -2,9 +2,9 @@
 
 TyXML provides a ppx to allow writing HTML and SVG documents
 in the standard syntax while still enjoying the benefits and type-safety of TyXML.
-For the ppx to be available, you need to install ##markup## and ##ppx_tools##.
+For the ppx to be available, you need to install ##markup## and ##ppx_tools##. A convenience package ##tyxml-ppx## is provided:
 <<code|
-opam install markup ppx_tools tyxml
+opam install tyxml-ppx
 >>
 
 ==@@id="syntax"@@ Syntax ==
