@@ -1,4 +1,120 @@
 # OASIS_START
+# DO NOT EDIT (digest: d07a4f5df8ed9187d90150fece42e278)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
+# useless stuff for the build process
+true: annot, bin_annot
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library tyxml_f
+"lib/tyxml_f.cmxs": use_tyxml_f
+<lib/*.ml{,i,y}>: package(re)
+<lib/*.ml{,i,y}>: package(uutf)
+# Library tyxml
+"implem/tyxml.cmxs": use_tyxml
+<implem/*.ml{,i,y}>: package(re)
+<implem/*.ml{,i,y}>: package(uutf)
+<implem/*.ml{,i,y}>: use_tyxml_f
+# Library tyxml_top
+"implem/top/tyxml_top.cmxs": use_tyxml_top
+<implem/top/*.ml{,i,y}>: package(compiler-libs.toplevel)
+# Library tyxml_tools
+"tools/tyxml_tools.cmxs": use_tyxml_tools
+# Executable autoname
+"tools/autoname.byte": package(bytes)
+"tools/autoname.byte": use_tyxml_tools
+<tools/*.ml{,i,y}>: package(bytes)
+<tools/*.ml{,i,y}>: use_tyxml_tools
+# Library pa_tyxml
+"syntax/pa_tyxml.cmxs": use_pa_tyxml
+<syntax/*.ml{,i,y}>: package(camlp4)
+# Library tymlx_p
+"syntax/tymlx_p.cmxs": use_tymlx_p
+<syntax/*.ml{,i,y}>: package(bytes)
+<syntax/*.ml{,i,y}>: package(camlp4.lib)
+# Library ppx
+"ppx/ppx.cmxs": use_ppx
+# Library ppx_internal
+"ppx/ppx_internal.cmxs": use_ppx_internal
+# Executable ppx_tyxml
+<ppx/ppx_tyxml_ex.{native,byte}>: package(bytes)
+<ppx/ppx_tyxml_ex.{native,byte}>: package(markup)
+<ppx/ppx_tyxml_ex.{native,byte}>: package(ppx_tools.metaquot)
+<ppx/ppx_tyxml_ex.{native,byte}>: package(re.str)
+<ppx/ppx_tyxml_ex.{native,byte}>: use_ppx_internal
+<ppx/ppx_tyxml_ex.{native,byte}>: use_tyxml_tools
+<ppx/*.ml{,i,y}>: package(markup)
+<ppx/*.ml{,i,y}>: package(re.str)
+<ppx/*.ml{,i,y}>: use_ppx_internal
+# Executable ppx_reflect
+<ppx/ppx_reflect.{native,byte}>: package(bytes)
+<ppx/ppx_reflect.{native,byte}>: package(ppx_tools.metaquot)
+<ppx/ppx_reflect.{native,byte}>: use_tyxml_tools
+<ppx/*.ml{,i,y}>: package(bytes)
+<ppx/*.ml{,i,y}>: package(ppx_tools.metaquot)
+<ppx/*.ml{,i,y}>: use_tyxml_tools
+# Executable emit_big
+<test/emitbig.{native,byte}>: package(re)
+<test/emitbig.{native,byte}>: package(unix)
+<test/emitbig.{native,byte}>: package(uutf)
+<test/emitbig.{native,byte}>: use_tyxml
+<test/emitbig.{native,byte}>: use_tyxml_f
+<test/*.ml{,i,y}>: package(unix)
+# Executable main_test
+"test/main_test.byte": package(alcotest)
+"test/main_test.byte": package(re)
+"test/main_test.byte": package(uutf)
+"test/main_test.byte": use_tyxml
+"test/main_test.byte": use_tyxml_f
+<test/*.ml{,i,y}>: package(alcotest)
+<test/*.ml{,i,y}>: package(re)
+<test/*.ml{,i,y}>: package(uutf)
+<test/*.ml{,i,y}>: use_tyxml
+<test/*.ml{,i,y}>: use_tyxml_f
+# Executable basic_website
+<examples/basic_website/site_html.{native,byte}>: package(re)
+<examples/basic_website/site_html.{native,byte}>: package(uutf)
+<examples/basic_website/site_html.{native,byte}>: use_tyxml
+<examples/basic_website/site_html.{native,byte}>: use_tyxml_f
+<examples/basic_website/*.ml{,i,y}>: package(re)
+<examples/basic_website/*.ml{,i,y}>: package(uutf)
+<examples/basic_website/*.ml{,i,y}>: use_tyxml
+<examples/basic_website/*.ml{,i,y}>: use_tyxml_f
+# Executable basic_website_ppx
+<examples/basic_website_ppx/site_html.{native,byte}>: package(re)
+<examples/basic_website_ppx/site_html.{native,byte}>: package(uutf)
+<examples/basic_website_ppx/site_html.{native,byte}>: use_tyxml
+<examples/basic_website_ppx/site_html.{native,byte}>: use_tyxml_f
+<examples/basic_website_ppx/*.ml{,i,y}>: package(re)
+<examples/basic_website_ppx/*.ml{,i,y}>: package(uutf)
+<examples/basic_website_ppx/*.ml{,i,y}>: use_tyxml
+<examples/basic_website_ppx/*.ml{,i,y}>: use_tyxml_f
+# Executable mini_website
+<examples/mini_website/minihtml.{native,byte}>: package(re)
+<examples/mini_website/minihtml.{native,byte}>: package(uutf)
+<examples/mini_website/minihtml.{native,byte}>: use_tyxml
+<examples/mini_website/minihtml.{native,byte}>: use_tyxml_f
+<examples/mini_website/*.ml{,i,y}>: package(re)
+<examples/mini_website/*.ml{,i,y}>: package(uutf)
+<examples/mini_website/*.ml{,i,y}>: use_tyxml
+<examples/mini_website/*.ml{,i,y}>: use_tyxml_f
+# Executable mini_website_ppx
+<examples/mini_website_ppx/minihtml.{native,byte}>: package(re)
+<examples/mini_website_ppx/minihtml.{native,byte}>: package(uutf)
+<examples/mini_website_ppx/minihtml.{native,byte}>: use_tyxml
+<examples/mini_website_ppx/minihtml.{native,byte}>: use_tyxml_f
+<examples/mini_website_ppx/*.ml{,i,y}>: package(re)
+<examples/mini_website_ppx/*.ml{,i,y}>: package(uutf)
+<examples/mini_website_ppx/*.ml{,i,y}>: use_tyxml
+<examples/mini_website_ppx/*.ml{,i,y}>: use_tyxml_f
 # OASIS_STOP
 "syntax/basic_types.ml": camlp4rf
 "syntax/xhtmlparser.ml": camlp4rf

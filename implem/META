@@ -1,0 +1,90 @@
+# OASIS_START
+# DO NOT EDIT (digest: e113e0aac636f0528b3c990de3ac5dc7)
+version = "4.0.0"
+description = "Statically correct HTML and SVG documents"
+requires = "tyxml.functor re uutf"
+archive(byte) = "tyxml.cma"
+archive(byte, plugin) = "tyxml.cma"
+archive(native) = "tyxml.cmxa"
+archive(native, plugin) = "tyxml.cmxs"
+archive(byte,toploop) += "tyxml_top.cma"
+exists_if = "tyxml.cma"
+package "top" (
+ version = "4.0.0"
+ description = "Toplevel printers for HTML, SVG and XML"
+ requires = "tyxml"
+ archive(byte) = "tyxml_top.cma"
+ archive(byte, plugin) = "tyxml_top.cma"
+ archive(native) = "tyxml_top.cmxa"
+ archive(native, plugin) = "tyxml_top.cmxs"
+ exists_if = "tyxml_top.cma"
+)
+
+package "tools" (
+ version = "4.0.0"
+ description = "Statically correct HTML and SVG documents"
+ requires = "bytes"
+ archive(byte) = "tyxml_tools.cma"
+ archive(byte, plugin) = "tyxml_tools.cma"
+ archive(native) = "tyxml_tools.cmxa"
+ archive(native, plugin) = "tyxml_tools.cmxs"
+ exists_if = "tyxml_tools.cma"
+)
+
+package "syntax" (
+ version = "4.0.0"
+ description = "HTML and SVG syntax extension"
+ requires = "bytes camlp4"
+ archive(syntax, preprocessor) = "pa_tyxml.cma"
+ archive(syntax, toploop) = "pa_tyxml.cma"
+ archive(syntax, preprocessor, native) = "pa_tyxml.cmxa"
+ archive(syntax, preprocessor, native, plugin) = "pa_tyxml.cmxs"
+ requires(toploop) = "tyxml"
+ exists_if = "pa_tyxml.cma"
+)
+
+package "ppx" (
+ version = "4.0.0"
+ description = "HTML and SVG syntax extension (ppx)"
+ requires = "tyxml"
+ archive(byte) = "ppx.cma"
+ archive(byte, plugin) = "ppx.cma"
+ archive(native) = "ppx.cmxa"
+ archive(native, plugin) = "ppx.cmxs"
+ ppx = "ppx_tyxml"
+ exists_if = "ppx.cma"
+ package "internal" (
+  version = "4.0.0"
+  description = "HTML and SVG ppx library"
+  requires = "re.str ppx_tools.metaquot markup tyxml.tools"
+  archive(byte) = "ppx_internal.cma"
+  archive(byte, plugin) = "ppx_internal.cma"
+  archive(native) = "ppx_internal.cmxa"
+  archive(native, plugin) = "ppx_internal.cmxs"
+  exists_if = "ppx_internal.cma"
+ )
+)
+
+package "parser" (
+ version = "4.0.0"
+ description = "Simple XML parser"
+ requires = "bytes camlp4.lib"
+ archive(byte) = "tymlx_p.cma"
+ archive(byte, plugin) = "tymlx_p.cma"
+ archive(native) = "tymlx_p.cmxa"
+ archive(native, plugin) = "tymlx_p.cmxs"
+ exists_if = "tymlx_p.cma"
+)
+
+package "functor" (
+ version = "4.0.0"
+ description = "Statically correct HTML and SVG documents (Functor version)"
+ requires = "uutf re"
+ archive(byte) = "tyxml_f.cma"
+ archive(byte, plugin) = "tyxml_f.cma"
+ archive(native) = "tyxml_f.cmxa"
+ archive(native, plugin) = "tyxml_f.cmxs"
+ exists_if = "tyxml_f.cma"
+)
+# OASIS_STOP
+
