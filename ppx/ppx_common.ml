@@ -65,7 +65,9 @@ let error loc ppf =
   let buf = Buffer.create 17 in
   let fmt = Format.formatter_of_buffer buf in
   Format.kfprintf
-    (fun _ -> Location.raise_errorf ~loc "%s" (Buffer.contents buf))
+    (fun _ ->
+      Format.pp_print_flush fmt ();
+      Location.raise_errorf ~loc "%s" (Buffer.contents buf))
     fmt
     (error_prefix^^ppf)
 
