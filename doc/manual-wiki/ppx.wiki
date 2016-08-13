@@ -42,7 +42,7 @@ let my_span = Html.(span ~a:[a_class ["mytext"]] my_text)
 val my_span : [> Html_types.span ] Html.elt
 >>
 
-It is also possible to use tyxml elements inside quotations using #antiquotations#:
+It is also possible to use tyxml elements inside quotations using ##antiquotations##:
 
 <<code language="ocaml"|
 let my_paragraphs =
