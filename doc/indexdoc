@@ -2,6 +2,8 @@
 
 {!modules:
 Tyxml
+Tyxml.Html
+Tyxml.Svg
 }
 
 {2 Types and signatures}
