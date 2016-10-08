@@ -58,7 +58,7 @@ let compose_doctype dt args =
     | l ->
       Format.fprintf fmt " PUBLIC %a"
         (Format.pp_print_list ~pp_sep:Format.pp_print_space
-           (fun fmt -> Format.fprintf fmt "%S"))
+           (fun fmt -> Format.fprintf fmt "\"%s\""))
         l
   in
   Format.asprintf
@@ -223,7 +223,7 @@ struct
   let pp_attrib_value encode fmt a = match acontent a with
     | AFloat f -> Format.fprintf fmt "\"%a\"" pp_number f
     | AInt i -> Format.fprintf fmt "\"%d\"" i
-    | AStr s -> Format.fprintf fmt "%S" (encode s)
+    | AStr s -> Format.fprintf fmt "\"%s\"" (encode s)
     | AStrL (sep, slist) ->
       Format.fprintf fmt "\"%a\""
         (Format.pp_print_list ~pp_sep:(pp_sep sep) (pp_encode encode)) slist
