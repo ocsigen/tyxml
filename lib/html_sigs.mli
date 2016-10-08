@@ -933,6 +933,7 @@ module type T = sig
 
   val select :
     ([< | select_attrib], [< | select_content_fun], [> | select]) star
+      [@@reflect.element "select"]
 
   val datalist :
     ?children:(

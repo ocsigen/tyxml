@@ -79,6 +79,7 @@ val details : assembler
 val menu : assembler
 val ul : assembler
 val ol : assembler
+val select : assembler
 
 (** {1 Misc utilities} *)
 

@@ -119,6 +119,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html "<ol>   <li>foo</li>  <li>bar</li>   </ol>"]],
   [ol [li [pcdata "foo"] ; li [pcdata "bar"]]] ;
 
+  "whitespace in select",
+  [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
+  [select [option ~a:[a_value "bar"] @@ pcdata "bar"]]
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
