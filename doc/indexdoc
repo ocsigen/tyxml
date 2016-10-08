@@ -1,4 +1,4 @@
-{1 TyXML }
+{1 Main modules }
 
 {!modules:
 Tyxml
@@ -6,7 +6,7 @@ Tyxml.Html
 Tyxml.Svg
 }
 
-{2 Types and signatures}
+{1 Types and signatures}
 
 {!modules:
 Html_sigs
