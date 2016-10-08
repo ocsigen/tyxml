@@ -2,4 +2,4 @@
 ==[[intro|Introduction]]
 ==[[functors|Functorial interface]]
 ==[[ppx|Ppx syntax extension]]
-==[[https://github.com/ocsigen/tyxml/tree/master/examples|Examples]]
+==<a href="https://github.com/ocsigen/tyxml/tree/master/examples">Examples</a>
