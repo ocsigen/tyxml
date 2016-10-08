@@ -1,3 +1,10 @@
+===== 4.0.1 ====
+
+* Fix handling of comments in the ppx.
+* Fix printing of utf8 in attributes.
+* Properly flush ppx errors. This bug was causing some blank error messages.
+* Fix handling of whitespaces in <select> in the ppx.
+
 ===== 4.0.0 ====
 
 ====== Features ======
