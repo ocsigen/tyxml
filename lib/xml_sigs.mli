@@ -184,6 +184,9 @@ module type Pp = sig
 
     It can be used in combination with ["%a"]. For example, to get a string:
     {[let s = Format.asprintf "%a" (pp ()) my_xml]}
+
+    A custom encoding function can be provided with the [~encode] argument.
+    Various implementations of [encode] are available in {!Xml_print}.
 *)
   val pp:
     ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
@@ -194,7 +197,11 @@ module type Typed_pp = sig
   type 'a elt
   type doc
 
-(** [pp_elt ()] is a {!Format} printer for individual elements. *)
+(** [pp_elt ()] is a {!Format} printer for individual elements.
+
+    A custom encoding function can be provided with the [~encode] argument.
+    Various implementations of [encode] are available in {!Xml_print}.
+*)
   val pp_elt :
     ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
 
@@ -202,6 +209,9 @@ module type Typed_pp = sig
 
     It can be used in combination with ["%a"]. For example, to get a string:
     {[let s = Format.asprintf "%a" (pp ()) my_document]}
+
+    A custom encoding function can be provided with the [~encode] argument.
+    Various implementations of [encode] are available in {!Xml_print}.
 *)
   val pp:
     ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
