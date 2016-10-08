@@ -121,7 +121,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "whitespace in select",
   [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
-  [select [option ~a:[a_value "bar"] @@ pcdata "bar"]]
+  [select [option ~a:[a_value "bar"] @@ pcdata "bar"]] ;
+
+  "comments",
+  [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
+  [div [p [pcdata "a"]; tot (Xml.comment " b "); hr ()]] ;
 
 ]
 

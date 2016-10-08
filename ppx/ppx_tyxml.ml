@@ -319,7 +319,9 @@ let markup_to_expr lang loc expr =
       assemble lang (Ppx_common.Val node :: children)
 
     | Some (`Comment s) ->
-      [Ppx_common.value @@ Ppx_element.comment ~loc ~lang s]
+      let loc = get_loc () in
+      let node = Ppx_common.value @@ Ppx_element.comment ~loc ~lang s in
+      assemble lang (node :: children)
 
     | Some (`Xml _ | `Doctype _ | `PI _)  ->
       assemble lang children
