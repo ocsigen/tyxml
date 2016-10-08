@@ -30,10 +30,13 @@ let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 
 This syntax is available both while using TyXML standalone, or with another library. In order to do so, install the ##tyxml-ppx## OPAM package and link the ##tyxml.ppx## ##ocamlfind## library.
 
+==@@id="example"@@ Examples and documentation
+
+For standalone use, examples are available in the [[https://github.com/ocsigen/tyxml/tree/master/examples|examples]] directory. The entry point of the documentation is in the <<a_api|module Tyxml>> module.
+
 ==@@id="creation"@@ Creating documents with TyXML ==
 
 This section assumes you have at your disposal an {{{Html}}} or {{{Svg}}} module, as instructed in <<a_manual fragment="usage"|the previous section>>.
-For standalone use, examples are available in the [[https://github.com/ocsigen/tyxml/tree/master/examples|examples]] directory.
 
 The documentation for TyXML combinators is provided in <<a_api|module Html_sigs.T>> and <<a_api|module Svg_sigs.T>> and is common to all instances of {{{Html}}} and {{{Svg}}}.
 
