@@ -138,6 +138,11 @@ let () =
   close_out file
 >>
 
+You could also print directly to a string:
+<<code language="ocaml"|
+let s = Format.asprintf "%a" (Html.pp ()) mypage
+>>
+
 Well done, you know have a very minimal (but fabulous) website! Once again, the implementation can be found [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website|here]].
 
 Other examples are available in the [[https://github.com/ocsigen/tyxml/tree/master/examples/|examples]] directory.
