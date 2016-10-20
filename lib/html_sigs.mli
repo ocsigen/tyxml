@@ -967,6 +967,11 @@ module type T = sig
 
   (** {3 Data} *)
 
+  (** [entity "foo"] is the HTML entity [&foo;]. Both numerical and named form are allowed.
+
+      @see <http://www.w3schools.com/html/html_entities.asp> A tutorial on HTML entities.
+      @see <https://www.w3.org/TR/html5/syntax.html#named-character-references> The list of HTML entities.
+  *)
   val entity : string -> [> | `PCDATA] elt
 
   val space : unit -> [> | `PCDATA] elt
