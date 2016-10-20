@@ -306,12 +306,12 @@ module type T = sig
   val a_max : float_number wrap -> [> | `Max] attrib
 
   val a_input_max : number_or_datetime wrap -> [> | `Input_Max] attrib
-    [@@reflect.attribute "max" ["input"]]
+  [@@reflect.attribute "max" ["input"]]
 
   val a_min : float_number wrap -> [> | `Min] attrib
 
   val a_input_min : number_or_datetime wrap -> [> | `Input_Min] attrib
-    [@@reflect.attribute "min" ["input"]]
+  [@@reflect.attribute "min" ["input"]]
 
   val a_inputmode :
     [< `Verbatim | `Latin | `Latin_name | `Latin_prose | `Full_width_latin
@@ -355,7 +355,7 @@ module type T = sig
 
   (** @deprecated Use {!a_xml_lang} instead. *)
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
-    [@@ocaml.deprecated "Use a_xml_lang instead."]
+  [@@ocaml.deprecated "Use a_xml_lang instead."]
 
   type image_candidate =
     [ `Url of uri
@@ -365,7 +365,7 @@ module type T = sig
   val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
 
   val a_img_sizes : text list wrap -> [> | `Img_sizes] attrib
-    [@@reflect.attribute "sizes" ["img"]]
+  [@@reflect.attribute "sizes" ["img"]]
 
   val a_start : number wrap -> [> | `Start] attrib
 
@@ -427,7 +427,7 @@ module type T = sig
       should ignore leading zeros. *)
 
   val a_mime_type : contenttype wrap -> [> | `Mime_type] attrib
-    [@@reflect.attribute "type" ["object"; "embed"; "area"; "link"]]
+  [@@reflect.attribute "type" ["object"; "embed"; "area"; "link"]]
   (** This attribute gives an advisory hint as to the content type
       of the content available at the link target address. It
       allows user agents to opt to use a fallback mechanism rather
@@ -461,17 +461,17 @@ module type T = sig
   val a_enctype : contenttype wrap -> [> | `Enctype] attrib
 
   val a_label_for : idref wrap -> [> | `Label_for] attrib
-    [@@reflect.attribute "for" ["label"]]
+  [@@reflect.attribute "for" ["label"]]
 
   val a_for : idref wrap -> [> | `Label_for] attrib
-    [@@ocaml.deprecated "Use a_label_for"]
+  [@@ocaml.deprecated "Use a_label_for"]
   (** @deprecated Use a_label_for *)
 
   val a_output_for : idrefs wrap -> [> | `Output_for] attrib
-    [@@reflect.attribute "for" ["output"]]
+  [@@reflect.attribute "for" ["output"]]
 
   val a_for_list : idrefs wrap -> [> | `Output_for] attrib
-    [@@ocaml.deprecated "Use a_output_for"]
+  [@@ocaml.deprecated "Use a_output_for"]
   (** @deprecated Use a_output_for *)
 
   val a_maxlength : number wrap -> [> | `Maxlength] attrib
@@ -481,7 +481,7 @@ module type T = sig
 
   val a_formmethod :
     [< | `Get | `Post] wrap -> [> | `Method] attrib
-    [@@ocaml.deprecated "Use a_method"]
+  [@@ocaml.deprecated "Use a_method"]
   (** @deprecated Use a_method *)
 
   val a_multiple : unit -> [> | `Multiple] attrib
@@ -528,45 +528,45 @@ module type T = sig
     | `Date
     | `Color
     | `Button] wrap -> [> | `Input_Type] attrib
-      [@@reflect.attribute "type" ["input"]]
+  [@@reflect.attribute "type" ["input"]]
 
   val a_text_value : text wrap -> [> | `Text_Value] attrib
-    [@@reflect.attribute "value" ["param"; "button"; "option"]]
+  [@@reflect.attribute "value" ["param"; "button"; "option"]]
   (** This attribute specifies the initial value of the
       control. If this attribute is not set, the initial value is
       set to the contents of the [option] element. *)
 
   val a_int_value : number wrap -> [> | `Int_Value] attrib
-    [@@reflect.attribute "value" ["li"]]
+  [@@reflect.attribute "value" ["li"]]
 
   val a_value : cdata wrap -> [> | `Value] attrib
 
   val a_float_value : float_number wrap -> [> | `Float_Value] attrib
-    [@@reflect.attribute "value" ["progress"; "meter"]]
+  [@@reflect.attribute "value" ["progress"; "meter"]]
 
   val a_disabled : unit -> [> | `Disabled] attrib
 
   val a_readonly : unit -> [> | `ReadOnly] attrib
   val a_button_type :
     [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
-      [@@reflect.attribute "type" ["button"]]
+  [@@reflect.attribute "type" ["button"]]
 
   val a_command_type :
     [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
-      [@@reflect.attribute "type" ["command"]]
+  [@@reflect.attribute "type" ["command"]]
 
   val a_menu_type : [< | `Context | `Toolbar] wrap -> [> | `Menu_Type] attrib
-    [@@reflect.attribute "type" ["menu"]]
+  [@@reflect.attribute "type" ["menu"]]
 
   val a_label : text wrap -> [> | `Label] attrib
 
   val a_align :
     [< | `Left | `Right | `Justify | `Char] wrap -> [> | `Align] attrib
-    [@@ocaml.deprecated "Use CSS text-align"]
+  [@@ocaml.deprecated "Use CSS text-align"]
   (** @deprecated Use CSS text-align *)
 
   val a_axis : cdata wrap -> [> | `Axis] attrib
-    [@@ocaml.deprecated "Not supported in HTML5"]
+  [@@ocaml.deprecated "Not supported in HTML5"]
   (** @deprecated Not supported in HTML5 *)
 
   val a_colspan : number wrap -> [> | `Colspan] attrib
@@ -577,24 +577,24 @@ module type T = sig
 
   val a_scope :
     [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
-    [@@ocaml.deprecated "Not supported in HTML5"]
+  [@@ocaml.deprecated "Not supported in HTML5"]
   (** @deprecated Not supported in HTML5 *)
 
   val a_summary : text wrap -> [> | `Summary] attrib
-    [@@ocaml.deprecated "Move content elsewhere or to a <caption> child"]
+  [@@ocaml.deprecated "Move content elsewhere or to a <caption> child"]
   (** @deprecated Move content elsewhere or to a <caption> child *)
 
   val a_border : pixels wrap -> [> | `Border] attrib
-    [@@ocaml.deprecated "Use CSS border and/or border-width"]
+  [@@ocaml.deprecated "Use CSS border and/or border-width"]
   (** @deprecated Use CSS border and/or border-width *)
 
   val a_rules :
     [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
-    [@@ocaml.deprecated "Use CSS border"]
+  [@@ocaml.deprecated "Use CSS border"]
   (** @deprecated Use CSS border *)
 
   val a_char : character wrap -> [> | `Char] attrib
-    [@@ocaml.deprecated "The char attribute is not supported in HTML5"]
+  [@@ocaml.deprecated "The char attribute is not supported in HTML5"]
   (** @deprecated The char attribute is not supported in HTML5 *)
 
   val a_alt : text wrap -> [> | `Alt] attrib
@@ -614,19 +614,19 @@ module type T = sig
   val a_data : Xml.uri wrap -> [> | `Data] attrib
 
   val a_codetype : contenttype wrap -> [> | `Codetype] attrib
-    [@@ocaml.deprecated "Not supported in HTML5"]
+  [@@ocaml.deprecated "Not supported in HTML5"]
   (** @deprecated Not supported in HTML5 *)
 
   val a_frameborder : [< | `Zero | `One] wrap -> [> | `Frameborder] attrib
-    [@@ocaml.deprecated "Use CSS border"]
+  [@@ocaml.deprecated "Use CSS border"]
   (** @deprecated Use CSS border *)
 
   val a_marginheight : pixels wrap -> [> | `Marginheight] attrib
-    [@@ocaml.deprecated "Use CSS margin"]
+  [@@ocaml.deprecated "Use CSS margin"]
   (** @deprecated Use CSS *)
 
   val a_marginwidth : pixels wrap -> [> | `Marginwidth] attrib
-    [@@ocaml.deprecated "Use CSS margin"]
+  [@@ocaml.deprecated "Use CSS margin"]
   (** @deprecated Use CSS *)
 
   val a_scrolling : [< | `Yes | `No | `Auto] wrap -> [> | `Scrolling] attrib
@@ -652,12 +652,12 @@ module type T = sig
   val html :
     ?a: ((html_attrib attrib) list) ->
     [< | `Head] elt wrap -> [< | `Body] elt wrap -> [> | `Html] elt
-      [@@reflect.element "html"]
+  [@@reflect.element "html"]
 
   val head :
     ?a: ((head_attrib attrib) list) ->
     [< | `Title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
-      [@@reflect.element "head"]
+  [@@reflect.element "head"]
 
   val base : ([< | base_attrib], [> | base]) nullary
 
@@ -723,10 +723,10 @@ module type T = sig
   val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
-      [@@reflect.element "ol"]
+  [@@reflect.element "ol"]
 
   val ul : ([< | ul_attrib], [< | ul_content_fun], [> | ul]) star
-      [@@reflect.element "ul"]
+  [@@reflect.element "ul"]
 
   val dd : ([< | dd_attrib], [< | dd_content_fun], [> | dd]) star
 
@@ -740,7 +740,7 @@ module type T = sig
   val figure :
     ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
     ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
-      [@@reflect.element "figure"]
+  [@@reflect.element "figure"]
 
   val hr : ([< | hr_attrib], [> | hr]) nullary
 
@@ -826,7 +826,7 @@ module type T = sig
       | `Name
       | `Usemap
     ], 'a, [> | `Object of 'a ]) star
-      [@@reflect.element "object_" "object"]
+  [@@reflect.element "object_" "object"]
 
   val param : ([< | param_attrib], [> | param]) nullary
 
@@ -837,13 +837,13 @@ module type T = sig
     ?src:Xml.uri wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
-      [@@reflect.element "audio_video"]
+  [@@reflect.element "audio_video"]
 
   val video :
     ?src:Xml.uri wrap ->
     ?srcs: (([< | source] elt) list_wrap) ->
     ([< | video_attrib], 'a, [> 'a video]) star
-      [@@reflect.element "audio_video"]
+  [@@reflect.element "audio_video"]
 
   val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
 
@@ -876,7 +876,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | table_attrib], [< | table_content_fun], [> | table]) star
-      [@@reflect.element "table"]
+  [@@reflect.element "table"]
 
   val tablex :
     ?caption: [< | caption] elt wrap ->
@@ -884,7 +884,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
-      [@@reflect.element "table" "table"]
+  [@@reflect.element "table" "table"]
 
   val colgroup :
     ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup]) star
@@ -914,7 +914,7 @@ module type T = sig
     ?legend: [ | `Legend ] elt wrap ->
     ([< | common | `Disabled | `Form | `Name], [< | flow5],
      [> | `Fieldset]) star
-      [@@reflect.element "fieldset"]
+  [@@reflect.element "fieldset"]
 
   val legend :
     ([< | legend_attrib], [< | legend_content_fun], [> | legend]) star
@@ -933,7 +933,7 @@ module type T = sig
 
   val select :
     ([< | select_attrib], [< | select_content_fun], [> | select]) star
-      [@@reflect.element "select"]
+  [@@reflect.element "select"]
 
   val datalist :
     ?children:(
@@ -941,7 +941,7 @@ module type T = sig
         | `Options of ([< | `Option] elt) list_wrap
         | `Phras of ([< | phrasing] elt) list_wrap
       ]) -> ([< | common], [> | `Datalist]) nullary
-        [@@reflect.element "datalist"]
+  [@@reflect.element "datalist"]
 
   val optgroup :
     label: text wrap  ->
@@ -963,7 +963,7 @@ module type T = sig
 
   val output_elt :
     ([< | output_elt_attrib], [< | output_elt_content_fun], [> | output_elt]) star
-      [@@reflect.element "star" "output"]
+  [@@reflect.element "star" "output"]
 
   (** {3 Data} *)
 
@@ -981,7 +981,7 @@ module type T = sig
   val details :
     [< | `Summary] elt wrap ->
     ([< | common | `Open], [< | flow5], [> | `Details]) star
-      [@@reflect.element "details"]
+  [@@reflect.element "details"]
 
   val summary :
     ([< | summary_attrib], [< | summary_content_fun], [> | summary]) star
@@ -1003,7 +1003,7 @@ module type T = sig
         | `Lis of ([< | `Li of [< | common]] elt) list_wrap
         | `Flows of ([< | flow5] elt) list_wrap
       ]) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
-        [@@reflect.element "menu"]
+  [@@reflect.element "menu"]
 
   (** {3 Scripting} *)
 
