@@ -26,7 +26,10 @@ git checkout -b release-$VERSION
 oasis setup
 
 # Remove this script and dev-files
-rm -f dist.sh opam .jenkins.sh
+rm -f dist.sh .jenkins.sh
+
+# Fix the version in the opam files.
+sed -i -e "s/version: \"dev\"/version: \"${VERSION}\"/" *.opam
 
 # Commit
 git add --all --force
@@ -34,3 +37,5 @@ git commit
 git tag $VERSION
 
 git checkout master
+
+# Prepare publishing
