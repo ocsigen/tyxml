@@ -35,7 +35,7 @@ depends: [
   "re" {>= "1.5.0"}
   "alcotest" {test}
   ## OASIS is not required in released version
-  "oasis" {build & >= "0.4.4"}
+  "oasis" {dev & build & >= "0.4.4"}
 ]
 depopts: [
   "camlp4"
