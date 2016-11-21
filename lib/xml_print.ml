@@ -154,36 +154,39 @@ module Utf8 = struct
       Uutf.String.fold_utf_8
         (fun _ _ d ->
            match d with
-           | `Uchar 34 ->
-               Buffer.add_string buffer "&quot;"
-           | `Uchar 38 ->
-               Buffer.add_string buffer "&amp;"
-           | `Uchar 60 ->
-               Buffer.add_string buffer "&lt;"
-           | `Uchar 62 ->
-               Buffer.add_string buffer "&gt;"
-           | `Uchar code ->
-               let u =
-                 (* Illegal characters in html
-                  http://en.wikipedia.org/wiki/Character_encodings_in_HTML
-                  http://www.w3.org/TR/html5/syntax.html *)
-                 if (* A. control C0 *)
-                   (code <= 31 && code <> 9 && code <> 10 && code <> 13)
-                   (* B. DEL + control C1
-                    - invalid in html
-                    - discouraged in xml;
-                      except 0x85 see http://www.w3.org/TR/newline
-                      but let's discard it anyway *)
-                   || (code >= 127 && code <= 159)
-                   (* C. UTF-16 surrogate halves : already discarded by uutf *)
-                   (* || (code >= 0xD800 && code <= 0xDFFF) *)
-                   (* D. BOOM related *)
-                   || code land 0xFFFF = 0xFFFE
-                   || code land 0xFFFF = 0xFFFF
-                 then (warn:=true; Uutf.u_rep)
-                 else code
-               in
-               Uutf.Buffer.add_utf_8 buffer u
+           | `Uchar u ->
+               begin match Uchar.to_int u with
+               | 34 ->
+                   Buffer.add_string buffer "&quot;"
+               | 38 ->
+                   Buffer.add_string buffer "&amp;"
+               | 60 ->
+                   Buffer.add_string buffer "&lt;"
+               | 62 ->
+                   Buffer.add_string buffer "&gt;"
+               | code ->
+                   let u =
+                     (* Illegal characters in html
+                        http://en.wikipedia.org/wiki/Character_encodings_in_HTML
+                        http://www.w3.org/TR/html5/syntax.html *)
+                     if (* A. control C0 *)
+                       (code <= 31 && code <> 9 && code <> 10 && code <> 13)
+                       (* B. DEL + control C1
+                          - invalid in html
+                          - discouraged in xml;
+                          except 0x85 see http://www.w3.org/TR/newline
+                          but let's discard it anyway *)
+                       || (code >= 127 && code <= 159)
+                       (* C. UTF-16 surrogate halves : already discarded
+                          by uutf || (code >= 0xD800 && code <= 0xDFFF) *)
+                       (* D. BOM related *)
+                       || code land 0xFFFF = 0xFFFE
+                       || code land 0xFFFF = 0xFFFF
+                     then (warn:=true; Uutf.u_rep)
+                     else u
+                   in
+                   Uutf.Buffer.add_utf_8 buffer u
+               end
            | `Malformed _ ->
                Uutf.Buffer.add_utf_8 buffer Uutf.u_rep;
                warn:=true)

@@ -56,7 +56,7 @@ Library tyxml_f
     Html_sigs,
     Html_types,
     Html_f
-  BuildDepends: uutf, re
+  BuildDepends: uchar, uutf, re
 
 Library tyxml_top
   FindlibName: top
