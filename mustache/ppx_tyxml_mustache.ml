@@ -6,14 +6,15 @@ let mustache_from_file file =
   let chan = open_in file in
   let lex = Lexing.from_channel chan in
   Location.init lex file ;
-  let t = Mustache.parse_lx lex in
+  let t = Mustache.With_locations.parse_lx lex in
   close_in chan ;
   t
 
-let mustache_from_string ~loc string =
+let mustache_from_string ~lexloc string =
   let lex = Lexing.from_string string in
-  lex.Lexing.lex_curr_p <- loc ;
-  Mustache.parse_lx lex
+  lex.Lexing.lex_start_p <- lexloc ;
+  lex.Lexing.lex_curr_p <- lexloc ;
+  Mustache.With_locations.parse_lx lex
 
 let antiquot_pcdata ~loc ~lang var =
   let pcdata = Ppx_common.make ~loc lang "pcdata" in
@@ -70,7 +71,7 @@ end
 
 module Template = struct
 
-  type t = desc list
+  type t = desc Location.loc list
   and desc =
     | Markup of string
     | Pcdata of string
@@ -82,17 +83,23 @@ module Template = struct
     contents: t;
   }
 
+  let mkloc {Mustache.With_locations. loc_start ; loc_end } txt =
+    let loc = {Location. loc_ghost = true ; loc_start ; loc_end} in
+    [{Location. loc ; txt}]
+
   let rec of_mustache resolve =
-    Mustache.fold
-      ~string:(fun x -> [Markup x])
+    Mustache.With_locations.fold
+      ~string:(fun ~loc x -> mkloc loc @@ Markup x)
       ~section:
-        (fun ~inverted name contents -> [Section { inverted ; name ; contents }])
-      ~escaped:(fun x -> [Pcdata x])
-      ~unescaped:(fun x -> [Expr x])
+        (fun ~loc ~inverted name contents ->
+           mkloc loc @@ Section { inverted ; name ; contents})
+      ~escaped:(fun ~loc x -> mkloc loc @@ Pcdata x)
+      ~unescaped:(fun ~loc x -> mkloc loc @@ Expr x)
       ~partial:
-        (fun s -> of_mustache resolve @@ mustache_from_file @@ resolve s)
-      ~comment:(fun _ -> [])
-      ~concat:List.concat
+        (fun ~loc:_ s ->
+           of_mustache resolve @@ mustache_from_file @@ resolve s)
+      ~comment:(fun ~loc:_ _ -> [])
+      ~concat:(fun ~loc:_ l -> List.concat l)
 
   let bindings ~env ~sec_env ~id =
     let f s b b' = match b, b' with
@@ -108,9 +115,9 @@ module Template = struct
     in
     Exp.let_ Asttypes.Nonrecursive @@ Var.Env.fold make_binding env []
 
-  let rec desc_to_expr ~loc ~lang env t =
+  let rec desc_to_expr ~lang env {Location. txt; loc} =
     Ast_helper.default_loc := loc ;
-    match (t : desc) with
+    match (txt : desc) with
     | Markup s -> env, AC.str s
     | Pcdata s ->
       Var.add env s Var, antiquot_pcdata ~loc ~lang s
@@ -131,7 +138,7 @@ module Template = struct
 
   and to_expr ~simplify ~loc ~lang env l =
     let f (env, acc) t =
-      let env, expr = desc_to_expr ~loc ~lang env t in
+      let env, expr = desc_to_expr ~lang env t in
       env, expr::acc
     in
     let env, l = List.fold_left f (env, []) l in
@@ -157,9 +164,9 @@ let expr_of_mustache ~loc ~lang t =
   in
   Template.make_function env e
 
-let expr_of_string ~loc ~lang s =
+let expr_of_string ~loc ~lang ~lexloc s =
   expr_of_mustache ~loc ~lang @@
-  mustache_from_string ~loc:loc.loc_start s
+  mustache_from_string ~lexloc s
 
 
 (** Mappers *)
@@ -169,39 +176,45 @@ open Parsetree
 let error loc =
   Ppx_common.error loc "Invalid payload for [%%template]."
 
-let extract_str loc str = match AC.get_str str with
+let extract_str loc str =
+  match AC.get_str_with_quotation_delimiter str with
   | None -> error loc
-  | Some s -> s
+  | Some (s,quot) -> (Ppx_tyxml.Loc.string_start quot loc, s)
 
 let expr mapper e =
-  let loc = e.pexp_loc in
+  let sloc = e.pexp_loc in
   match e.pexp_desc with
   | Pexp_extension ({ txt = ("template" | "tyxml.template")}, payload) ->
     begin match payload with
       | PStr [[%stri let [%p? var] = [%e? str] in [%e? e]]] ->
-        let s = extract_str loc str in
-        Exp.let_ Asttypes.Nonrecursive
-          [Vb.mk var @@ expr_of_string ~loc:str.pexp_loc ~lang:Html s]
+        let loc = str.pexp_loc in
+        let lexloc, s = extract_str loc str in
+        Exp.let_ ~loc:sloc Asttypes.Nonrecursive
+          [Vb.mk ~loc:sloc var @@
+           expr_of_string ~loc ~lang:Html ~lexloc s]
           e
 
       | PStr [{pstr_desc = Pstr_eval (str, _)}] ->
-        let s = extract_str loc str in
-        expr_of_string ~loc:str.pexp_loc ~lang:Html s
+        let loc = str.pexp_loc in
+        let lexloc, s = extract_str loc str in
+        expr_of_string ~loc ~lang:Html ~lexloc s
 
-      | _ -> error loc
+      | _ -> error sloc
     end
   | _ -> Ast_mapper.default_mapper.expr mapper e
 
 let structure_item mapper stri =
-  let loc = stri.pstr_loc in
+  let sloc = stri.pstr_loc in
   match stri.pstr_desc with
   | Pstr_extension (({ txt = ("template" | "tyxml.template")}, payload), _) ->
     begin match payload with
-      | PStr [[%stri let [%p? var] = [%e? str]]] ->
-        let s = extract_str loc str in
-        Str.value Asttypes.Nonrecursive
-          [Vb.mk var @@ expr_of_string ~loc:str.pexp_loc ~lang:Html s]
-      | _ -> error loc
+      | PStr [([%stri let [%p? var] = [%e? str]] as decl)] ->
+        let loc = str.pexp_loc in
+        let lexloc, s = extract_str loc str in
+        Str.value ~loc:decl.pstr_loc Asttypes.Nonrecursive
+          [Vb.mk ~loc:decl.pstr_loc var @@
+           expr_of_string ~loc ~lang:Html ~lexloc s]
+      | _ -> error sloc
     end
   | _ -> Ast_mapper.default_mapper.structure_item mapper stri
 
