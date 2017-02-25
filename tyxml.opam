@@ -31,7 +31,7 @@ depends: [
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "uchar"
-  "uutf"
+  "uutf" {>= "1.0.0"}
   "base-bytes"
   "re" {>= "1.5.0"}
   "alcotest" {test}
