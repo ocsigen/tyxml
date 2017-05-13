@@ -339,8 +339,15 @@ type events =
     | `OnLoadStart
   ]
 
+(** {2 ARIA} *)
+
+type aria =
+  [
+    | `Role
+  ]
+
 (** Common attributes *)
-type common = [ | core | i18n | events ]
+type common = [ | core | i18n | events | aria ]
 
 (** {1 Categories of HTML elements}
 

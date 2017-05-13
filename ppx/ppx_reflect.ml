@@ -174,7 +174,8 @@ let rec to_attribute_parser lang name = function
   | [[%type: idrefs]]
   | [[%type: charsets]]
   | [[%type: spacestrings]]
-  | [[%type: strings]] ->
+  | [[%type: strings]]
+  | [[%type: string list]] ->
     [%expr spaces string]
 
   | [[%type: commastrings]]

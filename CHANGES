@@ -1,3 +1,6 @@
+* Add support for the `role` attribute (contribution by Armaël Guéneau)
+  (see https://www.w3.org/TR/role-attribute/)
+
 ===== 4.1.0 ====
 
 * Uses uutf 1.0 (contribution by Daniel Bunzli)
