@@ -476,6 +476,8 @@ module type T = sig
 
   val a_maxlength : number wrap -> [> | `Maxlength] attrib
 
+  val a_minlength : number wrap -> [> | `Minlength] attrib
+
   val a_method :
     [< | `Get | `Post] wrap -> [> | `Method] attrib
 

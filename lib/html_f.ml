@@ -264,6 +264,8 @@ struct
 
   let a_maxlength = int_attrib "maxlength"
 
+  let a_minlength = int_attrib "minlength"
+
   let a_name = string_attrib "name"
 
   let a_autocomplete x =
