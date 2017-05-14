@@ -647,6 +647,23 @@ module type T = sig
 
   val a_property : string wrap -> [> | `Property] attrib
 
+  (** {3 {{: https://www.w3.org/TR/wai-aria-1.1/} WAI-ARIA} support} *)
+
+  (** {{: https://www.w3.org/TR/wai-aria-1.1/} WAI-ARIA} is a specification
+      written by the W3C, defining a set of additional HTML attributes that can
+      be applied to elements to provide additional semantics and improve
+      accessibility wherever it is lacking.
+
+      See for example a {{:
+      https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics}
+      WAI-ARIA tutorial}.
+  *)
+
+  val a_role : string list wrap -> [> | `Role] attrib
+  (** @see <https://www.w3.org/TR/role-attribute> Role attribute specification
+      @see <https://www.w3.org/TR/wai-aria-1.1/#role_definitions> List of WAI-ARIA roles
+  *)
+
   (** {2:elements Elements} *)
 
   val pcdata : string wrap -> [> | `PCDATA] elt

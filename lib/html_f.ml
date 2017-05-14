@@ -472,6 +472,8 @@ struct
 
   let a_media = mediadesc_attrib "media"
 
+  let a_role = space_sep_attrib "role"
+
   type 'a elt = Xml.elt
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
