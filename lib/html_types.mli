@@ -2001,6 +2001,7 @@ type input_attrib =
     | `List
     | `Input_Max
     | `Maxlength
+    | `Minlength
     | `Input_Min
     | `Multiple
     | `Name
@@ -2026,6 +2027,7 @@ type textarea_attrib =
     | `Disabled
     | `Form
     | `Maxlength
+    | `Minlength
     | `Name
     | `Placeholder
     | `ReadOnly

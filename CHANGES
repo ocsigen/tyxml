@@ -1,5 +1,7 @@
 * Add support for the `role` attribute (contribution by Armaël Guéneau)
   (see https://www.w3.org/TR/role-attribute/)
+* Add support for the `minlength` form attribute (contribution by Armaël Guéneau)
+  (See https://www.w3.org/TR/html5/forms.html#attr-input-minlength)
 
 ===== 4.1.0 ====
 
