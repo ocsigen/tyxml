@@ -472,7 +472,11 @@ struct
 
   let a_media = mediadesc_attrib "media"
 
+  (* ARIA *)
+
   let a_role = space_sep_attrib "role"
+
+  let a_aria name = space_sep_attrib ("aria-" ^ name)
 
   type 'a elt = Xml.elt
 

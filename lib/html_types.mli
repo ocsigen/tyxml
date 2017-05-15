@@ -344,6 +344,7 @@ type events =
 type aria =
   [
     | `Role
+    | `Aria
   ]
 
 (** Common attributes *)
