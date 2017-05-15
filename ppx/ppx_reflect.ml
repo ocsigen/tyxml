@@ -154,6 +154,7 @@ let rec to_attribute_parser lang name = function
   | [[%type: color]] -> [%expr string]
 
   | [[%type: nmtoken]; [%type: text wrap]] -> [%expr wrap string]
+  | [[%type: string]; [%type: string list wrap]] -> [%expr wrap (spaces string)]
 
   | [[%type: Xml.event_handler]]
   | [[%type: Xml.mouse_event_handler]]

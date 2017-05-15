@@ -21,19 +21,22 @@ let parse loc (ns, element_name) attributes =
   let language, (module Reflected) =
     Ppx_namespace.reflect loc ns in
 
-  (* For attribute names ["data-foo"], evaluates to [Some "foo"], otherwise
-     evaluates to [None]. *)
-  let parse_user_data local_name =
-    let prefix = "data-" in
+  (* For prefix ["prefix"] and attribute names ["prefix-foo"], evaluates to
+     [Some "foo"], otherwise evaluates to [None].
+
+     Used to parse user-data attributes (prefixed by "data-") and ARIA
+     attributes (prefixed by "aria-").
+  *)
+  let parse_prefixed prefix name =
     let length = String.length prefix in
 
-    let is_user_data =
-      try language = Html && String.sub local_name 0 length = prefix
+    let is_prefixed =
+      try language = Html && String.sub name 0 length = prefix
       with Invalid_argument _ -> false
     in
 
-    if not is_user_data then None
-    else Some (String.sub local_name length (String.length local_name - length))
+    if not is_prefixed then None
+    else Some (String.sub name length (String.length name - length))
   in
 
   (* Applied to each attribute. Accumulates individually labeled attributes,
@@ -80,12 +83,7 @@ let parse loc (ns, element_name) attributes =
       if List.exists test_blacklisted Reflected.renamed_attributes then
         unknown ()
       else
-        (* Check if this is a "data-foo" attribute. Parse the attribute value,
-           and accumulate it in the list of attributes passed in ~a. *)
-        match parse_user_data local_name with
-        | Some tag ->
-          let tyxml_name = "a_user_data" in
-
+        let parse_prefixed_attribute tag tyxml_name =
           let parser =
             try List.assoc tyxml_name Reflected.attribute_parsers
             with Not_found ->
@@ -104,8 +102,17 @@ let parse loc (ns, element_name) attributes =
           in
 
           labeled, e::regular
+        in
 
-        | None ->
+        (* Check if this is a "data-foo" or "aria-foo" attribute. Parse the
+           attribute value, and accumulate it in the list of attributes passed
+           in ~a. *)
+        match parse_prefixed "data-" local_name,
+              parse_prefixed "aria-" local_name
+        with
+        | Some tag, _ -> parse_prefixed_attribute tag "a_user_data"
+        | _, Some tag -> parse_prefixed_attribute tag "a_aria"
+        | None, None ->
           let tyxml_name =
             match Ppx_common.find test_renamed Reflected.renamed_attributes with
             | Some (name, _, _) -> name

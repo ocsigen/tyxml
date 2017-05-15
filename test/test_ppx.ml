@@ -179,6 +179,10 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<input min='2002-10-02T15:00:00Z'>"]],
   [input ~a:[a_input_min (`Datetime "2002-10-02T15:00:00Z")] ()] ;
 
+  "aria attributes",
+  [[%html "<div aria-hidden=true></div>"]],
+  [div ~a:[a_aria "hidden" ["true"]] []] ;
+
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[

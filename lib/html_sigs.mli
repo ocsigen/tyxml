@@ -664,6 +664,13 @@ module type T = sig
       @see <https://www.w3.org/TR/wai-aria-1.1/#role_definitions> List of WAI-ARIA roles
   *)
 
+  val a_aria : string -> string list wrap -> [> | `Aria] attrib
+  (** Basic support for WAI-ARIA attributes: [a_aria "foo"] corresponds to an
+      "aria-foo" attribute.
+
+      @see <https://www.w3.org/TR/wai-aria-1.1/#state_prop_def> List of WAI-ARIA attributes
+  *)
+
   (** {2:elements Elements} *)
 
   val pcdata : string wrap -> [> | `PCDATA] elt
