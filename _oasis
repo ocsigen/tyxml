@@ -135,11 +135,11 @@ Library ppx_internal
   FindlibParent: ppx
   Path: ppx
   InternalModules:
-    Ppx_attributes, Ppx_attribute_value, Ppx_common, Ppx_namespace,
+    Ppx_attributes, Ppx_attribute_value, Ppx_namespace,
     Ppx_element_content, Ppx_element, Ppx_sigs_reflected,
     Html_sigs_reflected, Svg_sigs_reflected,
     Html_types_reflected, Svg_types_reflected
-  Modules: Ppx_tyxml
+  Modules: Ppx_tyxml, Ppx_common
   XMETADescription:
     HTML and SVG ppx library
   BuildDepends:
