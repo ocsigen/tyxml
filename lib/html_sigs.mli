@@ -697,10 +697,10 @@ module type T = sig
   (** {3 Section} *)
 
   val footer :
-    ([< | common], [< | flow5_without_header_footer], [> | `Footer]) star
+    ([< | footer_attrib], [< | footer_content_fun], [> | footer]) star
 
   val header :
-    ([< | common], [< | flow5_without_header_footer], [> | `Header]) star
+    ([< | header_attrib], [< | header_content_fun], [> | header]) star
 
   val section :
     ([< | section_attrib], [< | section_content_fun], [> | section]) star
@@ -791,7 +791,7 @@ module type T = sig
 
   val bdo :
     dir: [< | `Ltr | `Rtl] wrap ->
-    ([< | common], [< | phrasing], [> | `Bdo]) star
+    ([< | bdo_attrib], [< | bdo_content_fun], [> | bdo]) star
 
   val abbr : ([< | abbr_attrib], [< | abbr_content_fun], [> | abbr]) star
 
@@ -822,12 +822,12 @@ module type T = sig
 
   (** {3 Hypertext} *)
 
-  val a : ([< | a_attrib], 'a, [> | `A of 'a]) star
+  val a : ([< | a_attrib], 'a, [> | 'a a]) star
 
   (** {3 Edit} *)
 
-  val del : ([< | del_attrib], 'a, [> | `Del of 'a]) star
-  val ins : ([< | ins_attrib], 'a, [> | `Ins of 'a]) star
+  val del : ([< | del_attrib], 'a, [> | 'a del]) star
+  val ins : ([< | ins_attrib], 'a, [> | 'a ins]) star
 
   (** {3 Embedded} *)
 
@@ -837,27 +837,16 @@ module type T = sig
     ([< img_attrib], [> img]) nullary
 
   val iframe :
-    ([< | common | `Src | `Name | `Sandbox | `Seamless | `Width | `Height],
-     [< | `PCDATA], [> | `Iframe]) star
+    ([< | iframe_attrib], [< | iframe_content_fun], [> | iframe]) star
 
   val object_ :
     ?params: (([< | `Param] elt) list_wrap ) ->
-    ([<
-      | common
-      | `Data
-      | `Form
-      | `Mime_type
-      | `Height
-      | `Width
-      | `Name
-      | `Usemap
-    ], 'a, [> | `Object of 'a ]) star
+    ([< | object__attrib], 'a, [> | `Object of 'a]) star
   [@@reflect.element "object_" "object"]
 
   val param : ([< | param_attrib], [> | param]) nullary
 
-  val embed :
-    ([< | common | `Src | `Height | `Mime_type | `Width], [> | `Embed]) nullary
+  val embed : ([< | embed_attrib], [> | embed]) nullary
 
   val audio :
     ?src:Xml.uri wrap ->
@@ -887,7 +876,7 @@ module type T = sig
       | `Media
       | `Hreflang
       | `Mime_type
-    ], [> | `Area]) nullary
+    ], [> | area]) nullary
 
   val map : ([< | map_attrib], 'a, [> | `A of 'a]) star
 
@@ -938,8 +927,7 @@ module type T = sig
 
   val fieldset :
     ?legend: [ | `Legend ] elt wrap ->
-    ([< | common | `Disabled | `Form | `Name], [< | flow5],
-     [> | `Fieldset]) star
+    ([< | fieldset_attrib], [< | fieldset_content_fun], [> | fieldset]) star
   [@@reflect.element "fieldset"]
 
   val legend :
@@ -966,12 +954,13 @@ module type T = sig
       [<
         | `Options of ([< | `Option] elt) list_wrap
         | `Phras of ([< | phrasing] elt) list_wrap
-      ]) -> ([< | common], [> | `Datalist]) nullary
+      ]) ->
+    ([< | datalist_attrib], [> | datalist]) nullary
   [@@reflect.element "datalist"]
 
   val optgroup :
     label: text wrap  ->
-    ([< | common | `Disabled | `Label], [< | `Option], [> | `Optgroup]) star
+    ([< | optgroup_attrib], [< | optgroup_content_fun], [> | optgroup]) star
 
   val option :
     ([< | option_attrib], [< | option_content_fun], [> | selectoption]) unary
@@ -1011,7 +1000,7 @@ module type T = sig
 
   val details :
     [< | `Summary] elt wrap ->
-    ([< | common | `Open], [< | flow5], [> | `Details]) star
+    ([< | details_attrib], [< | details_content_fun], [> | details]) star
   [@@reflect.element "details"]
 
   val summary :
@@ -1019,21 +1008,15 @@ module type T = sig
 
   val command :
     label: text wrap ->
-    ([<
-      | common
-      | `Icon
-      | `Disabled
-      | `Checked
-      | `Radiogroup
-      | `Command_Type
-    ], [> | `Command]) nullary
+    ([< | command_attrib], [> | command]) nullary
 
   val menu :
     ?children:(
       [<
         | `Lis of ([< | `Li of [< | common]] elt) list_wrap
         | `Flows of ([< | flow5] elt) list_wrap
-      ]) -> ([< | common | `Label | `Menu_Type], [> | `Menu]) nullary
+      ]) ->
+    ([< | menu_attrib], [> | menu]) nullary
   [@@reflect.element "menu"]
 
   (** {3 Scripting} *)
@@ -1054,15 +1037,7 @@ module type T = sig
   val link :
     rel: linktypes wrap ->
     href: Xml.uri wrap ->
-    ([<
-      | common
-      | `Hreflang
-      | `Media
-      | `Rel
-      | `Href
-      | `Sizes
-      | `Mime_type
-    ], [> | `Link]) nullary
+    ([< | link_attrib], [> | link]) nullary
 
   (** {3 Ruby} *)
 
