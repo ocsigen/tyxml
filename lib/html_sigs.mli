@@ -48,7 +48,7 @@ module type T = sig
   type +'a elt
 
   (** A complete HTML document. *)
-  type doc = [ `Html ] elt
+  type doc = html elt
 
   (** HTML attributes
 
@@ -673,16 +673,16 @@ module type T = sig
 
   (** {2:elements Elements} *)
 
-  val pcdata : string wrap -> [> | `PCDATA] elt
+  val pcdata : string wrap -> [> | pcdata] elt
 
   val html :
     ?a: ((html_attrib attrib) list) ->
-    [< | `Head] elt wrap -> [< | `Body] elt wrap -> [> | `Html] elt
+    [< | head] elt wrap -> [< | body] elt wrap -> [> | html] elt
   [@@reflect.element "html"]
 
   val head :
     ?a: ((head_attrib attrib) list) ->
-    [< | `Title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
+    [< | title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
   [@@reflect.element "head"]
 
   val base : ([< | base_attrib], [> | base]) nullary
@@ -764,7 +764,7 @@ module type T = sig
     ([< | figcaption_attrib], [< | figcaption_content_fun], [> | figcaption]) star
 
   val figure :
-    ?figcaption: ([`Top of [< `Figcaption ] elt wrap | `Bottom of [< `Figcaption ] elt wrap ]) ->
+    ?figcaption: ([`Top of [< | figcaption ] elt wrap | `Bottom of [< | figcaption ] elt wrap ]) ->
     ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
   [@@reflect.element "figure"]
 
@@ -840,7 +840,7 @@ module type T = sig
     ([< | iframe_attrib], [< | iframe_content_fun], [> | iframe]) star
 
   val object_ :
-    ?params: (([< | `Param] elt) list_wrap ) ->
+    ?params: (([< | param] elt) list_wrap ) ->
     ([< | object__attrib], 'a, [> | `Object of 'a]) star
   [@@reflect.element "object_" "object"]
 
@@ -952,7 +952,7 @@ module type T = sig
   val datalist :
     ?children:(
       [<
-        | `Options of ([< | `Option] elt) list_wrap
+        | `Options of ([< | selectoption] elt) list_wrap
         | `Phras of ([< | phrasing] elt) list_wrap
       ]) ->
     ([< | datalist_attrib], [> | datalist]) nullary
@@ -987,19 +987,19 @@ module type T = sig
       @see <http://www.w3schools.com/html/html_entities.asp> A tutorial on HTML entities.
       @see <https://www.w3.org/TR/html5/syntax.html#named-character-references> The list of HTML entities.
   *)
-  val entity : string -> [> | `PCDATA] elt
+  val entity : string -> [> | pcdata] elt
 
-  val space : unit -> [> | `PCDATA] elt
+  val space : unit -> [> | pcdata] elt
 
-  val cdata : string -> [> | `PCDATA] elt
-  val cdata_script : string -> [> | `PCDATA] elt
-  val cdata_style : string -> [> | `PCDATA] elt
+  val cdata : string -> [> | pcdata] elt
+  val cdata_script : string -> [> | pcdata] elt
+  val cdata_style : string -> [> | pcdata] elt
 
 
   (** {3 Interactive} *)
 
   val details :
-    [< | `Summary] elt wrap ->
+    [< | summary] elt wrap ->
     ([< | details_attrib], [< | details_content_fun], [> | details]) star
   [@@reflect.element "details"]
 
