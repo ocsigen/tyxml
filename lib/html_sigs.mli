@@ -22,6 +22,8 @@
 (** Signature of typesafe constructors for HTML documents. *)
 module type T = sig
 
+  open Html_types
+
   (** HTML elements.
 
       Element constructors are in section {{!elements}elements}. Most elements constructors
@@ -119,8 +121,6 @@ module type T = sig
 
   (** Various information about HTML, such as the doctype, ... *)
   module Info : Xml_sigs.Info
-
-  open Html_types
 
   (** {3 Uri} *)
 
@@ -926,7 +926,7 @@ module type T = sig
   val form : ([< | form_attrib], [< | form_content_fun], [> | form]) star
 
   val fieldset :
-    ?legend: [ | `Legend ] elt wrap ->
+    ?legend: [< | legend ] elt wrap ->
     ([< | fieldset_attrib], [< | fieldset_content_fun], [> | fieldset]) star
   [@@reflect.element "fieldset"]
 
