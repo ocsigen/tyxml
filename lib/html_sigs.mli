@@ -878,7 +878,7 @@ module type T = sig
       | `Mime_type
     ], [> | area]) nullary
 
-  val map : ([< | map_attrib], 'a, [> | `A of 'a]) star
+  val map : ([< | map_attrib], 'a, [> | 'a map]) star
 
   (** {3 Tables Data} *)
 
