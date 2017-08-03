@@ -16,7 +16,7 @@ First off, you need to equip yourself with both the specification ([HTML][]/[SVG
     ```sh
     % ./autoname.byte -a "foo-bar"
     Original name: 	foo-bar
-    Ocaml name: 	a_foo_bar
+    OCaml name: 	a_foo_bar
     Poly variant: 	`Foo_bar
     ```
 
