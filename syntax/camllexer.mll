@@ -19,7 +19,7 @@
  *)
 
 (* This is the complementary parser to Xmllexer, used in mode Xhtml with
-   inline Ocaml code. The rules below are used to parse subexpressions
+   inline OCaml code. The rules below are used to parse subexpressions
    starting with '$' *)
 
 { open Xmllexer }

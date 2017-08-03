@@ -4,7 +4,7 @@ let arg = ref false
 let answer_elem ~attrib s =
   Printf.printf
     "Original name: \t%s\n\
-      Ocaml name: \t%s\n\
+      OCaml name: \t%s\n\
       Poly variant: \t%s\n"
     s
     (if attrib then Tyxml_name.attrib s else Tyxml_name.ident s)
