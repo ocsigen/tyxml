@@ -63,7 +63,7 @@ let emit_page (name, page) =
   Printf.printf "Generating: %s\n" name ;
   let file_handle = open_out name in
   let fmt = Format.formatter_of_out_channel file_handle in
-  Html.pp () fmt page;
+  Format.fprintf fmt "%a@." (Html.pp ()) page;
   close_out file_handle
 
 let () = List.iter emit_page pages

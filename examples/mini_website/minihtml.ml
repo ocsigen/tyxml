@@ -16,5 +16,5 @@ let mypage =
 let () =
   let file = open_out "index.html" in
   let fmt = Format.formatter_of_out_channel file in
-  pp () fmt mypage;
+  Format.fprintf fmt "%a@." (pp ()) mypage;
   close_out file

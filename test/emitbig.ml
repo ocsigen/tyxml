@@ -18,7 +18,7 @@ let rec unfold n =
 let emit_page_pp page =
   let file_handle = open_out "fibo.html" in
   let fmt = Format.formatter_of_out_channel file_handle in
-  Html.pp () fmt page;
+  Format.fprintf fmt "%a@." (Html.pp ()) page;
   close_out file_handle
 
 let () =
