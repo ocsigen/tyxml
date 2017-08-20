@@ -220,38 +220,42 @@ struct
     Format.pp_print_string fmt (encode s)
 
   let pp_sep = function
-    | Space -> fun fmt () -> Format.pp_print_char fmt ' '
-    | Comma -> fun fmt () -> Format.pp_print_string fmt ", "
+    | Space -> fun fmt () -> Format.pp_print_space fmt ()
+    | Comma -> fun fmt () -> Format.fprintf fmt ",@ "
 
   let pp_attrib_value encode fmt a = match acontent a with
     | AFloat f -> Format.fprintf fmt "\"%a\"" pp_number f
     | AInt i -> Format.fprintf fmt "\"%d\"" i
     | AStr s -> Format.fprintf fmt "\"%s\"" (encode s)
     | AStrL (sep, slist) ->
-      Format.fprintf fmt "\"%a\""
+      Format.fprintf fmt "\"@[%a@]\""
         (Format.pp_print_list ~pp_sep:(pp_sep sep) (pp_encode encode)) slist
 
   let pp_attrib encode fmt a =
     Format.fprintf fmt
-      " %s=%a" (aname a) (pp_attrib_value encode) a
+      "@ %s=%a" (aname a) (pp_attrib_value encode) a
 
   let pp_attribs encode =
     Format.pp_print_list ~pp_sep:pp_noop (pp_attrib encode)
 
+  let pp_tag_and_attribs encode fmt (tag, attrs) =
+    Format.fprintf fmt "@[%s%a@,@]" tag (pp_attribs encode) attrs
+
   let pp_closedtag encode fmt tag attrs =
     if is_emptytag tag then
-      Format.fprintf fmt "<%s%a/>" tag (pp_attribs encode) attrs
+      Format.fprintf fmt "<%a/>" (pp_tag_and_attribs encode) (tag, attrs)
     else
-      Format.fprintf fmt "<%s%a></%s>" tag (pp_attribs encode) attrs tag
+      Format.fprintf fmt "@[<><%a>@,</%s>@]"
+        (pp_tag_and_attribs encode) (tag, attrs)
+        tag
 
-  let rec pp_tag encode fmt tag attrs taglist =
-    match taglist with
+  let rec pp_tag encode fmt tag attrs children =
+    match children with
     | [] -> pp_closedtag encode fmt tag attrs
     | _ ->
-      Format.fprintf fmt "<%s%a>%a</%s>"
-        tag
-        (pp_attribs encode) attrs
-        (pp_elts encode) taglist
+      Format.fprintf fmt "@[<><@[%a>@,%a@]@,</%s>@]"
+        (pp_tag_and_attribs encode) (tag, attrs)
+        (pp_elts encode) children
         tag
 
   and pp_elt encode fmt elt = match content elt with
@@ -276,7 +280,7 @@ struct
     | Empty -> ()
 
   and pp_elts encode =
-    Format.pp_print_list ~pp_sep:pp_noop (pp_elt encode)
+    Format.pp_print_list ~pp_sep:Format.pp_print_cut (pp_elt encode)
 
   let pp ?(encode=encode_unsafe_char) () =
     pp_elt encode
@@ -307,14 +311,16 @@ struct
     P.pp_elt encode fmt (Typed_xml.toelt foret)
 
   let pp ?(encode = encode_unsafe_char) ?advert () fmt doc =
-    Format.pp_print_string fmt Typed_xml.Info.doctype ;
+    Format.pp_open_vbox fmt 0 ;
+    Format.fprintf fmt "%s@," Typed_xml.Info.doctype ;
 
     begin match advert with
-      | Some s -> Format.fprintf fmt "<!-- %s -->\n" s
-      | None -> Format.pp_print_newline fmt ()
+      | Some s -> Format.fprintf fmt "<!-- %s -->@," s
+      | None -> ()
     end ;
 
-    P.pp_elt encode fmt (prepare_document doc)
+    P.pp_elt encode fmt (prepare_document doc) ;
+    Format.pp_close_box fmt ();
 
 end
 
