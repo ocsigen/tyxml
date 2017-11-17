@@ -12,6 +12,6 @@ build: ["ocamlfind" "query" "tyxml.ppx"]
 depends: [
   "tyxml"
   "markup" {>= "0.7.2"}
-  "ppx_tools"
+  "ppx_tools_versioned"
 ]
 available: ocaml-version >= "4.02"
