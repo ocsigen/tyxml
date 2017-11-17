@@ -12,7 +12,7 @@ Authors:
   Pierre Chambart,
   Grégoire Henry
 License: LGPL-2.1 with OCaml linking exception
-Plugins: META (0.3), DevFiles (0.3)
+Plugins: DevFiles (0.3)
 BuildTools: ocamlbuild
 AlphaFeatures: pure_interface
 OCamlVersion: >= 4.02.0
@@ -36,14 +36,10 @@ Library tyxml
     Tyxml_html,
     Tyxml
   BuildDepends: tyxml.functor, re, uutf
-  XMETAExtraLines:
-    archive(byte,toploop) += "tyxml_top.cma"
 
 Library tyxml_f
   FindlibName: functor
   FindlibParent: tyxml
-  XMETADescription:
-    Statically correct HTML and SVG documents (Functor version)
   Path: lib
   Modules:
     Xml_iter,
@@ -64,9 +60,6 @@ Library tyxml_top
   BuildDepends: compiler-libs.toplevel
   Path: implem/top
   Modules: Tyxml_top
-  XMETARequires: tyxml
-  XMETADescription:
-    Toplevel printers for HTML, SVG and XML
 
 Library tyxml_tools
   FindlibName: tools
@@ -85,10 +78,6 @@ Library pa_tyxml
   Build$: flag(syntax)
   FindlibName: syntax
   FindlibParent: tyxml
-  XMETAType: syntax
-  XMETADescription:
-    HTML and SVG syntax extension
-  XMETAExtraLines: requires(toploop) = "tyxml"
   Path: syntax
   BuildDepends:
     bytes, camlp4
@@ -104,8 +93,6 @@ Library tymlx_p
   Build$: flag(syntax)
   FindlibName: parser
   FindlibParent: tyxml
-  XMETADescription:
-    Simple XML parser
   Path: syntax
   BuildDepends:
     bytes, camlp4.lib
@@ -128,8 +115,6 @@ Library ppx_tyxml_internal
     Html_sigs_reflected, Svg_sigs_reflected,
     Html_types_reflected, Svg_types_reflected
   Modules: Ppx_tyxml, Ppx_common
-  XMETADescription:
-    HTML and SVG ppx library
   BuildDepends:
     re.str, ppx_tools_versioned.metaquot_403, ppx_tools_versioned, markup, tyxml.tools
 
