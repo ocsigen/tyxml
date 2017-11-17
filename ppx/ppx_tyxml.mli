@@ -24,7 +24,7 @@
     <<a_manual chapter="ppx"|here>>. %}
 *)
 
-open Migrate_parsetree.Ast_403
+open Migrate_parsetree.Ast_405
 
 val markup_to_expr :
   Ppx_common.lang ->

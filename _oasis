@@ -116,7 +116,7 @@ Library ppx_tyxml_internal
     Html_types_reflected, Svg_types_reflected
   Modules: Ppx_tyxml, Ppx_common
   BuildDepends:
-    re.str, ppx_tools_versioned.metaquot_403, ppx_tools_versioned, markup, tyxml.tools
+    re.str, ppx_tools_versioned.metaquot_405, ppx_tools_versioned, markup, tyxml.tools
 
 Library ppx_tyxml
   Build$: flag(ppx)
@@ -140,7 +140,7 @@ Executable ppx_reflect
   Install: false
   Path: ppx
   MainIs: ppx_reflect.ml
-  BuildDepends: ppx_tools_versioned.metaquot_403, ppx_tools_versioned, tyxml.tools
+  BuildDepends: ppx_tools_versioned.metaquot_405, ppx_tools_versioned, tyxml.tools
   CompiledObject: best
 
 ## Tests

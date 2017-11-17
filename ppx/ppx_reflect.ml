@@ -456,7 +456,7 @@ let emit_module () =
    and as second argument the name of the structure.
 
 *)
-let version =  Versions.ocaml_403
+let version =  Versions.ocaml_405
 
 let read_sig filename =
   Location.input_name := filename ;
