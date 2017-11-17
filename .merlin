@@ -10,4 +10,5 @@ FLG -w -32-34-37
 FLG -strict_sequence -safe_string
 
 PKG uchar uutf re
-PKG compiler-libs.common ppx_tools.metaquot markup
+PKG markup
+PKG ocaml-migrate-parsetree ppx_tools_versioned.metaquot_403

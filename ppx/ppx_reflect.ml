@@ -456,6 +456,7 @@ let emit_module () =
    and as second argument the name of the structure.
 
 *)
+let version =  Versions.ocaml_403
 
 let read_sig filename =
   Location.input_name := filename ;
@@ -465,11 +466,14 @@ let read_sig filename =
   in
   let buf = Lexing.from_channel handle in
   Location.init buf filename ;
-  let ast = Parse.interface buf in
+  let ast = Parse.interface version buf in
   close_in handle ;
   ast
 
 let write_struct filename ast =
+  let {Versions. copy_structure; _ } =
+    Versions.migrate version Versions.ocaml_current in
+  let ast = copy_structure ast in
   let handle =
     try open_out filename
     with Sys_error msg -> prerr_endline msg; exit 1

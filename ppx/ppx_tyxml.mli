@@ -24,6 +24,8 @@
     <<a_manual chapter="ppx"|here>>. %}
 *)
 
+open Migrate_parsetree.Ast_403
+
 val markup_to_expr :
   Ppx_common.lang ->
   Location.t -> Parsetree.expression list -> Parsetree.expression
@@ -31,4 +33,4 @@ val markup_to_expr :
     converts it to a TyXML expression representing the markup
     contained therein. *)
 
-val mapper : string list -> Ast_mapper.mapper
+val mapper : _ -> _ -> Ast_mapper.mapper
