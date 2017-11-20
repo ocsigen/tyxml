@@ -448,7 +448,8 @@ let emit_module () =
     ] else []
   end @
 
-  List.map Combi.(let_ AC.pvar (tuple2 str (list str))) !reflected_variants
+  List.map Combi.(let_ AC.pvar (tuple2 str (list str))) 
+		(List.map (fun (a, (b, c)) -> (a, (b.txt, List.map (fun x -> x.txt) c))) !reflected_variants)
 
 
 (* Crude I/O tools to read a signature and output a structure.
