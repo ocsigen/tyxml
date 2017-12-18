@@ -1,4 +1,4 @@
-version = "4.1.0"
+version = "4.2.0"
 description = "HTML and SVG syntax extension (ppx)"
 requires = "tyxml"
 requires(custom_ppx) = "tyxml.ppx.internal"
@@ -9,7 +9,7 @@ plugin(byte,ppx_driver) = "ppx_tyxml.cma"
 plugin(native,ppx_driver) = "ppx_tyxml.cmxs"
 
 package "internal" (
- version = "4.1.0"
+ version = "4.2.0"
  description = "HTML and SVG ppx library"
  requires = "tyxml.ppx.internal"
 )
