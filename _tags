@@ -5,6 +5,7 @@
 "syntax/pa_tyxml.ml": camlp4rf
 "syntax/simplexmlparser.ml": camlp4rf
 true: bin_annot
+true: cppo_V_OCAML
 
 not <syntax/*>: warn(A-4-9-40-42-44-48)
 not <syntax/*>: warn_error(+1..49), warn_error(-45-3)

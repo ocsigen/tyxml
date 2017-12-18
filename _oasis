@@ -14,8 +14,9 @@ Authors:
 License: LGPL-2.1 with OCaml linking exception
 Plugins: META (0.3), DevFiles (0.3)
 BuildTools: ocamlbuild
-AlphaFeatures: pure_interface
+AlphaFeatures: pure_interface,ocamlbuild_more_args
 OCamlVersion: >= 4.02.0
+XOCamlbuildPluginTags: package(cppo_ocamlbuild)
 
 Synopsis: Statically correct HTML and SVG documents
 

@@ -51,6 +51,7 @@ let () =
   dispatch
     (fun hook ->
        dispatch_default hook;
+       Ocamlbuild_cppo.dispatcher hook;
        match hook with
        | After_rules ->
 

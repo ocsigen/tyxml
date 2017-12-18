@@ -386,12 +386,15 @@ let type_declaration mapper declaration =
     | Some {ptyp_desc = Ptyp_variant (rows, _, _); ptyp_loc} ->
       let rows =
         rows |> List.map (function
+#if OCAML_VERSION < (4, 06, 0)
           | Rtag (label, _, _, types) -> label, types
+#else
+          | Rtag (label, _, _, types) -> label.txt, types
+#endif
           | Rinherit {ptyp_loc} ->
             Ppx_common.error ptyp_loc
               "Inclusion is not supported by [@@refect.total_variant]")
       in
-
       let nullary, unary =
         List.partition (fun (_, types) -> types = []) rows in
 
