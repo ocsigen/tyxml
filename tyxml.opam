@@ -47,4 +47,6 @@ available: ocaml-version >= "4.02"
 messages: [
   "For tyxml's ppx, please install tyxml-ppx."
   {!markup:installed | !ppx_tools_versioned:installed}
+  "Tyxml's camlp4-based libraries (tyxml.syntax and tyxml.parser) are now deprecated and will be removed in the next major version."
+  {camlp4:installed}
 ]

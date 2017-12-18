@@ -69,7 +69,7 @@ package "ppx" (
 
 package "syntax" (
  version = "4.2.0"
- description = "HTML and SVG syntax extension"
+ description = "HTML and SVG syntax extension - DEPRECATED"
  requires = "bytes camlp4"
  archive(syntax, preprocessor) = "pa_tyxml.cma"
  archive(syntax, toploop) = "pa_tyxml.cma"
@@ -80,7 +80,7 @@ package "syntax" (
 )
 package "parser" (
  version = "4.2.0"
- description = "Simple XML parser"
+ description = "Simple XML parser - DEPRECATED"
  requires = "bytes camlp4.lib"
  archive(byte) = "tymlx_p.cma"
  archive(byte, plugin) = "tymlx_p.cma"
