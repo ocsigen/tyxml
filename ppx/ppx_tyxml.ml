@@ -451,5 +451,5 @@ let structure_item mapper stri =
     end
   | _ -> default_mapper.structure_item mapper stri
 
-let mapper _ =
+let mapper _ _ =
   {default_mapper with expr ; structure_item}

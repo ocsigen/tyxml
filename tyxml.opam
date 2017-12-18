@@ -41,10 +41,7 @@ depends: [
 depopts: [
   "camlp4"
   "markup"
-  "ppx_tools"
-]
-conflicts: [
-  "ppx_tools" { < "5.0" }
+  "ppx_tools_versioned"
 ]
 available: ocaml-version >= "4.02"
 messages: [

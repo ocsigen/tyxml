@@ -12,7 +12,7 @@ Authors:
   Pierre Chambart,
   Grégoire Henry
 License: LGPL-2.1 with OCaml linking exception
-Plugins: META (0.3), DevFiles (0.3)
+Plugins: DevFiles (0.3)
 BuildTools: ocamlbuild
 AlphaFeatures: pure_interface
 OCamlVersion: >= 4.02.0
@@ -36,14 +36,10 @@ Library tyxml
     Tyxml_html,
     Tyxml
   BuildDepends: tyxml.functor, re, uutf
-  XMETAExtraLines:
-    archive(byte,toploop) += "tyxml_top.cma"
 
 Library tyxml_f
   FindlibName: functor
   FindlibParent: tyxml
-  XMETADescription:
-    Statically correct HTML and SVG documents (Functor version)
   Path: lib
   Modules:
     Xml_iter,
@@ -64,9 +60,6 @@ Library tyxml_top
   BuildDepends: compiler-libs.toplevel
   Path: implem/top
   Modules: Tyxml_top
-  XMETARequires: tyxml
-  XMETADescription:
-    Toplevel printers for HTML, SVG and XML
 
 Library tyxml_tools
   FindlibName: tools
@@ -85,10 +78,6 @@ Library pa_tyxml
   Build$: flag(syntax)
   FindlibName: syntax
   FindlibParent: tyxml
-  XMETAType: syntax
-  XMETADescription:
-    HTML and SVG syntax extension
-  XMETAExtraLines: requires(toploop) = "tyxml"
   Path: syntax
   BuildDepends:
     bytes, camlp4
@@ -104,8 +93,6 @@ Library tymlx_p
   Build$: flag(syntax)
   FindlibName: parser
   FindlibParent: tyxml
-  XMETADescription:
-    Simple XML parser
   Path: syntax
   BuildDepends:
     bytes, camlp4.lib
@@ -116,23 +103,11 @@ Library tymlx_p
 
 ## Ppx
 
-Library ppx
-  Build$: flag(ppx)
-  Install$: flag(ppx)
-  FindlibName: ppx
-  FindlibParent: tyxml
-  InternalModules: Ppx_tyxml_empty
-  Path: ppx
-  XMETADescription:
-    HTML and SVG syntax extension (ppx)
-  XMETARequires: tyxml
-  XMETAExtraLines: ppx = "ppx_tyxml"
-
-Library ppx_internal
+Library ppx_tyxml_internal
   Build$: flag(ppx)
   Install$: flag(ppx)
   FindlibName: internal
-  FindlibParent: ppx
+  FindlibParent: ppx_tyxml
   Path: ppx
   InternalModules:
     Ppx_attributes, Ppx_attribute_value, Ppx_namespace,
@@ -140,17 +115,24 @@ Library ppx_internal
     Html_sigs_reflected, Svg_sigs_reflected,
     Html_types_reflected, Svg_types_reflected
   Modules: Ppx_tyxml, Ppx_common
-  XMETADescription:
-    HTML and SVG ppx library
   BuildDepends:
-    re.str, ppx_tools.metaquot, markup, tyxml.tools
+    re.str, ppx_tools_versioned.metaquot_405, ppx_tools_versioned, markup, tyxml.tools
 
-Executable ppx_tyxml
+Library ppx_tyxml
+  Build$: flag(ppx)
+  Install$: flag(ppx)
+  FindlibName: ppx
+  FindlibParent: tyxml
+  Path: ppx
+  Modules: Ppx_tyxml_register
+  BuildDepends: tyxml.ppx.internal
+
+Executable ppx_tyxml_standalone
   Build$: flag(ppx)
   Install$: flag(ppx)
   Path: ppx
-  MainIs: ppx_tyxml_ex.ml
-  BuildDepends: tyxml.ppx.internal
+  MainIs: ppx_tyxml_standalone.ml
+  BuildDepends: tyxml.ppx
   CompiledObject: best
 
 Executable ppx_reflect
@@ -158,7 +140,7 @@ Executable ppx_reflect
   Install: false
   Path: ppx
   MainIs: ppx_reflect.ml
-  BuildDepends: ppx_tools.metaquot, tyxml.tools
+  BuildDepends: ppx_tools_versioned.metaquot_405, ppx_tools_versioned, tyxml.tools
   CompiledObject: best
 
 ## Tests

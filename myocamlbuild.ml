@@ -44,8 +44,9 @@ let reflect_ppx () =
     end
 
 let tyxml_ppx () =
-  let ppx_tyxml = "ppx/ppx_tyxml_ex."^native_suffix in
-  flag_and_dep [ "ocaml" ; "compile" ; "ppx_tyxml" ] (S [A "-ppx"; P ppx_tyxml])
+  let ppx_tyxml = "ppx/ppx_tyxml_standalone."^native_suffix in
+  flag_and_dep [ "ocaml" ; "compile" ; "ppx_tyxml" ]
+    (S [A "-ppx"; Quote (S [P ppx_tyxml; Sh "--as-ppx"])])
 
 let () =
   dispatch
