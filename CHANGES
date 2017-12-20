@@ -1,3 +1,10 @@
+===== 4.2.0 ====
+
+* Compatibility with OCaml 4.6.0.
+* The ppx should now be compatible with driver-based workflows. In particular, jbuilder.
+* Future breakage:
+  * The two camlp4-based packages (tyxml.syntax and tyxml.parser) are now deprecated and will be removed in the next major version.
+  * Introduction of the tyxml-ppx ocamlfind package. Usage of the tyxml.ppx package is discouraged, and it will be removed in the next major version.
 * Various fixes in the Html_sigs.T module (contribution by Fabian Pijcke):
   * Fixed the map element function signature.
   * The elements functions now (almost) all make use of the types defined in Html_types, rather than redefining them.

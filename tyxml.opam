@@ -11,14 +11,14 @@ dev-repo: "https://github.com/ocsigen/tyxml.git"
 build: [
   ["ocaml" "setup.ml" "-configure"
       "--%{camlp4:enable}%-syntax"
-      "--%{markup+ppx_tools:enable}%-ppx"
+      "--%{markup+ppx_tools_versioned:enable}%-ppx"
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
 ]
 build-test: [
   ["ocaml" "setup.ml" "-configure"
       "--%{camlp4:enable}%-syntax"
-      "--%{markup+ppx_tools:enable}%-ppx"
+      "--%{markup+ppx_tools_versioned:enable}%-ppx"
       "--enable-tests"
       "--prefix" prefix]
   ["ocaml" "setup.ml" "-build"]
@@ -46,5 +46,7 @@ depopts: [
 available: ocaml-version >= "4.02"
 messages: [
   "For tyxml's ppx, please install tyxml-ppx."
-  {!markup:installed | !ppx_tools:installed}
+  {!markup:installed | !ppx_tools_versioned:installed}
+  "Tyxml's camlp4-based libraries (tyxml.syntax and tyxml.parser) are now deprecated and will be removed in the next major version."
+  {camlp4:installed}
 ]

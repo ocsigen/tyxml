@@ -1,4 +1,4 @@
-version = "4.1.0"
+version = "4.2.0"
 description = "Statically correct HTML and SVG documents"
 requires = "tyxml.functor re uutf"
 archive(byte) = "tyxml.cma"
@@ -9,7 +9,7 @@ archive(byte,toploop) += "tyxml_top.cma"
 exists_if = "tyxml.cma"
 
 package "functor" (
- version = "4.1.0"
+ version = "4.2.0"
  description = "Statically correct HTML and SVG documents (Functor version)"
  requires = "uchar uutf re"
  archive(byte) = "tyxml_f.cma"
@@ -20,7 +20,7 @@ package "functor" (
 )
 
 package "top" (
- version = "4.1.0"
+ version = "4.2.0"
  description = "Toplevel printers for HTML, SVG and XML"
  requires = "tyxml"
  archive(byte) = "tyxml_top.cma"
@@ -31,7 +31,7 @@ package "top" (
 )
 
 package "tools" (
- version = "4.1.0"
+ version = "4.2.0"
  description = "Statically correct HTML and SVG documents"
  requires = "bytes"
  archive(byte) = "tyxml_tools.cma"
@@ -43,7 +43,7 @@ package "tools" (
 
 ## PPX
 package "ppx" (
- version = "4.1.0"
+ version = "4.2.0"
  description = "HTML and SVG syntax extension (ppx)"
  requires = "tyxml"
  requires(custom_ppx) = "tyxml.ppx.internal"
@@ -54,7 +54,7 @@ package "ppx" (
  plugin(native,ppx_driver) = "ppx_tyxml.cmxs"
 
  package "internal" (
-  version = "4.1.0"
+  version = "4.2.0"
   description = "HTML and SVG ppx library"
   requires = "re.str ppx_tools_versioned ocaml-migrate-parsetree markup tyxml.tools"
   archive(byte) = "ppx_tyxml_internal.cma"
@@ -68,8 +68,8 @@ package "ppx" (
 ## CAMLP4
 
 package "syntax" (
- version = "4.1.0"
- description = "HTML and SVG syntax extension"
+ version = "4.2.0"
+ description = "HTML and SVG syntax extension - DEPRECATED"
  requires = "bytes camlp4"
  archive(syntax, preprocessor) = "pa_tyxml.cma"
  archive(syntax, toploop) = "pa_tyxml.cma"
@@ -79,8 +79,8 @@ package "syntax" (
  exists_if = "pa_tyxml.cma"
 )
 package "parser" (
- version = "4.1.0"
- description = "Simple XML parser"
+ version = "4.2.0"
+ description = "Simple XML parser - DEPRECATED"
  requires = "bytes camlp4.lib"
  archive(byte) = "tymlx_p.cma"
  archive(byte, plugin) = "tymlx_p.cma"
