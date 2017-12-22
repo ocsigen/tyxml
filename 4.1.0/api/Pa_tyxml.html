@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Module Pa_tyxml </title><meta charset="utf8"/><link rel="stylesheet" href="/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script src="/client.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js"></script></head><body><h1>Module <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Pa_tyxml.html">Pa_tyxml</a></span> </h1><pre class="ocsforge_color odocwiki_code"><span class="ocsforge_color_keyword">module</span> <span class="ocsforge_color_uid"><span class="ocsforge_color_uid">Pa_tyxml</span></span> <span class="ocsforge_color_delimiter">:</span> <span class="ocsforge_color_keyword">sig</span><span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Pa_tyxml.html">..</a></span><span class="ocsforge_color_keyword">end</span></pre><p>Syntax extension for HTML or SVG tree creation.
+</p><hr/><p>To choose actual XML-implementation you have to provide a module named <span class="odocwiki_inlinecode">Html</span>
+(or <span class="odocwiki_inlinecode">Svg</span>):
+</p><p>For example, the following code:
+</p><pre class=""><code class="language-ocaml translatable">let open Tyxml in
+  &lt;&lt; &lt;html&gt;
+     &lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;/head&gt;
+     &lt;body&gt;&lt;h1&gt;plop&lt;/h1&gt;&lt;/body&gt;
+   &lt;/html&gt; ~&gt;&gt;
+)
+&gt;&gt;
+
+is a caml value of type {{{Html_types.html Html.elt}}}~.
+
+
+~In the following~, &lt;&lt;span class=&quot;odocwiki_inlinecode&quot;|~Html&gt;&gt; is assumed to be an ~H~T~M~L implementation~, such as
+&lt;&lt;a_api | module Tyxml.Html &gt;&gt;~, but this could for example also be ~Eliom~'s &lt;&lt;span class=&quot;odocwiki_inlinecode&quot;|~Eliom~_content~.~Html~.~F&gt;&gt;~.
+
+
+~To compile a module containing this syntax~, you need the camlp~4 preprocessor~:
+
+&lt;&lt;code language='ocaml'|ocamlfind ocamlc -package tyxml.syntax -syntax camlp4o -c your_module.ml
+&gt;&gt;
+
+or
+
+&lt;&lt;code language='ocaml'|ocamlc -pp &quot;camlp4o -I &lt;path/to/tyxml&gt; pa_tyxml.cmo&quot; -c your_module.ml
+&gt;&gt;
+
+
+
+~You can insert ~O~Caml expressions of type {{{'a Html.elt}}} inside html using {{{$...$}}}~, like this~:
+
+&lt;&lt;code language='ocaml'|let oc = &lt;&lt; &lt;em&gt;Ocsigen&lt;/em&gt; ~&gt;&gt; in
+&lt;&lt; &lt;p&gt;$oc$ will revolutionize web programming.&lt;/p&gt; ~&gt;&gt;
+&gt;&gt;
+
+~You can insert ~O~Caml expressions of type string inside ~H~T~M~L using {{{$str:... $}}}~, like this~:
+
+&lt;&lt;code language='ocaml'|let i = 4 in
+&lt;&lt; &lt;p&gt;i is equal to $str:string_of_int i$&lt;/p&gt; ~&gt;&gt;
+&gt;&gt;
+
+~If you want to use a dollar in your page~, just write it twice~.
+
+
+~You can write a list of ~H~T~M~L expressions using the syntax {{{&lt;:htmllist&lt;...&gt;&gt;}}}~, for example~:
+
+&lt;&lt;code language='ocaml'|&lt;:htmllist&lt; &lt;p&gt;hello&lt;/p&gt; &lt;div&gt;&lt;/div&gt; ~&gt;&gt;
+&gt;&gt;
+
+
+
+~Here are some other examples showing what you can do~:
+
+&lt;&lt;code language='ocaml'|&lt;&lt; &lt;ul class=$ulclass$ $list:other_attrs$&gt;
+     $first_il$
+     $list:items$
+   &lt;/ul&gt; ~&gt;&gt;
+&gt;&gt;
+
+
+
+~Warning~: lists antiquotations are allowed only at the end ~(before a closing tag~)~. ~For example~, the following is not valid~:
+
+&lt;&lt;code language='ocaml'|&lt;&lt; &lt;ul $list:other_attrs$ class=$ulclass$&gt;
+     $list:items$
+     $last_il$
+   &lt;/ul&gt; ~&gt;&gt;
+&gt;&gt;
+
+
+
+~The syntax extension is not allowed in patterns for the while~.
+
+
+~Additionnaly~, you may use &lt;&lt;span class=&quot;odocwiki_inlinecode&quot;| svg &gt;&gt; or &lt;&lt;span class=&quot;odocwiki_inlinecode&quot;| svglist &gt;&gt;~.
+ syntax error in wikisyntax</code></pre></body></html>

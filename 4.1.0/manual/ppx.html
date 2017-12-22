@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title> TyXML Ppx syntax extension </title><meta charset="utf8"/><link rel="stylesheet" href="/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script src="/client.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js"></script></head><body><h1> TyXML Ppx syntax extension </h1><p>TyXML provides a ppx to allow writing HTML and SVG documents
+in the standard syntax while still enjoying the benefits and type-safety of TyXML.
+For the ppx to be available, you need to install <span class="monospace">markup</span> and <span class="monospace">ppx_tools</span>. A convenience package <span class="monospace">tyxml-ppx</span> is provided:
+</p><pre><code>opam install tyxml-ppx</code></pre><h2 id="syntax"> Syntax  <a class="backref" href="#syntax">&#182;</a></h2><p>The ppx provides two quotations, <span class="monospace">html</span> and <span class="monospace">svg</span> (and two aliases, <span class="monospace">tyxml.html</span> and <span class="monospace">tyxml.svg</span>).
+</p><pre class=""><code class="language-ocaml translatable">open Tyxml ;;
+
+let content = [%html{|&lt;div id=&quot;content&quot;&gt;some content&lt;/div&gt;|}] ;;
+val content : [&gt; Html_types.div ] Html.elt
+
+let svgpath = [%svg{|&lt;path d=&quot;M 0 1 L 1 0&quot;&gt;&lt;/path&gt;|}] ;;
+val svgpath : [&gt; Svg_types.path ] Svg.elt</code></pre><p>The quotations will use the <span class="teletype">Html</span> and <span class="teletype">Svg</span> module that are available in scope. To use another module name, you can qualify the quotation:
+</p><pre class=""><code class="language-ocaml translatable">let content = [%html.F {|&lt;div id=&quot;content&quot;&gt;some content&lt;/div&gt;|}]
+val content : [&gt; Html_types.div ] F.elt</code></pre><p>A quotation containing multiple elements will automatically produce a list of elements:
+</p><pre class=""><code class="language-ocaml translatable">let my_text = [%html
+  {|This is an &lt;b&gt;HTML&lt;/b&gt; formated &lt;i&gt;content&lt;/i&gt;.|}]
+val my_text : [&gt; `B | `I | `PCDATA ] Html.elt list</code></pre><p>The produced elements can be used inside usual TyXML combinators:
+</p><pre class=""><code class="language-ocaml translatable">let my_span = Html.(span ~a:[a_class [&quot;mytext&quot;]] my_text)
+val my_span : [&gt; Html_types.span ] Html.elt</code></pre><p>It is also possible to use tyxml elements inside quotations using <span class="monospace">antiquotations</span>:
+</p><pre class=""><code class="language-ocaml translatable">let my_paragraphs =
+  [%html &quot;&lt;p&gt;&quot;[my_span]&quot;&lt;/p&gt;&lt;p&gt;more content&lt;/p&gt;&quot;]
+val my_paragraphs : [&gt; Html_types.p ] Html.elt list</code></pre><p>Note here that since <span class="monospace">p</span> expects a list of children (it's a  <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_sigs.T.html#VALstar">star</a></span> element), the antiquotation must be of type list, hence the use of <span class="monospace">[</span>, <span class="monospace">]</span>.
+</p><p>It is also possible to use antiquotations for attributes.
+</p><pre class=""><code class="language-ocaml translatable">let my_id = &quot;thediv&quot;
+let my_div = [%html &quot;&lt;div id=&quot;my_id&quot;&gt;&lt;/div&gt;&quot;]
+val my_div : [&gt; Html_types.div ] Html.elt</code></pre><h2 id="let"> Let notation <a class="backref" href="#let">&#182;</a></h2><p>It is also possible to use the ppx with the <span class="monospace">let</span> notation:
+</p><pre class=""><code class="language-ocaml translatable">let%html content = {|&lt;div id=&quot;content&quot;&gt;some content&lt;/div&gt;|} ;;
+val content : [&gt; Html_types.div ] Html.elt</code></pre><p>All the capabilities provided by the ppx are still available with this form. Additionally, the modifiers <span class="monospace">and</span> or <span class="monospace">rec</span> are available. It is also possible to create functions:
+</p><pre class=""><code class="language-ocaml translatable">let%html make_content id = &quot;&lt;div id=&quot;id&quot; &gt;some content&lt;/div&gt;&quot; ;;
+val make_content : string -&gt; [&gt; Html_types.div ] Html.elt</code></pre><h2 id="notes"> Notes <a class="backref" href="#notes">&#182;</a></h2><h3> Locations </h3><p>Due to the code transformations done by the ppx, proper locations are difficult to provide.
+Please report examples of badly located code on <a href="https://github.com/ocsigen/tyxml/issues" class="ocsimore_phrasing_link">the bug tracker</a>.
+</p><h3> Composability </h3><p>Due to various reasons, some <span class="monospace">HTML</span> can not be composed properly using the ppx. For example, this will result in an error:
+</p><pre class=""><code class="language-ocaml translatable">let my_title = [%html &quot;&lt;title&gt;The title&lt;/title&gt;&quot;]
+let my_head = [%html &quot;&lt;head&gt;&quot;my_title&quot;&lt;/head&gt;&quot;]</code></pre><p>You can, however, inline the title element inside the head element:
+</p><pre class=""><code class="language-ocaml translatable">let my_title = [%html &quot;The title&quot;]
+let my_head = [%html &quot;&lt;head&gt;&lt;title&gt;&quot;my_title&quot;&lt;/title&gt;&lt;/head&gt;&quot;]</code></pre></body></html>
