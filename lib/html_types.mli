@@ -1105,6 +1105,12 @@ type flow5_without_sectioning_heading_header_footer_address =
        flow5_without_media) transparent
   ]
 
+type flow5_without_sectioning_heading_header_footer =
+  [
+    | flow5_without_sectioning_heading_header_footer_address
+    | `Address
+  ]
+
 (*
   Type for HTML for elements
 *)
@@ -1392,9 +1398,9 @@ type dd_attrib = [ | common ]
 (* NAME: dt, KIND: star, TYPE: [= common ], [= phrasing], [=`Dt], ARG: [= phrasing], ATTRIB:  OUT: [=`Dt] *)
 type dt = [ | `Dt ]
 
-type dt_content = [ | phrasing ]
+type dt_content = [ | flow5_without_sectioning_heading_header_footer ]
 
-type dt_content_fun = [ | phrasing ]
+type dt_content_fun = [ | flow5_without_sectioning_heading_header_footer ]
 
 type dt_attrib = [ | common ]
 
