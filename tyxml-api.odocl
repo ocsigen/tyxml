@@ -1,0 +1,21 @@
+# OASIS_START
+# DO NOT EDIT (digest: 40939d7108b83f1e22a5140db9d456ce)
+implem/Tyxml_xml
+implem/Tyxml_svg
+implem/Tyxml_html
+implem/Tyxml
+lib/Xml_iter
+lib/Xml_sigs
+lib/Xml_wrap
+lib/Xml_print
+lib/Svg_sigs
+lib/Svg_types
+lib/Svg_f
+lib/Html_sigs
+lib/Html_types
+lib/Html_f
+syntax/Simplexmlparser
+syntax/Pa_tyxml
+ppx/Ppx_tyxml
+ppx/Ppx_common
+# OASIS_STOP
