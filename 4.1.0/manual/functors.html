@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title> The functorial interface </title><meta charset="utf8"/><link rel="stylesheet" href="/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script src="/client.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js"></script></head><body><h1> The functorial interface </h1><p>TyXML provides a functorial interface to implement HTML and SVG on top
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title> The functorial interface </title><meta charset="utf8"/><link rel="stylesheet" href="file:///home/balat/ocsigen/ocsigen.github.io/css/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script src="/client.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js"></script></head><body><h1> The functorial interface </h1><p>TyXML provides a functorial interface to implement HTML and SVG on top
 of any XML implementation. This is used heavily by Eliom to implement
 the <span class="monospace">F</span> and <span class="monospace">D</span> modules, providing respectively a functional and
 a DOM version of the HTML implementation.
 </p><h2 id="make"> The <span class="monospace">Make</span> functors  <a class="backref" href="#make">&#182;</a></h2><p>These interfaces are available in the modules
-<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.html">Html_f</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.html">Svg_f</a></span>.
+<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f">Html_f</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f">Svg_f</a></span>.
 They provide a functor <span class="monospace">Make</span> which takes a concrete implementation
-of Xml following <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_sigs.T.html">Xml_sigs.​T</a></span>. A default
-implementation is provided by the <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml.html">Xml</a></span> module.  The
-functor <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.Make.html">Html_f.​Make</a></span> also needs an Svg
+of Xml following <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_sigs.T">Xml_sigs.​T</a></span>. A default
+implementation is provided by the <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml">Xml</a></span> module.  The
+functor <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.Make">Html_f.​Make</a></span> also needs an Svg
 implementation that one can obtain, for example, with the functor
-<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.Make.html">Svg_f.​Make</a></span>.  The <span class="monospace">Xml</span> always needs to provide a
-module <span class="monospace">W</span> of type <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_wrap.T.html">Xml_wrap.​T</a></span>, along with types
+<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.Make">Svg_f.​Make</a></span>.  The <span class="monospace">Xml</span> always needs to provide a
+module <span class="monospace">W</span> of type <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_wrap.T">Xml_wrap.​T</a></span>, along with types
 </p><pre class=""><code class="language-ocaml translatable">type 'a wrap = 'a W.t</code></pre><p>and
 </p><pre class=""><code class="language-ocaml translatable">type 'a list_wrap = 'a W.tlist</code></pre><p>.
 The purpose of the <span class="monospace">Wrap</span> module is explained in the next section.
-</p><h2 id="wrap"> Wrapping up the nodes  <a class="backref" href="#wrap">&#182;</a></h2><p>The module <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_sigs.T.W.html">Xml_sigs.​T.​W</a></span> allows to wrap Xml elements
+</p><h2 id="wrap"> Wrapping up the nodes  <a class="backref" href="#wrap">&#182;</a></h2><p>The module <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_sigs.T.W">Xml_sigs.​T.​W</a></span> allows to wrap Xml elements
 in a monad <span class="monospace">'a t</span>.  A good example of application is the <span class="monospace">R</span>
 modules with reactive nodes in Eliom. Here is the simplified signature
 of the <span class="teletype">div</span> element:
@@ -26,14 +26,14 @@ and provides a special type for lists of nodes. The <span class="monospace">W</s
 additionally provides a type <span class="monospace">(-'a, 'b) ft</span> for (wrapped) functions,
 whose purpose is explained in the next section. In most cases, it is
 sufficient to define:
-</p><pre class=""><code class="language-ocaml translatable">(-'a, 'b) ft = 'a -&gt; 'b</code></pre><p>An identity wrapper, <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_wrap.NoWrap.html">Xml_wrap.​NoWrap</a></span>, is
-provided. <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_wrap.NoWrap.html">Xml_wrap.​NoWrap</a></span> can be used to apply the
+</p><pre class=""><code class="language-ocaml translatable">(-'a, 'b) ft = 'a -&gt; 'b</code></pre><p>An identity wrapper, <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_wrap.NoWrap">Xml_wrap.​NoWrap</a></span>, is
+provided. <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Xml_wrap.NoWrap">Xml_wrap.​NoWrap</a></span> can be used to apply the
 functor without wrapping the elements.
 </p><h2 id="wrapped_functions"> The <span class="monospace">Make_with_wrapped_functions</span> functors  <a class="backref" href="#wrapped_functions">&#182;</a></h2><p>The <span class="monospace">Make_with_wrapped_functions</span> functors (available in the modules
-<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.html">Html_f</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.html">Svg_f</a></span>) differ from
+<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f">Html_f</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f">Svg_f</a></span>) differ from
 the <span class="monospace">Make</span> functors by requiring an additional argument <span class="monospace">C</span> (of
-type <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.Wrapped_functions.html">Html_f.​Wrapped_functions</a></span> and
-<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.Wrapped_functions.html">Svg_f.​Wrapped_functions</a></span> respectively).
+type <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.Wrapped_functions">Html_f.​Wrapped_functions</a></span> and
+<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.Wrapped_functions">Svg_f.​Wrapped_functions</a></span> respectively).
 </p><p>The <span class="monospace">C</span> functor argument defines a type <span class="monospace">(-'a, 'b) ft</span>, and a
 collection of <span class="monospace">ft</span> values. For applying the functor, the type
 constraint
@@ -52,12 +52,12 @@ modules do not wrap the functions, i.e., they satisfy:
 </p><pre class=""><code class="language-ocaml translatable">(-'a, 'b) ft = 'a -&gt; 'b</code></pre><p>.
 </p><h2 id="sig"> Exporting the correct signature  <a class="backref" href="#sig">&#182;</a></h2><p>In order to help export the correct signature after a functor
 application, two signature functors are provided:
-<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_sigs.Make.html">Svg_sigs.​Make</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_sigs.Make.html">Html_sigs.​Make</a></span>.
-</p><p>As an example of use, let us look at the module <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg.M.html">Svg.​M</a></span>.
+<span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_sigs.Make">Svg_sigs.​Make</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_sigs.Make">Html_sigs.​Make</a></span>.
+</p><p>As an example of use, let us look at the module <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg.M">Svg.​M</a></span>.
 Here is the definition of the module:
 </p><pre class=""><code class="language-ocaml translatable">module M = Svg_f.Make(Xml)</code></pre><p>In this case, the declaration in the interface file should look like
-this: </p><pre class=""><code class="language-ocaml translatable">module M : Svg_sigs.Make(Xml).T</code></pre><p>The signature functor <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_sigs.Make.html">Svg_sigs.​Make</a></span> contains only a
-signature <span class="monospace">T</span>, which is equal to <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_sigs.T.html">Svg_sigs.​T</a></span>, but
+this: </p><pre class=""><code class="language-ocaml translatable">module M : Svg_sigs.Make(Xml).T</code></pre><p>The signature functor <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_sigs.Make">Svg_sigs.​Make</a></span> contains only a
+signature <span class="monospace">T</span>, which is equal to <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_sigs.T">Svg_sigs.​T</a></span>, but
 exports various equalities with the module <span class="monospace">Xml</span>.
 </p><p>You should <strong>always</strong> use a signature functor to give the type of a
 module produced by a functor application. It will ensure that exactly
@@ -70,9 +70,9 @@ is a submodule of <span class="teletype">Xml</span>. It only means that the type
 <span class="teletype">keyboard_event_handler</span>, <span class="teletype">attrib</span> and <span class="teletype">elt</span> are the
 same in both modules.  This is useful when not exporting the exact
 module that was used in the functor, but another (smaller and
-simpler) module. This is the case in <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Tyxml_js.R.html">Tyxml_js.​R</a></span>,
+simpler) module. This is the case in <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Tyxml_js.R">Tyxml_js.​R</a></span>,
 for example.
-</li></ul><ul><li> <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f.html">Html_f</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f.html">Svg_f</a></span> functors
+</li></ul><ul><li> <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Html_f">Html_f</a></span> and <span><a class="ocsforge_doclink_tyxml" href="/tyxml/4.1.0/api/Svg_f">Svg_f</a></span> functors
 export two additional equalities, <span class="teletype">+'a elt = Xml.elt</span> and
 <span class="teletype">+'a attrib = Xml.attrib</span>. These equalities <strong>should never be
 exported in a public interface</strong>. Exporting them would break HTML
