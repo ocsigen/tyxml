@@ -35,11 +35,13 @@ include Svg_sigs.Make(Tyxml_xml).T
     {[let s = Format.asprintf "%a" (Tyxml.Svg.pp ()) my_svg]}
 *)
 val pp:
-  ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+  ?encode:(string -> string) -> ?indent:bool -> ?advert:string -> unit ->
+  Format.formatter -> doc -> unit
 
 (** [pp_elt ()] is a {!Format} printer for Svg elements. *)
 val pp_elt :
-  ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+  ?encode:(string -> string) -> ?indent:bool -> unit ->
+  Format.formatter -> 'a elt -> unit
 
 (** Parametrized stream printer for Svg documents.
     @deprecated Use {!pp} instead.

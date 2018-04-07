@@ -27,8 +27,8 @@ include Xml_sigs.Iterable
    and type mouse_event_handler = string
    and type keyboard_event_handler = string
 
-
-val pp : ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
+include Xml_sigs.Pp
+  with type elt := elt
 
 
 (** {2 Iterators} *)
