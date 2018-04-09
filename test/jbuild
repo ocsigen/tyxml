@@ -28,8 +28,8 @@
   (action (system "TERM=dumb ${OCAML} -noinit -noprompt -ppx ./${exe:ppx.exe} < ${<} 2>&1 | tail -n +2 > ${@}"))
 ))
 
-(alias
- ((name   runtest)
-  (deps   (html_fail.result html_fail.expected))
-  (action (run diff -dEbZBt html_fail.result html_fail.expected))
-))
+; (alias
+;  ((name   runtest)
+;   (deps   (html_fail.result html_fail.expected))
+;   (action (run diff -dEbZBt html_fail.result html_fail.expected))
+; ))

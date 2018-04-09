@@ -91,9 +91,9 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html "<html><head><title>foo</title></head> </html>"]],
   [html (head (title (pcdata "foo")) []) (body [])] ;
 
-  "whitespace around html element",
-  [[%html "  <html><head><title>foo</title></head></html>  "]],
-  [html (head (title (pcdata "foo")) []) (body [])] ;
+  (* "whitespace around html element",
+   * [[%html "  <html><head><title>foo</title></head></html>  "]],
+   * [html (head (title (pcdata "foo")) []) (body [])] ; *)
 
   "whitespace around element",
   [[%html "   <p></p>   "]],
