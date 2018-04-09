@@ -5,6 +5,11 @@ default: build
 build: 
 	jbuilder build --dev @install
 
+.PHONY: tools
+tools: 
+	jbuilder build --dev tools/autoname.exe
+	@echo "You can now use: 'jbuilder exec tools/autoname.exe -- element'"
+
 .PHONY: test
 test:
 	jbuilder runtest --dev
