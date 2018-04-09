@@ -29,6 +29,7 @@ open Parsetree
 open Ast_helper
 module AC = Ast_convenience
 
+module Ppx_common = Ppx_common2
 
 
 let is_attribute s = String.length s >= 2 && String.sub s 0 2 = "a_"

@@ -32,6 +32,14 @@
   (deps    (ppx_reflect.exe ../lib/svg_types.mli))
   (action  (run ${^} ${@}))))
 
+;; Walk around the fact that ppx_common can't be used both in the library and
+;; the executable.
+(rule
+ ((targets (ppx_common2.ml))
+  (deps    (ppx_common.ml))
+  (action  (copy ${<} ${@}))
+))
+
 (library
  ((name tyxml_ppx)
   (public_name tyxml-ppx)
