@@ -108,6 +108,8 @@ end
 
 include M
 include Xml_print.Make_simple(M)(struct let emptytags = [] end)
+[@@ocaml.warning "-3"]
+
 include Xml_iter.Make(M)
 include Xml_print.Make_fmt(M)(struct let emptytags = [] end)
 

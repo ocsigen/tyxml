@@ -20,6 +20,8 @@
 module M = Svg_f.Make(Tyxml_xml)
 module P = Xml_print.Make_typed_fmt(Tyxml_xml)(M)
 module Make_printer = Xml_print.Make_typed(Tyxml_xml)(M)
+[@@ocaml.warning "-3"]
+
 
 include M
 include P
