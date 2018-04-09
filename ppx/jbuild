@@ -5,7 +5,7 @@
   (libraries (ppx_tools_versioned
               tyxml.tools))
   (preprocess (pps (ppx_tools_versioned.metaquot_405)))
-  (modules (ppx_reflect ppx_common2))
+  (modules (ppx_reflect))
   (flags (:standard
           -safe-string
           -open Migrate_parsetree
@@ -32,14 +32,6 @@
   (deps    (ppx_reflect.exe ../lib/svg_types.mli))
   (action  (run ${^} ${@}))))
 
-;; Walk around the fact that ppx_common can't be used both in the library and
-;; the executable.
-(rule
- ((targets (ppx_common2.ml))
-  (deps    (ppx_common.ml))
-  (action  (copy ${<} ${@}))
-))
-
 (library
  ((name tyxml_ppx)
   (public_name tyxml-ppx)
@@ -50,7 +42,7 @@
   ))
   (preprocess (pps (ppx_tools_versioned.metaquot_405)))
   (modules_without_implementation (ppx_sigs_reflected))
-  (modules (:standard \ ppx_reflect ppx_common2))
+  (modules (:standard \ ppx_reflect))
   (kind ppx_rewriter)
   (flags (:standard
           -safe-string

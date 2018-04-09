@@ -29,8 +29,11 @@ open Parsetree
 open Ast_helper
 module AC = Ast_convenience
 
-module Ppx_common = Ppx_common2
 
+let find_attr s l =
+  let f attr = (fst attr).txt = s in
+  try Some (List.find f l)
+  with Not_found -> None
 
 let is_attribute s = String.length s >= 2 && String.sub s 0 2 = "a_"
 
@@ -102,13 +105,13 @@ let rec to_attribute_parser lang name = function
   | [[%type: bool]] -> [%expr bool]
   | [[%type: unit]] -> [%expr nowrap unit]
 
-  | [[%type: number]] when lang = Ppx_common.Html -> [%expr int]
+  | [[%type: number]] when lang = `Html -> [%expr int]
   | [[%type: pixels]]
   | [[%type: int]] -> [%expr int]
 
-  | [[%type: numbers]] when lang = Ppx_common.Html -> [%expr commas int]
+  | [[%type: numbers]] when lang = `Html -> [%expr commas int]
 
-  | [[%type: number]] when lang = Ppx_common.Svg -> [%expr float]
+  | [[%type: number]] when lang = `Svg -> [%expr float]
   | [[%type: float_number]] | [[%type: float]] -> [%expr float]
 
   | [[%type: float_number option]] ->
@@ -117,7 +120,7 @@ let rec to_attribute_parser lang name = function
   | [[%type: numbers_semicolon]] ->
     [%expr semicolons float]
 
-  | [[%type: numbers]] when lang = Ppx_common.Svg ->
+  | [[%type: numbers]] when lang = `Svg ->
     [%expr spaces_or_commas float]
 
   | [[%type: fourfloats]] ->
@@ -220,16 +223,13 @@ end
    parsed to get the markup name and the element types in which the translation
    from markup name to TyXML name should be performed. *)
 let ocaml_attributes_to_renamed_attribute name attributes =
-  let maybe_attribute =
-    Ppx_common.find (fun attr -> (fst attr).txt = "reflect.attribute")
-      attributes
-  in
+  let maybe_attribute = find_attr "reflect.attribute" attributes in
 
   match maybe_attribute with
   | None -> []
   | Some ({loc}, payload) ->
     let error () =
-      Ppx_common.error loc
+      Location.raise_errorf ~loc
         "Payload of [@@reflect.attribute] must be a string and a string list"
     in
     match payload with
@@ -241,7 +241,7 @@ let ocaml_attributes_to_renamed_attribute name attributes =
         | Some real_name ->
           let element_names =
             let error loc =
-              Ppx_common.error loc
+              Location.raise_errorf ~loc
                 "List in [@@reflect.attribute] must contain strings"
             in
             let rec traverse acc = function
@@ -271,8 +271,7 @@ let val_item_to_element_info lang value_description =
   let name = value_description.pval_name.txt in
 
   let maybe_attribute =
-    Ppx_common.find (fun attr -> (fst attr).txt = "reflect.element")
-      value_description.pval_attributes
+    find_attr "reflect.element" value_description.pval_attributes
   in
 
   let maybe_assembler, real_name =
@@ -288,7 +287,7 @@ let val_item_to_element_info lang value_description =
       begin match assembler with
         | Some _ -> (assembler, real_name)
         | None ->
-          Ppx_common.error loc
+          Location.raise_errorf ~loc
             "Payload of [@@reflect.element] must be one or two strings"
       end
 
@@ -389,7 +388,7 @@ let type_declaration mapper declaration =
         rows |> List.map (function
           | Rtag (label, _, _, types) -> label, types
           | Rinherit {ptyp_loc} ->
-            Ppx_common.error ptyp_loc
+            Location.raise_errorf ~loc:ptyp_loc
               "Inclusion is not supported by [@@refect.total_variant]")
       in
 
@@ -400,7 +399,7 @@ let type_declaration mapper declaration =
         match unary with
         | [name, [[%type: string]]] -> name
         | _ ->
-          Ppx_common.error ptyp_loc
+          Location.raise_errorf ~loc:ptyp_loc
             "Expected exactly one non-nullary constructor `C of string"
       in
 
@@ -409,7 +408,7 @@ let type_declaration mapper declaration =
       reflected_variants := (name, (unary, nullary))::!reflected_variants
 
     | _ ->
-      Ppx_common.error declaration.ptype_loc
+      Location.raise_errorf ~loc:declaration.ptype_loc
         "[@@reflect.total_variant] expects a polymorphic variant type"
   end;
 
@@ -497,8 +496,8 @@ let () =
     let svg_prefix = "svg_" in
     if String.length basename >= String.length svg_prefix
        && String.sub basename 0 (String.length svg_prefix) = svg_prefix
-    then Ppx_common.Svg
-    else Ppx_common.Html
+    then `Svg
+    else `Html
   in
 
   let mapper =
