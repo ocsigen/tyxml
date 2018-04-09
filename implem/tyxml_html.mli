@@ -35,11 +35,13 @@ include Html_sigs.Make(Tyxml_xml)(Tyxml_svg).T
     {[let s = Format.asprintf "%a" (Tyxml.Html.pp ()) my_html]}
 *)
 val pp:
-  ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+  ?encode:(string -> string) -> ?indent:bool -> ?advert:string -> unit ->
+  Format.formatter -> doc -> unit
 
 (** [pp_elt ()] is a {!Format} printer for Html elements. *)
 val pp_elt :
-  ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+  ?encode:(string -> string) -> ?indent:bool -> unit ->
+  Format.formatter -> 'a elt -> unit
 
 (** Parametrized stream printer for Html documents.
     @deprecated Use {!pp} instead.

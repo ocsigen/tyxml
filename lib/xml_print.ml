@@ -209,6 +209,13 @@ module Make_fmt
 struct
   open Xml
 
+  let open_box indent fmt = if indent then Format.pp_open_box fmt 0 else ()
+  let close_box indent fmt = if indent then Format.pp_close_box fmt () else ()
+  let sp indent fmt =
+    if indent then Format.pp_print_space fmt () else Format.pp_print_string fmt " "
+  let cut indent fmt =
+    if indent then Format.pp_print_cut fmt () else ()
+
   module S = Set.Make(String)
   let is_emptytag = match I.emptytags with
     | [] -> fun _ -> false
@@ -216,45 +223,66 @@ struct
       let set = List.fold_left (fun s x -> S.add x s) S.empty l in
       fun x -> S.mem x set
 
-  let pp_encode encode fmt s =
-    Format.pp_print_string fmt (encode s)
+  let pp_encode encode indent fmt s =
+    let s = encode s in
+    if indent then
+      Format.fprintf fmt "@[%a@]" Format.pp_print_text s
+    else
+      Format.pp_print_string fmt s
 
-  let pp_sep = function
-    | Space -> fun fmt () -> Format.pp_print_char fmt ' '
-    | Comma -> fun fmt () -> Format.pp_print_string fmt ", "
+  let pp_sep indent = function
+    | Space -> fun fmt () -> sp indent fmt
+    | Comma -> fun fmt () -> Format.fprintf fmt ",%t" (sp indent)
 
-  let pp_attrib_value encode fmt a = match acontent a with
+  let pp_attrib_value encode indent fmt a = match acontent a with
     | AFloat f -> Format.fprintf fmt "\"%a\"" pp_number f
     | AInt i -> Format.fprintf fmt "\"%d\"" i
     | AStr s -> Format.fprintf fmt "\"%s\"" (encode s)
     | AStrL (sep, slist) ->
       Format.fprintf fmt "\"%a\""
-        (Format.pp_print_list ~pp_sep:(pp_sep sep) (pp_encode encode)) slist
+        (Format.pp_print_list ~pp_sep:(pp_sep indent sep)
+           (pp_encode encode indent)) slist
 
-  let pp_attrib encode fmt a =
+  let pp_attrib encode indent fmt a =
     Format.fprintf fmt
-      " %s=%a" (aname a) (pp_attrib_value encode) a
+      "%t%s=%a" (sp indent) (aname a) (pp_attrib_value encode indent) a
 
-  let pp_attribs encode =
-    Format.pp_print_list ~pp_sep:pp_noop (pp_attrib encode)
+  let pp_attribs encode indent =
+    Format.pp_print_list ~pp_sep:pp_noop (pp_attrib encode indent)
 
-  let pp_closedtag encode fmt tag attrs =
+  let pp_tag_and_attribs encode indent fmt (tag, attrs) =
+    open_box indent fmt ;
+    Format.fprintf fmt "%s%a%t" tag (pp_attribs encode indent) attrs (cut indent);
+    close_box indent fmt
+
+  let pp_closedtag encode indent fmt tag attrs =
     if is_emptytag tag then
-      Format.fprintf fmt "<%s%a/>" tag (pp_attribs encode) attrs
-    else
-      Format.fprintf fmt "<%s%a></%s>" tag (pp_attribs encode) attrs tag
+      Format.fprintf fmt "<%a/>" (pp_tag_and_attribs encode indent) (tag, attrs)
+    else begin
+      open_box indent fmt ;
+      Format.fprintf fmt "<%a>%t</%s>"
+        (pp_tag_and_attribs encode indent) (tag, attrs)
+        (cut indent)
+        tag ;
+      close_box indent fmt
+    end
 
-  let rec pp_tag encode fmt tag attrs taglist =
-    match taglist with
-    | [] -> pp_closedtag encode fmt tag attrs
+  let rec pp_tag encode indent fmt tag attrs children =
+    match children with
+    | [] -> pp_closedtag encode indent fmt tag attrs
     | _ ->
-      Format.fprintf fmt "<%s%a>%a</%s>"
-        tag
-        (pp_attribs encode) attrs
-        (pp_elts encode) taglist
-        tag
+      open_box indent fmt ;
+      Format.fprintf fmt "<%t%a>%t%a%t%t</%s>"
+        (open_box indent)
+        (pp_tag_and_attribs encode indent) (tag, attrs)
+        (cut indent)
+        (pp_elts encode indent) children
+        (close_box indent)
+        (cut indent)
+        tag ;
+      close_box indent fmt
 
-  and pp_elt encode fmt elt = match content elt with
+  and pp_elt encode indent fmt elt = match content elt with
     | Comment texte ->
       Format.fprintf fmt "<!--%s-->" (escape_comment texte)
 
@@ -262,24 +290,26 @@ struct
       Format.fprintf fmt "&%s;" e
 
     | PCDATA texte ->
-      pp_encode encode fmt texte
+      pp_encode encode indent fmt texte
 
     | EncodedPCDATA texte ->
       Format.pp_print_string fmt texte
 
     | Node (name, xh_attrs, xh_taglist) ->
-      pp_tag encode fmt name xh_attrs xh_taglist
+      pp_tag encode indent fmt name xh_attrs xh_taglist
 
     | Leaf (name, xh_attrs) ->
-      pp_closedtag encode fmt name xh_attrs
+      pp_closedtag encode indent fmt name xh_attrs
 
     | Empty -> ()
 
-  and pp_elts encode =
-    Format.pp_print_list ~pp_sep:pp_noop (pp_elt encode)
+  and pp_elts encode indent =
+    Format.pp_print_list
+      ~pp_sep:(fun fmt () -> cut indent fmt)
+      (pp_elt encode indent)
 
-  let pp ?(encode=encode_unsafe_char) () =
-    pp_elt encode
+  let pp ?(encode=encode_unsafe_char) ?(indent=false) () =
+    pp_elt encode indent
 
 end
 
@@ -303,18 +333,20 @@ struct
       Xml.node ~a n c
     | _ -> doc
 
-  let pp_elt ?(encode=encode_unsafe_char) () fmt foret =
-    P.pp_elt encode fmt (Typed_xml.toelt foret)
+  let pp_elt ?(encode=encode_unsafe_char) ?(indent=false) () fmt foret =
+    P.pp_elt encode indent fmt (Typed_xml.toelt foret)
 
-  let pp ?(encode = encode_unsafe_char) ?advert () fmt doc =
-    Format.pp_print_string fmt Typed_xml.Info.doctype ;
+  let pp ?(encode = encode_unsafe_char) ?(indent=false) ?advert () fmt doc =
+    Format.pp_open_vbox fmt 0 ;
+    Format.fprintf fmt "%s@," Typed_xml.Info.doctype ;
 
     begin match advert with
-      | Some s -> Format.fprintf fmt "<!-- %s -->\n" s
-      | None -> Format.pp_print_newline fmt ()
+      | Some s -> Format.fprintf fmt "<!-- %s -->@," s
+      | None -> ()
     end ;
 
-    P.pp_elt encode fmt (prepare_document doc)
+    P.pp_elt encode indent fmt (prepare_document doc) ;
+    Format.pp_close_box fmt ();
 
 end
 

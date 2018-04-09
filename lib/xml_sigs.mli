@@ -189,7 +189,8 @@ module type Pp = sig
     Various implementations of [encode] are available in {!Xml_print}.
 *)
   val pp:
-    ?encode:(string -> string) -> unit -> Format.formatter -> elt -> unit
+    ?encode:(string -> string) -> ?indent:bool -> unit ->
+    Format.formatter -> elt -> unit
 end
 
 module type Typed_pp = sig
@@ -203,7 +204,8 @@ module type Typed_pp = sig
     Various implementations of [encode] are available in {!Xml_print}.
 *)
   val pp_elt :
-    ?encode:(string -> string) -> unit -> Format.formatter -> 'a elt -> unit
+    ?encode:(string -> string) -> ?indent:bool -> unit ->
+    Format.formatter -> 'a elt -> unit
 
 (** [pp ()] is a {!Format} printer for complete documents.
 
@@ -214,6 +216,7 @@ module type Typed_pp = sig
     Various implementations of [encode] are available in {!Xml_print}.
 *)
   val pp:
-    ?encode:(string -> string) -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+    ?encode:(string -> string) -> ?indent:bool -> ?advert:string -> unit ->
+    Format.formatter -> doc -> unit
 
 end
