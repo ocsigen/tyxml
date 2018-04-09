@@ -1,0 +1,54 @@
+(jbuild_version 1)
+
+(executable
+ ((name ppx_reflect)
+  (libraries (ppx_tools_versioned
+              tyxml.tools))
+  (preprocess (pps (ppx_tools_versioned.metaquot_405)))
+  (modules (ppx_reflect ppx_common2))
+  (flags (:standard
+          -safe-string
+          -open Migrate_parsetree
+          -open Ast_405
+          -open Ppx_tools_405
+          -w "-9"
+  ))
+))
+
+(rule
+ ((targets (html_sigs_reflected.ml))
+  (deps    (ppx_reflect.exe ../lib/html_sigs.mli))
+  (action  (run ${^} ${@}))))
+(rule
+ ((targets (svg_sigs_reflected.ml))
+  (deps    (ppx_reflect.exe ../lib/svg_sigs.mli))
+  (action  (run ${^} ${@}))))
+(rule
+ ((targets (html_types_reflected.ml))
+  (deps    (ppx_reflect.exe ../lib/html_types.mli))
+  (action  (run ${^} ${@}))))
+(rule
+ ((targets (svg_types_reflected.ml))
+  (deps    (ppx_reflect.exe ../lib/svg_types.mli))
+  (action  (run ${^} ${@}))))
+
+(library
+ ((name tyxml_ppx)
+  (public_name tyxml-ppx)
+  (libraries (re.str
+              ppx_tools_versioned
+              markup
+              tyxml.tools
+  ))
+  (preprocess (pps (ppx_tools_versioned.metaquot_405)))
+  (modules_without_implementation (ppx_sigs_reflected))
+  (modules (:standard \ ppx_reflect ppx_common2))
+  (kind ppx_rewriter)
+  (flags (:standard
+          -safe-string
+          -open Migrate_parsetree
+          -open Ast_405
+          -open Ppx_tools_405
+          -w "-9"
+  ))
+))

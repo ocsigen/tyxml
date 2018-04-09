@@ -1,0 +1,35 @@
+(jbuild_version 1)
+
+;; Normal tests
+
+(executable
+ ((name main_test)
+  (libraries (tyxml alcotest))
+  (modules (main_test test_html test_ppx))
+  (preprocess (pps (tyxml-ppx)))
+))
+
+(alias
+ ((name runtest)
+  (action (run ${exe:main_test.exe}))
+))
+
+;; Toplevel ppx tests
+
+(executable
+ ((name ppx)
+  (libraries (tyxml-ppx ocaml-migrate-parsetree))
+  (modules ppx)
+))
+
+(rule
+ ((targets (html_fail.result))
+  (deps   (html_fail.ml))
+  (action (system "TERM=dumb ${OCAML} -noinit -noprompt -ppx ./${exe:ppx.exe} < ${<} 2>&1 | tail -n +2 > ${@}"))
+))
+
+(alias
+ ((name   runtest)
+  (deps   (html_fail.result html_fail.expected))
+  (action (run diff -dEbZBt html_fail.result html_fail.expected))
+))
