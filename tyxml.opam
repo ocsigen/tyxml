@@ -24,4 +24,4 @@ depends: [
   "re" {>= "1.5.0"}
   "alcotest" {test}
 ]
-available: ocaml-version >= "4.02"
+available: ocaml-version >= "4.03"

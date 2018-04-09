@@ -22,4 +22,4 @@ depends: [
   "markup" {>= "0.7.2"}
   "ppx_tools_versioned"
 ]
-available: ocaml-version >= "4.02"
+available: ocaml-version >= "4.03"
