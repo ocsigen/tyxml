@@ -861,6 +861,7 @@ struct
     | `Next -> "next"
     | `Nofollow -> "nofollow"
     | `Noreferrer -> "noreferrer"
+    | `Noopener -> "noopener"
     | `Pingback -> "pingback"
     | `Prefetch -> "prefetch"
     | `Prev -> "prev"
