@@ -118,6 +118,7 @@ type linktype =
     | `Next
     | `Nofollow
     | `Noreferrer
+    | `Noopener
     | `Pingback
     | `Prefetch
     | `Prev
@@ -170,6 +171,8 @@ type linktypes = linktype list
         Indicates that the current document's original author or publisher does not endorse the referenced document.}
         {- [`Noreferrer]:
         Requires that the user agent not send an HTTP Referer (sic) header if the user follows the hyperlink.}
+        {- [`Noopener]:
+        Instructs the browser to open the link without granting the new browsing context access to the document that opened it.}
         {- [`Pingback]:
         Gives the address of the pingback server that handles pingbacks to the current document.}
         {- [`Prefetch]:
