@@ -23,5 +23,5 @@ doc:
 	jbuilder build @doc
 
 .PHONY: doc-api-wiki
-doc-api-wiki: build
-	make -C doc api/wiki/index.wiki
+wikidoc: build
+	make -C doc wikidoc

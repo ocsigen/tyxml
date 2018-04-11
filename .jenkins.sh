@@ -4,9 +4,6 @@ opam pin add --no-action tyxml .
 opam pin add --no-action tyxml-ppx .
 
 opam install -t --deps-only tyxml
-opam install --verbose tyxml
-opam remove --verbose tyxml
-opam install camlp4
 opam install -t --verbose tyxml
 opam install -t --verbose tyxml-ppx
 

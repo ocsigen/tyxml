@@ -20,6 +20,7 @@
 open Asttypes
 open Parsetree
 
+type lang = Ppx_common.lang = Html | Svg
 
 module Loc = struct
 
