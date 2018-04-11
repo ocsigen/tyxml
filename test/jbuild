@@ -24,12 +24,12 @@
 
 (rule
  ((targets (html_fail.result))
-  (deps   (html_fail.ml))
-  (action (system "TERM=dumb ${OCAML} -noinit -noprompt -ppx ./${exe:ppx.exe} < ${<} 2>&1 | tail -n +2 > ${@}"))
+  (deps   (ppx.exe html_fail.ml))
+  (action (system "TERM=dumb ${OCAML}  -I ../implem/.tyxml.objs/ -noinit -noprompt -ppx './${exe:ppx.exe} --as-ppx' < html_fail.ml 2>&1 | tail -n +3 > ${@}"))
 ))
 
-; (alias
-;  ((name   runtest)
-;   (deps   (html_fail.result html_fail.expected))
-;   (action (run diff -dEbZBt html_fail.result html_fail.expected))
-; ))
+(alias
+ ((name   runtest)
+  (deps   (html_fail.result html_fail.expected))
+  (action (diff html_fail.result html_fail.expected))
+))
