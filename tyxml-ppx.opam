@@ -8,10 +8,16 @@ homepage: "https://ocsigen.org/tyxml/"
 bug-reports: "https://github.com/ocsigen/tyxml/issues"
 doc: "https://ocsigen.org/tyxml/manual/"
 dev-repo: "https://github.com/ocsigen/tyxml.git"
-build: ["ocamlfind" "query" "tyxml.ppx"]
+
+build: [
+  ["jbuilder" "build" "-p" name "-j" jobs "@install"]
+  ["jbuilder" "runtest" "-p" name] {with-test}
+]
+
 depends: [
+  "jbuilder" {build}
   "tyxml"
   "markup" {>= "0.7.2"}
   "ppx_tools_versioned"
 ]
-available: ocaml-version >= "4.02"
+available: ocaml-version >= "4.03"

@@ -1,3 +1,0 @@
-PKG alcotest
-FLG -ppx ../_build/ppx/ppx_tyxml_ex.native
-REC

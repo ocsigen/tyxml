@@ -32,13 +32,6 @@ Xml_print
 Ppx_tyxml
 }
 
-{1 Camlp4 Syntax extension and parser}
-
-{!modules:
-Pa_tyxml
-Simplexmlparser
-}
-
 {1 Indexes}
 
 {!indexlist}

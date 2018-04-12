@@ -20,6 +20,7 @@
 open Asttypes
 open Parsetree
 
+type lang = Ppx_common.lang = Html | Svg
 
 module Loc = struct
 
@@ -289,7 +290,9 @@ let markup_to_expr lang loc expr =
       ~encoding:Markup.Encoding.utf_8
       ~report:(fun loc error ->
         let loc = adjust_location loc in
-        let message = Markup.Error.to_string error |> String.capitalize in
+        let message =
+          Markup.Error.to_string error |> String.capitalize_ascii
+        in
         Ppx_common.error loc "%s" message)
       input_stream
   in

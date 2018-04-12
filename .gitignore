@@ -12,3 +12,6 @@ setup-dev.exe
 *.byte
 *.native
 _tests
+.merlin
+*.install
+docs/api/

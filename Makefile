@@ -1,47 +1,27 @@
-OCAMLFIND_IGNORE_DUPS_IN = $(shell ocamlfind query compiler-libs)
-export OCAMLFIND_IGNORE_DUPS_IN
+.PHONY: default
+default: build
 
-# OASIS_START
-# DO NOT EDIT (digest: a3c674b4239234cbbe53afe090018954)
+.PHONY: build
+build: 
+	jbuilder build --dev @install
 
-SETUP = ocaml setup.ml
+.PHONY: tools
+tools: 
+	jbuilder build --dev tools/autoname.exe
+	@echo "You can now use: 'jbuilder exec tools/autoname.exe -- element'"
 
-build: setup.data
-	$(SETUP) -build $(BUILDFLAGS)
+.PHONY: test
+test:
+	jbuilder runtest --dev
 
-doc: setup.data build
-	$(SETUP) -doc $(DOCFLAGS)
-
-test: setup.data build
-	$(SETUP) -test $(TESTFLAGS)
-
-all:
-	$(SETUP) -all $(ALLFLAGS)
-
-install: setup.data
-	$(SETUP) -install $(INSTALLFLAGS)
-
-uninstall: setup.data
-	$(SETUP) -uninstall $(UNINSTALLFLAGS)
-
-reinstall: setup.data
-	$(SETUP) -reinstall $(REINSTALLFLAGS)
-
+.PHONY: clean
 clean:
-	$(SETUP) -clean $(CLEANFLAGS)
+	jbuilder clean
 
-distclean:
-	$(SETUP) -distclean $(DISTCLEANFLAGS)
+.PHONY: doc
+doc:
+	jbuilder build @doc
 
-setup.data:
-	$(SETUP) -configure $(CONFIGUREFLAGS)
-
-configure:
-	$(SETUP) -configure $(CONFIGUREFLAGS)
-
-.PHONY: build doc test all install uninstall reinstall clean distclean configure
-
-# OASIS_STOP
-
-wikidoc: setup.data build
-	$(SETUP) -build tyxml-api.wikidocdir/index.wiki
+.PHONY: doc-api-wiki
+wikidoc: build
+	make -C doc wikidoc

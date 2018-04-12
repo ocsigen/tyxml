@@ -26,8 +26,10 @@
 
 open Migrate_parsetree.Ast_405
 
+type lang = Html | Svg
+
 val markup_to_expr :
-  Ppx_common.lang ->
+  lang ->
   Location.t -> Parsetree.expression list -> Parsetree.expression
 (** Given the payload of a [%html ...] or [%svg ...] expression,
     converts it to a TyXML expression representing the markup

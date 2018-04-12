@@ -17,6 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+[@@@ocaml.warning "-3"]
+
 open Ast_helper
 module Pc = Ppx_common
 

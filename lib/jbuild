@@ -1,0 +1,13 @@
+(jbuild_version 1)
+
+(library
+ ((name tyxml_f)
+  (public_name tyxml.functor)
+  (wrapped false)
+  (modules_without_implementation
+   (Xml_sigs Html_sigs Svg_sigs Html_types Svg_types))
+  (synopsis "Statically correct HTML and SVG documents (Functor version)")
+  (libraries (uchar uutf re))
+  (flags (:standard
+          -safe-string))
+))

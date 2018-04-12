@@ -1,9 +1,0 @@
-lib: [
-  "tyxml-ppx.opam" { "opam" }
-  "ppx/META" { "META" }
-]
-doc: [
-  "README.md"
-  "CHANGES"
-  "COPYING" { "LICENSE" }
-]

@@ -25,7 +25,7 @@ let to_ocaml s =
 let ident s =
   let s = to_ocaml_bytes s in
   let s = Bytes.mapi (fun i c ->
-    if i = 0 then Char.lowercase c else c)
+    if i = 0 then Char.lowercase_ascii c else c)
     s in
   Bytes.to_string s
 
@@ -35,6 +35,6 @@ let attrib s =
 let polyvar s =
   let s = to_ocaml_bytes s in
   let s = Bytes.mapi (fun i c ->
-    if i = 0 then Char.uppercase c else c)
+    if i = 0 then Char.uppercase_ascii c else c)
     s in
   "`" ^ Bytes.to_string s

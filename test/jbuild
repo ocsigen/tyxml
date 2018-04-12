@@ -1,0 +1,50 @@
+(jbuild_version 1)
+
+;; Normal tests
+
+(executable
+ ((name main_test)
+  (libraries (tyxml alcotest))
+  (modules (main_test test_html test_ppx))
+  (preprocess (pps (tyxml-ppx)))
+))
+
+(alias
+ ((name runtest)
+  (deps (main_test.exe))
+  (action (run ${exe:main_test.exe}))
+))
+
+;; Toplevel ppx tests
+
+(executable
+ ((name ppx)
+  (libraries (tyxml-ppx ocaml-migrate-parsetree))
+  (modules ppx)
+))
+
+(rule
+ ((targets (html_fail.result))
+  (deps   (ppx.exe html_fail.ml))
+  (action (system "TERM= ${OCAML} -I ../implem/.tyxml.objs/ -noinit -noprompt -ppx './${exe:ppx.exe} --as-ppx' < html_fail.ml 2>&1 | tail -n +3 > ${@}"))
+))
+
+(alias
+ ((name   runtest)
+  (deps   (html_fail.result html_fail.expected))
+  (action (diff html_fail.expected html_fail.result))
+))
+
+;; Emitbig
+
+(executable
+ ((name        emitbig)
+  (libraries  (tyxml unix))
+  (modules (emitbig))
+))
+(alias
+ ((name   runtest)
+  (deps (emitbig.exe))
+  (action (run ${exe:emitbig.exe}))
+))
+
