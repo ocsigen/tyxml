@@ -21,7 +21,7 @@
    and value declarations are read for type information, which is stored in
    corresponding [_reflected] files - for example, [html_sigs.mli] results in
    [html_sigs_reflected.ml]. See comments by functions below and in
-   [ppx_sigs_reflected.mli] for details. *)
+   [sigs_reflected.mli] for details. *)
 
 open Ast_mapper
 open Asttypes
@@ -92,7 +92,7 @@ module FunTyp = struct
 
 
 (* Given the name of a TyXML attribute function and a list of its argument
-   types, selects the attribute value parser (in module [Ppx_attribute_value])
+   types, selects the attribute value parser (in module [Attribute_value])
    that should be used for that attribute. *)
 let rec to_attribute_parser lang name = function
   | [] -> [%expr nowrap presence]
@@ -261,7 +261,7 @@ let ocaml_attributes_to_renamed_attribute name attributes =
 
 (* Given a val declaration, determines whether it is for an element. If so,
    evaluates to the element's child assembler (from module
-   [Ppx_element_content]), list of attributes passed as labeled arguments, and
+   [Element_content]), list of attributes passed as labeled arguments, and
    markup name, if different from its TyXML name (for example, [object_] is
    [object] in markup).
 
@@ -429,7 +429,7 @@ end
 let emit_module () =
   default_loc := Location.(in_file !input_name) ;
   begin if !attribute_parsers <> [] then [%str
-    open Ppx_attribute_value
+    open Attribute_value
 
     let attribute_parsers =
       [%e Combi.(list @@ tuple2 str expr) !attribute_parsers ]
@@ -438,7 +438,7 @@ let emit_module () =
     let labeled_attributes =
       [%e Combi.(list @@ tuple3 str str expr) !labeled_attributes ]
 
-    open Ppx_element_content
+    open Element_content
 
     let element_assemblers =
       [%e Combi.(list @@ tuple2 str id) !element_assemblers ]

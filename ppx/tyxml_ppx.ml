@@ -20,7 +20,7 @@
 open Asttypes
 open Parsetree
 
-type lang = Ppx_common.lang = Html | Svg
+type lang = Common.lang = Html | Svg
 
 module Loc = struct
 
@@ -170,7 +170,7 @@ module Antiquot = struct
   let get loc s =
     if H.mem tbl s then H.find tbl s
     else
-      Ppx_common.error loc
+      Common.error loc
         "Internal error: This expression placeholder is not registered"
 
   let contains loc s = match Re.exec_opt re_id s with
@@ -186,7 +186,7 @@ module Antiquot = struct
     match contains loc s with
     | `No -> ()
     | `Yes e | `Whole e ->
-      Ppx_common.error e.pexp_loc
+      Common.error e.pexp_loc
         "OCaml expressions are not accepted as %s names" kind
 
 end
@@ -194,9 +194,9 @@ end
 (** Building block to rebuild the output with expressions intertwined. *)
 
 let make_pcdata ~loc ~lang s =
-  let pcdata = Ppx_common.make ~loc lang "pcdata" in
+  let pcdata = Common.make ~loc lang "pcdata" in
   Ast_helper.Exp.apply ~loc pcdata
-    [Ppx_common.Label.nolabel, Ppx_common.string loc s]
+    [Common.Label.nolabel, Common.string loc s]
 
 (** Walk the text list to replace placeholders by OCaml expressions when
     appropriate. Use {!make_pcdata} on the rest. *)
@@ -205,7 +205,7 @@ let make_text ~loc ~lang ss =
   let push_pcdata buf l =
     let s = Buffer.contents buf in
     Buffer.clear buf ;
-    if s = "" then l else Ppx_common.value (make_pcdata ~loc ~lang s) :: l
+    if s = "" then l else Common.value (make_pcdata ~loc ~lang s) :: l
   in
   let rec aux ~loc res = function
     | [] -> push_pcdata buf res
@@ -214,17 +214,17 @@ let make_text ~loc ~lang ss =
         aux ~loc res t
     | `Delim g :: t ->
       let e = Antiquot.get loc @@ Re.get g 0 in
-      aux ~loc (Ppx_common.antiquot e :: push_pcdata buf res) t
+      aux ~loc (Common.antiquot e :: push_pcdata buf res) t
   in
   aux ~loc [] @@ Re.split_full Antiquot.re_id @@ String.concat "" ss
 
 let replace_attribute ~loc (attr,value) =
   Antiquot.assert_no_antiquot ~loc "attribute" attr ;
   match Antiquot.contains loc value with
-  | `No -> (attr, Ppx_common.value value)
-  | `Whole e -> (attr, Ppx_common.antiquot e)
+  | `No -> (attr, Common.value value)
+  | `Whole e -> (attr, Common.antiquot e)
   | `Yes _ ->
-      Ppx_common.error loc
+      Common.error loc
       "Mixing literals and OCaml expressions is not supported in attribute values"
 
 
@@ -273,7 +273,7 @@ let ast_to_stream expressions =
   source, Loc.make_location_map strings
 
 let context_of_lang = function
-  | Ppx_common.Svg -> Some (`Fragment "svg")
+  | Common.Svg -> Some (`Fragment "svg")
   | Html -> None
 
 (** Given the payload of a [%html ...] or [%svg ...] expression,
@@ -293,7 +293,7 @@ let markup_to_expr lang loc expr =
         let message =
           Markup.Error.to_string error |> String.capitalize_ascii
         in
-        Ppx_common.error loc "%s" message)
+        Common.error loc "%s" message)
       input_stream
   in
   let signals = Markup.signals parser in
@@ -309,21 +309,21 @@ let markup_to_expr lang loc expr =
       assemble lang (node @ children)
 
     | Some (`Start_element (name, attributes)) ->
-      let newlang = Ppx_namespace.to_lang loc @@ fst name in
+      let newlang = Namespace.to_lang loc @@ fst name in
       let loc = get_loc () in
 
       let sub_children = assemble newlang [] in
       Antiquot.assert_no_antiquot ~loc "element" name ;
       let attributes = List.map (replace_attribute ~loc) attributes in
       let node =
-        Ppx_element.parse
+        Element.parse
           ~parent_lang:lang ~loc ~name ~attributes sub_children
       in
-      assemble lang (Ppx_common.Val node :: children)
+      assemble lang (Common.Val node :: children)
 
     | Some (`Comment s) ->
       let loc = get_loc () in
-      let node = Ppx_common.value @@ Ppx_element.comment ~loc ~lang s in
+      let node = Common.value @@ Element.comment ~loc ~lang s in
       assemble lang (node :: children)
 
     | Some (`Xml _ | `Doctype _ | `PI _)  ->
@@ -331,21 +331,21 @@ let markup_to_expr lang loc expr =
   in
 
   let l =
-    Ppx_element_content.filter_surrounding_whitespace @@
+    Element_content.filter_surrounding_whitespace @@
     assemble lang []
   in
 
   match l  with
   | [ Val x | Antiquot x ] -> x
-  | l -> Ppx_common.list_wrap_value lang loc l
+  | l -> Common.list_wrap_value lang loc l
 
 let markup_to_expr_with_implementation lang modname loc expr =
   match modname with
   | Some modname ->
-    let current_modname = Ppx_common.implementation lang in
-    Ppx_common.set_implementation lang modname ;
+    let current_modname = Common.implementation lang in
+    Common.set_implementation lang modname ;
     let res = markup_to_expr lang loc expr in
-    Ppx_common.set_implementation lang current_modname ;
+    Common.set_implementation lang current_modname ;
     res
   | _ ->
     markup_to_expr lang loc expr
@@ -364,7 +364,7 @@ let get_modname ~loc len l =
   let loc = Loc.shrink loc ~xbegin:(len - String.length s) ~xend:0 in
   if l = [] then None
   else if not (List.for_all is_capitalized l) then
-    Ppx_common.error loc "This identifier is not a module name"
+    Common.error loc "This identifier is not a module name"
   else Some s
 
 let re_dot = Re.(compile @@ char '.')
@@ -374,10 +374,10 @@ let dispatch_ext {txt ; loc} =
   match l with
   | "html" :: l
   | "tyxml" :: "html" :: l ->
-    Some (Ppx_common.Html, get_modname ~loc len l)
+    Some (Common.Html, get_modname ~loc len l)
   | "svg" :: l
   | "tyxml" :: "svg" :: l ->
-    Some (Ppx_common.Svg, get_modname ~loc len l)
+    Some (Common.Svg, get_modname ~loc len l)
   | _ -> None
 
 let application_to_list expr =
@@ -390,7 +390,7 @@ open Ast_mapper
 open Ast_helper
 
 let error { txt ; loc } =
-  Ppx_common.error loc "Invalid payload for [%%%s]" txt
+  Common.error loc "Invalid payload for [%%%s]" txt
 
 let markup_cases ~lang ~modname cases =
   let f ({pc_rhs} as case) =

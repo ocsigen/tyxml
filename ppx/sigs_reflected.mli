@@ -20,22 +20,20 @@
 (** Signature of [Html_sigs_reflected] and [Svg_sigs_reflected] (but not
     [Html_types_reflected]). *)
 
-
-
 module type S =
 sig
   val attribute_parsers :
-    (string * (Ppx_common.lang -> Ppx_attribute_value.vparser)) list
+    (string * (Common.lang -> Attribute_value.vparser)) list
   (** Pairs [tyxml_attribute_name, wrapped_attribute_value_parser]. *)
 
   val renamed_attributes : (string * string * string list) list
   (** Triples [tyxml_attribute_name, markup_name, in_element_types]. *)
 
   val labeled_attributes :
-    (string * string * (Ppx_common.lang -> Ppx_attribute_value.vparser)) list
+    (string * string * (Common.lang -> Attribute_value.vparser)) list
   (** Triples [tyxml_element_name, label, wrapped_attribute_value_parser]. *)
 
-  val element_assemblers : (string * Ppx_element_content.assembler) list
+  val element_assemblers : (string * Element_content.assembler) list
   (** Pairs [tyxml_element_name, child_argument_assembler]. *)
 
   val renamed_elements : (string * string) list

@@ -17,14 +17,24 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-let get : Ppx_common.lang -> (module Ppx_sigs_reflected.S) = function
-  | Html -> (module Html_sigs_reflected)
-  | Svg  -> (module Svg_sigs_reflected)
+(** Element parsing. *)
 
-let to_lang loc ns =
-  if ns = Markup.Ns.html then Ppx_common.Html
-  else if ns = Markup.Ns.svg then Ppx_common.Svg
-  else Ppx_common.error loc "Unknown namespace %s" ns
+val parse :
+  loc:Location.t ->
+  parent_lang:Common.lang ->
+  name:Markup.name ->
+  attributes:(Markup.name * string Common.value) list ->
+  Parsetree.expression Common.value list ->
+  Parsetree.expression
+(** [parse ~loc ~parent_lang ~name ~attributes children]
+    evaluates to a parse tree for applying the TyXML function corresponding
+    to element [name] to suitable arguments representing [attributes] and
+    [children].
+*)
 
-let reflect loc ns =
-  let l = to_lang loc ns in (l, get l)
+val comment :
+  loc:Location.t ->
+  lang:Common.lang ->
+  string ->
+  Parsetree.expression
+(** [comment ~loc ~ns s] evaluates to a parse tree that represents an XML comment. *)

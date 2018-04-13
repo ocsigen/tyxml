@@ -21,11 +21,11 @@
     only tell how to pass already-parsed children to element functions. *)
 
 type assembler =
-  lang:Ppx_common.lang ->
+  lang:Common.lang ->
   loc:Location.t ->
   name:string ->
-  Parsetree.expression Ppx_common.value list ->
-  (Ppx_common.Label.t * Parsetree.expression) list
+  Parsetree.expression Common.value list ->
+  (Common.Label.t * Parsetree.expression) list
 (** Assemblers satisfy: [assembler ~lang ~loc ~name children] evaluates
     to a list of optionally-labeled parse trees for passing [children] to the
     the element function for element [name]. For example, for a table element
@@ -86,5 +86,5 @@ val select : assembler
 (** Remove pcdata containing only whitespace that are at the beginning or the end
     of the list. *)
 val filter_surrounding_whitespace :
-  Parsetree.expression Ppx_common.value list ->
-  Parsetree.expression Ppx_common.value list
+  Parsetree.expression Common.value list ->
+  Parsetree.expression Common.value list

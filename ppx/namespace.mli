@@ -17,24 +17,17 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Element parsing. *)
+(** Namespace-specific values. *)
 
-val parse :
-  loc:Location.t ->
-  parent_lang:Ppx_common.lang ->
-  name:Markup.name ->
-  attributes:(Markup.name * string Ppx_common.value) list ->
-  Parsetree.expression Ppx_common.value list ->
-  Parsetree.expression
-(** [parse ~loc ~parent_lang ~name ~attributes children]
-    evaluates to a parse tree for applying the TyXML function corresponding
-    to element [name] to suitable arguments representing [attributes] and
-    [children].
-*)
+val reflect :
+  Location.t -> string -> Common.lang * (module Sigs_reflected.S)
+(** When given either [Markup.Ns.html] or [Markup.Ns.svg] as argument, evaluates
+    to the title of the corresponding markup language, the name of the run-time
+    module containing its TyXML implementation, and a preprocessing-time module
+    containing reflection information. *)
 
-val comment :
-  loc:Location.t ->
-  lang:Ppx_common.lang ->
-  string ->
-  Parsetree.expression
-(** [comment ~loc ~ns s] evaluates to a parse tree that represents an XML comment. *)
+val get : Common.lang -> (module Sigs_reflected.S)
+(** Similar to {!reflect} but takes a {!Common.lang} directly. *)
+
+val to_lang : Location.t -> string -> Common.lang
+(** Takes a namespace and returns the appropriate language. *)

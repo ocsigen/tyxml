@@ -19,7 +19,7 @@
 
 let parse loc (ns, element_name) attributes =
   let language, (module Reflected) =
-    Ppx_namespace.reflect loc ns in
+    Namespace.reflect loc ns in
 
   (* For prefix ["prefix"] and attribute names ["prefix-foo"], evaluates to
      [Some "foo"], otherwise evaluates to [None].
@@ -52,23 +52,23 @@ let parse loc (ns, element_name) attributes =
     let test_renamed (_, a, es) = a = local_name && List.mem element_name es in
 
     let unknown () =
-      Ppx_common.error loc "Unknown attribute in %s element: %s"
-        (Ppx_common.lang language) local_name
+      Common.error loc "Unknown attribute in %s element: %s"
+        (Common.lang language) local_name
     in
 
     (* Check whether this attribute is individually labeled. Parse its argument
        and accumulate the attribute if so. *)
-    match Ppx_common.find test_labeled Reflected.labeled_attributes with
+    match Common.find test_labeled Reflected.labeled_attributes with
     | Some (_, label, parser) ->
       let e =
         match parser language loc local_name value with
         | None ->
-          Ppx_common.error loc
+          Common.error loc
             "Internal error: labeled attribute %s without an argument" label
         | Some e -> e
       in
 
-      (Ppx_common.Label.labelled label, e)::labeled, regular
+      (Common.Label.labelled label, e)::labeled, regular
 
     | None ->
       (* The attribute is not individually labeled, so it is passed in ~a.
@@ -87,17 +87,17 @@ let parse loc (ns, element_name) attributes =
           let parser =
             try List.assoc tyxml_name Reflected.attribute_parsers
             with Not_found ->
-              Ppx_common.error loc "Internal error: no parser for %s" tyxml_name
+              Common.error loc "Internal error: no parser for %s" tyxml_name
           in
 
-          let identifier = Ppx_common.make ~loc language tyxml_name in
-          let tag = Ppx_common.string loc tag in
+          let identifier = Common.make ~loc language tyxml_name in
+          let tag = Common.string loc tag in
 
           let e =
             match parser language loc local_name value with
             | Some e' -> [%expr [%e identifier] [%e tag] [%e e']] [@metaloc loc]
             | None ->
-              Ppx_common.error loc "Internal error: no expression for %s"
+              Common.error loc "Internal error: no expression for %s"
                 tyxml_name
           in
 
@@ -114,7 +114,7 @@ let parse loc (ns, element_name) attributes =
         | _, Some tag -> parse_prefixed_attribute tag "a_aria"
         | None, None ->
           let tyxml_name =
-            match Ppx_common.find test_renamed Reflected.renamed_attributes with
+            match Common.find test_renamed Reflected.renamed_attributes with
             | Some (name, _, _) -> name
             | None -> tyxml_name
           in
@@ -124,7 +124,7 @@ let parse loc (ns, element_name) attributes =
             with Not_found -> unknown ()
           in
 
-          let identifier = Ppx_common.make ~loc language tyxml_name in
+          let identifier = Common.make ~loc language tyxml_name in
 
           let e =
             match parser language loc local_name value with
@@ -143,7 +143,7 @@ let parse loc (ns, element_name) attributes =
   if regular = [] then List.rev labeled
   else
     let regular =
-      Ppx_common.Label.labelled "a",
-      Ppx_common.list loc (List.rev regular)
+      Common.Label.labelled "a",
+      Common.list loc (List.rev regular)
     in
     List.rev (regular::labeled)

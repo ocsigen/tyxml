@@ -19,14 +19,13 @@
 
 open Asttypes
 open Parsetree
-module Pc = Ppx_common
 
 type assembler =
-  lang:Ppx_common.lang ->
+  lang:Common.lang ->
   loc:Location.t ->
   name:string ->
-  Parsetree.expression Ppx_common.value list ->
-  (Pc.Label.t * Parsetree.expression) list
+  Parsetree.expression Common.value list ->
+  (Common.Label.t * Parsetree.expression) list
 
 
 
@@ -44,7 +43,7 @@ let to_pcdata = function
 
 (** Test if the expression is a pcdata containing only whitespaces. *)
 let is_whitespace = function
-  | Pc.Val e -> begin
+  | Common.Val e -> begin
       match to_pcdata e with
       | Some s when String.trim s = "" -> true
       | _ -> false
@@ -67,7 +66,7 @@ let filter_surrounding_whitespace children =
 (* Given a parse tree and a string [name], checks whether the parse tree is an
    application of a function with name [name]. *)
 let is_element_with_name name = function
-  | Pc.Val {pexp_desc = Pexp_apply ({pexp_desc = Pexp_ident {txt}}, _)}
+  | Common.Val {pexp_desc = Pexp_apply ({pexp_desc = Pexp_ident {txt}}, _)}
       when txt = name -> true
   | _ -> false
 
@@ -78,7 +77,7 @@ let partition name children =
 (* Given the name [n] of a function in [Html_sigs.T], evaluates to
    ["Html." ^ n]. *)
 let html local_name =
-  Longident.Ldot (Lident Pc.(implementation Html), local_name)
+  Longident.Ldot (Lident Common.(implementation Html), local_name)
 
 
 
@@ -86,18 +85,18 @@ let html local_name =
 
 let nullary ~lang:_ ~loc ~name children =
   if children <> [] then
-    Pc.error loc "%s should have no content" name;
-  [Pc.Label.nolabel, [%expr ()] [@metaloc loc]]
+    Common.error loc "%s should have no content" name;
+  [Common.Label.nolabel, [%expr ()] [@metaloc loc]]
 
 let unary ~lang ~loc ~name children =
   match children with
   | [child] ->
-    let child = Pc.wrap_value lang loc child in
-    [Pc.Label.nolabel, child]
-  | _ -> Pc.error loc "%s should have exactly one child" name
+    let child = Common.wrap_value lang loc child in
+    [Common.Label.nolabel, child]
+  | _ -> Common.error loc "%s should have exactly one child" name
 
 let star ~lang ~loc ~name:_ children =
-  [Pc.Label.nolabel, Pc.list_wrap_value lang loc children]
+  [Common.Label.nolabel, Common.list_wrap_value lang loc children]
 
 
 
@@ -121,9 +120,9 @@ let head ~lang ~loc ~name children =
 
   match title with
   | [title] ->
-    (Pc.Label.nolabel, Pc.wrap_value lang loc title) :: star ~lang ~loc ~name others
+    (Common.Label.nolabel, Common.wrap_value lang loc title) :: star ~lang ~loc ~name others
   | _ ->
-    Pc.error loc
+    Common.error loc
       "%s element must have exactly one title child element" name
 
 let figure ~lang ~loc ~name children =
@@ -131,16 +130,16 @@ let figure ~lang ~loc ~name children =
   | [] -> star ~lang ~loc ~name children
   | first::others ->
     if is_element_with_name (html "figcaption") first then
-      (Pc.Label.labelled "figcaption",
-       [%expr `Top [%e Pc.wrap_value lang loc first]])::
+      (Common.Label.labelled "figcaption",
+       [%expr `Top [%e Common.wrap_value lang loc first]])::
           (star ~lang ~loc ~name others)
     else
       let children_reversed = List.rev children in
       let last = List.hd children_reversed in
       if is_element_with_name (html "figcaption") last then
         let others = List.rev (List.tl children_reversed) in
-        (Pc.Label.labelled "figcaption",
-         [%expr `Bottom [%e Pc.wrap_value lang loc last]])::
+        (Common.Label.labelled "figcaption",
+         [%expr `Bottom [%e Common.wrap_value lang loc last]])::
             (star ~lang ~loc ~name others)
       else
         star ~lang ~loc ~name children
@@ -150,7 +149,7 @@ let object_ ~lang ~loc ~name children =
   let params, others = partition (html "param") children in
 
   if params <> [] then
-    (Pc.Label.labelled "params", Pc.list_wrap_value lang loc params) ::
+    (Common.Label.labelled "params", Common.list_wrap_value lang loc params) ::
     star ~lang ~loc ~name others
   else
     star ~lang ~loc ~name others
@@ -159,7 +158,7 @@ let audio_video ~lang ~loc ~name children =
   let sources, others = partition (html "source") children in
 
   if sources <> [] then
-    (Pc.Label.labelled "srcs", Pc.list_wrap_value lang loc sources) ::
+    (Common.Label.labelled "srcs", Common.list_wrap_value lang loc sources) ::
     star ~lang ~loc ~name others
   else
     star ~lang ~loc ~name others
@@ -172,13 +171,13 @@ let table ~lang ~loc ~name children =
 
   let one label = function
     | [] -> []
-    | [child] -> [Pc.Label.labelled label, Pc.wrap_value lang loc child]
-    | _ -> Pc.error loc "%s cannot have more than one %s" name label
+    | [child] -> [Common.Label.labelled label, Common.wrap_value lang loc child]
+    | _ -> Common.error loc "%s cannot have more than one %s" name label
   in
 
   let columns =
     if columns = [] then []
-    else [Pc.Label.labelled "columns", Pc.list_wrap_value lang loc columns]
+    else [Common.Label.labelled "columns", Common.list_wrap_value lang loc columns]
   in
 
   (one "caption" caption) @
@@ -193,9 +192,9 @@ let fieldset ~lang ~loc ~name children =
   match legend with
   | [] -> star ~lang ~loc ~name others
   | [legend] ->
-    (Pc.Label.labelled "legend", Pc.wrap_value lang loc legend)::
+    (Common.Label.labelled "legend", Common.wrap_value lang loc legend)::
       (star ~lang ~loc ~name others)
-  | _ -> Pc.error loc "%s cannot have more than one legend" name
+  | _ -> Common.error loc "%s cannot have more than one legend" name
 
 let datalist ~lang ~loc ~name children =
   let options, others = partition (html "option") children in
@@ -203,12 +202,12 @@ let datalist ~lang ~loc ~name children =
   let children =
     begin match others with
     | [] ->
-      Pc.Label.labelled "children",
-      [%expr `Options [%e Pc.list_wrap_value lang loc options]]
+      Common.Label.labelled "children",
+      [%expr `Options [%e Common.list_wrap_value lang loc options]]
 
     | _ ->
-      Pc.Label.labelled "children",
-      [%expr `Phras [%e Pc.list_wrap_value lang loc children]]
+      Common.Label.labelled "children",
+      [%expr `Phras [%e Common.list_wrap_value lang loc children]]
     end [@metaloc loc]
   in
 
@@ -219,14 +218,14 @@ let details ~lang ~loc ~name children =
 
   match summary with
   | [summary] ->
-    (Pc.Label.nolabel, Pc.wrap_value lang loc summary)::
+    (Common.Label.nolabel, Common.wrap_value lang loc summary)::
       (star ~lang ~loc ~name others)
-  | _ -> Pc.error loc "%s must have exactly one summary child" name
+  | _ -> Common.error loc "%s must have exactly one summary child" name
 
 let menu ~lang ~loc ~name children =
   let children =
-    Pc.Label.labelled "child",
-    [%expr `Flows [%e Pc.list_wrap_value lang loc children]]
+    Common.Label.labelled "child",
+    [%expr `Flows [%e Common.list_wrap_value lang loc children]]
       [@metaloc loc]
   in
   children::(nullary ~lang ~loc ~name [])
@@ -238,8 +237,8 @@ let html ~lang ~loc ~name children =
 
   match head, body, others with
   | [head], [body], [] ->
-    [Pc.Label.nolabel, Pc.wrap_value lang loc head;
-     Pc.Label.nolabel, Pc.wrap_value lang loc body]
+    [Common.Label.nolabel, Common.wrap_value lang loc head;
+     Common.Label.nolabel, Common.wrap_value lang loc body]
   | _ ->
-    Pc.error loc
+    Common.error loc
       "%s element must have exactly head and body child elements" name

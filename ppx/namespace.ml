@@ -17,19 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
-(** Namespace-specific values. *)
+let get : Common.lang -> (module Sigs_reflected.S) = function
+  | Html -> (module Html_sigs_reflected)
+  | Svg  -> (module Svg_sigs_reflected)
 
+let to_lang loc ns =
+  if ns = Markup.Ns.html then Common.Html
+  else if ns = Markup.Ns.svg then Common.Svg
+  else Common.error loc "Unknown namespace %s" ns
 
-
-val reflect :
-  Location.t -> string -> Ppx_common.lang * (module Ppx_sigs_reflected.S)
-(** When given either [Markup.Ns.html] or [Markup.Ns.svg] as argument, evaluates
-    to the title of the corresponding markup language, the name of the run-time
-    module containing its TyXML implementation, and a preprocessing-time module
-    containing reflection information. *)
-
-val get : Ppx_common.lang -> (module Ppx_sigs_reflected.S)
-(** Similar to {!reflect} but takes a {!Ppx_common.lang} directly. *)
-
-val to_lang : Location.t -> string -> Ppx_common.lang
-(** Takes a namespace and returns the appropriate language. *)
+let reflect loc ns =
+  let l = to_lang loc ns in (l, get l)
