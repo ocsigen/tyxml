@@ -1,0 +1,14 @@
+(jbuild_version 1)
+
+(executable
+ ((name reflect)
+  (libraries (ppx_tools_versioned tyxml.tools))
+  (preprocess (pps (ppx_tools_versioned.metaquot_405)))
+  (flags (:standard
+          -safe-string
+          -open Migrate_parsetree
+          -open Ast_405
+          -open Ppx_tools_405
+          -w "-9"
+  ))
+))
