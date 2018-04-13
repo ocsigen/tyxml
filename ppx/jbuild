@@ -26,7 +26,7 @@
               tyxml.tools
   ))
   (preprocess (pps (ppx_tools_versioned.metaquot_405)))
-  (modules_without_implementation (ppx_sigs_reflected))
+  (modules_without_implementation (sigs_reflected))
   (flags (:standard
           -safe-string
           -open Migrate_parsetree

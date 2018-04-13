@@ -21,10 +21,10 @@
 
 val parse :
   loc:Location.t ->
-  parent_lang:Ppx_common.lang ->
+  parent_lang:Common.lang ->
   name:Markup.name ->
-  attributes:(Markup.name * string Ppx_common.value) list ->
-  Parsetree.expression Ppx_common.value list ->
+  attributes:(Markup.name * string Common.value) list ->
+  Parsetree.expression Common.value list ->
   Parsetree.expression
 (** [parse ~loc ~parent_lang ~name ~attributes children]
     evaluates to a parse tree for applying the TyXML function corresponding
@@ -34,7 +34,7 @@ val parse :
 
 val comment :
   loc:Location.t ->
-  lang:Ppx_common.lang ->
+  lang:Common.lang ->
   string ->
   Parsetree.expression
 (** [comment ~loc ~ns s] evaluates to a parse tree that represents an XML comment. *)

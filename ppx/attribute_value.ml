@@ -20,14 +20,13 @@
 [@@@ocaml.warning "-3"]
 
 open Ast_helper
-module Pc = Ppx_common
 
 type 'a gparser =
   ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
     Parsetree.expression option
 
 type parser = string gparser
-type vparser = string Pc.value gparser
+type vparser = string Common.value gparser
 
 (* Handle expr *)
 
@@ -72,7 +71,7 @@ let list
     delimiter separated_by element_parser ?separated_by:_ ?default:_ loc name s =
 
   exp_list delimiter separated_by element_parser loc name s
-  |> Ppx_common.list loc
+  |> Common.list loc
   |> fun e -> Some e
 
 let spaces = list (Re_str.regexp " +") "space"
@@ -91,8 +90,8 @@ let wrap (parser : parser) implementation =
   expr @@
   fun ?separated_by:_ ?default:_ loc name s ->
   match parser loc name s with
-  | None -> Ppx_common.error loc "wrap applied to presence; nothing to wrap"
-  | Some e -> Some (Ppx_common.wrap implementation loc e)
+  | None -> Common.error loc "wrap applied to presence; nothing to wrap"
+  | Some e -> Some (Common.wrap implementation loc e)
 
 let nowrap (parser : parser) _ =
   expr @@
@@ -116,7 +115,7 @@ let must_be_a
       | None -> singular_description
   in
 
-  Ppx_common.error loc "Value of %s must be %s" name description
+  Common.error loc "Value of %s must be %s" name description
 
 
 
@@ -134,12 +133,12 @@ let group_matched index s =
   with Not_found -> false
 
 let int_exp loc s =
-  try Some (Ppx_common.int loc (int_of_string s))
+  try Some (Common.int loc (int_of_string s))
   with Failure _ -> None
 
 let float_exp loc s =
   try
-    Some (Ppx_common.float loc @@ float_of_string s)
+    Some (Common.float loc @@ float_of_string s)
   with Failure _ ->
     None
 
@@ -154,22 +153,22 @@ let char ?separated_by:_ ?default:_ loc name s =
   let open Markup.Encoding in
 
   let report _ error =
-    Ppx_common.error loc "%s in attribute %s"
+    Common.error loc "%s in attribute %s"
       (Markup.Error.to_string error |> String.capitalize) name
   in
   let decoded = string s |> decode ~report utf_8 in
 
   let c =
     match next decoded with
-    | None -> Ppx_common.error loc "No character in attribute %s" name
+    | None -> Common.error loc "No character in attribute %s" name
     | Some i when i <= 255 -> Char.chr i
     | Some _ ->
-      Ppx_common.error loc "Character out of range in attribute %s" name
+      Common.error loc "Character out of range in attribute %s" name
   in
 
   begin match next decoded with
   | None -> ()
-  | Some _ -> Ppx_common.error loc "Multiple characters in attribute %s" name
+  | Some _ -> Common.error loc "Multiple characters in attribute %s" name
   end;
 
   Some (with_default_loc loc @@ fun () -> Ast_convenience.char c)
@@ -179,7 +178,7 @@ let onoff ?separated_by:_ ?default:_ loc name s =
     | "" | "on" -> true
     | "off" -> false
     | _ ->
-      Ppx_common.error loc {|Value of %s must be "on", "" or "off"|} name
+      Common.error loc {|Value of %s must be "on", "" or "off"|} name
   in
   Some (bool_exp loc b)
 
@@ -188,7 +187,7 @@ let bool ?separated_by:_ ?default:_ loc name s =
     | "" | "true" -> true
     | "false" -> false
     | _ ->
-      Ppx_common.error loc {|Value of %s must be "true", "" or "false"|} name
+      Common.error loc {|Value of %s must be "true", "" or "false"|} name
   in
   Some (bool_exp loc b)
 
@@ -196,7 +195,7 @@ let unit ?separated_by:_ ?default:_ loc name s =
   if s = "" || s = name then
     Some (Ast_convenience.(with_default_loc loc unit))
   else
-    Ppx_common.error loc
+    Common.error loc
       {|Value of %s must be %s or "".|}
       name name
 
@@ -218,8 +217,8 @@ let points ?separated_by:_ ?default:_ loc name s =
   let expressions = spaces_or_commas_ float loc name s in
 
   let rec pair acc = function
-    | [] -> List.rev acc |> Ppx_common.list loc
-    | [_] -> Ppx_common.error loc "Unpaired coordinate in %s" name
+    | [] -> List.rev acc |> Common.list loc
+    | [_] -> Common.error loc "Unpaired coordinate in %s" name
     | ex::ey::rest -> pair (([%expr [%e ex], [%e ey]] [@metaloc loc])::acc) rest
   in
 
@@ -230,7 +229,7 @@ let number_pair ?separated_by:_ ?default:_ loc name s =
     begin match spaces_or_commas_ float loc name s with
     | [orderx] -> [%expr [%e orderx], None]
     | [orderx; ordery] -> [%expr [%e orderx], Some [%e ordery]]
-    | _ -> Ppx_common.error loc "%s requires one or two numbers" name
+    | _ -> Common.error loc "%s requires one or two numbers" name
     end [@metaloc loc]
   in
 
@@ -241,7 +240,7 @@ let fourfloats ?separated_by:_ ?default:_ loc name s =
   | [min_x; min_y; width; height] ->
     Some [%expr ([%e min_x], [%e min_y], [%e width], [%e height])]
       [@metaloc loc]
-  | _ -> Ppx_common.error loc "Value of %s must be four numbers" name
+  | _ -> Common.error loc "Value of %s must be four numbers" name
 
 (* These are always in a list; hence the error message. *)
 let icon_size =
@@ -249,7 +248,7 @@ let icon_size =
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
-      Ppx_common.error loc "Value of %s must be a %s, or %s"
+      Common.error loc "Value of %s must be a %s, or %s"
         name "space-separated list of icon sizes, such as 16x16" "any";
 
     let width, height =
@@ -257,13 +256,13 @@ let icon_size =
         int_of_string (Re_str.matched_group 1 s),
         int_of_string (Re_str.matched_group 2 s)
       with Invalid_argument _ ->
-        Ppx_common.error loc "Icon dimension out of range in %s" name
+        Common.error loc "Icon dimension out of range in %s" name
     in
 
     Some
       [%expr
-        [%e Ppx_common.int loc width],
-        [%e Ppx_common.int loc height]] [@metaloc loc]
+        [%e Common.int loc width],
+        [%e Common.int loc height]] [@metaloc loc]
 
 
 
@@ -284,7 +283,7 @@ let svg_quantity =
     let n =
       match float_exp loc (Re_str.matched_group 1 s) with
       | Some n -> n
-      | None -> Ppx_common.error loc "Number out of range in %s" name
+      | None -> Common.error loc "Number out of range in %s" name
     in
 
     let unit_string = Re_str.matched_group 4 s in
@@ -307,7 +306,7 @@ let svg_length =
     | "pt" -> [%expr `Pt]
     | "px" -> [%expr `Px]
     | "%" -> [%expr `Percent]
-    | s -> Ppx_common.error loc "Invalid length unit %s in %s" s name
+    | s -> Common.error loc "Invalid length unit %s in %s" s name
     end [@metaloc loc]
   in
 
@@ -322,7 +321,7 @@ let angle_ =
     | "deg" -> [%expr `Deg]
     | "rad" -> [%expr `Rad]
     | "grad" -> [%expr `Grad]
-    | s -> Ppx_common.error loc "Invalid angle unit %s in %s" s name
+    | s -> Common.error loc "Invalid angle unit %s in %s" s name
     end [@metaloc loc]
   in
 
@@ -333,7 +332,7 @@ let angle ?separated_by ?default loc name s =
 
 let offset =
   let bad_form name loc =
-    Ppx_common.error loc "Value of %s must be a number or percentage" name in
+    Common.error loc "Value of %s must be a number or percentage" name in
 
   let regexp = Re_str.regexp "\\([-+0-9eE.]+\\)\\(%\\)?" in
 
@@ -356,7 +355,7 @@ let transform =
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
-      Ppx_common.error loc "Value of %s must be an SVG transform" name;
+      Common.error loc "Value of %s must be an SVG transform" name;
 
     let kind = Re_str.matched_group 1 s in
     let values = Re_str.matched_group 2 s in
@@ -368,7 +367,7 @@ let transform =
         | [a; b; c; d; e; f] ->
           [%expr `Matrix ([%e a], [%e b], [%e c], [%e d], [%e e], [%e f])]
         | _ ->
-          Ppx_common.error loc "%s: matrix requires six numbers" name
+          Common.error loc "%s: matrix requires six numbers" name
         end
 
       | "translate" ->
@@ -376,14 +375,14 @@ let transform =
         | [tx; ty] -> [%expr `Translate ([%e tx], Some [%e ty])]
         | [tx] -> [%expr `Translate ([%e tx], None)]
         | _ ->
-          Ppx_common.error loc "%s: translate requires one or two numbers" name
+          Common.error loc "%s: translate requires one or two numbers" name
         end
 
       | "scale" ->
         begin match spaces_or_commas_ float loc "scale" values with
         | [sx; sy] -> [%expr `Scale ([%e sx], Some [%e sy])]
         | [sx] -> [%expr `Scale ([%e sx], None)]
-        | _ -> Ppx_common.error loc "%s: scale requires one or two numbers" name
+        | _ -> Common.error loc "%s: scale requires one or two numbers" name
         end
 
       | "rotate" ->
@@ -395,10 +394,10 @@ let transform =
             [%expr `Rotate
               ([%e angle_ loc "rotate" a], Some ([%e cx], [%e cy]))]
           | _ ->
-            Ppx_common.error loc "%s: rotate center requires two numbers" name
+            Common.error loc "%s: rotate center requires two numbers" name
           end
         | _ ->
-          Ppx_common.error loc
+          Common.error loc
             "%s: rotate requires an angle and an optional center" name
         end
 
@@ -406,7 +405,7 @@ let transform =
 
       | "skewY" -> [%expr `SkewY [%e angle_ loc "skewY" values]]
 
-      | s -> Ppx_common.error loc "%s: %s is not a valid transform type" name s
+      | s -> Common.error loc "%s: %s is not a valid transform type" name s
       end [@metaloc loc]
     in
 
@@ -433,7 +432,7 @@ let variant ?separated_by:_ ?default:_ loc _ s =
 let total_variant (unary, nullary) ?separated_by:_ ?default:_ loc _name s =
   let variand = variand s in
   if List.mem variand nullary then Some (Exp.variant ~loc variand None)
-  else Some (Exp.variant ~loc unary (Some (Ppx_common.string loc s)))
+  else Some (Exp.variant ~loc unary (Some (Common.string loc s)))
 
 
 
@@ -456,20 +455,20 @@ let paint_without_icc loc _name s =
     in
 
     match icc_color_start with
-    | None -> [%expr `Color ([%e Ppx_common.string loc s], None)]
+    | None -> [%expr `Color ([%e Common.string loc s], None)]
     | Some i ->
       let icc_color = Re_str.matched_group 1 s in
       let color = String.sub s 0 i in
       [%expr `Color
-        ([%e Ppx_common.string loc color],
-         Some [%e Ppx_common.string loc icc_color])]
+        ([%e Common.string loc color],
+         Some [%e Common.string loc icc_color])]
   end [@metaloc loc]
 
 let paint ?separated_by:_ ?default:_ loc name s =
   if not @@ Re_str.string_match (Re_str.regexp "url(\\([^)]+\\))") s 0 then
     Some (paint_without_icc loc name s)
   else
-    let iri = Re_str.matched_group 1 s |> Ppx_common.string loc in
+    let iri = Re_str.matched_group 1 s |> Common.string loc in
     let remainder_start = Re_str.group_end 0 in
     let remainder_length = String.length s - remainder_start in
     let remainder =
@@ -491,13 +490,13 @@ let srcset_element =
     let e =
       begin match Re_str.bounded_split space s 2 with
       | [url] ->
-        [%expr `Url [%e Ppx_common.string loc url]]
+        [%expr `Url [%e Common.string loc url]]
 
       | [url; descriptor] ->
         let bad_descriptor () =
-          Ppx_common.error loc "Bad width or density descriptor in %s" name in
+          Common.error loc "Bad width or density descriptor in %s" name in
 
-        let url = Ppx_common.string loc url in
+        let url = Common.string loc url in
         let suffix_index = String.length descriptor - 1 in
 
         let is_width =
@@ -513,7 +512,7 @@ let srcset_element =
             match int_exp loc (String.sub descriptor 0 suffix_index) with
             | Some n -> n
             | None ->
-              Ppx_common.error loc "Bad number for width in %s" name
+              Common.error loc "Bad number for width in %s" name
           in
 
           [%expr `Url_width ([%e url], [%e n])]
@@ -523,12 +522,12 @@ let srcset_element =
             match float_exp loc (String.sub descriptor 0 suffix_index) with
             | Some n -> n
             | None ->
-              Ppx_common.error loc "Bad number for pixel density in %s" name
+              Common.error loc "Bad number for pixel density in %s" name
           in
 
           [%expr `Url_pixel ([%e url], [%e n])]
 
-      | _ -> Ppx_common.error loc "Missing URL in %s" name
+      | _ -> Common.error loc "Missing URL in %s" name
       end [@metaloc loc]
     in
 
@@ -537,7 +536,7 @@ let srcset_element =
 let number_or_datetime ?separated_by:_ ?default:_ loc _ s =
   match int_exp loc s with
   | Some n -> Some [%expr `Number [%e n]]
-  | None -> Some [%expr `Datetime [%e Pc.string loc s]]
+  | None -> Some [%expr `Datetime [%e Common.string loc s]]
   [@metaloc loc]
 
 
@@ -552,6 +551,6 @@ let in2 = in_
 
 let xmlns ?separated_by:_ ?default:_ loc name s =
   if s <> Markup.Ns.html then
-    Ppx_common.error loc "%s: namespace must be %s" name Markup.Ns.html;
+    Common.error loc "%s: namespace must be %s" name Markup.Ns.html;
 
   Some [%expr `W3_org_1999_xhtml] [@metaloc loc]

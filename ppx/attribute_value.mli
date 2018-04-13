@@ -24,7 +24,7 @@ type 'a gparser =
   ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
     Parsetree.expression option
 type parser = string gparser
-type vparser = string Ppx_common.value gparser
+type vparser = string Common.value gparser
 (** Attribute value parsers are assigned to each attribute depending on the type
     of the attribute's argument, though some attributes have special parsers
     based on their name, or on a [[@@reflect]] annotation. A parser is a
@@ -76,11 +76,11 @@ val spaces_or_commas : parser -> parser
 (** {3 Top combinators}
     Exported parsers should always use one of those combinators last. *)
 
-val wrap : parser -> Ppx_common.lang -> vparser
+val wrap : parser -> Common.lang -> vparser
 (** [wrap parser module_ _ _ s] applies [parser _ _ s] to get a parse tree for
     [e], then evaluates to the parse tree for [module_.Xml.W.return e]. *)
 
-val nowrap : parser -> Ppx_common.lang -> vparser
+val nowrap : parser -> Common.lang -> vparser
 (** [nowrap parser _ _ _ s] evaluates to [parser _ _ s]. The purpose of this
     combinator is to provide a signature similar to [wrap] in situations where
     wrapping is not wanted. *)
