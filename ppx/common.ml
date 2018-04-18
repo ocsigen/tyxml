@@ -106,17 +106,21 @@ let list loc l =
   list_gen cons append nil @@ List.map (fun x -> Val x) l
 
 let list_wrap_value lang loc =
+  let (!!) = make ~loc lang in
   let nil =
     [%expr
-      [%e make ~loc lang "Xml.W.nil"]
+      [%e !!"Xml.W.nil"]
       ()] [@metaloc loc]
   in
   let cons acc x =
-    [%expr [%e make ~loc lang "Xml.W.cons"] [%e x] [%e acc]][@metaloc loc]
+    [%expr [%e !!"Xml.W.cons"]
+        ([%e !!"Xml.W.return"] [%e x])
+        [%e acc]
+    ][@metaloc loc]
   in
   let append acc x =
     [%expr
-      [%e make ~loc lang "Xml.W.append"]
+      [%e !!"Xml.W.append"]
         [%e add_constraints ~list:true lang x] [%e acc]
     ][@metaloc loc]
   in
@@ -124,7 +128,6 @@ let list_wrap_value lang loc =
 
 let list_wrap lang loc l =
   list_wrap_value lang loc @@ List.map (fun x -> Val x) l
-
 
 let wrap implementation loc e =
   [%expr
