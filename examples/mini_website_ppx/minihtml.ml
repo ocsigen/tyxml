@@ -15,7 +15,7 @@ let%html mypage =
      <head>
        <title>|}mytitle{|</title>
      </head>
-     <body>"mycontent"</body>
+     <body>|}[mycontent]{|</body>
    </html>
   |}
 
