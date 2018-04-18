@@ -223,48 +223,6 @@ let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
 
 ]
 
-let elt1 = Html.(span [pcdata "one"])
-let elt2 = Html.[b [pcdata "two"]]
-let id = "pata"
-
-let antiquot = "ppx antiquot", HtmlTests.make Html.[
-
-  "child",
-  [[%html "<p>" [elt1] "</p>"]],
-  [p [elt1]];
-
-  "list child",
-  [[%html "<p>" elt2 "</p>"]],
-  [p elt2];
-
-  "children",
-  [[%html "<p>bar"[elt1]"foo"elt2"baz</p>"]],
-  [p ([pcdata "bar"; elt1 ; pcdata "foo" ] @ elt2 @ [pcdata "baz" ])];
-
-  "insertion",
-  [[%html "<p><em>"[elt1]"</em></p>"]],
-  [p [em [elt1]]];
-
-  "attrib",
-  [[%html "<p id="id">bla</p>"]],
-  [p ~a:[a_id id] [pcdata "bla"]];
-
-  "first child",
-  [%html [elt1] "<p></p>"],
-  [elt1 ; p []];
-
-  "last child",
-  [%html "<p></p>" [elt1] ],
-  [p []; elt1];
-
-  (* should succeed *)
-  (* "escape", *)
-  (* [%tyxml "<p>(tyxml4)</p>"], *)
-  (* [p [pcdata "(tyxml4)"]]; *)
-
-
-]
-
 let svg = "svg", SvgTests.make Svg.[
 
   "basic",
@@ -374,19 +332,90 @@ end
 module HtmlWrappedTests = TyTests(HtmlWrapped)
 
 let (@:) h t =  HtmlWrapped.Xml.W.(cons (return h) t)
-let (!) = HtmlWrapped.Xml.W.return
+let (@-) =  HtmlWrapped.Xml.W.append
 let nil = HtmlWrapped.Xml.W.nil
+let (!) = HtmlWrapped.Xml.W.return
+let (!:) x = x @: nil ()
 
 let wrapping =
   let module Html = HtmlWrapped in
-  "wrapping", HtmlTests.make Html.[
-  "nil",
-  [[%html "<p></p>"]],
-  [p (nil ())] ;
+  "wrapping", HtmlWrappedTests.make Html.[
+    
+  "elem",
+  !:[%html "<p></p>"],
+  !:(p (nil ())) ;
   
-  "singleton",
-  [[%html "<p>foo</p>"]],
-  [p (pcdata !"foo" @: nil ())] ;
+  "child",
+  !:[%html "<p><span></span></p>"],
+  !:(p (span (nil ()) @: nil ())) ;
+
+  "list",
+  [%html "<p></p><span>foo</span>"],
+  (p (nil()) @: span (pcdata !"foo" @: nil ()) @: nil()) ;
+
+  "attrib",
+  !:[%html "<p id=foo></p>"],
+  !:(p ~a:[a_id !"foo"] (nil())) ;
+
+  "attribs",
+  !:[%html "<p id=foo class=bar></p>"],
+  !:(p ~a:[a_id !"foo"; a_class !["bar"] ] (nil())) ;
+
+  "comment",
+  !:[%html "<!--foo-->"],
+  !:(tot @@ Xml.comment "foo") ;
+
+  "pcdata",
+  !:[%html "<p>foo</p>"],
+  !:(p (pcdata !"foo" @: nil ())) ;
+  
+]
+
+
+let elt1() = !: HtmlWrapped.(span !: (pcdata !"one"))
+let elt2() = !: HtmlWrapped.(b !: (pcdata !"two"))
+let id = !"pata"
+
+let antiquot = 
+  let module Html = HtmlWrapped in
+  "ppx antiquot", HtmlWrappedTests.make Html.[
+  
+  "child",
+  !:[%html "<p>" (elt1()) "</p>"],
+  !:(p (elt1()));
+
+  "list child",
+  !:[%html "<p>" (elt2()) "</p>"],
+  !:(p (elt2()));
+
+  "children",
+  !:[%html "<p>bar"(elt1())"foo"(elt2())"baz</p>"],
+  !:(p (pcdata !"bar" @: elt1() @-
+        pcdata !"foo" @: elt2() @-
+        pcdata !"baz" @: nil ()));
+
+  "insertion",
+  !:[%html "<p><em>" (elt1()) "</em></p>"],
+  !:(p !:(em (elt1())));
+
+  "attrib",
+  !:[%html "<p id="id">bla</p>"],
+  !:(p ~a:[a_id id] !:(pcdata !"bla"));
+
+  "first child",
+  [%html (elt1()) "<p></p>"],
+  ((elt1()) @-  p (nil()) @: nil ());
+
+  "last child",
+  [%html "<p></p>" (elt1()) ],
+  (p (nil()) @: (elt1()));
+
+  (* should succeed *)
+  (* "escape", *)
+  (* [%tyxml "<p>(tyxml4)</p>"], *)
+  (* [p [pcdata "(tyxml4)"]]; *)
+
+
 ]
 
 let tests = [
