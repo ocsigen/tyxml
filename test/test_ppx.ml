@@ -369,6 +369,10 @@ let wrapping =
   !:[%html "<p>foo</p>"],
   !:(p (pcdata !"foo" @: nil ())) ;
   
+  "wrapped functions",
+  !:[%html "<input method=get />"],
+  !:(input ~a:[a_method !`Get] ())
+
 ]
 
 
@@ -409,6 +413,10 @@ let antiquot =
   "last child",
   [%html "<p></p>" (elt1()) ],
   (p (nil()) @: (elt1()));
+
+  "wrapped functions",
+  !:[%html "<input method="!`Get" />"],
+  !:(input ~a:[a_method !`Get] ())
 
   (* should succeed *)
   (* "escape", *)
