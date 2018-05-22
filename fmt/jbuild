@@ -1,0 +1,10 @@
+(jbuild_version 1)
+
+(library
+ ((name tyxml_fmt)
+  (public_name tyxml.fmt)
+  (synopsis "Tyxml: formatter that output HTML elements.")
+  (libraries (tyxml.functor fmt))
+  (flags (:standard
+          -safe-string))
+))
