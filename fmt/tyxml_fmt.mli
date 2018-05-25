@@ -25,6 +25,14 @@ module Make (H : Html_sigs.NoWrap) : sig
 
       Warning: For pretty printing purposes, [x] is always considered of 
       width 0! To print text, use the {!string} combinator.
+      To print HTML of which you know the size, use {!element_sized}.
+  *)
+
+  val element_sized : (int * out) t
+  (** [element_sized ppf (i,x)] pretty prints the tyxml element [x] 
+      with size [i] on [ppf].
+
+      See the documentation of {!element} for details.
   *)
   
   val elements : out list t
@@ -32,6 +40,10 @@ module Make (H : Html_sigs.NoWrap) : sig
 
       See the documentation of {!element} for details.
   *)
+
+  val tagf :
+    (out list -> out) -> formatter ->
+    ('a, formatter, unit, unit) format4 -> 'a
 
   val u : 
     ?a:[< Html_types.u_attrib ] H.attrib list ->
@@ -50,7 +62,7 @@ module Make (H : Html_sigs.NoWrap) : sig
     ('a, Html_types.phrasing, Html_types.phrasing) H.star ->
     ?a:'a H.attrib list -> ?sep:unit t -> 'a t -> 'a list t
 
-  val with_tag : (out list -> out) -> 'a t -> 'a t
+  val wrapped : (out list -> out) -> 'a t -> 'a t
   
   (** {2:formatter Formatter manipulation} *)
 

@@ -3,7 +3,7 @@
 (library
  ((name tyxml_fmt)
   (public_name tyxml.fmt)
-  (synopsis "Tyxml: formatter that output HTML elements.")
+  (synopsis "Formatters to output well typed HTML elements.")
   (libraries (tyxml.functor fmt))
   (flags (:standard
           -safe-string))

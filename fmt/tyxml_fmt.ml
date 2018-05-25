@@ -216,22 +216,37 @@ module Make (H : Html_sigs.NoWrap) = struct
       sep ppf ();
       list ~sep pp_v ppf vs
 
-  let elements ppf elts =
+  let with_elements f ppf elts =
     let tag = Tags.add ppf.tbl (Elements elts) in
     Format.pp_open_tag ppf.ppf tag;
+    f ppf elts;
     Format.pp_close_tag ppf.ppf ();
     ()
-  let element ppf elt = elements ppf [elt]
+  let elements ppf elts =
+    with_elements (fun _ _ -> ()) ppf elts
+  let element ppf elt =
+    elements ppf [elt]
+  let element_sized ppf (i,elt) =
+    let f ppf _ = Format.pp_print_as ppf.ppf i "" in
+    with_elements f ppf [elt]
 
-  let with_tag c f ppf x = 
+  let wrapped c f ppf x = 
     let tag = Tags.add ppf.tbl (Constr c) in
     Format.pp_open_tag ppf.ppf tag;
     f ppf x;
     Format.pp_close_tag ppf.ppf ();
     ()
     
-  let star (c : _ H.star) ?a f = with_tag (c ?a) f
+  let star (c : _ H.star) ?a f = wrapped (c ?a) f
   let starl c ?a ?sep f = star c ?a (list ?sep f)
+
+  let tagf c ppf fmt =
+    let tag = Tags.add ppf.tbl (Constr c) in
+    Format.pp_open_tag ppf.ppf tag;
+    kpf
+      (fun ppf -> Format.pp_close_tag ppf.ppf ())
+      ppf
+      fmt
     
   (** Some specific elements. *)
   let u ?a = star H.u ?a
