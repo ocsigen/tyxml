@@ -222,20 +222,17 @@ module Make (H : Html_sigs.NoWrap) = struct
     Format.pp_close_tag ppf.ppf ();
     ()
   let element ppf elt = elements ppf [elt]
-  
-  let nullary (f : _ H.nullary) a fmt =
-    element fmt (f ~a ())
-    
-  let unary (f : _ H.unary) a fmt x = 
-    element fmt (f ~a x)
 
-  let star (c : _ H.star) ?a ?sep f ppf l =
-    let tag = Tags.add ppf.tbl (Constr (c ?a)) in
+  let with_tag c f ppf x = 
+    let tag = Tags.add ppf.tbl (Constr c) in
     Format.pp_open_tag ppf.ppf tag;
-    list ?sep f ppf l;
+    f ppf x;
     Format.pp_close_tag ppf.ppf ();
     ()
-
+    
+  let star (c : _ H.star) ?a f = with_tag (c ?a) f
+  let starl c ?a ?sep f = star c ?a (list ?sep f)
+    
   (** Some specific elements. *)
   let u ?a = star H.u ?a
   let b ?a = star H.b ?a
