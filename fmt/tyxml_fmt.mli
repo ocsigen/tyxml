@@ -1,5 +1,9 @@
 
-module Make (H : Html_sigs.NoWrap) : sig
+module Make 
+    (S : Svg_sigs.NoWrap)
+    (H : Html_sigs.NoWrap
+     with module Xml = S.Xml
+      and module Svg := S) : sig
 
   type out = Html_types.phrasing H.elt
   (** Type of the output of the printer. *)

@@ -1,6 +1,10 @@
 module F = Format
 
-module Make (H : Html_sigs.NoWrap) = struct
+module Make
+    (S : Svg_sigs.NoWrap)
+    (H : Html_sigs.NoWrap
+     with module Xml = S.Xml
+      and module Svg := S) = struct
 
   type out = Html_types.phrasing H.elt
   
