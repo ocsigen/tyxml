@@ -195,8 +195,8 @@ end
 
 let make_pcdata ~loc ~lang s =
   let pcdata = Common.make ~loc lang "pcdata" in
-  Ast_helper.Exp.apply ~loc pcdata
-    [Common.Label.nolabel, Common.string loc s]
+  let arg = Common.wrap lang loc @@ Common.string loc s in
+  Ast_helper.Exp.apply ~loc pcdata [Common.Label.nolabel, arg]
 
 (** Walk the text list to replace placeholders by OCaml expressions when
     appropriate. Use {!make_pcdata} on the rest. *)

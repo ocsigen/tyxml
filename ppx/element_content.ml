@@ -34,9 +34,10 @@ type assembler =
 (* Given a parse tree [e], if [e] represents [_.pcdata s], where [s] is a string
    constant, evaluates to [Some s]. Otherwise, evaluates to [None]. *)
 let to_pcdata = function
-  | [%expr [%e? {pexp_desc = Pexp_ident f; _}] [%e? arg]] -> begin
-      match Longident.last f.txt, Ast_convenience.get_str arg with
-      | "pcdata", Some s -> Some s
+  | [%expr[%e? {pexp_desc = Pexp_ident f; _}]
+      ( [%e? {pexp_desc = Pexp_ident f2; _}] [%e? arg])] -> begin
+      match Longident.last f.txt, Longident.last f2.txt, Ast_convenience.get_str arg with
+      | "pcdata", "return", Some s -> Some s
       | _ -> None
     end
   | _ -> None
