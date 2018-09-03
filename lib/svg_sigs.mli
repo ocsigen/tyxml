@@ -673,7 +673,7 @@ module type T = sig
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
 
-  (** {3 Javascript mouse events} *)
+  (** {6 Javascript mouse events} *)
 
   val a_onclick : Xml.mouse_event_handler  -> [> | `OnClick ] attrib
   val a_onmousedown : Xml.mouse_event_handler  -> [> | `OnMouseDown ] attrib
@@ -681,6 +681,12 @@ module type T = sig
   val a_onmouseover : Xml.mouse_event_handler  -> [> | `OnMouseOver ] attrib
   val a_onmouseout : Xml.mouse_event_handler  -> [> | `OnMouseOut ] attrib
   val a_onmousemove : Xml.mouse_event_handler  -> [> | `OnMouseMove ] attrib
+
+  (** {4 Touch events} *)
+  val a_ontouchstart : Xml.touch_event_handler -> [> | `OnTouchStart] attrib
+  val a_ontouchend : Xml.touch_event_handler -> [> | `OnTouchEnd] attrib
+  val a_ontouchmove : Xml.touch_event_handler -> [> | `OnTouchMove] attrib
+  val a_ontouchcancel : Xml.touch_event_handler -> [> | `OnTouchCancel] attrib
 
   (** {2:elements Elements} *)
 
@@ -1034,6 +1040,7 @@ module Make (Xml : Xml_sigs.T) : sig
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.touch_event_handler = Xml.touch_event_handler
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
 

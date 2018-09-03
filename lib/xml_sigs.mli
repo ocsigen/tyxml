@@ -35,6 +35,7 @@ module type T = sig
   type event_handler
   type mouse_event_handler
   type keyboard_event_handler
+  type touch_event_handler
 
   type attrib
 
@@ -46,6 +47,7 @@ module type T = sig
   val event_handler_attrib : aname -> event_handler -> attrib
   val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
   val keyboard_event_handler_attrib : aname -> keyboard_event_handler -> attrib
+  val touch_event_handler_attrib : aname -> touch_event_handler -> attrib
   val uri_attrib : aname -> uri wrap -> attrib
   val uris_attrib : aname -> uri list wrap -> attrib
 

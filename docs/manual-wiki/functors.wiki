@@ -98,7 +98,8 @@ There are some important notes about theses signature functors:
 * {{{module M : Svg_sigs.Make(Tyxml_xml).T}}} doesn't mean that {{{M.Xml}}}
   is a submodule of {{{Xml}}}. It only means that the types {{{uri}}},
   {{{event_handler}}}, {{{mouse_event_handler}}},
-  {{{keyboard_event_handler}}}, {{{attrib}}} and {{{elt}}} are the
+  {{{keyboard_event_handler}}}, {{{touch_event_handler}}},
+  {{{attrib}}} and {{{elt}}} are the
   same in both modules.  This is useful when not exporting the exact
   module that was used in the functor, but another (smaller and
   simpler) module. This is the case in <<a_api project="js_of_ocaml"| module Tyxml_js.R >>,

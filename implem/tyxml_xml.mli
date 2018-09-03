@@ -26,6 +26,7 @@ include Xml_sigs.Iterable
    and type event_handler = string
    and type mouse_event_handler = string
    and type keyboard_event_handler = string
+   and type touch_event_handler = string
 
 include Xml_sigs.Pp
   with type elt := elt

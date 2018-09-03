@@ -46,6 +46,7 @@ module M = struct
   type event_handler = string
   type mouse_event_handler = string
   type keyboard_event_handler = string
+  type touch_event_handler = string
 
   let acontent (_, a) = a
   let aname (name, _) = name
@@ -58,6 +59,7 @@ module M = struct
   let event_handler_attrib name value = name, AStr value
   let mouse_event_handler_attrib name value = name, AStr value
   let keyboard_event_handler_attrib name value = name, AStr value
+  let touch_event_handler_attrib name value = name, AStr value
   let uri_attrib name value = name, AStr value
   let uris_attrib name values = name, AStrL (Space, values)
 

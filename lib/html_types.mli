@@ -331,6 +331,10 @@ type events =
     | `OnSubmit
     | `OnSuspend
     | `OnTimeUpdate
+    | `OnTouchStart
+    | `OnTouchEnd
+    | `OnTouchMove
+    | `OnTouchCancel
     | `OnVolumeChange
     | `OnWaiting
     | `OnKeyPress

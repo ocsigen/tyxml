@@ -696,6 +696,12 @@ struct
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
   let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
 
+  (** Javascript touch events *)
+  let a_ontouchstart = Xml.touch_event_handler_attrib "ontouchstart"
+  let a_ontouchend = Xml.touch_event_handler_attrib "ontouchend"
+  let a_ontouchmove = Xml.touch_event_handler_attrib "ontouchmove"
+  let a_ontouchcancel = Xml.touch_event_handler_attrib "ontouchcancel"
+
   let a_stop_color = color_attrib "stop-color"
 
   let a_stop_opacity = user_attrib C.string_of_number "stop-opacity"
