@@ -673,7 +673,7 @@ module type T = sig
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
 
-  (** {6 Javascript mouse events} *)
+  (** {3 Javascript mouse events} *)
 
   val a_onclick : Xml.mouse_event_handler  -> [> | `OnClick ] attrib
   val a_onmousedown : Xml.mouse_event_handler  -> [> | `OnMouseDown ] attrib
@@ -682,7 +682,7 @@ module type T = sig
   val a_onmouseout : Xml.mouse_event_handler  -> [> | `OnMouseOut ] attrib
   val a_onmousemove : Xml.mouse_event_handler  -> [> | `OnMouseMove ] attrib
 
-  (** {4 Touch events} *)
+  (** {3 Javascript touch events} *)
   val a_ontouchstart : Xml.touch_event_handler -> [> | `OnTouchStart] attrib
   val a_ontouchend : Xml.touch_event_handler -> [> | `OnTouchEnd] attrib
   val a_ontouchmove : Xml.touch_event_handler -> [> | `OnTouchMove] attrib
