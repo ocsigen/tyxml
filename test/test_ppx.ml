@@ -201,6 +201,9 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<div aria-hidden=true></div>"]],
   [div ~a:[a_aria "hidden" ["true"]] []] ;
 
+  "touch events",
+  [[%html "<div ontouchstart='alert()'></div>"]],
+  [div ~a:[a_ontouchstart "alert()"] []] ;
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
