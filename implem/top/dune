@@ -1,0 +1,6 @@
+(library
+ (name tyxml_top)
+ (public_name tyxml.top)
+ (wrapped false)
+ (synopsis "Toplevel printers for HTML, SVG and XML")
+ (libraries compiler-libs.toplevel))

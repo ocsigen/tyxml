@@ -2,25 +2,25 @@
 default: build
 
 .PHONY: build
-build: 
-	jbuilder build --dev @install
+build:
+	dune build @install
 
 .PHONY: tools
-tools: 
-	jbuilder build --dev tools/autoname.exe
-	@echo "You can now use: 'jbuilder exec tools/autoname.exe -- element'"
+tools:
+	dune build tools/autoname.exe
+	@echo "You can now use: 'dune exec tools/autoname.exe -- element'"
 
 .PHONY: test
 test:
-	jbuilder runtest --dev
+	dune runtest
 
 .PHONY: clean
 clean:
-	jbuilder clean
+	dune clean
 
 .PHONY: doc
 doc:
-	jbuilder build @doc
+	dune build @doc
 
 .PHONY: doc-api-wiki
 wikidoc: build

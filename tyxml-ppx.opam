@@ -10,12 +10,12 @@ doc: "https://ocsigen.org/tyxml/manual/"
 dev-repo: "https://github.com/ocsigen/tyxml.git"
 
 build: [
-  ["jbuilder" "build" "-p" name "-j" jobs "@install"]
-  ["jbuilder" "runtest" "-p" name] {with-test}
+  ["dune" "build" "-p" name "-j" jobs "@install"]
+  ["dune" "runtest" "-p" name] {with-test}
 ]
 
 depends: [
-  "jbuilder" {build}
+  "dune" {build}
   "tyxml"
   "markup" {>= "0.7.2"}
   "ppx_tools_versioned"
