@@ -21,4 +21,4 @@ depends: [
   "ppx_tools_versioned"
   "alcotest" {test}
 ]
-available: ocaml-version >= "4.03"
+available: ocaml-version >= "4.02"

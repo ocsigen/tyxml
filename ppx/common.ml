@@ -60,7 +60,17 @@ let with_loc loc f x =
 
 let error_prefix : _ format6 = "Error: "
 let error loc ppf =
-  Location.raise_errorf ~loc (error_prefix^^ppf)
+  (* Originally written by @Drup in 24d87befcc505a9e3a1b081849b12560ce38028f. *)
+  (* We use a custom implementation because the type of Location.raise_errorf
+     changed in 4.03 *)
+  let buf = Buffer.create 17 in
+  let fmt = Format.formatter_of_buffer buf in
+  Format.kfprintf
+    (fun _ ->
+      Format.pp_print_flush fmt ();
+      Location.raise_errorf ~loc "%s@." (Buffer.contents buf))
+    fmt
+    (error_prefix^^ppf)
 
 (** Ast manipulation *)
 
