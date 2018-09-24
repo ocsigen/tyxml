@@ -326,7 +326,7 @@ let markup_to_expr lang loc expr =
       let node = Common.value @@ Element.comment ~loc ~lang s in
       assemble lang (node :: children)
 
-    | Some (`Xml _ | `Doctype _ | `PI _)  ->
+    | Some (`Xml _ | `Doctype _ | `PI _ | `Raw _)  ->
       assemble lang children
   in
 
