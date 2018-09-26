@@ -1,3 +1,4 @@
+open Format
 
 module Make 
     (S : Svg_sigs.NoWrap)
@@ -11,11 +12,6 @@ module Make
   type 'a attribs = 'a H.attrib list
   (** Attributes of Html elements. *)
   
-  type formatter
-  (** The type of tyxml-aware formatters. *)
-
-  type 'a t = formatter -> 'a -> unit
-  
   val kpr : 
     (out list -> 'a) ->
     ('b, formatter, unit, 'a) format4 -> 'b
@@ -24,7 +20,7 @@ module Make
 
   (** {2:html HTML printers} *)
     
-  val element : out t
+  val element : out Fmt.t
   (** [element ppf x] pretty prints the tyxml element [x] on [ppf].
 
       Warning: For pretty printing purposes, [x] is always considered of 
@@ -32,14 +28,14 @@ module Make
       To print HTML of which you know the size, use {!element_sized}.
   *)
 
-  val element_sized : (int * out) t
+  val element_sized : (int * out) Fmt.t
   (** [element_sized ppf (i,x)] pretty prints the tyxml element [x] 
       with size [i] on [ppf].
 
       See the documentation of {!element} for details.
   *)
   
-  val elements : out list t
+  val elements : out list Fmt.t
   (** [elements ppf l] prints a list of tyxml elements [l].
 
       See the documentation of {!element} for details.
@@ -51,31 +47,28 @@ module Make
 
   val u : 
     ?a:[< Html_types.u_attrib ] H.attrib list ->
-    'a t -> 'a t
+    'a Fmt.t -> 'a Fmt.t
   val b : 
     ?a:[< Html_types.u_attrib ] H.attrib list ->
-    'a t -> 'a t
+    'a Fmt.t -> 'a Fmt.t
   val span : 
     ?a:[< Html_types.u_attrib ] H.attrib list ->
-    'a t -> 'a t
+    'a Fmt.t -> 'a Fmt.t
   
   val star :
     ('a, Html_types.phrasing, Html_types.phrasing) H.star ->
-    ?a:'a H.attrib list -> 'a t -> 'a t
+    ?a:'a H.attrib list -> 'a Fmt.t -> 'a Fmt.t
   val starl :
     ('a, Html_types.phrasing, Html_types.phrasing) H.star ->
-    ?a:'a H.attrib list -> ?sep:unit t -> 'a t -> 'a list t
+    ?a:'a H.attrib list -> ?sep:unit Fmt.t -> 'a Fmt.t -> 'a list Fmt.t
 
-  val wrapped : (out list -> out) -> 'a t -> 'a t
+  val wrapped : (out list -> out) -> 'a Fmt.t -> 'a Fmt.t
   
-  (** {2:formatter Formatter manipulation} *)
-
-  val make : unit -> formatter
-  (** Create a new formatter. *)
-
-  val flush : formatter -> out list
-  
-  (** {2:fmt {!Fmt} API} *)
-  include Fmt.S with type formatter := formatter and type 'a t := 'a t
+  (* (\** {2:formatter Formatter manipulation} *\)
+   * 
+   * val make : unit -> formatter
+   * (\** Create a new formatter. *\)
+   * 
+   * val flush : formatter -> out list *)
 
 end
