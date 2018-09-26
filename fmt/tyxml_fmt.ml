@@ -88,9 +88,10 @@ module Make
     done ;
     fmt.current
 
-  let kpr k =
-    let fmt = make () in
-    Fmt.kpf (fun _ -> k @@ flush fmt) fmt.ppf
+  let kpf k ppf = Fmt.kpf (fun _ -> k @@ flush ppf) ppf.ppf
+  let pf fmt = kpf (fun x -> x) fmt
+  
+  let kpr k fmt = kpf k (make ()) fmt
   let pr fmt = kpr (fun x -> x) fmt
   
   (** Basic types *)
@@ -117,13 +118,12 @@ module Make
   let star (c : _ H.star) ?a f = wrapped (c ?a) f
   let starl c ?a ?sep f = star c ?a (Fmt.list ?sep f)
 
-  let tagf c ppf fmt =
-    Format.pp_open_stag ppf (Constr c);
-    Fmt.kpf
-      (fun ppf -> Format.pp_close_stag ppf ())
-      ppf
-      fmt
-    
+  let tagf c fmt =
+    Format.kdprintf
+      (fun k ppf -> k ppf ; Format.pp_close_stag ppf ())
+      ("%t" ^^ fmt)
+      (fun ppf -> Format.pp_open_stag ppf (Constr c))
+      
   (** Some specific elements. *)
   let u ?a = star H.u ?a
   let b ?a = star H.b ?a

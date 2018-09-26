@@ -42,17 +42,16 @@ module Make
   *)
 
   val tagf :
-    (out list -> out) -> formatter ->
-    ('a, formatter, unit, unit) format4 -> 'a
+    (out list -> out) -> ('a, formatter, unit, formatter -> unit) format4 -> 'a
 
   val u : 
     ?a:[< Html_types.u_attrib ] H.attrib list ->
     'a Fmt.t -> 'a Fmt.t
   val b : 
-    ?a:[< Html_types.u_attrib ] H.attrib list ->
+    ?a:[< Html_types.b_attrib ] H.attrib list ->
     'a Fmt.t -> 'a Fmt.t
   val span : 
-    ?a:[< Html_types.u_attrib ] H.attrib list ->
+    ?a:[< Html_types.span_attrib ] H.attrib list ->
     'a Fmt.t -> 'a Fmt.t
   
   val star :
@@ -64,11 +63,19 @@ module Make
 
   val wrapped : (out list -> out) -> 'a Fmt.t -> 'a Fmt.t
   
-  (* (\** {2:formatter Formatter manipulation} *\)
-   * 
-   * val make : unit -> formatter
-   * (\** Create a new formatter. *\)
-   * 
-   * val flush : formatter -> out list *)
+  (** {2:formatter Formatter manipulation} *)
 
+  type formatter
+  
+  val make : unit -> formatter
+  (** Create a new formatter. *)
+  
+  val flush : formatter -> out list
+
+  val kpf : 
+    (out list -> 'o) ->
+    formatter -> ('a, Format.formatter, unit, 'o) format4 -> 'a
+
+  val pf : formatter -> ('a, Format.formatter, unit, out list) format4 -> 'a
+  
 end
