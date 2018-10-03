@@ -1,16 +1,18 @@
 ;; Normal tests
 
-(executable
- (name main_test)
+(test
+ (name test_html)
+ (modules test_html)
  (libraries tyxml alcotest)
- (modules main_test test_html test_ppx)
- (preprocess (pps tyxml-ppx))
+ (package tyxml)
 )
 
-(alias
- (name runtest)
- (deps main_test.exe)
- (action (run %{exe:main_test.exe}))
+(test
+ (name test_ppx)
+ (modules test_ppx)
+ (libraries tyxml alcotest)
+ (preprocess (pps tyxml-ppx))
+ (package tyxml-ppx)
 )
 
 ;; Toplevel ppx tests
@@ -31,17 +33,14 @@
  (name   runtest)
  (deps   html_fail.result html_fail.expected)
  (action (diff html_fail.expected html_fail.result))
+ (package tyxml-ppx)
 )
 
 ;; Emitbig
 
-(executable
- (name       emitbig)
+(test
+ (name emitbig)
  (libraries  tyxml unix)
  (modules emitbig)
-)
-(alias
- (name   runtest)
- (deps emitbig.exe)
- (action (run %{exe:emitbig.exe}))
+ (package tyxml)
 )
