@@ -1,0 +1,48 @@
+;; Normal tests
+
+(test
+ (name test_html)
+ (modules test_html)
+ (libraries tyxml alcotest)
+ (package tyxml)
+)
+
+(test
+ (name test_ppx)
+ (modules test_ppx)
+ (libraries tyxml alcotest)
+ (preprocess (pps tyxml-ppx))
+ (package tyxml-ppx)
+)
+
+;; Toplevel ppx tests
+;; WIP this test is temporarly disable, waiting for proper support for
+;; toplevel tests in dune.
+
+; (executable
+;  (name ppx)
+;  (libraries tyxml-ppx ocaml-migrate-parsetree)
+;  (modules ppx)
+; )
+
+; (rule
+;  (targets html_fail.result)
+;  (deps    ppx.exe html_fail.ml)
+;  (action (system "TERM= %{ocaml} -I ../implem/.tyxml.objs/ -noinit -noprompt -ppx './%{exe:ppx.exe} --as-ppx' < html_fail.ml 2>&1 | tail -n +3 > %{targets}"))
+; )
+
+; (alias
+;  (name   runtest)
+;  (deps   html_fail.result html_fail.expected)
+;  (action (diff html_fail.expected html_fail.result))
+;  (package tyxml-ppx)
+; )
+
+;; Emitbig
+
+(test
+ (name emitbig)
+ (libraries  tyxml unix)
+ (modules emitbig)
+ (package tyxml)
+)

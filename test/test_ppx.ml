@@ -435,3 +435,5 @@ let tests = [
   svg_element_names ;
   wrapping ;
 ]
+
+let () = Alcotest.run "tyxml-ppx" tests

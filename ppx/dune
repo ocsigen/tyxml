@@ -1,0 +1,35 @@
+(rule
+ (targets html_sigs_reflected.ml)
+ (deps    reflect/reflect.exe ../lib/html_sigs.mli)
+ (action  (run %{deps} %{targets})))
+(rule
+ (targets svg_sigs_reflected.ml)
+ (deps    reflect/reflect.exe ../lib/svg_sigs.mli)
+ (action  (run %{deps} %{targets})))
+(rule
+ (targets html_types_reflected.ml)
+ (deps    reflect/reflect.exe ../lib/html_types.mli)
+ (action  (run %{deps} %{targets})))
+(rule
+ (targets svg_types_reflected.ml)
+ (deps    reflect/reflect.exe ../lib/svg_types.mli)
+ (action  (run %{deps} %{targets})))
+
+(library
+ (name tyxml_ppx)
+ (public_name tyxml-ppx.internal)
+ (libraries re.str
+            ppx_tools_versioned
+            markup
+            tyxml.tools
+ )
+ (preprocess (pps ppx_tools_versioned.metaquot_405))
+ (modules_without_implementation sigs_reflected)
+ (flags (:standard
+         -safe-string
+         -open Migrate_parsetree
+         -open Ast_405
+         -open Ppx_tools_405
+         -w "-9"
+ ))
+)

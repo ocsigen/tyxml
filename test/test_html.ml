@@ -86,3 +86,5 @@ let tests = [
   html_elements ;
   escaping ;
 ]
+
+let () = Alcotest.run "tyxml" tests
