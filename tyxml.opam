@@ -11,7 +11,9 @@ dev-repo: "https://github.com/ocsigen/tyxml.git"
 
 build: [
   ["jbuilder" "build" "-p" name "-j" jobs "@install"]
-  ["jbuilder" "runtest" "-p" name] {with-test}
+]
+build-test: [
+  ["jbuilder" "runtest" "-p" name]
 ]
 
 depends: [

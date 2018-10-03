@@ -2,7 +2,8 @@ Characters 6-14:
   div [a [a []]] ;;
        ^^^^^^^^
 Error: This expression has type
-         ([> 'b Html_types.a ] as 'a) Tyxml.Html.elt = 'a Tyxml_html.elt
+         ([> ([> 'c Html_types.a ] as 'b) Html_types.a ] as 'a)
+         Tyxml.Html.elt = 'a Tyxml_html.elt
        but an expression was expected of type
          ([< Html_types.div_content_fun ] as 'd) Tyxml.Html.elt =
            'd Tyxml_html.elt

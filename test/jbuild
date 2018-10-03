@@ -25,7 +25,7 @@
 
 (rule
  ((targets (html_fail.result))
-  (deps   (ppx.exe html_fail.ml))
+  (deps   ((package tyxml) ppx.exe html_fail.ml))
   (action (system "TERM= ${OCAML} -I ../implem/.tyxml.objs/ -noinit -noprompt -ppx './${exe:ppx.exe} --as-ppx' < html_fail.ml 2>&1 | tail -n +3 > ${@}"))
 ))
 
