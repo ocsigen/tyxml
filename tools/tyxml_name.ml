@@ -4,6 +4,13 @@
    see <http://www.w3.org/TR/html51/syntax.html#syntax>
 *)
 
+(* When dropping support for 4.02, this module can simply be deleted. *)
+module Char = struct
+  include Char
+  let lowercase_ascii = Char.lowercase [@ocaml.warning "-3"]
+  let uppercase_ascii = Char.uppercase [@ocaml.warning "-3"]
+end
+
 (* In the ocaml parser:
    let identchar = ['A'-'Z' 'a'-'z' '_' '\'' '0'-'9']
 *)

@@ -17,6 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+(* When dropping support for 4.02, this module can simply be deleted. *)
+module String = struct
+  include String
+  let capitalize_ascii = String.capitalize [@ocaml.warning "-3"]
+end
+
 open Asttypes
 open Parsetree
 
