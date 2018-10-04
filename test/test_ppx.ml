@@ -145,6 +145,16 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
   [div [p [pcdata "a"]; tot (Xml.comment " b "); hr ()]] ;
 
+  "figcaption first",
+  [[%html {|<figure> <figcaption> hello </figcaption> <img src="foo.jpg" alt="a" /> </figure>|}]],
+  [figure ~figcaption:(`Top (figcaption [pcdata " hello "]))
+     [pcdata " "; img ~src:"foo.jpg" ~alt:"a" () ; pcdata " " ]];
+  
+  "figcaption last",
+  [[%html {|<figure> <img src="foo.jpg" alt="a" /> <figcaption> hello </figcaption> </figure>|}]],
+  [figure ~figcaption:(`Bottom (figcaption [pcdata " hello "]))
+     [pcdata " "; img ~src:"foo.jpg" ~alt:"a" () ; pcdata " " ]];
+  
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
