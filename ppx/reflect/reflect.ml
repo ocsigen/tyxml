@@ -162,7 +162,7 @@ let rec to_attribute_parser lang name = function
 
   | [[%type: Xml.event_handler]]
   | [[%type: Xml.mouse_event_handler]]
-  | [[%type: Xml.keyboard_event_handler]] ->
+  | [[%type: Xml.keyboard_event_handler]]
   | [[%type: Xml.touch_event_handler]] ->
     [%expr nowrap string]
 
