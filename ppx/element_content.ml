@@ -127,23 +127,34 @@ let head ~lang ~loc ~name children =
       "%s element must have exactly one title child element" name
 
 let figure ~lang ~loc ~name children =
-  begin match children with
-  | [] -> star ~lang ~loc ~name children
-  | first::others ->
-    if is_element_with_name (html "figcaption") first then
+  let caption, children =
+    let rec is_first_figcaption = function
+      | [] -> is_last_figcaption (List.rev children)
+      | h :: t ->
+        if is_whitespace h then is_first_figcaption t
+        else if is_element_with_name (html "figcaption") h then
+          `Top h,t
+        else is_last_figcaption (List.rev children)
+    and is_last_figcaption = function
+      | [] -> `No, children
+      | h :: t ->
+        if is_whitespace h then is_last_figcaption t
+        else if is_element_with_name (html "figcaption") h then
+          `Bottom h, (List.rev t)
+        else `No, children
+    in
+    is_first_figcaption children
+  in
+  begin match caption with
+    | `No -> star ~lang ~loc ~name children
+    | `Top elt -> 
       (Common.Label.labelled "figcaption",
-       [%expr `Top [%e Common.wrap_value lang loc first]])::
-          (star ~lang ~loc ~name others)
-    else
-      let children_reversed = List.rev children in
-      let last = List.hd children_reversed in
-      if is_element_with_name (html "figcaption") last then
-        let others = List.rev (List.tl children_reversed) in
-        (Common.Label.labelled "figcaption",
-         [%expr `Bottom [%e Common.wrap_value lang loc last]])::
-            (star ~lang ~loc ~name others)
-      else
-        star ~lang ~loc ~name children
+       [%expr `Top [%e Common.wrap_value lang loc elt]])::
+      (star ~lang ~loc ~name children)
+    | `Bottom elt ->
+      (Common.Label.labelled "figcaption",
+       [%expr `Bottom [%e Common.wrap_value lang loc elt]])::
+      (star ~lang ~loc ~name children)
   end [@metaloc loc]
 
 let object_ ~lang ~loc ~name children =
