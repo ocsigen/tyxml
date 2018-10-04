@@ -50,7 +50,7 @@ val encode_unsafe_char_and_at : string -> string
 
 (** Utf8 normalizer and encoder for HTML.
 
-Given a module [pp] functions produced by one of the functors in {!Xml_print}, this modules is used as following:
+Given a [pp] function produced by one of the functors in {!Xml_print}, this modules is used as following:
   {[
     let encode x = fst (Xml_print.Utf8.normalize_html x) in
     Format.printf "%a" (Html.pp ~encode ()) document
@@ -82,14 +82,14 @@ val compose_decl : ?version:string -> ?encoding:string -> unit -> string
 val compose_doctype : string -> string list -> string
 
 val string_of_number : float -> string
-(** Convert a float to a string using a compact representation compatible with Javascript norme. *)
+(** Convert a float to a string using a compact representation compatible with the Javascript norm. *)
 
 val pp_number : Format.formatter -> float -> unit
 (** See {!string_of_number}. *)
 
 (** {2 Formatter functors} *)
 
-(** Printers for typed XML module, such as the one produced by {!Svg_f} and {!Html_f}. *)
+(** Printers for typed XML modules such as the one produced by {!Svg_f} and {!Html_f}. *)
 module Make_typed_fmt
     (Xml : Xml_sigs.Iterable)
     (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
