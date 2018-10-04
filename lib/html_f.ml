@@ -179,6 +179,12 @@ struct
   let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
 
+  (** Javascript touch events *)
+  let a_ontouchstart = Xml.touch_event_handler_attrib "ontouchstart"
+  let a_ontouchend = Xml.touch_event_handler_attrib "ontouchend"
+  let a_ontouchmove = Xml.touch_event_handler_attrib "ontouchmove"
+  let a_ontouchcancel = Xml.touch_event_handler_attrib "ontouchcancel"
+
   (** Javascript keyboard events *)
   let a_onkeypress = Xml.keyboard_event_handler_attrib "onkeypress"
   let a_onkeydown = Xml.keyboard_event_handler_attrib "onkeydown"

@@ -242,6 +242,12 @@ module type T = sig
   val a_onmousemove : Xml.mouse_event_handler -> [> | `OnMouseMove] attrib
   val a_onmouseout : Xml.mouse_event_handler -> [> | `OnMouseOut] attrib
 
+  (** {4 Touch events} *)
+  val a_ontouchstart : Xml.touch_event_handler -> [> | `OnTouchStart] attrib
+  val a_ontouchend : Xml.touch_event_handler -> [> | `OnTouchEnd] attrib
+  val a_ontouchmove : Xml.touch_event_handler -> [> | `OnTouchMove] attrib
+  val a_ontouchcancel : Xml.touch_event_handler -> [> | `OnTouchCancel] attrib
+
   (** {4 Keyboard events} *)
 
   val a_onkeypress : Xml.keyboard_event_handler -> [> | `OnKeyPress] attrib
@@ -1135,6 +1141,7 @@ sig
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
+     and type Xml.touch_event_handler = Xml.touch_event_handler
      and type Xml.attrib = Xml.attrib
      and type Xml.elt = Xml.elt
      and module Svg := Svg
