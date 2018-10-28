@@ -31,7 +31,30 @@ type signal = [
 ]
 
 exception Malformed_stream
-  
+
 module Import (Xml : Xml_sigs.T) : sig
   val of_seq : signal Seq.t -> Xml.elt Xml.list_wrap
 end
+
+(** {2 Output} *)
+
+type output = [ signal | `Raw of string list ]
+
+module Typed_export
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
+  : sig
+
+    (** [export l] converts the Tyxml elements [l] into a signal.
+        This signal is roughtly compatible with libraries to manipulate HTML
+        and SVG such as Markup and Lambdasoup.
+    *)
+    val export : 'a Typed_xml.elt list -> output Seq.t
+  end
+
+module Export
+    (Xml : Xml_sigs.Iterable)
+  : sig
+    val to_seq : ?namespace:string -> Xml.elt -> output Seq.t
+    val to_seql : ?namespace:string -> Xml.elt list -> output Seq.t
+  end
