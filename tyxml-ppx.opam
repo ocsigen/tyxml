@@ -2,6 +2,8 @@ opam-version: "1.2"
 
 version: "dev"
 
+synopsis: "PPX for building statically correct TyXML documents using the HTML and SVG syntax"
+
 maintainer: "dev@ocsigen.org"
 author: "The ocsigen team"
 homepage: "https://ocsigen.org/tyxml/"

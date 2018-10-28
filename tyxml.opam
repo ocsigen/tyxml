@@ -2,6 +2,9 @@ opam-version: "1.2"
 
 version: "dev"
 
+synopsis: "TyXML is a library for building statically correct HTML5 and SVG documents"
+description: "TyXML allows you to build HTML5 and SVG trees whose validity is ensured by the typechecker. It provides a printer for said XML trees, along with a ppx syntax extension. Finally it also provides a functorial interface to choose your XML datastructure. It's part of the ocsigen project and is used in js_of_ocaml and eliom."
+
 maintainer: "dev@ocsigen.org"
 author: "The ocsigen team"
 homepage: "https://ocsigen.org/tyxml/"
