@@ -55,7 +55,7 @@ type assembler =
     run-time implementation of the element function that will be applied to the
     children. It is either [Html] or [Svg], and is based on the element's
     namespace. It is used for wrapping child elements, and for scoping child
-    [pcdata] elements.
+    [txt] elements.
 
     The [name] argument is used for error reporting. *)
 
@@ -83,7 +83,7 @@ val select : assembler
 
 (** {1 Misc utilities} *)
 
-(** Remove pcdata containing only whitespace that are at the beginning or the end
+(** Remove txt node containing only whitespace that are at the beginning or the end
     of the list. *)
 val filter_surrounding_whitespace :
   Parsetree.expression Common.value list ->

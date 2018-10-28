@@ -23,7 +23,7 @@ let emit_page_pp indent page =
 
 let () =
   let p = Html.(
-    html (head (title (pcdata "fibo")) []) (body [unfold 22])
+    html (head (title (txt "fibo")) []) (body [unfold 22])
   ) in
   let indent = Array.length Sys.argv > 1 && Sys.argv.(1) = "indent" in
   let time_pp = ref 0. in

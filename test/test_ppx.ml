@@ -61,11 +61,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "child",
   [[%html "<p><span>foo</span></p>"]],
-  [p [span [pcdata "foo"]]] ;
+  [p [span [txt "foo"]]] ;
 
   "list",
   [%html "<p></p><span>foo</span>"],
-  [p [] ; span [pcdata "foo"]] ;
+  [p [] ; span [txt "foo"]] ;
 
   "attrib",
   [[%html "<p id=foo></p>"]],
@@ -79,13 +79,13 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html "<!--foo-->"]],
   [tot @@ Xml.comment "foo"] ;
 
-  "pcdata",
+  "txt",
   [[%html "foo"]],
-  [pcdata "foo"] ;
+  [txt "foo"] ;
 
   "document",
   [[%html "<html><head><title>foo</title></head></html>"]],
-  [html (head (title (pcdata "foo")) []) (body [])] ;
+  [html (head (title (txt "foo")) []) (body [])] ;
 
   "let",
   [let%html x = "<p></p>" in x],
@@ -107,11 +107,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "whitespace in html element",
   [[%html "<html><head><title>foo</title></head> </html>"]],
-  [html (head (title (pcdata "foo")) []) (body [])] ;
+  [html (head (title (txt "foo")) []) (body [])] ;
 
   (* "whitespace around html element",
    * [[%html "  <html><head><title>foo</title></head></html>  "]],
-   * [html (head (title (pcdata "foo")) []) (body [])] ; *)
+   * [html (head (title (txt "foo")) []) (body [])] ; *)
 
   "whitespace around element",
   [[%html "   <p></p>   "]],
@@ -119,41 +119,41 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "whitespace in element",
   [[%html "   <p>  </p>   "]],
-  [p [pcdata "  "]] ;
+  [p [txt "  "]] ;
 
   "whitespace around lists",
   [%html "   <p></p><span></span>   "],
   [p [] ; span []] ;
 
-  "whitespace around pcdata",
+  "whitespace around txt",
   [%html "   bar<p></p>foo   "],
-  [pcdata "   bar" ; p [] ; pcdata "foo   " ] ;
+  [txt "   bar" ; p [] ; txt "foo   " ] ;
 
   "whitespace in ul",
   [[%html "<ul>   <li>foo</li>  <li>bar</li>   </ul>"]],
-  [ul [li [pcdata "foo"] ; li [pcdata "bar"]]] ;
+  [ul [li [txt "foo"] ; li [txt "bar"]]] ;
 
   "whitespace in ol",
   [[%html "<ol>   <li>foo</li>  <li>bar</li>   </ol>"]],
-  [ol [li [pcdata "foo"] ; li [pcdata "bar"]]] ;
+  [ol [li [txt "foo"] ; li [txt "bar"]]] ;
 
   "whitespace in select",
   [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
-  [select [option ~a:[a_value "bar"] @@ pcdata "bar"]] ;
+  [select [option ~a:[a_value "bar"] @@ txt "bar"]] ;
 
   "comments",
   [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
-  [div [p [pcdata "a"]; tot (Xml.comment " b "); hr ()]] ;
+  [div [p [txt "a"]; tot (Xml.comment " b "); hr ()]] ;
 
   "figcaption first",
   [[%html {|<figure> <figcaption> hello </figcaption> <img src="foo.jpg" alt="a" /> </figure>|}]],
-  [figure ~figcaption:(`Top (figcaption [pcdata " hello "]))
-     [pcdata " "; img ~src:"foo.jpg" ~alt:"a" () ; pcdata " " ]];
+  [figure ~figcaption:(`Top (figcaption [txt " hello "]))
+     [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
   
   "figcaption last",
   [[%html {|<figure> <img src="foo.jpg" alt="a" /> <figcaption> hello </figcaption> </figure>|}]],
-  [figure ~figcaption:(`Bottom (figcaption [pcdata " hello "]))
-     [pcdata " "; img ~src:"foo.jpg" ~alt:"a" () ; pcdata " " ]];
+  [figure ~figcaption:(`Bottom (figcaption [txt " hello "]))
+     [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
   
 ]
 
@@ -228,7 +228,7 @@ let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
 
   "with_neighbour",
   [[%html "<div><span></span><svg><g></g></svg>foo</div>"]],
-  [div [span [] ; svg [Svg.g []] ; pcdata "foo" ]] ;
+  [div [span [] ; svg [Svg.g []] ; txt "foo" ]] ;
 
   "ambiguous tag",
   [[%html "<svg><a></a></svg>"]],
@@ -364,7 +364,7 @@ let wrapping =
 
   "list",
   [%html "<p></p><span>foo</span>"],
-  (p (nil()) @: span (pcdata !"foo" @: nil ()) @: nil()) ;
+  (p (nil()) @: span (txt !"foo" @: nil ()) @: nil()) ;
 
   "attrib",
   !:[%html "<p id=foo></p>"],
@@ -378,9 +378,9 @@ let wrapping =
   !:[%html "<!--foo-->"],
   !:(tot @@ Xml.comment "foo") ;
 
-  "pcdata",
+  "txt",
   !:[%html "<p>foo</p>"],
-  !:(p (pcdata !"foo" @: nil ())) ;
+  !:(p (txt !"foo" @: nil ())) ;
   
   "wrapped functions",
   !:[%html "<input method=get />"],
@@ -389,8 +389,8 @@ let wrapping =
 ]
 
 
-let elt1() = !: HtmlWrapped.(span !: (pcdata !"one"))
-let elt2() = !: HtmlWrapped.(b !: (pcdata !"two"))
+let elt1() = !: HtmlWrapped.(span !: (txt !"one"))
+let elt2() = !: HtmlWrapped.(b !: (txt !"two"))
 let id = !"pata"
 
 let antiquot = 
@@ -407,9 +407,9 @@ let antiquot =
 
   "children",
   !:[%html "<p>bar"(elt1())"foo"(elt2())"baz</p>"],
-  !:(p (pcdata !"bar" @: elt1() @-
-        pcdata !"foo" @: elt2() @-
-        pcdata !"baz" @: nil ()));
+  !:(p (txt !"bar" @: elt1() @-
+        txt !"foo" @: elt2() @-
+        txt !"baz" @: nil ()));
 
   "insertion",
   !:[%html "<p><em>" (elt1()) "</em></p>"],
@@ -417,7 +417,7 @@ let antiquot =
 
   "attrib",
   !:[%html "<p id="id">bla</p>"],
-  !:(p ~a:[a_id id] !:(pcdata !"bla"));
+  !:(p ~a:[a_id id] !:(txt !"bla"));
 
   "first child",
   [%html (elt1()) "<p></p>"],
@@ -434,7 +434,7 @@ let antiquot =
   (* should succeed *)
   (* "escape", *)
   (* [%tyxml "<p>(tyxml4)</p>"], *)
-  (* [p [pcdata "(tyxml4)"]]; *)
+  (* [p [txt "(tyxml4)"]]; *)
 
 
 ]

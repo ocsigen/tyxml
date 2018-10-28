@@ -4,7 +4,7 @@ Tyxml is a library for building statically correct HTML and SVG documents.
 
 <<code language="ocaml"|
 open Tyxml
-let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [pcdata "OCaml!"])
+let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [txt "OCaml!"])
 >>
 
 ==@@id="usage"@@ Using TyXML ==
@@ -45,11 +45,11 @@ The first thing to understand about TyXML is that for most intents and purposes,
 In this tutorial, we will build the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website|Mini website]].
 If you prefer the native HTML syntax, you can also use the <<a_manual chapter="ppx"|PPX syntax extension>> and consult the [[https://github.com/ocsigen/tyxml/tree/master/examples/mini_website_ppx|PPX mini website]].
 
-Let us start by building the content of our website. For text, we use the {{{pcdata}}} combinator. In traditional Web fashion, we put everything in a ##div##.
+Let us start by building the content of our website. For text, we use the {{{txt}}} combinator. In traditional Web fashion, we put everything in a ##div##.
 <<code language="ocaml"|
 let mycontent =
   div [
-    pcdata "This is a fabulous content." ;
+    txt "This is a fabulous content." ;
   ]
 >>
 
@@ -60,7 +60,7 @@ Our content is fabulous, but for the sake of CSS styling (and still in true Web 
 <<code language="ocaml"|
 let mycontent =
   div ~a:[a_class ["content"]] [
-    pcdata "This is a fabulous content." ;
+    txt "This is a fabulous content." ;
   ]
 >>
 
@@ -71,8 +71,8 @@ In order to add a title to our fabulous content, we use the <<a_api text="h1"|va
 <<code language="ocaml"|
 let mycontent =
   div ~a:[a_class ["content"]] [
-    h1 [pcdata "A fabulous title"] ;
-    pcdata "This is a fabulous content." ;
+    h1 [txt "A fabulous title"] ;
+    txt "This is a fabulous content." ;
   ]
 >>
 
@@ -85,14 +85,14 @@ which accept, respectively, one child and zero children.
 <<a_api text="title"|val Html_sigs.T.title>> is an example of a {{{unary}}}
 combinator.
 <<code language="ocaml"|
-let mytitle = title (pcdata "A Fabulous Web Page")
+let mytitle = title (txt "A Fabulous Web Page")
 >>
 
 ====@@id="type-errors"@@ Interlude about type errors ====
 
 However, what would happen if we were to try to put **bold** text in our title? This is not specification-compliant! Let's try it.
 <<code language="ocaml"|
-let mytitle = title (b [pcdata "A Bold Web Page"])
+let mytitle = title (b [txt "A Bold Web Page"])
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Error: This expression has type ([> Html_types.b ] as 'a) elt
        but an expression was expected of type

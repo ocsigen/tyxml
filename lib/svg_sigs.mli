@@ -28,7 +28,7 @@ module type T = sig
       are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
       depending on the number of children they accept.
       Children are usually given as a list of elements.
-      {{!pcdata}pcdata} is used for text.
+      {{!txt}txt} is used for text.
 
       The type variable ['a] is used to track the element's type. This
       allows the OCaml typechecker to check SVG validity.
@@ -690,7 +690,7 @@ module type T = sig
 
   (** {2:elements Elements} *)
 
-  val pcdata : string wrap -> [> | `PCDATA] elt
+  val txt : string wrap -> [> | txt] elt
 
   val svg : ([< | svg_attr], [< | svg_content], [> | svg]) star
 
@@ -954,6 +954,12 @@ module type T = sig
   val foreignObject :
     ?a: ((foreignobject_attr attrib) list) ->
     Xml.elt list_wrap -> [> | foreignobject] elt
+
+  (** {3 Deprecated} *)
+
+  val pcdata : string wrap -> [> txt] elt
+  [@@ocaml.deprecated "Use txt instead"]
+  (** @deprecated Use txt instead *)
 
   (** {2 Conversion with untyped representation} *)
 
