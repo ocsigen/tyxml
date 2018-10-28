@@ -31,6 +31,10 @@ include Xml_sigs.Iterable
 include Xml_sigs.Pp
   with type elt := elt
 
+(** {2 Import/Export} *)
+
+val of_seq : Xml_stream.signal Seq.t -> elt list
+
 
 (** {2 Iterators} *)
 
