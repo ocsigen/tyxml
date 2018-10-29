@@ -1122,6 +1122,7 @@ type flow5_without_sectioning_heading_header_footer =
   Type for HTML for elements
 *)
 type pcdata = [ | `PCDATA ]
+type txt = [ | `PCDATA ]
 
 type notag
 

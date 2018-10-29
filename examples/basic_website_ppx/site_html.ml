@@ -1,6 +1,6 @@
 open Tyxml
 
-let this_title = Html.pcdata "Your Cool Web Page"
+let this_title = Html.txt "Your Cool Web Page"
 
 let image_box = [%html
   "<div id=image_box></div>"

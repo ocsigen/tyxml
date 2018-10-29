@@ -122,18 +122,18 @@ module Make(Xml : Xml_sigs.Iterable) = struct
       | _ -> head in
     List.map aux l
 
-  let rec fold of_empty of_comment of_pcdata of_encodedpcdata of_entity
+  let rec fold of_empty of_comment of_txt of_encodedpcdata of_entity
       of_leaf of_node n =
     match content n with
     | Empty -> of_empty ()
     | Comment s -> of_comment s
-    | PCDATA s -> of_pcdata s
+    | PCDATA s -> of_txt s
     | EncodedPCDATA s -> of_encodedpcdata s
     | Entity s -> of_entity s
     | Leaf (name, attribs) -> of_leaf name attribs
     | Node (name, attribs, elts) ->
       of_node name attribs
-        (List.map (fold of_empty of_comment of_pcdata of_encodedpcdata of_entity of_leaf of_node) elts)
+        (List.map (fold of_empty of_comment of_txt of_encodedpcdata of_entity of_leaf of_node) elts)
 
   let all_entities elt =
     let f _ = [] in

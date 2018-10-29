@@ -8,7 +8,7 @@ let%html mycontent = {|
 |}
 
 
-let mytitle = Html.pcdata "A Fabulous Web Page"
+let mytitle = Html.txt "A Fabulous Web Page"
 
 let%html mypage =
   {|<html>
