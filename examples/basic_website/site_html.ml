@@ -1,6 +1,6 @@
 open Tyxml.Html
 
-let this_title = title (pcdata "Your Cool Web Page")
+let this_title = title (txt "Your Cool Web Page")
 
 let image_box =
   div ~a:[a_id "image_box"]
@@ -9,25 +9,25 @@ let image_box =
 let links_box =
   ul ~a:[a_class ["links_bar"]; a_id "links_bar"]
     [li ~a:[a_id "home_click"]
-       [pcdata "My Musings"];
+       [txt "My Musings"];
      li ~a:[a_id "about_click"]
-       [pcdata "About Me"];
+       [txt "About Me"];
      li ~a:[a_id "blog_posts_click"]
-       [pcdata "Blog"];
+       [txt "Blog"];
      li ~a:[a_id "hackathons_click"]
-       [pcdata "Hackathons"]]
+       [txt "Hackathons"]]
 
 let common_footer =
   footer ~a:[a_id "footer_box"]
-    [p [pcdata "This site was made with ";
-        a ~a:[a_href "http://ocaml.org"] [pcdata "OCaml"];
-        pcdata " and ";
-        a ~a:[a_href "https://www.gnu.org/software/emacs/"] [pcdata "emacs"]]]
+    [p [txt "This site was made with ";
+        a ~a:[a_href "http://ocaml.org"] [txt "OCaml"];
+        txt " and ";
+        a ~a:[a_href "https://www.gnu.org/software/emacs/"] [txt "emacs"]]]
 
 let home_content =
   div
     [h2
-       [pcdata "Hello Coder"]]
+       [txt "Hello Coder"]]
 
 let main_payload =
   div ~a:[a_id "payload"]
@@ -43,7 +43,7 @@ let content_box =
      common_footer]
 
 let main_script =
-  script ~a:[a_src (Xml.uri_of_string "main.js")] (pcdata "")
+  script ~a:[a_src (Xml.uri_of_string "main.js")] (txt "")
 
 let home_page_doc =
   html (head this_title

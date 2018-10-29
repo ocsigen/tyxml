@@ -309,6 +309,7 @@ type rotate = float list
 
 
 type pcdata = [ `PCDATA ]
+type txt = [ | `PCDATA ]
 
 (** {1 Element} *)
 

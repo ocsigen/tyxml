@@ -526,7 +526,8 @@ struct
 
   let nav = star "nav"
 
-  let pcdata = Xml.pcdata
+  let txt s = Xml.pcdata s
+  let pcdata = txt
 
   let entity = Xml.entity
 

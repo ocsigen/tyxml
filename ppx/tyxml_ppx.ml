@@ -199,28 +199,28 @@ end
 
 (** Building block to rebuild the output with expressions intertwined. *)
 
-let make_pcdata ~loc ~lang s =
-  let pcdata = Common.make ~loc lang "pcdata" in
+let make_txt ~loc ~lang s =
+  let txt = Common.make ~loc lang "txt" in
   let arg = Common.wrap lang loc @@ Common.string loc s in
-  Ast_helper.Exp.apply ~loc pcdata [Common.Label.nolabel, arg]
+  Ast_helper.Exp.apply ~loc txt [Common.Label.nolabel, arg]
 
 (** Walk the text list to replace placeholders by OCaml expressions when
-    appropriate. Use {!make_pcdata} on the rest. *)
+    appropriate. Use {!make_txt} on the rest. *)
 let make_text ~loc ~lang ss =
   let buf = Buffer.create 17 in
-  let push_pcdata buf l =
+  let push_txt buf l =
     let s = Buffer.contents buf in
     Buffer.clear buf ;
-    if s = "" then l else Common.value (make_pcdata ~loc ~lang s) :: l
+    if s = "" then l else Common.value (make_txt ~loc ~lang s) :: l
   in
   let rec aux ~loc res = function
-    | [] -> push_pcdata buf res
+    | [] -> push_txt buf res
     | `Text s :: t ->
         Buffer.add_string buf s ;
         aux ~loc res t
     | `Delim g :: t ->
       let e = Antiquot.get loc @@ Re.get g 0 in
-      aux ~loc (Common.antiquot e :: push_pcdata buf res) t
+      aux ~loc (Common.antiquot e :: push_txt buf res) t
   in
   aux ~loc [] @@ Re.split_full Antiquot.re_id @@ String.concat "" ss
 

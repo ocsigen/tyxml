@@ -30,9 +30,9 @@ module type T = sig
       are either {{!nullary}nullary}, {{!unary}unary} or {{!star}star},
       depending on the number of children they accept.
       Children are usually given as a list of elements.
-      {{!pcdata}pcdata} is used for text.
+      {{!txt}txt} is used for text.
 
-      [div [a [pcdata "Foo"]]]
+      [div [a [txt "Foo"]]]
       is equivalent to
       [<div><a>foo</a></div>]
 
@@ -57,7 +57,7 @@ module type T = sig
       Attribute constructors are in section {{!attributes}attributes} and their name starts
       with [a_]. Attributes are given to elements with the [~a] optional argument.
 
-      [a ~a:[a_href "ocsigen.org"] [pcdata "link!"]]
+      [a ~a:[a_href "ocsigen.org"] [txt "link!"]]
       is equivalent to
       [<a href="ocsigen.org">link!</a>]
 
@@ -679,7 +679,7 @@ module type T = sig
 
   (** {2:elements Elements} *)
 
-  val pcdata : string wrap -> [> | pcdata] elt
+  val txt : string wrap -> [> | txt] elt
 
   val html :
     ?a: ((html_attrib attrib) list) ->
@@ -993,13 +993,13 @@ module type T = sig
       @see <http://www.w3schools.com/html/html_entities.asp> A tutorial on HTML entities.
       @see <https://www.w3.org/TR/html5/syntax.html#named-character-references> The list of HTML entities.
   *)
-  val entity : string -> [> | pcdata] elt
+  val entity : string -> [> | txt] elt
 
-  val space : unit -> [> | pcdata] elt
+  val space : unit -> [> | txt] elt
 
-  val cdata : string -> [> | pcdata] elt
-  val cdata_script : string -> [> | pcdata] elt
-  val cdata_style : string -> [> | pcdata] elt
+  val cdata : string -> [> | txt] elt
+  val cdata_script : string -> [> | txt] elt
+  val cdata_style : string -> [> | txt] elt
 
 
   (** {3 Interactive} *)
@@ -1052,6 +1052,12 @@ module type T = sig
   val rp : ([< | rp_attrib], [< | rp_content_fun], [> | rp]) star
 
   val ruby : ([< | ruby_attrib], [< | ruby_content_fun], [> | ruby]) star
+
+  (** {3 Deprecated} *)
+
+  val pcdata : string wrap -> [> | pcdata] elt
+  [@@ocaml.deprecated "Use txt instead"]
+  (** @deprecated Use txt instead *)
 
   (** {2 Conversion with untyped representation} 
 

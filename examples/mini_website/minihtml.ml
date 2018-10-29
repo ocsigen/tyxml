@@ -2,11 +2,11 @@ open Tyxml.Html
 
 let mycontent =
   div ~a:[a_class ["content"]] [
-    h1 [pcdata "A fabulous title"] ;
-    pcdata "This is a fabulous content." ;
+    h1 [txt "A fabulous title"] ;
+    txt "This is a fabulous content." ;
   ]
 
-let mytitle = title (pcdata "A Fabulous Web Page")
+let mytitle = title (txt "A Fabulous Web Page")
 
 let mypage =
   html

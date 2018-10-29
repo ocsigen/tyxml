@@ -199,7 +199,8 @@ struct
 
   let foreignObject ?a children = Xml.node ?a "foreignObject" children
 
-  let pcdata s = Xml.pcdata s
+  let txt s = Xml.pcdata s
+  let pcdata = txt
 
   (* generated *)
   let a_version = string_attrib "version"

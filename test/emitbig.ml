@@ -33,7 +33,7 @@ let run_n ~n f x =
 
 let () =
   let p = Html.(
-    html (head (title (pcdata "fibo")) []) (body [unfold 22])
+    html (head (title (txt "fibo")) []) (body [unfold 22])
   ) in
   let n = 10 in
   let time_pp = run_n ~n (emit_page_pp false) p in

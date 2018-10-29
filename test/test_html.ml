@@ -76,7 +76,7 @@ let escaping = "html escaping", tyxml_tests Html.[
   {|<!--foo--!&gt;<script BOUM/>-->|} ;
 
   "utf8",
-  a ~a:[a_href "/text/λαμδα"] [pcdata "λαμδα"],
+  a ~a:[a_href "/text/λαμδα"] [txt "λαμδα"],
   {|<a href="/text/λαμδα">λαμδα</a>|} ;
 
 ]
