@@ -1059,7 +1059,17 @@ module type T = sig
   [@@ocaml.deprecated "Use txt instead"]
   (** @deprecated Use txt instead *)
 
-  (** {2 Conversion with untyped representation} *)
+  (** {2 Conversion with untyped representation} 
+
+      WARNING: These functions do not ensure HTML or SVG validity! You should
+      always explicitly given an appropriate type to the output.
+  *)
+
+  (** [import signal] converts the given XML signal into Tyxml elements.
+      It can be used with HTML and SVG parsing libraries, such as Markup.
+      @raise malformed_stream if the stream is malformed.
+  *)
+  val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
 
   val tot : Xml.elt -> 'a elt
   val totl : Xml.elt list_wrap -> 'a elt list_wrap

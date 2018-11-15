@@ -812,6 +812,9 @@ struct
   type doc  = [ `Html ] elt
   let doc_toelt x = x
 
+  module I = Xml_stream.Import(Xml)
+  let of_seq s = totl @@ I.of_seq s
+
   module Unsafe = struct
 
     let data s = Xml.encodedpcdata s

@@ -19,6 +19,7 @@ build: [
 
 depends: [
   "dune" {build}
+  "seq"
   "uutf" {>= "1.0.0"}
   "re" {>= "1.5.0"}
   "alcotest" {test}
