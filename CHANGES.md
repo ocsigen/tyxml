@@ -1,3 +1,22 @@
+# 4.3.0
+
+* Dunify
+  This also removes all the deprecated libraries (`tyxml.syntax`, `tyxml.parser`)
+  and removes the ocamlfind library `tyxml.ppx` in favor of `tyxml-ppx`.
+  (#197 by Drup, Rudi Grinberg and Anton Bachin)
+* Add simplistic indentation for the Format-based printer (#187 by Drup)
+* Allow the ppx to be used for more exotic tyxml instances, such 
+  as reactive elements (#200 by Drup)
+* Add `Html.of_seq` and `Svg.of_seq`, which allow to easily import
+  HTML parsed with markup in TyXML (#221 by Drup)
+
+## Elements and attributes
+* Add Html.txt and Svg.txt as an alias for `pcdata` (#222 by Drup)
+* Add noopener link types (#198 by Jérôme Vouillon)
+* Slightly relax dt content type (#193 by Anton Bachin)
+* Add touch events (#211 by Malthe Borch)
+* Fix handling of figcaption in the PPX (#219 by Drup)
+
 # 4.2.0
 
 * Compatibility with OCaml 4.6.0.
