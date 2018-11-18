@@ -1,9 +1,0 @@
-PPX for TyXML that allows to arbitrary documents in the standard syntax.
-
-```ocaml
-open Tyxml
-let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
-```
-
-The TyXML PPX is compatible with all TyXML instance, from textual trees
-to reactive virtual DOM trees.
