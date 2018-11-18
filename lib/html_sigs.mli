@@ -1067,7 +1067,7 @@ module type T = sig
 
   (** [import signal] converts the given XML signal into Tyxml elements.
       It can be used with HTML and SVG parsing libraries, such as Markup.
-      @raise malformed_stream if the stream is malformed.
+      @raise Xml_stream.Malformed_stream if the stream is malformed.
   *)
   val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
 

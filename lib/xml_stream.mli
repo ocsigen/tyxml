@@ -17,6 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02111-1307, USA.
 *)
 
+(** Streaming IO to/from XML trees *)
+
 type name = string * string
 
 (** {2 Input} *)

@@ -15,7 +15,7 @@ MLIS=\
   $(wildcard ${SRC}/lib/*.mli) \
 	$(wildcard ${SRC}/implem/*.mli) ${SRC}/implem/tyxml.ml \
 	$(wildcard ${SRC}/tools/*.mli) \
-  ${SRC}/ppx/ppx_tyxml.mli
+  ${SRC}/ppx/tyxml_ppx.mli
 
 DOCOPT := -colorize-code -short-functors -charset utf-8
 
