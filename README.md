@@ -19,7 +19,7 @@ to ensure the validity of the generated document.
 They are used in various libraries, such as [Eliom][] and [Js_of_ocaml][].
 
 The documentation can be consulted
-[on the TyXML website](https://ocsigen.org/tyxml/manual/). Examples are
+[on the TyXML website](https://ocsigen.org/tyxml/). Examples are
 available in the [examples](examples) directory.
 
 [Eliom]: https://ocsigen.org/eliom/manual/clientserver-html
