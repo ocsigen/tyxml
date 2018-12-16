@@ -23,10 +23,10 @@
    [html_sigs_reflected.ml]. See comments by functions below and in
    [sigs_reflected.mli] for details. *)
 
+open Ast_helper
 open Ast_mapper
 open Asttypes
 open Parsetree
-open Ast_helper
 module AC = Ast_convenience
 
 

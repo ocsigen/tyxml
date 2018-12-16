@@ -108,20 +108,7 @@ let star ~lang ~loc ~name:_ children =
 
 (* Special-cased. *)
 
-let ul ~lang ~loc ~name children =
-  let children = filter_whitespace children in
-  star ~lang ~loc ~name children
-
-let ol ~lang ~loc ~name children =
-  let children = filter_whitespace children in
-  star ~lang ~loc ~name children
-
-let select ~lang ~loc ~name children =
-  let children = filter_whitespace children in
-  star ~lang ~loc ~name children
-
 let head ~lang ~loc ~name children =
-  let children = filter_whitespace children in
   let title, others = partition (html "title") children in
 
   match title with
@@ -248,7 +235,6 @@ let menu ~lang ~loc ~name children =
   children::(nullary ~lang ~loc ~name [])
 
 let html ~lang ~loc ~name children =
-  let children = filter_whitespace children in
   let head, others = partition (html "head") children in
   let body, others = partition (html "body") others in
 

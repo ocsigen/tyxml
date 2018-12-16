@@ -684,11 +684,13 @@ module type T = sig
   val html :
     ?a: ((html_attrib attrib) list) ->
     [< | head] elt wrap -> [< | body] elt wrap -> [> | html] elt
+  [@@reflect.filter_whitespace]
   [@@reflect.element "html"]
 
   val head :
     ?a: ((head_attrib attrib) list) ->
     [< | title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
+  [@@reflect.filter_whitespace]
   [@@reflect.element "head"]
 
   val base : ([< | base_attrib], [> | base]) nullary
@@ -755,10 +757,10 @@ module type T = sig
   val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
 
   val ol : ([< | ol_attrib], [< | ol_content_fun], [> | ol]) star
-  [@@reflect.element "ol"]
+  [@@reflect.filter_whitespace]
 
   val ul : ([< | ul_attrib], [< | ul_content_fun], [> | ul]) star
-  [@@reflect.element "ul"]
+  [@@reflect.filter_whitespace]
 
   val dd : ([< | dd_attrib], [< | dd_content_fun], [> | dd]) star
 
@@ -953,7 +955,7 @@ module type T = sig
 
   val select :
     ([< | select_attrib], [< | select_content_fun], [> | select]) star
-  [@@reflect.element "select"]
+  [@@reflect.filter_whitespace]
 
   val datalist :
     ?children:(
