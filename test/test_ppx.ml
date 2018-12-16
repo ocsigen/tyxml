@@ -137,6 +137,45 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html "<ol>   <li>foo</li>  <li>bar</li>   </ol>"]],
   [ol [li [txt "foo"] ; li [txt "bar"]]] ;
 
+  "whitespace in tr",
+  [[%html "<tr>   <td>foo</td>    <td>bar</td>   </tr>"]],
+  [tr [td [txt "foo"] ; td [txt "bar"]]] ;
+
+  "whitespace in table",
+  [[%html "<table>    <tr><td>foo</td></tr>   <tr><td>bar</td></tr>   </table>"]],
+  [table [tr [td [txt "foo"]] ; tr [td [txt "bar"]]]] ;
+
+  "whitespace in table, full example",
+  [[%html "<table>
+  <caption>txt</caption>
+  <colgroup>
+    <col span=\"2\">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>h1</th>
+      <th>h2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>b1</td>
+      <td>b2</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>f1</td>
+      <td>f2</td>
+    </tr>
+  </tfoot>
+</table>"]],
+  [table ~caption:(caption [txt "txt"])
+    ~columns:[colgroup [col ~a:[a_span 2] ()]]
+    ~thead:(thead [tr [th [txt "h1"] ; th [txt "h2"]]])
+    ~tfoot:(tfoot [tr [td [txt "f1"] ; td [txt "f2"]]])
+    [tr [td [txt "b1"] ; td [txt "b2"]]]] ;
+
   "whitespace in select",
   [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
   [select [option ~a:[a_value "bar"] @@ txt "bar"]] ;

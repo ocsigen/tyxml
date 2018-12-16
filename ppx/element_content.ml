@@ -173,6 +173,8 @@ let table ~lang ~loc ~name children =
   let thead, others = partition (html "thead") others in
   let tfoot, others = partition (html "tfoot") others in
 
+  let others = filter_whitespace others in
+
   let one label = function
     | [] -> []
     | [child] -> [Common.Label.labelled label, Common.wrap_value lang loc child]
