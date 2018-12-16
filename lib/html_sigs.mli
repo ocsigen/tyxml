@@ -908,6 +908,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | table_attrib], [< | table_content_fun], [> | table]) star
+  [@@reflect.filter_whitespace]
   [@@reflect.element "table"]
 
   val tablex :
@@ -916,6 +917,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
+  [@@reflect.filter_whitespace]
   [@@reflect.element "table" "table"]
 
   val colgroup :
