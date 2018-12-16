@@ -64,6 +64,11 @@ let filter_surrounding_whitespace children =
   in
   aux @@ aux children
 
+(** Improve an assembler by first applying [filter_whitespace] on children
+  Used by the [[@@reflect.filter_whitespace]] annotation *)
+let comp_filter_whitespace assembler ~lang ~loc ~name children =
+  assembler ~lang ~loc ~name (filter_whitespace children)
+
 (* Given a parse tree and a string [name], checks whether the parse tree is an
    application of a function with name [name]. *)
 let is_element_with_name name = function

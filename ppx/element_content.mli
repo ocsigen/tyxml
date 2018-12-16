@@ -88,3 +88,6 @@ val select : assembler
 val filter_surrounding_whitespace :
   Parsetree.expression Common.value list ->
   Parsetree.expression Common.value list
+
+(** Improve an assembler by removing txt nodes containing only whitespace *)
+val comp_filter_whitespace : assembler -> assembler
