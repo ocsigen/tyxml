@@ -1,0 +1,28 @@
+=Module <<a_api_type | module Xml_print.Utf8 >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Utf8>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_print.Utf8 >><<span class="ocsforge_color_keyword"|end>>>>~Utf~8 normalizer and encoder for ~H~T~M~L~.
+
+
+~Given a module <<span class="odocwiki_inlinecode"|~Htmlprinter>> produced by one of the functors in <<a_api | module Xml_print >>~, this modules is used as following~:
+  
+<<code language='ocaml'|    let encode x = fst (Utf8.normalize_html x) in
+    Htmlprinter.print ~encode document
+  >>
+
+
+----
+<<pre class="ocsforge_color odocwiki_code" id="TYPEutf8"|<<span class="ocsforge_color_keyword"|type>> <<span class="odocwiki_name"|utf~8>> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|string>> >><<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|normalize str>> take a possibly invalid utf~-~8 string
+      and return a valid utf~-~8 string
+      where invalid bytes have been replaced by
+      the replacement character <<span class="odocwiki_inlinecode"|~U~+~F~F~F~D>>~.
+      ~The returned boolean is true if invalid bytes were found
+>>
+<<pre id="VALnormalize" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|normalize>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> <<a_api text="utf8" | type Xml_print.Utf8.utf8 >> * bool>>>><<pre id="VALnormalize_html" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|normalize~_html>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> <<a_api text="utf8" | type Xml_print.Utf8.utf8 >> * bool>>>><<div class="odocwiki_info"|~Same as <<span class="odocwiki_inlinecode"|normalize>> plus some extra work ~:
+      ~It encode ~'~<~' ~, ~'~>~' ~, ~'"~' ~, ~'~&~' characters with
+      corresponding entities and replaced invalid html
+      character by <<span class="odocwiki_inlinecode"|~U~+~F~F~F~D>>
+>>
+<<pre class="ocsforge_color odocwiki_code" id="TYPEencoding"|<<span class="ocsforge_color_keyword"|type>> <<span class="odocwiki_name"|encoding>> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|\\  [ `ISO_8859_1 | `US_ASCII | `UTF_16 | `UTF_16BE | `UTF_16LE | `UTF_8 ]>> >><<pre id="VALnormalize_from" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|normalize~_from>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  <<span class="ocsforge_color_label"| encoding: >>[< <<a_api text="encoding" | type Xml_print.Utf8.encoding >> ] <<span class="ocsforge_color_delimiter"| -> >>\\  string <<span class="ocsforge_color_delimiter"| -> >> <<a_api text="utf8" | type Xml_print.Utf8.utf8 >> * bool>>>><<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|normalize~_from ~~encoding str>> convert the string <<span class="odocwiki_inlinecode"|str>> into an uft~-~8 string~.
+      ~It assumes the <<span class="odocwiki_inlinecode"|encoding>> encoding and replace invalid bytes by
+      the replacement character <<span class="odocwiki_inlinecode"|~U~+~F~F~F~D>>~.
+      ~The returned boolean is true if invalid bytes were found
+>>

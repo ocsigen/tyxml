@@ -1,0 +1,63 @@
+=Module <<a_api_type | module Xml_print >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Xml_print>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_print >><<span class="ocsforge_color_keyword"|end>>>>~Printing utilities~.
+
+
+    ~This module contains various encoding functions that can be used
+    with <<span class="odocwiki_inlinecode"|~Tyxml~.~Html~.pp>> and <<span class="odocwiki_inlinecode"|~Tyxml~.~Svg~.pp>>~.
+
+
+    ~It also contains functors to create printers for your own ~X~M~L data structure~.
+
+----
+
+
+==@@id="2_Encodingfunctions"@@~Encoding functions==
+
+<<pre id="VALencode_unsafe_char" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|encode~_unsafe~_char>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~The encoder maps strings to ~H~T~M~L and //must// encode the unsafe characters
+    <<span class="odocwiki_inlinecode"|~'~<~'>>~, <<span class="odocwiki_inlinecode"|~'~>~'>>~, <<span class="odocwiki_inlinecode"|~'"~'>>~, <<span class="odocwiki_inlinecode"|~'~&~'>> and the control characters ~0~-~8~, ~1~1~-~1~2~, ~1~4~-~3~1~, ~1~2~7
+    to ~H~T~M~L entities~.  <<span class="odocwiki_inlinecode"|encode~_unsafe~_char>> is the default for <<span class="odocwiki_inlinecode"|~?encode>> in <<span class="odocwiki_inlinecode"|output>>
+    and <<span class="odocwiki_inlinecode"|pretty~_print>> below~.  ~Other implementations are provided by the module
+    <<span class="odocwiki_inlinecode"|~Netencoding>> in the
+    [[http://www.ocaml-programming.de/programming/ocamlnet.html|~Ocaml~Net]]
+    library~, e~.g~.~:
+    
+<<code language='ocaml'|let encode = Netencoding.Html.encode ~in_enc:`Enc_iso88591 ~out_enc:`Enc_usascii ()
+    >>
+
+    ~Where national characters are replaced by ~H~T~M~L entities~.
+    ~The user is of course free to write her own implementation~.
+**See also** [[http://www.ocaml-programming.de/programming/ocamlnet.html|~Ocaml~Net]]\\
+>>
+<<pre id="VALencode_unsafe_char_and_at" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|encode~_unsafe~_char~_and~_at>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~In addition~, encode <<span class="odocwiki_inlinecode"|"~@">> as <<span class="odocwiki_inlinecode"|"~&~#~6~4~;">> in the hope that this will fool
+    simple minded email address harvesters~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Utf8" | module Xml_print.Utf8 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_print.Utf8 >><<span class="ocsforge_color_keyword"|end>>>><<div class="odocwiki_info"|~Utf~8 normalizer and encoder for ~H~T~M~L~.
+>>
+
+
+==@@id="2_Utilities"@@~Utilities==
+
+<<pre id="VALcompose_decl" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|compose~_decl>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<span class="ocsforge_color_label"| ?version: >>string <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_label"| ?encoding: >>string <<span class="ocsforge_color_delimiter"| -> >> unit <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|encoding>> is the name of the character encoding~, e~.g~. <<span class="odocwiki_inlinecode"|"~U~S~-~A~S~C~I~I">> or <<span class="odocwiki_inlinecode"|"~U~T~F~-~8">>
+>>
+<<pre id="VALcompose_doctype" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|compose~_doctype>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string list <<span class="ocsforge_color_delimiter"| -> >> string>>>><<pre id="VALstring_of_number" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|string~_of~_number>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|float <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~Convert a float to a string using a compact representation compatible with ~Javascript norme~.
+>>
+<<pre id="VALpp_number" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|pp~_number>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<span class="ocsforge_color_uid"|Format>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|formatter>> <<span class="ocsforge_color_delimiter"| -> >> float <<span class="ocsforge_color_delimiter"| -> >> unit>>>><<div class="odocwiki_info"|~See <<a_api | val Xml_print.string_of_number >>~.
+>>
+
+
+==@@id="2_Formatterfunctors"@@~Formatter functors==
+
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_typed_fmt" | module Xml_print.Make_typed_fmt >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Typed_xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_xml" | module Xml_sigs.Typed_xml >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_pp" | module Xml_sigs.Typed_pp >>>><<span class="odocwiki_type"| \\    with type 'a elt := 'a Typed_xml.elt\\     and type doc := Typed_xml.doc>>>><<div class="odocwiki_info"|~Printers for typed ~X~M~L module~, such as the one produced by <<a_api | module Svg_f >> and <<a_api | module Html_f >>~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="TagList" | module type Xml_print.TagList >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Xml_print.TagList >><<span class="ocsforge_color_keyword"|end>>>><<div class="odocwiki_info"|~List of tags that can be printed as empty tags~: <<span class="odocwiki_inlinecode"|~<foo ~/~>>>~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_fmt" | module Xml_print.Make_fmt >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>I <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="TagList" | module Xml_print.TagList >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Pp" | module Xml_sigs.Pp >>>><<span class="odocwiki_type"|  with type elt := Xml.elt>>>><<div class="odocwiki_info"|~Printers for raw ~X~M~L modules~.
+>>
+
+
+==@@id="2_Deprecatedfunctors"@@~Deprecated functors==
+
+
+
+    ~Use <<a_api | module Xml_print.Make_fmt >> and <<a_api | module Xml_print.Make_typed_fmt >> instead~.
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module Xml_print.Make >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>I <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="TagList" | module Xml_print.TagList >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Output" | module Xml_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Printer" | module Xml_sigs.Printer >>>><<span class="odocwiki_type"|  with type out := O.out and type xml_elt := Xml.elt>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_typed" | module Xml_print.Make_typed >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Typed_xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_xml" | module Xml_sigs.Typed_xml >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Output" | module Xml_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_printer" | module Xml_sigs.Typed_printer >>>><<span class="odocwiki_type"|  with type out := O.out\\                            and type 'a elt := 'a Typed_xml.elt\\                            and type doc := Typed_xml.doc>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_simple" | module Xml_print.Make_simple >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>I <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="TagList" | module Xml_print.TagList >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Simple_printer" | module Xml_sigs.Simple_printer >>>><<span class="odocwiki_type"|  with type xml_elt := Xml.elt>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_typed_simple" | module Xml_print.Make_typed_simple >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Typed_xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_xml" | module Xml_sigs.Typed_xml >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_simple_printer" | module Xml_sigs.Typed_simple_printer >>>><<span class="odocwiki_type"|  with type 'a elt := 'a Typed_xml.elt\\                                   and type doc := Typed_xml.doc>>>>

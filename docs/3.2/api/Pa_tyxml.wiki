@@ -1,0 +1,84 @@
+=Module <<a_api_type | module Pa_tyxml >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Pa_tyxml>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Pa_tyxml >><<span class="ocsforge_color_keyword"|end>>>>~Syntax extension for ~H~T~M~L~5 or ~S~V~G tree creation~.
+
+----
+
+~To choose actual ~X~M~L~-implementation you have to provide a module named <<span class="odocwiki_inlinecode"|~Html~5>>
+~(or <<span class="odocwiki_inlinecode"|~Svg>>~)~:
+
+
+~For example~, the following code~:
+
+<<code language='ocaml'|  let module Html5 = Html5.M in
+  << <html>
+     <head><title></title></head>
+     <body><h1>plop</h1></body>
+   </html> ~>>
+)
+>>
+
+is a caml value of type {{{Html5_types.html Html5.elt}}}~.
+
+
+~In the following~, <<span class="odocwiki_inlinecode"|~Html~5>> is assumed to be an ~H~T~M~L~5 implementation~, such as
+<<span class="odocwiki_inlinecode"|~Html~5~.~M>>~, but this could for example also be ~Eliom~'s <<span class="odocwiki_inlinecode"|~Eliom~_content~.~Html~5~.~F>>~.
+
+
+~To compile a module containing this syntax~, you need the camlp~4 preprocessor~:
+
+<<code language='ocaml'|ocamlfind ocamlc -package tyxml.syntax -syntax camlp4o -c your_module.ml
+>>
+
+or
+
+<<code language='ocaml'|ocamlc -pp "camlp4o -I <path/to/tyxml> pa_tyxml.cmo" -c your_module.ml
+>>
+
+
+
+~You can insert ~O~Caml expressions of type {{{'a Html5.M.elt}}} inside html using {{{$...$}}}~, like this~:
+
+<<code language='ocaml'|let oc = << <em>Ocsigen</em> ~>> in
+<< <p>$oc$ will revolutionize web programming.</p> ~>>
+>>
+
+~You can insert ~O~Caml expressions of type string inside html using {{{$str:... $}}}~, like this~:
+
+<<code language='ocaml'|let i = 4 in
+<< <p>i is equal to $str:string_of_int i$</p> ~>>
+>>
+
+~If you want to use a dollar in your page~, just write it twice~.
+
+
+~You can write a list of html~5 expressions using the syntax {{{<:html5list<...>>}}}~, for example~:
+
+<<code language='ocaml'|<:html5list< <p>hello</p> <div></div> ~>>
+>>
+
+
+
+~Here are some other examples showing what you can do~:
+
+<<code language='ocaml'|<< <ul class=$ulclass$ $list:other_attrs$>
+     $first_il$
+     $list:items$
+   </ul> ~>>
+>>
+
+
+
+~Warning~: lists antiquotations are allowed only at the end ~(before a closing tag~)~. ~For example~, the following is not valid~:
+
+<<code language='ocaml'|<< <ul $list:other_attrs$ class=$ulclass$>
+     $list:items$
+     $last_il$
+   </ul> ~>>
+>>
+
+
+
+~The syntax extension is not allowed in patterns for the while~.
+
+
+~Additionnaly~, you may use <<span class="odocwiki_inlinecode"| svg >> or <<span class="odocwiki_inlinecode"| svglist >>~.

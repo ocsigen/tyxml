@@ -1,0 +1,17 @@
+=Module <<a_api_type | module Tyxml >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Tyxml>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Tyxml >><<span class="ocsforge_color_keyword"|end>>>>~Typed implementation for ~H~T~M~L~, ~S~V~G and ~X~M~L
+
+
+    ~This is the natural implementation of the ~Ty~X~M~L combinators
+    based on an ~X~M~L data~-structure~.
+        Other implementations are available, see <<a_manual chapter="intro"|the manual>> for details. 
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Html" | module Tyxml.Html >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_html>>>><<div class="odocwiki_info"|~Typesafe constructors and printers for ~H~T~M~L documents~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Svg" | module Tyxml.Svg >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_svg>>>><<div class="odocwiki_info"|~Typesafe constructors and printers for ~Svg documents~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Xml" | module Tyxml.Xml >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_xml>>>><<div class="odocwiki_info"|~Basic functions for construction and manipulation of ~X~M~L tree~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Html5" | module Tyxml.Html5 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_html>>>><<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Deprecated alias for <<a_api | module Tyxml.Html >>~.
+>>>>

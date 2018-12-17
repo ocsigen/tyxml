@@ -1,0 +1,35 @@
+=Module <<a_api_type | module Xhtml >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Xhtml>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xhtml >><<span class="ocsforge_color_keyword"|end>>>>~Typesafe constructors and printers for ~X~H~T~M~L ~1~.~0 and ~1~.~1 documents
+**See also** [[http://www.w3.org/TR/xhtml11/|~W~3~C ~Recommendation]]\\
+
+----
+
+
+=@@id="1_Currentversion"@@~Current version =
+
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="M" | module Xhtml.M >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xhtml_sigs.T" | module Xhtml_sigs.T >>>><<span class="odocwiki_type"| with type Xml.uri = Xml.uri\\                        and type Xml.event_handler = Xml.event_handler\\                        and type Xml.attrib = Xml.attrib\\                        and type Xml.elt = Xml.elt>>>><<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L typesafe constructors
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="P" | module Xhtml.P >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_simple_printer" | module Xml_sigs.Typed_simple_printer >>>><<span class="odocwiki_type"| with type 'a elt := 'a M.elt\\					 and type doc := M.doc>>>><<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L documents ~(~H~T~M~L compatible printer~)
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_printer" | module Xhtml.Make_printer >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Output" | module Xml_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_printer" | module Xml_sigs.Typed_printer >>>><<span class="odocwiki_type"| with type out := O.out\\			 and type 'a elt := 'a M.elt\\			 and type doc := M.doc>>>>>><<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L documents ~(~H~T~M~L compatible printer~)
+>>
+
+
+=@@id="1_XHTML11"@@~X~H~T~M~L ~1~.~1=
+
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="M_01_01" | module Xhtml.M_01_01 >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xhtml_sigs.T_01_01" | module Xhtml_sigs.T_01_01 >>>><<span class="odocwiki_type"| with type Xml.uri = Xml.uri\\                                    and type Xml.event_handler = Xml.event_handler\\                                    and type Xml.attrib = Xml.attrib\\                                    and type Xml.elt = Xml.elt>>>><<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L ~1~.~1 typesafe constructors
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="P_01_01" | module Xhtml.P_01_01 >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_simple_printer" | module Xml_sigs.Typed_simple_printer >>>><<span class="odocwiki_type"| with type 'a elt := 'a M_01_01.elt\\                               and type doc := M_01_01.doc>>>><<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L ~1~.~1 documents ~(~H~T~M~L compatible printer~)
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_printer_01_01" | module Xhtml.Make_printer_01_01 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Output" | module Xml_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_printer" | module Xml_sigs.Typed_printer >>>><<span class="odocwiki_type"| with type out := O.out\\                         and type 'a elt := 'a M_01_01.elt\\                         and type doc := M_01_01.doc>>>>>><<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L ~1~.~1 documents ~(~H~T~M~L compatible printer~)
+>>
+
+
+=@@id="1_XHTML10"@@~X~H~T~M~L ~1~.~0 =
+
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="M_01_00" | module Xhtml.M_01_00 >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xhtml_sigs.T_01_00" | module Xhtml_sigs.T_01_00 >>>><<span class="odocwiki_type"| with type Xml.uri = Xml.uri\\                                    and type Xml.event_handler = Xml.event_handler\\                                    and type Xml.attrib = Xml.attrib\\                                    and type Xml.elt = Xml.elt>>>><<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L ~1~.~0 typesafe constructors
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="P_01_00" | module Xhtml.P_01_00 >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_simple_printer" | module Xml_sigs.Typed_simple_printer >>>><<span class="odocwiki_type"| with type 'a elt := 'a M_01_00.elt\\                               and type doc := M_01_00.doc>>>><<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L ~1~.~0 documents ~(~H~T~M~L compatible printer~)
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_printer_01_00" | module Xhtml.Make_printer_01_00 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Output" | module Xml_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_printer" | module Xml_sigs.Typed_printer >>>><<span class="odocwiki_type"| with type out := O.out\\                         and type 'a elt := 'a M_01_00.elt\\                         and type doc := M_01_00.doc>>>>>><<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L ~1~.~0 documents
+>>

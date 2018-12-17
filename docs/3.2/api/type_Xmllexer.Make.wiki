@@ -1,0 +1,61 @@
+<<code language="ocaml" | functor (X : LexerArgSig) ->
+  sig
+    val err : Xmllexer.lexing_error -> Camlp4.PreCast.Loc.t -> 'a
+    val __ocaml_lex_tables : Lexing.lex_tables
+    val token : Xmllexer.context -> Lexing.lexbuf -> X.token
+    val __ocaml_lex_token_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> X.token
+    val ignore_spaces : Xmllexer.context -> Lexing.lexbuf -> unit
+    val __ocaml_lex_ignore_spaces_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> unit
+    val comment :
+      Xmllexer.context -> Xmllexer.Loc.t list -> Lexing.lexbuf -> string
+    val __ocaml_lex_comment_rec :
+      Xmllexer.context ->
+      Xmllexer.Loc.t list -> Lexing.lexbuf -> int -> string
+    val header : Xmllexer.context -> Lexing.lexbuf -> unit
+    val __ocaml_lex_header_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> unit
+    val cdata : Xmllexer.context -> Lexing.lexbuf -> X.token
+    val __ocaml_lex_cdata_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> X.token
+    val pcdata : Xmllexer.context -> Lexing.lexbuf -> string
+    val __ocaml_lex_pcdata_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> string
+    val entity : Xmllexer.context -> Lexing.lexbuf -> string
+    val __ocaml_lex_entity_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> string
+    val ident_name : Xmllexer.context -> Lexing.lexbuf -> string
+    val __ocaml_lex_ident_name_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> string
+    val close_tag : Xmllexer.context -> Lexing.lexbuf -> unit
+    val __ocaml_lex_close_tag_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> unit
+    val attributes :
+      Xmllexer.context -> Lexing.lexbuf -> X.attribute list * bool
+    val __ocaml_lex_attributes_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> X.attribute list * bool
+    val attr_name : Xmllexer.context -> Lexing.lexbuf -> X.attr_name
+    val __ocaml_lex_attr_name_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> X.attr_name
+    val attr_data : Xmllexer.context -> Lexing.lexbuf -> X.attr_value
+    val __ocaml_lex_attr_data_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> X.attr_value
+    val dq_string : Xmllexer.context -> Lexing.lexbuf -> string
+    val __ocaml_lex_dq_string_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> string
+    val q_string : Xmllexer.context -> Lexing.lexbuf -> string
+    val __ocaml_lex_q_string_rec :
+      Xmllexer.context -> Lexing.lexbuf -> int -> string
+    val lexing_store : char Stream.t -> string -> int -> int
+    val from_context :
+      Xmllexer.context -> (X.token * Xmllexer.Loc.t) Stream.t
+    val from_lexbuf :
+      Lexing.lexbuf -> bool -> (X.token * Xmllexer.Loc.t) Stream.t
+    val setup_loc : Lexing.lexbuf -> Xmllexer.Loc.t -> unit
+    val from_string :
+      Xmllexer.Loc.t -> bool -> string -> (X.token * Xmllexer.Loc.t) Stream.t
+    val from_stream :
+      Xmllexer.Loc.t ->
+      bool -> char Stream.t -> (X.token * Xmllexer.Loc.t) Stream.t
+  end >>

@@ -1,0 +1,6 @@
+<<code language="ocaml" | sig
+  val markup_to_expr :
+    Ppx_common.lang ->
+    Location.t -> Parsetree.expression list -> Parsetree.expression
+  val mapper : string list -> Ast_mapper.mapper
+end >>

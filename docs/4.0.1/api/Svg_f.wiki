@@ -1,0 +1,19 @@
+=Module <<a_api_type | module Svg_f >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Svg_f>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Svg_f >><<span class="ocsforge_color_keyword"|end>>>>~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+
+
+    ~This module is experimental~, it may lack of some attributes~,
+    and the interface is very low level and do not take deeply into account
+    the needs of ~S~V~G elements~.
+
+
+    See <<a_manual chapter="functors"|the manual of the functorial interface>>. 
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module Svg_f.Make >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="odocwiki_type"|     with type ('a, 'b) W.ft = ('a -> 'b)>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Make" | module Svg_sigs.Make >>(Xml).T>><<span class="odocwiki_type"| \\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>><<div class="odocwiki_info"|~Create a new implementation of <<span class="odocwiki_inlinecode"|~Svg>>~, using the given underlying <<span class="odocwiki_inlinecode"|~Xml>>
+    implementation~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Wrapped_functions" | module Svg_f.Wrapped_functions >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="odocwiki_type"|     with type ('a, 'b) W.ft = 'a -> 'b>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Wrapped_functions" | module Svg_sigs.Wrapped_functions >>>><<span class="odocwiki_type"|  with module Xml = Xml>>>><<div class="odocwiki_info"|~The standard set of wrapped functions~, when <<span class="odocwiki_inlinecode"|~W~.ft>> is the regular function~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_with_wrapped_functions" | module Svg_f.Make_with_wrapped_functions >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>C <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Wrapped_functions" | module Svg_sigs.Wrapped_functions >>>><<span class="odocwiki_type"|     with module Xml = Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Make" | module Svg_sigs.Make >>(Xml).T>><<span class="odocwiki_type"| \\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>><<div class="odocwiki_info"|~Similar to <<a_api | module Svg_f.Make >> but with a custom set of wrapped functions~.
+>>

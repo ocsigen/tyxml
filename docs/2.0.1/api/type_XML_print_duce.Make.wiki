@@ -1,0 +1,1 @@
+<<code language="ocaml" | functor (I : sig val emptytags : string list end) -> XML_sigs_duce.Printer >>

@@ -1,0 +1,172 @@
+=Index of modules=
+
+|@@ @style="tet-align: left;"@@\\B|
+|@@class="odocwiki_index"@ @@<<a_api text="BASE"| module Xhtml_types.BASE >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Basic_Forms"| module Xhtml_sigs.T_01_01.Basic_Forms >> ~[<<a_api | module Xhtml_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Basic_Tables"| module Xhtml_sigs.T_01_01.Basic_Tables >> ~[<<a_api | module Xhtml_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\F|
+|@@class="odocwiki_index"@ @@<<a_api text="FORMS"| module Xhtml_types.FORMS >> ~[<<a_api | module Xhtml_types >>~]||
+|@@ @style="tet-align: left;"@@\\H|
+|@@class="odocwiki_index"@ @@<<a_api text="HYPERTEXT"| module Xhtml_types.HYPERTEXT >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Html5"| module Html5 >> |<<div class="odocwiki_info"|~Typesafe constructors and printers for ~H~T~M~L~5 documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html5_f"| module Html5_f >> |<<div class="odocwiki_info"|~Typesafe constructors for ~H~T~M~L~5 documents ~(~Functorial interface~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html5_sigs"| module Html5_sigs >> |<<div class="odocwiki_info"|~Common ~Attributes
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html5_types"| module Html5_types >> |<<div class="odocwiki_info"|~H~T~M~L~5 types with variants~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\I|
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Html5_sigs.T.Info >> ~[<<a_api | module Html5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Svg_sigs.T.Info >> ~[<<a_api | module Svg_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Xhtml_sigs.T_01_01.Info >> ~[<<a_api | module Xhtml_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Xml_sigs.Iterable_typed_xml.Info >> ~[<<a_api | module Xml_sigs.Iterable_typed_xml >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Xml_sigs.Typed_xml.Info >> ~[<<a_api | module Xml_sigs.Typed_xml >>~]||
+|@@ @style="tet-align: left;"@@\\L|
+|@@class="odocwiki_index"@ @@<<a_api text="LINK"| module Xhtml_types.LINK >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="LIST"| module Xhtml_types.LIST >> ~[<<a_api | module Xhtml_types >>~]||
+|@@ @style="tet-align: left;"@@\\M|
+|@@class="odocwiki_index"@ @@<<a_api text="M"| module Html5.M >> ~[<<a_api | module Html5 >>~]|<<div class="odocwiki_info"|~Concrete implementation of ~H~T~M~L~5 typesafe constructors
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="M"| module Svg.M >> ~[<<a_api | module Svg >>~]|<<div class="odocwiki_info"|~Concrete implementation of ~S~V~G typesafe constructors
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="M"| module Xhtml.M >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L typesafe constructors
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="M_01_00"| module Xhtml.M_01_00 >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L ~1~.~0 typesafe constructors
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="M_01_01"| module Xhtml.M_01_01 >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L ~1~.~1 typesafe constructors
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Html5_f.Make >> ~[<<a_api | module Html5_f >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Svg_f.Make >> ~[<<a_api | module Svg_f >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xhtml_f.Make >> ~[<<a_api | module Xhtml_f >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_iter.Make >> ~[<<a_api | module Xml_iter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_print.Make >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="MakeWrapped"| module Html5_f.MakeWrapped >> ~[<<a_api | module Html5_f >>~]|<<div class="odocwiki_info"|~Like the <<a_api | module Html5_f.Make >> functor~, but allows to wrap elements inside a monad described by <<a_api | module type Xml_wrap.T >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="MakeWrapped"| module Svg_f.MakeWrapped >> ~[<<a_api | module Svg_f >>~]|<<div class="odocwiki_info"|~Like the <<a_api | module Svg_f.Make >> functor~, but allows to wrap elements inside a monad described by <<a_api | module type Xml_wrap.T >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_01_00"| module Xhtml_f.Make_01_00 >> ~[<<a_api | module Xhtml_f >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_01_01"| module Xhtml_f.Make_01_01 >> ~[<<a_api | module Xhtml_f >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Html5.Make_printer >> ~[<<a_api | module Html5 >>~]|<<div class="odocwiki_info"|~Parametrized stream printer for ~H~T~M~L~5 documents
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Svg.Make_printer >> ~[<<a_api | module Svg >>~]|<<div class="odocwiki_info"|~Parametrized stream printer for ~S~V~G documents
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Xhtml.Make_printer >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L documents ~(~H~T~M~L compatible printer~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer_01_00"| module Xhtml.Make_printer_01_00 >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L ~1~.~0 documents
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer_01_01"| module Xhtml.Make_printer_01_01 >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L ~1~.~1 documents ~(~H~T~M~L compatible printer~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_simple"| module Xml_print.Make_simple >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_typed"| module Xml_print.Make_typed >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_typed_simple"| module Xml_print.Make_typed_simple >> ~[<<a_api | module Xml_print >>~]||
+|@@ @style="tet-align: left;"@@\\N|
+|@@class="odocwiki_index"@ @@<<a_api text="NoWrap"| module Xml_wrap.NoWrap >> ~[<<a_api | module Xml_wrap >>~]||
+|@@ @style="tet-align: left;"@@\\P|
+|@@class="odocwiki_index"@ @@<<a_api text="P"| module Html5.P >> ~[<<a_api | module Html5 >>~]|<<div class="odocwiki_info"|~Simple printer for ~H~T~M~L~5 documents
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="P"| module Svg.P >> ~[<<a_api | module Svg >>~]|<<div class="odocwiki_info"|~Simple printer for ~S~V~G documents
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="P"| module Xhtml.P >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L documents ~(~H~T~M~L compatible printer~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="PRESENTATION"| module Xhtml_types.PRESENTATION >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="P_01_00"| module Xhtml.P_01_00 >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L ~1~.~0 documents ~(~H~T~M~L compatible printer~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="P_01_01"| module Xhtml.P_01_01 >> ~[<<a_api | module Xhtml >>~]|<<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L ~1~.~1 documents ~(~H~T~M~L compatible printer~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Pa_tyxml"| module Pa_tyxml >> |<<div class="odocwiki_info"|~Syntax extension for ~H~T~M~L~5~, ~X~H~T~M~L or ~S~V~G tree creation~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\R|
+|@@class="odocwiki_index"@ @@<<a_api text="RUBY"| module Xhtml_types.RUBY >> ~[<<a_api | module Xhtml_types >>~]||
+|@@ @style="tet-align: left;"@@\\S|
+|@@class="odocwiki_index"@ @@<<a_api text="SPECIAL"| module Xhtml_types.SPECIAL >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="STYLE_SHEET"| module Xhtml_types.STYLE_SHEET >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Simplexmlparser"| module Simplexmlparser >> |<<div class="odocwiki_info"|~Basic camlp~4 parser for xml
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg"| module Svg >> |<<div class="odocwiki_info"|~Typesafe constructors and printers for ~S~V~G documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg"| module Html5_sigs.T.Svg >> ~[<<a_api | module Html5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Svg_f"| module Svg_f >> |<<div class="odocwiki_info"|~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg_sigs"| module Svg_sigs >> |<<div class="odocwiki_info"|~Abstraction over ~X~M~L~'s types
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg_types"| module Svg_types >> |<<div class="odocwiki_info"|~S~V~G types with variants~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\T|
+|@@class="odocwiki_index"@ @@<<a_api text="TABLES"| module Xhtml_types.TABLES >> ~[<<a_api | module Xhtml_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="TEXT"| module Xhtml_types.TEXT >> ~[<<a_api | module Xhtml_types >>~]||
+|@@ @style="tet-align: left;"@@\\U|
+|@@class="odocwiki_index"@ @@<<a_api text="Unit"| module Svg_types.Unit >> ~[<<a_api | module Svg_types >>~]|<<div class="odocwiki_info"|~S~V~G defines several units to measure time~, length~, angles~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Unsafe"| module Html5_sigs.T.Unsafe >> ~[<<a_api | module Html5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Unsafe"| module Svg_sigs.T.Unsafe >> ~[<<a_api | module Svg_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Unsafe"| module Xhtml_sigs.T_01_01.Unsafe >> ~[<<a_api | module Xhtml_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\X|
+|@@class="odocwiki_index"@ @@<<a_api text="Xhtml"| module Xhtml >> |<<div class="odocwiki_info"|~Typesafe constructors and printers for ~X~H~T~M~L ~1~.~0 and ~1~.~1 documents
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xhtml_f"| module Xhtml_f >> |<<div class="odocwiki_info"|~Typesafe constructors for ~X~H~T~M~L documents ~(~Functorial interface~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xhtml_sigs"| module Xhtml_sigs >> |<<div class="odocwiki_info"|~The elements~, attributes~, attribute types and data types are given names
+      that match the names in the ~W~3~C recommendation as closely as allowed by
+      a strict typing discipline and the lexical conventions of ~O~'~Caml~:
+       //elements// are implemented as ~O~'~Caml constructors with the same name as
+      in the ~W~3~C recommendation~.  ~The domain and codomain are specified as <<span class="odocwiki_inlinecode"|~'a elt>>~,
+      where <<span class="odocwiki_inlinecode"|~'a>> is a concrete phantom type build out of polymorphic variants~.~, //attributes// are implemented as ~O~'~Caml constructors with <<span class="odocwiki_inlinecode"|a~_>> prefixed to the
+      name~.  ~The name is the same as in the ~W~3~C recommendation~, unless an additional
+      prefix is required to disambiguate~:
+       <<span class="odocwiki_inlinecode"|a~_fs~_rows>> and <<span class="odocwiki_inlinecode"|a~_fs~_cols>> instead of <<span class="odocwiki_inlinecode"|a~_rows>> and <<span class="odocwiki_inlinecode"|a~_cols>> for framesets~,
+      because of the different argument types~.~, //attribute types// are implemented as ~O~'~Caml types that all have the same names
+      as in the ~W~3~C recommendation~, but are all lowercase~.~, //data types// are also implemented as ~O~'~Caml types that all have the same names
+      as in the ~W~3~C recommendation and are again all lowercase~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xhtml_types"| module Xhtml_types >> |<<div class="odocwiki_info"|~X~H~T~M~L types with variants~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html5_sigs.T.Xml >> ~[<<a_api | module Html5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Svg_sigs.T.Xml >> ~[<<a_api | module Svg_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Xhtml_sigs.T_01_01.Xml >> ~[<<a_api | module Xhtml_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Xml >> |<<div class="odocwiki_info"|~Basic functions for construction and manipulation of ~X~M~L tree~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Xml_sigs.Iterable_typed_xml.Xml >> ~[<<a_api | module Xml_sigs.Iterable_typed_xml >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Xml_sigs.Typed_xml.Xml >> ~[<<a_api | module Xml_sigs.Typed_xml >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_iter"| module Xml_iter >> |<<div class="odocwiki_info"|~Basic iterators over ~X~M~L tree ~(functorial interface~)~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_print"| module Xml_print >> |<<div class="odocwiki_info"|~Printer for ~X~M~L~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_sigs"| module Xml_sigs >> ||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_wrap"| module Xml_wrap >> ||
+\\

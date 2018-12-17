@@ -1,0 +1,5 @@
+<<code language="ocaml" | sig
+  type list = [ `Dl | `Ol | `Ul ]
+  type t = [ `Dd | `Dt | `Li ]
+  type flow = Xhtml_types.LIST.list
+end >>

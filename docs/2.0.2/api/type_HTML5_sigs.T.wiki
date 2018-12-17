@@ -1,0 +1,2485 @@
+<<code language="ocaml" | sig
+  module XML : XML_sigs.T
+  module SVG :
+    sig
+      module Info : XML_sigs.Info
+      type uri = XML.uri
+      val string_of_uri : uri -> string
+      val uri_of_string : string -> uri
+      type 'a attrib
+      type +'a elt
+      type +'a elts
+      type ('a, 'b) nullary = ?a:'a attrib list -> unit -> 'b elt
+      type ('a, 'b, 'c) unary = ?a:'a attrib list -> 'b elt -> 'c elt
+      type ('a, 'b, 'c) star = ?a:'a attrib list -> 'b elt list -> 'c elt
+      type ('a, 'b, 'c) plus =
+          ?a:'a attrib list -> 'b elt -> 'b elt list -> 'c elt
+      type altglyphdef_content =
+          [ `Item of SVG_types.altglyphitem elt list
+          | `Ref of SVG_types.glyphref elt list ]
+      val a_version : string -> [> `Version ] attrib
+      val a_baseprofile : string -> [> `BaseProfile ] attrib
+      val a_x : SVG_types.coord -> [> `X ] attrib
+      val a_y : SVG_types.coord -> [> `Y ] attrib
+      val a_width : SVG_types.Unit.length -> [> `Width ] attrib
+      val a_height : SVG_types.Unit.length -> [> `Height ] attrib
+      val a_preserveaspectratio : string -> [> `PreserveAspectRatio ] attrib
+      val a_contentscripttype : string -> [> `ContentScriptType ] attrib
+      val a_contentstyletype : string -> [> `ContentStyleType ] attrib
+      val a_zoomAndPan : [< `Disable | `Magnify ] -> [> `ZoomAndSpan ] attrib
+      val a_xlink_href : SVG_types.iri -> [> `Xlink_href ] attrib
+      val a_requiredfeatures :
+        SVG_types.spacestrings -> [> `RequiredFeatures ] attrib
+      val a_requiredextensions :
+        SVG_types.spacestrings -> [> `RequiredExtension ] attrib
+      val a_systemlanguage :
+        SVG_types.commastrings -> [> `SystemLanguage ] attrib
+      val a_externalressourcesrequired :
+        bool -> [> `ExternalRessourcesRequired ] attrib
+      val a_id : string -> [> `Id ] attrib
+      val a_xml_base : SVG_types.iri -> [> `Xml_Base ] attrib
+      val a_xml_lang : SVG_types.iri -> [> `Xml_Lang ] attrib
+      val a_xml_space : [< `Default | `Preserve ] -> [> `Xml_Space ] attrib
+      val a_type : string -> [> `Type ] attrib
+      val a_media : SVG_types.commastrings -> [> `Media ] attrib
+      val a_title : string -> [> `Title ] attrib
+      val a_class : SVG_types.spacestrings -> [> `Class ] attrib
+      val a_style : string -> [> `Style ] attrib
+      val a_transform : SVG_types.transform -> [> `Transform ] attrib
+      val a_viewbox : SVG_types.fourfloats -> [> `Viewbox ] attrib
+      val a_d : string -> [> `D ] attrib
+      val a_pathlength : float -> [> `PathLength ] attrib
+      val a_rx : SVG_types.Unit.length -> [> `Rx ] attrib
+      val a_ry : SVG_types.Unit.length -> [> `Ry ] attrib
+      val a_cx : SVG_types.Unit.length -> [> `Cx ] attrib
+      val a_cy : SVG_types.Unit.length -> [> `Cy ] attrib
+      val a_r : SVG_types.Unit.length -> [> `R ] attrib
+      val a_x1 : SVG_types.coord -> [> `X1 ] attrib
+      val a_y1 : SVG_types.coord -> [> `Y1 ] attrib
+      val a_x2 : SVG_types.coord -> [> `X2 ] attrib
+      val a_y2 : SVG_types.coord -> [> `Y2 ] attrib
+      val a_points : SVG_types.coords -> [> `Points ] attrib
+      val a_x_list : SVG_types.lengths -> [> `X__list ] attrib
+      val a_y_list : SVG_types.lengths -> [> `Y__list ] attrib
+      val a_dx : SVG_types.lengths -> [> `Dx ] attrib
+      val a_dy : SVG_types.lengths -> [> `Dy ] attrib
+      val a_dx_single : SVG_types.Unit.length -> [> `Dx__single ] attrib
+      val a_dy_single : SVG_types.Unit.length -> [> `Dy__single ] attrib
+      val a_dx_number : SVG_types.number -> [> `Dx__number ] attrib
+      val a_dy_number : SVG_types.number -> [> `Dy__number ] attrib
+      val a_lengthadjust :
+        [< `Spacing | `SpacingAndGlyphs ] -> [> `LengthAdjust ] attrib
+      val a_textlength : SVG_types.Unit.length -> [> `TextLength ] attrib
+      val a_rotate : SVG_types.numbers -> [> `Rotate ] attrib
+      val a_startoffset : SVG_types.Unit.length -> [> `StartOffset ] attrib
+      val a_method : [< `Align | `Stretch ] -> [> `Method ] attrib
+      val a_spacing : [< `Auto | `Exact ] -> [> `Spacing ] attrib
+      val a_glyphref : string -> [> `GlyphRef ] attrib
+      val a_format : string -> [> `Format ] attrib
+      val a_markerunits :
+        [< `StrokeWidth | `UserSpaceOnUse ] -> [> `MarkerUnits ] attrib
+      val a_refx : SVG_types.coord -> [> `RefX ] attrib
+      val a_refy : SVG_types.coord -> [> `RefY ] attrib
+      val a_markerwidth : SVG_types.Unit.length -> [> `MarkerWidth ] attrib
+      val a_markerheight : SVG_types.Unit.length -> [> `MarkerHeight ] attrib
+      val a_orient :
+        [< `Angle of SVG_types.Unit.angle | `Auto ] -> [> `Orient ] attrib
+      val a_local : string -> [> `Local ] attrib
+      val a_renderingindent :
+        [< `Absolute_colorimetric
+         | `Auto
+         | `Perceptual
+         | `Relative_colorimetric
+         | `Saturation ] ->
+        [> `Rendering_Indent ] attrib
+      val a_gradientunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] ->
+        [ `GradientUnits ] attrib
+      val a_gradienttransform :
+        SVG_types.transforms -> [> `Gradient_Transform ] attrib
+      val a_spreadmethod :
+        [< `Pad | `Reflect | `Repeat ] -> [> `SpreadMethod ] attrib
+      val a_fx : SVG_types.coord -> [> `Fx ] attrib
+      val a_fy : SVG_types.coord -> [> `Fy ] attrib
+      val a_offset :
+        [< `Number of SVG_types.number | `Percentage of SVG_types.percentage ] ->
+        [> `Offset ] attrib
+      val a_patternunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] ->
+        [> `PatternUnits ] attrib
+      val a_patterncontentunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] ->
+        [> `PatternContentUnits ] attrib
+      val a_patterntransform :
+        SVG_types.transforms -> [> `PatternTransform ] attrib
+      val a_clippathunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] ->
+        [> `ClipPathUnits ] attrib
+      val a_maskunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] -> [> `MaskUnits ] attrib
+      val a_maskcontentunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] ->
+        [> `MaskContentUnits ] attrib
+      val a_primitiveunits :
+        [< `ObjectBoundingBox | `UserSpaceOnUse ] ->
+        [> `PrimitiveUnits ] attrib
+      val a_filterres :
+        SVG_types.number_optional_number -> [> `FilterResUnits ] attrib
+      val a_result : string -> [> `Result ] attrib
+      val a_in :
+        [< `BackgroundAlpha
+         | `BackgroundImage
+         | `FillPaint
+         | `Ref of string
+         | `SourceAlpha
+         | `SourceGraphic
+         | `StrokePaint ] ->
+        [> `In ] attrib
+      val a_in2 :
+        [< `BackgroundAlpha
+         | `BackgroundImage
+         | `FillPaint
+         | `Ref of string
+         | `SourceAlpha
+         | `SourceGraphic
+         | `StrokePaint ] ->
+        [> `In2 ] attrib
+      val a_aizmuth : float -> [> `Azimuth ] attrib
+      val a_elevation : float -> [> `Elevation ] attrib
+      val a_pointatx : float -> [> `PointsAtX ] attrib
+      val a_pointaty : float -> [> `PointsAtY ] attrib
+      val a_pointatz : float -> [> `PointsAtZ ] attrib
+      val a_specularexponent : float -> [> `SpecularExponent ] attrib
+      val a_specularconstant : float -> [> `SpecularConstant ] attrib
+      val a_limitingconeangle : float -> [> `LimitingConeAngle ] attrib
+      val a_mode :
+        [< `Darken | `Lighten | `Multiply | `Normal | `Screen ] ->
+        [> `Mode ] attrib
+      val a_typefecolor :
+        [< `HueRotate | `LuminanceToAlpha | `Matrix | `Saturate ] ->
+        [> `Type__fecolor ] attrib
+      val a_values : SVG_types.numbers -> [> `Values ] attrib
+      val a_transferttype :
+        [< `Discrete | `Gamma | `Identity | `Linear | `Table ] ->
+        [> `Type__transfert ] attrib
+      val a_tablevalues : SVG_types.numbers -> [> `TableValues ] attrib
+      val a_intercept : SVG_types.number -> [> `Intercept ] attrib
+      val a_amplitude : SVG_types.number -> [> `Amplitude ] attrib
+      val a_exponent : SVG_types.number -> [> `Exponent ] attrib
+      val a_offsettransfer :
+        SVG_types.number -> [> `Offset__transfer ] attrib
+      val a_operator :
+        [< `Arithmetic | `Atop | `In | `Out | `Over | `Xor ] ->
+        [> `Operator ] attrib
+      val a_k1 : SVG_types.number -> [> `K1 ] attrib
+      val a_k2 : SVG_types.number -> [> `K2 ] attrib
+      val a_k3 : SVG_types.number -> [> `K3 ] attrib
+      val a_k4 : SVG_types.number -> [> `K4 ] attrib
+      val a_order : SVG_types.number_optional_number -> [> `Order ] attrib
+      val a_kernelmatrix : SVG_types.numbers -> [> `KernelMatrix ] attrib
+      val a_divisor : SVG_types.number -> [> `Divisor ] attrib
+      val a_bias : SVG_types.number -> [> `Bias ] attrib
+      val a_kernelunitlength :
+        SVG_types.number_optional_number -> [> `KernelUnitLength ] attrib
+      val a_targetX : int -> [> `TargetX ] attrib
+      val a_targetY : int -> [> `TargetY ] attrib
+      val a_edgemode :
+        [< `Duplicate | `None | `Wrap ] -> [> `TargetY ] attrib
+      val a_preservealpha : bool -> [> `TargetY ] attrib
+      val a_surfacescale : SVG_types.number -> [> `SurfaceScale ] attrib
+      val a_diffuseconstant :
+        SVG_types.number -> [> `DiffuseConstant ] attrib
+      val a_scale : SVG_types.number -> [> `Scale ] attrib
+      val a_xchannelselector :
+        [< `A | `B | `G | `R ] -> [> `XChannelSelector ] attrib
+      val a_ychannelselector :
+        [< `A | `B | `G | `R ] -> [> `YChannelSelector ] attrib
+      val a_stddeviation :
+        SVG_types.number_optional_number -> [> `StdDeviation ] attrib
+      val a_operatormorphology :
+        [< `Dilate | `Erode ] -> [> `OperatorMorphology ] attrib
+      val a_radius : SVG_types.number_optional_number -> [> `Radius ] attrib
+      val a_basefrenquency :
+        SVG_types.number_optional_number -> [> `BaseFrequency ] attrib
+      val a_numoctaves : int -> [> `NumOctaves ] attrib
+      val a_seed : SVG_types.number -> [> `Seed ] attrib
+      val a_stitchtiles :
+        [< `NoStitch | `Stitch ] -> [> `StitchTiles ] attrib
+      val a_stitchtype :
+        [< `FractalNoise | `Turbulence ] -> [> `TypeStitch ] attrib
+      val a_xlinkshow : [< `New | `Replace ] -> [> `Xlink_show ] attrib
+      val a_xlinkactuate : [< `OnRequest ] -> [> `Xlink_actuate ] attrib
+      val a_target : string -> [> `Xlink_target ] attrib
+      val a_viewtarget : string -> [> `ViewTarget ] attrib
+      val a_attributename : string -> [> `AttributeName ] attrib
+      val a_attributetype :
+        [< `Auto | `CSS | `XML ] -> [> `AttributeType ] attrib
+      val a_begin : string -> [> `Begin ] attrib
+      val a_dur : string -> [> `Dur ] attrib
+      val a_min : string -> [> `Min ] attrib
+      val a_max : string -> [> `Max ] attrib
+      val a_restart :
+        [< `Always | `Never | `WhenNotActive ] -> [> `Restart ] attrib
+      val a_repeatcount : string -> [> `RepeatCount ] attrib
+      val a_repeatdur : string -> [> `RepeatDur ] attrib
+      val a_fill : [< `Freeze | `Remove ] -> [> `Fill ] attrib
+      val a_calcmode :
+        [< `Discrete | `Linear | `Paced | `Spline ] -> [> `CalcMode ] attrib
+      val a_values_anim : SVG_types.strings -> [> `Values__anim ] attrib
+      val a_keytimes : SVG_types.strings -> [> `KeyTimes ] attrib
+      val a_keysplines : SVG_types.strings -> [> `KeySplines ] attrib
+      val a_from : string -> [> `From ] attrib
+      val a_to : string -> [> `To ] attrib
+      val a_by : string -> [> `By ] attrib
+      val a_additive : [< `Replace | `Sum ] -> [> `Additive ] attrib
+      val a_accumulate : [< `None | `Sum ] -> [> `Accumulate ] attrib
+      val a_keypoints : SVG_types.numbers_semicolon -> [> `KeyPoints ] attrib
+      val a_path : string -> [> `Path ] attrib
+      val a_typeanimatecolor :
+        [ `Rotate | `Scale | `SkewX | `SkewY | `Translate ] ->
+        [ `Type__animatecolor ] attrib
+      val a_horiz_origin_x :
+        SVG_types.number -> [> `Horiz___origin___x ] attrib
+      val a_horiz_origin_y :
+        SVG_types.number -> [> `Horiz___origin___y ] attrib
+      val a_horiz_adv_x : SVG_types.number -> [> `Horiz___adv___x ] attrib
+      val a_vert_origin_x :
+        SVG_types.number -> [> `Vert___origin___x ] attrib
+      val a_vert_origin_y :
+        SVG_types.number -> [> `Vert___origin___y ] attrib
+      val a_vert_adv_y : SVG_types.number -> [> `Vert___adv___y ] attrib
+      val a_unicode : string -> [> `Unicode ] attrib
+      val a_glyphname : string -> [> `glyphname ] attrib
+      val a_orientation : [< `H | `V ] -> [> `Orientation ] attrib
+      val a_arabicform :
+        [< `Initial | `Isolated | `Medial | `Terminal ] ->
+        [> `Arabic___form ] attrib
+      val a_lang : string -> [> `Lang ] attrib
+      val a_u1 : string -> [> `U1 ] attrib
+      val a_u2 : string -> [> `U2 ] attrib
+      val a_g1 : string -> [> `G1 ] attrib
+      val a_g2 : string -> [> `G2 ] attrib
+      val a_k : string -> [> `K ] attrib
+      val a_fontfamily : string -> [> `Font___Family ] attrib
+      val a_fontstyle : string -> [> `Font___Style ] attrib
+      val a_fontvariant : string -> [> `Font___Variant ] attrib
+      val a_fontweight : string -> [> `Font___Weight ] attrib
+      val a_fontstretch : string -> [> `Font___Stretch ] attrib
+      val a_fontsize : string -> [> `Font___Size ] attrib
+      val a_unicoderange : string -> [> `Unicode___Range ] attrib
+      val a_unitsperem : string -> [> `Units___Per___Em ] attrib
+      val a_stemv : SVG_types.number -> [> `Stemv ] attrib
+      val a_stemh : SVG_types.number -> [> `Stemh ] attrib
+      val a_slope : SVG_types.number -> [> `Slope ] attrib
+      val a_capheight : SVG_types.number -> [> `Cap___Height ] attrib
+      val a_xheight : SVG_types.number -> [> `X___Height ] attrib
+      val a_accentheight : SVG_types.number -> [> `Accent___Height ] attrib
+      val a_ascent : SVG_types.number -> [> `Ascent ] attrib
+      val a_widths : string -> [> `Widths ] attrib
+      val a_bbox : string -> [> `Bbox ] attrib
+      val a_ideographic : SVG_types.number -> [> `Ideographic ] attrib
+      val a_alphabetic : SVG_types.number -> [> `Alphabetic ] attrib
+      val a_mathematical : SVG_types.number -> [> `Mathematical ] attrib
+      val a_hanging : SVG_types.number -> [> `Hanging ] attrib
+      val a_videographic : SVG_types.number -> [> `V___Ideographic ] attrib
+      val a_valphabetic : SVG_types.number -> [> `V___Alphabetic ] attrib
+      val a_vmathematical : SVG_types.number -> [> `V___Mathematical ] attrib
+      val a_vhanging : SVG_types.number -> [> `V___Hanging ] attrib
+      val a_underlineposition :
+        SVG_types.number -> [> `Underline___Position ] attrib
+      val a_underlinethickness :
+        SVG_types.number -> [> `Underline___Thickness ] attrib
+      val a_strikethroughposition :
+        SVG_types.number -> [> `Strikethrough___Position ] attrib
+      val a_strikethroughthickness :
+        SVG_types.number -> [> `Strikethrough___Thickness ] attrib
+      val a_overlineposition :
+        SVG_types.number -> [> `Overline___Position ] attrib
+      val a_overlinethickness :
+        SVG_types.number -> [> `Overline___Thickness ] attrib
+      val a_string : string -> [> `String ] attrib
+      val a_name : string -> [> `Name ] attrib
+      val a_onabort : string -> [> `Onabort ] attrib
+      val a_onactivate : string -> [> `Onactivate ] attrib
+      val a_onbegin : string -> [> `Onbegin ] attrib
+      val a_onclick : string -> [> `Onclick ] attrib
+      val a_onend : string -> [> `Onend ] attrib
+      val a_onerror : string -> [> `Onerror ] attrib
+      val a_onfocusin : string -> [> `Onfocusin ] attrib
+      val a_onfocusout : string -> [> `Onfocusout ] attrib
+      val a_onload : string -> [> `Onload ] attrib
+      val a_onmousedown : string -> [> `Onmousdown ] attrib
+      val a_onmouseup : string -> [> `Onmouseup ] attrib
+      val a_onmouseover : string -> [> `Onmouseover ] attrib
+      val a_onmouseout : string -> [> `Onmouseout ] attrib
+      val a_onmousemove : string -> [> `Onmousemove ] attrib
+      val a_onrepeat : string -> [> `Onrepeat ] attrib
+      val a_onresize : string -> [> `Onresize ] attrib
+      val a_onscroll : string -> [> `Onscroll ] attrib
+      val a_onunload : string -> [> `Onunload ] attrib
+      val a_onzoom : string -> [> `Onzoom ] attrib
+      val metadata :
+        ?a:SVG_types.metadata_attr attrib list ->
+        XML.elt list -> [> SVG_types.metadata ] elt
+      val foreignobject :
+        ?a:SVG_types.foreignobject_attr attrib list ->
+        XML.elt list -> [> SVG_types.foreignobject ] elt
+      val svg :
+        ([< SVG_types.svg_attr ], [< SVG_types.svg_content ],
+         [> SVG_types.svg ])
+        star
+      val g :
+        ([< SVG_types.g_attr ], [< SVG_types.g_content ], [> SVG_types.g ])
+        star
+      val defs :
+        ([< SVG_types.defs_attr ], [< SVG_types.defs_content ],
+         [> SVG_types.defs ])
+        star
+      val desc :
+        ([< SVG_types.desc_attr ], [< SVG_types.desc_content ],
+         [> SVG_types.desc ])
+        unary
+      val title :
+        ([< SVG_types.title_attr ], [< SVG_types.title_content ],
+         [> SVG_types.title ])
+        unary
+      val symbol :
+        ([< SVG_types.symbol_attr ], [< SVG_types.symbol_content ],
+         [> SVG_types.symbol ])
+        star
+      val use :
+        ([< SVG_types.use_attr ], [< SVG_types.use_content ],
+         [> SVG_types.use ])
+        star
+      val image :
+        ([< SVG_types.image_attr ], [< SVG_types.image_content ],
+         [> SVG_types.image ])
+        star
+      val switch :
+        ([< SVG_types.switch_attr ], [< SVG_types.switch_content ],
+         [> SVG_types.switch ])
+        star
+      val style :
+        ([< SVG_types.style_attr ], [< SVG_types.style_content ],
+         [> SVG_types.style ])
+        unary
+      val path :
+        ([< SVG_types.path_attr ], [< SVG_types.path_content ],
+         [> SVG_types.path ])
+        star
+      val rect :
+        ([< SVG_types.rect_attr ], [< SVG_types.rect_content ],
+         [> SVG_types.rect ])
+        star
+      val circle :
+        ([< SVG_types.circle_attr ], [< SVG_types.circle_content ],
+         [> SVG_types.circle ])
+        star
+      val ellipse :
+        ([< SVG_types.ellipse_attr ], [< SVG_types.ellipse_content ],
+         [> SVG_types.ellipse ])
+        star
+      val line :
+        ([< SVG_types.line_attr ], [< SVG_types.line_content ],
+         [> SVG_types.line ])
+        star
+      val polyline :
+        ([< SVG_types.polyline_attr ], [< SVG_types.polyline_content ],
+         [> SVG_types.polyline ])
+        star
+      val polygon :
+        ([< SVG_types.polygon_attr ], [< SVG_types.polygon_content ],
+         [> SVG_types.polygon ])
+        star
+      val text :
+        ([< SVG_types.text_attr ], [< SVG_types.text_content ],
+         [> SVG_types.text ])
+        star
+      val tspan :
+        ([< SVG_types.tspan_attr ], [< SVG_types.tspan_content ],
+         [> SVG_types.tspan ])
+        star
+      val tref :
+        ([< SVG_types.tref_attr ], [< SVG_types.tref_content ],
+         [> SVG_types.tref ])
+        star
+      val textpath :
+        ([< SVG_types.textpath_attr ], [< SVG_types.textpath_content ],
+         [> SVG_types.textpath ])
+        star
+      val altglyph :
+        ([< SVG_types.altglyph_attr ], [< SVG_types.altglyph_content ],
+         [> SVG_types.altglyph ])
+        unary
+      val altglyphdef :
+        ([< SVG_types.altglyphdef_attr ], [< altglyphdef_content ],
+         [> SVG_types.altglyphdef ])
+        unary
+      val altglyphitem :
+        ([< SVG_types.altglyphitem_attr ],
+         [< SVG_types.altglyphitem_content ], [> SVG_types.altglyphitem ])
+        plus
+      val glyphref :
+        ([< SVG_types.glyphref_attr ], [> SVG_types.glyphref ]) nullary
+      val marker :
+        ([< SVG_types.marker_attr ], [< SVG_types.marker_content ],
+         [> SVG_types.marker ])
+        star
+      val colorprofile :
+        ([< SVG_types.colorprofile_attr ],
+         [< SVG_types.colorprofile_content ], [> SVG_types.colorprofile ])
+        star
+      val lineargradient :
+        ([< SVG_types.lineargradient_attr ],
+         [< SVG_types.lineargradient_content ],
+         [> SVG_types.lineargradient ])
+        star
+      val radialgradient :
+        ([< SVG_types.radialgradient_attr ],
+         [< SVG_types.radialgradient_content ],
+         [> SVG_types.radialgradient ])
+        star
+      val gradientstop :
+        ([< SVG_types.gradientstop_attr ],
+         [< SVG_types.gradientstop_content ], [> SVG_types.gradientstop ])
+        star
+      val pattern :
+        ([< SVG_types.pattern_attr ], [< SVG_types.pattern_content ],
+         [> SVG_types.pattern ])
+        star
+      val clippath :
+        ([< SVG_types.clippath_attr ], [< SVG_types.clippath_content ],
+         [> SVG_types.clippath ])
+        star
+      val filter :
+        ([< SVG_types.filter_attr ], [< SVG_types.filter_content ],
+         [> SVG_types.filter ])
+        star
+      val fedistantlight :
+        ([< SVG_types.fedistantlight_attr ],
+         [< SVG_types.fedistantlight_content ],
+         [> SVG_types.fedistantlight ])
+        star
+      val fepointlight :
+        ([< SVG_types.fepointlight_attr ],
+         [< SVG_types.fepointlight_content ], [> SVG_types.fepointlight ])
+        star
+      val fespotlight :
+        ([< SVG_types.fespotlight_attr ], [< SVG_types.fespotlight_content ],
+         [> SVG_types.fespotlight ])
+        star
+      val feblend :
+        ([< SVG_types.feblend_attr ], [< SVG_types.feblend_content ],
+         [> SVG_types.feblend ])
+        star
+      val fecolormatrix :
+        ([< SVG_types.fecolormatrix_attr ],
+         [< SVG_types.fecolormatrix_content ], [> SVG_types.fecolormatrix ])
+        star
+      val fecomponenttransfer :
+        ([< SVG_types.fecomponenttransfer_attr ],
+         [< SVG_types.fecomponenttransfer_content ],
+         [> SVG_types.fecomponenttransfer ])
+        star
+      val fefunca :
+        ([< SVG_types.fefunca_attr ], [< SVG_types.fefunca_content ],
+         [> SVG_types.fefunca ])
+        star
+      val fefuncg :
+        ([< SVG_types.fefuncg_attr ], [< SVG_types.fefuncg_content ],
+         [> SVG_types.fefuncg ])
+        star
+      val fefuncb :
+        ([< SVG_types.fefuncb_attr ], [< SVG_types.fefuncb_content ],
+         [> SVG_types.fefuncb ])
+        star
+      val fefuncr :
+        ([< SVG_types.fefuncr_attr ], [< SVG_types.fefuncr_content ],
+         [> SVG_types.fefuncr ])
+        star
+      val fecomposite :
+        ([< SVG_types.fecomposite_attr ], [< SVG_types.fecomposite_content ],
+         [> SVG_types.fecomposite ])
+        star
+      val feconvolvematrix :
+        ([< SVG_types.feconvolvematrix_attr ],
+         [< SVG_types.feconvolvematrix_content ],
+         [> SVG_types.feconvolvematrix ])
+        star
+      val fediffuselighting :
+        ([< SVG_types.fediffuselighting_attr ],
+         [< SVG_types.fediffuselighting_content ],
+         [> SVG_types.fediffuselighting ])
+        star
+      val fedisplacementmap :
+        ([< SVG_types.fedisplacementmap_attr ],
+         [< SVG_types.fedisplacementmap_content ],
+         [> SVG_types.fedisplacementmap ])
+        star
+      val feflood :
+        ([< SVG_types.feflood_attr ], [< SVG_types.feflood_content ],
+         [> SVG_types.feflood ])
+        star
+      val fegaussianblur :
+        ([< SVG_types.fegaussianblur_attr ],
+         [< SVG_types.fegaussianblur_content ],
+         [> SVG_types.fegaussianblur ])
+        star
+      val feimage :
+        ([< SVG_types.feimage_attr ], [< SVG_types.feimage_content ],
+         [> SVG_types.feimage ])
+        star
+      val femerge :
+        ([< SVG_types.femerge_attr ], [< SVG_types.femerge_content ],
+         [> SVG_types.femerge ])
+        star
+      val femorphology :
+        ([< SVG_types.femorphology_attr ],
+         [< SVG_types.femorphology_content ], [> SVG_types.femorphology ])
+        star
+      val feoffset :
+        ([< SVG_types.feoffset_attr ], [< SVG_types.feoffset_content ],
+         [> SVG_types.feoffset ])
+        star
+      val fespecularlighting :
+        ([< SVG_types.fespecularlighting_attr ],
+         [< SVG_types.fespecularlighting_content ],
+         [> SVG_types.fespecularlighting ])
+        star
+      val fetile :
+        ([< SVG_types.fetile_attr ], [< SVG_types.fetile_content ],
+         [> SVG_types.fetile ])
+        star
+      val feturbulence :
+        ([< SVG_types.feturbulence_attr ],
+         [< SVG_types.feturbulence_content ], [> SVG_types.feturbulence ])
+        star
+      val cursor :
+        ([< SVG_types.cursor_attr ], [< SVG_types.cursor_content ],
+         [> SVG_types.cursor ])
+        star
+      val a :
+        ([< SVG_types.a_attr ], [< SVG_types.a_content ], [> SVG_types.a ])
+        star
+      val view :
+        ([< SVG_types.view_attr ], [< SVG_types.view_content ],
+         [> SVG_types.view ])
+        star
+      val script :
+        ([< SVG_types.script_attr ], [< SVG_types.script_content ],
+         [> SVG_types.script ])
+        unary
+      val animation :
+        ([< SVG_types.animation_attr ], [< SVG_types.animation_content ],
+         [> SVG_types.animation ])
+        star
+      val set :
+        ([< SVG_types.set_attr ], [< SVG_types.set_content ],
+         [> SVG_types.set ])
+        star
+      val animatemotion :
+        ([< SVG_types.animatemotion_attr ],
+         [< SVG_types.animatemotion_content ], [> SVG_types.animatemotion ])
+        star
+      val mpath :
+        ([< SVG_types.mpath_attr ], [< SVG_types.mpath_content ],
+         [> SVG_types.mpath ])
+        star
+      val animatecolor :
+        ([< SVG_types.animatecolor_attr ],
+         [< SVG_types.animatecolor_content ], [> SVG_types.animatecolor ])
+        star
+      val animatetransform :
+        ([< SVG_types.animatetransform_attr ],
+         [< SVG_types.animatetransform_content ],
+         [> SVG_types.animatetransform ])
+        star
+      val font :
+        ([< SVG_types.font_attr ], [< SVG_types.font_content ],
+         [> SVG_types.font ])
+        star
+      val glyph :
+        ([< SVG_types.glyph_attr ], [< SVG_types.glyph_content ],
+         [> SVG_types.glyph ])
+        star
+      val missingglyph :
+        ([< SVG_types.missingglyph_attr ],
+         [< SVG_types.missingglyph_content ], [> SVG_types.missingglyph ])
+        star
+      val hkern : ([< SVG_types.hkern_attr ], [> SVG_types.hkern ]) nullary
+      val vkern : ([< SVG_types.vkern_attr ], [> SVG_types.vkern ]) nullary
+      val fontface :
+        ([< SVG_types.fontface_attr ], [> SVG_types.fontface ]) nullary
+      val fontfacesrc :
+        ([< SVG_types.fontfacesrc_attr ], [< SVG_types.fontfacesrc_content ],
+         [> SVG_types.fontfacesrc ])
+        star
+      val fontfaceuri :
+        ([< SVG_types.fontfaceuri_attr ], [< SVG_types.fontfaceuri_content ],
+         [> SVG_types.fontfaceuri ])
+        star
+      val fontfaceformat :
+        ([< SVG_types.fontfaceformat_attr ], [> SVG_types.fontfaceformat ])
+        nullary
+      val fontfacename :
+        ([< SVG_types.fontfacename_attr ], [> SVG_types.fontfacename ])
+        nullary
+      val tot : XML.elt -> 'a elt
+      val totl : XML.elt list -> 'a elt list
+      val toelt : 'a elt -> XML.elt
+      val toeltl : 'a elt list -> XML.elt list
+      val to_xmlattribs : 'a attrib list -> XML.attrib list
+      val to_attrib : XML.attrib -> 'a attrib
+      type doc = [ `Svg ] elt
+      val doc_toelt : doc -> XML.elt
+    end
+  module Info : XML_sigs.Info
+  type uri = XML.uri
+  val string_of_uri : HTML5_sigs.T.uri -> string
+  val uri_of_string : string -> HTML5_sigs.T.uri
+  type +'a attrib
+  val to_xmlattribs : 'a HTML5_sigs.T.attrib list -> XML.attrib list
+  val to_attrib : XML.attrib -> 'a HTML5_sigs.T.attrib
+  val a_autocomplete :
+    [< `Off | `On ] -> [> `Autocomplete ] HTML5_sigs.T.attrib
+  val a_async : [< `Async ] -> [> `Async ] HTML5_sigs.T.attrib
+  val a_autofocus : [< `Autofocus ] -> [> `Autofocus ] HTML5_sigs.T.attrib
+  val a_autoplay : [< `Autoplay ] -> [> `Autoplay ] HTML5_sigs.T.attrib
+  val a_challenge : HTML5_types.text -> [> `Challenge ] HTML5_sigs.T.attrib
+  val a_contenteditable :
+    [< `False | `True ] -> [> `Contexteditable ] HTML5_sigs.T.attrib
+  val a_contextmenu :
+    HTML5_types.idref -> [> `Contextmenu ] HTML5_sigs.T.attrib
+  val a_controls : [< `Controls ] -> [> `Controls ] HTML5_sigs.T.attrib
+  val a_dir : [< `Ltr | `Rtl ] -> [> `Dir ] HTML5_sigs.T.attrib
+  val a_draggable :
+    [< `False | `True ] -> [> `Draggable ] HTML5_sigs.T.attrib
+  val a_form : HTML5_types.idref -> [> `Form ] HTML5_sigs.T.attrib
+  val a_formaction : XML.uri -> [> `Formaction ] HTML5_sigs.T.attrib
+  val a_formenctype :
+    HTML5_types.contenttype -> [> `Formenctype ] HTML5_sigs.T.attrib
+  val a_formmethod :
+    [< `Delete | `Get | `Post | `Put ] ->
+    [> `Formmethod ] HTML5_sigs.T.attrib
+  val a_formnovalidate :
+    [< `Formnovalidate ] -> [> `Formnovalidate ] HTML5_sigs.T.attrib
+  val a_formtarget : HTML5_types.text -> [> `Formtarget ] HTML5_sigs.T.attrib
+  val a_hidden : [< `Hidden ] -> [> `Hidden ] HTML5_sigs.T.attrib
+  val a_high : HTML5_types.float_number -> [> `High ] HTML5_sigs.T.attrib
+  val a_icon : XML.uri -> [> `Icon ] HTML5_sigs.T.attrib
+  val a_ismap : [< `Ismap ] -> [> `Ismap ] HTML5_sigs.T.attrib
+  val a_keytype : HTML5_types.text -> [> `Keytype ] HTML5_sigs.T.attrib
+  val a_list : HTML5_types.idref -> [> `List ] HTML5_sigs.T.attrib
+  val a_loop : [< `Loop ] -> [> `Loop ] HTML5_sigs.T.attrib
+  val a_low : HTML5_types.float_number -> [> `High ] HTML5_sigs.T.attrib
+  val a_max : HTML5_types.float_number -> [> `Max ] HTML5_sigs.T.attrib
+  val a_input_max : HTML5_types.number -> [> `Max ] HTML5_sigs.T.attrib
+  val a_min : HTML5_types.float_number -> [> `Min ] HTML5_sigs.T.attrib
+  val a_input_min : HTML5_types.number -> [> `Min ] HTML5_sigs.T.attrib
+  val a_novalidate : [< `Novalidate ] -> [> `Novalidate ] HTML5_sigs.T.attrib
+  val a_open : [< `Open ] -> [> `Open ] HTML5_sigs.T.attrib
+  val a_optimum :
+    HTML5_types.float_number -> [> `Optimum ] HTML5_sigs.T.attrib
+  val a_pattern : HTML5_types.text -> [> `Pattern ] HTML5_sigs.T.attrib
+  val a_placeholder :
+    HTML5_types.text -> [> `Placeholder ] HTML5_sigs.T.attrib
+  val a_poster : XML.uri -> [> `Poster ] HTML5_sigs.T.attrib
+  val a_preload :
+    [< `Audio | `Metadata | `None ] -> [> `Preload ] HTML5_sigs.T.attrib
+  val a_pubdate : [< `Pubdate ] -> [> `Pubdate ] HTML5_sigs.T.attrib
+  val a_radiogroup : HTML5_types.text -> [> `Radiogroup ] HTML5_sigs.T.attrib
+  val a_required : [< `Required ] -> [> `Required ] HTML5_sigs.T.attrib
+  val a_reversed : [< `Reversed ] -> [> `Reversed ] HTML5_sigs.T.attrib
+  val a_sandbox :
+    [< `AllowForms | `AllowSameOrigin | `AllowScript ] list ->
+    [> `Sandbox ] HTML5_sigs.T.attrib
+  val a_spellcheck :
+    [< `False | `True ] -> [> `Spellcheck ] HTML5_sigs.T.attrib
+  val a_scoped : [< `Scoped ] -> [> `Scoped ] HTML5_sigs.T.attrib
+  val a_seamless : [< `Seamless ] -> [> `Seamless ] HTML5_sigs.T.attrib
+  val a_sizes : HTML5_types.numbers -> [> `Sizes ] HTML5_sigs.T.attrib
+  val a_span : HTML5_types.number -> [> `Span ] HTML5_sigs.T.attrib
+  val a_srclang : HTML5_types.nmtoken -> [> `XML_lang ] HTML5_sigs.T.attrib
+  val a_start : HTML5_types.number -> [> `Start ] HTML5_sigs.T.attrib
+  val a_step : HTML5_types.float_number -> [> `Step ] HTML5_sigs.T.attrib
+  val a_wrap : [< `Hard | `Soft ] -> [> `Wrap ] HTML5_sigs.T.attrib
+  val a_class : HTML5_types.nmtokens -> [> `Class ] HTML5_sigs.T.attrib
+  val a_user_data :
+    HTML5_types.nmtoken ->
+    HTML5_types.text -> [> `User_data ] HTML5_sigs.T.attrib
+  val a_id : HTML5_types.text -> [> `Id ] HTML5_sigs.T.attrib
+  val a_title : HTML5_types.text -> [> `Title ] HTML5_sigs.T.attrib
+  val a_xml_lang : HTML5_types.nmtoken -> [> `XML_lang ] HTML5_sigs.T.attrib
+  val a_onabort : XML.event_handler -> [> `OnAbort ] HTML5_sigs.T.attrib
+  val a_onafterprint :
+    XML.event_handler -> [> `OnAfterPrint ] HTML5_sigs.T.attrib
+  val a_onbeforeprint :
+    XML.event_handler -> [> `OnBeforePrint ] HTML5_sigs.T.attrib
+  val a_onbeforeunload :
+    XML.event_handler -> [> `OnBeforeUnload ] HTML5_sigs.T.attrib
+  val a_onblur : XML.event_handler -> [> `OnBlur ] HTML5_sigs.T.attrib
+  val a_oncanplay : XML.event_handler -> [> `OnCanPlay ] HTML5_sigs.T.attrib
+  val a_oncanplaythrough :
+    XML.event_handler -> [> `OnCanPlayThrough ] HTML5_sigs.T.attrib
+  val a_onchange : XML.event_handler -> [> `OnChange ] HTML5_sigs.T.attrib
+  val a_onclick : XML.event_handler -> [> `OnClick ] HTML5_sigs.T.attrib
+  val a_oncontextmenu :
+    XML.event_handler -> [> `OnContextMenu ] HTML5_sigs.T.attrib
+  val a_ondblclick :
+    XML.event_handler -> [> `OnDblClick ] HTML5_sigs.T.attrib
+  val a_ondrag : XML.event_handler -> [> `OnDrag ] HTML5_sigs.T.attrib
+  val a_ondragend : XML.event_handler -> [> `OnDragEnd ] HTML5_sigs.T.attrib
+  val a_ondragenter :
+    XML.event_handler -> [> `OnDragEnter ] HTML5_sigs.T.attrib
+  val a_ondragleave :
+    XML.event_handler -> [> `OnDragLeave ] HTML5_sigs.T.attrib
+  val a_ondragover :
+    XML.event_handler -> [> `OnDragOver ] HTML5_sigs.T.attrib
+  val a_ondragstart :
+    XML.event_handler -> [> `OnDragStart ] HTML5_sigs.T.attrib
+  val a_ondrop : XML.event_handler -> [> `OnDrop ] HTML5_sigs.T.attrib
+  val a_ondurationchange :
+    XML.event_handler -> [> `OnDurationChange ] HTML5_sigs.T.attrib
+  val a_onemptied : XML.event_handler -> [> `OnEmptied ] HTML5_sigs.T.attrib
+  val a_onended : XML.event_handler -> [> `OnEnded ] HTML5_sigs.T.attrib
+  val a_onerror : XML.event_handler -> [> `OnError ] HTML5_sigs.T.attrib
+  val a_onfocus : XML.event_handler -> [> `OnFocus ] HTML5_sigs.T.attrib
+  val a_onformchange :
+    XML.event_handler -> [> `OnFormChange ] HTML5_sigs.T.attrib
+  val a_onforminput :
+    XML.event_handler -> [> `OnFormInput ] HTML5_sigs.T.attrib
+  val a_onhashchange :
+    XML.event_handler -> [> `OnHashChange ] HTML5_sigs.T.attrib
+  val a_oninput : XML.event_handler -> [> `OnInput ] HTML5_sigs.T.attrib
+  val a_oninvalid : XML.event_handler -> [> `OnInvalid ] HTML5_sigs.T.attrib
+  val a_onmousedown :
+    XML.event_handler -> [> `OnMouseDown ] HTML5_sigs.T.attrib
+  val a_onmouseup : XML.event_handler -> [> `OnMouseUp ] HTML5_sigs.T.attrib
+  val a_onmouseover :
+    XML.event_handler -> [> `OnMouseOver ] HTML5_sigs.T.attrib
+  val a_onmousemove :
+    XML.event_handler -> [> `OnMouseMove ] HTML5_sigs.T.attrib
+  val a_onmouseout :
+    XML.event_handler -> [> `OnMouseOut ] HTML5_sigs.T.attrib
+  val a_onmousewheel :
+    XML.event_handler -> [> `OnMouseWheel ] HTML5_sigs.T.attrib
+  val a_onoffline : XML.event_handler -> [> `OnOffLine ] HTML5_sigs.T.attrib
+  val a_ononline : XML.event_handler -> [> `OnOnLine ] HTML5_sigs.T.attrib
+  val a_onpause : XML.event_handler -> [> `OnPause ] HTML5_sigs.T.attrib
+  val a_onplay : XML.event_handler -> [> `OnPlay ] HTML5_sigs.T.attrib
+  val a_onplaying : XML.event_handler -> [> `OnPlaying ] HTML5_sigs.T.attrib
+  val a_onpagehide :
+    XML.event_handler -> [> `OnPageHide ] HTML5_sigs.T.attrib
+  val a_onpageshow :
+    XML.event_handler -> [> `OnPageShow ] HTML5_sigs.T.attrib
+  val a_onpopstate :
+    XML.event_handler -> [> `OnPopState ] HTML5_sigs.T.attrib
+  val a_onprogress :
+    XML.event_handler -> [> `OnProgress ] HTML5_sigs.T.attrib
+  val a_onratechange :
+    XML.event_handler -> [> `OnRateChange ] HTML5_sigs.T.attrib
+  val a_onreadystatechange :
+    XML.event_handler -> [> `OnReadyStateChange ] HTML5_sigs.T.attrib
+  val a_onredo : XML.event_handler -> [> `OnRedo ] HTML5_sigs.T.attrib
+  val a_onresize : XML.event_handler -> [> `OnResize ] HTML5_sigs.T.attrib
+  val a_onscroll : XML.event_handler -> [> `OnScroll ] HTML5_sigs.T.attrib
+  val a_onseeked : XML.event_handler -> [> `OnSeeked ] HTML5_sigs.T.attrib
+  val a_onseeking : XML.event_handler -> [> `OnSeeking ] HTML5_sigs.T.attrib
+  val a_onselect : XML.event_handler -> [> `OnSelect ] HTML5_sigs.T.attrib
+  val a_onshow : XML.event_handler -> [> `OnShow ] HTML5_sigs.T.attrib
+  val a_onstalled : XML.event_handler -> [> `OnStalled ] HTML5_sigs.T.attrib
+  val a_onstorage : XML.event_handler -> [> `OnStorage ] HTML5_sigs.T.attrib
+  val a_onsubmit : XML.event_handler -> [> `OnSubmit ] HTML5_sigs.T.attrib
+  val a_onsuspend : XML.event_handler -> [> `OnSuspend ] HTML5_sigs.T.attrib
+  val a_ontimeupdate :
+    XML.event_handler -> [> `OnTimeUpdate ] HTML5_sigs.T.attrib
+  val a_onundo : XML.event_handler -> [> `OnUndo ] HTML5_sigs.T.attrib
+  val a_onunload : XML.event_handler -> [> `OnUnload ] HTML5_sigs.T.attrib
+  val a_onvolumechange :
+    XML.event_handler -> [> `OnVolumeChange ] HTML5_sigs.T.attrib
+  val a_onwaiting : XML.event_handler -> [> `OnWaiting ] HTML5_sigs.T.attrib
+  val a_onkeypress :
+    XML.event_handler -> [> `OnKeyPress ] HTML5_sigs.T.attrib
+  val a_onkeydown : XML.event_handler -> [> `OnKeyDown ] HTML5_sigs.T.attrib
+  val a_onkeyup : XML.event_handler -> [> `OnKeyUp ] HTML5_sigs.T.attrib
+  val a_onload : XML.event_handler -> [> `OnLoad ] HTML5_sigs.T.attrib
+  val a_onloadeddata :
+    XML.event_handler -> [> `OnLoadedData ] HTML5_sigs.T.attrib
+  val a_onloadedmetadata :
+    XML.event_handler -> [> `OnLoadedMetaData ] HTML5_sigs.T.attrib
+  val a_onloadstart :
+    XML.event_handler -> [> `OnLoadStart ] HTML5_sigs.T.attrib
+  val a_onmessage : XML.event_handler -> [> `OnMessage ] HTML5_sigs.T.attrib
+  val a_version : HTML5_types.cdata -> [> `Version ] HTML5_sigs.T.attrib
+  val a_xmlns : [< `W3_org_1999_xhtml ] -> [> `XMLns ] HTML5_sigs.T.attrib
+  val a_manifest : XML.uri -> [> `Manifest ] HTML5_sigs.T.attrib
+  val a_cite : XML.uri -> [> `Cite ] HTML5_sigs.T.attrib
+  val a_xml_space : [< `Preserve ] -> [> `XML_space ] HTML5_sigs.T.attrib
+  val a_accesskey :
+    HTML5_types.character -> [> `Accesskey ] HTML5_sigs.T.attrib
+  val a_charset : HTML5_types.charset -> [> `Charset ] HTML5_sigs.T.attrib
+  val a_accept_charset :
+    HTML5_types.charsets -> [> `Accept_charset ] HTML5_sigs.T.attrib
+  val a_accept : HTML5_types.contenttypes -> [> `Accept ] HTML5_sigs.T.attrib
+  val a_href : XML.uri -> [> `Href ] HTML5_sigs.T.attrib
+  val a_hreflang :
+    HTML5_types.languagecode -> [> `Hreflang ] HTML5_sigs.T.attrib
+  val a_rel : HTML5_types.linktypes -> [> `Rel ] HTML5_sigs.T.attrib
+  val a_tabindex : HTML5_types.number -> [> `Tabindex ] HTML5_sigs.T.attrib
+  val a_mime_type :
+    HTML5_types.contenttype -> [> `Mime_type ] HTML5_sigs.T.attrib
+  val a_datetime : HTML5_types.cdata -> [> `Datetime ] HTML5_sigs.T.attrib
+  val a_action : XML.uri -> [> `Action ] HTML5_sigs.T.attrib
+  val a_checked : [< `Checked ] -> [> `Checked ] HTML5_sigs.T.attrib
+  val a_cols : HTML5_types.number -> [> `Cols ] HTML5_sigs.T.attrib
+  val a_enctype :
+    HTML5_types.contenttype -> [> `Enctype ] HTML5_sigs.T.attrib
+  val a_for : HTML5_types.idref -> [> `For ] HTML5_sigs.T.attrib
+  val a_for_list : HTML5_types.idrefs -> [> `For_List ] HTML5_sigs.T.attrib
+  val a_maxlength : HTML5_types.number -> [> `Maxlength ] HTML5_sigs.T.attrib
+  val a_method :
+    [< `Delete | `Get | `Post | `Put ] -> [> `Method ] HTML5_sigs.T.attrib
+  val a_multiple : [< `Multiple ] -> [> `Multiple ] HTML5_sigs.T.attrib
+  val a_name : HTML5_types.text -> [> `Name ] HTML5_sigs.T.attrib
+  val a_rows : HTML5_types.number -> [> `Rows ] HTML5_sigs.T.attrib
+  val a_selected : [< `Selected ] -> [> `Selected ] HTML5_sigs.T.attrib
+  val a_size : HTML5_types.number -> [> `Size ] HTML5_sigs.T.attrib
+  val a_src : XML.uri -> [> `Src ] HTML5_sigs.T.attrib
+  val a_input_type :
+    [< `Button
+     | `Checkbox
+     | `Color
+     | `Date
+     | `Datetime
+     | `Datetime_local
+     | `Email
+     | `File
+     | `Hidden
+     | `Image
+     | `Month
+     | `Number
+     | `Password
+     | `Radio
+     | `Range
+     | `Reset
+     | `Search
+     | `Submit
+     | `Tel
+     | `Text
+     | `Time
+     | `Url
+     | `Week ] ->
+    [> `Input_Type ] HTML5_sigs.T.attrib
+  val a_text_value : HTML5_types.text -> [> `Text_Value ] HTML5_sigs.T.attrib
+  val a_int_value : HTML5_types.number -> [> `Int_Value ] HTML5_sigs.T.attrib
+  val a_value : HTML5_types.cdata -> [> `Value ] HTML5_sigs.T.attrib
+  val a_float_value :
+    HTML5_types.float_number -> [> `Float_Value ] HTML5_sigs.T.attrib
+  val a_disabled : [< `Disabled ] -> [> `Disabled ] HTML5_sigs.T.attrib
+  val a_readonly : [< `Readonly ] -> [> `Readonly ] HTML5_sigs.T.attrib
+  val a_button_type :
+    [< `Button | `Reset | `Submit ] -> [> `Button_Type ] HTML5_sigs.T.attrib
+  val a_command_type :
+    [< `Checkbox | `Command | `Radio ] ->
+    [> `Command_Type ] HTML5_sigs.T.attrib
+  val a_menu_type :
+    [< `Context | `Toolbar ] -> [> `Menu_Type ] HTML5_sigs.T.attrib
+  val a_label : HTML5_types.text -> [> `Label ] HTML5_sigs.T.attrib
+  val a_align :
+    [< `Char | `Justify | `Left | `Right ] -> [> `Align ] HTML5_sigs.T.attrib
+  val a_axis : HTML5_types.cdata -> [> `Axis ] HTML5_sigs.T.attrib
+  val a_colspan : HTML5_types.number -> [> `Colspan ] HTML5_sigs.T.attrib
+  val a_headers : HTML5_types.idrefs -> [> `Headers ] HTML5_sigs.T.attrib
+  val a_rowspan : HTML5_types.number -> [> `Rowspan ] HTML5_sigs.T.attrib
+  val a_scope :
+    [< `Col | `Colgroup | `Row | `Rowgroup ] ->
+    [> `Scope ] HTML5_sigs.T.attrib
+  val a_summary : HTML5_types.text -> [> `Summary ] HTML5_sigs.T.attrib
+  val a_border : HTML5_types.pixels -> [> `Border ] HTML5_sigs.T.attrib
+  val a_cellpadding :
+    HTML5_types.length -> [> `Cellpadding ] HTML5_sigs.T.attrib
+  val a_cellspacing :
+    HTML5_types.length -> [> `Cellspacing ] HTML5_sigs.T.attrib
+  val a_datapagesize :
+    HTML5_types.cdata -> [> `Datapagesize ] HTML5_sigs.T.attrib
+  val a_rules :
+    [< `All | `Cols | `Groups | `None | `Rows ] ->
+    [> `Rules ] HTML5_sigs.T.attrib
+  val a_char : HTML5_types.character -> [> `Char ] HTML5_sigs.T.attrib
+  val a_charoff : HTML5_types.length -> [> `Charoff ] HTML5_sigs.T.attrib
+  val a_alt : HTML5_types.text -> [> `Alt ] HTML5_sigs.T.attrib
+  val a_height : HTML5_types.number -> [> `Height ] HTML5_sigs.T.attrib
+  val a_width : HTML5_types.number -> [> `Width ] HTML5_sigs.T.attrib
+  type shape = [ `Circle | `Default | `Poly | `Rect ]
+  val a_shape : HTML5_sigs.T.shape -> [> `Shape ] HTML5_sigs.T.attrib
+  val a_coords : HTML5_types.numbers -> [> `Coords ] HTML5_sigs.T.attrib
+  val a_usemap : HTML5_types.idref -> [> `Usemap ] HTML5_sigs.T.attrib
+  val a_data : XML.uri -> [> `Data ] HTML5_sigs.T.attrib
+  val a_codetype :
+    HTML5_types.contenttype -> [> `Codetype ] HTML5_sigs.T.attrib
+  val a_fs_rows :
+    HTML5_types.multilengths -> [> `FS_Rows ] HTML5_sigs.T.attrib
+  val a_fs_cols :
+    HTML5_types.multilengths -> [> `FS_Cols ] HTML5_sigs.T.attrib
+  val a_frameborder :
+    [< `One | `Zero ] -> [> `Frameborder ] HTML5_sigs.T.attrib
+  val a_marginheight :
+    HTML5_types.pixels -> [> `Marginheight ] HTML5_sigs.T.attrib
+  val a_marginwidth :
+    HTML5_types.pixels -> [> `Marginwidth ] HTML5_sigs.T.attrib
+  val a_scrolling :
+    [< `Auto | `No | `Yes ] -> [> `Scrolling ] HTML5_sigs.T.attrib
+  val a_target : HTML5_types.frametarget -> [> `Target ] HTML5_sigs.T.attrib
+  val a_content : HTML5_types.text -> [> `Content ] HTML5_sigs.T.attrib
+  val a_http_equiv : HTML5_types.text -> [> `Http_equiv ] HTML5_sigs.T.attrib
+  val a_defer : [< `Defer ] -> [> `Defer ] HTML5_sigs.T.attrib
+  val a_media : HTML5_types.mediadesc -> [> `Media ] HTML5_sigs.T.attrib
+  val a_style : string -> [> `Style_Attr ] HTML5_sigs.T.attrib
+  type +'a elt
+  type ('a, 'b) nullary =
+      ?a:'a HTML5_sigs.T.attrib list -> unit -> 'b HTML5_sigs.T.elt
+  type ('a, 'b, 'c) unary =
+      ?a:'a HTML5_sigs.T.attrib list ->
+      'b HTML5_sigs.T.elt -> 'c HTML5_sigs.T.elt
+  type ('a, 'b, 'c, 'd) binary =
+      ?a:'a HTML5_sigs.T.attrib list ->
+      'b HTML5_sigs.T.elt -> 'c HTML5_sigs.T.elt -> 'd HTML5_sigs.T.elt
+  type ('a, 'b, 'c, 'd) tri =
+      'a HTML5_sigs.T.elt ->
+      'b HTML5_sigs.T.elt -> 'c HTML5_sigs.T.elt -> 'd HTML5_sigs.T.elt
+  type ('a, 'b, 'c) star =
+      ?a:'a HTML5_sigs.T.attrib list ->
+      'b HTML5_sigs.T.elt list -> 'c HTML5_sigs.T.elt
+  type ('a, 'b, 'c) plus =
+      ?a:'a HTML5_sigs.T.attrib list ->
+      'b HTML5_sigs.T.elt -> 'b HTML5_sigs.T.elt list -> 'c HTML5_sigs.T.elt
+  type html = [ `Html ] HTML5_sigs.T.elt
+  type rt =
+      [ `Rpt of
+          [ `Rp ] HTML5_sigs.T.elt * [ `Rt ] HTML5_sigs.T.elt *
+          [ `Rp ] HTML5_sigs.T.elt
+      | `Rt of [ `Rt ] HTML5_sigs.T.elt ]
+  type ruby_content =
+      HTML5_types.phrasing HTML5_sigs.T.elt list * HTML5_sigs.T.rt
+  type rp =
+      HTML5_types.common HTML5_sigs.T.attrib list *
+      HTML5_types.phrasing HTML5_sigs.T.elt list
+  val html :
+    ?a:HTML5_types.html_attrib HTML5_sigs.T.attrib list ->
+    [< `Head ] HTML5_sigs.T.elt ->
+    [< `Body ] HTML5_sigs.T.elt -> [> `Html ] HTML5_sigs.T.elt
+  val head :
+    ?a:HTML5_types.head_attrib HTML5_sigs.T.attrib list ->
+    [< `Title ] HTML5_sigs.T.elt ->
+    HTML5_types.head_content_fun HTML5_sigs.T.elt list ->
+    [> HTML5_types.head ] HTML5_sigs.T.elt
+  val base :
+    ([< HTML5_types.base_attrib ], [> HTML5_types.base ])
+    HTML5_sigs.T.nullary
+  val title :
+    (HTML5_types.title_attrib, [< HTML5_types.title_content_fun ],
+     [> HTML5_types.title ])
+    HTML5_sigs.T.unary
+  val body :
+    ([< HTML5_types.body_attrib ], [< HTML5_types.body_content_fun ],
+     [> HTML5_types.body ])
+    HTML5_sigs.T.star
+  val svg :
+    ?xmlns:string ->
+    ?a:[< HTML5_types.svg_attrib ] HTML5_sigs.T.SVG.attrib list ->
+    [< HTML5_types.svg_content ] HTML5_sigs.T.SVG.elt list ->
+    [> HTML5_types.svg ] HTML5_sigs.T.elt
+  val footer :
+    ([< HTML5_types.common ], [< HTML5_types.flow5_without_header_footer ],
+     [> `Footer ])
+    HTML5_sigs.T.star
+  val header :
+    ([< HTML5_types.common ], [< HTML5_types.flow5_without_header_footer ],
+     [> `Header ])
+    HTML5_sigs.T.star
+  val section :
+    ([< HTML5_types.section_attrib ], [< HTML5_types.section_content_fun ],
+     [> HTML5_types.section ])
+    HTML5_sigs.T.star
+  val nav :
+    ([< HTML5_types.nav_attrib ], [< HTML5_types.nav_content_fun ],
+     [> HTML5_types.nav ])
+    HTML5_sigs.T.star
+  val h1 :
+    ([< HTML5_types.h1_attrib ], [< HTML5_types.h1_content_fun ],
+     [> HTML5_types.h1 ])
+    HTML5_sigs.T.star
+  val h2 :
+    ([< HTML5_types.h2_attrib ], [< HTML5_types.h2_content_fun ],
+     [> HTML5_types.h2 ])
+    HTML5_sigs.T.star
+  val h3 :
+    ([< HTML5_types.h3_attrib ], [< HTML5_types.h3_content_fun ],
+     [> HTML5_types.h3 ])
+    HTML5_sigs.T.star
+  val h4 :
+    ([< HTML5_types.h4_attrib ], [< HTML5_types.h4_content_fun ],
+     [> HTML5_types.h4 ])
+    HTML5_sigs.T.star
+  val h5 :
+    ([< HTML5_types.h5_attrib ], [< HTML5_types.h5_content_fun ],
+     [> HTML5_types.h5 ])
+    HTML5_sigs.T.star
+  val h6 :
+    ([< HTML5_types.h6_attrib ], [< HTML5_types.h6_content_fun ],
+     [> HTML5_types.h6 ])
+    HTML5_sigs.T.star
+  val hgroup :
+    ([< HTML5_types.hgroup_attrib ], [< HTML5_types.hgroup_content_fun ],
+     [> HTML5_types.hgroup ])
+    HTML5_sigs.T.plus
+  val address :
+    ([< HTML5_types.address_attrib ], [< HTML5_types.address_content_fun ],
+     [> HTML5_types.address ])
+    HTML5_sigs.T.star
+  val article :
+    ([< HTML5_types.article_attrib ], [< HTML5_types.article_content_fun ],
+     [> HTML5_types.article ])
+    HTML5_sigs.T.star
+  val aside :
+    ([< HTML5_types.aside_attrib ], [< HTML5_types.aside_content_fun ],
+     [> HTML5_types.aside ])
+    HTML5_sigs.T.star
+  val p :
+    ([< HTML5_types.p_attrib ], [< HTML5_types.p_content_fun ],
+     [> HTML5_types.p ])
+    HTML5_sigs.T.star
+  val pre :
+    ([< HTML5_types.pre_attrib ], [< HTML5_types.pre_content_fun ],
+     [> HTML5_types.pre ])
+    HTML5_sigs.T.star
+  val blockquote :
+    ([< HTML5_types.blockquote_attrib ],
+     [< HTML5_types.blockquote_content_fun ], [> HTML5_types.blockquote ])
+    HTML5_sigs.T.star
+  val div :
+    ([< HTML5_types.div_attrib ], [< HTML5_types.div_content_fun ],
+     [> HTML5_types.div ])
+    HTML5_sigs.T.star
+  val dl :
+    ?a:[< HTML5_types.common ] HTML5_sigs.T.attrib list ->
+    (([< `Dt ] HTML5_sigs.T.elt * [< `Dt ] HTML5_sigs.T.elt list) *
+     ([< `Dd ] HTML5_sigs.T.elt * [< `Dd ] HTML5_sigs.T.elt list))
+    list -> [> `Dl ] HTML5_sigs.T.elt
+  val ol :
+    ([< HTML5_types.ol_attrib ], [< HTML5_types.ol_content_fun ],
+     [> HTML5_types.ol ])
+    HTML5_sigs.T.star
+  val ul :
+    ([< HTML5_types.ul_attrib ], [< HTML5_types.ul_content_fun ],
+     [> HTML5_types.ul ])
+    HTML5_sigs.T.star
+  val dd :
+    ([< HTML5_types.dd_attrib ], [< HTML5_types.dd_content_fun ],
+     [> HTML5_types.dd ])
+    HTML5_sigs.T.star
+  val dt :
+    ([< HTML5_types.dt_attrib ], [< HTML5_types.dt_content_fun ],
+     [> HTML5_types.dt ])
+    HTML5_sigs.T.star
+  val li :
+    ([< HTML5_types.li_attrib ], [< HTML5_types.li_content_fun ],
+     [> HTML5_types.li ])
+    HTML5_sigs.T.star
+  val figcaption :
+    ([< HTML5_types.figcaption_attrib ],
+     [< HTML5_types.figcaption_content_fun ], [> HTML5_types.figcaption ])
+    HTML5_sigs.T.star
+  val figure :
+    ?figcaption:[< `Figcaption ] HTML5_sigs.T.elt ->
+    ([< HTML5_types.common ], [< HTML5_types.flow5 ], [> `Figure ])
+    HTML5_sigs.T.star
+  val hr :
+    ([< HTML5_types.hr_attrib ], [> HTML5_types.hr ]) HTML5_sigs.T.nullary
+  val rt :
+    ?rp:HTML5_sigs.T.rp * HTML5_sigs.T.rp ->
+    ?a:[< HTML5_types.common ] HTML5_sigs.T.attrib list ->
+    [< HTML5_types.phrasing ] HTML5_sigs.T.elt list -> HTML5_sigs.T.rt
+  val rp :
+    ?a:[< HTML5_types.common ] HTML5_sigs.T.attrib list ->
+    [< HTML5_types.phrasing ] HTML5_sigs.T.elt list -> HTML5_sigs.T.rp
+  val ruby :
+    ?a:[< HTML5_types.common ] HTML5_sigs.T.attrib list ->
+    HTML5_sigs.T.ruby_content ->
+    HTML5_sigs.T.ruby_content list -> [> `Ruby ] HTML5_sigs.T.elt
+  val b :
+    ([< HTML5_types.b_attrib ], [< HTML5_types.b_content_fun ],
+     [> HTML5_types.b ])
+    HTML5_sigs.T.star
+  val i :
+    ([< HTML5_types.i_attrib ], [< HTML5_types.i_content_fun ],
+     [> HTML5_types.i ])
+    HTML5_sigs.T.star
+  val small :
+    ([< HTML5_types.small_attrib ], [< HTML5_types.small_content_fun ],
+     [> HTML5_types.small ])
+    HTML5_sigs.T.star
+  val sub :
+    ([< HTML5_types.sub_attrib ], [< HTML5_types.sub_content_fun ],
+     [> HTML5_types.sub ])
+    HTML5_sigs.T.star
+  val sup :
+    ([< HTML5_types.sup_attrib ], [< HTML5_types.sup_content_fun ],
+     [> HTML5_types.sup ])
+    HTML5_sigs.T.star
+  val mark :
+    ([< HTML5_types.mark_attrib ], [< HTML5_types.mark_content_fun ],
+     [> HTML5_types.mark ])
+    HTML5_sigs.T.star
+  val wbr :
+    ([< HTML5_types.wbr_attrib ], [> HTML5_types.wbr ]) HTML5_sigs.T.nullary
+  val bdo :
+    dir:[< `Ltr | `Rtl ] ->
+    ([< HTML5_types.common ], [< HTML5_types.phrasing ], [> `Bdo ])
+    HTML5_sigs.T.star
+  val abbr :
+    ([< HTML5_types.abbr_attrib ], [< HTML5_types.abbr_content_fun ],
+     [> HTML5_types.abbr ])
+    HTML5_sigs.T.star
+  val br :
+    ([< HTML5_types.br_attrib ], [> HTML5_types.br ]) HTML5_sigs.T.nullary
+  val cite :
+    ([< HTML5_types.cite_attrib ], [< HTML5_types.cite_content_fun ],
+     [> HTML5_types.cite ])
+    HTML5_sigs.T.star
+  val code :
+    ([< HTML5_types.code_attrib ], [< HTML5_types.code_content_fun ],
+     [> HTML5_types.code ])
+    HTML5_sigs.T.star
+  val dfn :
+    ([< HTML5_types.dfn_attrib ], [< HTML5_types.dfn_content_fun ],
+     [> HTML5_types.dfn ])
+    HTML5_sigs.T.star
+  val em :
+    ([< HTML5_types.em_attrib ], [< HTML5_types.em_content_fun ],
+     [> HTML5_types.em ])
+    HTML5_sigs.T.star
+  val kbd :
+    ([< HTML5_types.kbd_attrib ], [< HTML5_types.kbd_content_fun ],
+     [> HTML5_types.kbd ])
+    HTML5_sigs.T.star
+  val q :
+    ([< HTML5_types.q_attrib ], [< HTML5_types.q_content_fun ],
+     [> HTML5_types.q ])
+    HTML5_sigs.T.star
+  val samp :
+    ([< HTML5_types.samp_attrib ], [< HTML5_types.samp_content_fun ],
+     [> HTML5_types.samp ])
+    HTML5_sigs.T.star
+  val span :
+    ([< HTML5_types.span_attrib ], [< HTML5_types.span_content_fun ],
+     [> HTML5_types.span ])
+    HTML5_sigs.T.star
+  val strong :
+    ([< HTML5_types.strong_attrib ], [< HTML5_types.strong_content_fun ],
+     [> HTML5_types.strong ])
+    HTML5_sigs.T.star
+  val time :
+    ([< HTML5_types.time_attrib ], [< HTML5_types.time_content_fun ],
+     [> HTML5_types.time ])
+    HTML5_sigs.T.star
+  val var :
+    ([< HTML5_types.var_attrib ], [< HTML5_types.var_content_fun ],
+     [> HTML5_types.var ])
+    HTML5_sigs.T.star
+  val a : ([< HTML5_types.a_attrib ], 'a, [> `A of 'a ]) HTML5_sigs.T.star
+  val del :
+    ([< HTML5_types.del_attrib ], 'a, [> `Del of 'a ]) HTML5_sigs.T.star
+  val ins :
+    ([< HTML5_types.ins_attrib ], 'a, [> `Ins of 'a ]) HTML5_sigs.T.star
+  val img :
+    src:XML.uri ->
+    alt:HTML5_types.text ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Ismap
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ],
+     [> `Img ])
+    HTML5_sigs.T.nullary
+  val iframe :
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Sandbox
+      | `Seamless
+      | `Spellcheck
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ],
+     [< `PCDATA ], [> `Iframe ])
+    HTML5_sigs.T.star
+  val object_ :
+    ?params:[< `Param ] HTML5_sigs.T.elt list ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Data
+      | `Dir
+      | `Draggable
+      | `Form
+      | `Height
+      | `Hidden
+      | `Id
+      | `Mime_type
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `Usemap
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ],
+     'a, [> `Object of 'a ])
+    HTML5_sigs.T.star
+  val param :
+    ([< HTML5_types.param_attrib ], [> HTML5_types.param ])
+    HTML5_sigs.T.nullary
+  val embed :
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ],
+     [> `Embed ])
+    HTML5_sigs.T.nullary
+  val audio :
+    ?srcs:XML.uri * [< `Source ] HTML5_sigs.T.elt list ->
+    ([< `Accesskey
+      | `Autoplay
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Controls
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Loop
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Preload
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     'a, [> `Audio of 'a ])
+    HTML5_sigs.T.star
+  val video :
+    ?srcs:XML.uri * [< `Source ] HTML5_sigs.T.elt list ->
+    ([< `Accesskey
+      | `Autoplay
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Controls
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Loop
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Poster
+      | `Preload
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ],
+     'a, [> `Video of 'a ])
+    HTML5_sigs.T.star
+  val canvas :
+    ([< HTML5_types.canvas_attrib ], 'a, [> `Canvas of 'a ])
+    HTML5_sigs.T.star
+  val source :
+    ([< HTML5_types.source_attrib ], [> HTML5_types.source ])
+    HTML5_sigs.T.nullary
+  val area :
+    alt:HTML5_types.text ->
+    ([< `Accesskey
+      | `Alt
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Coords
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Hreflang
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rel
+      | `Shape
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Target
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [> `Area ])
+    HTML5_sigs.T.nullary
+  val map :
+    ([< HTML5_types.map_attrib ], 'a, [> `A of 'a ]) HTML5_sigs.T.plus
+  val caption :
+    ([< HTML5_types.caption_attrib ], [< HTML5_types.caption_content_fun ],
+     [> HTML5_types.caption ])
+    HTML5_sigs.T.star
+  val table :
+    ?caption:[< `Caption ] HTML5_sigs.T.elt ->
+    ?columns:[< `Colgroup ] HTML5_sigs.T.elt list ->
+    ?thead:[< `Thead ] HTML5_sigs.T.elt ->
+    ?tfoot:[< `Tfoot ] HTML5_sigs.T.elt ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Summary
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [< `Tr ], [> `Table ])
+    HTML5_sigs.T.plus
+  val tablex :
+    ?caption:[< `Caption ] HTML5_sigs.T.elt ->
+    ?columns:[< `Colgroup ] HTML5_sigs.T.elt list ->
+    ?thead:[< `Thead ] HTML5_sigs.T.elt ->
+    ?tfoot:[< `Tfoot ] HTML5_sigs.T.elt ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Summary
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [< `Tbody ], [> `Table ])
+    HTML5_sigs.T.star
+  val colgroup :
+    ([< HTML5_types.colgroup_attrib ], [< HTML5_types.colgroup_content_fun ],
+     [> HTML5_types.colgroup ])
+    HTML5_sigs.T.star
+  val col :
+    ([< HTML5_types.col_attrib ], [> HTML5_types.col ]) HTML5_sigs.T.nullary
+  val thead :
+    ([< HTML5_types.thead_attrib ], [< HTML5_types.thead_content_fun ],
+     [> HTML5_types.thead ])
+    HTML5_sigs.T.star
+  val tbody :
+    ([< HTML5_types.tbody_attrib ], [< HTML5_types.tbody_content_fun ],
+     [> HTML5_types.tbody ])
+    HTML5_sigs.T.star
+  val tfoot :
+    ([< HTML5_types.tfoot_attrib ], [< HTML5_types.tfoot_content_fun ],
+     [> HTML5_types.tfoot ])
+    HTML5_sigs.T.star
+  val td :
+    ([< HTML5_types.td_attrib ], [< HTML5_types.td_content_fun ],
+     [> HTML5_types.td ])
+    HTML5_sigs.T.star
+  val th :
+    ([< HTML5_types.th_attrib ], [< HTML5_types.th_content_fun ],
+     [> HTML5_types.th ])
+    HTML5_sigs.T.star
+  val tr :
+    ([< HTML5_types.tr_attrib ], [< HTML5_types.tr_content_fun ],
+     [> HTML5_types.tr ])
+    HTML5_sigs.T.star
+  val form :
+    ([< HTML5_types.form_attrib ], [< HTML5_types.form_content_fun ],
+     [> HTML5_types.form ])
+    HTML5_sigs.T.plus
+  val fieldset :
+    ?legend:[ `Legend ] HTML5_sigs.T.elt ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [< HTML5_types.flow5 ], [> `Fieldset ])
+    HTML5_sigs.T.star
+  val legend :
+    ([< HTML5_types.legend_attrib ], [< HTML5_types.legend_content_fun ],
+     [> HTML5_types.legend ])
+    HTML5_sigs.T.star
+  val label :
+    ([< HTML5_types.label_attrib ], [< HTML5_types.label_content_fun ],
+     [> HTML5_types.label ])
+    HTML5_sigs.T.star
+  val input :
+    ([< HTML5_types.input_attrib ], [> HTML5_types.input ])
+    HTML5_sigs.T.nullary
+  val button :
+    ([< HTML5_types.button_attrib ], [< HTML5_types.button_content_fun ],
+     [> HTML5_types.button ])
+    HTML5_sigs.T.star
+  val select :
+    ([< HTML5_types.select_attrib ], [< HTML5_types.select_content_fun ],
+     [> HTML5_types.select ])
+    HTML5_sigs.T.star
+  val datalist :
+    ?children:[< `Options of [< `Option ] HTML5_sigs.T.elt list
+               | `Phras of [< HTML5_types.phrasing ] HTML5_sigs.T.elt list ] ->
+    ([< HTML5_types.common ], [> `Datalist ]) HTML5_sigs.T.nullary
+  val optgroup :
+    label:HTML5_types.text ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Label
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [< `Option ], [> `Optgroup ])
+    HTML5_sigs.T.star
+  val option :
+    ([< HTML5_types.option_attrib ], [< HTML5_types.option_content_fun ],
+     [> HTML5_types.selectoption ])
+    HTML5_sigs.T.unary
+  val textarea :
+    ([< HTML5_types.textarea_attrib ], [< HTML5_types.textarea_content_fun ],
+     [> HTML5_types.textarea ])
+    HTML5_sigs.T.unary
+  val keygen :
+    ([< HTML5_types.keygen_attrib ], [> HTML5_types.keygen ])
+    HTML5_sigs.T.nullary
+  val progress :
+    ([< HTML5_types.progress_attrib ], [< HTML5_types.progress_content_fun ],
+     [> HTML5_types.progress ])
+    HTML5_sigs.T.star
+  val meter :
+    ([< HTML5_types.meter_attrib ], [< HTML5_types.meter_content_fun ],
+     [> HTML5_types.meter ])
+    HTML5_sigs.T.star
+  val output_elt :
+    ([< HTML5_types.output_elt_attrib ],
+     [< HTML5_types.output_elt_content_fun ], [> HTML5_types.output_elt ])
+    HTML5_sigs.T.star
+  val pcdata : string -> [> `PCDATA ] HTML5_sigs.T.elt
+  val entity : string -> [> `PCDATA ] HTML5_sigs.T.elt
+  val space : unit -> [> `PCDATA ] HTML5_sigs.T.elt
+  val cdata : string -> [> `PCDATA ] HTML5_sigs.T.elt
+  val cdata_script : string -> [> `PCDATA ] HTML5_sigs.T.elt
+  val cdata_style : string -> [> `PCDATA ] HTML5_sigs.T.elt
+  val unsafe_data : string -> 'a HTML5_sigs.T.elt
+  val details :
+    [< `Summary ] HTML5_sigs.T.elt ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Open
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [< HTML5_types.flow5 ] HTML5_sigs.T.elt, [> `Details ])
+    HTML5_sigs.T.star
+  val summary :
+    ([< HTML5_types.summary_attrib ], [< HTML5_types.summary_content_fun ],
+     [> HTML5_types.summary ])
+    HTML5_sigs.T.star
+  val command :
+    label:HTML5_types.text ->
+    ([< `Accesskey
+      | `Checked
+      | `Class
+      | `Command_Type
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Hidden
+      | `Icon
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Radiogroup
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [> `Command ])
+    HTML5_sigs.T.nullary
+  val menu :
+    ?child:[< `Flows of [< HTML5_types.flow5 ] HTML5_sigs.T.elt list
+            | `Lis of
+                [< `Li of [< HTML5_types.common ] ] HTML5_sigs.T.elt list ] ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Label
+      | `Menu_Type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [> `Menu ])
+    HTML5_sigs.T.nullary
+  val script :
+    ([< HTML5_types.script_attrib ], [< HTML5_types.script_content_fun ],
+     [> HTML5_types.script ])
+    HTML5_sigs.T.unary
+  val noscript :
+    ([< HTML5_types.noscript_attrib ], [< HTML5_types.noscript_content_fun ],
+     [> HTML5_types.noscript ])
+    HTML5_sigs.T.plus
+  val meta :
+    ([< HTML5_types.meta_attrib ], [> HTML5_types.meta ])
+    HTML5_sigs.T.nullary
+  val style :
+    ([< HTML5_types.style_attrib ], [< HTML5_types.style_content_fun ],
+     [> HTML5_types.style ])
+    HTML5_sigs.T.star
+  val link :
+    rel:HTML5_types.linktypes ->
+    href:XML.uri ->
+    ([< `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Href
+      | `Hreflang
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rel
+      | `Sizes
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ],
+     [> `Link ])
+    HTML5_sigs.T.nullary
+  val tot : XML.elt -> 'a HTML5_sigs.T.elt
+  val totl : XML.elt list -> 'a HTML5_sigs.T.elt list
+  val toelt : 'a HTML5_sigs.T.elt -> XML.elt
+  val toeltl : 'a HTML5_sigs.T.elt list -> XML.elt list
+  type doc = [ `Html ] HTML5_sigs.T.elt
+  val doc_toelt : HTML5_sigs.T.doc -> XML.elt
+end >>

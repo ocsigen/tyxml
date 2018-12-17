@@ -1,0 +1,3 @@
+=Module <<a_api_type | module Xhtmlparser.EH >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|EH>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<span class="ocsforge_color_uid"|Camlp4.ErrorHandler.Register>>>><<span class="ocsforge_color_delimiter"|(>><<span class="odocwiki_type"|<<a_api text="Error" | module Xhtmlparser.Error >>>><<span class="ocsforge_color_delimiter"|)>>>>
+----

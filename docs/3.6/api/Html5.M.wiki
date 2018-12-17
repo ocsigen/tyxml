@@ -1,0 +1,4 @@
+=Module <<a_api_type | module Html5.M >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|M>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Html5_sigs.Make" | module Html5_sigs.Make >>(Xml)(<<a_api text="Svg.M" | module Svg.M >>).T>><<span class="odocwiki_type"|>>>>~Concrete implementation of ~H~T~M~L~5 typesafe constructors
+
+----

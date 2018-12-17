@@ -1,0 +1,10 @@
+<<code language="ocaml" | sig
+  val print_list :
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    {{<_ ..>X1 where X1 = [ (<_ ..>X1 | Char)* ]}} list -> unit
+  val print :
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    ?advert:string -> {{<_ ..>X1 where X1 = [ (<_ ..>X1 | Char)* ]}} -> unit
+end >>

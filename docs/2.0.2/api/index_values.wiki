@@ -1,0 +1,1120 @@
+=Index of values=
+
+|@@ @style="tet-align: left;"@@\\A|
+|@@class="odocwiki_index"@ @@<<a_api text="a"| value HTML5_sigs.T.a >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a"| value SVG_sigs.T.a >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a"| value XHTML_sigs.T_01_01.a >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_abbr"| value XHTML_sigs.T_01_01.a_abbr >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_accentheight"| value SVG_sigs.T.a_accentheight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_accept"| value HTML5_sigs.T.a_accept >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_accept"| value XHTML_sigs.T_01_01.a_accept >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_accept_charset"| value HTML5_sigs.T.a_accept_charset >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_accept_charset"| value XHTML_sigs.T_01_01.a_accept_charset >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_accesskey"| value HTML5_sigs.T.a_accesskey >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute assigns an access key to an element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_accesskey"| value XHTML_sigs.T_01_01.a_accesskey >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute assigns an access key to an element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_accumulate"| value SVG_sigs.T.a_accumulate >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_action"| value HTML5_sigs.T.a_action >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies a form processing agent~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_action"| value XHTML_sigs.T_01_01.a_action >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies a form processing agent~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_additive"| value SVG_sigs.T.a_additive >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_aizmuth"| value SVG_sigs.T.a_aizmuth >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_align"| value HTML5_sigs.T.a_align >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_align"| value XHTML_sigs.T_01_01.Basic_Tables.a_align >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_align"| value XHTML_sigs.T_01_01.a_align >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_alphabetic"| value SVG_sigs.T.a_alphabetic >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_alt"| value HTML5_sigs.T.a_alt >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_alt"| value XHTML_sigs.T_01_01.a_alt >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_amplitude"| value SVG_sigs.T.a_amplitude >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_arabicform"| value SVG_sigs.T.a_arabicform >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_archive"| value XHTML_sigs.T_01_01.a_archive >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ascent"| value SVG_sigs.T.a_ascent >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_async"| value HTML5_sigs.T.a_async >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_attributename"| value SVG_sigs.T.a_attributename >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_attributetype"| value SVG_sigs.T.a_attributetype >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_autocomplete"| value HTML5_sigs.T.a_autocomplete >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_autofocus"| value HTML5_sigs.T.a_autofocus >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_autoplay"| value HTML5_sigs.T.a_autoplay >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_axis"| value HTML5_sigs.T.a_axis >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_axis"| value XHTML_sigs.T_01_01.a_axis >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_basefrenquency"| value SVG_sigs.T.a_basefrenquency >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_baseprofile"| value SVG_sigs.T.a_baseprofile >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_bbox"| value SVG_sigs.T.a_bbox >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_begin"| value SVG_sigs.T.a_begin >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_bias"| value SVG_sigs.T.a_bias >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_border"| value HTML5_sigs.T.a_border >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_border"| value XHTML_sigs.T_01_01.a_border >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_button_type"| value HTML5_sigs.T.a_button_type >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_button_type"| value XHTML_sigs.T_01_01.a_button_type >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_by"| value SVG_sigs.T.a_by >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_calcmode"| value SVG_sigs.T.a_calcmode >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_capheight"| value SVG_sigs.T.a_capheight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cellpadding"| value HTML5_sigs.T.a_cellpadding >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cellpadding"| value XHTML_sigs.T_01_01.a_cellpadding >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cellspacing"| value HTML5_sigs.T.a_cellspacing >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cellspacing"| value XHTML_sigs.T_01_01.a_cellspacing >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_challenge"| value HTML5_sigs.T.a_challenge >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_char"| value HTML5_sigs.T.a_char >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_char"| value XHTML_sigs.T_01_01.a_char >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_charoff"| value HTML5_sigs.T.a_charoff >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_charoff"| value XHTML_sigs.T_01_01.a_charoff >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_charset"| value HTML5_sigs.T.a_charset >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the character encoding of the resource
+      designated by the link~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_charset"| value XHTML_sigs.T_01_01.a_charset >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the character encoding of the
+      resource designated by the link~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_checked"| value HTML5_sigs.T.a_checked >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~When the <<span class="odocwiki_inlinecode"|type>> attribute has the value <<span class="odocwiki_inlinecode"|"radio">> or
+      <<span class="odocwiki_inlinecode"|"checkbox">>~, this boolean attribute specifies that the
+      button is on~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_checked"| value XHTML_sigs.T_01_01.a_checked >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~When the <<span class="odocwiki_inlinecode"|type>> attribute has the value <<span class="odocwiki_inlinecode"|"radio">> or
+      <<span class="odocwiki_inlinecode"|"checkbox">>~, this boolean attribute specifies that the
+      button is on~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_cite"| value HTML5_sigs.T.a_cite >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cite"| value XHTML_sigs.T_01_01.a_cite >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_class"| value HTML5_sigs.T.a_class >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute assigns a class name or set of class names to an
+      element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_class"| value SVG_sigs.T.a_class >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_class"| value XHTML_sigs.T_01_01.a_class >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute assigns a class name or set of class names to an
+      element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_classid"| value XHTML_sigs.T_01_01.a_classid >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_clippathunits"| value SVG_sigs.T.a_clippathunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_codebase"| value XHTML_sigs.T_01_01.a_codebase >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_codetype"| value HTML5_sigs.T.a_codetype >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_codetype"| value XHTML_sigs.T_01_01.a_codetype >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cols"| value HTML5_sigs.T.a_cols >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the visible width in average
+      character widths~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_cols"| value XHTML_sigs.T_01_01.a_cols >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the visible width in average
+      character widths~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_colspan"| value HTML5_sigs.T.a_colspan >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_colspan"| value XHTML_sigs.T_01_01.a_colspan >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_command_type"| value HTML5_sigs.T.a_command_type >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_content"| value HTML5_sigs.T.a_content >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_content"| value XHTML_sigs.T_01_01.a_content >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_contenteditable"| value HTML5_sigs.T.a_contenteditable >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_contentscripttype"| value SVG_sigs.T.a_contentscripttype >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_contentstyletype"| value SVG_sigs.T.a_contentstyletype >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_contextmenu"| value HTML5_sigs.T.a_contextmenu >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_controls"| value HTML5_sigs.T.a_controls >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_coords"| value HTML5_sigs.T.a_coords >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_coords"| value XHTML_sigs.T_01_01.a_coords >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cx"| value SVG_sigs.T.a_cx >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_cy"| value SVG_sigs.T.a_cy >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_d"| value SVG_sigs.T.a_d >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_data"| value HTML5_sigs.T.a_data >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_data"| value XHTML_sigs.T_01_01.a_data >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_datapagesize"| value HTML5_sigs.T.a_datapagesize >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_datapagesize"| value XHTML_sigs.T_01_01.a_datapagesize >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_datetime"| value HTML5_sigs.T.a_datetime >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_datetime"| value XHTML_sigs.T_01_01.a_datetime >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_declare"| value XHTML_sigs.T_01_01.a_declare >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_defer"| value HTML5_sigs.T.a_defer >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_defer"| value XHTML_sigs.T_01_01.a_defer >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_diffuseconstant"| value SVG_sigs.T.a_diffuseconstant >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dir"| value HTML5_sigs.T.a_dir >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dir"| value XHTML_sigs.T_01_01.a_dir >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_disabled"| value HTML5_sigs.T.a_disabled >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_disabled"| value XHTML_sigs.T_01_01.a_disabled >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_divisor"| value SVG_sigs.T.a_divisor >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_draggable"| value HTML5_sigs.T.a_draggable >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dur"| value SVG_sigs.T.a_dur >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dx"| value SVG_sigs.T.a_dx >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dx_number"| value SVG_sigs.T.a_dx_number >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dx_single"| value SVG_sigs.T.a_dx_single >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dy"| value SVG_sigs.T.a_dy >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dy_number"| value SVG_sigs.T.a_dy_number >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_dy_single"| value SVG_sigs.T.a_dy_single >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_edgemode"| value SVG_sigs.T.a_edgemode >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_elevation"| value SVG_sigs.T.a_elevation >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_enctype"| value HTML5_sigs.T.a_enctype >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_enctype"| value XHTML_sigs.T_01_01.a_enctype >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_exponent"| value SVG_sigs.T.a_exponent >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_externalressourcesrequired"| value SVG_sigs.T.a_externalressourcesrequired >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fill"| value SVG_sigs.T.a_fill >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_filterres"| value SVG_sigs.T.a_filterres >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_float_value"| value HTML5_sigs.T.a_float_value >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fontfamily"| value SVG_sigs.T.a_fontfamily >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fontsize"| value SVG_sigs.T.a_fontsize >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fontstretch"| value SVG_sigs.T.a_fontstretch >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fontstyle"| value SVG_sigs.T.a_fontstyle >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fontvariant"| value SVG_sigs.T.a_fontvariant >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fontweight"| value SVG_sigs.T.a_fontweight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_for"| value HTML5_sigs.T.a_for >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_for"| value XHTML_sigs.T_01_01.a_for >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_for_list"| value HTML5_sigs.T.a_for_list >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_form"| value HTML5_sigs.T.a_form >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_formaction"| value HTML5_sigs.T.a_formaction >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_format"| value SVG_sigs.T.a_format >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_formenctype"| value HTML5_sigs.T.a_formenctype >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_formmethod"| value HTML5_sigs.T.a_formmethod >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_formnovalidate"| value HTML5_sigs.T.a_formnovalidate >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_formtarget"| value HTML5_sigs.T.a_formtarget >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_frame"| value XHTML_sigs.T_01_01.a_frame >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_frameborder"| value HTML5_sigs.T.a_frameborder >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_frameborder"| value XHTML_sigs.T_01_01.a_frameborder >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_from"| value SVG_sigs.T.a_from >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fs_cols"| value HTML5_sigs.T.a_fs_cols >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fs_cols"| value XHTML_sigs.T_01_01.a_fs_cols >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fs_rows"| value HTML5_sigs.T.a_fs_rows >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fs_rows"| value XHTML_sigs.T_01_01.a_fs_rows >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fx"| value SVG_sigs.T.a_fx >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_fy"| value SVG_sigs.T.a_fy >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_g1"| value SVG_sigs.T.a_g1 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_g2"| value SVG_sigs.T.a_g2 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_glyphname"| value SVG_sigs.T.a_glyphname >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_glyphref"| value SVG_sigs.T.a_glyphref >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_gradienttransform"| value SVG_sigs.T.a_gradienttransform >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_gradientunits"| value SVG_sigs.T.a_gradientunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_hanging"| value SVG_sigs.T.a_hanging >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_headers"| value HTML5_sigs.T.a_headers >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_headers"| value XHTML_sigs.T_01_01.a_headers >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_height"| value HTML5_sigs.T.a_height >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_height"| value SVG_sigs.T.a_height >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_height"| value XHTML_sigs.T_01_01.a_height >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_hidden"| value HTML5_sigs.T.a_hidden >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_high"| value HTML5_sigs.T.a_high >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_horiz_adv_x"| value SVG_sigs.T.a_horiz_adv_x >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_horiz_origin_x"| value SVG_sigs.T.a_horiz_origin_x >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_horiz_origin_y"| value SVG_sigs.T.a_horiz_origin_y >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_href"| value HTML5_sigs.T.a_href >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the location of a ~Web resource~, thus
+      defining a link between the current element ~(the source anchor~)
+      and the destination anchor defined by this attribute~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_href"| value XHTML_sigs.T_01_01.a_href >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the location of a ~Web resource~,
+      thus defining a link between the current element ~(the source
+      anchor~) and the destination anchor defined by this
+      attribute~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_hreflang"| value HTML5_sigs.T.a_hreflang >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the base language of the resource
+      designated by href and may only be used when href is specified~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_hreflang"| value XHTML_sigs.T_01_01.a_hreflang >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the base language of the resource
+      designated by href and may only be used when href is
+      specified~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_http_equiv"| value HTML5_sigs.T.a_http_equiv >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_http_equiv"| value XHTML_sigs.T_01_01.a_http_equiv >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_icon"| value HTML5_sigs.T.a_icon >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_id"| value HTML5_sigs.T.a_id >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute assigns a name to an element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_id"| value SVG_sigs.T.a_id >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_id"| value XHTML_sigs.T_01_01.a_id >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute assigns a name to an element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_ideographic"| value SVG_sigs.T.a_ideographic >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_in"| value SVG_sigs.T.a_in >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_in2"| value SVG_sigs.T.a_in2 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_input_max"| value HTML5_sigs.T.a_input_max >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_input_min"| value HTML5_sigs.T.a_input_min >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_input_type"| value HTML5_sigs.T.a_input_type >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_input_type"| value XHTML_sigs.T_01_01.a_input_type >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_int_value"| value HTML5_sigs.T.a_int_value >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_intercept"| value SVG_sigs.T.a_intercept >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ismap"| value HTML5_sigs.T.a_ismap >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ismap"| value XHTML_sigs.T_01_01.a_ismap >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_k"| value SVG_sigs.T.a_k >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_k1"| value SVG_sigs.T.a_k1 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_k2"| value SVG_sigs.T.a_k2 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_k3"| value SVG_sigs.T.a_k3 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_k4"| value SVG_sigs.T.a_k4 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_kernelmatrix"| value SVG_sigs.T.a_kernelmatrix >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_kernelunitlength"| value SVG_sigs.T.a_kernelunitlength >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_keypoints"| value SVG_sigs.T.a_keypoints >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_keysplines"| value SVG_sigs.T.a_keysplines >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_keytimes"| value SVG_sigs.T.a_keytimes >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_keytype"| value HTML5_sigs.T.a_keytype >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_label"| value HTML5_sigs.T.a_label >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_label"| value XHTML_sigs.T_01_01.a_label >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_lang"| value SVG_sigs.T.a_lang >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_lengthadjust"| value SVG_sigs.T.a_lengthadjust >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_limitingconeangle"| value SVG_sigs.T.a_limitingconeangle >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_list"| value HTML5_sigs.T.a_list >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_local"| value SVG_sigs.T.a_local >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_longdesc"| value XHTML_sigs.T_01_01.a_longdesc >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_loop"| value HTML5_sigs.T.a_loop >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_low"| value HTML5_sigs.T.a_low >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_manifest"| value HTML5_sigs.T.a_manifest >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_marginheight"| value HTML5_sigs.T.a_marginheight >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_marginheight"| value XHTML_sigs.T_01_01.a_marginheight >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_marginwidth"| value HTML5_sigs.T.a_marginwidth >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_marginwidth"| value XHTML_sigs.T_01_01.a_marginwidth >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_markerheight"| value SVG_sigs.T.a_markerheight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_markerunits"| value SVG_sigs.T.a_markerunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_markerwidth"| value SVG_sigs.T.a_markerwidth >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_maskcontentunits"| value SVG_sigs.T.a_maskcontentunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_maskunits"| value SVG_sigs.T.a_maskunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_mathematical"| value SVG_sigs.T.a_mathematical >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_max"| value HTML5_sigs.T.a_max >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_max"| value SVG_sigs.T.a_max >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_maxlength"| value HTML5_sigs.T.a_maxlength >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_maxlength"| value XHTML_sigs.T_01_01.a_maxlength >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_media"| value HTML5_sigs.T.a_media >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_media"| value SVG_sigs.T.a_media >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_media"| value XHTML_sigs.T_01_01.a_media >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_menu_type"| value HTML5_sigs.T.a_menu_type >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_method"| value HTML5_sigs.T.a_method >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_method"| value SVG_sigs.T.a_method >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_method"| value XHTML_sigs.T_01_01.a_method >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_mime_type"| value HTML5_sigs.T.a_mime_type >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute gives an advisory hint as to the content type
+      of the content available at the link target address~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_min"| value HTML5_sigs.T.a_min >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_min"| value SVG_sigs.T.a_min >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_mode"| value SVG_sigs.T.a_mode >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_multiple"| value HTML5_sigs.T.a_multiple >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_multiple"| value XHTML_sigs.T_01_01.a_multiple >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_name"| value HTML5_sigs.T.a_name >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute assigns the control name~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_name"| value SVG_sigs.T.a_name >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_name"| value XHTML_sigs.T_01_01.a_name >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute assigns the control name~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_name_01_00"| value XHTML_sigs.T_01_00.a_name_01_00 >> ~[<<a_api | module XHTML_sigs.T_01_00 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_nohref"| value XHTML_sigs.T_01_01.a_nohref >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_noresize"| value XHTML_sigs.T_01_01.a_noresize >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_novalidate"| value HTML5_sigs.T.a_novalidate >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_numoctaves"| value SVG_sigs.T.a_numoctaves >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_offset"| value SVG_sigs.T.a_offset >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_offsettransfer"| value SVG_sigs.T.a_offsettransfer >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onabort"| value HTML5_sigs.T.a_onabort >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~Javascript events
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_onabort"| value SVG_sigs.T.a_onabort >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onactivate"| value SVG_sigs.T.a_onactivate >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onafterprint"| value HTML5_sigs.T.a_onafterprint >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onbeforeprint"| value HTML5_sigs.T.a_onbeforeprint >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onbeforeunload"| value HTML5_sigs.T.a_onbeforeunload >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onbegin"| value SVG_sigs.T.a_onbegin >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onblur"| value HTML5_sigs.T.a_onblur >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onblur"| value XHTML_sigs.T_01_01.a_onblur >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_oncanplay"| value HTML5_sigs.T.a_oncanplay >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_oncanplaythrough"| value HTML5_sigs.T.a_oncanplaythrough >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onchange"| value HTML5_sigs.T.a_onchange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onchange"| value XHTML_sigs.T_01_01.a_onchange >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onclick"| value HTML5_sigs.T.a_onclick >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onclick"| value SVG_sigs.T.a_onclick >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onclick"| value XHTML_sigs.T_01_01.a_onclick >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_oncontextmenu"| value HTML5_sigs.T.a_oncontextmenu >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondblclick"| value HTML5_sigs.T.a_ondblclick >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondblclick"| value XHTML_sigs.T_01_01.a_ondblclick >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondrag"| value HTML5_sigs.T.a_ondrag >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondragend"| value HTML5_sigs.T.a_ondragend >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondragenter"| value HTML5_sigs.T.a_ondragenter >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondragleave"| value HTML5_sigs.T.a_ondragleave >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondragover"| value HTML5_sigs.T.a_ondragover >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondragstart"| value HTML5_sigs.T.a_ondragstart >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondrop"| value HTML5_sigs.T.a_ondrop >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ondurationchange"| value HTML5_sigs.T.a_ondurationchange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onemptied"| value HTML5_sigs.T.a_onemptied >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onend"| value SVG_sigs.T.a_onend >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onended"| value HTML5_sigs.T.a_onended >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onerror"| value HTML5_sigs.T.a_onerror >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onerror"| value SVG_sigs.T.a_onerror >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onfocus"| value HTML5_sigs.T.a_onfocus >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onfocus"| value XHTML_sigs.T_01_01.a_onfocus >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onfocusin"| value SVG_sigs.T.a_onfocusin >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onfocusout"| value SVG_sigs.T.a_onfocusout >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onformchange"| value HTML5_sigs.T.a_onformchange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onforminput"| value HTML5_sigs.T.a_onforminput >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onhashchange"| value HTML5_sigs.T.a_onhashchange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_oninput"| value HTML5_sigs.T.a_oninput >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_oninvalid"| value HTML5_sigs.T.a_oninvalid >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onkeydown"| value HTML5_sigs.T.a_onkeydown >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onkeydown"| value XHTML_sigs.T_01_01.a_onkeydown >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onkeypress"| value HTML5_sigs.T.a_onkeypress >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onkeypress"| value XHTML_sigs.T_01_01.a_onkeypress >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onkeyup"| value HTML5_sigs.T.a_onkeyup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onkeyup"| value XHTML_sigs.T_01_01.a_onkeyup >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onload"| value HTML5_sigs.T.a_onload >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onload"| value SVG_sigs.T.a_onload >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onload"| value XHTML_sigs.T_01_01.a_onload >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onloadeddata"| value HTML5_sigs.T.a_onloadeddata >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onloadedmetadata"| value HTML5_sigs.T.a_onloadedmetadata >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onloadstart"| value HTML5_sigs.T.a_onloadstart >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmessage"| value HTML5_sigs.T.a_onmessage >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousedown"| value HTML5_sigs.T.a_onmousedown >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousedown"| value SVG_sigs.T.a_onmousedown >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousedown"| value XHTML_sigs.T_01_01.a_onmousedown >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousemove"| value HTML5_sigs.T.a_onmousemove >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousemove"| value SVG_sigs.T.a_onmousemove >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousemove"| value XHTML_sigs.T_01_01.a_onmousemove >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseout"| value HTML5_sigs.T.a_onmouseout >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseout"| value SVG_sigs.T.a_onmouseout >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseout"| value XHTML_sigs.T_01_01.a_onmouseout >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseover"| value HTML5_sigs.T.a_onmouseover >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseover"| value SVG_sigs.T.a_onmouseover >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseover"| value XHTML_sigs.T_01_01.a_onmouseover >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseup"| value HTML5_sigs.T.a_onmouseup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseup"| value SVG_sigs.T.a_onmouseup >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmouseup"| value XHTML_sigs.T_01_01.a_onmouseup >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onmousewheel"| value HTML5_sigs.T.a_onmousewheel >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onoffline"| value HTML5_sigs.T.a_onoffline >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ononline"| value HTML5_sigs.T.a_ononline >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onpagehide"| value HTML5_sigs.T.a_onpagehide >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onpageshow"| value HTML5_sigs.T.a_onpageshow >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onpause"| value HTML5_sigs.T.a_onpause >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onplay"| value HTML5_sigs.T.a_onplay >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onplaying"| value HTML5_sigs.T.a_onplaying >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onpopstate"| value HTML5_sigs.T.a_onpopstate >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onprogress"| value HTML5_sigs.T.a_onprogress >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onratechange"| value HTML5_sigs.T.a_onratechange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onreadystatechange"| value HTML5_sigs.T.a_onreadystatechange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onredo"| value HTML5_sigs.T.a_onredo >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onrepeat"| value SVG_sigs.T.a_onrepeat >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onreset"| value XHTML_sigs.T_01_01.a_onreset >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onresize"| value HTML5_sigs.T.a_onresize >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onresize"| value SVG_sigs.T.a_onresize >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onscroll"| value HTML5_sigs.T.a_onscroll >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onscroll"| value SVG_sigs.T.a_onscroll >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onseeked"| value HTML5_sigs.T.a_onseeked >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onseeking"| value HTML5_sigs.T.a_onseeking >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onselect"| value HTML5_sigs.T.a_onselect >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onselect"| value XHTML_sigs.T_01_01.a_onselect >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onshow"| value HTML5_sigs.T.a_onshow >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onstalled"| value HTML5_sigs.T.a_onstalled >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onstorage"| value HTML5_sigs.T.a_onstorage >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onsubmit"| value HTML5_sigs.T.a_onsubmit >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onsubmit"| value XHTML_sigs.T_01_01.a_onsubmit >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onsuspend"| value HTML5_sigs.T.a_onsuspend >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ontimeupdate"| value HTML5_sigs.T.a_ontimeupdate >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onundo"| value HTML5_sigs.T.a_onundo >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onunload"| value HTML5_sigs.T.a_onunload >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onunload"| value SVG_sigs.T.a_onunload >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onunload"| value XHTML_sigs.T_01_01.a_onunload >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onvolumechange"| value HTML5_sigs.T.a_onvolumechange >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onwaiting"| value HTML5_sigs.T.a_onwaiting >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_onzoom"| value SVG_sigs.T.a_onzoom >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_open"| value HTML5_sigs.T.a_open >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_operator"| value SVG_sigs.T.a_operator >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_operatormorphology"| value SVG_sigs.T.a_operatormorphology >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_optimum"| value HTML5_sigs.T.a_optimum >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_order"| value SVG_sigs.T.a_order >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_orient"| value SVG_sigs.T.a_orient >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_orientation"| value SVG_sigs.T.a_orientation >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_overlineposition"| value SVG_sigs.T.a_overlineposition >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_overlinethickness"| value SVG_sigs.T.a_overlinethickness >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_path"| value SVG_sigs.T.a_path >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_pathlength"| value SVG_sigs.T.a_pathlength >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_pattern"| value HTML5_sigs.T.a_pattern >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_patterncontentunits"| value SVG_sigs.T.a_patterncontentunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_patterntransform"| value SVG_sigs.T.a_patterntransform >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_patternunits"| value SVG_sigs.T.a_patternunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_placeholder"| value HTML5_sigs.T.a_placeholder >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_pointatx"| value SVG_sigs.T.a_pointatx >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_pointaty"| value SVG_sigs.T.a_pointaty >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_pointatz"| value SVG_sigs.T.a_pointatz >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_points"| value SVG_sigs.T.a_points >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_poster"| value HTML5_sigs.T.a_poster >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_preload"| value HTML5_sigs.T.a_preload >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_preservealpha"| value SVG_sigs.T.a_preservealpha >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_preserveaspectratio"| value SVG_sigs.T.a_preserveaspectratio >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_primitiveunits"| value SVG_sigs.T.a_primitiveunits >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_profile"| value XHTML_sigs.T_01_01.a_profile >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_pubdate"| value HTML5_sigs.T.a_pubdate >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_r"| value SVG_sigs.T.a_r >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_radiogroup"| value HTML5_sigs.T.a_radiogroup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_radius"| value SVG_sigs.T.a_radius >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rbspan"| value XHTML_sigs.T_01_01.a_rbspan >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_readonly"| value HTML5_sigs.T.a_readonly >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_readonly"| value XHTML_sigs.T_01_01.a_readonly >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_refx"| value SVG_sigs.T.a_refx >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_refy"| value SVG_sigs.T.a_refy >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rel"| value HTML5_sigs.T.a_rel >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute describes the relationship from the current
+      document to the anchor specified by the href attribute~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_rel"| value XHTML_sigs.T_01_01.a_rel >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute describes the relationship from the current
+      document to the anchor specified by the href attribute~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_renderingindent"| value SVG_sigs.T.a_renderingindent >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_repeatcount"| value SVG_sigs.T.a_repeatcount >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_repeatdur"| value SVG_sigs.T.a_repeatdur >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_required"| value HTML5_sigs.T.a_required >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_requiredextensions"| value SVG_sigs.T.a_requiredextensions >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_requiredfeatures"| value SVG_sigs.T.a_requiredfeatures >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_restart"| value SVG_sigs.T.a_restart >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_result"| value SVG_sigs.T.a_result >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rev"| value XHTML_sigs.T_01_01.a_rev >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute is used to describe a reverse link from the
+      anchor specified by the href attribute to the current
+      document~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_reversed"| value HTML5_sigs.T.a_reversed >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rotate"| value SVG_sigs.T.a_rotate >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rows"| value HTML5_sigs.T.a_rows >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the number of visible text
+      lines~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_rows"| value XHTML_sigs.T_01_01.a_rows >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the number of visible text
+      lines~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_rowspan"| value HTML5_sigs.T.a_rowspan >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rowspan"| value XHTML_sigs.T_01_01.a_rowspan >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rules"| value HTML5_sigs.T.a_rules >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rules"| value XHTML_sigs.T_01_01.a_rules >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_rx"| value SVG_sigs.T.a_rx >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ry"| value SVG_sigs.T.a_ry >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_sandbox"| value HTML5_sigs.T.a_sandbox >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scale"| value SVG_sigs.T.a_scale >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scheme"| value XHTML_sigs.T_01_01.a_scheme >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scope"| value HTML5_sigs.T.a_scope >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scope"| value XHTML_sigs.T_01_01.Basic_Tables.a_scope >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scope"| value XHTML_sigs.T_01_01.a_scope >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scoped"| value HTML5_sigs.T.a_scoped >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scrolling"| value HTML5_sigs.T.a_scrolling >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_scrolling"| value XHTML_sigs.T_01_01.a_scrolling >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_seamless"| value HTML5_sigs.T.a_seamless >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_seed"| value SVG_sigs.T.a_seed >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_selected"| value HTML5_sigs.T.a_selected >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~When set~, this boolean attribute specifies that
+      this option is pre~-selected~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_selected"| value XHTML_sigs.T_01_01.a_selected >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~When set~, this boolean attribute specifies that this option
+      is pre~-selected~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_shape"| value HTML5_sigs.T.a_shape >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_shape"| value XHTML_sigs.T_01_01.a_shape >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_size"| value HTML5_sigs.T.a_size >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_size"| value XHTML_sigs.T_01_01.a_size >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_sizes"| value HTML5_sigs.T.a_sizes >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_slope"| value SVG_sigs.T.a_slope >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_spacing"| value SVG_sigs.T.a_spacing >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_span"| value HTML5_sigs.T.a_span >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_span"| value XHTML_sigs.T_01_01.a_span >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_specularconstant"| value SVG_sigs.T.a_specularconstant >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_specularexponent"| value SVG_sigs.T.a_specularexponent >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_spellcheck"| value HTML5_sigs.T.a_spellcheck >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_spreadmethod"| value SVG_sigs.T.a_spreadmethod >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_src"| value HTML5_sigs.T.a_src >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_src"| value XHTML_sigs.T_01_01.a_src >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_srclang"| value HTML5_sigs.T.a_srclang >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_standby"| value XHTML_sigs.T_01_01.a_standby >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_start"| value HTML5_sigs.T.a_start >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_startoffset"| value SVG_sigs.T.a_startoffset >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_stddeviation"| value SVG_sigs.T.a_stddeviation >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_stemh"| value SVG_sigs.T.a_stemh >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_stemv"| value SVG_sigs.T.a_stemv >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_step"| value HTML5_sigs.T.a_step >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_stitchtiles"| value SVG_sigs.T.a_stitchtiles >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_stitchtype"| value SVG_sigs.T.a_stitchtype >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_strikethroughposition"| value SVG_sigs.T.a_strikethroughposition >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_strikethroughthickness"| value SVG_sigs.T.a_strikethroughthickness >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_string"| value SVG_sigs.T.a_string >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_style"| value HTML5_sigs.T.a_style >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_style"| value SVG_sigs.T.a_style >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_style"| value XHTML_sigs.T_01_01.a_style >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_summary"| value HTML5_sigs.T.a_summary >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_summary"| value XHTML_sigs.T_01_01.a_summary >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_surfacescale"| value SVG_sigs.T.a_surfacescale >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_systemlanguage"| value SVG_sigs.T.a_systemlanguage >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_tabindex"| value HTML5_sigs.T.a_tabindex >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the position of the current
+      element in the tabbing order for the current document~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_tabindex"| value XHTML_sigs.T_01_01.a_tabindex >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the position of the current element
+      in the tabbing order for the current document~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_tablevalues"| value SVG_sigs.T.a_tablevalues >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_target"| value HTML5_sigs.T.a_target >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_target"| value SVG_sigs.T.a_target >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_target"| value XHTML_sigs.T_01_01.a_target >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_targetX"| value SVG_sigs.T.a_targetX >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_targetY"| value SVG_sigs.T.a_targetY >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_text_value"| value HTML5_sigs.T.a_text_value >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute specifies the initial value of the
+      control~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_textlength"| value SVG_sigs.T.a_textlength >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_title"| value HTML5_sigs.T.a_title >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~This attribute offers advisory information about the element for
+      which it is set~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_title"| value SVG_sigs.T.a_title >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_title"| value XHTML_sigs.T_01_01.a_title >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute offers advisory information about the element for
+      which it is set~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_to"| value SVG_sigs.T.a_to >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_transferttype"| value SVG_sigs.T.a_transferttype >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_transform"| value SVG_sigs.T.a_transform >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_type"| value SVG_sigs.T.a_type >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_type"| value XHTML_sigs.T_01_01.a_type >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute gives an advisory hint as to the content type
+      of the content available at the link target address~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_typeanimatecolor"| value SVG_sigs.T.a_typeanimatecolor >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_typefecolor"| value SVG_sigs.T.a_typefecolor >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_u1"| value SVG_sigs.T.a_u1 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_u2"| value SVG_sigs.T.a_u2 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_underlineposition"| value SVG_sigs.T.a_underlineposition >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_underlinethickness"| value SVG_sigs.T.a_underlinethickness >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_unicode"| value SVG_sigs.T.a_unicode >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_unicoderange"| value SVG_sigs.T.a_unicoderange >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_unitsperem"| value SVG_sigs.T.a_unitsperem >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_usemap"| value HTML5_sigs.T.a_usemap >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_usemap"| value XHTML_sigs.T_01_01.a_usemap >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_user_data"| value HTML5_sigs.T.a_user_data >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~May be used to specify custom attribs~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_valign"| value XHTML_sigs.T_01_01.Basic_Tables.a_valign >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_valign"| value XHTML_sigs.T_01_01.a_valign >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_valphabetic"| value SVG_sigs.T.a_valphabetic >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_value"| value HTML5_sigs.T.a_value >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_value"| value XHTML_sigs.T_01_01.a_value >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~This attribute specifies the initial value of the
+      control~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="a_value_type"| value XHTML_sigs.T_01_01.a_value_type >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_values"| value SVG_sigs.T.a_values >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_values_anim"| value SVG_sigs.T.a_values_anim >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_version"| value HTML5_sigs.T.a_version >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_version"| value SVG_sigs.T.a_version >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_version"| value XHTML_sigs.T_01_01.a_version >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_vert_adv_y"| value SVG_sigs.T.a_vert_adv_y >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_vert_origin_x"| value SVG_sigs.T.a_vert_origin_x >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_vert_origin_y"| value SVG_sigs.T.a_vert_origin_y >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_vhanging"| value SVG_sigs.T.a_vhanging >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_videographic"| value SVG_sigs.T.a_videographic >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_viewbox"| value SVG_sigs.T.a_viewbox >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_viewtarget"| value SVG_sigs.T.a_viewtarget >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_vmathematical"| value SVG_sigs.T.a_vmathematical >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_width"| value HTML5_sigs.T.a_width >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_width"| value SVG_sigs.T.a_width >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_width"| value XHTML_sigs.T_01_01.a_width >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_widths"| value SVG_sigs.T.a_widths >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_wrap"| value HTML5_sigs.T.a_wrap >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_x"| value SVG_sigs.T.a_x >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_x1"| value SVG_sigs.T.a_x1 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_x2"| value SVG_sigs.T.a_x2 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_x_list"| value SVG_sigs.T.a_x_list >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xchannelselector"| value SVG_sigs.T.a_xchannelselector >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xheight"| value SVG_sigs.T.a_xheight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xlink_href"| value SVG_sigs.T.a_xlink_href >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xlinkactuate"| value SVG_sigs.T.a_xlinkactuate >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xlinkshow"| value SVG_sigs.T.a_xlinkshow >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_base"| value SVG_sigs.T.a_xml_base >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_lang"| value HTML5_sigs.T.a_xml_lang >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_lang"| value SVG_sigs.T.a_xml_lang >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_lang"| value XHTML_sigs.T_01_01.a_xml_lang >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_space"| value HTML5_sigs.T.a_xml_space >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_space"| value SVG_sigs.T.a_xml_space >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xml_space"| value XHTML_sigs.T_01_01.a_xml_space >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xmlns"| value HTML5_sigs.T.a_xmlns >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_xmlns"| value XHTML_sigs.T_01_01.a_xmlns >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_y"| value SVG_sigs.T.a_y >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_y1"| value SVG_sigs.T.a_y1 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_y2"| value SVG_sigs.T.a_y2 >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_y_list"| value SVG_sigs.T.a_y_list >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_ychannelselector"| value SVG_sigs.T.a_ychannelselector >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_zoomAndPan"| value SVG_sigs.T.a_zoomAndPan >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="abbr"| value HTML5_sigs.T.abbr >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="abbr"| value XHTML_sigs.T_01_01.abbr >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="acontent"| value XML.acontent >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="acontent"| value XML_sigs.Iterable.acontent >> ~[<<a_api | module XML_sigs.Iterable >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="acronym"| value XHTML_sigs.T_01_01.acronym >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_comma_sep_attrib"| value XML.add_comma_sep_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_comma_sep_attrib"| value XML_iter.Make.add_comma_sep_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_int_attrib"| value XML.add_int_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_int_attrib"| value XML_iter.Make.add_int_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_space_sep_attrib"| value XML.add_space_sep_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_space_sep_attrib"| value XML_iter.Make.add_space_sep_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_string_attrib"| value XML.add_string_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="add_string_attrib"| value XML_iter.Make.add_string_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="address"| value HTML5_sigs.T.address >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="address"| value XHTML_sigs.T_01_01.address >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="all_entities"| value XML.all_entities >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="all_entities"| value XML_iter.Make.all_entities >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="alternative_content_types"| value XML_sigs.Info.alternative_content_types >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="altglyph"| value SVG_sigs.T.altglyph >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="altglyphdef"| value SVG_sigs.T.altglyphdef >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="altglyphitem"| value SVG_sigs.T.altglyphitem >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="amap"| value XML.amap >> ~[<<a_api | module XML >>~]|<<div class="odocwiki_info"|~Recursively edit attributes for the element and all its children~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="amap"| value XML_iter.Make.amap >> ~[<<a_api | module XML_iter.Make >>~]|<<div class="odocwiki_info"|~Recursively edit attributes for the element and all its children~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="amap1"| value XML.amap1 >> ~[<<a_api | module XML >>~]|<<div class="odocwiki_info"|~Edit attributes only for one element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="amap1"| value XML_iter.Make.amap1 >> ~[<<a_api | module XML_iter.Make >>~]|<<div class="odocwiki_info"|~Edit attributes only for one element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="aname"| value XML.aname >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="aname"| value XML_sigs.Iterable.aname >> ~[<<a_api | module XML_sigs.Iterable >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animatecolor"| value SVG_sigs.T.animatecolor >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animatemotion"| value SVG_sigs.T.animatemotion >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animatetransform"| value SVG_sigs.T.animatetransform >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animation"| value SVG_sigs.T.animation >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="area"| value HTML5_sigs.T.area >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="area"| value XHTML_sigs.T_01_01.area >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="article"| value HTML5_sigs.T.article >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="aside"| value HTML5_sigs.T.aside >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="audio"| value HTML5_sigs.T.audio >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\B|
+|@@class="odocwiki_index"@ @@<<a_api text="b"| value HTML5_sigs.T.b >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="b"| value XHTML_sigs.T_01_01.b >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="base"| value HTML5_sigs.T.base >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="base"| value XHTML_sigs.T_01_01.base >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="bdo"| value HTML5_sigs.T.bdo >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="bdo"| value XHTML_sigs.T_01_01.bdo >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="big"| value XHTML_sigs.T_01_01.big >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="blockquote"| value HTML5_sigs.T.blockquote >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="blockquote"| value XHTML_sigs.T_01_01.blockquote >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="body"| value HTML5_sigs.T.body >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="body"| value XHTML_sigs.T_01_01.body >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="br"| value HTML5_sigs.T.br >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="br"| value XHTML_sigs.T_01_01.br >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="button"| value HTML5_sigs.T.button >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="button"| value XHTML_sigs.T_01_01.button >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\C|
+|@@class="odocwiki_index"@ @@<<a_api text="canvas"| value HTML5_sigs.T.canvas >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="caption"| value HTML5_sigs.T.caption >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="caption"| value XHTML_sigs.T_01_01.Basic_Tables.caption >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="caption"| value XHTML_sigs.T_01_01.caption >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata"| value HTML5_sigs.T.cdata >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata"| value XHTML_sigs.T_01_01.cdata >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata"| value XML.cdata >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata"| value XML_sigs.T.cdata >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_script"| value HTML5_sigs.T.cdata_script >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_script"| value XHTML_sigs.T_01_01.cdata_script >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_script"| value XML.cdata_script >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_script"| value XML_sigs.T.cdata_script >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_style"| value HTML5_sigs.T.cdata_style >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_style"| value XHTML_sigs.T_01_01.cdata_style >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_style"| value XML.cdata_style >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cdata_style"| value XML_sigs.T.cdata_style >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="circle"| value SVG_sigs.T.circle >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cite"| value HTML5_sigs.T.cite >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cite"| value XHTML_sigs.T_01_01.cite >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="clippath"| value SVG_sigs.T.clippath >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="code"| value HTML5_sigs.T.code >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="code"| value XHTML_sigs.T_01_01.code >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="col"| value HTML5_sigs.T.col >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="col"| value XHTML_sigs.T_01_01.col >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="colgroup"| value HTML5_sigs.T.colgroup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="colgroup"| value XHTML_sigs.T_01_01.colgroup >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="colorprofile"| value SVG_sigs.T.colorprofile >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="comma_sep_attrib"| value XML.comma_sep_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="comma_sep_attrib"| value XML_sigs.T.comma_sep_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="command"| value HTML5_sigs.T.command >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="comment"| value XML.comment >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="comment"| value XML_sigs.T.comment >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="compose_decl"| value XML_print.compose_decl >> ~[<<a_api | module XML_print >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|encoding>> is the name of the character encoding~, e~.g~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="compose_doctype"| value XML_print.compose_doctype >> ~[<<a_api | module XML_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="concat"| value XML_sigs.Output.concat >> ~[<<a_api | module XML_sigs.Output >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="content"| value XML.content >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="content"| value XML_sigs.Iterable.content >> ~[<<a_api | module XML_sigs.Iterable >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="content_type"| value XML_sigs.Info.content_type >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="cursor"| value SVG_sigs.T.cursor >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\D|
+|@@class="odocwiki_index"@ @@<<a_api text="datalist"| value HTML5_sigs.T.datalist >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dd"| value HTML5_sigs.T.dd >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dd"| value XHTML_sigs.T_01_01.dd >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="defs"| value SVG_sigs.T.defs >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="del"| value HTML5_sigs.T.del >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="del"| value XHTML_sigs.T_01_01.del >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="desc"| value SVG_sigs.T.desc >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="details"| value HTML5_sigs.T.details >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dfn"| value HTML5_sigs.T.dfn >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dfn"| value XHTML_sigs.T_01_01.dfn >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="div"| value HTML5_sigs.T.div >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="div"| value XHTML_sigs.T_01_01.div >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dl"| value HTML5_sigs.T.dl >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dl"| value XHTML_sigs.T_01_01.dl >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="doc_toelt"| value HTML5_sigs.T.doc_toelt >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="doc_toelt"| value SVG_sigs.T.doc_toelt >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="doc_toelt"| value XHTML_sigs.T_01_01.doc_toelt >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="doc_toelt"| value XML_sigs.IterableTypedXML.doc_toelt >> ~[<<a_api | module XML_sigs.IterableTypedXML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="doc_toelt"| value XML_sigs.TypedXML.doc_toelt >> ~[<<a_api | module XML_sigs.TypedXML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="doctype"| value XML_sigs.Info.doctype >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dt"| value HTML5_sigs.T.dt >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dt"| value XHTML_sigs.T_01_01.dt >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\E|
+|@@class="odocwiki_index"@ @@<<a_api text="ellipse"| value SVG_sigs.T.ellipse >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="em"| value HTML5_sigs.T.em >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="em"| value XHTML_sigs.T_01_01.em >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="embed"| value HTML5_sigs.T.embed >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="empty"| value XML.empty >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="empty"| value XML_sigs.Output.empty >> ~[<<a_api | module XML_sigs.Output >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="empty"| value XML_sigs.T.empty >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="emptytags"| value XML_sigs.Info.emptytags >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="encode_unsafe_char"| value XML_print.encode_unsafe_char >> ~[<<a_api | module XML_print >>~]|<<div class="odocwiki_info"|~The encoder maps strings to ~H~T~M~L and //must// encode the unsafe characters
+    <<span class="odocwiki_inlinecode"|~'~<~'>>~, <<span class="odocwiki_inlinecode"|~'~>~'>>~, <<span class="odocwiki_inlinecode"|~'"~'>>~, <<span class="odocwiki_inlinecode"|~'~&~'>> and the control characters ~0~-~8~, ~1~1~-~1~2~, ~1~4~-~3~1~, ~1~2~7
+    to ~H~T~M~L entities~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="encode_unsafe_char_and_at"| value XML_print.encode_unsafe_char_and_at >> ~[<<a_api | module XML_print >>~]|<<div class="odocwiki_info"|~In addition~, encode <<span class="odocwiki_inlinecode"|"~@">> as <<span class="odocwiki_inlinecode"|"~&~#~6~4~;">> in the hope that this will fool
+    simple minded email address harvesters~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="encodedpcdata"| value XML.encodedpcdata >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="encodedpcdata"| value XML_sigs.T.encodedpcdata >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="entity"| value HTML5_sigs.T.entity >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="entity"| value XHTML_sigs.T_01_01.entity >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="entity"| value XML.entity >> ~[<<a_api | module XML >>~]|<<div class="odocwiki_info"|~Neither <<span class="odocwiki_inlinecode"|comment>>~, <<span class="odocwiki_inlinecode"|pcdata>> nor <<span class="odocwiki_inlinecode"|entity>> check their argument for invalid
+    characters~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="entity"| value XML_sigs.T.entity >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="event_handler_attrib"| value XML.event_handler_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="event_handler_attrib"| value XML_sigs.T.event_handler_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\F|
+|@@class="odocwiki_index"@ @@<<a_api text="feblend"| value SVG_sigs.T.feblend >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fecolormatrix"| value SVG_sigs.T.fecolormatrix >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fecomponenttransfer"| value SVG_sigs.T.fecomponenttransfer >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fecomposite"| value SVG_sigs.T.fecomposite >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="feconvolvematrix"| value SVG_sigs.T.feconvolvematrix >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fediffuselighting"| value SVG_sigs.T.fediffuselighting >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fedisplacementmap"| value SVG_sigs.T.fedisplacementmap >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fedistantlight"| value SVG_sigs.T.fedistantlight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="feflood"| value SVG_sigs.T.feflood >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fefunca"| value SVG_sigs.T.fefunca >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fefuncb"| value SVG_sigs.T.fefuncb >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fefuncg"| value SVG_sigs.T.fefuncg >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fefuncr"| value SVG_sigs.T.fefuncr >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fegaussianblur"| value SVG_sigs.T.fegaussianblur >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="feimage"| value SVG_sigs.T.feimage >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="femerge"| value SVG_sigs.T.femerge >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="femorphology"| value SVG_sigs.T.femorphology >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="feoffset"| value SVG_sigs.T.feoffset >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fepointlight"| value SVG_sigs.T.fepointlight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fespecularlighting"| value SVG_sigs.T.fespecularlighting >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fespotlight"| value SVG_sigs.T.fespotlight >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fetile"| value SVG_sigs.T.fetile >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="feturbulence"| value SVG_sigs.T.feturbulence >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fieldset"| value HTML5_sigs.T.fieldset >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fieldset"| value XHTML_sigs.T_01_01.fieldset >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="figcaption"| value HTML5_sigs.T.figcaption >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="figure"| value HTML5_sigs.T.figure >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="filter"| value SVG_sigs.T.filter >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="float_attrib"| value XML.float_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="float_attrib"| value XML_sigs.T.float_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fold"| value XML.fold >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fold"| value XML_iter.Make.fold >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="font"| value SVG_sigs.T.font >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fontface"| value SVG_sigs.T.fontface >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fontfaceformat"| value SVG_sigs.T.fontfaceformat >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fontfacename"| value SVG_sigs.T.fontfacename >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fontfacesrc"| value SVG_sigs.T.fontfacesrc >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fontfaceuri"| value SVG_sigs.T.fontfaceuri >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="footer"| value HTML5_sigs.T.footer >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="foreignobject"| value SVG_sigs.T.foreignobject >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="form"| value HTML5_sigs.T.form >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="form"| value XHTML_sigs.T_01_01.Basic_Forms.form >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Forms >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="form"| value XHTML_sigs.T_01_01.form >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]|<<div class="odocwiki_info"|~Generic forms~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="frame"| value XHTML_sigs.T_01_01.frame >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="frameset"| value XHTML_sigs.T_01_01.frameset >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\G|
+|@@class="odocwiki_index"@ @@<<a_api text="g"| value SVG_sigs.T.g >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="glyph"| value SVG_sigs.T.glyph >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="glyphref"| value SVG_sigs.T.glyphref >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="gradientstop"| value SVG_sigs.T.gradientstop >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\H|
+|@@class="odocwiki_index"@ @@<<a_api text="h1"| value HTML5_sigs.T.h1 >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h1"| value XHTML_sigs.T_01_01.h1 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h2"| value HTML5_sigs.T.h2 >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h2"| value XHTML_sigs.T_01_01.h2 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h3"| value HTML5_sigs.T.h3 >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h3"| value XHTML_sigs.T_01_01.h3 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h4"| value HTML5_sigs.T.h4 >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h4"| value XHTML_sigs.T_01_01.h4 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h5"| value HTML5_sigs.T.h5 >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h5"| value XHTML_sigs.T_01_01.h5 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h6"| value HTML5_sigs.T.h6 >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="h6"| value XHTML_sigs.T_01_01.h6 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="head"| value HTML5_sigs.T.head >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="head"| value XHTML_sigs.T_01_01.head >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="header"| value HTML5_sigs.T.header >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="hgroup"| value HTML5_sigs.T.hgroup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="hkern"| value SVG_sigs.T.hkern >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="hr"| value HTML5_sigs.T.hr >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="hr"| value XHTML_sigs.T_01_01.hr >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="html"| value HTML5_sigs.T.html >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="html"| value XHTML_sigs.T_01_01.html >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\I|
+|@@class="odocwiki_index"@ @@<<a_api text="i"| value HTML5_sigs.T.i >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="i"| value XHTML_sigs.T_01_01.i >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="iframe"| value HTML5_sigs.T.iframe >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="iframe"| value XHTML_sigs.T_01_01.iframe >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="image"| value SVG_sigs.T.image >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="img"| value HTML5_sigs.T.img >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="img"| value XHTML_sigs.T_01_01.img >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="input"| value HTML5_sigs.T.input >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~If the <<span class="odocwiki_inlinecode"|type>> attribute is not "hidden"~, must be considered
+      as interactive~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="input"| value XHTML_sigs.T_01_01.Basic_Forms.input >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Forms >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="input"| value XHTML_sigs.T_01_01.input >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ins"| value HTML5_sigs.T.ins >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ins"| value XHTML_sigs.T_01_01.ins >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="int_attrib"| value XML.int_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="int_attrib"| value XML_sigs.T.int_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\K|
+|@@class="odocwiki_index"@ @@<<a_api text="kbd"| value HTML5_sigs.T.kbd >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="kbd"| value XHTML_sigs.T_01_01.kbd >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="keygen"| value HTML5_sigs.T.keygen >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\L|
+|@@class="odocwiki_index"@ @@<<a_api text="label"| value HTML5_sigs.T.label >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~Label authorizes only one  control inside them
+      that should be labelled with a <<span class="odocwiki_inlinecode"|for>> attribute
+      ~(although it is not necessary~)~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="label"| value XHTML_sigs.T_01_01.Basic_Forms.label >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Forms >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="label"| value XHTML_sigs.T_01_01.label >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="leaf"| value XML.leaf >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="leaf"| value XML_sigs.T.leaf >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="legend"| value HTML5_sigs.T.legend >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="legend"| value XHTML_sigs.T_01_01.legend >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="li"| value HTML5_sigs.T.li >> ~[<<a_api | module HTML5_sigs.T >>~]|<<div class="odocwiki_info"|~A list element~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="li"| value XHTML_sigs.T_01_01.li >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="line"| value SVG_sigs.T.line >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="lineargradient"| value SVG_sigs.T.lineargradient >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="link"| value HTML5_sigs.T.link >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="link"| value XHTML_sigs.T_01_01.link >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\M|
+|@@class="odocwiki_index"@ @@<<a_api text="make"| value XML_sigs.Output.make >> ~[<<a_api | module XML_sigs.Output >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map"| value HTML5_sigs.T.map >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map"| value XHTML_sigs.T_01_01.map >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map_int_attrib"| value XML.map_int_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map_int_attrib"| value XML_iter.Make.map_int_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib"| value XML.map_string_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib"| value XML_iter.Make.map_string_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib_in_list"| value XML.map_string_attrib_in_list >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib_in_list"| value XML_iter.Make.map_string_attrib_in_list >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="mark"| value HTML5_sigs.T.mark >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="marker"| value SVG_sigs.T.marker >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="menu"| value HTML5_sigs.T.menu >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="meta"| value HTML5_sigs.T.meta >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="meta"| value XHTML_sigs.T_01_01.meta >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="metadata"| value SVG_sigs.T.metadata >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="meter"| value HTML5_sigs.T.meter >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="missingglyph"| value SVG_sigs.T.missingglyph >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="mpath"| value SVG_sigs.T.mpath >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\N|
+|@@class="odocwiki_index"@ @@<<a_api text="namespace"| value XML_sigs.Info.namespace >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="nav"| value HTML5_sigs.T.nav >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="node"| value XML.node >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="node"| value XML_sigs.T.node >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="noframes"| value XHTML_sigs.T_01_01.noframes >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="noscript"| value HTML5_sigs.T.noscript >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="noscript"| value XHTML_sigs.T_01_01.noscript >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\O|
+|@@class="odocwiki_index"@ @@<<a_api text="object_"| value HTML5_sigs.T.object_ >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="object_"| value XHTML_sigs.T_01_01.object_ >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ol"| value HTML5_sigs.T.ol >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ol"| value XHTML_sigs.T_01_01.ol >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="optgroup"| value HTML5_sigs.T.optgroup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="optgroup"| value XHTML_sigs.T_01_01.optgroup >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="option"| value HTML5_sigs.T.option >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="option"| value XHTML_sigs.T_01_01.Basic_Forms.option >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Forms >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="option"| value XHTML_sigs.T_01_01.option >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="output_elt"| value HTML5_sigs.T.output_elt >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\P|
+|@@class="odocwiki_index"@ @@<<a_api text="p"| value HTML5_sigs.T.p >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="p"| value XHTML_sigs.T_01_01.p >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="param"| value HTML5_sigs.T.param >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="param"| value XHTML_sigs.T_01_01.param >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="path"| value SVG_sigs.T.path >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pattern"| value SVG_sigs.T.pattern >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pcdata"| value HTML5_sigs.T.pcdata >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pcdata"| value XHTML_sigs.T_01_01.pcdata >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pcdata"| value XML.pcdata >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pcdata"| value XML_sigs.T.pcdata >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="polygon"| value SVG_sigs.T.polygon >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="polyline"| value SVG_sigs.T.polyline >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pre"| value HTML5_sigs.T.pre >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="pre"| value XHTML_sigs.T_01_01.pre >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print"| value XML.print >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print"| value XML_sigs.TypedSimplePrinter.print >> ~[<<a_api | module XML_sigs.TypedSimplePrinter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print"| value XML_sigs.TypedPrinter.print >> ~[<<a_api | module XML_sigs.TypedPrinter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print_list"| value XML.print_list >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print_list"| value XML_sigs.TypedSimplePrinter.print_list >> ~[<<a_api | module XML_sigs.TypedSimplePrinter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print_list"| value XML_sigs.TypedPrinter.print_list >> ~[<<a_api | module XML_sigs.TypedPrinter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print_list"| value XML_sigs.SimplePrinter.print_list >> ~[<<a_api | module XML_sigs.SimplePrinter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="print_list"| value XML_sigs.Printer.print_list >> ~[<<a_api | module XML_sigs.Printer >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="progress"| value HTML5_sigs.T.progress >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="put"| value XML_sigs.Output.put >> ~[<<a_api | module XML_sigs.Output >>~]||
+|@@ @style="tet-align: left;"@@\\Q|
+|@@class="odocwiki_index"@ @@<<a_api text="q"| value HTML5_sigs.T.q >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="q"| value XHTML_sigs.T_01_01.q >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\R|
+|@@class="odocwiki_index"@ @@<<a_api text="radialgradient"| value SVG_sigs.T.radialgradient >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rb"| value XHTML_sigs.T_01_01.rb >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rbc"| value XHTML_sigs.T_01_01.rbc >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rect"| value SVG_sigs.T.rect >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rm_attrib"| value XML.rm_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rm_attrib"| value XML_iter.Make.rm_attrib >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rm_attrib_from_list"| value XML.rm_attrib_from_list >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rm_attrib_from_list"| value XML_iter.Make.rm_attrib_from_list >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rp"| value HTML5_sigs.T.rp >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rp"| value XHTML_sigs.T_01_01.rp >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rt"| value HTML5_sigs.T.rt >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rt"| value XHTML_sigs.T_01_01.rt >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rt_complex"| value XHTML_sigs.T_01_01.rt_complex >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rtc"| value XHTML_sigs.T_01_01.rtc >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="rtc_complex"| value XHTML_sigs.T_01_01.rtc_complex >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ruby"| value HTML5_sigs.T.ruby >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ruby_complex"| value XHTML_sigs.T_01_01.ruby_complex >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ruby_simple1"| value XHTML_sigs.T_01_01.ruby_simple1 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ruby_simple2"| value XHTML_sigs.T_01_01.ruby_simple2 >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\S|
+|@@class="odocwiki_index"@ @@<<a_api text="samp"| value HTML5_sigs.T.samp >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="samp"| value XHTML_sigs.T_01_01.samp >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="script"| value HTML5_sigs.T.script >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="script"| value SVG_sigs.T.script >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="script"| value XHTML_sigs.T_01_01.script >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="section"| value HTML5_sigs.T.section >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="select"| value HTML5_sigs.T.select >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="select"| value XHTML_sigs.T_01_01.Basic_Forms.select >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Forms >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="select"| value XHTML_sigs.T_01_01.select >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="set"| value SVG_sigs.T.set >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="small"| value HTML5_sigs.T.small >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="small"| value XHTML_sigs.T_01_01.small >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="source"| value HTML5_sigs.T.source >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="space"| value HTML5_sigs.T.space >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="space"| value XHTML_sigs.T_01_01.space >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="space_sep_attrib"| value XML.space_sep_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="space_sep_attrib"| value XML_sigs.T.space_sep_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="span"| value HTML5_sigs.T.span >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="span"| value XHTML_sigs.T_01_01.span >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="standard"| value XML_sigs.Info.standard >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_attrib"| value XML.string_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_attrib"| value XML_sigs.T.string_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_of_uri"| value HTML5_sigs.T.string_of_uri >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_of_uri"| value SVG_sigs.T.string_of_uri >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_of_uri"| value XHTML_sigs.T_01_01.string_of_uri >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_of_uri"| value XML.string_of_uri >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="string_of_uri"| value XML_sigs.T.string_of_uri >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="strong"| value HTML5_sigs.T.strong >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="strong"| value XHTML_sigs.T_01_01.strong >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="style"| value HTML5_sigs.T.style >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="style"| value SVG_sigs.T.style >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="style"| value XHTML_sigs.T_01_01.style >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="sub"| value HTML5_sigs.T.sub >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="sub"| value XHTML_sigs.T_01_01.sub >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="summary"| value HTML5_sigs.T.summary >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="sup"| value HTML5_sigs.T.sup >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="sup"| value XHTML_sigs.T_01_01.sup >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="svg"| value HTML5_sigs.T.svg >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="svg"| value SVG_sigs.T.svg >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="switch"| value SVG_sigs.T.switch >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="symbol"| value SVG_sigs.T.symbol >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\T|
+|@@class="odocwiki_index"@ @@<<a_api text="table"| value HTML5_sigs.T.table >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="table"| value XHTML_sigs.T_01_01.Basic_Tables.table >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="table"| value XHTML_sigs.T_01_01.table >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tablex"| value HTML5_sigs.T.tablex >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tablex"| value XHTML_sigs.T_01_01.tablex >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tbody"| value HTML5_sigs.T.tbody >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tbody"| value XHTML_sigs.T_01_01.tbody >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="td"| value HTML5_sigs.T.td >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="td"| value XHTML_sigs.T_01_01.Basic_Tables.td >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="td"| value XHTML_sigs.T_01_01.td >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="text"| value SVG_sigs.T.text >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="textarea"| value HTML5_sigs.T.textarea >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="textarea"| value XHTML_sigs.T_01_01.Basic_Forms.textarea >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Forms >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="textarea"| value XHTML_sigs.T_01_01.textarea >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="textpath"| value SVG_sigs.T.textpath >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tfoot"| value HTML5_sigs.T.tfoot >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tfoot"| value XHTML_sigs.T_01_01.tfoot >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="th"| value HTML5_sigs.T.th >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="th"| value XHTML_sigs.T_01_01.Basic_Tables.th >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="th"| value XHTML_sigs.T_01_01.th >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="thead"| value HTML5_sigs.T.thead >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="thead"| value XHTML_sigs.T_01_01.thead >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="time"| value HTML5_sigs.T.time >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="title"| value HTML5_sigs.T.title >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="title"| value SVG_sigs.T.title >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="title"| value XHTML_sigs.T_01_01.title >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="to_attrib"| value HTML5_sigs.T.to_attrib >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="to_attrib"| value SVG_sigs.T.to_attrib >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="to_attrib"| value XHTML_sigs.T_01_01.to_attrib >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="to_xmlattribs"| value HTML5_sigs.T.to_xmlattribs >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="to_xmlattribs"| value SVG_sigs.T.to_xmlattribs >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="to_xmlattribs"| value XHTML_sigs.T_01_01.to_xmlattribs >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toelt"| value HTML5_sigs.T.toelt >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toelt"| value SVG_sigs.T.toelt >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toelt"| value XHTML_sigs.T_01_01.toelt >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toelt"| value XML_sigs.IterableTypedXML.toelt >> ~[<<a_api | module XML_sigs.IterableTypedXML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toelt"| value XML_sigs.TypedXML.toelt >> ~[<<a_api | module XML_sigs.TypedXML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toeltl"| value HTML5_sigs.T.toeltl >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toeltl"| value SVG_sigs.T.toeltl >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="toeltl"| value XHTML_sigs.T_01_01.toeltl >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tot"| value HTML5_sigs.T.tot >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tot"| value SVG_sigs.T.tot >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tot"| value XHTML_sigs.T_01_01.tot >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="totl"| value HTML5_sigs.T.totl >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="totl"| value SVG_sigs.T.totl >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="totl"| value XHTML_sigs.T_01_01.totl >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tr"| value HTML5_sigs.T.tr >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tr"| value XHTML_sigs.T_01_01.Basic_Tables.tr >> ~[<<a_api | module XHTML_sigs.T_01_01.Basic_Tables >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tr"| value XHTML_sigs.T_01_01.tr >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="translate"| value XML.translate >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="translate"| value XML_iter.Make.translate >> ~[<<a_api | module XML_iter.Make >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tref"| value SVG_sigs.T.tref >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tspan"| value SVG_sigs.T.tspan >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="tt"| value XHTML_sigs.T_01_01.tt >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@ @style="tet-align: left;"@@\\U|
+|@@class="odocwiki_index"@ @@<<a_api text="ul"| value HTML5_sigs.T.ul >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="ul"| value XHTML_sigs.T_01_01.ul >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_attrib"| value XML.uri_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_attrib"| value XML_sigs.T.uri_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_of_string"| value HTML5_sigs.T.uri_of_string >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_of_string"| value SVG_sigs.T.uri_of_string >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_of_string"| value XHTML_sigs.T_01_01.uri_of_string >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_of_string"| value XML.uri_of_string >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uri_of_string"| value XML_sigs.T.uri_of_string >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uris_attrib"| value XML.uris_attrib >> ~[<<a_api | module XML >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="uris_attrib"| value XML_sigs.T.uris_attrib >> ~[<<a_api | module XML_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="use"| value SVG_sigs.T.use >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\V|
+|@@class="odocwiki_index"@ @@<<a_api text="var"| value HTML5_sigs.T.var >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="var"| value XHTML_sigs.T_01_01.var >> ~[<<a_api | module XHTML_sigs.T_01_01 >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="version"| value XML_sigs.Info.version >> ~[<<a_api | module XML_sigs.Info >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="video"| value HTML5_sigs.T.video >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="view"| value SVG_sigs.T.view >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="vkern"| value SVG_sigs.T.vkern >> ~[<<a_api | module SVG_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\W|
+|@@class="odocwiki_index"@ @@<<a_api text="wbr"| value HTML5_sigs.T.wbr >> ~[<<a_api | module HTML5_sigs.T >>~]||
+|@@ @style="tet-align: left;"@@\\X|
+|@@class="odocwiki_index"@ @@<<a_api text="xmlparser_file"| value Simplexmlparser.xmlparser_file >> ~[<<a_api | module Simplexmlparser >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="xmlparser_string"| value Simplexmlparser.xmlparser_string >> ~[<<a_api | module Simplexmlparser >>~]||
+\\

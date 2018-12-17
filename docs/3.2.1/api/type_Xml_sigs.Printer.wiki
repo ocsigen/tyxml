@@ -1,0 +1,7 @@
+<<code language="ocaml" | sig
+  type xml_elt
+  type out
+  val print_list :
+    ?encode:(string -> string) ->
+    Xml_sigs.Printer.xml_elt list -> Xml_sigs.Printer.out
+end >>

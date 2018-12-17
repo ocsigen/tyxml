@@ -1,0 +1,5 @@
+=Module type <<a_api_type | module type Xml_print.TagList >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<span class="ocsforge_color_uid"|TagList>> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Xml_print.TagList >><<span class="ocsforge_color_keyword"|end>>>>~List of tags that can be printed as empty tags~: <<span class="odocwiki_inlinecode"|~<foo ~/~>>>~.
+
+----
+<<pre id="VALemptytags" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|emptytags>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string list>>>>

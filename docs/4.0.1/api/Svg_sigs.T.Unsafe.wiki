@@ -1,0 +1,38 @@
+=Module <<a_api_type | module Svg_sigs.T.Unsafe >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Unsafe>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Svg_sigs.T.Unsafe >><<span class="ocsforge_color_keyword"|end>>>>~Unsafe features~.
+
+
+      ~Using this module can break
+      ~S~V~G validity and may introduce security problems like
+      code injection~.
+      ~Use it with care~.
+
+----
+<<pre id="VALdata" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|data>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.elt" | type Svg_sigs.T.elt >>>>>><<div class="odocwiki_info"|~Insert raw text without any encoding
+>>
+<<pre id="VALnode" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|node>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >>\\  <<span class="ocsforge_color_label"| ?a: >>'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >> list <<span class="ocsforge_color_delimiter"| -> >>\\  'b <<a_api text="Svg_sigs.T.elt" | type Svg_sigs.T.elt >> <<a_api text="Svg_sigs.T.list_wrap" | type Svg_sigs.T.list_wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'c <<a_api text="Svg_sigs.T.elt" | type Svg_sigs.T.elt >>>>>><<div class="odocwiki_info"|~Insert an ~X~M~L node that is not implemented in this module~.
+        ~If it is a standard ~S~V~G node which is missing~,
+        please report to the ~Ocsigen team~.
+>>
+<<pre id="VALleaf" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|leaf>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_label"| ?a: >>'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >> list <<span class="ocsforge_color_delimiter"| -> >> unit <<span class="ocsforge_color_delimiter"| -> >> 'b <<a_api text="Svg_sigs.T.elt" | type Svg_sigs.T.elt >>>>>><<div class="odocwiki_info"|~Insert an ~X~M~L node without children
+        that is not implemented in this module~.
+        ~If it is a standard ~S~V~G node which is missing~,
+        please report to the ~Ocsigen team~.
+>>
+<<pre id="VALcoerce_elt" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|coerce~_elt>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|'a <<a_api text="Svg_sigs.T.elt" | type Svg_sigs.T.elt >> <<span class="ocsforge_color_delimiter"| -> >> 'b <<a_api text="Svg_sigs.T.elt" | type Svg_sigs.T.elt >>>>>><<div class="odocwiki_info"|~Remove phantom type annotation on an element~,
+        to make it usable everywhere~.
+>>
+<<pre id="VALstring_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|string~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> string <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >>>>>><<div class="odocwiki_info"|~Insert an attribute that is not implemented in this module~.
+        ~If it is a standard ~S~V~G attribute which is missing~,
+        please report to the ~Ocsigen team~.
+>>
+<<pre id="VALfloat_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|float~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> float <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >>>>>><<div class="odocwiki_info"|~Same~, for float attribute
+>>
+<<pre id="VALint_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|int~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> int <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >>>>>><<div class="odocwiki_info"|~Same~, for int attribute
+>>
+<<pre id="VALuri_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|uri~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> <<a_api text="Svg_sigs.T.uri" | type Svg_sigs.T.uri >> <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >>>>>><<div class="odocwiki_info"|~Same~, for ~U~R~I attribute
+>>
+<<pre id="VALspace_sep_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|space~_sep~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> string list <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >>>>>><<div class="odocwiki_info"|~Same~, for a space separated list of values
+>>
+<<pre id="VALcomma_sep_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|comma~_sep~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> string list <<a_api text="Svg_sigs.T.wrap" | type Svg_sigs.T.wrap >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Svg_sigs.T.attrib" | type Svg_sigs.T.attrib >>>>>><<div class="odocwiki_info"|~Same~, for a comma separated list of values
+>>

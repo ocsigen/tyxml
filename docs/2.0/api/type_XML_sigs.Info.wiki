@@ -1,0 +1,7 @@
+<<code language="ocaml" | sig
+  val content_type : string
+  val version : string
+  val standard : Uri.uri
+  val doctype : string
+  val emptytags : string list
+end >>

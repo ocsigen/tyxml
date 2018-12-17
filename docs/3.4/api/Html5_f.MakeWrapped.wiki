@@ -1,0 +1,10 @@
+=Functor <<a_api_type | module Html5_f.MakeWrapped >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|MakeWrapped>>>> <<span class="ocsforge_color_delimiter"|(>>W <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_wrap.T" | module Xml_wrap.T >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> \\      <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Wrapped" | module Xml_sigs.Wrapped >>>><<span class="odocwiki_type"|     with type 'a wrap = 'a W.t\\                                   and type 'a list_wrap = 'a W.tlist>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Svg <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Svg_sigs.T" | module Svg_sigs.T >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Html5_sigs.MakeWrapped" | module Html5_sigs.MakeWrapped >>(W)(Xml)(Svg).T>><<span class="odocwiki_type"|\\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>>~Like the <<a_api | module Html5_f.Make >> functor~, but allows to wrap elements inside a monad described by <<a_api | module type Xml_wrap.T >>~.
+    ~See the functorial interface documentation for more details~.
+<<div class="odocwiki_module_param_list" | <<span class="odocwiki_param_title" |Parameters :>><<div|
+|@@class="odocwiki_paramstable"@ @class="centertop fifteen code"@@{{{W}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Xml_wrap.T>>|
+|@@class="centertop fifteen code"@@{{{Xml}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|\\Xml_sigs.Wrapped with type 'a wrap = 'a W.t\\                             and type 'a list_wrap = 'a W.tlist>>|
+|@@class="centertop fifteen code"@@{{{Svg}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Svg_sigs.T with module Xml := Xml>>|
+>>>>
+
+----

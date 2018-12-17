@@ -1,0 +1,16 @@
+<<code language="ocaml" | functor
+  (Xml : Xml_sigs.Iterable) (Typed_xml : sig
+                                           module Info : Xml_sigs.Info
+                                           type 'a elt
+                                           type doc
+                                           val toelt : 'a elt -> Xml.elt
+                                           val doc_toelt : doc -> Xml.elt
+                                         end) ->
+  sig
+    val print_list :
+      output:(string -> unit) ->
+      ?encode:(string -> string) -> 'a Typed_xml.elt list -> unit
+    val print :
+      output:(string -> unit) ->
+      ?encode:(string -> string) -> ?advert:string -> Typed_xml.doc -> unit
+  end >>

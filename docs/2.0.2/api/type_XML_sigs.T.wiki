@@ -1,0 +1,32 @@
+<<code language="ocaml" | sig
+  type uri
+  val string_of_uri : XML_sigs.T.uri -> string
+  val uri_of_string : string -> XML_sigs.T.uri
+  type aname = string
+  type event_handler
+  type attrib
+  val float_attrib : XML_sigs.T.aname -> float -> XML_sigs.T.attrib
+  val int_attrib : XML_sigs.T.aname -> int -> XML_sigs.T.attrib
+  val string_attrib : XML_sigs.T.aname -> string -> XML_sigs.T.attrib
+  val space_sep_attrib : XML_sigs.T.aname -> string list -> XML_sigs.T.attrib
+  val comma_sep_attrib : XML_sigs.T.aname -> string list -> XML_sigs.T.attrib
+  val event_handler_attrib :
+    XML_sigs.T.aname -> XML_sigs.T.event_handler -> XML_sigs.T.attrib
+  val uri_attrib : XML_sigs.T.aname -> XML_sigs.T.uri -> XML_sigs.T.attrib
+  val uris_attrib :
+    XML_sigs.T.aname -> XML_sigs.T.uri list -> XML_sigs.T.attrib
+  type elt
+  type ename = string
+  val empty : unit -> XML_sigs.T.elt
+  val comment : string -> XML_sigs.T.elt
+  val pcdata : string -> XML_sigs.T.elt
+  val encodedpcdata : string -> XML_sigs.T.elt
+  val entity : string -> XML_sigs.T.elt
+  val leaf : ?a:XML_sigs.T.attrib list -> XML_sigs.T.ename -> XML_sigs.T.elt
+  val node :
+    ?a:XML_sigs.T.attrib list ->
+    XML_sigs.T.ename -> XML_sigs.T.elt list -> XML_sigs.T.elt
+  val cdata : string -> XML_sigs.T.elt
+  val cdata_script : string -> XML_sigs.T.elt
+  val cdata_style : string -> XML_sigs.T.elt
+end >>

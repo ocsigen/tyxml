@@ -1,0 +1,261 @@
+<<code language="ocaml" | sig
+  module type T =
+    sig
+      module W : Xml_wrap.T
+      type 'a wrap = 'a W.t
+      type 'a list_wrap = 'a W.tlist
+      type uri
+      val string_of_uri : (Xml_sigs.T.uri, string) W.ft
+      val uri_of_string : (string, Xml_sigs.T.uri) W.ft
+      type aname = string
+      type event_handler
+      type mouse_event_handler
+      type keyboard_event_handler
+      type attrib
+      val float_attrib :
+        Xml_sigs.T.aname -> float Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      val int_attrib :
+        Xml_sigs.T.aname -> int Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      val string_attrib :
+        Xml_sigs.T.aname -> string Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      val space_sep_attrib :
+        Xml_sigs.T.aname -> string list Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      val comma_sep_attrib :
+        Xml_sigs.T.aname -> string list Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      val event_handler_attrib :
+        Xml_sigs.T.aname -> Xml_sigs.T.event_handler -> Xml_sigs.T.attrib
+      val mouse_event_handler_attrib :
+        Xml_sigs.T.aname ->
+        Xml_sigs.T.mouse_event_handler -> Xml_sigs.T.attrib
+      val keyboard_event_handler_attrib :
+        Xml_sigs.T.aname ->
+        Xml_sigs.T.keyboard_event_handler -> Xml_sigs.T.attrib
+      val uri_attrib :
+        Xml_sigs.T.aname ->
+        Xml_sigs.T.uri Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      val uris_attrib :
+        Xml_sigs.T.aname ->
+        Xml_sigs.T.uri list Xml_sigs.T.wrap -> Xml_sigs.T.attrib
+      type elt
+      type ename = string
+      val empty : unit -> Xml_sigs.T.elt
+      val comment : string -> Xml_sigs.T.elt
+      val pcdata : string Xml_sigs.T.wrap -> Xml_sigs.T.elt
+      val encodedpcdata : string Xml_sigs.T.wrap -> Xml_sigs.T.elt
+      val entity : string -> Xml_sigs.T.elt
+      val leaf :
+        ?a:Xml_sigs.T.attrib list -> Xml_sigs.T.ename -> Xml_sigs.T.elt
+      val node :
+        ?a:Xml_sigs.T.attrib list ->
+        Xml_sigs.T.ename ->
+        Xml_sigs.T.elt Xml_sigs.T.list_wrap -> Xml_sigs.T.elt
+      val cdata : string -> Xml_sigs.T.elt
+      val cdata_script : string -> Xml_sigs.T.elt
+      val cdata_style : string -> Xml_sigs.T.elt
+    end
+  module type NoWrap =
+    sig
+      module W :
+        sig
+          type 'a t = 'a
+          val return : 'a -> 'a t
+          type ('a, 'b) ft = 'a -> 'b
+          val fmap : ('a, 'b) ft -> 'a t -> 'b t
+          type 'a tlist = 'a list
+          val nil : unit -> 'a tlist
+          val singleton : 'a t -> 'a tlist
+          val cons : 'a t -> 'a tlist -> 'a tlist
+          val append : 'a tlist -> 'a tlist -> 'a tlist
+          val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
+        end
+      type 'a wrap = 'a W.t
+      type 'a list_wrap = 'a W.tlist
+      type uri
+      val string_of_uri : (uri, string) W.ft
+      val uri_of_string : (string, uri) W.ft
+      type aname = string
+      type event_handler
+      type mouse_event_handler
+      type keyboard_event_handler
+      type attrib
+      val float_attrib : aname -> float wrap -> attrib
+      val int_attrib : aname -> int wrap -> attrib
+      val string_attrib : aname -> string wrap -> attrib
+      val space_sep_attrib : aname -> string list wrap -> attrib
+      val comma_sep_attrib : aname -> string list wrap -> attrib
+      val event_handler_attrib : aname -> event_handler -> attrib
+      val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
+      val keyboard_event_handler_attrib :
+        aname -> keyboard_event_handler -> attrib
+      val uri_attrib : aname -> uri wrap -> attrib
+      val uris_attrib : aname -> uri list wrap -> attrib
+      type elt
+      type ename = string
+      val empty : unit -> elt
+      val comment : string -> elt
+      val pcdata : string wrap -> elt
+      val encodedpcdata : string wrap -> elt
+      val entity : string -> elt
+      val leaf : ?a:attrib list -> ename -> elt
+      val node : ?a:attrib list -> ename -> elt list_wrap -> elt
+      val cdata : string -> elt
+      val cdata_script : string -> elt
+      val cdata_style : string -> elt
+    end
+  module type Iterable =
+    sig
+      module W :
+        sig
+          type 'a t = 'a
+          val return : 'a -> 'a t
+          type ('a, 'b) ft = 'a -> 'b
+          val fmap : ('a, 'b) ft -> 'a t -> 'b t
+          type 'a tlist = 'a list
+          val nil : unit -> 'a tlist
+          val singleton : 'a t -> 'a tlist
+          val cons : 'a t -> 'a tlist -> 'a tlist
+          val append : 'a tlist -> 'a tlist -> 'a tlist
+          val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
+        end
+      type 'a wrap = 'a W.t
+      type 'a list_wrap = 'a W.tlist
+      type uri
+      val string_of_uri : (uri, string) W.ft
+      val uri_of_string : (string, uri) W.ft
+      type aname = string
+      type event_handler
+      type mouse_event_handler
+      type keyboard_event_handler
+      type attrib
+      val float_attrib : aname -> float wrap -> attrib
+      val int_attrib : aname -> int wrap -> attrib
+      val string_attrib : aname -> string wrap -> attrib
+      val space_sep_attrib : aname -> string list wrap -> attrib
+      val comma_sep_attrib : aname -> string list wrap -> attrib
+      val event_handler_attrib : aname -> event_handler -> attrib
+      val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
+      val keyboard_event_handler_attrib :
+        aname -> keyboard_event_handler -> attrib
+      val uri_attrib : aname -> uri wrap -> attrib
+      val uris_attrib : aname -> uri list wrap -> attrib
+      type elt
+      type ename = string
+      val empty : unit -> elt
+      val comment : string -> elt
+      val pcdata : string wrap -> elt
+      val encodedpcdata : string wrap -> elt
+      val entity : string -> elt
+      val leaf : ?a:attrib list -> ename -> elt
+      val node : ?a:attrib list -> ename -> elt list_wrap -> elt
+      val cdata : string -> elt
+      val cdata_script : string -> elt
+      val cdata_style : string -> elt
+      type separator = Space | Comma
+      val aname : attrib -> aname
+      type acontent = private
+          AFloat of float
+        | AInt of int
+        | AStr of string
+        | AStrL of Xml_sigs.Iterable.separator * string list
+      val acontent : attrib -> Xml_sigs.Iterable.acontent
+      type econtent = private
+          Empty
+        | Comment of string
+        | EncodedPCDATA of string
+        | PCDATA of string
+        | Entity of string
+        | Leaf of ename * attrib list
+        | Node of ename * attrib list * elt list
+      val content : elt -> Xml_sigs.Iterable.econtent
+    end
+  module type Info =
+    sig
+      val content_type : string
+      val alternative_content_types : string list
+      val version : string
+      val standard : string
+      val namespace : string
+      val doctype : string
+      val emptytags : string list
+    end
+  module type Output =
+    sig
+      type out
+      type m
+      val empty : Xml_sigs.Output.m
+      val concat :
+        Xml_sigs.Output.m -> Xml_sigs.Output.m -> Xml_sigs.Output.m
+      val put : string -> Xml_sigs.Output.m
+      val make : Xml_sigs.Output.m -> Xml_sigs.Output.out
+    end
+  module type Typed_xml =
+    sig
+      module Xml : NoWrap
+      module Info : Info
+      type 'a elt
+      type doc
+      val toelt : 'a Xml_sigs.Typed_xml.elt -> Xml.elt
+      val doc_toelt : Xml_sigs.Typed_xml.doc -> Xml.elt
+    end
+  module type Printer =
+    sig
+      type xml_elt
+      type out
+      val print_list :
+        ?encode:(string -> string) ->
+        Xml_sigs.Printer.xml_elt list -> Xml_sigs.Printer.out
+    end
+  module type Simple_printer =
+    sig
+      type xml_elt
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        Xml_sigs.Simple_printer.xml_elt list -> unit
+    end
+  module type Typed_printer =
+    sig
+      type 'a elt
+      type doc
+      type out
+      val print_list :
+        ?encode:(string -> string) ->
+        'a Xml_sigs.Typed_printer.elt list -> Xml_sigs.Typed_printer.out
+      val print :
+        ?encode:(string -> string) ->
+        ?advert:string ->
+        Xml_sigs.Typed_printer.doc -> Xml_sigs.Typed_printer.out
+    end
+  module type Typed_simple_printer =
+    sig
+      type 'a elt
+      type doc
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        'a Xml_sigs.Typed_simple_printer.elt list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        ?advert:string -> Xml_sigs.Typed_simple_printer.doc -> unit
+    end
+  module type Pp =
+    sig
+      type elt
+      val pp :
+        ?encode:(string -> string) ->
+        unit -> Format.formatter -> Xml_sigs.Pp.elt -> unit
+    end
+  module type Typed_pp =
+    sig
+      type 'a elt
+      type doc
+      val pp_elt :
+        ?encode:(string -> string) ->
+        unit -> Format.formatter -> 'a Xml_sigs.Typed_pp.elt -> unit
+      val pp :
+        ?encode:(string -> string) ->
+        ?advert:string ->
+        unit -> Format.formatter -> Xml_sigs.Typed_pp.doc -> unit
+    end
+end >>

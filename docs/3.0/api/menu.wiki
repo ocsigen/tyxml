@@ -1,0 +1,32 @@
+=~Ty~X~M~L – ~A~P~I reference 
+==~Building valid ~X~M~L tree 
+===[[Xhtml|Xhtml]]
+===[[Svg|Svg]]
+===[[Html5|Html5]]
+==~Common ~D~T~D~'s transcriptions
+===[[Xhtml_types|Xhtml_types]]
+===[[Svg_types|Svg_types]]
+===[[Html5_types|Html5_types]]
+==~Low~-level ~X~M~L manipulation
+===[[Xml|Xml]]
+==~Functorial interface 
+===[[Xhtml_f|Xhtml_f]]
+===[[Svg_f|Svg_f]]
+===[[Html5_f|Html5_f]]
+===[[Xml_iter|Xml_iter]]
+===[[Xml_print|Xml_print]]
+==~O~Camlduce
+===~Common ~D~T~D~'s transcriptions
+====[[Xhtml_types_duce|Xhtml_types_duce]]
+===~Helpers
+====[[Xml_print_duce|Xml_print_duce]]
+====[[Xhtml_duce|Xhtml_duce]]
+==~Syntax extension and simple parser
+===[[Pa_tyxml|Pa_tyxml]]
+===[[Simplexmlparser|Simplexmlparser]]
+==~Indexes
+=== <<a_api text="Index of types" | index types >>
+=== <<a_api text="Index of exceptions" | index exceptions >>
+=== <<a_api text="Index of values" | index values >>
+=== <<a_api text="Index of modules" | index modules >>
+=== <<a_api text="Index of module types" | index module types >>

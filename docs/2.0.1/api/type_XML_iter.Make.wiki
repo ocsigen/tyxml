@@ -1,0 +1,43 @@
+<<code language="ocaml" | functor (XML : XML_sigs.Iterable) ->
+  sig
+    val amap :
+      (XML.ename -> XML.attrib list -> XML.attrib list) -> XML.elt -> XML.elt
+    val amap1 :
+      (XML.ename -> XML.attrib list -> XML.attrib list) -> XML.elt -> XML.elt
+    val rm_attrib : (XML.aname -> bool) -> XML.attrib list -> XML.attrib list
+    val rm_attrib_from_list :
+      (XML.aname -> bool) ->
+      (string -> bool) -> XML.attrib list -> XML.attrib list
+    val map_int_attrib :
+      (XML.aname -> bool) ->
+      (int -> int) -> XML.attrib list -> XML.attrib list
+    val map_string_attrib :
+      (XML.aname -> bool) ->
+      (string -> string) -> XML.attrib list -> XML.attrib list
+    val map_string_attrib_in_list :
+      (XML.aname -> bool) ->
+      (string -> string) -> XML.attrib list -> XML.attrib list
+    val add_int_attrib :
+      XML.aname -> int -> XML.attrib list -> XML.attrib list
+    val add_string_attrib :
+      XML.aname -> string -> XML.attrib list -> XML.attrib list
+    val add_comma_sep_attrib :
+      XML.aname -> string -> XML.attrib list -> XML.attrib list
+    val add_space_sep_attrib :
+      XML.aname -> string -> XML.attrib list -> XML.attrib list
+    val fold :
+      (unit -> 'a) ->
+      (string -> 'a) ->
+      (string -> 'a) ->
+      (string -> 'a) ->
+      (string -> 'a) ->
+      (XML.ename -> XML.attrib list -> 'a) ->
+      (XML.ename -> XML.attrib list -> 'a list -> 'a) -> XML.elt -> 'a
+    val all_entities : XML.elt -> string list
+    val translate :
+      (XML.ename -> XML.attrib list -> XML.elt) ->
+      (XML.ename -> XML.attrib list -> XML.elt list -> XML.elt) ->
+      ('a -> XML.ename -> XML.attrib list -> XML.elt list) ->
+      ('a -> XML.ename -> XML.attrib list -> XML.elt list -> XML.elt list) ->
+      (XML.ename -> XML.attrib list -> 'a -> 'a) -> 'a -> XML.elt -> XML.elt
+  end >>
