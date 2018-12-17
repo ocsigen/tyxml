@@ -1,0 +1,40 @@
+#!/bin/bash
+set -x
+
+LATEST=$(find doc -maxdepth 1 -type d -not -name doc -not -name dev -exec basename {} \; | sort -nr | head -n 1)
+
+wget https://raw.githubusercontent.com/ocaml/ocaml-travisci-skeleton/master/.travis-ocaml.sh
+export OCAML_VERSION=4.06
+export PACKAGE=
+bash -ex .travis-ocaml.sh
+
+eval $(opam env)
+
+git clone https://github.com/ocsigen/html_of_wiki.git
+opam pin add -y html_of_wiki html_of_wiki
+
+# wget https://raw.githubusercontent.com/ocsigen/ocsigen.github.io/master/template.wiki
+# TODO when every project's CI will run HOW for its docs, uncomment the line above,
+# remove the 5 following lines and `git rm' the file doc/template.wiki.
+wget https://raw.githubusercontent.com/ocsigen/ocsigen.github.io/e6b93e987b75be99e8ef30601460f60028c615fd/css/style.css
+wget https://raw.githubusercontent.com/ocsigen/ocsigen.github.io/e6b93e987b75be99e8ef30601460f60028c615fd/img/search.svg
+mkdir tmp
+mv style.css tmp
+mv search.svg tmp
+
+f=$(mktemp)
+cat >$f <<EOF
+{
+    "project": "tyxml",
+    "api": "api",
+    "menu": true,
+    "templates": ["docs/template.wiki"],
+    "manual": "manual"
+}
+EOF
+quickdop -f docs _doc -t json -c $f -viu
+
+ln -s "$LATEST/manual/intro.html" _doc/index.html
+
+# TODO Also remove that line.
+mv tmp _doc
