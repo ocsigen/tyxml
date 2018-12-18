@@ -1,0 +1,21 @@
+<<code language="ocaml" | sig
+  val data : string Html5_sigs.T.wrap -> 'a Html5_sigs.T.elt
+  val node :
+    string ->
+    ?a:'a Html5_sigs.T.attrib list ->
+    'b Html5_sigs.T.elt Html5_sigs.T.list_wrap -> 'c Html5_sigs.T.elt
+  val leaf :
+    string -> ?a:'a Html5_sigs.T.attrib list -> unit -> 'b Html5_sigs.T.elt
+  val coerce_elt : 'a Html5_sigs.T.elt -> 'b Html5_sigs.T.elt
+  val string_attrib :
+    string -> string Html5_sigs.T.wrap -> 'a Html5_sigs.T.attrib
+  val float_attrib :
+    string -> float Html5_sigs.T.wrap -> 'a Html5_sigs.T.attrib
+  val int_attrib : string -> int Html5_sigs.T.wrap -> 'a Html5_sigs.T.attrib
+  val uri_attrib :
+    string -> Html5_sigs.T.uri Html5_sigs.T.wrap -> 'a Html5_sigs.T.attrib
+  val space_sep_attrib :
+    string -> string list Html5_sigs.T.wrap -> 'a Html5_sigs.T.attrib
+  val comma_sep_attrib :
+    string -> string list Html5_sigs.T.wrap -> 'a Html5_sigs.T.attrib
+end >>

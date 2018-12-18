@@ -1,0 +1,870 @@
+<<code language="ocaml" | sig
+  module Xml : Xml_sigs.T
+  module Info : Xml_sigs.Info
+  type uri = Xml.uri
+  val string_of_uri : Svg_sigs.T.uri -> string
+  val uri_of_string : string -> Svg_sigs.T.uri
+  type +'a attrib
+  type 'a wrap = 'a Xml.W.t
+  type 'a list_wrap = 'a Xml.W.tlist
+  type +'a elt
+  type ('a, 'b) nullary =
+      ?a:'a Svg_sigs.T.attrib list -> unit -> 'b Svg_sigs.T.elt
+  type ('a, 'b, 'c) unary =
+      ?a:'a Svg_sigs.T.attrib list ->
+      'b Svg_sigs.T.elt Svg_sigs.T.wrap -> 'c Svg_sigs.T.elt
+  type ('a, 'b, 'c) star =
+      ?a:'a Svg_sigs.T.attrib list ->
+      'b Svg_sigs.T.elt Svg_sigs.T.list_wrap -> 'c Svg_sigs.T.elt
+  type altglyphdef_content =
+      [ `Item of Svg_types.altglyphitem Svg_sigs.T.elt list
+      | `Ref of Svg_types.glyphref Svg_sigs.T.elt list ]
+  val pcdata : string Svg_sigs.T.wrap -> [> `PCDATA ] Svg_sigs.T.elt
+  val a_version : string Svg_sigs.T.wrap -> [> `Version ] Svg_sigs.T.attrib
+  val a_baseprofile :
+    string Svg_sigs.T.wrap -> [> `BaseProfile ] Svg_sigs.T.attrib
+  val a_x : Svg_types.coord Svg_sigs.T.wrap -> [> `X ] Svg_sigs.T.attrib
+  val a_y : Svg_types.coord Svg_sigs.T.wrap -> [> `Y ] Svg_sigs.T.attrib
+  val a_width :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `Width ] Svg_sigs.T.attrib
+  val a_height :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `Height ] Svg_sigs.T.attrib
+  val a_preserveaspectratio :
+    string Svg_sigs.T.wrap -> [> `PreserveAspectRatio ] Svg_sigs.T.attrib
+  val a_contentscripttype :
+    string Svg_sigs.T.wrap -> [> `ContentScriptType ] Svg_sigs.T.attrib
+  val a_contentstyletype :
+    string Svg_sigs.T.wrap -> [> `ContentStyleType ] Svg_sigs.T.attrib
+  val a_zoomAndPan :
+    [< `Disable | `Magnify ] Svg_sigs.T.wrap ->
+    [> `ZoomAndSpan ] Svg_sigs.T.attrib
+  val a_xlink_href :
+    Svg_types.iri Svg_sigs.T.wrap -> [> `Xlink_href ] Svg_sigs.T.attrib
+  val a_requiredfeatures :
+    Svg_types.spacestrings Svg_sigs.T.wrap ->
+    [> `RequiredFeatures ] Svg_sigs.T.attrib
+  val a_requiredextensions :
+    Svg_types.spacestrings Svg_sigs.T.wrap ->
+    [> `RequiredExtension ] Svg_sigs.T.attrib
+  val a_systemlanguage :
+    Svg_types.commastrings Svg_sigs.T.wrap ->
+    [> `SystemLanguage ] Svg_sigs.T.attrib
+  val a_externalressourcesrequired :
+    bool Svg_sigs.T.wrap ->
+    [> `ExternalRessourcesRequired ] Svg_sigs.T.attrib
+  val a_id : string Svg_sigs.T.wrap -> [> `Id ] Svg_sigs.T.attrib
+  val a_xml_base :
+    Svg_types.iri Svg_sigs.T.wrap -> [> `Xml_Base ] Svg_sigs.T.attrib
+  val a_xml_lang :
+    Svg_types.iri Svg_sigs.T.wrap -> [> `Xml_Lang ] Svg_sigs.T.attrib
+  val a_xml_space :
+    [< `Default | `Preserve ] Svg_sigs.T.wrap ->
+    [> `Xml_Space ] Svg_sigs.T.attrib
+  val a_type : string Svg_sigs.T.wrap -> [> `Type ] Svg_sigs.T.attrib
+  val a_media :
+    Svg_types.commastrings Svg_sigs.T.wrap -> [> `Media ] Svg_sigs.T.attrib
+  val a_title : string Svg_sigs.T.wrap -> [> `Title ] Svg_sigs.T.attrib
+  val a_class :
+    Svg_types.spacestrings Svg_sigs.T.wrap -> [> `Class ] Svg_sigs.T.attrib
+  val a_style : string Svg_sigs.T.wrap -> [> `Style ] Svg_sigs.T.attrib
+  val a_transform :
+    Svg_types.transform Svg_sigs.T.wrap -> [> `Transform ] Svg_sigs.T.attrib
+  val a_viewbox :
+    Svg_types.fourfloats Svg_sigs.T.wrap -> [> `ViewBox ] Svg_sigs.T.attrib
+  val a_d : string Svg_sigs.T.wrap -> [> `D ] Svg_sigs.T.attrib
+  val a_pathlength :
+    float Svg_sigs.T.wrap -> [> `PathLength ] Svg_sigs.T.attrib
+  val a_rx :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `Rx ] Svg_sigs.T.attrib
+  val a_ry :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `Ry ] Svg_sigs.T.attrib
+  val a_cx :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `Cx ] Svg_sigs.T.attrib
+  val a_cy :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `Cy ] Svg_sigs.T.attrib
+  val a_r :
+    Svg_types.Unit.length Svg_sigs.T.wrap -> [> `R ] Svg_sigs.T.attrib
+  val a_x1 : Svg_types.coord Svg_sigs.T.wrap -> [> `X1 ] Svg_sigs.T.attrib
+  val a_y1 : Svg_types.coord Svg_sigs.T.wrap -> [> `Y1 ] Svg_sigs.T.attrib
+  val a_x2 : Svg_types.coord Svg_sigs.T.wrap -> [> `X2 ] Svg_sigs.T.attrib
+  val a_y2 : Svg_types.coord Svg_sigs.T.wrap -> [> `Y2 ] Svg_sigs.T.attrib
+  val a_points :
+    Svg_types.coords Svg_sigs.T.wrap -> [> `Points ] Svg_sigs.T.attrib
+  val a_x_list :
+    Svg_types.lengths Svg_sigs.T.wrap -> [> `X_list ] Svg_sigs.T.attrib
+  val a_y_list :
+    Svg_types.lengths Svg_sigs.T.wrap -> [> `Y_list ] Svg_sigs.T.attrib
+  val a_dx : Svg_types.number Svg_sigs.T.wrap -> [> `Dx ] Svg_sigs.T.attrib
+  val a_dy : Svg_types.number Svg_sigs.T.wrap -> [> `Dy ] Svg_sigs.T.attrib
+  val a_dx_list :
+    Svg_types.lengths Svg_sigs.T.wrap -> [> `Dx_list ] Svg_sigs.T.attrib
+  val a_dy_list :
+    Svg_types.lengths Svg_sigs.T.wrap -> [> `Dy_list ] Svg_sigs.T.attrib
+  val a_lengthadjust :
+    [< `Spacing | `SpacingAndGlyphs ] Svg_sigs.T.wrap ->
+    [> `LengthAdjust ] Svg_sigs.T.attrib
+  val a_textlength :
+    Svg_types.Unit.length Svg_sigs.T.wrap ->
+    [> `TextLength ] Svg_sigs.T.attrib
+  val a_text_anchor :
+    [< `End | `Inherit | `Middle | `Start ] Svg_sigs.T.wrap ->
+    [> `Text_Anchor ] Svg_sigs.T.attrib
+  val a_text_decoration :
+    [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline ]
+    Svg_sigs.T.wrap -> [> `Text_Decoration ] Svg_sigs.T.attrib
+  val a_text_rendering :
+    [< `Auto
+     | `GeometricPrecision
+     | `Inherit
+     | `OptimizeLegibility
+     | `OptimizeSpeed ]
+    Svg_sigs.T.wrap -> [> `Text_Rendering ] Svg_sigs.T.attrib
+  val a_rotate :
+    Svg_types.numbers Svg_sigs.T.wrap -> [> `Rotate ] Svg_sigs.T.attrib
+  val a_startoffset :
+    Svg_types.Unit.length Svg_sigs.T.wrap ->
+    [> `StartOffset ] Svg_sigs.T.attrib
+  val a_method :
+    [< `Align | `Stretch ] Svg_sigs.T.wrap -> [> `Method ] Svg_sigs.T.attrib
+  val a_spacing :
+    [< `Auto | `Exact ] Svg_sigs.T.wrap -> [> `Spacing ] Svg_sigs.T.attrib
+  val a_glyphref : string Svg_sigs.T.wrap -> [> `GlyphRef ] Svg_sigs.T.attrib
+  val a_format : string Svg_sigs.T.wrap -> [> `Format ] Svg_sigs.T.attrib
+  val a_markerunits :
+    [< `StrokeWidth | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `MarkerUnits ] Svg_sigs.T.attrib
+  val a_refx :
+    Svg_types.coord Svg_sigs.T.wrap -> [> `RefX ] Svg_sigs.T.attrib
+  val a_refy :
+    Svg_types.coord Svg_sigs.T.wrap -> [> `RefY ] Svg_sigs.T.attrib
+  val a_markerwidth :
+    Svg_types.Unit.length Svg_sigs.T.wrap ->
+    [> `MarkerWidth ] Svg_sigs.T.attrib
+  val a_markerheight :
+    Svg_types.Unit.length Svg_sigs.T.wrap ->
+    [> `MarkerHeight ] Svg_sigs.T.attrib
+  val a_orient :
+    [< `Angle of Svg_types.Unit.angle | `Auto ] Svg_sigs.T.wrap ->
+    [> `Orient ] Svg_sigs.T.attrib
+  val a_local : string Svg_sigs.T.wrap -> [> `Local ] Svg_sigs.T.attrib
+  val a_renderingindent :
+    [< `Absolute_colorimetric
+     | `Auto
+     | `Perceptual
+     | `Relative_colorimetric
+     | `Saturation ]
+    Svg_sigs.T.wrap -> [> `Rendering_Indent ] Svg_sigs.T.attrib
+  val a_gradientunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [ `GradientUnits ] Svg_sigs.T.attrib
+  val a_gradienttransform :
+    Svg_types.transforms Svg_sigs.T.wrap ->
+    [> `Gradient_Transform ] Svg_sigs.T.attrib
+  val a_spreadmethod :
+    [< `Pad | `Reflect | `Repeat ] Svg_sigs.T.wrap ->
+    [> `SpreadMethod ] Svg_sigs.T.attrib
+  val a_fx : Svg_types.coord Svg_sigs.T.wrap -> [> `Fx ] Svg_sigs.T.attrib
+  val a_fy : Svg_types.coord Svg_sigs.T.wrap -> [> `Fy ] Svg_sigs.T.attrib
+  val a_offset :
+    [< `Number of Svg_types.number | `Percentage of Svg_types.percentage ]
+    Svg_sigs.T.wrap -> [> `Offset ] Svg_sigs.T.attrib
+  val a_patternunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `PatternUnits ] Svg_sigs.T.attrib
+  val a_patterncontentunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `PatternContentUnits ] Svg_sigs.T.attrib
+  val a_patterntransform :
+    Svg_types.transforms Svg_sigs.T.wrap ->
+    [> `PatternTransform ] Svg_sigs.T.attrib
+  val a_clippathunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `ClipPathUnits ] Svg_sigs.T.attrib
+  val a_maskunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `MaskUnits ] Svg_sigs.T.attrib
+  val a_maskcontentunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `MaskContentUnits ] Svg_sigs.T.attrib
+  val a_primitiveunits :
+    [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
+    [> `PrimitiveUnits ] Svg_sigs.T.attrib
+  val a_filterres :
+    Svg_types.number_optional_number Svg_sigs.T.wrap ->
+    [> `FilterResUnits ] Svg_sigs.T.attrib
+  val a_result : string Svg_sigs.T.wrap -> [> `Result ] Svg_sigs.T.attrib
+  val a_in :
+    [< `BackgroundAlpha
+     | `BackgroundImage
+     | `FillPaint
+     | `Ref of string
+     | `SourceAlpha
+     | `SourceGraphic
+     | `StrokePaint ]
+    Svg_sigs.T.wrap -> [> `In ] Svg_sigs.T.attrib
+  val a_in2 :
+    [< `BackgroundAlpha
+     | `BackgroundImage
+     | `FillPaint
+     | `Ref of string
+     | `SourceAlpha
+     | `SourceGraphic
+     | `StrokePaint ]
+    Svg_sigs.T.wrap -> [> `In2 ] Svg_sigs.T.attrib
+  val a_aizmuth : float Svg_sigs.T.wrap -> [> `Azimuth ] Svg_sigs.T.attrib
+  val a_elevation :
+    float Svg_sigs.T.wrap -> [> `Elevation ] Svg_sigs.T.attrib
+  val a_pointatx : float Svg_sigs.T.wrap -> [> `PointsAtX ] Svg_sigs.T.attrib
+  val a_pointaty : float Svg_sigs.T.wrap -> [> `PointsAtY ] Svg_sigs.T.attrib
+  val a_pointatz : float Svg_sigs.T.wrap -> [> `PointsAtZ ] Svg_sigs.T.attrib
+  val a_specularexponent :
+    float Svg_sigs.T.wrap -> [> `SpecularExponent ] Svg_sigs.T.attrib
+  val a_specularconstant :
+    float Svg_sigs.T.wrap -> [> `SpecularConstant ] Svg_sigs.T.attrib
+  val a_limitingconeangle :
+    float Svg_sigs.T.wrap -> [> `LimitingConeAngle ] Svg_sigs.T.attrib
+  val a_mode :
+    [< `Darken | `Lighten | `Multiply | `Normal | `Screen ] Svg_sigs.T.wrap ->
+    [> `Mode ] Svg_sigs.T.attrib
+  val a_typefecolor :
+    [< `HueRotate | `LuminanceToAlpha | `Matrix | `Saturate ] Svg_sigs.T.wrap ->
+    [> `Typefecolor ] Svg_sigs.T.attrib
+  val a_values :
+    Svg_types.numbers Svg_sigs.T.wrap -> [> `Values ] Svg_sigs.T.attrib
+  val a_transferttype :
+    [< `Discrete | `Gamma | `Identity | `Linear | `Table ] Svg_sigs.T.wrap ->
+    [> `Typetransfert ] Svg_sigs.T.attrib
+  val a_tablevalues :
+    Svg_types.numbers Svg_sigs.T.wrap -> [> `TableValues ] Svg_sigs.T.attrib
+  val a_intercept :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Intercept ] Svg_sigs.T.attrib
+  val a_amplitude :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Amplitude ] Svg_sigs.T.attrib
+  val a_exponent :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Exponent ] Svg_sigs.T.attrib
+  val a_offsettransfer :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `Offsettransfer ] Svg_sigs.T.attrib
+  val a_operator :
+    [< `Arithmetic | `Atop | `In | `Out | `Over | `Xor ] Svg_sigs.T.wrap ->
+    [> `Operator ] Svg_sigs.T.attrib
+  val a_k1 : Svg_types.number Svg_sigs.T.wrap -> [> `K1 ] Svg_sigs.T.attrib
+  val a_k2 : Svg_types.number Svg_sigs.T.wrap -> [> `K2 ] Svg_sigs.T.attrib
+  val a_k3 : Svg_types.number Svg_sigs.T.wrap -> [> `K3 ] Svg_sigs.T.attrib
+  val a_k4 : Svg_types.number Svg_sigs.T.wrap -> [> `K4 ] Svg_sigs.T.attrib
+  val a_order :
+    Svg_types.number_optional_number Svg_sigs.T.wrap ->
+    [> `Order ] Svg_sigs.T.attrib
+  val a_kernelmatrix :
+    Svg_types.numbers Svg_sigs.T.wrap -> [> `KernelMatrix ] Svg_sigs.T.attrib
+  val a_divisor :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Divisor ] Svg_sigs.T.attrib
+  val a_bias :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Bias ] Svg_sigs.T.attrib
+  val a_kernelunitlength :
+    Svg_types.number_optional_number Svg_sigs.T.wrap ->
+    [> `KernelUnitLength ] Svg_sigs.T.attrib
+  val a_targetX : int Svg_sigs.T.wrap -> [> `TargetX ] Svg_sigs.T.attrib
+  val a_targetY : int Svg_sigs.T.wrap -> [> `TargetY ] Svg_sigs.T.attrib
+  val a_edgemode :
+    [< `Duplicate | `None | `Wrap ] Svg_sigs.T.wrap ->
+    [> `TargetY ] Svg_sigs.T.attrib
+  val a_preservealpha :
+    bool Svg_sigs.T.wrap -> [> `TargetY ] Svg_sigs.T.attrib
+  val a_surfacescale :
+    Svg_types.number Svg_sigs.T.wrap -> [> `SurfaceScale ] Svg_sigs.T.attrib
+  val a_diffuseconstant :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `DiffuseConstant ] Svg_sigs.T.attrib
+  val a_scale :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Scale ] Svg_sigs.T.attrib
+  val a_xchannelselector :
+    [< `A | `B | `G | `R ] Svg_sigs.T.wrap ->
+    [> `XChannelSelector ] Svg_sigs.T.attrib
+  val a_ychannelselector :
+    [< `A | `B | `G | `R ] Svg_sigs.T.wrap ->
+    [> `YChannelSelector ] Svg_sigs.T.attrib
+  val a_stddeviation :
+    Svg_types.number_optional_number Svg_sigs.T.wrap ->
+    [> `StdDeviation ] Svg_sigs.T.attrib
+  val a_operatormorphology :
+    [< `Dilate | `Erode ] Svg_sigs.T.wrap ->
+    [> `OperatorMorphology ] Svg_sigs.T.attrib
+  val a_radius :
+    Svg_types.number_optional_number Svg_sigs.T.wrap ->
+    [> `Radius ] Svg_sigs.T.attrib
+  val a_basefrenquency :
+    Svg_types.number_optional_number Svg_sigs.T.wrap ->
+    [> `BaseFrequency ] Svg_sigs.T.attrib
+  val a_numoctaves :
+    int Svg_sigs.T.wrap -> [> `NumOctaves ] Svg_sigs.T.attrib
+  val a_seed :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Seed ] Svg_sigs.T.attrib
+  val a_stitchtiles :
+    [< `NoStitch | `Stitch ] Svg_sigs.T.wrap ->
+    [> `StitchTiles ] Svg_sigs.T.attrib
+  val a_stitchtype :
+    [< `FractalNoise | `Turbulence ] Svg_sigs.T.wrap ->
+    [> `TypeStitch ] Svg_sigs.T.attrib
+  val a_xlinkshow :
+    [< `New | `Replace ] Svg_sigs.T.wrap ->
+    [> `Xlink_show ] Svg_sigs.T.attrib
+  val a_xlinkactuate :
+    [< `None | `OnLoad | `OnRequest | `Other ] Svg_sigs.T.wrap ->
+    [> `Xlink_actuate ] Svg_sigs.T.attrib
+  val a_target :
+    string Svg_sigs.T.wrap -> [> `Xlink_target ] Svg_sigs.T.attrib
+  val a_viewtarget :
+    string Svg_sigs.T.wrap -> [> `ViewTarget ] Svg_sigs.T.attrib
+  val a_attributename :
+    string Svg_sigs.T.wrap -> [> `AttributeName ] Svg_sigs.T.attrib
+  val a_attributetype :
+    [< `Auto | `CSS | `XML ] Svg_sigs.T.wrap ->
+    [> `AttributeType ] Svg_sigs.T.attrib
+  val a_begin : string Svg_sigs.T.wrap -> [> `Begin ] Svg_sigs.T.attrib
+  val a_dur : string Svg_sigs.T.wrap -> [> `Dur ] Svg_sigs.T.attrib
+  val a_min : string Svg_sigs.T.wrap -> [> `Min ] Svg_sigs.T.attrib
+  val a_max : string Svg_sigs.T.wrap -> [> `Max ] Svg_sigs.T.attrib
+  val a_restart :
+    [< `Always | `Never | `WhenNotActive ] Svg_sigs.T.wrap ->
+    [> `Restart ] Svg_sigs.T.attrib
+  val a_repeatcount :
+    string Svg_sigs.T.wrap -> [> `RepeatCount ] Svg_sigs.T.attrib
+  val a_repeatdur :
+    string Svg_sigs.T.wrap -> [> `RepeatDur ] Svg_sigs.T.attrib
+  val a_fill :
+    Svg_types.paint Svg_sigs.T.wrap -> [> `Fill ] Svg_sigs.T.attrib
+  val a_fill_animation :
+    [< `Freeze | `Remove ] Svg_sigs.T.wrap ->
+    [> `Fill_Animation ] Svg_sigs.T.attrib
+  val a_calcmode :
+    [< `Discrete | `Linear | `Paced | `Spline ] Svg_sigs.T.wrap ->
+    [> `CalcMode ] Svg_sigs.T.attrib
+  val a_values_anim :
+    Svg_types.strings Svg_sigs.T.wrap -> [> `Valuesanim ] Svg_sigs.T.attrib
+  val a_keytimes :
+    Svg_types.strings Svg_sigs.T.wrap -> [> `KeyTimes ] Svg_sigs.T.attrib
+  val a_keysplines :
+    Svg_types.strings Svg_sigs.T.wrap -> [> `KeySplines ] Svg_sigs.T.attrib
+  val a_from : string Svg_sigs.T.wrap -> [> `From ] Svg_sigs.T.attrib
+  val a_to : string Svg_sigs.T.wrap -> [> `To ] Svg_sigs.T.attrib
+  val a_by : string Svg_sigs.T.wrap -> [> `By ] Svg_sigs.T.attrib
+  val a_additive :
+    [< `Replace | `Sum ] Svg_sigs.T.wrap -> [> `Additive ] Svg_sigs.T.attrib
+  val a_accumulate :
+    [< `None | `Sum ] Svg_sigs.T.wrap -> [> `Accumulate ] Svg_sigs.T.attrib
+  val a_keypoints :
+    Svg_types.numbers_semicolon Svg_sigs.T.wrap ->
+    [> `KeyPoints ] Svg_sigs.T.attrib
+  val a_path : string Svg_sigs.T.wrap -> [> `Path ] Svg_sigs.T.attrib
+  val a_typeanimatecolor :
+    [ `Rotate | `Scale | `SkewX | `SkewY | `Translate ] Svg_sigs.T.wrap ->
+    [ `Typeanimatecolor ] Svg_sigs.T.attrib
+  val a_horiz_origin_x :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Horizoriginx ] Svg_sigs.T.attrib
+  val a_horiz_origin_y :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Horizoriginy ] Svg_sigs.T.attrib
+  val a_horiz_adv_x :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Horizadvx ] Svg_sigs.T.attrib
+  val a_vert_origin_x :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Vertoriginx ] Svg_sigs.T.attrib
+  val a_vert_origin_y :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Vertoriginy ] Svg_sigs.T.attrib
+  val a_vert_adv_y :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Vertadvy ] Svg_sigs.T.attrib
+  val a_unicode : string Svg_sigs.T.wrap -> [> `Unicode ] Svg_sigs.T.attrib
+  val a_glyphname :
+    string Svg_sigs.T.wrap -> [> `glyphname ] Svg_sigs.T.attrib
+  val a_orientation :
+    [< `H | `V ] Svg_sigs.T.wrap -> [> `Orientation ] Svg_sigs.T.attrib
+  val a_arabicform :
+    [< `Initial | `Isolated | `Medial | `Terminal ] Svg_sigs.T.wrap ->
+    [> `Arabicform ] Svg_sigs.T.attrib
+  val a_lang : string Svg_sigs.T.wrap -> [> `Lang ] Svg_sigs.T.attrib
+  val a_u1 : string Svg_sigs.T.wrap -> [> `U1 ] Svg_sigs.T.attrib
+  val a_u2 : string Svg_sigs.T.wrap -> [> `U2 ] Svg_sigs.T.attrib
+  val a_g1 : string Svg_sigs.T.wrap -> [> `G1 ] Svg_sigs.T.attrib
+  val a_g2 : string Svg_sigs.T.wrap -> [> `G2 ] Svg_sigs.T.attrib
+  val a_k : string Svg_sigs.T.wrap -> [> `K ] Svg_sigs.T.attrib
+  val a_fontfamily :
+    string Svg_sigs.T.wrap -> [> `Font_Family ] Svg_sigs.T.attrib
+  val a_fontstyle :
+    string Svg_sigs.T.wrap -> [> `Font_Style ] Svg_sigs.T.attrib
+  val a_fontvariant :
+    string Svg_sigs.T.wrap -> [> `Font_Variant ] Svg_sigs.T.attrib
+  val a_fontweight :
+    string Svg_sigs.T.wrap -> [> `Font_Weight ] Svg_sigs.T.attrib
+  val a_fontstretch :
+    string Svg_sigs.T.wrap -> [> `Font_Stretch ] Svg_sigs.T.attrib
+  val a_fontsize :
+    string Svg_sigs.T.wrap -> [> `Font_Size ] Svg_sigs.T.attrib
+  val a_unicoderange :
+    string Svg_sigs.T.wrap -> [> `UnicodeRange ] Svg_sigs.T.attrib
+  val a_unitsperem :
+    string Svg_sigs.T.wrap -> [> `UnitsPerEm ] Svg_sigs.T.attrib
+  val a_stemv :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Stemv ] Svg_sigs.T.attrib
+  val a_stemh :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Stemh ] Svg_sigs.T.attrib
+  val a_slope :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Slope ] Svg_sigs.T.attrib
+  val a_capheight :
+    Svg_types.number Svg_sigs.T.wrap -> [> `CapHeight ] Svg_sigs.T.attrib
+  val a_xheight :
+    Svg_types.number Svg_sigs.T.wrap -> [> `XHeight ] Svg_sigs.T.attrib
+  val a_accentheight :
+    Svg_types.number Svg_sigs.T.wrap -> [> `AccentHeight ] Svg_sigs.T.attrib
+  val a_ascent :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Ascent ] Svg_sigs.T.attrib
+  val a_widths : string Svg_sigs.T.wrap -> [> `Widths ] Svg_sigs.T.attrib
+  val a_bbox : string Svg_sigs.T.wrap -> [> `Bbox ] Svg_sigs.T.attrib
+  val a_ideographic :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Ideographic ] Svg_sigs.T.attrib
+  val a_alphabetic :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Alphabetic ] Svg_sigs.T.attrib
+  val a_mathematical :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Mathematical ] Svg_sigs.T.attrib
+  val a_hanging :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Hanging ] Svg_sigs.T.attrib
+  val a_videographic :
+    Svg_types.number Svg_sigs.T.wrap -> [> `VIdeographic ] Svg_sigs.T.attrib
+  val a_valphabetic :
+    Svg_types.number Svg_sigs.T.wrap -> [> `VAlphabetic ] Svg_sigs.T.attrib
+  val a_vmathematical :
+    Svg_types.number Svg_sigs.T.wrap -> [> `VMathematical ] Svg_sigs.T.attrib
+  val a_vhanging :
+    Svg_types.number Svg_sigs.T.wrap -> [> `VHanging ] Svg_sigs.T.attrib
+  val a_underlineposition :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `UnderlinePosition ] Svg_sigs.T.attrib
+  val a_underlinethickness :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `UnderlineThickness ] Svg_sigs.T.attrib
+  val a_strikethroughposition :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `StrikethroughPosition ] Svg_sigs.T.attrib
+  val a_strikethroughthickness :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `StrikethroughThickness ] Svg_sigs.T.attrib
+  val a_overlineposition :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `OverlinePosition ] Svg_sigs.T.attrib
+  val a_overlinethickness :
+    Svg_types.number Svg_sigs.T.wrap ->
+    [> `OverlineThickness ] Svg_sigs.T.attrib
+  val a_string : string Svg_sigs.T.wrap -> [> `String ] Svg_sigs.T.attrib
+  val a_name : string Svg_sigs.T.wrap -> [> `Name ] Svg_sigs.T.attrib
+  val a_alignment_baseline :
+    [< `After_edge
+     | `Alphabetic
+     | `Auto
+     | `Baseline
+     | `Before_edge
+     | `Central
+     | `Hanging
+     | `Ideographic
+     | `Inherit
+     | `Mathematical
+     | `Middle
+     | `Text_after_edge
+     | `Text_before_edge ]
+    Svg_sigs.T.wrap -> [> `Alignment_Baseline ] Svg_sigs.T.attrib
+  val a_dominant_baseline :
+    [< `Alphabetic
+     | `Auto
+     | `Central
+     | `Hanging
+     | `Ideographic
+     | `Inherit
+     | `Mathematical
+     | `Middle
+     | `No_change
+     | `Reset_size
+     | `Text_after_edge
+     | `Text_before_edge
+     | `Use_script ]
+    Svg_sigs.T.wrap -> [> `Dominant_Baseline ] Svg_sigs.T.attrib
+  val a_onabort : Xml.event_handler -> [> `OnAbort ] Svg_sigs.T.attrib
+  val a_onactivate : Xml.event_handler -> [> `OnActivate ] Svg_sigs.T.attrib
+  val a_onbegin : Xml.event_handler -> [> `OnBegin ] Svg_sigs.T.attrib
+  val a_onend : Xml.event_handler -> [> `OnEnd ] Svg_sigs.T.attrib
+  val a_onerror : Xml.event_handler -> [> `OnError ] Svg_sigs.T.attrib
+  val a_onfocusin : Xml.event_handler -> [> `OnFocusIn ] Svg_sigs.T.attrib
+  val a_onfocusout : Xml.event_handler -> [> `OnFocusOut ] Svg_sigs.T.attrib
+  val a_onload : Xml.event_handler -> [> `OnLoad ] Svg_sigs.T.attrib
+  val a_onrepeat : Xml.event_handler -> [> `OnRepeat ] Svg_sigs.T.attrib
+  val a_onresize : Xml.event_handler -> [> `OnResize ] Svg_sigs.T.attrib
+  val a_onscroll : Xml.event_handler -> [> `OnScroll ] Svg_sigs.T.attrib
+  val a_onunload : Xml.event_handler -> [> `OnUnload ] Svg_sigs.T.attrib
+  val a_onzoom : Xml.event_handler -> [> `OnZoom ] Svg_sigs.T.attrib
+  val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] Svg_sigs.T.attrib
+  val a_onmousedown :
+    Xml.mouse_event_handler -> [> `OnMouseDown ] Svg_sigs.T.attrib
+  val a_onmouseup :
+    Xml.mouse_event_handler -> [> `OnMouseUp ] Svg_sigs.T.attrib
+  val a_onmouseover :
+    Xml.mouse_event_handler -> [> `OnMouseOver ] Svg_sigs.T.attrib
+  val a_onmouseout :
+    Xml.mouse_event_handler -> [> `OnMouseOut ] Svg_sigs.T.attrib
+  val a_onmousemove :
+    Xml.mouse_event_handler -> [> `OnMouseMove ] Svg_sigs.T.attrib
+  val metadata :
+    ?a:Svg_types.metadata_attr Svg_sigs.T.attrib list ->
+    Xml.elt Svg_sigs.T.list_wrap -> [> Svg_types.metadata ] Svg_sigs.T.elt
+  val foreignobject :
+    ?a:Svg_types.foreignobject_attr Svg_sigs.T.attrib list ->
+    Xml.elt Svg_sigs.T.list_wrap ->
+    [> Svg_types.foreignobject ] Svg_sigs.T.elt
+  val a_stopcolor :
+    Svg_types.color Svg_sigs.T.wrap -> [> `Stop_Color ] Svg_sigs.T.attrib
+  val a_stopopacity :
+    Svg_types.number Svg_sigs.T.wrap -> [> `Stop_Opacity ] Svg_sigs.T.attrib
+  val a_stroke :
+    Svg_types.paint Svg_sigs.T.wrap -> [> `Stroke ] Svg_sigs.T.attrib
+  val a_strokewidth :
+    Svg_types.Unit.length Svg_sigs.T.wrap ->
+    [> `Stroke_Width ] Svg_sigs.T.attrib
+  val a_strokelinecap :
+    [< `Butt | `Round | `Square ] Svg_sigs.T.wrap ->
+    [> `Stroke_Linecap ] Svg_sigs.T.attrib
+  val a_strokelinejoin :
+    [< `Bever | `Miter | `Round ] Svg_sigs.T.wrap ->
+    [> `Stroke_Linejoin ] Svg_sigs.T.attrib
+  val a_strokemiterlimit :
+    float Svg_sigs.T.wrap -> [> `Stroke_Miterlimit ] Svg_sigs.T.attrib
+  val a_strokedasharray :
+    Svg_types.Unit.length list Svg_sigs.T.wrap ->
+    [> `Stroke_Dasharray ] Svg_sigs.T.attrib
+  val a_strokedashoffset :
+    Svg_types.Unit.length Svg_sigs.T.wrap ->
+    [> `Stroke_Dashoffset ] Svg_sigs.T.attrib
+  val a_strokeopacity :
+    float Svg_sigs.T.wrap -> [> `Stroke_Opacity ] Svg_sigs.T.attrib
+  val svg :
+    ([< Svg_types.svg_attr ], [< Svg_types.svg_content ], [> Svg_types.svg ])
+    Svg_sigs.T.star
+  val g :
+    ([< Svg_types.g_attr ], [< Svg_types.g_content ], [> Svg_types.g ])
+    Svg_sigs.T.star
+  val defs :
+    ([< Svg_types.defs_attr ], [< Svg_types.defs_content ],
+     [> Svg_types.defs ])
+    Svg_sigs.T.star
+  val desc :
+    ([< Svg_types.desc_attr ], [< Svg_types.desc_content ],
+     [> Svg_types.desc ])
+    Svg_sigs.T.unary
+  val title :
+    ([< Svg_types.title_attr ], [< Svg_types.title_content ],
+     [> Svg_types.title ])
+    Svg_sigs.T.unary
+  val symbol :
+    ([< Svg_types.symbol_attr ], [< Svg_types.symbol_content ],
+     [> Svg_types.symbol ])
+    Svg_sigs.T.star
+  val use :
+    ([< Svg_types.use_attr ], [< Svg_types.use_content ], [> Svg_types.use ])
+    Svg_sigs.T.star
+  val image :
+    ([< Svg_types.image_attr ], [< Svg_types.image_content ],
+     [> Svg_types.image ])
+    Svg_sigs.T.star
+  val switch :
+    ([< Svg_types.switch_attr ], [< Svg_types.switch_content ],
+     [> Svg_types.switch ])
+    Svg_sigs.T.star
+  val style :
+    ([< Svg_types.style_attr ], [< Svg_types.style_content ],
+     [> Svg_types.style ])
+    Svg_sigs.T.unary
+  val path :
+    ([< Svg_types.path_attr ], [< Svg_types.path_content ],
+     [> Svg_types.path ])
+    Svg_sigs.T.star
+  val rect :
+    ([< Svg_types.rect_attr ], [< Svg_types.rect_content ],
+     [> Svg_types.rect ])
+    Svg_sigs.T.star
+  val circle :
+    ([< Svg_types.circle_attr ], [< Svg_types.circle_content ],
+     [> Svg_types.circle ])
+    Svg_sigs.T.star
+  val ellipse :
+    ([< Svg_types.ellipse_attr ], [< Svg_types.ellipse_content ],
+     [> Svg_types.ellipse ])
+    Svg_sigs.T.star
+  val line :
+    ([< Svg_types.line_attr ], [< Svg_types.line_content ],
+     [> Svg_types.line ])
+    Svg_sigs.T.star
+  val polyline :
+    ([< Svg_types.polyline_attr ], [< Svg_types.polyline_content ],
+     [> Svg_types.polyline ])
+    Svg_sigs.T.star
+  val polygon :
+    ([< Svg_types.polygon_attr ], [< Svg_types.polygon_content ],
+     [> Svg_types.polygon ])
+    Svg_sigs.T.star
+  val text :
+    ([< Svg_types.text_attr ], [< Svg_types.text_content ],
+     [> Svg_types.text ])
+    Svg_sigs.T.star
+  val tspan :
+    ([< Svg_types.tspan_attr ], [< Svg_types.tspan_content ],
+     [> Svg_types.tspan ])
+    Svg_sigs.T.star
+  val tref :
+    ([< Svg_types.tref_attr ], [< Svg_types.tref_content ],
+     [> Svg_types.tref ])
+    Svg_sigs.T.star
+  val textpath :
+    ([< Svg_types.textpath_attr ], [< Svg_types.textpath_content ],
+     [> Svg_types.textpath ])
+    Svg_sigs.T.star
+  val altglyph :
+    ([< Svg_types.altglyph_attr ], [< Svg_types.altglyph_content ],
+     [> Svg_types.altglyph ])
+    Svg_sigs.T.unary
+  val altglyphdef :
+    ([< Svg_types.altglyphdef_attr ], [< Svg_sigs.T.altglyphdef_content ],
+     [> Svg_types.altglyphdef ])
+    Svg_sigs.T.unary
+  val altglyphitem :
+    ([< Svg_types.altglyphitem_attr ], [< Svg_types.altglyphitem_content ],
+     [> Svg_types.altglyphitem ])
+    Svg_sigs.T.star
+  val glyphref :
+    ([< Svg_types.glyphref_attr ], [> Svg_types.glyphref ])
+    Svg_sigs.T.nullary
+  val marker :
+    ([< Svg_types.marker_attr ], [< Svg_types.marker_content ],
+     [> Svg_types.marker ])
+    Svg_sigs.T.star
+  val colorprofile :
+    ([< Svg_types.colorprofile_attr ], [< Svg_types.colorprofile_content ],
+     [> Svg_types.colorprofile ])
+    Svg_sigs.T.star
+  val lineargradient :
+    ([< Svg_types.lineargradient_attr ],
+     [< Svg_types.lineargradient_content ], [> Svg_types.lineargradient ])
+    Svg_sigs.T.star
+  val radialgradient :
+    ([< Svg_types.radialgradient_attr ],
+     [< Svg_types.radialgradient_content ], [> Svg_types.radialgradient ])
+    Svg_sigs.T.star
+  val stop :
+    ([< Svg_types.stop_attr ], [< Svg_types.stop_content ],
+     [> Svg_types.stop ])
+    Svg_sigs.T.star
+  val pattern :
+    ([< Svg_types.pattern_attr ], [< Svg_types.pattern_content ],
+     [> Svg_types.pattern ])
+    Svg_sigs.T.star
+  val clippath :
+    ([< Svg_types.clippath_attr ], [< Svg_types.clippath_content ],
+     [> Svg_types.clippath ])
+    Svg_sigs.T.star
+  val filter :
+    ([< Svg_types.filter_attr ], [< Svg_types.filter_content ],
+     [> Svg_types.filter ])
+    Svg_sigs.T.star
+  val fedistantlight :
+    ([< Svg_types.fedistantlight_attr ],
+     [< Svg_types.fedistantlight_content ], [> Svg_types.fedistantlight ])
+    Svg_sigs.T.star
+  val fepointlight :
+    ([< Svg_types.fepointlight_attr ], [< Svg_types.fepointlight_content ],
+     [> Svg_types.fepointlight ])
+    Svg_sigs.T.star
+  val fespotlight :
+    ([< Svg_types.fespotlight_attr ], [< Svg_types.fespotlight_content ],
+     [> Svg_types.fespotlight ])
+    Svg_sigs.T.star
+  val feblend :
+    ([< Svg_types.feblend_attr ], [< Svg_types.feblend_content ],
+     [> Svg_types.feblend ])
+    Svg_sigs.T.star
+  val fecolormatrix :
+    ([< Svg_types.fecolormatrix_attr ], [< Svg_types.fecolormatrix_content ],
+     [> Svg_types.fecolormatrix ])
+    Svg_sigs.T.star
+  val fecomponenttransfer :
+    ([< Svg_types.fecomponenttransfer_attr ],
+     [< Svg_types.fecomponenttransfer_content ],
+     [> Svg_types.fecomponenttransfer ])
+    Svg_sigs.T.star
+  val fefunca :
+    ([< Svg_types.fefunca_attr ], [< Svg_types.fefunca_content ],
+     [> Svg_types.fefunca ])
+    Svg_sigs.T.star
+  val fefuncg :
+    ([< Svg_types.fefuncg_attr ], [< Svg_types.fefuncg_content ],
+     [> Svg_types.fefuncg ])
+    Svg_sigs.T.star
+  val fefuncb :
+    ([< Svg_types.fefuncb_attr ], [< Svg_types.fefuncb_content ],
+     [> Svg_types.fefuncb ])
+    Svg_sigs.T.star
+  val fefuncr :
+    ([< Svg_types.fefuncr_attr ], [< Svg_types.fefuncr_content ],
+     [> Svg_types.fefuncr ])
+    Svg_sigs.T.star
+  val fecomposite :
+    ([< Svg_types.fecomposite_attr ], [< Svg_types.fecomposite_content ],
+     [> Svg_types.fecomposite ])
+    Svg_sigs.T.star
+  val feconvolvematrix :
+    ([< Svg_types.feconvolvematrix_attr ],
+     [< Svg_types.feconvolvematrix_content ],
+     [> Svg_types.feconvolvematrix ])
+    Svg_sigs.T.star
+  val fediffuselighting :
+    ([< Svg_types.fediffuselighting_attr ],
+     [< Svg_types.fediffuselighting_content ],
+     [> Svg_types.fediffuselighting ])
+    Svg_sigs.T.star
+  val fedisplacementmap :
+    ([< Svg_types.fedisplacementmap_attr ],
+     [< Svg_types.fedisplacementmap_content ],
+     [> Svg_types.fedisplacementmap ])
+    Svg_sigs.T.star
+  val feflood :
+    ([< Svg_types.feflood_attr ], [< Svg_types.feflood_content ],
+     [> Svg_types.feflood ])
+    Svg_sigs.T.star
+  val fegaussianblur :
+    ([< Svg_types.fegaussianblur_attr ],
+     [< Svg_types.fegaussianblur_content ], [> Svg_types.fegaussianblur ])
+    Svg_sigs.T.star
+  val feimage :
+    ([< Svg_types.feimage_attr ], [< Svg_types.feimage_content ],
+     [> Svg_types.feimage ])
+    Svg_sigs.T.star
+  val femerge :
+    ([< Svg_types.femerge_attr ], [< Svg_types.femerge_content ],
+     [> Svg_types.femerge ])
+    Svg_sigs.T.star
+  val femorphology :
+    ([< Svg_types.femorphology_attr ], [< Svg_types.femorphology_content ],
+     [> Svg_types.femorphology ])
+    Svg_sigs.T.star
+  val feoffset :
+    ([< Svg_types.feoffset_attr ], [< Svg_types.feoffset_content ],
+     [> Svg_types.feoffset ])
+    Svg_sigs.T.star
+  val fespecularlighting :
+    ([< Svg_types.fespecularlighting_attr ],
+     [< Svg_types.fespecularlighting_content ],
+     [> Svg_types.fespecularlighting ])
+    Svg_sigs.T.star
+  val fetile :
+    ([< Svg_types.fetile_attr ], [< Svg_types.fetile_content ],
+     [> Svg_types.fetile ])
+    Svg_sigs.T.star
+  val feturbulence :
+    ([< Svg_types.feturbulence_attr ], [< Svg_types.feturbulence_content ],
+     [> Svg_types.feturbulence ])
+    Svg_sigs.T.star
+  val cursor :
+    ([< Svg_types.cursor_attr ], [< Svg_types.cursor_content ],
+     [> Svg_types.cursor ])
+    Svg_sigs.T.star
+  val a :
+    ([< Svg_types.a_attr ], [< Svg_types.a_content ], [> Svg_types.a ])
+    Svg_sigs.T.star
+  val view :
+    ([< Svg_types.view_attr ], [< Svg_types.view_content ],
+     [> Svg_types.view ])
+    Svg_sigs.T.star
+  val script :
+    ([< Svg_types.script_attr ], [< Svg_types.script_content ],
+     [> Svg_types.script ])
+    Svg_sigs.T.unary
+  val animation :
+    ([< Svg_types.animation_attr ], [< Svg_types.animation_content ],
+     [> Svg_types.animation ])
+    Svg_sigs.T.star
+  val set :
+    ([< Svg_types.set_attr ], [< Svg_types.set_content ], [> Svg_types.set ])
+    Svg_sigs.T.star
+  val animatemotion :
+    ([< Svg_types.animatemotion_attr ], [< Svg_types.animatemotion_content ],
+     [> Svg_types.animatemotion ])
+    Svg_sigs.T.star
+  val mpath :
+    ([< Svg_types.mpath_attr ], [< Svg_types.mpath_content ],
+     [> Svg_types.mpath ])
+    Svg_sigs.T.star
+  val animatecolor :
+    ([< Svg_types.animatecolor_attr ], [< Svg_types.animatecolor_content ],
+     [> Svg_types.animatecolor ])
+    Svg_sigs.T.star
+  val animatetransform :
+    ([< Svg_types.animatetransform_attr ],
+     [< Svg_types.animatetransform_content ],
+     [> Svg_types.animatetransform ])
+    Svg_sigs.T.star
+  val font :
+    ([< Svg_types.font_attr ], [< Svg_types.font_content ],
+     [> Svg_types.font ])
+    Svg_sigs.T.star
+  val glyph :
+    ([< Svg_types.glyph_attr ], [< Svg_types.glyph_content ],
+     [> Svg_types.glyph ])
+    Svg_sigs.T.star
+  val missingglyph :
+    ([< Svg_types.missingglyph_attr ], [< Svg_types.missingglyph_content ],
+     [> Svg_types.missingglyph ])
+    Svg_sigs.T.star
+  val hkern :
+    ([< Svg_types.hkern_attr ], [> Svg_types.hkern ]) Svg_sigs.T.nullary
+  val vkern :
+    ([< Svg_types.vkern_attr ], [> Svg_types.vkern ]) Svg_sigs.T.nullary
+  val fontface :
+    ([< Svg_types.fontface_attr ], [> Svg_types.fontface ])
+    Svg_sigs.T.nullary
+  val fontfacesrc :
+    ([< Svg_types.fontfacesrc_attr ], [< Svg_types.fontfacesrc_content ],
+     [> Svg_types.fontfacesrc ])
+    Svg_sigs.T.star
+  val fontfaceuri :
+    ([< Svg_types.fontfaceuri_attr ], [< Svg_types.fontfaceuri_content ],
+     [> Svg_types.fontfaceuri ])
+    Svg_sigs.T.star
+  val fontfaceformat :
+    ([< Svg_types.fontfaceformat_attr ], [> Svg_types.fontfaceformat ])
+    Svg_sigs.T.nullary
+  val fontfacename :
+    ([< Svg_types.fontfacename_attr ], [> Svg_types.fontfacename ])
+    Svg_sigs.T.nullary
+  val tot : Xml.elt -> 'a Svg_sigs.T.elt
+  val totl : Xml.elt list -> 'a Svg_sigs.T.elt list
+  val toelt : 'a Svg_sigs.T.elt -> Xml.elt
+  val toeltl : 'a Svg_sigs.T.elt list -> Xml.elt list
+  val to_xmlattribs : 'a Svg_sigs.T.attrib list -> Xml.attrib list
+  val to_attrib : Xml.attrib -> 'a Svg_sigs.T.attrib
+  module Unsafe :
+    sig
+      val data : string Svg_sigs.T.wrap -> 'a Svg_sigs.T.elt
+      val node :
+        string ->
+        ?a:'a Svg_sigs.T.attrib list ->
+        'b Svg_sigs.T.elt Svg_sigs.T.list_wrap -> 'c Svg_sigs.T.elt
+      val leaf :
+        string -> ?a:'a Svg_sigs.T.attrib list -> unit -> 'b Svg_sigs.T.elt
+      val coerce_elt : 'a Svg_sigs.T.elt -> 'b Svg_sigs.T.elt
+      val string_attrib :
+        string -> string Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+      val float_attrib :
+        string -> float Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+      val int_attrib : string -> int Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+      val uri_attrib :
+        string -> Svg_sigs.T.uri Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+      val space_sep_attrib :
+        string -> string list Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+      val comma_sep_attrib :
+        string -> string list Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+    end
+  type doc = [ `Svg ] Svg_sigs.T.elt
+  val doc_toelt : Svg_sigs.T.doc -> Xml.elt
+end >>

@@ -1,0 +1,5 @@
+=Module <<a_api_type | module Xml_iter >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Xml_iter>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_iter >><<span class="ocsforge_color_keyword"|end>>>>~Basic iterators over ~X~M~L tree ~(functorial interface~)~.
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module Xml_iter.Make >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Iterable" | module Xml_sigs.Iterable >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_iter.Make >><<span class="ocsforge_color_keyword"|end>>>>

@@ -1,0 +1,14 @@
+=Module <<a_api_type | module SVG_f >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|SVG_f>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module SVG_f >><<span class="ocsforge_color_keyword"|end>>>>~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+
+----
+
+~This module defines basic data types for data~, attributes
+    and element occuring in ~S~V~G documents~.
+    ~It is based on the specification available at http~:~/~/www~.w~3~.org~/~T~R~/~S~V~G~/~.
+
+
+    ~This module is experimental~, it may lack of some attributes~,
+    and the interface is very low level and do not take deeply into account
+    the needs of ~S~V~G elements~.
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module SVG_f.Make >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>XML <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XML_sigs.T" | module XML_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="SVG_sigs.T" | module SVG_sigs.T >>>><<span class="odocwiki_type"| with module XML := XML\\	       and type 'a elt = XML.elt\\	       and type 'a attrib = XML.attrib\\	       and type uri = XML.uri>>>>>>

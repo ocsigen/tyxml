@@ -1,0 +1,28 @@
+<<code language="ocaml" | sig
+  val form :
+    action:Xml.uri ->
+    ([< Xhtml_types.form_attrib ], [< Xhtml_types.form_content ],
+     [> Xhtml_types.form ])
+    Xhtml_sigs.T_01_01.plus
+  val input :
+    ([< Xhtml_types.input_attrib ], [> Xhtml_types.input ])
+    Xhtml_sigs.T_01_01.nullary
+  val label :
+    ([< Xhtml_types.label_attrib ], [< Xhtml_types.label_content ],
+     [> Xhtml_types.label ])
+    Xhtml_sigs.T_01_01.star
+  val option :
+    ([< Xhtml_types.option_attrib ], [< Xhtml_types.option_content ],
+     [> Xhtml_types.selectoption ])
+    Xhtml_sigs.T_01_01.unary
+  val select :
+    ([< Xhtml_types.select_attrib ], [< Xhtml_types.select_content ],
+     [> Xhtml_types.select ])
+    Xhtml_sigs.T_01_01.plus
+  val textarea :
+    rows:Xhtml_types.number ->
+    cols:Xhtml_types.number ->
+    ([< Xhtml_types.textarea_attrib ], [< Xhtml_types.textarea_content ],
+     [> Xhtml_types.textarea ])
+    Xhtml_sigs.T_01_01.unary
+end >>

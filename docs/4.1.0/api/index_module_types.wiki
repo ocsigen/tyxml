@@ -1,0 +1,51 @@
+=Index of module types=
+
+|@@ @style="tet-align: left;"@@\\I|
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module type Xml_sigs.Info >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Iterable"| module type Xml_sigs.Iterable >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\N|
+|@@class="odocwiki_index"@ @@<<a_api text="NoWrap"| module type Html_sigs.NoWrap >> ~[<<a_api | module Html_sigs >>~]|<<div class="odocwiki_info"|~Equivalent to <<a_api | module type Html_sigs.T >>~, but without wrapping~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="NoWrap"| module type Svg_sigs.NoWrap >> ~[<<a_api | module Svg_sigs >>~]|<<div class="odocwiki_info"|~Equivalent to <<a_api | module type Svg_sigs.T >>~, but without wrapping~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="NoWrap"| module type Xml_wrap.NoWrap >> ~[<<a_api | module Xml_wrap >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="NoWrap"| module type Xml_sigs.NoWrap >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\O|
+|@@class="odocwiki_index"@ @@<<a_api text="Output"| module type Xml_sigs.Output >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\P|
+|@@class="odocwiki_index"@ @@<<a_api text="Pp"| module type Xml_sigs.Pp >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Printer"| module type Xml_sigs.Printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\S|
+|@@class="odocwiki_index"@ @@<<a_api text="Simple_printer"| module type Xml_sigs.Simple_printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\T|
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Html_sigs.T >> ~[<<a_api | module Html_sigs >>~]|<<div class="odocwiki_info"|~Signature of typesafe constructors for ~H~T~M~L documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Html_sigs.Make.T >> ~[<<a_api | module Html_sigs.Make >>~]|<<div class="odocwiki_info"|~See <<a_api | module type Html_sigs.T >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Svg_sigs.T >> ~[<<a_api | module Svg_sigs >>~]|<<div class="odocwiki_info"|~Signature of typesafe constructors for ~S~V~G documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Svg_sigs.Make.T >> ~[<<a_api | module Svg_sigs.Make >>~]|<<div class="odocwiki_info"|~See <<a_api | module type Svg_sigs.T >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Xml_wrap.T >> ~[<<a_api | module Xml_wrap >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Xml_sigs.T >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="TagList"| module type Xml_print.TagList >> ~[<<a_api | module Xml_print >>~]|<<div class="odocwiki_info"|~List of tags that can be printed as empty tags~: <<span class="odocwiki_inlinecode"|~<foo ~/~>>>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_pp"| module type Xml_sigs.Typed_pp >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_printer"| module type Xml_sigs.Typed_printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_simple_printer"| module type Xml_sigs.Typed_simple_printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_xml"| module type Xml_sigs.Typed_xml >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\W|
+|@@class="odocwiki_index"@ @@<<a_api text="Wrapped_functions"| module type Html_sigs.Wrapped_functions >> ~[<<a_api | module Html_sigs >>~]|<<div class="odocwiki_info"|~Wrapped functions~, to be used with <<a_api | module Html_f.Make_with_wrapped_functions >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Wrapped_functions"| module type Svg_sigs.Wrapped_functions >> ~[<<a_api | module Svg_sigs >>~]|<<div class="odocwiki_info"|~Wrapped functions~, to be used with <<a_api | module Svg_f.Make_with_wrapped_functions >>~.
+>>
+|
+\\

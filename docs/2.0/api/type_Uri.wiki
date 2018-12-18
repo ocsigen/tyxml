@@ -1,0 +1,6 @@
+<<code language="ocaml" | sig
+  type uri = string
+  type uris = Uri.uri
+  val string_of_uri : Uri.uri -> string
+  val uri_of_string : string -> Uri.uri
+end >>

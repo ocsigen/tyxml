@@ -1,0 +1,18 @@
+<<code language="ocaml" | sig
+  val tot : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val toeltl : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val to_attrib : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val to_xmlattribs : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val make_type : Camlp4.PreCast.Loc.t -> string -> Camlp4.PreCast.Ast.ctyp
+  val make_content_type :
+    Camlp4.PreCast.Loc.t -> string -> Camlp4.PreCast.Ast.ctyp
+  val make_attrib_type :
+    Camlp4.PreCast.Loc.t -> string -> Camlp4.PreCast.Ast.ctyp
+  val make_attribs_type :
+    Camlp4.PreCast.Loc.t -> string -> Camlp4.PreCast.Ast.ctyp
+  val xml_encodedpcdata : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val xml_pcdata : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val xml_comment : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val xml_node : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val xml_string_attrib : Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+end >>

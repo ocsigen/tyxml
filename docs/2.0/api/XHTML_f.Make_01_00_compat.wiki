@@ -1,0 +1,8 @@
+=Functor <<a_api_type | module XHTML_f.Make_01_00_compat >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Make_01_00_compat>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>XML <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XML_sigs.T" | module XML_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  <<span class="odocwiki_type"|<<a_api text="XHTML_sigs.T_01_00" | module XHTML_sigs.T_01_00 >>>><<span class="odocwiki_type"| with type 'a elt = 'a Make_01_00(XML).elt and module XML := XML>>>>>><<div class="odocwiki_module_param_list" | <<span class="odocwiki_param_title" |Parameters :>><<div|
+|@@class="odocwiki_paramstable"@ @class="centertop fifteen code"@@{{{XML}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|XML_sigs.T>>|
+>>>>
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|include>> <<a_api | module type XHTML_sigs.T_01_01 >>>>
+<<pre id="VALa_name_01_00" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|a~_name~_~0~1~_~0~0>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XHTML_types.cdata" | type XHTML_types.cdata >> <<span class="ocsforge_color_delimiter"| -> >> [> `Name_01_00 ] attrib>>>>

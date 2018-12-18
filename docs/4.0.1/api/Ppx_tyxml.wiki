@@ -1,0 +1,14 @@
+=Module <<a_api_type | module Ppx_tyxml >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Ppx_tyxml>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Ppx_tyxml >><<span class="ocsforge_color_keyword"|end>>>>~Ty~X~M~L ppx library~.
+
+
+    ~This is the documentation for the internal ppx library~.
+    Documentation for the ppx itself is available
+    <<a_manual chapter="ppx"|here>>. 
+
+----
+<<pre id="VALmarkup_to_expr" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|markup~_to~_expr>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  <<span class="ocsforge_color_uid"|Ppx_common>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|lang>> <<span class="ocsforge_color_delimiter"| -> >>\\  <<span class="ocsforge_color_uid"|Location>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|t>> <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_uid"|Parsetree>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|expression>> list <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_uid"|Parsetree>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|expression>>>>>><<div class="odocwiki_info"|~Given the payload of a <<span class="odocwiki_inlinecode"|~%html ~.~.~.>> or <<span class="odocwiki_inlinecode"|~%svg ~.~.~.>> expression~,
+    converts it to a ~Ty~X~M~L expression representing the markup
+    contained therein~.
+>>
+<<pre id="VALmapper" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|mapper>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string list <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_lid"|Ast_mapper>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|mapper>>>>>>

@@ -1,0 +1,6 @@
+<<code language="ocaml" | sig
+  val to_ocaml : string -> string
+  val ident : string -> string
+  val attrib : string -> string
+  val polyvar : string -> string
+end >>

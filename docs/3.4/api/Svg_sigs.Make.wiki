@@ -1,0 +1,9 @@
+=Functor <<a_api_type | module Svg_sigs.Make >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Make>>>> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Svg_sigs.Make >><<span class="ocsforge_color_keyword"|end>>>>~Signature functor for <<a_api | module Svg_f.Make >>~.
+<<div class="odocwiki_module_param_list" | <<span class="odocwiki_param_title" |Parameters :>><<div|
+|@@class="odocwiki_paramstable"@ @class="centertop fifteen code"@@{{{Xml}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Xml_sigs.T>>|
+>>>>
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T" | module type Svg_sigs.Make.T >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|MakeWrapped(<<a_api text="Xml_wrap.NoWrap" | module Xml_wrap.NoWrap >>)(Xml).T>>>><<div class="odocwiki_info"|~See <<a_api | module type Svg_sigs.MakeWrapped >> and <<a_api | module type Svg_sigs.T >>~.
+>>

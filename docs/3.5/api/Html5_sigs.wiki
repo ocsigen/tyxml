@@ -1,0 +1,16 @@
+=Module <<a_api_type | module Html5_sigs >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Html5_sigs>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Html5_sigs >><<span class="ocsforge_color_keyword"|end>>>>
+=@@id="1_CommonAttributes"@@~Common ~Attributes=
+
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T" | module type Html5_sigs.T >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Html5_sigs.T >><<span class="ocsforge_color_keyword"|end>>>>
+
+==@@id="2_Signaturefunctors"@@~Signature functors==
+
+
+~See <<a_manual chapter="functors"|the manual of the functorial interface>> ~.
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="MakeWrapped" | module Html5_sigs.MakeWrapped >> <<span class="ocsforge_color_delimiter"|(>>W <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_wrap.T" | module Xml_wrap.T >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Wrapped" | module Xml_sigs.Wrapped >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Svg <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Svg_sigs.T" | module Svg_sigs.T >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Html5_sigs.MakeWrapped >><<span class="ocsforge_color_keyword"|end>>>><<div class="odocwiki_info"|~Signature functor for <<a_api | module Html5_f.MakeWrapped >>~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module Html5_sigs.Make >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Svg <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Svg_sigs.T" | module Svg_sigs.T >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Html5_sigs.Make >><<span class="ocsforge_color_keyword"|end>>>><<div class="odocwiki_info"|~Signature functor for <<a_api | module Html5_f.Make >>~.
+>>

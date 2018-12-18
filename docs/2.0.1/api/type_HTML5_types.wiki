@@ -1,0 +1,6126 @@
+<<code language="ocaml" | sig
+  type cdata = string
+  type id = string
+  type idref = string
+  type idrefs = HTML5_types.idref list
+  type name = string
+  type nmtoken = string
+  type nmtokens = HTML5_types.nmtoken list
+  type character = char
+  type charset = string
+  type charsets = HTML5_types.charset list
+  type contenttype = string
+  type contenttypes = HTML5_types.contenttype list
+  type coords = string list
+  type datetime = string
+  type fpi = string
+  type frametarget = string
+  type languagecode = string
+  type length = [ `Percent of int | `Pixels of int ]
+  type linktypes =
+      [ `Alternate
+      | `Archives
+      | `Author
+      | `Bookmark
+      | `External
+      | `First
+      | `Help
+      | `Icon
+      | `Index
+      | `Last
+      | `License
+      | `Next
+      | `Nofollow
+      | `Noreferrer
+      | `Pingback
+      | `Prefetch
+      | `Prev
+      | `Search
+      | `Sidebar
+      | `Stylesheet
+      | `Tag
+      | `Up ] list
+  type mediadesc =
+      [ `All
+      | `Aural
+      | `Braille
+      | `Embossed
+      | `Handheld
+      | `Print
+      | `Projection
+      | `Screen
+      | `Speech
+      | `TTY
+      | `TV ] list
+  type multilength = [ `Percent of int | `Pixels of int | `Relative of int ]
+  type multilengths = HTML5_types.multilength list
+  type number = int
+  type numbers = HTML5_types.number list
+  type float_number = float
+  type pixels = int
+  type script_ = string
+  type text = string
+  type i18n = [ `XML_lang ]
+  type core =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type events =
+      [ `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting ]
+  type common =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type heading = [ `H1 | `H2 | `H3 | `H4 | `H5 | `H6 | `Hgroup ]
+  type sectioning = [ `Article | `Aside | `Nav | `Section ]
+  type resetable = [ `Input | `Keygen | `Output | `Select | `Textarea ]
+  type submitable = [ `Button | `Input | `Keygen | `Select | `Textarea ]
+  type labelable =
+      [ `Button
+      | `Input
+      | `Keygen
+      | `Meter
+      | `Output
+      | `Progress
+      | `Select
+      | `Textarea ]
+  type labelable_without_interactive = [ `Meter | `Progress ]
+  type formatblock =
+      [ `Address
+      | `Article
+      | `Aside
+      | `Blockquote
+      | `Div
+      | `Footer
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Nav
+      | `P
+      | `Pre
+      | `Section ]
+  type sectionningroot =
+      [ `Blockquote | `Body | `Details | `Fieldset | `Figure | `Td ]
+  type listed =
+      [ `Button
+      | `Fieldset
+      | `Input
+      | `Keygen
+      | `Output
+      | `Select
+      | `Textarea ]
+  type formassociated =
+      [ `Button
+      | `Fieldset
+      | `Input
+      | `Keygen
+      | `Label
+      | `Meter
+      | `Output
+      | `Progress
+      | `Select
+      | `Textarea ]
+  type ('a, 'b, 'c, 'd) transparent =
+      [ `A of 'a
+      | `Audio of 'd
+      | `Audio_interactive of 'd
+      | `Canvas of 'c
+      | `Del of 'c
+      | `Ins of 'c
+      | `Map of 'c
+      | `Noscript of 'b
+      | `Object of 'c
+      | `Object_interactive of 'c
+      | `Video of 'd
+      | `Video_interactive of 'd ]
+  type ('a, 'b, 'c) transparent_without_interactive =
+      [ `Audio of 'c
+      | `Canvas of 'b
+      | `Del of 'b
+      | `Ins of 'b
+      | `Map of 'b
+      | `Noscript of 'a
+      | `Object of 'b
+      | `Video of 'c ]
+  type ('a, 'b, 'c) transparent_without_noscript =
+      [ `A of 'a
+      | `Audio of 'c
+      | `Audio_interactive of 'c
+      | `Canvas of 'b
+      | `Del of 'b
+      | `Ins of 'b
+      | `Map of 'b
+      | `Object of 'b
+      | `Object_interactive of 'b
+      | `Video of 'c
+      | `Video_interactive of 'c ]
+  type ('a, 'b, 'c) transparent_without_media =
+      [ `A of 'a
+      | `Canvas of 'c
+      | `Del of 'c
+      | `Ins of 'c
+      | `Map of 'c
+      | `Noscript of 'b
+      | `Object of 'c
+      | `Object_interactive of 'c ]
+  type metadata_without_title =
+      [ `Base
+      | `Command
+      | `Link
+      | `Meta
+      | `Noscript of [ `Link | `Meta | `Style ]
+      | `Script
+      | `Style ]
+  type metadata =
+      [ `Base
+      | `Command
+      | `Link
+      | `Meta
+      | `Noscript of [ `Link | `Meta | `Style ]
+      | `Script
+      | `Style
+      | `Title ]
+  type core_interactive =
+      [ `Button
+      | `Details
+      | `Embed
+      | `Iframe
+      | `Img_interactive
+      | `Input
+      | `Keygen
+      | `Label
+      | `Menu
+      | `Select
+      | `Textarea ]
+  type interactive =
+      [ `Audio of HTML5_types.interactive
+      | `Button
+      | `Canvas of HTML5_types.interactive
+      | `Del of HTML5_types.interactive
+      | `Details
+      | `Embed
+      | `Iframe
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.interactive
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.interactive
+      | `Menu
+      | `Noscript of HTML5_types.interactive
+      | `Object of HTML5_types.interactive
+      | `Select
+      | `Textarea
+      | `Video of HTML5_types.interactive ]
+  type core_phrasing =
+      [ `Abbr
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Dfn
+      | `Em
+      | `Embed
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Meter
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Textarea
+      | `Time
+      | `Var
+      | `Wbr ]
+  type core_phrasing_without_noscript =
+      [ `Abbr
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Dfn
+      | `Em
+      | `Embed
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Meter
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Textarea
+      | `Time
+      | `Var
+      | `Wbr ]
+  type core_phrasing_without_interactive =
+      [ `Abbr
+      | `B
+      | `Bdo
+      | `Br
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Dfn
+      | `Em
+      | `I
+      | `Img
+      | `Kbd
+      | `Mark
+      | `Meter
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Time
+      | `Var
+      | `Wbr ]
+  type core_phrasing_without_media =
+      [ `Abbr
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Dfn
+      | `Em
+      | `Embed
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Meter
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Textarea
+      | `Time
+      | `Var
+      | `Wbr ]
+  type phrasing_without_noscript =
+      (HTML5_types.phrasing_without_interactive, HTML5_types.phrasing,
+       HTML5_types.phrasing_without_media)
+      HTML5_types.transparent_without_noscript
+  and phrasing_without_media =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing
+      | `Dfn
+      | `Em
+      | `Embed
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.phrasing
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing
+      | `Object_interactive of HTML5_types.phrasing
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Textarea
+      | `Time
+      | `Var
+      | `Wbr ]
+  and phrasing_without_interactive =
+      [ `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Canvas of HTML5_types.phrasing
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing
+      | `Dfn
+      | `Em
+      | `I
+      | `Img
+      | `Ins of HTML5_types.phrasing
+      | `Kbd
+      | `Map of HTML5_types.phrasing
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Time
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  and phrasing =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `Audio_interactive of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing
+      | `Dfn
+      | `Em
+      | `Embed
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.phrasing
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing
+      | `Object_interactive of HTML5_types.phrasing
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Textarea
+      | `Time
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Video_interactive of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  type (+'a, +'b) between_phrasing_and_phrasing_without_interactive = 'a
+    constraint 'a =
+      [< `A of 'b
+       | `Abbr
+       | `Audio of HTML5_types.phrasing_without_media
+       | `Audio_interactive of HTML5_types.phrasing_without_media
+       | `B
+       | `Bdo
+       | `Br
+       | `Button
+       | `Canvas of HTML5_types.phrasing
+       | `Cite
+       | `Code
+       | `Command
+       | `Datalist
+       | `Del of HTML5_types.phrasing
+       | `Dfn
+       | `Em
+       | `Embed
+       | `I
+       | `Iframe
+       | `Img
+       | `Img_interactive
+       | `Input
+       | `Ins of HTML5_types.phrasing
+       | `Kbd
+       | `Keygen
+       | `Label
+       | `Map of HTML5_types.phrasing
+       | `Mark
+       | `Meter
+       | `Noscript of HTML5_types.phrasing_without_noscript
+       | `Object of HTML5_types.phrasing
+       | `Object_interactive of HTML5_types.phrasing
+       | `Output
+       | `PCDATA
+       | `Progress
+       | `Q
+       | `Ruby
+       | `Samp
+       | `Script
+       | `Select
+       | `Small
+       | `Span
+       | `Strong
+       | `Sub
+       | `Sup
+       | `Svg
+       | `Textarea
+       | `Time
+       | `Var
+       | `Video of HTML5_types.phrasing_without_media
+       | `Video_interactive of HTML5_types.phrasing_without_media
+       | `Wbr
+       > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command `Datalist `Del `Dfn
+         `Em `I `Img `Ins `Kbd `Map `Mark `Meter `Noscript `Object `PCDATA
+         `Progress `Q `Ruby `Samp `Script `Small `Span `Strong `Sub `Sup `Svg
+         `Time `Var `Wbr ]
+    constraint 'b = [< HTML5_types.phrasing_without_interactive ]
+  type phrasing_without_dfn =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `Audio_interactive of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing_without_dfn
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing_without_dfn
+      | `Em
+      | `I
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing_without_dfn
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.phrasing_without_dfn
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing_without_dfn
+      | `Object_interactive of HTML5_types.phrasing_without_dfn
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Time
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Video_interactive of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  type phrasing_without_label =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `Audio_interactive of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing_without_label
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing_without_label
+      | `Dfn
+      | `Em
+      | `I
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing_without_label
+      | `Kbd
+      | `Keygen
+      | `Map of HTML5_types.phrasing_without_label
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing_without_label
+      | `Object_interactive of HTML5_types.phrasing_without_label
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Time
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Video_interactive of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  type phrasing_without_progress =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `Audio_interactive of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing_without_progress
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing_without_progress
+      | `Dfn
+      | `Em
+      | `I
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing_without_progress
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.phrasing_without_progress
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing_without_progress
+      | `Object_interactive of HTML5_types.phrasing_without_progress
+      | `Output
+      | `PCDATA
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Time
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Video_interactive of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  type phrasing_without_time =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `Audio_interactive of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing_without_time
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing_without_time
+      | `Dfn
+      | `Em
+      | `I
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing_without_time
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.phrasing_without_time
+      | `Mark
+      | `Meter
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing_without_time
+      | `Object_interactive of HTML5_types.phrasing_without_time
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Video_interactive of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  type phrasing_without_meter =
+      [ `A of HTML5_types.phrasing_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.phrasing_without_media
+      | `Audio_interactive of HTML5_types.phrasing_without_media
+      | `B
+      | `Bdo
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.phrasing_without_meter
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.phrasing_without_meter
+      | `Dfn
+      | `Em
+      | `I
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.phrasing_without_meter
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.phrasing_without_meter
+      | `Mark
+      | `Noscript of HTML5_types.phrasing_without_noscript
+      | `Object of HTML5_types.phrasing_without_meter
+      | `Object_interactive of HTML5_types.phrasing_without_meter
+      | `Output
+      | `PCDATA
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Time
+      | `Var
+      | `Video of HTML5_types.phrasing_without_media
+      | `Video_interactive of HTML5_types.phrasing_without_media
+      | `Wbr ]
+  type core_flow5 =
+      [ `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Wbr ]
+  type core_flow5_without_interactive =
+      [ `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Img
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Wbr ]
+  type core_flow5_without_noscript =
+      [ `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Wbr ]
+  type core_flow5_without_media =
+      [ `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Wbr ]
+  type flow5_without_interactive =
+      [ `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Img
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Wbr ]
+  and flow5_without_noscript =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  and flow5_without_media =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Wbr ]
+  and flow5 =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type flow5_without_table =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type flow5_without_interactive_header_footer =
+      [ `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Figure
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Img
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type flow5_without_header_footer =
+      [ `A of HTML5_types.flow5_without_interactive_header_footer
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type +'a between_flow5_and_flow5_without_interactive_header_footer = 'a
+    constraint 'a =
+      [< HTML5_types.flow5
+       > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
+         `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl
+         `Em `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I
+         `Img `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav
+         `Noscript `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby
+         `Samp `Script `Section `Select `Small `Span `Strong `Style `Sub `Sup
+         `Svg `Table `Textarea `Time `Ul `Var `Video `Wbr ]
+  type (+'a, +'b) between_flow5_and_flow5_without_header_footer = 'a
+    constraint 'a =
+      [< `A of 'b
+       | `Abbr
+       | `Address
+       | `Article
+       | `Aside
+       | `Audio of HTML5_types.flow5_without_media
+       | `Audio_interactive of HTML5_types.flow5_without_media
+       | `B
+       | `Bdo
+       | `Blockquote
+       | `Br
+       | `Button
+       | `Canvas of 'a
+       | `Cite
+       | `Code
+       | `Command
+       | `Datalist
+       | `Del of 'a
+       | `Details
+       | `Dfn
+       | `Div
+       | `Dl
+       | `Em
+       | `Embed
+       | `Fieldset
+       | `Figure
+       | `Footer
+       | `Form
+       | `H1
+       | `H2
+       | `H3
+       | `H4
+       | `H5
+       | `H6
+       | `Header
+       | `Hgroup
+       | `Hr
+       | `I
+       | `Iframe
+       | `Img
+       | `Img_interactive
+       | `Input
+       | `Ins of 'a
+       | `Kbd
+       | `Keygen
+       | `Label
+       | `Map of 'a
+       | `Mark
+       | `Menu
+       | `Meter
+       | `Nav
+       | `Noscript of HTML5_types.flow5_without_noscript
+       | `Object of 'a
+       | `Object_interactive of 'a
+       | `Ol
+       | `Output
+       | `P
+       | `PCDATA
+       | `Pre
+       | `Progress
+       | `Q
+       | `Ruby
+       | `Samp
+       | `Script
+       | `Section
+       | `Select
+       | `Small
+       | `Span
+       | `Strong
+       | `Style
+       | `Sub
+       | `Sup
+       | `Svg
+       | `Table
+       | `Textarea
+       | `Time
+       | `Ul
+       | `Var
+       | `Video of HTML5_types.flow5_without_media
+       | `Video_interactive of HTML5_types.flow5_without_media
+       | `Wbr
+       > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B `Bdo
+         `Blockquote `Br `Button `Canvas `Cite `Code `Command `Datalist `Del
+         `Details `Dfn `Div `Dl `Em `Embed `Fieldset `Figure `Form `H1 `H2
+         `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe `Img `Img_interactive `Input
+         `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
+         `Object `Object_interactive `Ol `Output `P `PCDATA `Pre `Progress `Q
+         `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
+         `Sub `Sup `Svg `Table `Textarea `Time `Ul `Var `Video
+         `Video_interactive `Wbr ]
+    constraint 'b = [< HTML5_types.flow5_without_interactive ]
+  type flow5_without_form =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type flow5_without_sectioning_heading_header_footer_address =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Form
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type pcdata = [ `PCDATA ]
+  type notag
+  type no_attribute_allowed
+  type noattrib =
+      [ `No_attribute_allowed of HTML5_types.no_attribute_allowed ]
+  type html = [ `Html ]
+  type xhtml = HTML5_types.html
+  type html_content_fun = [ `Body | `Head ]
+  type html_content = HTML5_types.html_content_fun
+  type html_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Manifest
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type head = [ `Head ]
+  type head_content = HTML5_types.metadata
+  type head_content_fun = HTML5_types.metadata_without_title
+  type head_attrib = HTML5_types.common
+  type body = [ `Body ]
+  type body_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnAfterPrint
+      | `OnBeforePrint
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnHashChange
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMessage
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnOffLine
+      | `OnOnLine
+      | `OnPageHide
+      | `OnPageShow
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnPopState
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnRedo
+      | `OnResize
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnStorage
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnUndo
+      | `OnUnload
+      | `OnVolumeChange
+      | `OnWaiting
+      | `OneBeforeUnload
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type body_content = HTML5_types.flow5
+  type body_content_fun = HTML5_types.flow5
+  type svg = [ `Svg ]
+  type svg_content = SVG_types.svg_content
+  type svg_attrib = SVG_types.svg_attr
+  type base = [ `Base ]
+  type base_content = HTML5_types.notag
+  type base_content_fun = HTML5_types.notag
+  type base_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Href
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Target
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type title = [ `Title ]
+  type title_content = [ `PCDATA ]
+  type title_content_fun = [ `PCDATA ]
+  type title_attrib = HTML5_types.noattrib
+  type footer = [ `Footer ]
+  type footer_content = HTML5_types.flow5_without_header_footer
+  type footer_content_fun = HTML5_types.flow5_without_header_footer
+  type footer_attrib = HTML5_types.common
+  type header = [ `Header ]
+  type header_content = HTML5_types.flow5_without_header_footer
+  type header_content_fun = HTML5_types.flow5_without_header_footer
+  type header_attrib = HTML5_types.common
+  type section = [ `Section ]
+  type section_content = HTML5_types.flow5
+  type section_content_fun = HTML5_types.flow5
+  type section_attrib = HTML5_types.common
+  type nav = [ `Nav ]
+  type nav_content = HTML5_types.flow5
+  type nav_content_fun = HTML5_types.flow5
+  type nav_attrib = HTML5_types.common
+  type h1 = [ `H1 ]
+  type h1_content = HTML5_types.phrasing
+  type h1_content_fun = HTML5_types.phrasing
+  type h1_attrib = HTML5_types.common
+  type h2 = [ `H2 ]
+  type h2_content = HTML5_types.phrasing
+  type h2_content_fun = HTML5_types.phrasing
+  type h2_attrib = HTML5_types.common
+  type h3 = [ `H3 ]
+  type h3_content = HTML5_types.phrasing
+  type h3_content_fun = HTML5_types.phrasing
+  type h3_attrib = HTML5_types.common
+  type h4 = [ `H4 ]
+  type h4_content = HTML5_types.phrasing
+  type h4_content_fun = HTML5_types.phrasing
+  type h4_attrib = HTML5_types.common
+  type h5 = [ `H5 ]
+  type h5_content = HTML5_types.phrasing
+  type h5_content_fun = HTML5_types.phrasing
+  type h5_attrib = HTML5_types.common
+  type h6 = [ `H6 ]
+  type h6_content = HTML5_types.phrasing
+  type h6_content_fun = HTML5_types.phrasing
+  type h6_attrib = HTML5_types.common
+  type hgroup = [ `Hgroup ]
+  type hgroup_content = [ `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+  type hgroup_content_fun = [ `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+  type hgroup_attrib = HTML5_types.common
+  type address = [ `Address ]
+  type address_content =
+      HTML5_types.flow5_without_sectioning_heading_header_footer_address
+  type address_content_fun =
+      HTML5_types.flow5_without_sectioning_heading_header_footer_address
+  type address_attrib = HTML5_types.common
+  type article = [ `Article ]
+  type article_content = HTML5_types.flow5
+  type article_content_fun = HTML5_types.flow5
+  type article_attrib = HTML5_types.common
+  type aside = [ `Aside ]
+  type aside_content = HTML5_types.flow5
+  type aside_content_fun = HTML5_types.flow5
+  type aside_attrib = HTML5_types.common
+  type p = [ `P ]
+  type p_content = HTML5_types.phrasing
+  type p_content_fun = HTML5_types.phrasing
+  type p_attrib = HTML5_types.common
+  type pre = [ `Pre ]
+  type pre_content = HTML5_types.phrasing
+  type pre_content_fun = HTML5_types.phrasing
+  type pre_attrib = HTML5_types.common
+  type blockquote = [ `Blockquote ]
+  type blockquote_content = HTML5_types.flow5
+  type blockquote_content_fun = HTML5_types.flow5
+  type blockquote_attrib =
+      [ `Accesskey
+      | `Cite
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type div = [ `Div ]
+  type div_content = HTML5_types.flow5
+  type div_content_fun = HTML5_types.flow5
+  type div_attrib = HTML5_types.common
+  type ol = [ `Ol ]
+  type ol_content =
+      [ `Li of
+          [ `Accesskey
+          | `Class
+          | `Contenteditable
+          | `Contextmenu
+          | `Dir
+          | `Draggable
+          | `Hidden
+          | `Id
+          | `Int_Value
+          | `OnAbort
+          | `OnBlur
+          | `OnCanPlay
+          | `OnCanPlayThrough
+          | `OnChange
+          | `OnClick
+          | `OnContextMenu
+          | `OnDblClick
+          | `OnDrag
+          | `OnDragEnd
+          | `OnDragEnter
+          | `OnDragLeave
+          | `OnDragOver
+          | `OnDragStart
+          | `OnDrop
+          | `OnDurationChange
+          | `OnEmptied
+          | `OnEnded
+          | `OnError
+          | `OnFocus
+          | `OnFormChange
+          | `OnFormInput
+          | `OnInput
+          | `OnInvalid
+          | `OnKeyDown
+          | `OnKeyPress
+          | `OnKeyUp
+          | `OnLoad
+          | `OnLoadStart
+          | `OnLoadedData
+          | `OnLoadedMetaData
+          | `OnMouseDown
+          | `OnMouseMove
+          | `OnMouseOut
+          | `OnMouseOver
+          | `OnMouseUp
+          | `OnMouseWheel
+          | `OnPause
+          | `OnPlay
+          | `OnPlaying
+          | `OnProgress
+          | `OnRateChange
+          | `OnReadyStateChange
+          | `OnScroll
+          | `OnSeeked
+          | `OnSeeking
+          | `OnSelect
+          | `OnShow
+          | `OnStalled
+          | `OnSubmit
+          | `OnSuspend
+          | `OnTimeUpdate
+          | `OnVolumeChange
+          | `OnWaiting
+          | `Spellcheck
+          | `Style_Attr
+          | `Tabindex
+          | `Title
+          | `User_data
+          | `XML_lang
+          | `XMLns ] ]
+  type ol_content_fun =
+      [ `Li of
+          [ `Accesskey
+          | `Class
+          | `Contenteditable
+          | `Contextmenu
+          | `Dir
+          | `Draggable
+          | `Hidden
+          | `Id
+          | `Int_Value
+          | `OnAbort
+          | `OnBlur
+          | `OnCanPlay
+          | `OnCanPlayThrough
+          | `OnChange
+          | `OnClick
+          | `OnContextMenu
+          | `OnDblClick
+          | `OnDrag
+          | `OnDragEnd
+          | `OnDragEnter
+          | `OnDragLeave
+          | `OnDragOver
+          | `OnDragStart
+          | `OnDrop
+          | `OnDurationChange
+          | `OnEmptied
+          | `OnEnded
+          | `OnError
+          | `OnFocus
+          | `OnFormChange
+          | `OnFormInput
+          | `OnInput
+          | `OnInvalid
+          | `OnKeyDown
+          | `OnKeyPress
+          | `OnKeyUp
+          | `OnLoad
+          | `OnLoadStart
+          | `OnLoadedData
+          | `OnLoadedMetaData
+          | `OnMouseDown
+          | `OnMouseMove
+          | `OnMouseOut
+          | `OnMouseOver
+          | `OnMouseUp
+          | `OnMouseWheel
+          | `OnPause
+          | `OnPlay
+          | `OnPlaying
+          | `OnProgress
+          | `OnRateChange
+          | `OnReadyStateChange
+          | `OnScroll
+          | `OnSeeked
+          | `OnSeeking
+          | `OnSelect
+          | `OnShow
+          | `OnStalled
+          | `OnSubmit
+          | `OnSuspend
+          | `OnTimeUpdate
+          | `OnVolumeChange
+          | `OnWaiting
+          | `Spellcheck
+          | `Style_Attr
+          | `Tabindex
+          | `Title
+          | `User_data
+          | `XML_lang
+          | `XMLns ] ]
+  type ol_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Reversed
+      | `Spellcheck
+      | `Start
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type li_content = HTML5_types.flow5
+  type li_content_fun = HTML5_types.flow5
+  type li_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Int_Value
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type li = [ `Li of HTML5_types.li_attrib ]
+  type ul = [ `Ul ]
+  type ul_content = [ `Li of HTML5_types.li_attrib ]
+  type ul_content_fun = [ `Li of HTML5_types.li_attrib ]
+  type ul_attrib = HTML5_types.common
+  type dd = [ `Dd ]
+  type dd_content = HTML5_types.flow5
+  type dd_content_fun = HTML5_types.flow5
+  type dd_attrib = HTML5_types.common
+  type dt = [ `Dt ]
+  type dt_content = HTML5_types.phrasing
+  type dt_content_fun = HTML5_types.phrasing
+  type dt_attrib = HTML5_types.common
+  type figcaption = [ `Figcaption ]
+  type figcaption_content = HTML5_types.flow5
+  type figcaption_content_fun = HTML5_types.flow5
+  type figcaption_attrib = HTML5_types.common
+  type hr = [ `Hr ]
+  type hr_content = HTML5_types.notag
+  type hr_content_fun = HTML5_types.notag
+  type hr_attrib = HTML5_types.common
+  type b = [ `B ]
+  type b_content = HTML5_types.phrasing
+  type b_content_fun = HTML5_types.phrasing
+  type b_attrib = HTML5_types.common
+  type i = [ `I ]
+  type i_content = HTML5_types.phrasing
+  type i_content_fun = HTML5_types.phrasing
+  type i_attrib = HTML5_types.common
+  type small = [ `Small ]
+  type small_content = HTML5_types.phrasing
+  type small_content_fun = HTML5_types.phrasing
+  type small_attrib = HTML5_types.common
+  type sub = [ `Sub ]
+  type sub_content = HTML5_types.phrasing
+  type sub_content_fun = HTML5_types.phrasing
+  type sub_attrib = HTML5_types.common
+  type sup = [ `Sup ]
+  type sup_content = HTML5_types.phrasing
+  type sup_content_fun = HTML5_types.phrasing
+  type sup_attrib = HTML5_types.common
+  type mark = [ `Mark ]
+  type mark_content = HTML5_types.phrasing
+  type mark_content_fun = HTML5_types.phrasing
+  type mark_attrib = HTML5_types.common
+  type wbr = [ `Wbr ]
+  type wbr_content = HTML5_types.notag
+  type wbr_content_fun = HTML5_types.notag
+  type wbr_attrib = HTML5_types.common
+  type bdo = [ `Bdo ]
+  type bdo_content = HTML5_types.phrasing
+  type bdo_content_fun = HTML5_types.phrasing
+  type bdo_attrib = HTML5_types.common
+  type abbr = [ `Abbr ]
+  type abbr_content = HTML5_types.phrasing
+  type abbr_content_fun = HTML5_types.phrasing
+  type abbr_attrib = HTML5_types.common
+  type br = [ `Br ]
+  type br_content = HTML5_types.notag
+  type br_content_fun = HTML5_types.notag
+  type br_attrib = HTML5_types.common
+  type cite = [ `Cite ]
+  type cite_content = HTML5_types.phrasing
+  type cite_content_fun = HTML5_types.phrasing
+  type cite_attrib = HTML5_types.common
+  type code = [ `Code ]
+  type code_content = HTML5_types.phrasing
+  type code_content_fun = HTML5_types.phrasing
+  type code_attrib = HTML5_types.common
+  type dfn = [ `Dfn ]
+  type dfn_content = HTML5_types.phrasing_without_dfn
+  type dfn_content_fun = HTML5_types.phrasing_without_dfn
+  type dfn_attrib = HTML5_types.common
+  type em = [ `Em ]
+  type em_content = HTML5_types.phrasing
+  type em_content_fun = HTML5_types.phrasing
+  type em_attrib = HTML5_types.common
+  type kbd = [ `Kbd ]
+  type kbd_content = HTML5_types.phrasing
+  type kbd_content_fun = HTML5_types.phrasing
+  type kbd_attrib = HTML5_types.common
+  type q = [ `Q ]
+  type q_content = HTML5_types.phrasing
+  type q_content_fun = HTML5_types.phrasing
+  type q_attrib =
+      [ `Accesskey
+      | `Cite
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type samp = [ `Samp ]
+  type samp_content = HTML5_types.phrasing
+  type samp_content_fun = HTML5_types.phrasing
+  type samp_attrib = HTML5_types.common
+  type span = [ `Span ]
+  type span_content = HTML5_types.phrasing
+  type span_content_fun = HTML5_types.phrasing
+  type span_attrib = HTML5_types.common
+  type strong = [ `Strong ]
+  type strong_content = HTML5_types.phrasing
+  type strong_content_fun = HTML5_types.phrasing
+  type strong_attrib = HTML5_types.common
+  type time = [ `Time ]
+  type time_content = HTML5_types.phrasing_without_time
+  type time_content_fun = HTML5_types.phrasing_without_time
+  type time_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Datetime
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Pubdate
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type var = [ `Var ]
+  type var_content = HTML5_types.phrasing
+  type var_content_fun = HTML5_types.phrasing
+  type var_attrib = HTML5_types.common
+  type a_content = HTML5_types.flow5_without_interactive
+  type a_content_fun = HTML5_types.flow5_without_interactive
+  type 'a a = [ `A of 'a ]
+  type a_ = [ `A of HTML5_types.a_content ]
+  type a_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Href
+      | `Hreflang
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rel
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Target
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type 'a del = [ `Del of 'a ]
+  type del_content = HTML5_types.flow5
+  type del_ = HTML5_types.del_content HTML5_types.del
+  type del_content_fun = HTML5_types.flow5
+  type del_attrib =
+      [ `Accesskey
+      | `Cite
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Datetime
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type 'a ins = [ `Ins of 'a ]
+  type ins_content = HTML5_types.flow5
+  type ins_ = HTML5_types.ins_content HTML5_types.ins
+  type ins_content_fun = HTML5_types.flow5
+  type ins_attrib =
+      [ `Accesskey
+      | `Cite
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Datetime
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type iframe = [ `Iframe ]
+  type iframe_content = [ `PCDATA ]
+  type iframe_content_fun = [ `PCDATA ]
+  type iframe_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Sandbox
+      | `Seamless
+      | `Spellcheck
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type object__content =
+      [ `A of HTML5_types.flow5_without_interactive
+      | `Abbr
+      | `Address
+      | `Article
+      | `Aside
+      | `Audio of HTML5_types.flow5_without_media
+      | `Audio_interactive of HTML5_types.flow5_without_media
+      | `B
+      | `Bdo
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Canvas of HTML5_types.flow5
+      | `Cite
+      | `Code
+      | `Command
+      | `Datalist
+      | `Del of HTML5_types.flow5
+      | `Details
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Embed
+      | `Fieldset
+      | `Figure
+      | `Footer
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Header
+      | `Hgroup
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Img_interactive
+      | `Input
+      | `Ins of HTML5_types.flow5
+      | `Kbd
+      | `Keygen
+      | `Label
+      | `Map of HTML5_types.flow5
+      | `Mark
+      | `Menu
+      | `Meter
+      | `Nav
+      | `Noscript of HTML5_types.flow5_without_noscript
+      | `Object of HTML5_types.flow5
+      | `Object_interactive of HTML5_types.flow5
+      | `Ol
+      | `Output
+      | `P
+      | `PCDATA
+      | `Param
+      | `Pre
+      | `Progress
+      | `Q
+      | `Ruby
+      | `Samp
+      | `Script
+      | `Section
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Style
+      | `Sub
+      | `Sup
+      | `Svg
+      | `Table
+      | `Textarea
+      | `Time
+      | `Ul
+      | `Var
+      | `Video of HTML5_types.flow5_without_media
+      | `Video_interactive of HTML5_types.flow5_without_media
+      | `Wbr ]
+  type object__content_fun = HTML5_types.flow5
+  type 'a object_ = [ `Object of 'a | `Object_interactive of 'a ]
+  type object__ = HTML5_types.object__content HTML5_types.object_
+  type object__attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Data
+      | `Dir
+      | `Draggable
+      | `Form
+      | `Height
+      | `Hidden
+      | `Id
+      | `Mime_type
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `Usemap
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type param = [ `Param ]
+  type param_content = HTML5_types.notag
+  type param_content_fun = HTML5_types.notag
+  type param_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Text_Value
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type embed = [ `Embed ]
+  type embed_content = HTML5_types.notag
+  type embed_content_fun = HTML5_types.notag
+  type embed_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type 'a audio = [ `Audio of 'a | `Audio_interactive of 'a ]
+  type audio_content = HTML5_types.flow5_without_media
+  type audio_ = HTML5_types.audio_content HTML5_types.audio
+  type audio_content_fun = HTML5_types.flow5_without_media
+  type audio_attrib =
+      [ `Accesskey
+      | `Autoplay
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Controls
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Loop
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Poster
+      | `Preload
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type 'a video = [ `Video of 'a | `Video_interactive of 'a ]
+  type video_content = HTML5_types.flow5_without_media
+  type video_ = HTML5_types.video_content HTML5_types.video
+  type video_content_fun = HTML5_types.flow5_without_media
+  type video_attrib =
+      [ `Accesskey
+      | `Autoplay
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Controls
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `Loop
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Poster
+      | `Preload
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type 'a canvas = [ `Canvas of 'a ]
+  type canvas_content = HTML5_types.flow5
+  type canvas_ = HTML5_types.canvas_content HTML5_types.canvas
+  type canvas_content_fun = HTML5_types.flow5
+  type canvas_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Height
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type source = [ `Source ]
+  type source_content = HTML5_types.notag
+  type source_content_fun = HTML5_types.notag
+  type source_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type area = [ `Area ]
+  type area_content = HTML5_types.notag
+  type area_content_fun = HTML5_types.notag
+  type area_attrib =
+      [ `Accesskey
+      | `Alt
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Coords
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Hreflang
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rel
+      | `Shape
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Target
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type 'a map = [ `Map of 'a ]
+  type map_content = HTML5_types.flow5
+  type map_ = HTML5_types.map_content HTML5_types.map
+  type map_content_fun = HTML5_types.flow5
+  type map_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type caption = [ `Caption ]
+  type caption_content = HTML5_types.flow5_without_table
+  type caption_content_fun = HTML5_types.flow5_without_table
+  type caption_attrib = HTML5_types.common
+  type table = [ `Table ]
+  type table_content = [ `Tr ]
+  type table_content_fun = [ `Tr ]
+  type table_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Summary
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type tablex = [ `Table ]
+  type tablex_content = [ `Tbody ]
+  type tablex_content_fun = [ `Tbody ]
+  type tablex_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Summary
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type colgroup = [ `Colgroup ]
+  type colgroup_content = [ `Col ]
+  type colgroup_content_fun = [ `Col ]
+  type colgroup_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Span
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type col = [ `Col ]
+  type col_content = HTML5_types.notag
+  type col_content_fun = HTML5_types.notag
+  type col_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Span
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type thead = [ `Thead ]
+  type thead_content = [ `Tr ]
+  type thead_content_fun = [ `Tr ]
+  type thead_attrib = HTML5_types.common
+  type tbody = [ `Tbody ]
+  type tbody_content = [ `Tr ]
+  type tbody_content_fun = [ `Tr ]
+  type tbody_attrib = HTML5_types.common
+  type tfoot = [ `Tfoot ]
+  type tfoot_content = [ `Tr ]
+  type tfoot_content_fun = [ `Tr ]
+  type tfoot_attrib = HTML5_types.common
+  type td = [ `Td ]
+  type td_content = HTML5_types.flow5
+  type td_content_fun = HTML5_types.flow5
+  type td_attrib =
+      [ `Accesskey
+      | `Class
+      | `Colspan
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Headers
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rowspan
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type th = [ `Th ]
+  type th_content = HTML5_types.phrasing
+  type th_content_fun = HTML5_types.phrasing
+  type th_attrib =
+      [ `Accesskey
+      | `Class
+      | `Colspan
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Headers
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rowspan
+      | `Scope
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type tr = [ `Tr ]
+  type tr_content = [ `Td | `Th ]
+  type tr_content_fun = [ `Td | `Th ]
+  type tr_attrib = HTML5_types.common
+  type form = [ `Form ]
+  type form_content = HTML5_types.flow5_without_form
+  type form_content_fun = HTML5_types.flow5_without_form
+  type form_attrib =
+      [ `Accept_charset
+      | `Accesskey
+      | `Action
+      | `Autocomplete
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Enctype
+      | `Hidden
+      | `Id
+      | `Method
+      | `Name
+      | `Novalidate
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Target
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type fieldset = [ `Fieldset ]
+  type fieldset_content = HTML5_types.flow5
+  type fieldset_content_fun = HTML5_types.flow5
+  type fieldset_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type legend = [ `Legend ]
+  type legend_content = HTML5_types.phrasing
+  type legend_content_fun = HTML5_types.phrasing
+  type legend_attrib = HTML5_types.common
+  type label = [ `Label ]
+  type label_content = HTML5_types.phrasing_without_label
+  type label_content_fun = HTML5_types.phrasing_without_label
+  type label_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `For
+      | `Form
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type input = [ `Input ]
+  type input_content = HTML5_types.notag
+  type input_content_fun = HTML5_types.notag
+  type input_attrib =
+      [ `Accept
+      | `Accesskey
+      | `Alt
+      | `Autocomplete
+      | `Autofocus
+      | `Checked
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Formation
+      | `Formenctype
+      | `Formmethod
+      | `Formnovalidate
+      | `Formtarget
+      | `Height
+      | `Hidden
+      | `Id
+      | `Input_Max
+      | `Input_Min
+      | `Input_Type
+      | `List
+      | `Maxlength
+      | `Multiple
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Pattern
+      | `Placeholder
+      | `ReadOnly
+      | `Required
+      | `Size
+      | `Spellcheck
+      | `Src
+      | `Step
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Value
+      | `Width
+      | `XML_lang
+      | `XMLns ]
+  type textarea = [ `Textarea ]
+  type textarea_attrib =
+      [ `Accesskey
+      | `Autofocus
+      | `Class
+      | `Cols
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Hidden
+      | `Id
+      | `Maxlength
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Placeholder
+      | `Readonly
+      | `Required
+      | `Rows
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `Wrap
+      | `XML_lang
+      | `XMLns ]
+  type textarea_content = [ `PCDATA ]
+  type textarea_content_fun = HTML5_types.textarea_content
+  type button = [ `Button ]
+  type button_content = HTML5_types.phrasing_without_interactive
+  type button_content_fun = HTML5_types.phrasing_without_interactive
+  type button_attrib =
+      [ `Accesskey
+      | `Autofocus
+      | `Button_Type
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Formaction
+      | `Formenctype
+      | `Formmethod
+      | `Formnovalidate
+      | `Formtarget
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Text_Value
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type select = [ `Select ]
+  type select_content = [ `Optgroup | `Option ]
+  type select_content_fun = [ `Optgroup | `Option ]
+  type select_attrib =
+      [ `Accesskey
+      | `Autofocus
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Hidden
+      | `Id
+      | `Multiple
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Size
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type datalist = [ `Datalist ]
+  type datalist_content = HTML5_types.notag
+  type datalist_content_fun = HTML5_types.notag
+  type datalist_attrib = HTML5_types.common
+  type optgroup = [ `Optgroup ]
+  type optgroup_content = [ `Option ]
+  type optgroup_content_fun = [ `Option ]
+  type optgroup_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Label
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type option_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Label
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Selected
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Text_Value
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type selectoption = [ `Option ]
+  type option_content_fun = [ `PCDATA ]
+  type option_content = [ `PCDATA ]
+  type keygen = [ `Keygen ]
+  type keygen_content = HTML5_types.notag
+  type keygen_content_fun = HTML5_types.notag
+  type keygen_attrib =
+      [ `Accesskey
+      | `Autofcus
+      | `Challenge
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Form
+      | `Hidden
+      | `Id
+      | `Keytype
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type progress = [ `Progress ]
+  type progress_content = HTML5_types.phrasing_without_progress
+  type progress_content_fun = HTML5_types.phrasing_without_progress
+  type progress_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Float_Value
+      | `Form
+      | `Hidden
+      | `Id
+      | `Max
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type meter = [ `Meter ]
+  type meter_content = HTML5_types.phrasing_without_meter
+  type meter_content_fun = HTML5_types.phrasing_without_meter
+  type meter_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Float_Value
+      | `Form
+      | `Hidden
+      | `High
+      | `Id
+      | `Low
+      | `Max
+      | `Min
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Optimum
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type output_elt = [ `Output ]
+  type output_elt_content = HTML5_types.phrasing
+  type output_elt_content_fun = HTML5_types.phrasing
+  type output_elt_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `For_List
+      | `Form
+      | `Hidden
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type details = [ `Details ]
+  type details_content = HTML5_types.flow5
+  type details_content_fun = HTML5_types.flow5
+  type details_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Open
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type summary = [ `Summary ]
+  type summary_content = HTML5_types.phrasing
+  type summary_content_fun = HTML5_types.phrasing
+  type summary_attrib = HTML5_types.common
+  type command = [ `Command ]
+  type command_content = HTML5_types.notag
+  type command_content_fun = HTML5_types.notag
+  type command_attrib =
+      [ `Accesskey
+      | `Checked
+      | `Class
+      | `Command_Type
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Disabled
+      | `Draggable
+      | `Hidden
+      | `Icon
+      | `Id
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Radiogroup
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type menu = [ `Menu ]
+  type menu_content = HTML5_types.notag
+  type menu_content_fun = HTML5_types.notag
+  type menu_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Label
+      | `Menu_Type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type noscript = [ `Noscript of HTML5_types.flow5_without_noscript ]
+  type noscript_content = HTML5_types.flow5_without_noscript
+  type noscript_content_fun = HTML5_types.flow5_without_noscript
+  type noscript_attrib = HTML5_types.common
+  type meta = [ `Meta ]
+  type meta_content = HTML5_types.notag
+  type meta_content_fun = HTML5_types.notag
+  type meta_attrib =
+      [ `Accesskey
+      | `Charset
+      | `Class
+      | `Content
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Http_equiv
+      | `Id
+      | `Name
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type style = [ `Style ]
+  type style_content = [ `PCDATA ]
+  type style_content_fun = [ `PCDATA ]
+  type style_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Scoped
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type script = [ `Script ]
+  type script_attrib =
+      [ `Accesskey
+      | `Async
+      | `Charset
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Defer
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Spellcheck
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+  type script_content = [ `PCDATA ]
+  type script_content_fun = [ `PCDATA ]
+  type link = [ `Link ]
+  type link_content = HTML5_types.notag
+  type link_content_fun = HTML5_types.notag
+  type link_attrib =
+      [ `Accesskey
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Href
+      | `Hreflang
+      | `Id
+      | `Media
+      | `Mime_type
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Rel
+      | `Sizes
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
+end >>

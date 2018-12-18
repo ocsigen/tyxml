@@ -1,0 +1,33 @@
+=Module <<a_api_type | module Xhtml_sigs.T_01_01.Unsafe >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Unsafe>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xhtml_sigs.T_01_01.Unsafe >><<span class="ocsforge_color_keyword"|end>>>>
+----
+
+~Unsafe features~. ~Warning using this module can break
+        validity and may introduce security problems like
+        code injection~.
+        ~Use it with care~.
+<<pre id="VALdata" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|data>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.elt" | type Xhtml_sigs.T_01_01.elt >>>>>><<div class="odocwiki_info"|~Insert raw text without any encoding
+>>
+<<pre id="VALnode" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|node>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >>\\  <<span class="ocsforge_color_label"| ?a: >>'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >> list <<span class="ocsforge_color_delimiter"| -> >>\\  'b <<a_api text="Xhtml_sigs.T_01_01.elt" | type Xhtml_sigs.T_01_01.elt >> list <<span class="ocsforge_color_delimiter"| -> >> 'c <<a_api text="Xhtml_sigs.T_01_01.elt" | type Xhtml_sigs.T_01_01.elt >>>>>><<div class="odocwiki_info"|~Insert an ~X~M~L node that is not implemented in this module~.
+        ~If it is a standard ~X~H~T~M~L node which is missing~,
+        please report to the ~Ocsigen team~.
+>>
+<<pre id="VALleaf" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|leaf>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >>\\  <<span class="ocsforge_color_label"| ?a: >>'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >> list <<span class="ocsforge_color_delimiter"| -> >>\\  unit <<span class="ocsforge_color_delimiter"| -> >> 'b <<a_api text="Xhtml_sigs.T_01_01.elt" | type Xhtml_sigs.T_01_01.elt >>>>>><<div class="odocwiki_info"|~Insert an ~X~M~L node without children
+        that is not implemented in this module~.
+        ~If it is a standard ~X~H~T~M~L node which is missing~,
+        please report to the ~Ocsigen team~.
+>>
+<<pre id="VALstring_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|string~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >>>>>><<div class="odocwiki_info"|~Insert an attribute that is not implemented in this module~.
+        ~If it is a standard ~X~H~T~M~L attribute which is missing~,
+        please report to the ~Ocsigen team~.
+>>
+<<pre id="VALfloat_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|float~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> float <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >>>>>><<div class="odocwiki_info"|~Same~, for float attribute
+>>
+<<pre id="VALint_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|int~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> int <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >>>>>><<div class="odocwiki_info"|~Same~, for int attribute
+>>
+<<pre id="VALuri_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|uri~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> <<a_api text="Xhtml_sigs.T_01_01.uri" | type Xhtml_sigs.T_01_01.uri >> <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >>>>>><<div class="odocwiki_info"|~Same~, for ~U~R~I attribute
+>>
+<<pre id="VALspace_sep_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|space~_sep~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> string list <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >>>>>><<div class="odocwiki_info"|~Same~, for a space separated list of values
+>>
+<<pre id="VALcomma_sep_attrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|comma~_sep~_attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  string <<span class="ocsforge_color_delimiter"| -> >> string list <<span class="ocsforge_color_delimiter"| -> >> 'a <<a_api text="Xhtml_sigs.T_01_01.attrib" | type Xhtml_sigs.T_01_01.attrib >>>>>><<div class="odocwiki_info"|~Same~, for a comma separated list of values
+>>

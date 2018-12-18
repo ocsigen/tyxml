@@ -1,0 +1,10 @@
+<<code language="ocaml" | sig
+  type t =
+      EndOfTagExpected of string
+    | EOFExpected
+    | NoMoreTagExpected
+    | NoMoreData
+  exception E of Xhtmlparser.Make.Error.t
+  val print : Format.formatter -> Xhtmlparser.Make.Error.t -> unit
+  val to_string : Xhtmlparser.Make.Error.t -> string
+end >>

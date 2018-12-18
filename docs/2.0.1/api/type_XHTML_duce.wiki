@@ -1,0 +1,162 @@
+<<code language="ocaml" | sig
+  module type T =
+    sig
+      module Info : XML_sigs.Info
+      type elt =
+          {{X9 where
+  X1 = { cite=?String xml:lang=?String lang=?String class=?String
+       onmouseup=?String onclick=?String onkeyup=?String datetime=?String
+       onkeypress=?String id=?String dir=?X2 style=?String
+       onmousedown=?String onmousemove=?String onmouseover=?String
+       title=?String onmouseout=?String onkeydown=?String
+       ondblclick=?String } and
+  X2 = [ 'ltr' | 'rtl' ] and
+  X3 = { cite=?String xml:lang=?String lang=?String class=?String
+       onmouseup=?String onclick=?String onkeyup=?String onkeypress=?String
+       id=?String dir=?X2 style=?String onmousedown=?String
+       onmousemove=?String onmouseover=?String title=?String
+       onmouseout=?String onkeydown=?String ondblclick=?String } and
+  X4 = { ismap=?[ 'ismap' ] usemap=?String xml:lang=?String lang=?String
+       class=?String width=?String onmouseup=?String onclick=?String
+       onkeyup=?String onkeypress=?String id=?String alt=String dir=?X2
+       src=String height=?String style=?String onmousedown=?String
+       onmousemove=?String onmouseover=?String title=?String
+       onmouseout=?String longdesc=?String onkeydown=?String
+       ondblclick=?String } and
+  X5 = { xml:lang=?String lang=?String class=?String onmouseup=?String
+       onclick=?String onkeyup=?String onblur=?String onkeypress=?String
+       id=?String dir=?X2 for=?String style=?String onmousedown=?String
+       accesskey=?String onfocus=?String onmousemove=?String
+       onmouseover=?String title=?String onmouseout=?String onkeydown=?String
+       ondblclick=?String } and
+  X6 = [ select_content+ ] and
+  X7 = { usemap=?String data=?String xml:lang=?String lang=?String
+       class=?String name=?String width=?String onmouseup=?String
+       onclick=?String type=?String onkeyup=?String declare=?[ 'declare' ]
+       classid=?String onkeypress=?String id=?String dir=?X2 height=?String
+       style=?String onmousedown=?String onmousemove=?String codebase=?String
+       onmouseover=?String title=?String codetype=?String tabindex=?String
+       archive=?String onmouseout=?String standby=?String onkeydown=?String
+       ondblclick=?String } and
+  X8 = [ (<script (script_attrs)>String | <del (X1)>flows | <ins (X1)>flows |
+         <noscript (attrs)>blocks | <sup (attrs)>inlines |
+         <sub (attrs)>inlines | <acronym (attrs)>inlines |
+         <abbr (attrs)>inlines | <cite (attrs)>inlines |
+         <var (attrs)>inlines | <kbd (attrs)>inlines |
+         <samp (attrs)>inlines | <q (X3)>inlines | <code (attrs)>inlines |
+         <dfn (attrs)>inlines | <strong (attrs)>inlines |
+         <em (attrs)>inlines | <small (attrs)>inlines |
+         <big (attrs)>inlines | <b (attrs)>inlines | <i (attrs)>inlines |
+         <tt (attrs)>inlines | <img (X4)>[  ] |
+         <button (button_attrs)>button_contents | <label (X5)>inlines |
+         <textarea (textarea_attrs)>String | <select (select_attrs)>X6 |
+         <input (input_attrs)>[  ] | <object (X7)>X8 | <map (X12)>X13 |
+         <bdo (X14)>inlines | <span (attrs)>inlines | <br (coreattrs)>
+         [  ] | <a (a_attrs)>a_contents | <form (form_attrs)>form_contents |
+         <table (table_attrs)>X10 | <fieldset (attrs)>X11 |
+         <address (attrs)>inlines | <blockquote (X3)>blocks |
+         <hr (attrs)>[  ] | <pre (attrs)>X16 | <dl (attrs)>X17 |
+         <ol (attrs)>X15 | <ul (attrs)>X15 | <div (attrs)>flows |
+         <h6 (attrs)>inlines | <h5 (attrs)>inlines | <h4 (attrs)>inlines |
+         <h3 (attrs)>inlines | <h2 (attrs)>inlines | <h1 (attrs)>inlines |
+         <p (attrs)>inlines | <param name=?String type=?String id=?String
+         valuetype=?[ 'ref' | 'data' | 'object' ] value=?String>[  ] | Char)* ] and
+  X9 = <script (script_attrs)>String | <del (X1)>flows | <ins (X1)>flows |
+       <noscript (attrs)>blocks | <form (form_attrs)>form_contents |
+       <table (table_attrs)>X10 | <fieldset (attrs)>X11 |
+       <address (attrs)>inlines | <blockquote (X3)>blocks |
+       <hr (attrs)>[  ] | <pre (attrs)>X16 | <dl (attrs)>X17 |
+       <ol (attrs)>X15 | <ul (attrs)>X15 | <div (attrs)>flows |
+       <h6 (attrs)>inlines | <h5 (attrs)>inlines | <h4 (attrs)>inlines |
+       <h3 (attrs)>inlines | <h2 (attrs)>inlines | <h1 (attrs)>inlines |
+       <p (attrs)>inlines and
+  X10 = [ caption? thead tfoot? tbody+ | caption? thead tfoot? tr+ | 
+        caption? tfoot tbody+ | caption? tfoot tr+ | caption? col+ thead
+        tfoot? tbody+ | caption? col+ thead tfoot? tr+ | caption? col+ tfoot
+        tbody+ | caption? col+ tfoot tr+ | caption? col+ tbody+ | caption?
+        col+ tr+ | caption? colgroup+ thead tfoot? tbody+ | caption?
+        colgroup+ thead tfoot? tr+ | caption? colgroup+ tfoot tbody+ |
+        caption? colgroup+ tfoot tr+ | caption? colgroup+ tbody+ | caption?
+        colgroup+ tr+ | caption? tbody+ | caption? tr+ ] and
+  X11 = [ (<script (script_attrs)>String | <del (X1)>flows |
+          <ins (X1)>flows | <noscript (attrs)>blocks | <sup (attrs)>inlines |
+          <sub (attrs)>inlines | <acronym (attrs)>inlines |
+          <abbr (attrs)>inlines | <cite (attrs)>inlines |
+          <var (attrs)>inlines | <kbd (attrs)>inlines |
+          <samp (attrs)>inlines | <q (X3)>inlines | <code (attrs)>inlines |
+          <dfn (attrs)>inlines | <strong (attrs)>inlines |
+          <em (attrs)>inlines | <small (attrs)>inlines |
+          <big (attrs)>inlines | <b (attrs)>inlines | <i (attrs)>inlines |
+          <tt (attrs)>inlines | <img (X4)>[  ] |
+          <button (button_attrs)>button_contents | <label (X5)>inlines |
+          <textarea (textarea_attrs)>String | <select (select_attrs)>X6 |
+          <input (input_attrs)>[  ] | <object (X7)>X8 | <map (X12)>X13 |
+          <bdo (X14)>inlines | <span (attrs)>inlines | <br (coreattrs)>
+          [  ] | <a (a_attrs)>a_contents | <form (form_attrs)>form_contents |
+          <table (table_attrs)>X10 | <fieldset (attrs)>X11 |
+          <address (attrs)>inlines | <blockquote (X3)>blocks |
+          <hr (attrs)>[  ] | <pre (attrs)>X16 | <dl (attrs)>X17 |
+          <ol (attrs)>X15 | <ul (attrs)>X15 | <div (attrs)>flows |
+          <h6 (attrs)>inlines | <h5 (attrs)>inlines | <h4 (attrs)>inlines |
+          <h3 (attrs)>inlines | <h2 (attrs)>inlines | <h1 (attrs)>inlines |
+          <p (attrs)>inlines | <legend xml:lang=?String lang=?String
+          class=?String onmouseup=?String onclick=?String onkeyup=?String
+          onkeypress=?String id=?String dir=?X2 style=?String
+          onmousedown=?String accesskey=?String onmousemove=?String
+          onmouseover=?String title=?String onmouseout=?String
+          onkeydown=?String ondblclick=?String>inlines | Char)* ] and
+  X12 = { xml:lang=?String lang=?String class=?String name=?String
+        onmouseup=?String onclick=?String onkeyup=?String onkeypress=?String
+        id=String dir=?X2 style=?String onmousedown=?String
+        onmousemove=?String onmouseover=?String title=?String
+        onmouseout=?String onkeydown=?String ondblclick=?String } and
+  X13 = [ X9+ | area+ ] and
+  X14 = { xml:lang=?String lang=?String class=?String onmouseup=?String
+        onclick=?String onkeyup=?String onkeypress=?String id=?String 
+        dir=X2 style=?String onmousedown=?String onmousemove=?String
+        onmouseover=?String title=?String onmouseout=?String
+        onkeydown=?String ondblclick=?String } and
+  X15 = [ li+ ] and
+  X16 = [ (<script (script_attrs)>String | <del (X1)>flows |
+          <ins (X1)>flows | <sup (attrs)>inlines | <sub (attrs)>inlines |
+          <acronym (attrs)>inlines | <abbr (attrs)>inlines |
+          <cite (attrs)>inlines | <var (attrs)>inlines |
+          <kbd (attrs)>inlines | <samp (attrs)>inlines | <q (X3)>inlines |
+          <code (attrs)>inlines | <dfn (attrs)>inlines |
+          <strong (attrs)>inlines | <em (attrs)>inlines |
+          <small (attrs)>inlines | <big (attrs)>inlines |
+          <b (attrs)>inlines | <i (attrs)>inlines | <tt (attrs)>inlines |
+          <button (button_attrs)>button_contents | <label (X5)>inlines |
+          <textarea (textarea_attrs)>String | <select (select_attrs)>X6 |
+          <input (input_attrs)>[  ] | <map (X12)>X13 | <bdo (X14)>inlines |
+          <span (attrs)>inlines | <br (coreattrs)>[  ] |
+          <a (a_attrs)>a_contents | Char)* ] and
+  X17 = [ (<dd (attrs)>flows | <dt (attrs)>inlines)+ ]}}
+      type doc = XHTML_types_duce.html
+      val of_doc : doc -> Ocamlduce.Load.anyxml
+      val of_elt : elt -> Ocamlduce.Load.anyxml
+    end
+  module M : T
+  module P :
+    sig
+      type elt = M.elt
+      type doc = M.doc
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> elt list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> ?advert:string -> doc -> unit
+    end
+  module P_01_00 :
+    sig
+      type elt = M.elt
+      type doc = M.doc
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> elt list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> ?advert:string -> doc -> unit
+    end
+end >>

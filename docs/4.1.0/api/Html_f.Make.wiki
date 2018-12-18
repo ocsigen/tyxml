@@ -1,0 +1,14 @@
+=Functor <<a_api_type | module Html_f.Make >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Make>>>> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="odocwiki_type"|     with type ('a, 'b) W.ft = 'a -> 'b>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Svg <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Svg_sigs.T" | module Svg_sigs.T >>>><<span class="odocwiki_type"|     with module Xml := Xml>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Html_sigs.Make" | module Html_sigs.Make >>(Xml)(Svg).T>><<span class="odocwiki_type"| \\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>>~Create a new implementation of <<span class="odocwiki_inlinecode"|~H~T~M~L>>~, using the given underlying <<span class="odocwiki_inlinecode"|~Xml>>
+    and <<span class="odocwiki_inlinecode"|~Svg>> implementation~. ~Will output a module of type <<a_api | module type Html_sigs.T >> with
+    the various type equalities~.
+
+
+    ~If your <<span class="odocwiki_inlinecode"|~Xml>> implementation uses a special function wrapping~, use
+    <<a_api | module Html_f.Make_with_wrapped_functions >>~.
+<<div class="odocwiki_module_param_list" | <<span class="odocwiki_param_title" |Parameters :>><<div|
+|@@class="odocwiki_paramstable"@ @class="centertop fifteen code"@@{{{Xml}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b>>|
+|@@class="centertop fifteen code"@@{{{Svg}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Svg_sigs.T with module Xml := Xml>>|
+>>>>
+
+----

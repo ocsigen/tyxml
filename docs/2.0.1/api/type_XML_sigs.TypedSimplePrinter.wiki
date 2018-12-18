@@ -1,0 +1,12 @@
+<<code language="ocaml" | sig
+  type 'a elt
+  type doc
+  val print_list :
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    'a XML_sigs.TypedSimplePrinter.elt list -> unit
+  val print :
+    output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    ?advert:string -> XML_sigs.TypedSimplePrinter.doc -> unit
+end >>

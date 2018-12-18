@@ -1,0 +1,26 @@
+=Index of module types=
+
+|@@ @style="tet-align: left;"@@\\I|
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module type Xml_sigs.Info >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Iterable"| module type Xml_sigs.Iterable >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Iterable_typed_xml"| module type Xml_sigs.Iterable_typed_xml >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\O|
+|@@class="odocwiki_index"@ @@<<a_api text="Output"| module type Xml_sigs.Output >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\P|
+|@@class="odocwiki_index"@ @@<<a_api text="Printer"| module type Xml_sigs.Printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\S|
+|@@class="odocwiki_index"@ @@<<a_api text="Simple_printer"| module type Xml_sigs.Simple_printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\T|
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Html5_sigs.T >> ~[<<a_api | module Html5_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Svg_sigs.T >> ~[<<a_api | module Svg_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Xhtml_sigs.T >> ~[<<a_api | module Xhtml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Xml_sigs.T >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T"| module type Xml_wrap.T >> ~[<<a_api | module Xml_wrap >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T_01_00"| module type Xhtml_sigs.T_01_00 >> ~[<<a_api | module Xhtml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="T_01_01"| module type Xhtml_sigs.T_01_01 >> ~[<<a_api | module Xhtml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_printer"| module type Xml_sigs.Typed_printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_simple_printer"| module type Xml_sigs.Typed_simple_printer >> ~[<<a_api | module Xml_sigs >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Typed_xml"| module type Xml_sigs.Typed_xml >> ~[<<a_api | module Xml_sigs >>~]||
+|@@ @style="tet-align: left;"@@\\W|
+|@@class="odocwiki_index"@ @@<<a_api text="Wrapped"| module type Xml_sigs.Wrapped >> ~[<<a_api | module Xml_sigs >>~]||
+\\

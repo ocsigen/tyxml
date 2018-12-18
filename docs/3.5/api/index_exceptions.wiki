@@ -1,0 +1,5 @@
+=Index of exceptions=
+
+|@@ @style="tet-align: left;"@@\\X|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_parser_error"| exception Simplexmlparser.Xml_parser_error >> ~[<<a_api | module Simplexmlparser >>~]||
+\\

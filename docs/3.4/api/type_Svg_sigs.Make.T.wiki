@@ -1,0 +1,1 @@
+<<code language="ocaml" | MakeWrapped(Xml_wrap.NoWrap)(Xml).T >>

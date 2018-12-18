@@ -1,0 +1,47 @@
+= The functorial interface =
+
+TyXML provides a functorial interface to implement HTML and SVG on top of any XML implementations. This is used heavily by Eliom to implement the ##F## and ##D## modules, providing respectivelly a functionnal and a DOM version of the HTML implementation.
+
+
+==@@id="make"@@ The ##Make## functors ==
+
+Those interfaces are available in the modules <<a_api | module Html5_f >> and <<a_api | module Svg_f >>. They provide a functor ##Make## which takes a concrete implementation of Xml following <<a_api | module Xml_sigs.T >>. A default implementation is provided by the <<a_api | module Xml >> module.
+The functor <<a_api | module Html5_f.Make >> also needs an Svg implementation that you can obtain, for example, with the functor <<a_api | module Svg_f.Make >>.
+Due to typing constraints (see next section), The ##Xml## implementation will always need to provide a {{{wrap}}} type answering this definition:
+<<code language="ocaml"| type 'a wrap = 'a >>
+
+
+==@@id="wrap"@@ Wrapping up the nodes ==
+
+Beside the ##Make## functor. those two modules provide a ##MakeWrapped## functor, which allows to wrap Xml elements in a monad.
+A good example of application is the ##R## modules with reactive nodes in eliom. Here is the simplified signature of the {{{div}}} element:
+<<code language="ocaml"|R.div : 'a elt list signal -> div elt>>
+
+{{{signal}}} will wrap the input of every ##Xml## nodes and be integrated in the resulting node.
+
+In order to do this, You need to provide an additional ##Wrap## module to the functor, following the signature <<a_api | module Xml_wrap.T >>. This implements operations over the type of nodes along with a special type for lists of nodes.
+The ##Xml## implementation follow <<a_api | module Xml_sigs.Wrapped >>, which is the same as <<a_api| module Xml_sigs.T >>, but with arbitrary {{{'a wrap}}} type.
+
+An identity wrapper, <<a_api| module Xml_wrap.NoWrap >>, is provided. The ##Make## functor is only ##MakeWrapped## partially applied to ##NoWrap##.
+
+
+==@@id="sig"@@ Exporting the correct signature ==
+
+In order to help export the correct signature after a functor application, four signature functors are provided: <<a_api| module Svg_sigs.Make >>, <<a_api| module Svg_sigs.MakeWrapped >>, <<a_api| module Html5_sigs.Make >> and <<a_api| module Html5_sigs.MakeWrapped >>.
+
+As an example of use, let us look at the module <<a_api| module Svg.M >>. Here is the definition of the module:
+<<code language="ocaml"|module M = Svg_f.Make(Xml)>>
+In this case, the declaration in the interface file should look like this:
+<<code language="ocaml"|module M : Svg_sigs.Make(Xml).T>>
+
+The signature functor <<a_api| module Svg_sigs.Make >> contains only a signature ##T##, which is equal to <<a_api| module Svg_sigs.T >>, but export various equalities with the module ##Xml##.
+
+You should **always** use a signature functor to give the type of a module produced by a functor application. It will ensure that exactly the right type equalities are exported and will naturally keep track of changes in tyxml.
+
+There are some important notes about theses signature functors:
+* {{{module M : Svg_sigs.Make(Xml).T}}} doesn't mean that {{{M.Xml}}} is a submodule of {{{Xml}}}. It only means that the types {{{uri}}}, {{{event_handler}}}, {{{mouse_event_handler}}}, {{{keyboard_event_handler}}}, {{{attrib}}} and {{{elt}}} are the same in both modules.
+In the same manner, <<a_api | module Svg_sigs.MakeWrapped>> doesn't force the {{{wrap}}} type to be consistent between ##W## and ##Xml## (as opposed to <<a_api | module Svg_f.MakeWrapped>>) and will just use the types from ##W##.
+This is useful when not exporting the exact module that was used in the functor, but another (smaller and simpler) module. This is the case in <<a_api| module Tyxml_js.R >>, for example.
+
+* <<a_api | module Html5_f >> and <<a_api | module Svg_f >> functors export two additional equalities, {{{+'a elt = Xml.elt}}} and {{{+'a attrib = Xml.attrib}}}. These equalities **should never be exported in a public interface**. Exporting them would break html typing by allowing to build invalid html trees.
+These equalities are useful internally, for example in eliom they are used to make {{{F.elt}}}, {{{D.elt}}} and {{{R.elt}}} equals.

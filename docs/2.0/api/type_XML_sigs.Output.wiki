@@ -1,0 +1,8 @@
+<<code language="ocaml" | sig
+  type out
+  type m
+  val empty : XML_sigs.Output.m
+  val concat : XML_sigs.Output.m -> XML_sigs.Output.m -> XML_sigs.Output.m
+  val put : string -> XML_sigs.Output.m
+  val make : XML_sigs.Output.m -> XML_sigs.Output.out
+end >>

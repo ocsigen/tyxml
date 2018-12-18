@@ -1,0 +1,60 @@
+<<code language="ocaml" | sig
+  type 'a wrap
+  type 'a list_wrap
+  type uri
+  val string_of_uri : Xml_sigs.Wrapped.uri -> string
+  val uri_of_string : string -> Xml_sigs.Wrapped.uri
+  type aname = string
+  type event_handler
+  type mouse_event_handler
+  type keyboard_event_handler
+  type attrib
+  val float_attrib :
+    Xml_sigs.Wrapped.aname ->
+    float Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.attrib
+  val int_attrib :
+    Xml_sigs.Wrapped.aname ->
+    int Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.attrib
+  val string_attrib :
+    Xml_sigs.Wrapped.aname ->
+    string Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.attrib
+  val space_sep_attrib :
+    Xml_sigs.Wrapped.aname ->
+    string list Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.attrib
+  val comma_sep_attrib :
+    Xml_sigs.Wrapped.aname ->
+    string list Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.attrib
+  val event_handler_attrib :
+    Xml_sigs.Wrapped.aname ->
+    Xml_sigs.Wrapped.event_handler -> Xml_sigs.Wrapped.attrib
+  val mouse_event_handler_attrib :
+    Xml_sigs.Wrapped.aname ->
+    Xml_sigs.Wrapped.mouse_event_handler -> Xml_sigs.Wrapped.attrib
+  val keyboard_event_handler_attrib :
+    Xml_sigs.Wrapped.aname ->
+    Xml_sigs.Wrapped.keyboard_event_handler -> Xml_sigs.Wrapped.attrib
+  val uri_attrib :
+    Xml_sigs.Wrapped.aname ->
+    Xml_sigs.Wrapped.uri Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.attrib
+  val uris_attrib :
+    Xml_sigs.Wrapped.aname ->
+    Xml_sigs.Wrapped.uri list Xml_sigs.Wrapped.wrap ->
+    Xml_sigs.Wrapped.attrib
+  type elt
+  type ename = string
+  val empty : unit -> Xml_sigs.Wrapped.elt
+  val comment : string -> Xml_sigs.Wrapped.elt
+  val pcdata : string Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.elt
+  val encodedpcdata : string Xml_sigs.Wrapped.wrap -> Xml_sigs.Wrapped.elt
+  val entity : string -> Xml_sigs.Wrapped.elt
+  val leaf :
+    ?a:Xml_sigs.Wrapped.attrib list ->
+    Xml_sigs.Wrapped.ename -> Xml_sigs.Wrapped.elt
+  val node :
+    ?a:Xml_sigs.Wrapped.attrib list ->
+    Xml_sigs.Wrapped.ename ->
+    Xml_sigs.Wrapped.elt Xml_sigs.Wrapped.list_wrap -> Xml_sigs.Wrapped.elt
+  val cdata : string -> Xml_sigs.Wrapped.elt
+  val cdata_script : string -> Xml_sigs.Wrapped.elt
+  val cdata_style : string -> Xml_sigs.Wrapped.elt
+end >>

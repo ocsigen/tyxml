@@ -1,0 +1,8 @@
+<<code language="ocaml" | sig
+  type t = Xmllexer.lexing_error
+  val to_string : Xmllexer.lexing_error -> string
+  val tloc_to_string :
+    Xmllexer.lexing_error -> Camlp4.PreCast.Loc.t -> string
+  exception E of Xhtmlparser.Error.t
+  val print : Format.formatter -> Xmllexer.lexing_error -> unit
+end >>

@@ -1,0 +1,14 @@
+=Module <<a_api_type | module Svg_sigs >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Svg_sigs>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Svg_sigs >><<span class="ocsforge_color_keyword"|end>>>>
+=@@id="1_AbstractionoverXMLstypes"@@~Abstraction over ~X~M~L~'s types=
+
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T" | module type Svg_sigs.T >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Svg_sigs.T >><<span class="ocsforge_color_keyword"|end>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="NoWrap" | module type Svg_sigs.NoWrap >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|<<a_api text="T" | module Svg_sigs.T >>>><<span class="odocwiki_type"| with module <<a_api text="Xml.W" | module Xml.W >> = <<a_api text="Xml_wrap.NoWrap" | module Xml_wrap.NoWrap >>>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="Wrapped_functions" | module type Svg_sigs.Wrapped_functions >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Svg_sigs.Wrapped_functions >><<span class="ocsforge_color_keyword"|end>>>>
+
+==@@id="2_Signaturefunctors"@@~Signature functors==
+
+
+~See <<a_manual chapter="functors"|the manual of the functorial interface>> ~.
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module Svg_sigs.Make >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Svg_sigs.Make >><<span class="ocsforge_color_keyword"|end>>>><<div class="odocwiki_info"|~Signature functor for <<a_api | module Svg_f.Make >>~.
+>>

@@ -1,0 +1,6 @@
+<<code language="ocaml" | sig
+  type elt
+  val pp :
+    ?encode:(string -> string) ->
+    unit -> Format.formatter -> Xml_sigs.Pp.elt -> unit
+end >>

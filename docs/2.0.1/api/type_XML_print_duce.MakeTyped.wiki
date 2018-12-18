@@ -1,0 +1,11 @@
+<<code language="ocaml" | functor (TypedXML : XML_sigs_duce.TypedXML) ->
+  sig
+    type elt = TypedXML.elt
+    type doc = TypedXML.doc
+    val print_list :
+      output:(string -> unit) ->
+      ?encode:(string -> string) -> elt list -> unit
+    val print :
+      output:(string -> unit) ->
+      ?encode:(string -> string) -> ?advert:string -> doc -> unit
+  end >>

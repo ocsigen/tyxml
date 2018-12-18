@@ -1,0 +1,3515 @@
+<<code language="ocaml" | sig
+  type cdata = string
+  type id = string
+  type idref = string
+  type idrefs = XHTML_types.idref list
+  type name = string
+  type nmtoken = string
+  type nmtokens = XHTML_types.nmtoken list
+  type character = char
+  type charset = string
+  type charsets = XHTML_types.charset list
+  type contenttype = string
+  type contenttypes = XHTML_types.contenttype list
+  type coords = string list
+  type datetime = string
+  type fpi = string
+  type frametarget = string
+  type languagecode = string
+  type length = [ `Percent of int | `Pixels of int ]
+  type linktypes =
+      [ `Alternate
+      | `Appendix
+      | `Bookmark
+      | `Chapter
+      | `Contents
+      | `Copyright
+      | `Glossary
+      | `Help
+      | `Index
+      | `Next
+      | `Other of string
+      | `Prev
+      | `Section
+      | `Start
+      | `Stylesheet
+      | `Subsection ] list
+  type mediadesc =
+      [ `All
+      | `Aural
+      | `Braille
+      | `Embossed
+      | `Handheld
+      | `Print
+      | `Projection
+      | `Screen
+      | `Speech
+      | `TTY
+      | `TV ] list
+  type multilength = [ `Percent of int | `Pixels of int | `Relative of int ]
+  type multilengths = XHTML_types.multilength list
+  type number = int
+  type pixels = int
+  type text = string
+  type core = [ `Class | `Id | `Title | `XML_space ]
+  type i18n = [ `Dir | `XML_lang ]
+  type events =
+      [ `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp ]
+  type common =
+      [ `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type uri = Uri.uri
+  type uris = Uri.uris
+  module HYPERTEXT :
+    sig type inline = [ `A ] type flow = XHTML_types.HYPERTEXT.inline end
+  module LIST :
+    sig
+      type list = [ `Dl | `Ol | `Ul ]
+      type t = [ `Dd | `Dt | `Li ]
+      type flow = XHTML_types.LIST.list
+    end
+  module PRESENTATION :
+    sig
+      type block = [ `Hr ]
+      type inline = [ `B | `Big | `I | `Small | `Sub | `Sup | `Tt ]
+      type flow = [ `B | `Big | `Hr | `I | `Small | `Sub | `Sup | `Tt ]
+    end
+  module FORMS :
+    sig
+      type t = [ `Option ]
+      type form = [ `Form ]
+      type formctrl_sans_label = [ `Button | `Input | `Select | `Textarea ]
+      type formctrl = [ `Button | `Input | `Label | `Select | `Textarea ]
+      type block = XHTML_types.FORMS.form
+      type inline_sans_label = XHTML_types.FORMS.formctrl_sans_label
+      type inline = XHTML_types.FORMS.formctrl
+      type flow_sans_label =
+          [ `Button | `Form | `Input | `Select | `Textarea ]
+      type flow = [ `Button | `Form | `Input | `Label | `Select | `Textarea ]
+    end
+  module TABLES :
+    sig
+      type t = [ `Caption | `Td | `Th | `Tr ]
+      type block = [ `Table ]
+      type flow = XHTML_types.TABLES.block
+    end
+  module STYLE_SHEET : sig type t = [ `Style ] end
+  module LINK : sig type t = [ `Link ] end
+  module BASE : sig type t = [ `Base ] end
+  module TEXT :
+    sig
+      type heading = [ `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+      type block = [ `Address | `Blockquote | `Div | `P | `Pre ]
+      type inline =
+          [ `Abbr
+          | `Acronym
+          | `Br
+          | `Cite
+          | `Code
+          | `Dfn
+          | `Em
+          | `Iframe
+          | `Kbd
+          | `Q
+          | `Samp
+          | `Span
+          | `Strong
+          | `Var ]
+      type flow =
+          [ `Abbr
+          | `Acronym
+          | `Address
+          | `Blockquote
+          | `Br
+          | `Cite
+          | `Code
+          | `Dfn
+          | `Div
+          | `Em
+          | `H1
+          | `H2
+          | `H3
+          | `H4
+          | `H5
+          | `H6
+          | `Iframe
+          | `Kbd
+          | `P
+          | `Pre
+          | `Q
+          | `Samp
+          | `Span
+          | `Strong
+          | `Var ]
+    end
+  type edit = [ `Del | `Ins ]
+  type scripttag = [ `Noscript | `Script ]
+  type misc = [ `Del | `Ins | `Noscript | `Script ]
+  module SPECIAL :
+    sig
+      type inline = [ `Img | `Map | `Object ]
+      type block = [ `Fieldset | `Form | `Table ]
+      type flow = [ `Fieldset | `Form | `Img | `Map | `Object | `Table ]
+    end
+  type i18nclass = [ `Bdo ]
+  module RUBY :
+    sig
+      type inline = [ `Ruby_complex | `Ruby_simple1 | `Ruby_simple2 ]
+      type flow = XHTML_types.RUBY.inline
+    end
+  type no_ruby_inline =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Kbd
+      | `Label
+      | `Map
+      | `Object
+      | `Q
+      | `Samp
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type no_ruby_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type block =
+      [ `Address
+      | `Blockquote
+      | `Del
+      | `Div
+      | `Dl
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `Ins
+      | `Noscript
+      | `Ol
+      | `P
+      | `Pre
+      | `Script
+      | `Table
+      | `Ul ]
+  type block_sans_form =
+      [ `Address
+      | `Blockquote
+      | `Del
+      | `Div
+      | `Dl
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `Ins
+      | `Noscript
+      | `Ol
+      | `P
+      | `Pre
+      | `Script
+      | `Table
+      | `Ul ]
+  type flow =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type flow_sans_table =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type inline =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type inline_sans_a_mix =
+      [ `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type buttoncontent =
+      [ `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Ins
+      | `Kbd
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `Pre
+      | `Q
+      | `Samp
+      | `Script
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Tt
+      | `Ul
+      | `Var ]
+  type precontent = XHTML_types.inline
+  type inline_sans_label =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Map
+      | `Noscript
+      | `Object
+      | `Q
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type heading = XHTML_types.TEXT.heading
+  type xhtml = [ `Html ]
+  type pcdata = [ `PCDATA ]
+  type notag
+  type html = [ `Html ]
+  type html_attrib = [ `Dir | `Id | `Version | `XML_lang | `XMLns ]
+  type html_content = [ `Body | `Head ]
+  type head = [ `Head ]
+  type head_content =
+      [ `Base | `Link | `Meta | `Object | `Script | `Style | `Title ]
+  type head_attrib = [ `Dir | `Id | `Profile | `XML_lang ]
+  type table = [ `Table ]
+  type table_attrib =
+      [ `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Summary
+      | `Title
+      | `Tr
+      | `Width
+      | `XML_lang
+      | `XML_space ]
+  type table_content = [ `Tr ]
+  type inlinemix =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type title = [ `Title ]
+  type title_attrib = [ `Dir | `Id | `XML_lang ]
+  type title_content = [ `PCDATA ]
+  type body = [ `Body ]
+  type body_attrib =
+      [ `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnUnload
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type body_content = XHTML_types.block
+  type h1 = [ `H1 ]
+  type h1_attrib = XHTML_types.common
+  type h1_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type h2 = [ `H2 ]
+  type h2_attrib = XHTML_types.common
+  type h2_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type h3 = [ `H3 ]
+  type h3_attrib = XHTML_types.common
+  type h3_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type h4 = [ `H4 ]
+  type h4_attrib = XHTML_types.common
+  type h4_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type h5 = [ `H5 ]
+  type h5_attrib = XHTML_types.common
+  type h5_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type h6 = [ `H6 ]
+  type h6_attrib = XHTML_types.common
+  type h6_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type address = [ `Address ]
+  type address_attrib = XHTML_types.common
+  type address_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type div = [ `Div ]
+  type div_attrib = XHTML_types.common
+  type div_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type p = [ `P ]
+  type p_attrib = XHTML_types.common
+  type p_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type abbr = [ `Abbr ]
+  type abbr_attrib = XHTML_types.common
+  type abbr_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type acronym = [ `Acronym ]
+  type acronym_attrib = XHTML_types.common
+  type acronym_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type br = [ `Br ]
+  type br_attrib = XHTML_types.core
+  type br_content = XHTML_types.notag
+  type cite = [ `Cite ]
+  type cite_attrib = XHTML_types.common
+  type cite_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type code = [ `Code ]
+  type code_attrib = XHTML_types.common
+  type code_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type dfn = [ `Dfn ]
+  type dfn_attrib = XHTML_types.common
+  type dfn_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type em = [ `Em ]
+  type em_attrib = XHTML_types.common
+  type em_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type kbd = [ `Kbd ]
+  type kbd_attrib = XHTML_types.common
+  type kbd_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type q = [ `Q ]
+  type q_attrib =
+      [ `Cite
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type q_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type samp = [ `Samp ]
+  type samp_attrib = XHTML_types.common
+  type samp_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type span = [ `Span ]
+  type span_attrib = XHTML_types.common
+  type span_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type strong = [ `Strong ]
+  type strong_attrib = XHTML_types.common
+  type strong_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type var = [ `Var ]
+  type var_attrib = XHTML_types.common
+  type var_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type a = [ `A ]
+  type a_attrib =
+      [ `Accesskey
+      | `Charset
+      | `Class
+      | `Coords
+      | `Dir
+      | `Href
+      | `Hreflang
+      | `Id
+      | `Name_01_00
+      | `OnBlur
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rel
+      | `Rev
+      | `Shape
+      | `Style_Attr
+      | `Tabindex
+      | `Target
+      | `Title
+      | `Type
+      | `XML_lang
+      | `XML_space ]
+  type a_content =
+      [ `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type dl = [ `Dl ]
+  type dl_attrib = XHTML_types.common
+  type dl_content = [ `Dd | `Dt ]
+  type ol = [ `Ol ]
+  type ol_attrib = XHTML_types.common
+  type ol_content = [ `Li ]
+  type ul = [ `Ul ]
+  type ul_attrib = XHTML_types.common
+  type ul_content = [ `Li ]
+  type dd = [ `Dd ]
+  type dd_attrib = XHTML_types.common
+  type dd_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type dt = [ `Dt ]
+  type dt_attrib = XHTML_types.common
+  type dt_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type li = [ `Li ]
+  type li_attrib = XHTML_types.common
+  type li_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type hr = [ `Hr ]
+  type hr_attrib = XHTML_types.common
+  type hr_content = XHTML_types.notag
+  type b = [ `B ]
+  type b_attrib = XHTML_types.common
+  type b_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type big = [ `Big ]
+  type big_attrib = XHTML_types.common
+  type big_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type i = [ `I ]
+  type i_attrib = XHTML_types.common
+  type i_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type small = [ `Small ]
+  type small_attrib = XHTML_types.common
+  type small_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type sub = [ `Sub ]
+  type sub_attrib = XHTML_types.common
+  type sub_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type sup = [ `Sup ]
+  type sup_attrib = XHTML_types.common
+  type sup_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type tt = [ `Tt ]
+  type tt_attrib = XHTML_types.common
+  type tt_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type bdo = [ `Bdo ]
+  type bdo_attrib = [ `Class | `Id | `Title | `XML_lang | `XML_space ]
+  type bdo_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type area = [ `Area ]
+  type area_attrib =
+      [ `Accesskey
+      | `Class
+      | `Coords
+      | `Dir
+      | `Href
+      | `Id
+      | `Nohref
+      | `OnBlur
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Shape
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type area_content = XHTML_types.notag
+  type map = [ `Map ]
+  type map_attrib =
+      [ `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Title
+      | `XML_lang
+      | `XML_space
+      | `XMLns ]
+  type map_content =
+      [ `Address
+      | `Area
+      | `Blockquote
+      | `Del
+      | `Div
+      | `Dl
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `Ins
+      | `Noscript
+      | `Ol
+      | `P
+      | `Pre
+      | `Script
+      | `Table
+      | `Ul ]
+  type del = [ `Del ]
+  type del_attrib =
+      [ `Cite
+      | `Class
+      | `Datetime
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type del_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type ins = [ `Ins ]
+  type ins_attrib =
+      [ `Cite
+      | `Class
+      | `Datetime
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type ins_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type script = [ `Script ]
+  type script_attrib =
+      [ `Charset | `Defer | `Id | `Src | `XML_space | `XMLns ]
+  type script_content = [ `PCDATA ]
+  type noscript = [ `Noscript ]
+  type noscript_attrib = XHTML_types.common
+  type noscript_content = XHTML_types.block
+  type form = [ `Form ]
+  type form_attrib =
+      [ `Accept
+      | `Accept_charset
+      | `Class
+      | `Dir
+      | `Enctype
+      | `Id
+      | `Method
+      | `Name_01_00
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnReset
+      | `OnSubmit
+      | `Style_Attr
+      | `Target
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type form_content =
+      [ `Address
+      | `Blockquote
+      | `Del
+      | `Div
+      | `Dl
+      | `Fieldset
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `Ins
+      | `Noscript
+      | `Ol
+      | `P
+      | `Pre
+      | `Script
+      | `Table
+      | `Ul ]
+  type input = [ `Input ]
+  type input_attrib =
+      [ `Accept
+      | `Accesskey
+      | `Alt
+      | `Checked
+      | `Class
+      | `Dir
+      | `Disabled
+      | `Id
+      | `Input_Type
+      | `Ismap
+      | `Maxlength
+      | `Name
+      | `OnBlur
+      | `OnChange
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnSelect
+      | `Readonly
+      | `Size
+      | `Src
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `Usemap
+      | `Value
+      | `XML_lang
+      | `XML_space ]
+  type input_content = XHTML_types.notag
+  type label = [ `Label ]
+  type label_attrib =
+      [ `Accesskey
+      | `Class
+      | `Dir
+      | `For
+      | `Id
+      | `OnBlur
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type label_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type optgroup = [ `Optgroup ]
+  type optgroup_attrib =
+      [ `Class
+      | `Dir
+      | `Disabled
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type optgroup_content = [ `Option ]
+  type selectoption = [ `Option ]
+  type option_attrib =
+      [ `Class
+      | `Dir
+      | `Disabled
+      | `Id
+      | `Label
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Selected
+      | `Style_Attr
+      | `Title
+      | `Value
+      | `XML_lang
+      | `XML_space ]
+  type option_content = [ `PCDATA ]
+  type select = [ `Select ]
+  type select_attrib =
+      [ `Class
+      | `Dir
+      | `Disabled
+      | `Id
+      | `Multiple
+      | `Name
+      | `OnBlur
+      | `OnChange
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Size
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type select_content = [ `Optgroup | `Option ]
+  type textarea = [ `Textarea ]
+  type textarea_attrib =
+      [ `Accesskey
+      | `Class
+      | `Dir
+      | `Disabled
+      | `Id
+      | `Name
+      | `OnBlur
+      | `OnChange
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnSelect
+      | `Readonly
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type textarea_content = [ `PCDATA ]
+  type fieldset = [ `Fieldset ]
+  type fieldset_attrib = XHTML_types.common
+  type fieldset_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Legend
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type legend = [ `Legend ]
+  type legend_attrib =
+      [ `Accesskey
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type legend_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type button = [ `Button ]
+  type button_attrib =
+      [ `Accesskey
+      | `Button_Type
+      | `Class
+      | `Dir
+      | `Disabled
+      | `Id
+      | `Name
+      | `OnBlur
+      | `OnClick
+      | `OnDblClick
+      | `OnFocus
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `Value
+      | `XML_lang
+      | `XML_space ]
+  type button_content =
+      [ `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Ins
+      | `Kbd
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Samp
+      | `Script
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Tt
+      | `Ul
+      | `Var ]
+  type caption = [ `Caption ]
+  type caption_attrib = XHTML_types.common
+  type caption_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ]
+  type td = [ `Td ]
+  type td_attrib =
+      [ `Abbr
+      | `Align
+      | `Axis
+      | `Char
+      | `Charoff
+      | `Class
+      | `Colspan
+      | `Dir
+      | `Headers
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rowspan
+      | `Scope
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `XML_lang
+      | `XML_space ]
+  type td_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type th = [ `Th ]
+  type th_attrib =
+      [ `Abbr
+      | `Align
+      | `Axis
+      | `Char
+      | `Charoff
+      | `Class
+      | `Colspan
+      | `Dir
+      | `Headers
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rowspan
+      | `Scope
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `XML_lang
+      | `XML_space ]
+  type th_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type tr = [ `Tr ]
+  type tr_attrib =
+      [ `Align
+      | `Char
+      | `Charoff
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `XML_lang
+      | `XML_space ]
+  type tr_content = [ `Td | `Th ]
+  type col = [ `Col ]
+  type col_attrib =
+      [ `Align
+      | `Char
+      | `Charoff
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Span
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `Width
+      | `XML_lang
+      | `XML_space ]
+  type col_content = XHTML_types.notag
+  type colgroup = [ `Colgroup ]
+  type colgroup_attrib =
+      [ `Align
+      | `Char
+      | `Charoff
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Span
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `Width
+      | `XML_lang
+      | `XML_space ]
+  type colgroup_content = [ `Col ]
+  type thead = [ `Thead ]
+  type thead_attrib =
+      [ `Align
+      | `Char
+      | `Charoff
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `XML_lang
+      | `XML_space ]
+  type thead_content = [ `Tr ]
+  type tbody = [ `Tbody ]
+  type tbody_attrib =
+      [ `Align
+      | `Char
+      | `Charoff
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `XML_lang
+      | `XML_space ]
+  type tbody_content = [ `Tr ]
+  type tfoot = [ `Tfoot ]
+  type tfoot_attrib =
+      [ `Align
+      | `Char
+      | `Charoff
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `Valign
+      | `XML_lang
+      | `XML_space ]
+  type tfoot_content = [ `Tr ]
+  type img = [ `Img ]
+  type img_attrib =
+      [ `Class
+      | `Dir
+      | `Height
+      | `Id
+      | `Ismap
+      | `Longdesc
+      | `Name_01_00
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `Usemap
+      | `Width
+      | `XML_lang
+      | `XML_space ]
+  type img_content = XHTML_types.notag
+  type object_ = [ `Object ]
+  type object__attrib =
+      [ `Archive
+      | `Class
+      | `Classid
+      | `Codebase
+      | `Codetype
+      | `Data
+      | `Declare
+      | `Dir
+      | `Height
+      | `Id
+      | `Name
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Standby
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `Type
+      | `Usemap
+      | `Width
+      | `XML_lang
+      | `XML_space ]
+  type object__content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Param
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type param = [ `Param ]
+  type param_attrib = [ `Id | `Type | `Value | `Value_Type | `XMLns ]
+  type param_content = XHTML_types.notag
+  type frameset = [ `Frameset ]
+  type frameset_attrib =
+      [ `Class
+      | `FS_Cols
+      | `FS_Rows
+      | `Id
+      | `OnLoad
+      | `OnUnload
+      | `Title
+      | `XML_space ]
+  type frameset_content = [ `Frame | `Frameset ]
+  type frame = [ `Frame ]
+  type frame_attrib =
+      [ `Class
+      | `Frameborder
+      | `Id
+      | `Longdesc
+      | `Marginheight
+      | `Marginwidth
+      | `Name_01_00
+      | `Noresize
+      | `Scrolling
+      | `Title
+      | `XML_space ]
+  type frame_content = XHTML_types.notag
+  type noframes = [ `Noframes ]
+  type noframes_attrib = XHTML_types.common
+  type noframes_content = [ `Body ]
+  type iframe = [ `Iframe ]
+  type iframe_attrib =
+      [ `Class
+      | `Frameborder
+      | `Height
+      | `Id
+      | `Longdesc
+      | `Marginheight
+      | `Marginwidth
+      | `Name_01_00
+      | `Scrolling
+      | `Src
+      | `Title
+      | `Width
+      | `XML_space ]
+  type iframe_content =
+      [ `A
+      | `Abbr
+      | `Acronym
+      | `Address
+      | `B
+      | `Bdo
+      | `Big
+      | `Blockquote
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Div
+      | `Dl
+      | `Em
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Table
+      | `Textarea
+      | `Tt
+      | `Ul
+      | `Var ]
+  type meta = [ `Meta ]
+  type meta_attrib =
+      [ `Dir | `Http_equiv | `Id | `Name | `Scheme | `XML_lang ]
+  type meta_content = XHTML_types.notag
+  type style = [ `Style ]
+  type style_attrib =
+      [ `Dir | `Id | `Media | `Title | `XML_lang | `XML_space | `XMLns ]
+  type style_content = [ `PCDATA ]
+  type link = [ `Link ]
+  type link_attrib =
+      [ `Charset
+      | `Class
+      | `Dir
+      | `Href
+      | `Hreflang
+      | `Id
+      | `Media
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rel
+      | `Rev
+      | `Style_Attr
+      | `Target
+      | `Title
+      | `Type
+      | `XML_lang
+      | `XML_space ]
+  type link_content = XHTML_types.notag
+  type base = [ `Base ]
+  type base_attrib = [ `Target | `XMLns ]
+  type base_content = XHTML_types.notag
+  type rbc = [ `Rbc ]
+  type rbc_attrib = XHTML_types.common
+  type rbc_content = [ `Rb ]
+  type rtc = [ `Rtc ]
+  type rtc_attrib = XHTML_types.common
+  type rtc_content = [ `Rt ]
+  type rtc_complex = [ `Rtc ]
+  type rtc_complex_attrib = XHTML_types.common
+  type rtc_complex_content = [ `Rt_complex ]
+  type rb = [ `Rb ]
+  type rb_attrib = XHTML_types.common
+  type rb_content = XHTML_types.no_ruby_content
+  type rt = [ `Rt ]
+  type rt_attrib = XHTML_types.common
+  type rt_content = XHTML_types.no_ruby_content
+  type rt_complex = [ `Rt ]
+  type rt_complex_attrib =
+      [ `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rbspan
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ]
+  type rt_complex_content = XHTML_types.no_ruby_content
+  type rp = [ `Rp ]
+  type rp_attrib = XHTML_types.common
+  type rp_content = [ `PCDATA ]
+end >>
