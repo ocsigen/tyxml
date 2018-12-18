@@ -23,10 +23,10 @@
    [html_sigs_reflected.ml]. See comments by functions below and in
    [sigs_reflected.mli] for details. *)
 
+open Ast_helper
 open Ast_mapper
 open Asttypes
 open Parsetree
-open Ast_helper
 module AC = Ast_convenience
 
 
@@ -267,7 +267,9 @@ let ocaml_attributes_to_renamed_attribute name attributes =
    [object] in markup).
 
    A val declaration is for an element if it either has a [@@reflect.element]
-   attribute, or its result type is [_ nullary], [_ unary], or [_ star]. *)
+   attribute, or its result type is [_ nullary], [_ unary], or [_ star].
+
+   Also understands the [@@reflect.filter_whitespace] attribute. *)
 let val_item_to_element_info lang value_description =
   let name = value_description.pval_name.txt in
 
@@ -322,6 +324,16 @@ let val_item_to_element_info lang value_description =
       match real_name with
       | None -> []
       | Some real_name -> [real_name, name]
+    in
+
+    let assembler = [ assembler ] in
+
+    let assembler =
+      match
+        find_attr "reflect.filter_whitespace" value_description.pval_attributes
+      with
+      | Some _  -> "comp_filter_whitespace" :: assembler
+      | None    -> assembler
     in
 
     Some (assembler, labeled_attributes, rename)
@@ -424,6 +436,11 @@ module Combi = struct
   let id = AC.evar
   let expr x = x
   let let_ p f (x,e) = Str.value Nonrecursive [Vb.mk (p x) (f e)]
+  let rec compose_ids =
+    function
+    | [ i ]   -> id i
+    | i :: tl -> AC.app (id i) [compose_ids tl]
+    | []      -> assert false
 end
 
 (** Create a module based on the various things collected while reading the file. *)
@@ -442,7 +459,7 @@ let emit_module () =
     open Element_content
 
     let element_assemblers =
-      [%e Combi.(list @@ tuple2 str id) !element_assemblers ]
+      [%e Combi.(list @@ tuple2 str compose_ids) !element_assemblers ]
     let renamed_elements =
       [%e Combi.(list @@ tuple2 str str) !renamed_elements ]
 

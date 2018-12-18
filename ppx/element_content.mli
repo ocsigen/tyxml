@@ -77,9 +77,6 @@ val fieldset : assembler
 val datalist : assembler
 val details : assembler
 val menu : assembler
-val ul : assembler
-val ol : assembler
-val select : assembler
 
 (** {1 Misc utilities} *)
 
@@ -88,3 +85,6 @@ val select : assembler
 val filter_surrounding_whitespace :
   Parsetree.expression Common.value list ->
   Parsetree.expression Common.value list
+
+(** Improve an assembler by removing txt nodes containing only whitespace *)
+val comp_filter_whitespace : assembler -> assembler
