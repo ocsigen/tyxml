@@ -1,0 +1,36 @@
+<<code language="ocaml" | sig
+  type t = Camlp4.PreCast.Loc.t
+  val mk : string -> t
+  val ghost : t
+  val of_lexing_position : Lexing.position -> t
+  val to_ocaml_location : t -> Camlp4_import.Location.t
+  val of_ocaml_location : Camlp4_import.Location.t -> t
+  val of_lexbuf : Lexing.lexbuf -> t
+  val of_tuple : string * int * int * int * int * int * int * bool -> t
+  val to_tuple : t -> string * int * int * int * int * int * int * bool
+  val merge : t -> t -> t
+  val join : t -> t
+  val move : [ `both | `start | `stop ] -> int -> t -> t
+  val shift : int -> t -> t
+  val move_line : int -> t -> t
+  val file_name : t -> string
+  val start_line : t -> int
+  val stop_line : t -> int
+  val start_bol : t -> int
+  val stop_bol : t -> int
+  val start_off : t -> int
+  val stop_off : t -> int
+  val start_pos : t -> Lexing.position
+  val stop_pos : t -> Lexing.position
+  val is_ghost : t -> bool
+  val ghostify : t -> t
+  val set_file_name : string -> t -> t
+  val strictly_before : t -> t -> bool
+  val make_absolute : t -> t
+  val print : Format.formatter -> t -> unit
+  val dump : Format.formatter -> t -> unit
+  val to_string : t -> string
+  exception Exc_located of t * exn
+  val raise : t -> exn -> 'a
+  val name : string ref
+end >>

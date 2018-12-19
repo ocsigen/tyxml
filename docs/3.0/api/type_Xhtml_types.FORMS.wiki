@@ -1,0 +1,11 @@
+<<code language="ocaml" | sig
+  type t = [ `Option ]
+  type form = [ `Form ]
+  type formctrl_sans_label = [ `Button | `Input | `Select | `Textarea ]
+  type formctrl = [ `Button | `Input | `Label | `Select | `Textarea ]
+  type block = Xhtml_types.FORMS.form
+  type inline_sans_label = Xhtml_types.FORMS.formctrl_sans_label
+  type inline = Xhtml_types.FORMS.formctrl
+  type flow_sans_label = [ `Button | `Form | `Input | `Select | `Textarea ]
+  type flow = [ `Button | `Form | `Input | `Label | `Select | `Textarea ]
+end >>

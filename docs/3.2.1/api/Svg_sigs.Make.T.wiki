@@ -1,0 +1,4 @@
+=Module type <<a_api_type | module type Svg_sigs.Make.T >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<span class="ocsforge_color_uid"|T>> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|MakeWrapped(<<a_api text="Xml_wrap.NoWrap" | module Xml_wrap.NoWrap >>)(Xml).T>>>>~See <<a_api | module type Svg_sigs.MakeWrapped >> and <<a_api | module type Svg_sigs.T >>~.
+
+----

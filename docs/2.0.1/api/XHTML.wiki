@@ -1,0 +1,35 @@
+=Module <<a_api_type | module XHTML >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|XHTML>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module XHTML >><<span class="ocsforge_color_keyword"|end>>>>~Typesafe constructors and printers for ~X~H~T~M~L ~1~.~0 and ~1~.~1 documents\\
+**See also** [[http://www.w3.org/TR/xhtml11/|~W~3~C ~Recommendation]]\\
+
+----
+\\
+
+=@@id="1_Currentversion"@@~Current version =
+\\
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="M" | module XHTML.M >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XHTML_sigs.T" | module XHTML_sigs.T >>>><<span class="odocwiki_type"| with module XML := XML>>>><<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L typesafe constructors
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="P" | module XHTML.P >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="XML_sigs.TypedSimplePrinter" | module XML_sigs.TypedSimplePrinter >>>><<span class="odocwiki_type"| with type 'a elt := 'a M.elt\\					 and type doc := M.doc>>>><<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L documents ~(~H~T~M~L compatible printer~)
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="MakePrinter" | module XHTML.MakePrinter >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XML_sigs.Output" | module XML_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="XML_sigs.TypedPrinter" | module XML_sigs.TypedPrinter >>>><<span class="odocwiki_type"| with type out := O.out\\			 and type 'a elt := 'a M.elt\\			 and type doc := M.doc>>>>>><<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L documents ~(~H~T~M~L compatible printer~)
+>>
+\\
+
+=@@id="1_XHTML11"@@~X~H~T~M~L ~1~.~1=
+\\
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="M_01_01" | module XHTML.M_01_01 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XHTML_sigs.T_01_01" | module XHTML_sigs.T_01_01 >>>><<span class="odocwiki_type"| with module XML := XML>>>><<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L ~1~.~1 typesafe constructors
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="P_01_01" | module XHTML.P_01_01 >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="XML_sigs.TypedSimplePrinter" | module XML_sigs.TypedSimplePrinter >>>><<span class="odocwiki_type"| with type 'a elt := 'a M_01_01.elt\\                               and type doc := M_01_01.doc>>>><<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L ~1~.~1 documents ~(~H~T~M~L compatible printer~)
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="MakePrinter_01_01" | module XHTML.MakePrinter_01_01 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XML_sigs.Output" | module XML_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="XML_sigs.TypedPrinter" | module XML_sigs.TypedPrinter >>>><<span class="odocwiki_type"| with type out := O.out\\                         and type 'a elt := 'a M_01_01.elt\\                         and type doc := M_01_01.doc>>>>>><<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L ~1~.~1 documents ~(~H~T~M~L compatible printer~)
+>>
+\\
+
+=@@id="1_XHTML10"@@~X~H~T~M~L ~1~.~0 =
+\\
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="M_01_00" | module XHTML.M_01_00 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XHTML_sigs.T_01_00" | module XHTML_sigs.T_01_00 >>>><<span class="odocwiki_type"| with module XML := XML>>>><<div class="odocwiki_info"|~Concrete implementation of ~X~H~T~M~L ~1~.~0 typesafe constructors
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="P_01_00" | module XHTML.P_01_00 >> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="XML_sigs.TypedSimplePrinter" | module XML_sigs.TypedSimplePrinter >>>><<span class="odocwiki_type"| with type 'a elt := 'a M_01_00.elt\\                               and type doc := M_01_00.doc>>>><<div class="odocwiki_info"|~Simple printer for ~X~H~T~M~L ~1~.~0 documents ~(~H~T~M~L compatible printer~)
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="MakePrinter_01_00" | module XHTML.MakePrinter_01_00 >> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_sig_block"|<<span class="ocsforge_color_keyword"|functor>> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="XML_sigs.Output" | module XML_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> <<span class="ocsforge_color_delimiter"|-~>>> \\  \\  <<span class="odocwiki_type"|<<a_api text="XML_sigs.TypedPrinter" | module XML_sigs.TypedPrinter >>>><<span class="odocwiki_type"| with type out := O.out\\                         and type 'a elt := 'a M_01_00.elt\\                         and type doc := M_01_00.doc>>>>>><<div class="odocwiki_info"|~Parametrized stream printer for ~X~H~T~M~L ~1~.~0 documents
+>>

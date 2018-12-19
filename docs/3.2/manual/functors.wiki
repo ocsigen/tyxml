@@ -1,0 +1,25 @@
+= The functorial interface =
+
+TyXML provides a functorial interface to implement HTML and SVG on top of any XML implementations. This is used heavily by Eliom to implement the ##F## and ##D## modules, providing respectivelly a functionnal and a DOM version of the HTML implementation.
+
+
+==@@id="make"@@ The ##Make## functors ==
+
+Those interfaces are available in the modules <<a_api | module Html5_f >> and <<a_api | module Svg_f >>. They provide a functor ##Make## which takes a concrete implementation of Xml following <<a_api | module Xml_sigs.T >>. A default implementation is provided by the <<a_api | module Xml >> module.
+The functor <<a_api | module Html5_f.Make >> also needs an Svg implementation that you can obtain, for example, with the functor <<a_api | module Svg_f.Make >>.
+Due to typing constraints (see next section), The ##Xml## implementation will always need to provide a {{{wrap}}} type answering this definition:
+<<code language="ocaml"| type 'a wrap = 'a >>
+
+
+==@@id="wrap"@@ Wrapping up the nodes ==
+
+Beside the ###Make## functor. those two modules provide a ##MakeWrapped## functor, which allows to wrap Xml elements in a monad.
+A good example of application is the ##R## modules with reactive nodes in eliom. Here is the simplified signature of the {{{div}}} element:
+<<code language="ocaml"|R.div : 'a elt list signal -> div elt>>
+
+{{{signal}}} will wrap the input of every ##Xml## nodes and be integrated in the resulting node.
+
+In order to do this, You need to provide an additional ##Wrap## module to the functor, following the signature <<a_api | module Xml_wrap.T >>. This implements operations over the type of nodes along with a special type for lists of nodes.
+The ##Xml## implementation follow <<a_api | module Xml_sigs.Wrapped >>, which is the same as <<a_api| module Xml_sigs.T >>, but with arbitrary {{{'a wrap}}} type.
+
+An identity wrapper, <<a_api| module Xml_wrap.NoWrap >>, is provided. The ##Make## functor is only ##MakeWrapped## partially applied to ##NoWrap##.

@@ -1,0 +1,7 @@
+=Module <<a_api_type | module SVG_sigs >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|SVG_sigs>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module SVG_sigs >><<span class="ocsforge_color_keyword"|end>>>>
+=@@id="1_AbstractionoverXMLstypes"@@~Abstraction over ~X~M~L~'s types=
+
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T" | module type SVG_sigs.T >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type SVG_sigs.T >><<span class="ocsforge_color_keyword"|end>>>>

@@ -1,0 +1,15 @@
+=Module <<a_api_type | module Svg_f >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Svg_f>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Svg_f >><<span class="ocsforge_color_keyword"|end>>>>~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+
+----
+
+~This module defines basic data types for data~, attributes
+    and element occuring in ~S~V~G documents~.
+    ~It is based on the specification available at http~:~/~/www~.w~3~.org~/~T~R~/~S~V~G~/~.
+
+
+    ~This module is experimental~, it may lack of some attributes~,
+    and the interface is very low level and do not take deeply into account
+    the needs of ~S~V~G elements~.
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make" | module Svg_f.Make >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Make" | module Svg_sigs.Make >>(Xml).T>><<span class="odocwiki_type"|\\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="MakeWrapped" | module Svg_f.MakeWrapped >> <<span class="ocsforge_color_delimiter"|(>>W <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_wrap.T" | module Xml_wrap.T >>>><<span class="ocsforge_color_delimiter"|)>> \\   <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> \\      <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Wrapped" | module Xml_sigs.Wrapped >>>><<span class="odocwiki_type"|     with type 'a wrap = 'a W.t\\                                   and type 'a list_wrap = 'a W.tlist>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Svg_sigs.MakeWrapped" | module Svg_sigs.MakeWrapped >>(W)(Xml).T>><<span class="odocwiki_type"|\\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>><<div class="odocwiki_info"|~Like the <<a_api | module Svg_f.Make >> functor~, but allows to wrap elements inside a monad described by <<a_api | module type Xml_wrap.T >>~.
+>>

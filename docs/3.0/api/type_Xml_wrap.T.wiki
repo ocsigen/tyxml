@@ -1,0 +1,20 @@
+<<code language="ocaml" | sig
+  type 'a t
+  val bind : 'a Xml_wrap.T.t -> ('a -> 'b Xml_wrap.T.t) -> 'b Xml_wrap.T.t
+  val return : 'a -> 'a Xml_wrap.T.t
+  val fmap : ('a -> 'b) -> 'a Xml_wrap.T.t -> 'b Xml_wrap.T.t
+  val fmap2 :
+    ('a -> 'b -> 'c) -> 'a Xml_wrap.T.t -> 'b Xml_wrap.T.t -> 'c Xml_wrap.T.t
+  val fmap3 :
+    ('a -> 'b -> 'c -> 'd) ->
+    'a Xml_wrap.T.t -> 'b Xml_wrap.T.t -> 'c Xml_wrap.T.t -> 'd Xml_wrap.T.t
+  val fmap4 :
+    ('a -> 'b -> 'c -> 'd -> 'e) ->
+    'a Xml_wrap.T.t ->
+    'b Xml_wrap.T.t -> 'c Xml_wrap.T.t -> 'd Xml_wrap.T.t -> 'e Xml_wrap.T.t
+  val fmap5 :
+    ('a -> 'b -> 'c -> 'd -> 'e -> 'f) ->
+    'a Xml_wrap.T.t ->
+    'b Xml_wrap.T.t ->
+    'c Xml_wrap.T.t -> 'd Xml_wrap.T.t -> 'e Xml_wrap.T.t -> 'f Xml_wrap.T.t
+end >>

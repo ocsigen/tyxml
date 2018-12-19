@@ -1,0 +1,14 @@
+<<code language="ocaml" | sig
+  type 'a t
+  val return : 'a -> 'a Xml_wrap.T.t
+  type (-'a, 'b) ft
+  val fmap : ('a, 'b) Xml_wrap.T.ft -> 'a Xml_wrap.T.t -> 'b Xml_wrap.T.t
+  type 'a tlist
+  val nil : unit -> 'a Xml_wrap.T.tlist
+  val singleton : 'a Xml_wrap.T.t -> 'a Xml_wrap.T.tlist
+  val cons : 'a Xml_wrap.T.t -> 'a Xml_wrap.T.tlist -> 'a Xml_wrap.T.tlist
+  val append :
+    'a Xml_wrap.T.tlist -> 'a Xml_wrap.T.tlist -> 'a Xml_wrap.T.tlist
+  val map :
+    ('a, 'b) Xml_wrap.T.ft -> 'a Xml_wrap.T.tlist -> 'b Xml_wrap.T.tlist
+end >>

@@ -1,0 +1,27 @@
+<<code language="ocaml" | sig
+  val error : Camlp4.PreCast.Loc.t -> Xmllexer.lexing_error -> exn
+  type attr_name = private [> `AttrName of string ]
+  type attr_value = private [> `AttrVal of string ]
+  type attribute = private
+      [> `Attribute of
+           Xmllexer.LexerArgSig.attr_name * Xmllexer.LexerArgSig.attr_value ]
+  type token = private
+      [> `CDATA of string
+       | `Comment of string
+       | `Endtag of string
+       | `Eof
+       | `PCData of string
+       | `Tag of string * Xmllexer.LexerArgSig.attribute list * bool
+       | `Whitespace of string ]
+  val parse_dollar_token :
+    Xmllexer.context -> Lexing.lexbuf -> Xmllexer.LexerArgSig.token
+  val parse_dollar_attrname :
+    Xmllexer.context ->
+    Xmllexer.Loc.t -> Lexing.lexbuf -> Xmllexer.LexerArgSig.attr_name
+  val parse_dollar_attrvalue :
+    Xmllexer.context ->
+    Xmllexer.Loc.t -> Lexing.lexbuf -> Xmllexer.LexerArgSig.attr_value
+  val parse_dollar_attribute :
+    Xmllexer.context ->
+    Xmllexer.Loc.t -> Lexing.lexbuf -> Xmllexer.LexerArgSig.attribute
+end >>

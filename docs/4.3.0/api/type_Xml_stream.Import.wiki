@@ -1,0 +1,2 @@
+<<code language="ocaml" | functor (Xml : Xml_sigs.T) ->
+  sig val of_seq : Xml_stream.signal Seq.t -> Xml.elt Xml.list_wrap end >>

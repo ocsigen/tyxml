@@ -1,0 +1,4 @@
+=Module <<a_api_type | module Svg.M >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|M>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Make" | module Svg_sigs.Make >>(Xml).T>><<span class="odocwiki_type"|>>>>~Concrete implementation of ~S~V~G typesafe constructors
+
+----

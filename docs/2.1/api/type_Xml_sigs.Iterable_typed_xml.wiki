@@ -1,0 +1,8 @@
+<<code language="ocaml" | sig
+  module Xml : Iterable
+  module Info : Info
+  type 'a elt
+  type doc
+  val toelt : 'a Xml_sigs.Iterable_typed_xml.elt -> Xml.elt
+  val doc_toelt : Xml_sigs.Iterable_typed_xml.doc -> Xml.elt
+end >>

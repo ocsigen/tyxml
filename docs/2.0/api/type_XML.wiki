@@ -1,0 +1,81 @@
+<<code language="ocaml" | sig
+  type aname = string
+  type separator = Space | Comma
+  type event = string
+  type attrib
+  val aname : XML.attrib -> XML.aname
+  type acontent = private
+      AFloat of XML.aname * float
+    | AInt of XML.aname * int
+    | AStr of XML.aname * string
+    | AStrL of XML.separator * XML.aname * string list
+  val acontent : XML.attrib -> XML.acontent
+  val float_attrib : XML.aname -> float -> XML.attrib
+  val int_attrib : XML.aname -> int -> XML.attrib
+  val string_attrib : XML.aname -> string -> XML.attrib
+  val space_sep_attrib : XML.aname -> string list -> XML.attrib
+  val comma_sep_attrib : XML.aname -> string list -> XML.attrib
+  val event_attrib : XML.aname -> XML.event -> XML.attrib
+  type ename = string
+  type elt
+  type econtent = private
+      Empty
+    | Comment of string
+    | EncodedPCDATA of string
+    | PCDATA of string
+    | Entity of string
+    | Leaf of XML.ename * XML.attrib list
+    | Node of XML.ename * XML.attrib list * XML.elt list
+  val content : XML.elt -> XML.econtent
+  val empty : unit -> XML.elt
+  val comment : string -> XML.elt
+  val pcdata : string -> XML.elt
+  val encodedpcdata : string -> XML.elt
+  val entity : string -> XML.elt
+  val leaf : ?a:XML.attrib list -> XML.ename -> XML.elt
+  val node : ?a:XML.attrib list -> XML.ename -> XML.elt list -> XML.elt
+  val cdata : string -> XML.elt
+  val cdata_script : string -> XML.elt
+  val cdata_style : string -> XML.elt
+  val amap :
+    (XML.ename -> XML.attrib list -> XML.attrib list) -> XML.elt -> XML.elt
+  val amap1 :
+    (XML.ename -> XML.attrib list -> XML.attrib list) -> XML.elt -> XML.elt
+  val rm_attrib : (XML.aname -> bool) -> XML.attrib list -> XML.attrib list
+  val rm_attrib_from_list :
+    (XML.aname -> bool) ->
+    (string -> bool) -> XML.attrib list -> XML.attrib list
+  val map_int_attrib :
+    (XML.aname -> bool) -> (int -> int) -> XML.attrib list -> XML.attrib list
+  val map_string_attrib :
+    (XML.aname -> bool) ->
+    (string -> string) -> XML.attrib list -> XML.attrib list
+  val map_string_attrib_in_list :
+    (XML.aname -> bool) ->
+    (string -> string) -> XML.attrib list -> XML.attrib list
+  val add_int_attrib : XML.aname -> int -> XML.attrib list -> XML.attrib list
+  val add_string_attrib :
+    XML.aname -> string -> XML.attrib list -> XML.attrib list
+  val add_comma_sep_attrib :
+    XML.aname -> string -> XML.attrib list -> XML.attrib list
+  val add_space_sep_attrib :
+    XML.aname -> string -> XML.attrib list -> XML.attrib list
+  val fold :
+    (unit -> 'a) ->
+    (string -> 'a) ->
+    (string -> 'a) ->
+    (string -> 'a) ->
+    (string -> 'a) ->
+    (XML.ename -> XML.attrib list -> 'a) ->
+    (XML.ename -> XML.attrib list -> 'a list -> 'a) -> XML.elt -> 'a
+  val all_entities : XML.elt -> string list
+  val translate :
+    (XML.ename -> XML.attrib list -> XML.elt) ->
+    (XML.ename -> XML.attrib list -> XML.elt list -> XML.elt) ->
+    ('a -> XML.ename -> XML.attrib list -> XML.elt list) ->
+    ('a -> XML.ename -> XML.attrib list -> XML.elt list -> XML.elt list) ->
+    (XML.ename -> XML.attrib list -> 'a -> 'a) -> 'a -> XML.elt -> XML.elt
+  val print_list :
+    output:(string -> unit) ->
+    ?encode:(string -> string) -> XML.elt list -> unit
+end >>

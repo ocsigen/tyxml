@@ -1,0 +1,33 @@
+<<code language="ocaml" | sig
+  val error : Camlp4.PreCast.Loc.t -> Xhtmlparser.Error.t -> exn
+  type attr_name = [ `AttrName of string | `CamlAttrName of string ]
+  type attr_value = [ `AttrVal of string | `CamlAttrVal of string ]
+  type attribute =
+      [ `Attribute of
+          Xhtmlparser.LexerArg.attr_name * Xhtmlparser.LexerArg.attr_value
+      | `CamlAttributes of string ]
+  type token =
+      [ `CDATA of string
+      | `CamlExpr of string
+      | `CamlList of string
+      | `CamlString of string
+      | `Comment of string
+      | `Endtag of string
+      | `Eof
+      | `PCData of string
+      | `Tag of string * Xhtmlparser.LexerArg.attribute list * bool
+      | `Whitespace of string ]
+  val parse_dollar_attribute :
+    Xmllexer.context -> 'a -> Lexing.lexbuf -> [> `CamlAttributes of string ]
+  val parse_dollar_attrvalue :
+    Xmllexer.context -> 'a -> Lexing.lexbuf -> [> `CamlAttrVal of string ]
+  val parse_dollar_attrname :
+    Xmllexer.context -> 'a -> Lexing.lexbuf -> [> `CamlAttrName of string ]
+  val parse_dollar_token :
+    Xmllexer.context ->
+    Lexing.lexbuf ->
+    [> `CamlExpr of string
+     | `CamlList of string
+     | `CamlString of string
+     | `PCData of string ]
+end >>

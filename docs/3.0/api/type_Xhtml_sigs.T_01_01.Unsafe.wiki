@@ -1,0 +1,19 @@
+<<code language="ocaml" | sig
+  val data : string -> 'a Xhtml_sigs.T_01_01.elt
+  val node :
+    string ->
+    ?a:'a Xhtml_sigs.T_01_01.attrib list ->
+    'b Xhtml_sigs.T_01_01.elt list -> 'c Xhtml_sigs.T_01_01.elt
+  val leaf :
+    string ->
+    ?a:'a Xhtml_sigs.T_01_01.attrib list -> unit -> 'b Xhtml_sigs.T_01_01.elt
+  val string_attrib : string -> string -> 'a Xhtml_sigs.T_01_01.attrib
+  val float_attrib : string -> float -> 'a Xhtml_sigs.T_01_01.attrib
+  val int_attrib : string -> int -> 'a Xhtml_sigs.T_01_01.attrib
+  val uri_attrib :
+    string -> Xhtml_sigs.T_01_01.uri -> 'a Xhtml_sigs.T_01_01.attrib
+  val space_sep_attrib :
+    string -> string list -> 'a Xhtml_sigs.T_01_01.attrib
+  val comma_sep_attrib :
+    string -> string list -> 'a Xhtml_sigs.T_01_01.attrib
+end >>

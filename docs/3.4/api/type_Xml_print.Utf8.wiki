@@ -1,0 +1,5 @@
+<<code language="ocaml" | sig
+  type utf8 = string
+  val normalize : string -> Xml_print.Utf8.utf8 * bool
+  val normalize_html : string -> Xml_print.Utf8.utf8 * bool
+end >>

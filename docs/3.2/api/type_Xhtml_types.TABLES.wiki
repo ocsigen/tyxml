@@ -1,0 +1,5 @@
+<<code language="ocaml" | sig
+  type t = [ `Caption | `Td | `Th | `Tr ]
+  type block = [ `Table ]
+  type flow = Xhtml_types.TABLES.block
+end >>

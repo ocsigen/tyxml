@@ -1,0 +1,24 @@
+=Module <<a_api_type | module Tyxml_name >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Tyxml_name>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Tyxml_name >><<span class="ocsforge_color_keyword"|end>>>>~Gives the tyxml names for ~H~T~M~L elements and attributes~.
+
+----
+<<pre id="VALto_ocaml" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|to~_ocaml>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~The transformations are the following~:
+* ~Valid letters in ~O~Caml identifiers are kept~.
+* ~Everything else is turn into an underscore ~'~_~'~.
+
+>>
+<<pre id="VALident" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|ident>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~Turn the given element name into a valid identifier~.
+
+
+    ~Follow the <<span class="odocwiki_inlinecode"|to~_ocaml>> convention and lowercase the first letter~.
+>>
+<<pre id="VALattrib" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|attrib>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~Turn the given attribute name into a valid identifier~.
+
+
+    ~Follow the <<span class="odocwiki_inlinecode"|to~_ocaml>> convention and add <<span class="odocwiki_inlinecode"|"a~_">> at the beginning~.
+>>
+<<pre id="VALpolyvar" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|polyvar>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|string <<span class="ocsforge_color_delimiter"| -> >> string>>>><<div class="odocwiki_info"|~Turn the given name into a valid ~Polymorphic variant name~.
+
+
+    ~Follow the <<span class="odocwiki_inlinecode"|to~_ocaml>> convention~, uppercase the first letter and add <<span class="odocwiki_inlinecode"|"`">>~.
+>>

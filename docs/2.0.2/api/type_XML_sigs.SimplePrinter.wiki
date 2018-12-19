@@ -1,0 +1,7 @@
+<<code language="ocaml" | sig
+  type xml_elt
+  val print_list :
+    output:(string -> unit) ->
+    ?encode:(Buffer.t -> string -> unit) ->
+    XML_sigs.SimplePrinter.xml_elt list -> unit
+end >>
