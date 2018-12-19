@@ -1,0 +1,126 @@
+<<code language="ocaml" | sig
+  module Xmllexer :
+    sig
+      val err : Xmllexer.lexing_error -> Camlp4.PreCast.Loc.t -> 'a
+      val __ocaml_lex_tables : Lexing.lex_tables
+      val token :
+        Xmllexer.context -> Lexing.lexbuf -> Xhtmlparser.LexerArg.token
+      val __ocaml_lex_token_rec :
+        Xmllexer.context ->
+        Lexing.lexbuf -> int -> Xhtmlparser.LexerArg.token
+      val ignore_spaces : Xmllexer.context -> Lexing.lexbuf -> unit
+      val __ocaml_lex_ignore_spaces_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> unit
+      val comment :
+        Xmllexer.context -> Xmllexer.Loc.t list -> Lexing.lexbuf -> string
+      val __ocaml_lex_comment_rec :
+        Xmllexer.context ->
+        Xmllexer.Loc.t list -> Lexing.lexbuf -> int -> string
+      val header : Xmllexer.context -> Lexing.lexbuf -> unit
+      val __ocaml_lex_header_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> unit
+      val cdata :
+        Xmllexer.context -> Lexing.lexbuf -> Xhtmlparser.LexerArg.token
+      val __ocaml_lex_cdata_rec :
+        Xmllexer.context ->
+        Lexing.lexbuf -> int -> Xhtmlparser.LexerArg.token
+      val pcdata : Xmllexer.context -> Lexing.lexbuf -> string
+      val __ocaml_lex_pcdata_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> string
+      val entity : Xmllexer.context -> Lexing.lexbuf -> string
+      val __ocaml_lex_entity_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> string
+      val ident_name : Xmllexer.context -> Lexing.lexbuf -> string
+      val __ocaml_lex_ident_name_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> string
+      val close_tag : Xmllexer.context -> Lexing.lexbuf -> unit
+      val __ocaml_lex_close_tag_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> unit
+      val attributes :
+        Xmllexer.context ->
+        Lexing.lexbuf -> Xhtmlparser.LexerArg.attribute list * bool
+      val __ocaml_lex_attributes_rec :
+        Xmllexer.context ->
+        Lexing.lexbuf -> int -> Xhtmlparser.LexerArg.attribute list * bool
+      val attr_name :
+        Xmllexer.context -> Lexing.lexbuf -> Xhtmlparser.LexerArg.attr_name
+      val __ocaml_lex_attr_name_rec :
+        Xmllexer.context ->
+        Lexing.lexbuf -> int -> Xhtmlparser.LexerArg.attr_name
+      val attr_data :
+        Xmllexer.context -> Lexing.lexbuf -> Xhtmlparser.LexerArg.attr_value
+      val __ocaml_lex_attr_data_rec :
+        Xmllexer.context ->
+        Lexing.lexbuf -> int -> Xhtmlparser.LexerArg.attr_value
+      val dq_string : Xmllexer.context -> Lexing.lexbuf -> string
+      val __ocaml_lex_dq_string_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> string
+      val q_string : Xmllexer.context -> Lexing.lexbuf -> string
+      val __ocaml_lex_q_string_rec :
+        Xmllexer.context -> Lexing.lexbuf -> int -> string
+      val lexing_store : char Stream.t -> string -> int -> int
+      val from_context :
+        Xmllexer.context ->
+        (Xhtmlparser.LexerArg.token * Xmllexer.Loc.t) Stream.t
+      val from_lexbuf :
+        Lexing.lexbuf ->
+        bool -> (Xhtmlparser.LexerArg.token * Xmllexer.Loc.t) Stream.t
+      val setup_loc : Lexing.lexbuf -> Xmllexer.Loc.t -> unit
+      val from_string :
+        Xmllexer.Loc.t ->
+        bool ->
+        string -> (Xhtmlparser.LexerArg.token * Xmllexer.Loc.t) Stream.t
+      val from_stream :
+        Xmllexer.Loc.t ->
+        bool ->
+        char Stream.t ->
+        (Xhtmlparser.LexerArg.token * Xmllexer.Loc.t) Stream.t
+    end
+  type state = {
+    stream : (Xhtmlparser.LexerArg.token * Camlp4.PreCast.Loc.t) Stream.t;
+    stack : Xhtmlparser.LexerArg.token Stack.t;
+    loc : Camlp4.PreCast.Loc.t;
+  }
+  exception CamlListExc of string
+  module Error :
+    sig
+      type t =
+          EndOfTagExpected of string
+        | EOFExpected
+        | NoMoreTagExpected
+        | NoMoreData
+      exception E of t
+      val print : Format.formatter -> t -> unit
+      val to_string : t -> string
+    end
+  val err : Error.t -> Camlp4.PreCast.Loc.t -> 'a
+  val pop : state -> Xhtmlparser.LexerArg.token * state
+  val push : Xhtmlparser.LexerArg.token -> state -> unit
+  val expr_of_list :
+    Camlp4.PreCast.Ast.loc ->
+    [< `Elt of Camlp4.PreCast.Ast.expr | `List of Camlp4.PreCast.Ast.expr ]
+    list -> Camlp4.PreCast.Ast.expr
+  val parse :
+    Xmllexer.Loc.t ->
+    bool -> string -> (Xhtmlparser.LexerArg.token * Xmllexer.Loc.t) Stream.t
+  val get_expr :
+    string ->
+    Camlp4.PreCast.Syntax.Gram.Loc.t -> Camlp4.PreCast.Syntax.Ast.expr
+  val read_node : state -> Camlp4.PreCast.Syntax.Ast.expr
+  val read_elems : ?tag:string -> state -> Camlp4.PreCast.Ast.expr
+  val read_attlist :
+    state -> Xhtmlparser.LexerArg.attribute list -> Camlp4.PreCast.Ast.expr
+  val clean_ws : state -> state
+  val to_expr :
+    (Xhtmlparser.LexerArg.token * Camlp4.PreCast.Loc.t) Stream.t ->
+    Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Syntax.Ast.expr
+  val to_expr_taglist :
+    (Xhtmlparser.LexerArg.token * Camlp4.PreCast.Loc.t) Stream.t ->
+    Camlp4.PreCast.Loc.t -> Camlp4.PreCast.Ast.expr
+  val remove_ws : string -> string
+  val xml_exp :
+    Xmllexer.Loc.t ->
+    string option -> string -> Camlp4.PreCast.Syntax.Ast.expr
+  val xml_expl :
+    Xmllexer.Loc.t -> string option -> string -> Camlp4.PreCast.Ast.expr
+end >>

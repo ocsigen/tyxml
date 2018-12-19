@@ -1,0 +1,143 @@
+==
+
+=@@id="1_TyXMLAPIreference"@@~Ty~X~M~L – ~A~P~I reference =
+\\
+
+
+
+==@@id="2_BuildingvalidXMLtree"@@~Building valid ~X~M~L tree ==
+\\
+
+
+
+|<<a_api | module XHTML >>|<<div class="odocwiki_info"|~Typesafe constructors and printers for ~X~H~T~M~L ~1~.~0 and ~1~.~1 documents
+>>
+|
+|<<a_api | module SVG >>|<<div class="odocwiki_info"|~Typesafe constructors and printers for ~S~V~G documents~.
+>>
+|
+|<<a_api | module HTML5 >>|<<div class="odocwiki_info"|~Typesafe constructors and printers for ~H~T~M~L~5 documents~.
+>>
+|
+
+\\
+
+
+
+==@@id="2_CommonDTDstranscriptions"@@~Common ~D~T~D~'s transcriptions==
+\\
+
+
+
+|<<a_api | module XHTML_types >>|<<div class="odocwiki_info"|~X~H~T~M~L types with variants~.
+>>
+|
+|<<a_api | module SVG_types >>|<<div class="odocwiki_info"|~S~V~G types with variants~.
+>>
+|
+|<<a_api | module HTML5_types >>|<<div class="odocwiki_info"|~H~T~M~L~5 types with variants~.
+>>
+|
+
+\\
+
+
+
+==@@id="2_LowlevelXMLmanipulation"@@~Low~-level ~X~M~L manipulation==
+\\
+
+
+
+|<<a_api | module XML >>|<<div class="odocwiki_info"|~Basic functions for construction and manipulation of ~X~M~L tree~.
+>>
+|
+
+\\
+
+
+
+==@@id="2_Functorialinterface"@@~Functorial interface ==
+\\
+
+
+
+|<<a_api | module XHTML_f >>|<<div class="odocwiki_info"|~Typesafe constructors for ~X~H~T~M~L documents ~(~Functorial interface~)
+>>
+|
+|<<a_api | module SVG_f >>|<<div class="odocwiki_info"|~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+>>
+|
+|<<a_api | module HTML5_f >>|<<div class="odocwiki_info"|~Typesafe constructors for ~H~T~M~L~5 documents ~(~Functorial interface~)
+>>
+|
+|<<a_api | module XML_iter >>|<<div class="odocwiki_info"|~Basic iterators over ~X~M~L tree ~(functorial interface~)~.
+>>
+|
+|<<a_api | module XML_print >>|<<div class="odocwiki_info"|~Printer for ~X~M~L~.
+>>
+|
+
+\\
+
+
+
+==@@id="2_OCamlduce"@@~O~Camlduce==
+\\
+
+
+
+===@@id="3_CommonDTDstranscriptions"@@~Common ~D~T~D~'s transcriptions===
+\\
+
+
+
+|<<a_api | module XHTML_types_duce >>|<<div class="odocwiki_info"|~This interface corresponds to the ~X~H~T~M~L ~1~.~0 ~Strict ~D~T~D~, for ~Ocamlduce~.
+>>
+|
+
+\\
+
+
+
+===@@id="3_Helpers"@@~Helpers===
+\\
+
+
+
+|<<a_api | module XML_print_duce >>|<<div class="odocwiki_info"|~Printer for ~X~H~T~M~L with ~Ocamlduce that handles browser specificities properly~.
+>>
+|
+|<<a_api | module XHTML_duce >>|<<div class="odocwiki_info"|~O~Camlduce printers for ~X~H~T~M~L ~1~.~0 and ~1~.~1 documents~.
+>>
+|
+
+\\
+
+
+
+==@@id="2_Syntaxextensionandsimpleparser"@@~Syntax extension and simple parser==
+\\
+
+
+
+|<<a_api | module Pa_tyxml >>|<<div class="odocwiki_info"|~Syntax extension for ~H~T~M~L~5~, ~X~H~T~M~L or ~S~V~G tree creation~.
+>>
+|
+|<<a_api | module Simplexmlparser >>|<<div class="odocwiki_info"|~Basic camlp~4 parser for xml
+>>
+|
+
+\\
+
+
+
+==@@id="2_Indexes"@@~Indexes==
+\\
+
+
+* <<a_api text="Index of types" | index types >>
+* <<a_api text="Index of exceptions" | index exceptions >>
+* <<a_api text="Index of values" | index values >>
+* <<a_api text="Index of modules" | index modules >>
+* <<a_api text="Index of module types" | index module types >>
+\\

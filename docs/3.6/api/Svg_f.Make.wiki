@@ -1,0 +1,6 @@
+=Functor <<a_api_type | module Svg_f.Make >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Make>>>> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="odocwiki_type"|     with type ('a, 'b) W.ft = ('a -> 'b)>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Svg_sigs.Make" | module Svg_sigs.Make >>(Xml).T>><<span class="odocwiki_type"|\\    with type +'a elt = Xml.elt\\     and type +'a attrib = Xml.attrib>>>><<div class="odocwiki_module_param_list" | <<span class="odocwiki_param_title" |Parameters :>><<div|
+|@@class="odocwiki_paramstable"@ @class="centertop fifteen code"@@{{{Xml}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b)>>|
+>>>>
+
+----

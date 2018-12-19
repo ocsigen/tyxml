@@ -1,0 +1,28 @@
+<<code language="ocaml" | sig
+  module type T =
+    sig
+      type 'a t
+      type 'a tlist
+      val return : 'a -> 'a Xml_wrap.T.t
+      val fmap : ('a -> 'b) -> 'a Xml_wrap.T.t -> 'b Xml_wrap.T.t
+      val nil : unit -> 'a Xml_wrap.T.tlist
+      val singleton : 'a Xml_wrap.T.t -> 'a Xml_wrap.T.tlist
+      val cons :
+        'a Xml_wrap.T.t -> 'a Xml_wrap.T.tlist -> 'a Xml_wrap.T.tlist
+      val append :
+        'a Xml_wrap.T.tlist -> 'a Xml_wrap.T.tlist -> 'a Xml_wrap.T.tlist
+      val map : ('a -> 'b) -> 'a Xml_wrap.T.tlist -> 'b Xml_wrap.T.tlist
+    end
+  module NoWrap :
+    sig
+      type 'a t = 'a
+      type 'a tlist = 'a list
+      val return : 'a -> 'a t
+      val fmap : ('a -> 'b) -> 'a t -> 'b t
+      val nil : unit -> 'a tlist
+      val singleton : 'a t -> 'a tlist
+      val cons : 'a t -> 'a tlist -> 'a tlist
+      val append : 'a tlist -> 'a tlist -> 'a tlist
+      val map : ('a -> 'b) -> 'a tlist -> 'b tlist
+    end
+end >>

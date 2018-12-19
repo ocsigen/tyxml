@@ -1,0 +1,150 @@
+=Index of modules=
+
+|@@ @style="tet-align: left;"@@\\H|
+|@@class="odocwiki_index"@ @@<<a_api text="Html"| module Tyxml.Html >> ~[<<a_api | module Tyxml >>~]|<<div class="odocwiki_info"|~Typesafe constructors and printers for ~H~T~M~L documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html5"| module Tyxml.Html5 >> ~[<<a_api | module Tyxml >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Deprecated alias for <<a_api | module Tyxml.Html >>~.
+>>>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html_f"| module Html_f >> |<<div class="odocwiki_info"|~Typesafe constructors for ~H~T~M~L documents ~(~Functorial interface~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html_sigs"| module Html_sigs >> |<<div class="odocwiki_info"|~H~T~M~L signatures for the functorial interface~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Html_types"| module Html_types >> |<<div class="odocwiki_info"|~H~T~M~L types with variants~, goes with <<a_api | module type Html_sigs.T >>~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\I|
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Html_sigs.T.Info >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|~Various information about ~H~T~M~L~, such as the doctype~, ~.~.~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Svg_sigs.T.Info >> ~[<<a_api | module Svg_sigs.T >>~]|<<div class="odocwiki_info"|~Various information about ~S~V~G~, such as the doctype~, ~.~.~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Info"| module Xml_sigs.Typed_xml.Info >> ~[<<a_api | module Xml_sigs.Typed_xml >>~]||
+|@@ @style="tet-align: left;"@@\\M|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Html_f.Make >> ~[<<a_api | module Html_f >>~]|<<div class="odocwiki_info"|~Create a new implementation of <<span class="odocwiki_inlinecode"|~H~T~M~L>>~, using the given underlying <<span class="odocwiki_inlinecode"|~Xml>>
+    and <<span class="odocwiki_inlinecode"|~Svg>> implementation~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Html_sigs.Make >> ~[<<a_api | module Html_sigs >>~]|<<div class="odocwiki_info"|~Signature functor for <<a_api | module Html_f.Make >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Svg_f.Make >> ~[<<a_api | module Svg_f >>~]|<<div class="odocwiki_info"|~Create a new implementation of <<span class="odocwiki_inlinecode"|~Svg>>~, using the given underlying <<span class="odocwiki_inlinecode"|~Xml>>
+    implementation~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Svg_sigs.Make >> ~[<<a_api | module Svg_sigs >>~]|<<div class="odocwiki_info"|~Signature functor for <<a_api | module Svg_f.Make >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_print.Make >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_iter.Make >> ~[<<a_api | module Xml_iter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_fmt"| module Xml_print.Make_fmt >> ~[<<a_api | module Xml_print >>~]|<<div class="odocwiki_info"|~Printers for raw ~X~M~L modules~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Tyxml_html.Make_printer >> ~[<<a_api | module Tyxml_html >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Html documents~.
+>>>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Tyxml_svg.Make_printer >> ~[<<a_api | module Tyxml_svg >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Svg documents~.
+>>>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_simple"| module Xml_print.Make_simple >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_typed"| module Xml_print.Make_typed >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_typed_fmt"| module Xml_print.Make_typed_fmt >> ~[<<a_api | module Xml_print >>~]|<<div class="odocwiki_info"|~Printers for typed ~X~M~L module~, such as the one produced by <<a_api | module Svg_f >> and <<a_api | module Html_f >>~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_typed_simple"| module Xml_print.Make_typed_simple >> ~[<<a_api | module Xml_print >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make_with_wrapped_functions"| module Html_f.Make_with_wrapped_functions >> ~[<<a_api | module Html_f >>~]|<<div class="odocwiki_info"|~Similar to <<a_api | module Html_f.Make >> but with a custom set of wrapped functions~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Make_with_wrapped_functions"| module Svg_f.Make_with_wrapped_functions >> ~[<<a_api | module Svg_f >>~]|<<div class="odocwiki_info"|~Similar to <<a_api | module Svg_f.Make >> but with a custom set of wrapped functions~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\N|
+|@@class="odocwiki_index"@ @@<<a_api text="NoWrap"| module Xml_wrap.NoWrap >> ~[<<a_api | module Xml_wrap >>~]||
+|@@ @style="tet-align: left;"@@\\P|
+|@@class="odocwiki_index"@ @@<<a_api text="Pa_tyxml"| module Pa_tyxml >> |<<div class="odocwiki_info"|~Syntax extension for ~H~T~M~L or ~S~V~G tree creation~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Ppx_tyxml"| module Ppx_tyxml >> |<<div class="odocwiki_info"|~Ty~X~M~L ppx library~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\S|
+|@@class="odocwiki_index"@ @@<<a_api text="Simplexmlparser"| module Simplexmlparser >> |<<div class="odocwiki_info"|~Basic camlp~4 parser for xml
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg"| module Html_sigs.T.Svg >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|~Associated ~S~V~G module~, for the <<a_api | val Html_sigs.T.svg >> combinator~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg"| module Tyxml.Svg >> ~[<<a_api | module Tyxml >>~]|<<div class="odocwiki_info"|~Typesafe constructors and printers for ~Svg documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg_f"| module Svg_f >> |<<div class="odocwiki_info"|~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg_sigs"| module Svg_sigs >> |<<div class="odocwiki_info"|~S~V~G signatures for the functorial interface~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Svg_types"| module Svg_types >> |<<div class="odocwiki_info"|~S~V~G types with variants~, goes with <<a_api | module type Svg_sigs.T >>~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\T|
+|@@class="odocwiki_index"@ @@<<a_api text="Tyxml"| module Tyxml >> |<<div class="odocwiki_info"|~Typed implementation for ~H~T~M~L~, ~S~V~G and ~X~M~L
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Tyxml_html"| module Tyxml_html >> |<<div class="odocwiki_info"|~Typesafe constructors and printers for ~Html documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Tyxml_svg"| module Tyxml_svg >> |<<div class="odocwiki_info"|~Typesafe constructors and printers for ~Svg documents~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Tyxml_xml"| module Tyxml_xml >> |<<div class="odocwiki_info"|~Basic functions for construction and manipulation of ~X~M~L tree~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\U|
+|@@class="odocwiki_index"@ @@<<a_api text="Unit"| module Svg_types.Unit >> ~[<<a_api | module Svg_types >>~]|<<div class="odocwiki_info"|~S~V~G defines several units to measure time~, length~, angles~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Unsafe"| module Html_sigs.T.Unsafe >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|~Unsafe features~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Unsafe"| module Svg_sigs.T.Unsafe >> ~[<<a_api | module Svg_sigs.T >>~]|<<div class="odocwiki_info"|~Unsafe features~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Utf8"| module Xml_print.Utf8 >> ~[<<a_api | module Xml_print >>~]|<<div class="odocwiki_info"|~Utf~8 normalizer and encoder for ~H~T~M~L~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\W|
+|@@class="odocwiki_index"@ @@<<a_api text="W"| module Xml_sigs.T.W >> ~[<<a_api | module Xml_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Wrapped_functions"| module Html_f.Wrapped_functions >> ~[<<a_api | module Html_f >>~]|<<div class="odocwiki_info"|~The standard set of wrapped functions~, when <<span class="odocwiki_inlinecode"|~W~.ft>> is the regular function~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Wrapped_functions"| module Svg_f.Wrapped_functions >> ~[<<a_api | module Svg_f >>~]|<<div class="odocwiki_info"|~The standard set of wrapped functions~, when <<span class="odocwiki_inlinecode"|~W~.ft>> is the regular function~.
+>>
+|
+|@@ @style="tet-align: left;"@@\\X|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html_sigs.Wrapped_functions.Xml >> ~[<<a_api | module Html_sigs.Wrapped_functions >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html_sigs.T.Xml >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|~Underlying ~X~M~L data~-structure
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Svg_sigs.Wrapped_functions.Xml >> ~[<<a_api | module Svg_sigs.Wrapped_functions >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Svg_sigs.T.Xml >> ~[<<a_api | module Svg_sigs.T >>~]|<<div class="odocwiki_info"|~Underlying ~X~M~L data~-structure
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Xml_sigs.Typed_xml.Xml >> ~[<<a_api | module Xml_sigs.Typed_xml >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Tyxml.Xml >> ~[<<a_api | module Tyxml >>~]|<<div class="odocwiki_info"|~Basic functions for construction and manipulation of ~X~M~L tree~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_iter"| module Xml_iter >> |<<div class="odocwiki_info"|~Basic iterators over ~X~M~L tree ~(functorial interface~)~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_print"| module Xml_print >> |<<div class="odocwiki_info"|~Printing utilities~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_sigs"| module Xml_sigs >> |<<div class="odocwiki_info"|~X~M~L ~Signatures~.
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml_wrap"| module Xml_wrap >> ||
+\\

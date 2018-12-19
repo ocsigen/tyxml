@@ -1,0 +1,151 @@
+<<code language="ocaml" | sig
+  module type T =
+    sig
+      type aname = string
+      type event
+      type attrib
+      val float_attrib : XML_sigs.T.aname -> float -> XML_sigs.T.attrib
+      val int_attrib : XML_sigs.T.aname -> int -> XML_sigs.T.attrib
+      val string_attrib : XML_sigs.T.aname -> string -> XML_sigs.T.attrib
+      val space_sep_attrib :
+        XML_sigs.T.aname -> string list -> XML_sigs.T.attrib
+      val comma_sep_attrib :
+        XML_sigs.T.aname -> string list -> XML_sigs.T.attrib
+      val event_attrib :
+        XML_sigs.T.aname -> XML_sigs.T.event -> XML_sigs.T.attrib
+      type elt
+      type ename = string
+      val empty : unit -> XML_sigs.T.elt
+      val comment : string -> XML_sigs.T.elt
+      val pcdata : string -> XML_sigs.T.elt
+      val encodedpcdata : string -> XML_sigs.T.elt
+      val entity : string -> XML_sigs.T.elt
+      val leaf :
+        ?a:XML_sigs.T.attrib list -> XML_sigs.T.ename -> XML_sigs.T.elt
+      val node :
+        ?a:XML_sigs.T.attrib list ->
+        XML_sigs.T.ename -> XML_sigs.T.elt list -> XML_sigs.T.elt
+      val cdata : string -> XML_sigs.T.elt
+      val cdata_script : string -> XML_sigs.T.elt
+      val cdata_style : string -> XML_sigs.T.elt
+    end
+  module type Iterable =
+    sig
+      type aname = string
+      type event
+      type attrib
+      val float_attrib : aname -> float -> attrib
+      val int_attrib : aname -> int -> attrib
+      val string_attrib : aname -> string -> attrib
+      val space_sep_attrib : aname -> string list -> attrib
+      val comma_sep_attrib : aname -> string list -> attrib
+      val event_attrib : aname -> event -> attrib
+      type elt
+      type ename = string
+      val empty : unit -> elt
+      val comment : string -> elt
+      val pcdata : string -> elt
+      val encodedpcdata : string -> elt
+      val entity : string -> elt
+      val leaf : ?a:attrib list -> ename -> elt
+      val node : ?a:attrib list -> ename -> elt list -> elt
+      val cdata : string -> elt
+      val cdata_script : string -> elt
+      val cdata_style : string -> elt
+      type separator = Space | Comma
+      val aname : attrib -> aname
+      type acontent = private
+          AFloat of aname * float
+        | AInt of aname * int
+        | AStr of aname * string
+        | AStrL of XML_sigs.Iterable.separator * aname * string list
+      val acontent : attrib -> XML_sigs.Iterable.acontent
+      type econtent = private
+          Empty
+        | Comment of string
+        | EncodedPCDATA of string
+        | PCDATA of string
+        | Entity of string
+        | Leaf of ename * attrib list
+        | Node of ename * attrib list * elt list
+      val content : elt -> XML_sigs.Iterable.econtent
+    end
+  module type Info =
+    sig
+      val content_type : string
+      val version : string
+      val standard : Uri.uri
+      val doctype : string
+      val emptytags : string list
+    end
+  module type Output =
+    sig
+      type out
+      type m
+      val empty : XML_sigs.Output.m
+      val concat :
+        XML_sigs.Output.m -> XML_sigs.Output.m -> XML_sigs.Output.m
+      val put : string -> XML_sigs.Output.m
+      val make : XML_sigs.Output.m -> XML_sigs.Output.out
+    end
+  module type TypedXML =
+    sig
+      module XML : T
+      module Info : Info
+      type 'a elt
+      type doc
+      val toelt : 'a XML_sigs.TypedXML.elt -> XML.elt
+      val doc_toelt : XML_sigs.TypedXML.doc -> XML.elt
+    end
+  module type IterableTypedXML =
+    sig
+      module XML : Iterable
+      module Info : Info
+      type 'a elt
+      type doc
+      val toelt : 'a XML_sigs.IterableTypedXML.elt -> XML.elt
+      val doc_toelt : XML_sigs.IterableTypedXML.doc -> XML.elt
+    end
+  module type Printer =
+    sig
+      type xml_elt
+      type out
+      val print_list :
+        ?encode:(string -> string) ->
+        XML_sigs.Printer.xml_elt list -> XML_sigs.Printer.out
+    end
+  module type SimplePrinter =
+    sig
+      type xml_elt
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        XML_sigs.SimplePrinter.xml_elt list -> unit
+    end
+  module type TypedPrinter =
+    sig
+      type 'a elt
+      type doc
+      type out
+      val print_list :
+        ?encode:(string -> string) ->
+        'a XML_sigs.TypedPrinter.elt list -> XML_sigs.TypedPrinter.out
+      val print :
+        ?encode:(string -> string) ->
+        ?advert:string ->
+        XML_sigs.TypedPrinter.doc -> XML_sigs.TypedPrinter.out
+    end
+  module type TypedSimplePrinter =
+    sig
+      type 'a elt
+      type doc
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        'a XML_sigs.TypedSimplePrinter.elt list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        ?advert:string -> XML_sigs.TypedSimplePrinter.doc -> unit
+    end
+end >>

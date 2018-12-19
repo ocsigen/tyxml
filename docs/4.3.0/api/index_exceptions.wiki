@@ -1,0 +1,5 @@
+=Index of exceptions=
+
+|@@ @style="tet-align: left;"@@\\M|
+|@@class="odocwiki_index"@ @@<<a_api text="Malformed_stream"| exception Xml_stream.Malformed_stream >> ~[<<a_api | module Xml_stream >>~]||
+\\

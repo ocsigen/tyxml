@@ -1,0 +1,7 @@
+=Functor <<a_api_type | module Xml_stream.Import >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Import>>>> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_stream.Import >><<span class="ocsforge_color_keyword"|end>>>><<div class="odocwiki_module_param_list" | <<span class="odocwiki_param_title" |Parameters :>><<div|
+|@@class="odocwiki_paramstable"@ @class="centertop fifteen code"@@{{{Xml}}}|@@class="centertop"@@:|<<span class="odocwiki_type"|Xml_sigs.T>>|
+>>>>
+
+----
+<<pre id="VALof_seq" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|of~_seq>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_stream.signal" | type Xml_stream.signal >> <<span class="ocsforge_color_uid"|Seq>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|t>> <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_uid"|Xml>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|elt>> <<span class="ocsforge_color_uid"|Xml>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|list_wrap>>>>>>

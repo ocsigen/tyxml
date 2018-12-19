@@ -1,0 +1,102 @@
+==
+
+=@@id="1_TyXML"@@~Ty~X~M~L =
+
+
+
+
+|<<a_api | module Tyxml >>|<<div class="odocwiki_info"|~Typed implementation for ~H~T~M~L~, ~S~V~G and ~X~M~L
+>>
+|
+
+
+
+
+
+==@@id="2_Typesandsignatures"@@~Types and signatures==
+
+
+
+
+|<<a_api | module Html_sigs >>|<<div class="odocwiki_info"|~H~T~M~L signatures for the functorial interface~.
+>>
+|
+|<<a_api | module Html_types >>|<<div class="odocwiki_info"|~H~T~M~L types with variants~, goes with <<a_api | module type Html_sigs.T >>~.
+>>
+|
+|<<a_api | module Svg_sigs >>|<<div class="odocwiki_info"|~S~V~G signatures for the functorial interface~.
+>>
+|
+|<<a_api | module Svg_types >>|<<div class="odocwiki_info"|~S~V~G types with variants~, goes with <<a_api | module type Svg_sigs.T >>~.
+>>
+|
+
+
+
+
+
+=@@id="1_TyXMLFunctors"@@~Ty~X~M~L ~Functors =
+
+
+
+
+|<<a_api | module Html_f >>|<<div class="odocwiki_info"|~Typesafe constructors for ~H~T~M~L documents ~(~Functorial interface~)
+>>
+|
+|<<a_api | module Svg_f >>|<<div class="odocwiki_info"|~Typesafe constructors for ~S~V~G documents ~(~Functorial interface~)
+>>
+|
+|<<a_api | module Xml_sigs >>|<<div class="odocwiki_info"|~X~M~L ~Signatures~.
+>>
+|
+|<<a_api | module Xml_wrap >>||
+|<<a_api | module Xml_iter >>|<<div class="odocwiki_info"|~Basic iterators over ~X~M~L tree ~(functorial interface~)~.
+>>
+|
+|<<a_api | module Xml_print >>|<<div class="odocwiki_info"|~Printing utilities~.
+>>
+|
+
+
+
+
+
+=@@id="1_Ppxlibrary"@@~Ppx library=
+
+
+
+
+|<<a_api | module Ppx_tyxml >>|<<div class="odocwiki_info"|~Ty~X~M~L ppx library~.
+>>
+|
+
+
+
+
+
+=@@id="1_Camlp4Syntaxextensionandparser"@@~Camlp~4 ~Syntax extension and parser=
+
+
+
+
+|<<a_api | module Pa_tyxml >>|<<div class="odocwiki_info"|~Syntax extension for ~H~T~M~L or ~S~V~G tree creation~.
+>>
+|
+|<<a_api | module Simplexmlparser >>|<<div class="odocwiki_info"|~Basic camlp~4 parser for xml
+>>
+|
+
+
+
+
+
+=@@id="1_Indexes"@@~Indexes=
+
+
+
+* <<a_api text="Index of types" | index types >>
+* <<a_api text="Index of exceptions" | index exceptions >>
+* <<a_api text="Index of values" | index values >>
+* <<a_api text="Index of modules" | index modules >>
+* <<a_api text="Index of module types" | index module types >>
+

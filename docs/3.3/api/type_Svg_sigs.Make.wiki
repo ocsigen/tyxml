@@ -1,0 +1,2 @@
+<<code language="ocaml" | functor (Xml : Xml_sigs.T) ->
+  sig module type T = MakeWrapped(Xml_wrap.NoWrap)(Xml).T end >>

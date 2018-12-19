@@ -1,0 +1,5 @@
+<<code language="ocaml" | sig
+  val print_list :
+    output:(string -> unit) ->
+    ?encode:(string -> string) -> Ocamlduce.Load.anyxml list -> unit
+end >>

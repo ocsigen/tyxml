@@ -1,0 +1,26 @@
+<<code language="ocaml" | sig
+  type aname = string
+  type event
+  type attrib
+  val float_attrib : XML_sigs.T.aname -> float -> XML_sigs.T.attrib
+  val int_attrib : XML_sigs.T.aname -> int -> XML_sigs.T.attrib
+  val string_attrib : XML_sigs.T.aname -> string -> XML_sigs.T.attrib
+  val space_sep_attrib : XML_sigs.T.aname -> string list -> XML_sigs.T.attrib
+  val comma_sep_attrib : XML_sigs.T.aname -> string list -> XML_sigs.T.attrib
+  val event_attrib :
+    XML_sigs.T.aname -> XML_sigs.T.event -> XML_sigs.T.attrib
+  type elt
+  type ename = string
+  val empty : unit -> XML_sigs.T.elt
+  val comment : string -> XML_sigs.T.elt
+  val pcdata : string -> XML_sigs.T.elt
+  val encodedpcdata : string -> XML_sigs.T.elt
+  val entity : string -> XML_sigs.T.elt
+  val leaf : ?a:XML_sigs.T.attrib list -> XML_sigs.T.ename -> XML_sigs.T.elt
+  val node :
+    ?a:XML_sigs.T.attrib list ->
+    XML_sigs.T.ename -> XML_sigs.T.elt list -> XML_sigs.T.elt
+  val cdata : string -> XML_sigs.T.elt
+  val cdata_script : string -> XML_sigs.T.elt
+  val cdata_style : string -> XML_sigs.T.elt
+end >>

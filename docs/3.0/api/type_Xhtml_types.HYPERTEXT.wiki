@@ -1,0 +1,1 @@
+<<code language="ocaml" | sig type inline = [ `A ] type flow = Xhtml_types.HYPERTEXT.inline end >>

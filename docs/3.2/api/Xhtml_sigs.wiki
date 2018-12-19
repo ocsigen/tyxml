@@ -1,0 +1,34 @@
+=Module <<a_api_type | module Xhtml_sigs >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Xhtml_sigs>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xhtml_sigs >><<span class="ocsforge_color_keyword"|end>>>>~The elements~, attributes~, attribute types and data types are given names
+      that match the names in the ~W~3~C recommendation as closely as allowed by
+      a strict typing discipline and the lexical conventions of ~O~'~Caml~:
+      
+* //elements// are implemented as ~O~'~Caml constructors with the same name as
+      in the ~W~3~C recommendation~.  ~The domain and codomain are specified as <<span class="odocwiki_inlinecode"|~'a elt>>~,
+      where <<span class="odocwiki_inlinecode"|~'a>> is a concrete phantom type build out of polymorphic variants~.
+* //attributes// are implemented as ~O~'~Caml constructors with <<span class="odocwiki_inlinecode"|a~_>> prefixed to the
+      name~.  ~The name is the same as in the ~W~3~C recommendation~, unless an additional
+      prefix is required to disambiguate~:
+      
+** <<span class="odocwiki_inlinecode"|a~_fs~_rows>> and <<span class="odocwiki_inlinecode"|a~_fs~_cols>> instead of <<span class="odocwiki_inlinecode"|a~_rows>> and <<span class="odocwiki_inlinecode"|a~_cols>> for framesets~,
+      because of the different argument types~.
+
+* //attribute types// are implemented as ~O~'~Caml types that all have the same names
+      as in the ~W~3~C recommendation~, but are all lowercase~.
+* //data types// are also implemented as ~O~'~Caml types that all have the same names
+      as in the ~W~3~C recommendation and are again all lowercase~.
+
+
+
+      ~Finite sets of alternatives are mapped to polymorphic variants~.
+
+
+      ~The phantom type is always the //most general// required by any ~(supported~)
+      version of the standard~.  ~Type discipline is enforced by exporting or not~-exporting
+      the corresponding constructor~.
+
+
+      ~The type defining group of html elements are in <<a_api | module Xhtml_types >>
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T_01_01" | module type Xhtml_sigs.T_01_01 >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Xhtml_sigs.T_01_01 >><<span class="ocsforge_color_keyword"|end>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T_01_00" | module type Xhtml_sigs.T_01_00 >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module type Xhtml_sigs.T_01_00 >><<span class="ocsforge_color_keyword"|end>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module type>> <<a_api text="T" | module type Xhtml_sigs.T >> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|<<a_api text="T_01_01" | module Xhtml_sigs.T_01_01 >>>>>>

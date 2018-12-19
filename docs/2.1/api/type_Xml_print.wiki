@@ -1,0 +1,59 @@
+<<code language="ocaml" | sig
+  val encode_unsafe_char : string -> string
+  val encode_unsafe_char_and_at : string -> string
+  val compose_decl : ?version:string -> ?encoding:string -> unit -> string
+  val compose_doctype : string -> string list -> string
+  module Make :
+    functor (Xml : Xml_sigs.Iterable) ->
+      functor (I : sig val emptytags : string list end) ->
+        functor (O : Xml_sigs.Output) ->
+          sig
+            val print_list :
+              ?encode:(string -> string) -> Xml.elt list -> O.out
+          end
+  module Make_typed :
+    functor (Xml : Xml_sigs.Iterable) ->
+      functor
+        (Typed_xml : sig
+                       module Info : Xml_sigs.Info
+                       type 'a elt
+                       type doc
+                       val toelt : 'a elt -> Xml.elt
+                       val doc_toelt : doc -> Xml.elt
+                     end) ->
+        functor (O : Xml_sigs.Output) ->
+          sig
+            val print_list :
+              ?encode:(string -> string) -> 'a Typed_xml.elt list -> O.out
+            val print :
+              ?encode:(string -> string) ->
+              ?advert:string -> Typed_xml.doc -> O.out
+          end
+  module Make_simple :
+    functor (Xml : Xml_sigs.Iterable) ->
+      functor (F : sig val emptytags : string list end) ->
+        sig
+          val print_list :
+            output:(string -> unit) ->
+            ?encode:(string -> string) -> Xml.elt list -> unit
+        end
+  module Make_typed_simple :
+    functor (Xml : Xml_sigs.Iterable) ->
+      functor
+        (Typed_xml : sig
+                       module Info : Xml_sigs.Info
+                       type 'a elt
+                       type doc
+                       val toelt : 'a elt -> Xml.elt
+                       val doc_toelt : doc -> Xml.elt
+                     end) ->
+        sig
+          val print_list :
+            output:(string -> unit) ->
+            ?encode:(string -> string) -> 'a Typed_xml.elt list -> unit
+          val print :
+            output:(string -> unit) ->
+            ?encode:(string -> string) ->
+            ?advert:string -> Typed_xml.doc -> unit
+        end
+end >>

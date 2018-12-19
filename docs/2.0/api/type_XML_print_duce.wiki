@@ -1,0 +1,20 @@
+<<code language="ocaml" | sig
+  module Make :
+    functor (I : sig val emptytags : string list end) ->
+      XML_sigs_duce.Printer
+  module MakeTyped :
+    functor (TypedXML : XML_sigs_duce.TypedXML) ->
+      sig
+        type elt = TypedXML.elt
+        type doc = TypedXML.doc
+        val print_list :
+          output:(string -> unit) ->
+          ?encode:(string -> string) -> elt list -> unit
+        val print :
+          output:(string -> unit) ->
+          ?encode:(string -> string) -> ?advert:string -> doc -> unit
+      end
+  val print :
+    output:(string -> unit) ->
+    ?encode:(string -> string) -> Ocamlduce.Load.anyxml -> unit
+end >>

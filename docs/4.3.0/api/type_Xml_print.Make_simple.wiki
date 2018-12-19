@@ -1,0 +1,6 @@
+<<code language="ocaml" | functor (Xml : Xml_sigs.Iterable) (I : TagList) ->
+  sig
+    val print_list :
+      output:(string -> unit) ->
+      ?encode:(string -> string) -> Xml.elt list -> unit
+  end >>

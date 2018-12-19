@@ -1,0 +1,6 @@
+=Module <<a_api_type | module Xhtml.M_01_00 >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|M_01_00>>>> <<span class="ocsforge_color_delimiter"|~:>> \\  <<span class="odocwiki_type"|<<a_api text="Xhtml_sigs.T_01_00" | module Xhtml_sigs.T_01_00 >>>><<span class="odocwiki_type"| with type Xml.uri = Xml.uri\\                                     and type Xml.event_handler = Xml.event_handler\\                                     and type Xml.attrib = Xml.attrib\\                                     and type Xml.elt = Xml.elt>>>>~Concrete implementation of ~X~H~T~M~L ~1~.~0 typesafe constructors
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|include>> <<a_api | module type Xhtml_sigs.T_01_01 >>>>
+<<pre id="VALa_name_01_00" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|a~_name~_~0~1~_~0~0>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xhtml_types.cdata" | type Xhtml_types.cdata >> <<span class="ocsforge_color_delimiter"| -> >> [> `Name_01_00 ] attrib>>>>

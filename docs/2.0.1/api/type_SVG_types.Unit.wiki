@@ -1,0 +1,9 @@
+<<code language="ocaml" | sig
+  type 'a quantity = float * 'a option
+  type angle = [ `Deg | `Grad | `Rad ] SVG_types.Unit.quantity
+  type length =
+      [ `Cm | `Em | `Ex | `In | `Mm | `Pc | `Percent | `Pt | `Px ]
+      SVG_types.Unit.quantity
+  type time = [ `Ms | `S ] SVG_types.Unit.quantity
+  type frequency = [ `Hz | `KHz ] SVG_types.Unit.quantity
+end >>

@@ -1,0 +1,19 @@
+<<code language="ocaml" | sig
+  module M : Svg_sigs.Make(Xml).T
+  module P :
+    sig
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> 'a M.elt list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> ?advert:string -> M.doc -> unit
+    end
+  module Make_printer :
+    functor (O : Xml_sigs.Output) ->
+      sig
+        val print_list : ?encode:(string -> string) -> 'a M.elt list -> O.out
+        val print :
+          ?encode:(string -> string) -> ?advert:string -> M.doc -> O.out
+      end
+end >>

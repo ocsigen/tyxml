@@ -1,0 +1,9 @@
+<<code language="ocaml" | sig
+  type elt = M.elt
+  type doc = M.doc
+  val print_list :
+    output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
+  val print :
+    output:(string -> unit) ->
+    ?encode:(string -> string) -> ?advert:string -> doc -> unit
+end >>

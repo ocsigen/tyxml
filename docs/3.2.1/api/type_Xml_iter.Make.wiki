@@ -1,0 +1,49 @@
+<<code language="ocaml" | functor (Xml : Xml_sigs.Iterable) ->
+  sig
+    val amap :
+      (Xml.ename -> Xml.attrib list -> Xml.attrib list) -> Xml.elt -> Xml.elt
+    val amap1 :
+      (Xml.ename -> Xml.attrib list -> Xml.attrib list) -> Xml.elt -> Xml.elt
+    val rm_attrib : (Xml.aname -> bool) -> Xml.attrib list -> Xml.attrib list
+    val rm_attrib_from_list :
+      (Xml.aname -> bool) ->
+      (string -> bool) -> Xml.attrib list -> Xml.attrib list
+    val map_int_attrib :
+      (Xml.aname -> bool) ->
+      (int -> int) -> Xml.attrib list -> Xml.attrib list
+    val map_float_attrib :
+      (Xml.aname -> bool) ->
+      (float -> float) -> Xml.attrib list -> Xml.attrib list
+    val map_string_attrib :
+      (Xml.aname -> bool) ->
+      (string -> string) -> Xml.attrib list -> Xml.attrib list
+    val map_string_attrib_in_list :
+      (Xml.aname -> bool) ->
+      (string -> string) -> Xml.attrib list -> Xml.attrib list
+    val add_int_attrib :
+      Xml.aname -> int -> Xml.attrib list -> Xml.attrib list
+    val add_float_attrib :
+      Xml.aname -> float -> Xml.attrib list -> Xml.attrib list
+    val add_string_attrib :
+      Xml.aname -> string -> Xml.attrib list -> Xml.attrib list
+    val add_comma_sep_attrib :
+      Xml.aname -> string -> Xml.attrib list -> Xml.attrib list
+    val add_space_sep_attrib :
+      Xml.aname -> string -> Xml.attrib list -> Xml.attrib list
+    val fold :
+      (unit -> 'a) ->
+      (string -> 'a) ->
+      (string -> 'a) ->
+      (string -> 'a) ->
+      (string -> 'a) ->
+      (Xml.ename -> Xml.attrib list -> 'a) ->
+      (Xml.ename -> Xml.attrib list -> 'a list -> 'a) -> Xml.elt -> 'a
+    val all_entities : Xml.elt -> string list
+    val translate :
+      (Xml.ename -> Xml.attrib list -> Xml.elt) ->
+      (Xml.ename -> Xml.attrib list -> Xml.elt list -> Xml.elt) ->
+      ('state -> Xml.ename -> Xml.attrib list -> Xml.elt list) ->
+      ('state -> Xml.ename -> Xml.attrib list -> Xml.elt list -> Xml.elt list) ->
+      (Xml.ename -> Xml.attrib list -> 'state -> 'state) ->
+      'state -> Xml.elt -> Xml.elt
+  end >>

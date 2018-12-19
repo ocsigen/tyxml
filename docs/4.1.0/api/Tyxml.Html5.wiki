@@ -1,0 +1,25 @@
+=Module <<a_api_type | module Tyxml.Html5 >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Html5>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_html>>>><<span class="odocwiki_warning"|Deprecated.>>"~Use ~Html"
+~Deprecated alias for <<a_api | module Tyxml.Html >>~.
+
+----
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|include>> Html_sigs.Make(Tyxml_xml)(Tyxml_svg).T>>
+<<div class="odocwiki_info"|~Concrete implementation of ~Html typesafe constructors~.
+    ~See <<a_api | module type Html_sigs.T >>~.
+>>
+
+
+==@@id="2_Printers"@@~Printers==
+
+<<pre id="VALpp" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|pp>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  <<span class="ocsforge_color_label"| ?encode: >><<span class="ocsforge_color_delimiter"| ( >>string <<span class="ocsforge_color_delimiter"| -> >> string<<span class="ocsforge_color_delimiter"| ) >> <<span class="ocsforge_color_delimiter"| -> >>\\  <<span class="ocsforge_color_label"| ?advert: >>string <<span class="ocsforge_color_delimiter"| -> >> unit <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_uid"|Format>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|formatter>> <<span class="ocsforge_color_delimiter"| -> >> doc <<span class="ocsforge_color_delimiter"| -> >> unit>>>><<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|pp ~(~)>> is a <<span class="odocwiki_inlinecode"|~Format>> printer for ~Html documents~.
+
+
+    ~It can be used in combination with <<span class="odocwiki_inlinecode"|"~%a">>~. ~For example~, to get a string~:
+    
+<<code language='ocaml'|let s = Format.asprintf "%a" (Tyxml.Html.pp ()) my_html>>
+
+>>
+<<pre id="VALpp_elt" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|val>> <<span class="odocwiki_name"|pp~_elt>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|\\  <<span class="ocsforge_color_label"| ?encode: >><<span class="ocsforge_color_delimiter"| ( >>string <<span class="ocsforge_color_delimiter"| -> >> string<<span class="ocsforge_color_delimiter"| ) >> <<span class="ocsforge_color_delimiter"| -> >>\\  unit <<span class="ocsforge_color_delimiter"| -> >> <<span class="ocsforge_color_uid"|Format>><<span class="ocsforge_color_delimiter"| . >><<span class="ocsforge_color_lid"|formatter>> <<span class="ocsforge_color_delimiter"| -> >> 'a elt <<span class="ocsforge_color_delimiter"| -> >> unit>>>><<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|pp~_elt ~(~)>> is a <<span class="odocwiki_inlinecode"|~Format>> printer for ~Html elements~.
+>>
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Make_printer" | module Tyxml_html.Make_printer >> <<span class="ocsforge_color_delimiter"|(>>O <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Output" | module Xml_sigs.Output >>>><<span class="ocsforge_color_delimiter"|)>> : \\  \\  <<span class="odocwiki_type"|<<a_api text="Xml_sigs.Typed_printer" | module Xml_sigs.Typed_printer >>>><<span class="odocwiki_type"|  with type out := O.out\\                          and type 'a elt := 'a elt\\                          and type doc := doc>>>><<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Html documents~.
+>>>>

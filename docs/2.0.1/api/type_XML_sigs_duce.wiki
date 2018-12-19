@@ -1,0 +1,42 @@
+<<code language="ocaml" | sig
+  module type Printer =
+    sig
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) -> Ocamlduce.Load.anyxml list -> unit
+    end
+  module type TypedXML =
+    sig
+      module Info : XML_sigs.Info
+      type elt
+      type doc
+      val of_doc : XML_sigs_duce.TypedXML.doc -> Ocamlduce.Load.anyxml
+      val of_elt : XML_sigs_duce.TypedXML.elt -> Ocamlduce.Load.anyxml
+    end
+  module type RawTypedPrinter =
+    sig
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        {{<_ ..>X1 where X1 = [ (<_ ..>X1 | Char)* ]}} list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        ?advert:string ->
+        {{<_ ..>X1 where X1 = [ (<_ ..>X1 | Char)* ]}} -> unit
+    end
+  module type TypedPrinter =
+    sig
+      module TypedXML : TypedXML
+      type elt = XML_sigs_duce.TypedXML.elt
+      type doc = XML_sigs_duce.TypedXML.doc
+      val print_list :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        XML_sigs_duce.TypedPrinter.elt list -> unit
+      val print :
+        output:(string -> unit) ->
+        ?encode:(string -> string) ->
+        ?advert:string -> XML_sigs_duce.TypedPrinter.doc -> unit
+    end
+end >>

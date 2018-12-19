@@ -1,0 +1,126 @@
+<<code language="ocaml" | functor
+  (Xml : sig
+           module W :
+             sig
+               type 'a t
+               val return : 'a -> 'a t
+               type ('a, 'b) ft = 'a -> 'b
+               val fmap : ('a, 'b) ft -> 'a t -> 'b t
+               type 'a tlist
+               val nil : unit -> 'a tlist
+               val singleton : 'a t -> 'a tlist
+               val cons : 'a t -> 'a tlist -> 'a tlist
+               val append : 'a tlist -> 'a tlist -> 'a tlist
+               val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
+             end
+           type 'a wrap = 'a W.t
+           type 'a list_wrap = 'a W.tlist
+           type uri
+           val string_of_uri : (uri, string) W.ft
+           val uri_of_string : (string, uri) W.ft
+           type aname = string
+           type event_handler
+           type mouse_event_handler
+           type keyboard_event_handler
+           type attrib
+           val float_attrib : aname -> float wrap -> attrib
+           val int_attrib : aname -> int wrap -> attrib
+           val string_attrib : aname -> string wrap -> attrib
+           val space_sep_attrib : aname -> string list wrap -> attrib
+           val comma_sep_attrib : aname -> string list wrap -> attrib
+           val event_handler_attrib : aname -> event_handler -> attrib
+           val mouse_event_handler_attrib :
+             aname -> mouse_event_handler -> attrib
+           val keyboard_event_handler_attrib :
+             aname -> keyboard_event_handler -> attrib
+           val uri_attrib : aname -> uri wrap -> attrib
+           val uris_attrib : aname -> uri list wrap -> attrib
+           type elt
+           type ename = string
+           val empty : unit -> elt
+           val comment : string -> elt
+           val pcdata : string wrap -> elt
+           val encodedpcdata : string wrap -> elt
+           val entity : string -> elt
+           val leaf : ?a:attrib list -> ename -> elt
+           val node : ?a:attrib list -> ename -> elt list_wrap -> elt
+           val cdata : string -> elt
+           val cdata_script : string -> elt
+           val cdata_style : string -> elt
+         end) ->
+  sig
+    module Xml :
+      sig
+        module W :
+          sig
+            type 'a t = 'a Xml.W.t
+            val return : 'a -> 'a t
+            type ('a, 'b) ft = 'a -> 'b
+            val fmap : ('a, 'b) ft -> 'a t -> 'b t
+            type 'a tlist = 'a Xml.W.tlist
+            val nil : unit -> 'a tlist
+            val singleton : 'a t -> 'a tlist
+            val cons : 'a t -> 'a tlist -> 'a tlist
+            val append : 'a tlist -> 'a tlist -> 'a tlist
+            val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
+          end
+        type 'a wrap = 'a W.t
+        type 'a list_wrap = 'a W.tlist
+        type uri = Xml.uri
+        val string_of_uri : (uri, string) W.ft
+        val uri_of_string : (string, uri) W.ft
+        type aname = string
+        type event_handler = Xml.event_handler
+        type mouse_event_handler = Xml.mouse_event_handler
+        type keyboard_event_handler = Xml.keyboard_event_handler
+        type attrib = Xml.attrib
+        val float_attrib : aname -> float wrap -> attrib
+        val int_attrib : aname -> int wrap -> attrib
+        val string_attrib : aname -> string wrap -> attrib
+        val space_sep_attrib : aname -> string list wrap -> attrib
+        val comma_sep_attrib : aname -> string list wrap -> attrib
+        val event_handler_attrib : aname -> event_handler -> attrib
+        val mouse_event_handler_attrib :
+          aname -> mouse_event_handler -> attrib
+        val keyboard_event_handler_attrib :
+          aname -> keyboard_event_handler -> attrib
+        val uri_attrib : aname -> uri wrap -> attrib
+        val uris_attrib : aname -> uri list wrap -> attrib
+        type elt = Xml.elt
+        type ename = string
+        val empty : unit -> elt
+        val comment : string -> elt
+        val pcdata : string wrap -> elt
+        val encodedpcdata : string wrap -> elt
+        val entity : string -> elt
+        val leaf : ?a:attrib list -> ename -> elt
+        val node : ?a:attrib list -> ename -> elt list_wrap -> elt
+        val cdata : string -> elt
+        val cdata_script : string -> elt
+        val cdata_style : string -> elt
+      end
+    val string_of_alignment_baseline :
+      ([< Svg_types.alignment_baseline ], string) Xml.W.ft
+    val string_of_bool : (bool, string) Xml.W.ft
+    val string_of_big_variant : ([< Svg_types.big_variant ], string) Xml.W.ft
+    val string_of_coords : (Svg_types.coords, string) Xml.W.ft
+    val string_of_dominant_baseline :
+      ([< Svg_types.dominant_baseline ], string) Xml.W.ft
+    val string_of_fourfloats :
+      (float * float * float * float, string) Xml.W.ft
+    val string_of_in_value : ([< Svg_types.in_value ], string) Xml.W.ft
+    val string_of_int : (int, string) Xml.W.ft
+    val string_of_length : (Svg_types.Unit.length, string) Xml.W.ft
+    val string_of_lengths : (Svg_types.lengths, string) Xml.W.ft
+    val string_of_number : (float, string) Xml.W.ft
+    val string_of_number_optional_number :
+      (float * float option, string) Xml.W.ft
+    val string_of_numbers : (float list, string) Xml.W.ft
+    val string_of_numbers_semicolon : (float list, string) Xml.W.ft
+    val string_of_offset : ([< Svg_types.offset ], string) Xml.W.ft
+    val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
+    val string_of_paint : ([< Svg_types.paint ], string) Xml.W.ft
+    val string_of_strokedasharray : (Svg_types.lengths, string) Xml.W.ft
+    val string_of_transform : (Svg_types.transform, string) Xml.W.ft
+    val string_of_transforms : (Svg_types.transforms, string) Xml.W.ft
+  end >>

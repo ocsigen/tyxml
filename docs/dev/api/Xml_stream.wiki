@@ -1,0 +1,9 @@
+=Module <<a_api_type | module Xml_stream >> =
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Xml_stream>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_stream >><<span class="ocsforge_color_keyword"|end>>>>~Streaming ~I~O to~/from ~X~M~L trees
+
+----
+<<pre class="ocsforge_color odocwiki_code" id="TYPEname"|<<span class="ocsforge_color_keyword"|type>> <<span class="odocwiki_name"|name>> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|string * string>> >>
+
+==@@id="2_Input"@@~Input==
+
+<<pre class="ocsforge_color odocwiki_code" id="TYPEsignal"|<<span class="ocsforge_color_keyword"|type>> <<span class="odocwiki_name"|signal>> <<span class="ocsforge_color_delimiter"|~=>> <<span class="odocwiki_type"|\\  [ `Comment of string\\  | `End_element\\  | `Start_element of <<a_api text="name" | type Xml_stream.name >> * <<span class="ocsforge_color_delimiter"| ( >><<a_api text="name" | type Xml_stream.name >> * string<<span class="ocsforge_color_delimiter"| ) >> list\\  | `Text of string list ]>> >><<pre id="EXCEPTIONMalformed_stream" class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|exception>> <<span class="odocwiki_name"|Malformed_stream>>>><<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<a_api text="Import" | module Xml_stream.Import >> <<span class="ocsforge_color_delimiter"|(>>Xml <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|<<a_api text="Xml_sigs.T" | module Xml_sigs.T >>>><<span class="ocsforge_color_delimiter"|)>> : \\  <<span class="ocsforge_color_keyword"|sig>><<a_api text=".." | module Xml_stream.Import >><<span class="ocsforge_color_keyword"|end>>>>

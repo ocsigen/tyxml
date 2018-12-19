@@ -1,0 +1,8 @@
+<<code language="ocaml" | functor (O : XML_sigs.Output) ->
+  sig
+    val print_list :
+      ?encode:(Buffer.t -> string -> unit) -> 'a M_01_00.elt list -> O.out
+    val print :
+      ?encode:(Buffer.t -> string -> unit) ->
+      ?advert:string -> M_01_00.doc -> O.out
+  end >>
