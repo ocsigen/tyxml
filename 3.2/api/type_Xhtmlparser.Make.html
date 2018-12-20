@@ -1,0 +1,1606 @@
+<html><head><title></title><meta charset="utf8"/><link rel="stylesheet" href="https://ocsigen.org/tyxml/tmp/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script type="text/javascript" src="https://ocsigen.org/js/client.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js">
+//<![CDATA[
+
+//]]>
+</script></head><body><div class="project-page"><div class="page-header"><p class="logo-ocsigen"><a href=".././../../" class="ocsimore_phrasing_link"><img src=".././../../img/ocsigen-white.svg" alt="Ocsigen"/></a>
+</p><p class="logo-subproject">Tyxml</p><div class="mainmenu"><p><span class="mainmenu-home"><a href=".././../../" class="ocsimore_phrasing_link">Home</a></span>
+<span class="mainmenu-doc"><a href=".././../../tuto/" class="ocsimore_phrasing_link">Doc</a></span>
+</p><p><a href=".././../../eliom/" class="ocsimore_phrasing_link">Eliom</a></p><p><a href=".././../../js_of_ocaml/" class="ocsimore_phrasing_link">Js_of_ocaml</a></p><p><a href=".././../../lwt/" class="ocsimore_phrasing_link">Lwt</a></p><p class="mainmenu-current"><a href=".././../../tyxml/" class="ocsimore_phrasing_link">Tyxml</a></p><p><a href=".././../../ocsigen-start/" class="ocsimore_phrasing_link">Start</a></p></div><form id="googlesearch" action="https://google.com/search"><input name="q" id="gsearch-box" placeholder="Search using Google"/><label for="gsearch-box"><img src="https://ocsigen.org/tyxml/tmp/search.svg" alt="" id="gsearch-icon"/></label><input type="submit" id="gsearch-submit" onclick="document.getElementById('gsearch-box').value += ' site:ocsigen.org';"/></form><aside class="how-drawer"><input id="how-drawer-toggle" type="checkbox"/><label for="how-drawer-toggle" id="how-drawer-label"><span class="how-drawer-icon"></span></label><nav class="how-drawer-content"><ul class="drawermainmenu"><li class="drawermainmenu-home"><a href=".././../../" class="ocsimore_phrasing_link">Home</a>
+</li><li class="drawermainmenu-doc"><a href=".././../../tuto/" class="ocsimore_phrasing_link">Doc</a>
+</li><li class="drawermainmenu-project"><a href=".././../../eliom/" class="ocsimore_phrasing_link">Eliom</a>
+</li><li class="drawermainmenu-project"><a href=".././../../js_of_ocaml/" class="ocsimore_phrasing_link">Js_of_ocaml</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigenserver/" class="ocsimore_phrasing_link">Server</a>
+</li><li class="drawermainmenu-project"><a href=".././../../lwt/" class="ocsimore_phrasing_link">Lwt</a>
+</li><li class="drawermainmenu-project"><a href=".././../../tyxml/" class="ocsimore_phrasing_link">Tyxml</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigen-toolkit/" class="ocsimore_phrasing_link">Toolkit</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigen-start/" class="ocsimore_phrasing_link">Start</a>
+</li><li class="drawermainmenu-page"><a href=".././../../projects" class="ocsimore_phrasing_link">Other projects</a>
+</li><li class="drawermainmenu-page"><a href=".././../../papers" class="ocsimore_phrasing_link">Research papers</a>
+</li><li class="drawermainmenu-page"><a href=".././../../credits" class="ocsimore_phrasing_link">Who does Ocsigen?</a>
+</li><li class="drawermainmenu-page"><a href=".././../../blog" class="ocsimore_phrasing_link">Blog</a>
+</li><li class="drawermainmenu-page"><a href="https://github.com/ocsigen" class="ocsimore_phrasing_link">Source code</a>
+</li></ul><nav class="how-doctree"><h1>TyXML – Manual</h1><h2><a href=".././manual/intro" class="ocsimore_phrasing_link">Introduction</a></h2><h2><a href=".././manual/functors" class="ocsimore_phrasing_link">Functorial interface</a></h2><h1>TyXML – API reference </h1><h2>Building valid XML tree </h2><h3><a href=".././api/Svg" class="ocsimore_phrasing_link">Svg</a></h3><h3><a href=".././api/Html5" class="ocsimore_phrasing_link">Html5</a></h3><h2>Common DTD's transcriptions</h2><h3><a href=".././api/Svg_types" class="ocsimore_phrasing_link">Svg_types</a></h3><h3><a href=".././api/Html5_types" class="ocsimore_phrasing_link">Html5_types</a></h3><h2>Low-level XML manipulation</h2><h3><a href=".././api/Xml" class="ocsimore_phrasing_link">Xml</a></h3><h2>Functorial interface </h2><h3><a href=".././api/Svg_f" class="ocsimore_phrasing_link">Svg_f</a></h3><h3><a href=".././api/Html5_f" class="ocsimore_phrasing_link">Html5_f</a></h3><h3><a href=".././api/Xml_iter" class="ocsimore_phrasing_link">Xml_iter</a></h3><h3><a href=".././api/Xml_print" class="ocsimore_phrasing_link">Xml_print</a></h3><h2>Syntax extension and simple parser</h2><h3><a href=".././api/Pa_tyxml" class="ocsimore_phrasing_link">Pa_tyxml</a></h3><h3><a href=".././api/Simplexmlparser" class="ocsimore_phrasing_link">Simplexmlparser</a></h3><h2>Indexes</h2><h3> <span><a href=".././api/index_types">Index of types</a></span></h3><h3> <span><a href=".././api/index_exceptions">Index of exceptions</a></span></h3><h3> <span><a href=".././api/index_values">Index of values</a></span></h3><h3> <span><a href=".././api/index_modules">Index of modules</a></span></h3><h3> <span><a href=".././api/index_module_types">Index of module types</a></span></h3></nav></nav></aside></div><p class="reasonwarning">Warning: Reason support is experimental.
+We are looking for beta-tester and contributors.
+</p><button id="reason">Switch to </button><div class="twocols"><nav class="leftcol">Version <select class="how-versions" onchange="location = this.value;"><option value=".././../2.0/api/type_Xhtmlparser.Make">2.0</option><option value=".././../2.0.1/api/type_Xhtmlparser.Make">2.0.1</option><option value=".././../2.0.2/api/type_Xhtmlparser.Make">2.0.2</option><option value=".././../2.1/api/type_Xhtmlparser.Make">2.1</option><option value=".././../2.2/api/type_Xhtmlparser.Make">2.2</option><option value=".././../3.0/api/type_Xhtmlparser.Make">3.0</option><option value=".././../3.2/api/type_Xhtmlparser.Make" selected="selected">3.2</option><option value=".././../3.2.1/api/type_Xhtmlparser.Make">3.2.1</option><option value=".././../3.3/api/type_Xhtmlparser.Make">3.3</option><option value=".././../3.4/api/type_Xhtmlparser.Make">3.4</option><option value=".././../3.5/api/type_Xhtmlparser.Make">3.5</option><option value=".././../3.6/api/type_Xhtmlparser.Make">3.6</option><option value=".././../4.0/api/type_Xhtmlparser.Make">4.0</option><option value=".././../4.0.1/api/type_Xhtmlparser.Make">4.0.1</option><option value=".././../4.1.0/api/type_Xhtmlparser.Make">4.1.0</option><option value=".././../4.3.0/api/type_Xhtmlparser.Make">4.3.0</option><option value=".././../dev/api/type_Xhtmlparser.Make">dev</option></select><nav class="how-doctree"><h1>TyXML – Manual</h1><h2><a href=".././manual/intro" class="ocsimore_phrasing_link">Introduction</a></h2><h2><a href=".././manual/functors" class="ocsimore_phrasing_link">Functorial interface</a></h2><h1>TyXML – API reference </h1><h2>Building valid XML tree </h2><h3><a href=".././api/Svg" class="ocsimore_phrasing_link">Svg</a></h3><h3><a href=".././api/Html5" class="ocsimore_phrasing_link">Html5</a></h3><h2>Common DTD's transcriptions</h2><h3><a href=".././api/Svg_types" class="ocsimore_phrasing_link">Svg_types</a></h3><h3><a href=".././api/Html5_types" class="ocsimore_phrasing_link">Html5_types</a></h3><h2>Low-level XML manipulation</h2><h3><a href=".././api/Xml" class="ocsimore_phrasing_link">Xml</a></h3><h2>Functorial interface </h2><h3><a href=".././api/Svg_f" class="ocsimore_phrasing_link">Svg_f</a></h3><h3><a href=".././api/Html5_f" class="ocsimore_phrasing_link">Html5_f</a></h3><h3><a href=".././api/Xml_iter" class="ocsimore_phrasing_link">Xml_iter</a></h3><h3><a href=".././api/Xml_print" class="ocsimore_phrasing_link">Xml_print</a></h3><h2>Syntax extension and simple parser</h2><h3><a href=".././api/Pa_tyxml" class="ocsimore_phrasing_link">Pa_tyxml</a></h3><h3><a href=".././api/Simplexmlparser" class="ocsimore_phrasing_link">Simplexmlparser</a></h3><h2>Indexes</h2><h3> <span><a href=".././api/index_types">Index of types</a></span></h3><h3> <span><a href=".././api/index_exceptions">Index of exceptions</a></span></h3><h3> <span><a href=".././api/index_values">Index of values</a></span></h3><h3> <span><a href=".././api/index_modules">Index of modules</a></span></h3><h3> <span><a href=".././api/index_module_types">Index of module types</a></span></h3></nav></nav><article class="rightcol"><pre class=""><code class="language-ocaml translatable">functor
+  (Syntax : sig
+              module Loc :
+                sig
+                  type t = Camlp4.PreCast.Loc.t
+                  val mk : string -&gt; t
+                  val ghost : t
+                  val of_lexing_position : Lexing.position -&gt; t
+                  val to_ocaml_location : t -&gt; Camlp4_import.Location.t
+                  val of_ocaml_location : Camlp4_import.Location.t -&gt; t
+                  val of_lexbuf : Lexing.lexbuf -&gt; t
+                  val of_tuple :
+                    string * int * int * int * int * int * int * bool -&gt; t
+                  val to_tuple :
+                    t -&gt; string * int * int * int * int * int * int * bool
+                  val merge : t -&gt; t -&gt; t
+                  val join : t -&gt; t
+                  val move : [ `both | `start | `stop ] -&gt; int -&gt; t -&gt; t
+                  val shift : int -&gt; t -&gt; t
+                  val move_line : int -&gt; t -&gt; t
+                  val file_name : t -&gt; string
+                  val start_line : t -&gt; int
+                  val stop_line : t -&gt; int
+                  val start_bol : t -&gt; int
+                  val stop_bol : t -&gt; int
+                  val start_off : t -&gt; int
+                  val stop_off : t -&gt; int
+                  val start_pos : t -&gt; Lexing.position
+                  val stop_pos : t -&gt; Lexing.position
+                  val is_ghost : t -&gt; bool
+                  val ghostify : t -&gt; t
+                  val set_file_name : string -&gt; t -&gt; t
+                  val strictly_before : t -&gt; t -&gt; bool
+                  val make_absolute : t -&gt; t
+                  val print : Format.formatter -&gt; t -&gt; unit
+                  val dump : Format.formatter -&gt; t -&gt; unit
+                  val to_string : t -&gt; string
+                  exception Exc_located of t * exn
+                  val raise : t -&gt; exn -&gt; 'a
+                  val name : string ref
+                end
+              module Ast :
+                sig
+                  module Loc :
+                    sig
+                      type t = Camlp4.PreCast.Loc.t
+                      val mk : string -&gt; t
+                      val ghost : t
+                      val of_lexing_position : Lexing.position -&gt; t
+                      val to_ocaml_location : t -&gt; Camlp4_import.Location.t
+                      val of_ocaml_location : Camlp4_import.Location.t -&gt; t
+                      val of_lexbuf : Lexing.lexbuf -&gt; t
+                      val of_tuple :
+                        string * int * int * int * int * int * int * bool -&gt;
+                        t
+                      val to_tuple :
+                        t -&gt;
+                        string * int * int * int * int * int * int * bool
+                      val merge : t -&gt; t -&gt; t
+                      val join : t -&gt; t
+                      val move : [ `both | `start | `stop ] -&gt; int -&gt; t -&gt; t
+                      val shift : int -&gt; t -&gt; t
+                      val move_line : int -&gt; t -&gt; t
+                      val file_name : t -&gt; string
+                      val start_line : t -&gt; int
+                      val stop_line : t -&gt; int
+                      val start_bol : t -&gt; int
+                      val stop_bol : t -&gt; int
+                      val start_off : t -&gt; int
+                      val stop_off : t -&gt; int
+                      val start_pos : t -&gt; Lexing.position
+                      val stop_pos : t -&gt; Lexing.position
+                      val is_ghost : t -&gt; bool
+                      val ghostify : t -&gt; t
+                      val set_file_name : string -&gt; t -&gt; t
+                      val strictly_before : t -&gt; t -&gt; bool
+                      val make_absolute : t -&gt; t
+                      val print : Format.formatter -&gt; t -&gt; unit
+                      val dump : Format.formatter -&gt; t -&gt; unit
+                      val to_string : t -&gt; string
+                      exception Exc_located of t * exn
+                      val raise : t -&gt; exn -&gt; 'a
+                      val name : string ref
+                    end
+                  type loc = Loc.t
+                  and meta_bool =
+                    Camlp4.PreCast.Ast.meta_bool =
+                      BTrue
+                    | BFalse
+                    | BAnt of string
+                  and rec_flag =
+                    Camlp4.PreCast.Ast.rec_flag =
+                      ReRecursive
+                    | ReNil
+                    | ReAnt of string
+                  and direction_flag =
+                    Camlp4.PreCast.Ast.direction_flag =
+                      DiTo
+                    | DiDownto
+                    | DiAnt of string
+                  and mutable_flag =
+                    Camlp4.PreCast.Ast.mutable_flag =
+                      MuMutable
+                    | MuNil
+                    | MuAnt of string
+                  and private_flag =
+                    Camlp4.PreCast.Ast.private_flag =
+                      PrPrivate
+                    | PrNil
+                    | PrAnt of string
+                  and virtual_flag =
+                    Camlp4.PreCast.Ast.virtual_flag =
+                      ViVirtual
+                    | ViNil
+                    | ViAnt of string
+                  and override_flag =
+                    Camlp4.PreCast.Ast.override_flag =
+                      OvOverride
+                    | OvNil
+                    | OvAnt of string
+                  and row_var_flag =
+                    Camlp4.PreCast.Ast.row_var_flag =
+                      RvRowVar
+                    | RvNil
+                    | RvAnt of string
+                  and 'a meta_option =
+                    'a Camlp4.PreCast.Ast.meta_option =
+                      ONone
+                    | OSome of 'a
+                    | OAnt of string
+                  and 'a meta_list =
+                    'a Camlp4.PreCast.Ast.meta_list =
+                      LNil
+                    | LCons of 'a * 'a meta_list
+                    | LAnt of string
+                  and ident =
+                    Camlp4.PreCast.Ast.ident =
+                      IdAcc of loc * ident * ident
+                    | IdApp of loc * ident * ident
+                    | IdLid of loc * string
+                    | IdUid of loc * string
+                    | IdAnt of loc * string
+                  and ctyp =
+                    Camlp4.PreCast.Ast.ctyp =
+                      TyNil of loc
+                    | TyAli of loc * ctyp * ctyp
+                    | TyAny of loc
+                    | TyApp of loc * ctyp * ctyp
+                    | TyArr of loc * ctyp * ctyp
+                    | TyCls of loc * ident
+                    | TyLab of loc * string * ctyp
+                    | TyId of loc * ident
+                    | TyMan of loc * ctyp * ctyp
+                    | TyDcl of loc * string * ctyp list * ctyp *
+                        (ctyp * ctyp) list
+                    | TyObj of loc * ctyp * row_var_flag
+                    | TyOlb of loc * string * ctyp
+                    | TyPol of loc * ctyp * ctyp
+                    | TyTypePol of loc * ctyp * ctyp
+                    | TyQuo of loc * string
+                    | TyQuP of loc * string
+                    | TyQuM of loc * string
+                    | TyAnP of loc
+                    | TyAnM of loc
+                    | TyVrn of loc * string
+                    | TyRec of loc * ctyp
+                    | TyCol of loc * ctyp * ctyp
+                    | TySem of loc * ctyp * ctyp
+                    | TyCom of loc * ctyp * ctyp
+                    | TySum of loc * ctyp
+                    | TyOf of loc * ctyp * ctyp
+                    | TyAnd of loc * ctyp * ctyp
+                    | TyOr of loc * ctyp * ctyp
+                    | TyPrv of loc * ctyp
+                    | TyMut of loc * ctyp
+                    | TyTup of loc * ctyp
+                    | TySta of loc * ctyp * ctyp
+                    | TyVrnEq of loc * ctyp
+                    | TyVrnSup of loc * ctyp
+                    | TyVrnInf of loc * ctyp
+                    | TyVrnInfSup of loc * ctyp * ctyp
+                    | TyAmp of loc * ctyp * ctyp
+                    | TyOfAmp of loc * ctyp * ctyp
+                    | TyPkg of loc * module_type
+                    | TyAnt of loc * string
+                  and patt =
+                    Camlp4.PreCast.Ast.patt =
+                      PaNil of loc
+                    | PaId of loc * ident
+                    | PaAli of loc * patt * patt
+                    | PaAnt of loc * string
+                    | PaAny of loc
+                    | PaApp of loc * patt * patt
+                    | PaArr of loc * patt
+                    | PaCom of loc * patt * patt
+                    | PaSem of loc * patt * patt
+                    | PaChr of loc * string
+                    | PaInt of loc * string
+                    | PaInt32 of loc * string
+                    | PaInt64 of loc * string
+                    | PaNativeInt of loc * string
+                    | PaFlo of loc * string
+                    | PaLab of loc * string * patt
+                    | PaOlb of loc * string * patt
+                    | PaOlbi of loc * string * patt * expr
+                    | PaOrp of loc * patt * patt
+                    | PaRng of loc * patt * patt
+                    | PaRec of loc * patt
+                    | PaEq of loc * ident * patt
+                    | PaStr of loc * string
+                    | PaTup of loc * patt
+                    | PaTyc of loc * patt * ctyp
+                    | PaTyp of loc * ident
+                    | PaVrn of loc * string
+                    | PaLaz of loc * patt
+                    | PaMod of loc * string
+                  and expr =
+                    Camlp4.PreCast.Ast.expr =
+                      ExNil of loc
+                    | ExId of loc * ident
+                    | ExAcc of loc * expr * expr
+                    | ExAnt of loc * string
+                    | ExApp of loc * expr * expr
+                    | ExAre of loc * expr * expr
+                    | ExArr of loc * expr
+                    | ExSem of loc * expr * expr
+                    | ExAsf of loc
+                    | ExAsr of loc * expr
+                    | ExAss of loc * expr * expr
+                    | ExChr of loc * string
+                    | ExCoe of loc * expr * ctyp * ctyp
+                    | ExFlo of loc * string
+                    | ExFor of loc * string * expr * expr * direction_flag *
+                        expr
+                    | ExFun of loc * match_case
+                    | ExIfe of loc * expr * expr * expr
+                    | ExInt of loc * string
+                    | ExInt32 of loc * string
+                    | ExInt64 of loc * string
+                    | ExNativeInt of loc * string
+                    | ExLab of loc * string * expr
+                    | ExLaz of loc * expr
+                    | ExLet of loc * rec_flag * binding * expr
+                    | ExLmd of loc * string * module_expr * expr
+                    | ExMat of loc * expr * match_case
+                    | ExNew of loc * ident
+                    | ExObj of loc * patt * class_str_item
+                    | ExOlb of loc * string * expr
+                    | ExOvr of loc * rec_binding
+                    | ExRec of loc * rec_binding * expr
+                    | ExSeq of loc * expr
+                    | ExSnd of loc * expr * string
+                    | ExSte of loc * expr * expr
+                    | ExStr of loc * string
+                    | ExTry of loc * expr * match_case
+                    | ExTup of loc * expr
+                    | ExCom of loc * expr * expr
+                    | ExTyc of loc * expr * ctyp
+                    | ExVrn of loc * string
+                    | ExWhi of loc * expr * expr
+                    | ExOpI of loc * ident * expr
+                    | ExFUN of loc * string * expr
+                    | ExPkg of loc * module_expr
+                  and module_type =
+                    Camlp4.PreCast.Ast.module_type =
+                      MtNil of loc
+                    | MtId of loc * ident
+                    | MtFun of loc * string * module_type * module_type
+                    | MtQuo of loc * string
+                    | MtSig of loc * sig_item
+                    | MtWit of loc * module_type * with_constr
+                    | MtOf of loc * module_expr
+                    | MtAnt of loc * string
+                  and sig_item =
+                    Camlp4.PreCast.Ast.sig_item =
+                      SgNil of loc
+                    | SgCls of loc * class_type
+                    | SgClt of loc * class_type
+                    | SgSem of loc * sig_item * sig_item
+                    | SgDir of loc * string * expr
+                    | SgExc of loc * ctyp
+                    | SgExt of loc * string * ctyp * string meta_list
+                    | SgInc of loc * module_type
+                    | SgMod of loc * string * module_type
+                    | SgRecMod of loc * module_binding
+                    | SgMty of loc * string * module_type
+                    | SgOpn of loc * ident
+                    | SgTyp of loc * ctyp
+                    | SgVal of loc * string * ctyp
+                    | SgAnt of loc * string
+                  and with_constr =
+                    Camlp4.PreCast.Ast.with_constr =
+                      WcNil of loc
+                    | WcTyp of loc * ctyp * ctyp
+                    | WcMod of loc * ident * ident
+                    | WcTyS of loc * ctyp * ctyp
+                    | WcMoS of loc * ident * ident
+                    | WcAnd of loc * with_constr * with_constr
+                    | WcAnt of loc * string
+                  and binding =
+                    Camlp4.PreCast.Ast.binding =
+                      BiNil of loc
+                    | BiAnd of loc * binding * binding
+                    | BiEq of loc * patt * expr
+                    | BiAnt of loc * string
+                  and rec_binding =
+                    Camlp4.PreCast.Ast.rec_binding =
+                      RbNil of loc
+                    | RbSem of loc * rec_binding * rec_binding
+                    | RbEq of loc * ident * expr
+                    | RbAnt of loc * string
+                  and module_binding =
+                    Camlp4.PreCast.Ast.module_binding =
+                      MbNil of loc
+                    | MbAnd of loc * module_binding * module_binding
+                    | MbColEq of loc * string * module_type * module_expr
+                    | MbCol of loc * string * module_type
+                    | MbAnt of loc * string
+                  and match_case =
+                    Camlp4.PreCast.Ast.match_case =
+                      McNil of loc
+                    | McOr of loc * match_case * match_case
+                    | McArr of loc * patt * expr * expr
+                    | McAnt of loc * string
+                  and module_expr =
+                    Camlp4.PreCast.Ast.module_expr =
+                      MeNil of loc
+                    | MeId of loc * ident
+                    | MeApp of loc * module_expr * module_expr
+                    | MeFun of loc * string * module_type * module_expr
+                    | MeStr of loc * str_item
+                    | MeTyc of loc * module_expr * module_type
+                    | MePkg of loc * expr
+                    | MeAnt of loc * string
+                  and str_item =
+                    Camlp4.PreCast.Ast.str_item =
+                      StNil of loc
+                    | StCls of loc * class_expr
+                    | StClt of loc * class_type
+                    | StSem of loc * str_item * str_item
+                    | StDir of loc * string * expr
+                    | StExc of loc * ctyp * ident meta_option
+                    | StExp of loc * expr
+                    | StExt of loc * string * ctyp * string meta_list
+                    | StInc of loc * module_expr
+                    | StMod of loc * string * module_expr
+                    | StRecMod of loc * module_binding
+                    | StMty of loc * string * module_type
+                    | StOpn of loc * ident
+                    | StTyp of loc * ctyp
+                    | StVal of loc * rec_flag * binding
+                    | StAnt of loc * string
+                  and class_type =
+                    Camlp4.PreCast.Ast.class_type =
+                      CtNil of loc
+                    | CtCon of loc * virtual_flag * ident * ctyp
+                    | CtFun of loc * ctyp * class_type
+                    | CtSig of loc * ctyp * class_sig_item
+                    | CtAnd of loc * class_type * class_type
+                    | CtCol of loc * class_type * class_type
+                    | CtEq of loc * class_type * class_type
+                    | CtAnt of loc * string
+                  and class_sig_item =
+                    Camlp4.PreCast.Ast.class_sig_item =
+                      CgNil of loc
+                    | CgCtr of loc * ctyp * ctyp
+                    | CgSem of loc * class_sig_item * class_sig_item
+                    | CgInh of loc * class_type
+                    | CgMth of loc * string * private_flag * ctyp
+                    | CgVal of loc * string * mutable_flag * virtual_flag *
+                        ctyp
+                    | CgVir of loc * string * private_flag * ctyp
+                    | CgAnt of loc * string
+                  and class_expr =
+                    Camlp4.PreCast.Ast.class_expr =
+                      CeNil of loc
+                    | CeApp of loc * class_expr * expr
+                    | CeCon of loc * virtual_flag * ident * ctyp
+                    | CeFun of loc * patt * class_expr
+                    | CeLet of loc * rec_flag * binding * class_expr
+                    | CeStr of loc * patt * class_str_item
+                    | CeTyc of loc * class_expr * class_type
+                    | CeAnd of loc * class_expr * class_expr
+                    | CeEq of loc * class_expr * class_expr
+                    | CeAnt of loc * string
+                  and class_str_item =
+                    Camlp4.PreCast.Ast.class_str_item =
+                      CrNil of loc
+                    | CrSem of loc * class_str_item * class_str_item
+                    | CrCtr of loc * ctyp * ctyp
+                    | CrInh of loc * override_flag * class_expr * string
+                    | CrIni of loc * expr
+                    | CrMth of loc * string * override_flag * private_flag *
+                        expr * ctyp
+                    | CrVal of loc * string * override_flag * mutable_flag *
+                        expr
+                    | CrVir of loc * string * private_flag * ctyp
+                    | CrVvr of loc * string * mutable_flag * ctyp
+                    | CrAnt of loc * string
+                  val loc_of_ctyp : ctyp -&gt; loc
+                  val loc_of_patt : patt -&gt; loc
+                  val loc_of_expr : expr -&gt; loc
+                  val loc_of_module_type : module_type -&gt; loc
+                  val loc_of_module_expr : module_expr -&gt; loc
+                  val loc_of_sig_item : sig_item -&gt; loc
+                  val loc_of_str_item : str_item -&gt; loc
+                  val loc_of_class_type : class_type -&gt; loc
+                  val loc_of_class_sig_item : class_sig_item -&gt; loc
+                  val loc_of_class_expr : class_expr -&gt; loc
+                  val loc_of_class_str_item : class_str_item -&gt; loc
+                  val loc_of_with_constr : with_constr -&gt; loc
+                  val loc_of_binding : binding -&gt; loc
+                  val loc_of_rec_binding : rec_binding -&gt; loc
+                  val loc_of_module_binding : module_binding -&gt; loc
+                  val loc_of_match_case : match_case -&gt; loc
+                  val loc_of_ident : ident -&gt; loc
+                  module Meta :
+                    sig
+                      module type META_LOC =
+                        sig
+                          val meta_loc_patt : loc -&gt; loc -&gt; patt
+                          val meta_loc_expr : loc -&gt; loc -&gt; expr
+                        end
+                      module MetaLoc :
+                        sig
+                          val meta_loc_patt : loc -&gt; loc -&gt; patt
+                          val meta_loc_expr : loc -&gt; loc -&gt; expr
+                        end
+                      module MetaGhostLoc :
+                        sig
+                          val meta_loc_patt : loc -&gt; 'a -&gt; patt
+                          val meta_loc_expr : loc -&gt; 'a -&gt; expr
+                        end
+                      module MetaLocVar :
+                        sig
+                          val meta_loc_patt : loc -&gt; 'a -&gt; patt
+                          val meta_loc_expr : loc -&gt; 'a -&gt; expr
+                        end
+                      module Make :
+                        functor (MetaLoc : META_LOC) -&gt;
+                          sig
+                            module Expr :
+                              sig
+                                val meta_string : loc -&gt; string -&gt; expr
+                                val meta_int : loc -&gt; string -&gt; expr
+                                val meta_float : loc -&gt; string -&gt; expr
+                                val meta_char : loc -&gt; string -&gt; expr
+                                val meta_bool : loc -&gt; bool -&gt; expr
+                                val meta_list :
+                                  (loc -&gt; 'a -&gt; expr) -&gt;
+                                  loc -&gt; 'a list -&gt; expr
+                                val meta_binding : loc -&gt; binding -&gt; expr
+                                val meta_rec_binding :
+                                  loc -&gt; rec_binding -&gt; expr
+                                val meta_class_expr :
+                                  loc -&gt; class_expr -&gt; expr
+                                val meta_class_sig_item :
+                                  loc -&gt; class_sig_item -&gt; expr
+                                val meta_class_str_item :
+                                  loc -&gt; class_str_item -&gt; expr
+                                val meta_class_type :
+                                  loc -&gt; class_type -&gt; expr
+                                val meta_ctyp : loc -&gt; ctyp -&gt; expr
+                                val meta_expr : loc -&gt; expr -&gt; expr
+                                val meta_ident : loc -&gt; ident -&gt; expr
+                                val meta_match_case :
+                                  loc -&gt; match_case -&gt; expr
+                                val meta_module_binding :
+                                  loc -&gt; module_binding -&gt; expr
+                                val meta_module_expr :
+                                  loc -&gt; module_expr -&gt; expr
+                                val meta_module_type :
+                                  loc -&gt; module_type -&gt; expr
+                                val meta_patt : loc -&gt; patt -&gt; expr
+                                val meta_sig_item : loc -&gt; sig_item -&gt; expr
+                                val meta_str_item : loc -&gt; str_item -&gt; expr
+                                val meta_with_constr :
+                                  loc -&gt; with_constr -&gt; expr
+                                val meta_rec_flag : loc -&gt; rec_flag -&gt; expr
+                                val meta_mutable_flag :
+                                  loc -&gt; mutable_flag -&gt; expr
+                                val meta_virtual_flag :
+                                  loc -&gt; virtual_flag -&gt; expr
+                                val meta_private_flag :
+                                  loc -&gt; private_flag -&gt; expr
+                                val meta_row_var_flag :
+                                  loc -&gt; row_var_flag -&gt; expr
+                                val meta_override_flag :
+                                  loc -&gt; override_flag -&gt; expr
+                                val meta_direction_flag :
+                                  loc -&gt; direction_flag -&gt; expr
+                              end
+                            module Patt :
+                              sig
+                                val meta_string : loc -&gt; string -&gt; patt
+                                val meta_int : loc -&gt; string -&gt; patt
+                                val meta_float : loc -&gt; string -&gt; patt
+                                val meta_char : loc -&gt; string -&gt; patt
+                                val meta_bool : loc -&gt; bool -&gt; patt
+                                val meta_list :
+                                  (loc -&gt; 'a -&gt; patt) -&gt;
+                                  loc -&gt; 'a list -&gt; patt
+                                val meta_binding : loc -&gt; binding -&gt; patt
+                                val meta_rec_binding :
+                                  loc -&gt; rec_binding -&gt; patt
+                                val meta_class_expr :
+                                  loc -&gt; class_expr -&gt; patt
+                                val meta_class_sig_item :
+                                  loc -&gt; class_sig_item -&gt; patt
+                                val meta_class_str_item :
+                                  loc -&gt; class_str_item -&gt; patt
+                                val meta_class_type :
+                                  loc -&gt; class_type -&gt; patt
+                                val meta_ctyp : loc -&gt; ctyp -&gt; patt
+                                val meta_expr : loc -&gt; expr -&gt; patt
+                                val meta_ident : loc -&gt; ident -&gt; patt
+                                val meta_match_case :
+                                  loc -&gt; match_case -&gt; patt
+                                val meta_module_binding :
+                                  loc -&gt; module_binding -&gt; patt
+                                val meta_module_expr :
+                                  loc -&gt; module_expr -&gt; patt
+                                val meta_module_type :
+                                  loc -&gt; module_type -&gt; patt
+                                val meta_patt : loc -&gt; patt -&gt; patt
+                                val meta_sig_item : loc -&gt; sig_item -&gt; patt
+                                val meta_str_item : loc -&gt; str_item -&gt; patt
+                                val meta_with_constr :
+                                  loc -&gt; with_constr -&gt; patt
+                                val meta_rec_flag : loc -&gt; rec_flag -&gt; patt
+                                val meta_mutable_flag :
+                                  loc -&gt; mutable_flag -&gt; patt
+                                val meta_virtual_flag :
+                                  loc -&gt; virtual_flag -&gt; patt
+                                val meta_private_flag :
+                                  loc -&gt; private_flag -&gt; patt
+                                val meta_row_var_flag :
+                                  loc -&gt; row_var_flag -&gt; patt
+                                val meta_override_flag :
+                                  loc -&gt; override_flag -&gt; patt
+                                val meta_direction_flag :
+                                  loc -&gt; direction_flag -&gt; patt
+                              end
+                          end
+                    end
+                  class map :
+                    object ('c)
+                      method binding : binding -&gt; binding
+                      method class_expr : class_expr -&gt; class_expr
+                      method class_sig_item :
+                        class_sig_item -&gt; class_sig_item
+                      method class_str_item :
+                        class_str_item -&gt; class_str_item
+                      method class_type : class_type -&gt; class_type
+                      method ctyp : ctyp -&gt; ctyp
+                      method direction_flag :
+                        direction_flag -&gt; direction_flag
+                      method expr : expr -&gt; expr
+                      method ident : ident -&gt; ident
+                      method list : ('c -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b list
+                      method loc : loc -&gt; loc
+                      method match_case : match_case -&gt; match_case
+                      method meta_bool : meta_bool -&gt; meta_bool
+                      method meta_list :
+                        ('c -&gt; 'a -&gt; 'b) -&gt; 'a meta_list -&gt; 'b meta_list
+                      method meta_option :
+                        ('c -&gt; 'a -&gt; 'b) -&gt; 'a meta_option -&gt; 'b meta_option
+                      method module_binding :
+                        module_binding -&gt; module_binding
+                      method module_expr : module_expr -&gt; module_expr
+                      method module_type : module_type -&gt; module_type
+                      method mutable_flag : mutable_flag -&gt; mutable_flag
+                      method override_flag : override_flag -&gt; override_flag
+                      method patt : patt -&gt; patt
+                      method private_flag : private_flag -&gt; private_flag
+                      method rec_binding : rec_binding -&gt; rec_binding
+                      method rec_flag : rec_flag -&gt; rec_flag
+                      method row_var_flag : row_var_flag -&gt; row_var_flag
+                      method sig_item : sig_item -&gt; sig_item
+                      method str_item : str_item -&gt; str_item
+                      method string : string -&gt; string
+                      method unknown : 'a -&gt; 'a
+                      method virtual_flag : virtual_flag -&gt; virtual_flag
+                      method with_constr : with_constr -&gt; with_constr
+                    end
+                  class fold :
+                    object ('b)
+                      method binding : binding -&gt; 'b
+                      method class_expr : class_expr -&gt; 'b
+                      method class_sig_item : class_sig_item -&gt; 'b
+                      method class_str_item : class_str_item -&gt; 'b
+                      method class_type : class_type -&gt; 'b
+                      method ctyp : ctyp -&gt; 'b
+                      method direction_flag : direction_flag -&gt; 'b
+                      method expr : expr -&gt; 'b
+                      method ident : ident -&gt; 'b
+                      method list : ('b -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b
+                      method loc : loc -&gt; 'b
+                      method match_case : match_case -&gt; 'b
+                      method meta_bool : meta_bool -&gt; 'b
+                      method meta_list :
+                        ('b -&gt; 'a -&gt; 'b) -&gt; 'a meta_list -&gt; 'b
+                      method meta_option :
+                        ('b -&gt; 'a -&gt; 'b) -&gt; 'a meta_option -&gt; 'b
+                      method module_binding : module_binding -&gt; 'b
+                      method module_expr : module_expr -&gt; 'b
+                      method module_type : module_type -&gt; 'b
+                      method mutable_flag : mutable_flag -&gt; 'b
+                      method override_flag : override_flag -&gt; 'b
+                      method patt : patt -&gt; 'b
+                      method private_flag : private_flag -&gt; 'b
+                      method rec_binding : rec_binding -&gt; 'b
+                      method rec_flag : rec_flag -&gt; 'b
+                      method row_var_flag : row_var_flag -&gt; 'b
+                      method sig_item : sig_item -&gt; 'b
+                      method str_item : str_item -&gt; 'b
+                      method string : string -&gt; 'b
+                      method unknown : 'a -&gt; 'b
+                      method virtual_flag : virtual_flag -&gt; 'b
+                      method with_constr : with_constr -&gt; 'b
+                    end
+                  val map_expr : (expr -&gt; expr) -&gt; map
+                  val map_patt : (patt -&gt; patt) -&gt; map
+                  val map_ctyp : (ctyp -&gt; ctyp) -&gt; map
+                  val map_str_item : (str_item -&gt; str_item) -&gt; map
+                  val map_sig_item : (sig_item -&gt; sig_item) -&gt; map
+                  val map_loc : (loc -&gt; loc) -&gt; map
+                  val ident_of_expr : expr -&gt; ident
+                  val ident_of_patt : patt -&gt; ident
+                  val ident_of_ctyp : ctyp -&gt; ident
+                  val biAnd_of_list : binding list -&gt; binding
+                  val rbSem_of_list : rec_binding list -&gt; rec_binding
+                  val paSem_of_list : patt list -&gt; patt
+                  val paCom_of_list : patt list -&gt; patt
+                  val tyOr_of_list : ctyp list -&gt; ctyp
+                  val tyAnd_of_list : ctyp list -&gt; ctyp
+                  val tyAmp_of_list : ctyp list -&gt; ctyp
+                  val tySem_of_list : ctyp list -&gt; ctyp
+                  val tyCom_of_list : ctyp list -&gt; ctyp
+                  val tySta_of_list : ctyp list -&gt; ctyp
+                  val stSem_of_list : str_item list -&gt; str_item
+                  val sgSem_of_list : sig_item list -&gt; sig_item
+                  val crSem_of_list : class_str_item list -&gt; class_str_item
+                  val cgSem_of_list : class_sig_item list -&gt; class_sig_item
+                  val ctAnd_of_list : class_type list -&gt; class_type
+                  val ceAnd_of_list : class_expr list -&gt; class_expr
+                  val wcAnd_of_list : with_constr list -&gt; with_constr
+                  val meApp_of_list : module_expr list -&gt; module_expr
+                  val mbAnd_of_list : module_binding list -&gt; module_binding
+                  val mcOr_of_list : match_case list -&gt; match_case
+                  val idAcc_of_list : ident list -&gt; ident
+                  val idApp_of_list : ident list -&gt; ident
+                  val exSem_of_list : expr list -&gt; expr
+                  val exCom_of_list : expr list -&gt; expr
+                  val list_of_ctyp : ctyp -&gt; ctyp list -&gt; ctyp list
+                  val list_of_binding :
+                    binding -&gt; binding list -&gt; binding list
+                  val list_of_rec_binding :
+                    rec_binding -&gt; rec_binding list -&gt; rec_binding list
+                  val list_of_with_constr :
+                    with_constr -&gt; with_constr list -&gt; with_constr list
+                  val list_of_patt : patt -&gt; patt list -&gt; patt list
+                  val list_of_expr : expr -&gt; expr list -&gt; expr list
+                  val list_of_str_item :
+                    str_item -&gt; str_item list -&gt; str_item list
+                  val list_of_sig_item :
+                    sig_item -&gt; sig_item list -&gt; sig_item list
+                  val list_of_class_sig_item :
+                    class_sig_item -&gt;
+                    class_sig_item list -&gt; class_sig_item list
+                  val list_of_class_str_item :
+                    class_str_item -&gt;
+                    class_str_item list -&gt; class_str_item list
+                  val list_of_class_type :
+                    class_type -&gt; class_type list -&gt; class_type list
+                  val list_of_class_expr :
+                    class_expr -&gt; class_expr list -&gt; class_expr list
+                  val list_of_module_expr :
+                    module_expr -&gt; module_expr list -&gt; module_expr list
+                  val list_of_module_binding :
+                    module_binding -&gt;
+                    module_binding list -&gt; module_binding list
+                  val list_of_match_case :
+                    match_case -&gt; match_case list -&gt; match_case list
+                  val list_of_ident : ident -&gt; ident list -&gt; ident list
+                  val safe_string_escaped : string -&gt; string
+                  val is_irrefut_patt : patt -&gt; bool
+                  val is_constructor : ident -&gt; bool
+                  val is_patt_constructor : patt -&gt; bool
+                  val is_expr_constructor : expr -&gt; bool
+                  val ty_of_stl : Loc.t * string * ctyp list -&gt; ctyp
+                  val ty_of_sbt : Loc.t * string * bool * ctyp -&gt; ctyp
+                  val bi_of_pe : patt * expr -&gt; binding
+                  val pel_of_binding : binding -&gt; (patt * expr) list
+                  val binding_of_pel : (patt * expr) list -&gt; binding
+                  val sum_type_of_list :
+                    (Loc.t * string * ctyp list) list -&gt; ctyp
+                  val record_type_of_list :
+                    (Loc.t * string * bool * ctyp) list -&gt; ctyp
+                end
+              module Token :
+                sig
+                  module Loc :
+                    sig
+                      type t = Loc.t
+                      val mk : string -&gt; t
+                      val ghost : t
+                      val of_lexing_position : Lexing.position -&gt; t
+                      val to_ocaml_location : t -&gt; Camlp4_import.Location.t
+                      val of_ocaml_location : Camlp4_import.Location.t -&gt; t
+                      val of_lexbuf : Lexing.lexbuf -&gt; t
+                      val of_tuple :
+                        string * int * int * int * int * int * int * bool -&gt;
+                        t
+                      val to_tuple :
+                        t -&gt;
+                        string * int * int * int * int * int * int * bool
+                      val merge : t -&gt; t -&gt; t
+                      val join : t -&gt; t
+                      val move : [ `both | `start | `stop ] -&gt; int -&gt; t -&gt; t
+                      val shift : int -&gt; t -&gt; t
+                      val move_line : int -&gt; t -&gt; t
+                      val file_name : t -&gt; string
+                      val start_line : t -&gt; int
+                      val stop_line : t -&gt; int
+                      val start_bol : t -&gt; int
+                      val stop_bol : t -&gt; int
+                      val start_off : t -&gt; int
+                      val stop_off : t -&gt; int
+                      val start_pos : t -&gt; Lexing.position
+                      val stop_pos : t -&gt; Lexing.position
+                      val is_ghost : t -&gt; bool
+                      val ghostify : t -&gt; t
+                      val set_file_name : string -&gt; t -&gt; t
+                      val strictly_before : t -&gt; t -&gt; bool
+                      val make_absolute : t -&gt; t
+                      val print : Format.formatter -&gt; t -&gt; unit
+                      val dump : Format.formatter -&gt; t -&gt; unit
+                      val to_string : t -&gt; string
+                      exception Exc_located of t * exn
+                      val raise : t -&gt; exn -&gt; 'a
+                      val name : string ref
+                    end
+                  type t = Camlp4.Sig.camlp4_token
+                  val to_string : t -&gt; string
+                  val print : Format.formatter -&gt; t -&gt; unit
+                  val match_keyword : string -&gt; t -&gt; bool
+                  val extract_string : t -&gt; string
+                  module Filter :
+                    sig
+                      type token_filter = (t, Loc.t) Camlp4.Sig.stream_filter
+                      type t
+                      val mk : (string -&gt; bool) -&gt; t
+                      val define_filter :
+                        t -&gt; (token_filter -&gt; token_filter) -&gt; unit
+                      val filter : t -&gt; token_filter
+                      val keyword_added : t -&gt; string -&gt; bool -&gt; unit
+                      val keyword_removed : t -&gt; string -&gt; unit
+                    end
+                  module Error : Camlp4.Sig.Error
+                end
+              module Gram :
+                sig
+                  module Loc :
+                    sig
+                      type t = Loc.t
+                      val mk : string -&gt; t
+                      val ghost : t
+                      val of_lexing_position : Lexing.position -&gt; t
+                      val to_ocaml_location : t -&gt; Camlp4_import.Location.t
+                      val of_ocaml_location : Camlp4_import.Location.t -&gt; t
+                      val of_lexbuf : Lexing.lexbuf -&gt; t
+                      val of_tuple :
+                        string * int * int * int * int * int * int * bool -&gt;
+                        t
+                      val to_tuple :
+                        t -&gt;
+                        string * int * int * int * int * int * int * bool
+                      val merge : t -&gt; t -&gt; t
+                      val join : t -&gt; t
+                      val move : [ `both | `start | `stop ] -&gt; int -&gt; t -&gt; t
+                      val shift : int -&gt; t -&gt; t
+                      val move_line : int -&gt; t -&gt; t
+                      val file_name : t -&gt; string
+                      val start_line : t -&gt; int
+                      val stop_line : t -&gt; int
+                      val start_bol : t -&gt; int
+                      val stop_bol : t -&gt; int
+                      val start_off : t -&gt; int
+                      val stop_off : t -&gt; int
+                      val start_pos : t -&gt; Lexing.position
+                      val stop_pos : t -&gt; Lexing.position
+                      val is_ghost : t -&gt; bool
+                      val ghostify : t -&gt; t
+                      val set_file_name : string -&gt; t -&gt; t
+                      val strictly_before : t -&gt; t -&gt; bool
+                      val make_absolute : t -&gt; t
+                      val print : Format.formatter -&gt; t -&gt; unit
+                      val dump : Format.formatter -&gt; t -&gt; unit
+                      val to_string : t -&gt; string
+                      exception Exc_located of t * exn
+                      val raise : t -&gt; exn -&gt; 'a
+                      val name : string ref
+                    end
+                  module Action : Camlp4.Sig.Grammar.Action
+                  module Token :
+                    sig
+                      module Loc :
+                        sig
+                          type t = Loc.t
+                          val mk : string -&gt; t
+                          val ghost : t
+                          val of_lexing_position : Lexing.position -&gt; t
+                          val to_ocaml_location :
+                            t -&gt; Camlp4_import.Location.t
+                          val of_ocaml_location :
+                            Camlp4_import.Location.t -&gt; t
+                          val of_lexbuf : Lexing.lexbuf -&gt; t
+                          val of_tuple :
+                            string * int * int * int * int * int * int * bool -&gt;
+                            t
+                          val to_tuple :
+                            t -&gt;
+                            string * int * int * int * int * int * int * bool
+                          val merge : t -&gt; t -&gt; t
+                          val join : t -&gt; t
+                          val move :
+                            [ `both | `start | `stop ] -&gt; int -&gt; t -&gt; t
+                          val shift : int -&gt; t -&gt; t
+                          val move_line : int -&gt; t -&gt; t
+                          val file_name : t -&gt; string
+                          val start_line : t -&gt; int
+                          val stop_line : t -&gt; int
+                          val start_bol : t -&gt; int
+                          val stop_bol : t -&gt; int
+                          val start_off : t -&gt; int
+                          val stop_off : t -&gt; int
+                          val start_pos : t -&gt; Lexing.position
+                          val stop_pos : t -&gt; Lexing.position
+                          val is_ghost : t -&gt; bool
+                          val ghostify : t -&gt; t
+                          val set_file_name : string -&gt; t -&gt; t
+                          val strictly_before : t -&gt; t -&gt; bool
+                          val make_absolute : t -&gt; t
+                          val print : Format.formatter -&gt; t -&gt; unit
+                          val dump : Format.formatter -&gt; t -&gt; unit
+                          val to_string : t -&gt; string
+                          exception Exc_located of t * exn
+                          val raise : t -&gt; exn -&gt; 'a
+                          val name : string ref
+                        end
+                      type t = Camlp4.Sig.camlp4_token
+                      val to_string : t -&gt; string
+                      val print : Format.formatter -&gt; t -&gt; unit
+                      val match_keyword : string -&gt; t -&gt; bool
+                      val extract_string : t -&gt; string
+                      module Filter :
+                        sig
+                          type token_filter =
+                              (t, Loc.t) Camlp4.Sig.stream_filter
+                          type t = Token.Filter.t
+                          val mk : (string -&gt; bool) -&gt; t
+                          val define_filter :
+                            t -&gt; (token_filter -&gt; token_filter) -&gt; unit
+                          val filter : t -&gt; token_filter
+                          val keyword_added : t -&gt; string -&gt; bool -&gt; unit
+                          val keyword_removed : t -&gt; string -&gt; unit
+                        end
+                      module Error :
+                        sig
+                          type t = Token.Error.t
+                          exception E of t
+                          val to_string : t -&gt; string
+                          val print : Format.formatter -&gt; t -&gt; unit
+                        end
+                    end
+                  type gram
+                  type internal_entry
+                  type tree
+                  type token_pattern = (Token.t -&gt; bool) * string
+                  type token_info
+                  type token_stream = (Token.t * token_info) Stream.t
+                  val token_location : token_info -&gt; Loc.t
+                  type symbol =
+                      Smeta of string * symbol list * Action.t
+                    | Snterm of internal_entry
+                    | Snterml of internal_entry * string
+                    | Slist0 of symbol
+                    | Slist0sep of symbol * symbol
+                    | Slist1 of symbol
+                    | Slist1sep of symbol * symbol
+                    | Sopt of symbol
+                    | Stry of symbol
+                    | Sself
+                    | Snext
+                    | Stoken of token_pattern
+                    | Skeyword of string
+                    | Stree of tree
+                  type production_rule = symbol list * Action.t
+                  type single_extend_statment =
+                      string option * Camlp4.Sig.Grammar.assoc option *
+                      production_rule list
+                  type extend_statment =
+                      Camlp4.Sig.Grammar.position option *
+                      single_extend_statment list
+                  type delete_statment = symbol list
+                  type ('a, 'b, 'c) fold =
+                      internal_entry -&gt;
+                      symbol list -&gt; ('a Stream.t -&gt; 'b) -&gt; 'a Stream.t -&gt; 'c
+                  type ('a, 'b, 'c) foldsep =
+                      internal_entry -&gt;
+                      symbol list -&gt;
+                      ('a Stream.t -&gt; 'b) -&gt;
+                      ('a Stream.t -&gt; unit) -&gt; 'a Stream.t -&gt; 'c
+                  module Entry :
+                    sig
+                      type 'a t
+                      val mk : string -&gt; 'a t
+                      val of_parser : string -&gt; (token_stream -&gt; 'a) -&gt; 'a t
+                      val setup_parser : 'a t -&gt; (token_stream -&gt; 'a) -&gt; unit
+                      val name : 'a t -&gt; string
+                      val print : Format.formatter -&gt; 'a t -&gt; unit
+                      val dump : Format.formatter -&gt; 'a t -&gt; unit
+                      val obj : 'a t -&gt; internal_entry
+                      val clear : 'a t -&gt; unit
+                    end
+                  val get_filter : unit -&gt; Token.Filter.t
+                  type 'a not_filtered
+                  val extend : 'a Entry.t -&gt; extend_statment -&gt; unit
+                  val delete_rule : 'a Entry.t -&gt; delete_statment -&gt; unit
+                  val srules :
+                    'a Entry.t -&gt; (symbol list * Action.t) list -&gt; symbol
+                  val sfold0 : ('a -&gt; 'b -&gt; 'b) -&gt; 'b -&gt; ('c, 'a, 'b) fold
+                  val sfold1 : ('a -&gt; 'b -&gt; 'b) -&gt; 'b -&gt; ('c, 'a, 'b) fold
+                  val sfold0sep :
+                    ('a -&gt; 'b -&gt; 'b) -&gt; 'b -&gt; ('c, 'a, 'b) foldsep
+                  val lex :
+                    Loc.t -&gt;
+                    char Stream.t -&gt; (Token.t * Loc.t) Stream.t not_filtered
+                  val lex_string :
+                    Loc.t -&gt;
+                    string -&gt; (Token.t * Loc.t) Stream.t not_filtered
+                  val filter :
+                    (Token.t * Loc.t) Stream.t not_filtered -&gt; token_stream
+                  val parse : 'a Entry.t -&gt; Loc.t -&gt; char Stream.t -&gt; 'a
+                  val parse_string : 'a Entry.t -&gt; Loc.t -&gt; string -&gt; 'a
+                  val parse_tokens_before_filter :
+                    'a Entry.t -&gt;
+                    (Token.t * Loc.t) Stream.t not_filtered -&gt; 'a
+                  val parse_tokens_after_filter :
+                    'a Entry.t -&gt; token_stream -&gt; 'a
+                end
+              module Quotation :
+                sig
+                  module Ast :
+                    sig
+                      type loc = Ast.loc
+                      type meta_bool = Ast.meta_bool
+                      type 'a meta_option = 'a Ast.meta_option
+                      type 'a meta_list = 'a Ast.meta_list
+                      type ctyp = Ast.ctyp
+                      type patt = Ast.patt
+                      type expr = Ast.expr
+                      type module_type = Ast.module_type
+                      type sig_item = Ast.sig_item
+                      type with_constr = Ast.with_constr
+                      type module_expr = Ast.module_expr
+                      type str_item = Ast.str_item
+                      type class_type = Ast.class_type
+                      type class_sig_item = Ast.class_sig_item
+                      type class_expr = Ast.class_expr
+                      type class_str_item = Ast.class_str_item
+                      type match_case = Ast.match_case
+                      type ident = Ast.ident
+                      type binding = Ast.binding
+                      type rec_binding = Ast.rec_binding
+                      type module_binding = Ast.module_binding
+                      type rec_flag = Ast.rec_flag
+                      type direction_flag = Ast.direction_flag
+                      type mutable_flag = Ast.mutable_flag
+                      type private_flag = Ast.private_flag
+                      type virtual_flag = Ast.virtual_flag
+                      type row_var_flag = Ast.row_var_flag
+                      type override_flag = Ast.override_flag
+                      val loc_of_ctyp : ctyp -&gt; loc
+                      val loc_of_patt : patt -&gt; loc
+                      val loc_of_expr : expr -&gt; loc
+                      val loc_of_module_type : module_type -&gt; loc
+                      val loc_of_module_expr : module_expr -&gt; loc
+                      val loc_of_sig_item : sig_item -&gt; loc
+                      val loc_of_str_item : str_item -&gt; loc
+                      val loc_of_class_type : class_type -&gt; loc
+                      val loc_of_class_sig_item : class_sig_item -&gt; loc
+                      val loc_of_class_expr : class_expr -&gt; loc
+                      val loc_of_class_str_item : class_str_item -&gt; loc
+                      val loc_of_with_constr : with_constr -&gt; loc
+                      val loc_of_binding : binding -&gt; loc
+                      val loc_of_rec_binding : rec_binding -&gt; loc
+                      val loc_of_module_binding : module_binding -&gt; loc
+                      val loc_of_match_case : match_case -&gt; loc
+                      val loc_of_ident : ident -&gt; loc
+                      class map :
+                        object ('c)
+                          method binding : binding -&gt; binding
+                          method class_expr : class_expr -&gt; class_expr
+                          method class_sig_item :
+                            class_sig_item -&gt; class_sig_item
+                          method class_str_item :
+                            class_str_item -&gt; class_str_item
+                          method class_type : class_type -&gt; class_type
+                          method ctyp : ctyp -&gt; ctyp
+                          method direction_flag :
+                            direction_flag -&gt; direction_flag
+                          method expr : expr -&gt; expr
+                          method ident : ident -&gt; ident
+                          method list :
+                            ('c -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b list
+                          method loc : loc -&gt; loc
+                          method match_case : match_case -&gt; match_case
+                          method meta_bool : meta_bool -&gt; meta_bool
+                          method meta_list :
+                            ('c -&gt; 'a -&gt; 'b) -&gt; 'a meta_list -&gt; 'b meta_list
+                          method meta_option :
+                            ('c -&gt; 'a -&gt; 'b) -&gt;
+                            'a meta_option -&gt; 'b meta_option
+                          method module_binding :
+                            module_binding -&gt; module_binding
+                          method module_expr : module_expr -&gt; module_expr
+                          method module_type : module_type -&gt; module_type
+                          method mutable_flag : mutable_flag -&gt; mutable_flag
+                          method override_flag :
+                            override_flag -&gt; override_flag
+                          method patt : patt -&gt; patt
+                          method private_flag : private_flag -&gt; private_flag
+                          method rec_binding : rec_binding -&gt; rec_binding
+                          method rec_flag : rec_flag -&gt; rec_flag
+                          method row_var_flag : row_var_flag -&gt; row_var_flag
+                          method sig_item : sig_item -&gt; sig_item
+                          method str_item : str_item -&gt; str_item
+                          method string : string -&gt; string
+                          method unknown : 'a -&gt; 'a
+                          method virtual_flag : virtual_flag -&gt; virtual_flag
+                          method with_constr : with_constr -&gt; with_constr
+                        end
+                      class fold :
+                        object ('b)
+                          method binding : binding -&gt; 'b
+                          method class_expr : class_expr -&gt; 'b
+                          method class_sig_item : class_sig_item -&gt; 'b
+                          method class_str_item : class_str_item -&gt; 'b
+                          method class_type : class_type -&gt; 'b
+                          method ctyp : ctyp -&gt; 'b
+                          method direction_flag : direction_flag -&gt; 'b
+                          method expr : expr -&gt; 'b
+                          method ident : ident -&gt; 'b
+                          method list : ('b -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b
+                          method loc : loc -&gt; 'b
+                          method match_case : match_case -&gt; 'b
+                          method meta_bool : meta_bool -&gt; 'b
+                          method meta_list :
+                            ('b -&gt; 'a -&gt; 'b) -&gt; 'a meta_list -&gt; 'b
+                          method meta_option :
+                            ('b -&gt; 'a -&gt; 'b) -&gt; 'a meta_option -&gt; 'b
+                          method module_binding : module_binding -&gt; 'b
+                          method module_expr : module_expr -&gt; 'b
+                          method module_type : module_type -&gt; 'b
+                          method mutable_flag : mutable_flag -&gt; 'b
+                          method override_flag : override_flag -&gt; 'b
+                          method patt : patt -&gt; 'b
+                          method private_flag : private_flag -&gt; 'b
+                          method rec_binding : rec_binding -&gt; 'b
+                          method rec_flag : rec_flag -&gt; 'b
+                          method row_var_flag : row_var_flag -&gt; 'b
+                          method sig_item : sig_item -&gt; 'b
+                          method str_item : str_item -&gt; 'b
+                          method string : string -&gt; 'b
+                          method unknown : 'a -&gt; 'b
+                          method virtual_flag : virtual_flag -&gt; 'b
+                          method with_constr : with_constr -&gt; 'b
+                        end
+                    end
+                  module DynAst :
+                    sig
+                      module Ast :
+                        sig
+                          type loc = Ast.loc
+                          type meta_bool = Ast.meta_bool
+                          type 'a meta_option = 'a Ast.meta_option
+                          type 'a meta_list = 'a Ast.meta_list
+                          type ctyp = Ast.ctyp
+                          type patt = Ast.patt
+                          type expr = Ast.expr
+                          type module_type = Ast.module_type
+                          type sig_item = Ast.sig_item
+                          type with_constr = Ast.with_constr
+                          type module_expr = Ast.module_expr
+                          type str_item = Ast.str_item
+                          type class_type = Ast.class_type
+                          type class_sig_item = Ast.class_sig_item
+                          type class_expr = Ast.class_expr
+                          type class_str_item = Ast.class_str_item
+                          type match_case = Ast.match_case
+                          type ident = Ast.ident
+                          type binding = Ast.binding
+                          type rec_binding = Ast.rec_binding
+                          type module_binding = Ast.module_binding
+                          type rec_flag = Ast.rec_flag
+                          type direction_flag = Ast.direction_flag
+                          type mutable_flag = Ast.mutable_flag
+                          type private_flag = Ast.private_flag
+                          type virtual_flag = Ast.virtual_flag
+                          type row_var_flag = Ast.row_var_flag
+                          type override_flag = Ast.override_flag
+                          val loc_of_ctyp : ctyp -&gt; loc
+                          val loc_of_patt : patt -&gt; loc
+                          val loc_of_expr : expr -&gt; loc
+                          val loc_of_module_type : module_type -&gt; loc
+                          val loc_of_module_expr : module_expr -&gt; loc
+                          val loc_of_sig_item : sig_item -&gt; loc
+                          val loc_of_str_item : str_item -&gt; loc
+                          val loc_of_class_type : class_type -&gt; loc
+                          val loc_of_class_sig_item : class_sig_item -&gt; loc
+                          val loc_of_class_expr : class_expr -&gt; loc
+                          val loc_of_class_str_item : class_str_item -&gt; loc
+                          val loc_of_with_constr : with_constr -&gt; loc
+                          val loc_of_binding : binding -&gt; loc
+                          val loc_of_rec_binding : rec_binding -&gt; loc
+                          val loc_of_module_binding : module_binding -&gt; loc
+                          val loc_of_match_case : match_case -&gt; loc
+                          val loc_of_ident : ident -&gt; loc
+                          class map :
+                            object ('c)
+                              method binding : binding -&gt; binding
+                              method class_expr : class_expr -&gt; class_expr
+                              method class_sig_item :
+                                class_sig_item -&gt; class_sig_item
+                              method class_str_item :
+                                class_str_item -&gt; class_str_item
+                              method class_type : class_type -&gt; class_type
+                              method ctyp : ctyp -&gt; ctyp
+                              method direction_flag :
+                                direction_flag -&gt; direction_flag
+                              method expr : expr -&gt; expr
+                              method ident : ident -&gt; ident
+                              method list :
+                                ('c -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b list
+                              method loc : loc -&gt; loc
+                              method match_case : match_case -&gt; match_case
+                              method meta_bool : meta_bool -&gt; meta_bool
+                              method meta_list :
+                                ('c -&gt; 'a -&gt; 'b) -&gt;
+                                'a meta_list -&gt; 'b meta_list
+                              method meta_option :
+                                ('c -&gt; 'a -&gt; 'b) -&gt;
+                                'a meta_option -&gt; 'b meta_option
+                              method module_binding :
+                                module_binding -&gt; module_binding
+                              method module_expr : module_expr -&gt; module_expr
+                              method module_type : module_type -&gt; module_type
+                              method mutable_flag :
+                                mutable_flag -&gt; mutable_flag
+                              method override_flag :
+                                override_flag -&gt; override_flag
+                              method patt : patt -&gt; patt
+                              method private_flag :
+                                private_flag -&gt; private_flag
+                              method rec_binding : rec_binding -&gt; rec_binding
+                              method rec_flag : rec_flag -&gt; rec_flag
+                              method row_var_flag :
+                                row_var_flag -&gt; row_var_flag
+                              method sig_item : sig_item -&gt; sig_item
+                              method str_item : str_item -&gt; str_item
+                              method string : string -&gt; string
+                              method unknown : 'a -&gt; 'a
+                              method virtual_flag :
+                                virtual_flag -&gt; virtual_flag
+                              method with_constr : with_constr -&gt; with_constr
+                            end
+                          class fold :
+                            object ('b)
+                              method binding : binding -&gt; 'b
+                              method class_expr : class_expr -&gt; 'b
+                              method class_sig_item : class_sig_item -&gt; 'b
+                              method class_str_item : class_str_item -&gt; 'b
+                              method class_type : class_type -&gt; 'b
+                              method ctyp : ctyp -&gt; 'b
+                              method direction_flag : direction_flag -&gt; 'b
+                              method expr : expr -&gt; 'b
+                              method ident : ident -&gt; 'b
+                              method list : ('b -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b
+                              method loc : loc -&gt; 'b
+                              method match_case : match_case -&gt; 'b
+                              method meta_bool : meta_bool -&gt; 'b
+                              method meta_list :
+                                ('b -&gt; 'a -&gt; 'b) -&gt; 'a meta_list -&gt; 'b
+                              method meta_option :
+                                ('b -&gt; 'a -&gt; 'b) -&gt; 'a meta_option -&gt; 'b
+                              method module_binding : module_binding -&gt; 'b
+                              method module_expr : module_expr -&gt; 'b
+                              method module_type : module_type -&gt; 'b
+                              method mutable_flag : mutable_flag -&gt; 'b
+                              method override_flag : override_flag -&gt; 'b
+                              method patt : patt -&gt; 'b
+                              method private_flag : private_flag -&gt; 'b
+                              method rec_binding : rec_binding -&gt; 'b
+                              method rec_flag : rec_flag -&gt; 'b
+                              method row_var_flag : row_var_flag -&gt; 'b
+                              method sig_item : sig_item -&gt; 'b
+                              method str_item : str_item -&gt; 'b
+                              method string : string -&gt; 'b
+                              method unknown : 'a -&gt; 'b
+                              method virtual_flag : virtual_flag -&gt; 'b
+                              method with_constr : with_constr -&gt; 'b
+                            end
+                        end
+                      type 'a tag
+                      val ctyp_tag : Ast.ctyp tag
+                      val patt_tag : Ast.patt tag
+                      val expr_tag : Ast.expr tag
+                      val module_type_tag : Ast.module_type tag
+                      val sig_item_tag : Ast.sig_item tag
+                      val with_constr_tag : Ast.with_constr tag
+                      val module_expr_tag : Ast.module_expr tag
+                      val str_item_tag : Ast.str_item tag
+                      val class_type_tag : Ast.class_type tag
+                      val class_sig_item_tag : Ast.class_sig_item tag
+                      val class_expr_tag : Ast.class_expr tag
+                      val class_str_item_tag : Ast.class_str_item tag
+                      val match_case_tag : Ast.match_case tag
+                      val ident_tag : Ast.ident tag
+                      val binding_tag : Ast.binding tag
+                      val rec_binding_tag : Ast.rec_binding tag
+                      val module_binding_tag : Ast.module_binding tag
+                      val string_of_tag : 'a tag -&gt; string
+                      module Pack :
+                        functor (X : sig type 'a t end) -&gt;
+                          sig
+                            type pack
+                            val pack : 'a tag -&gt; 'a X.t -&gt; pack
+                            val unpack : 'a tag -&gt; pack -&gt; 'a X.t
+                            val print_tag : Format.formatter -&gt; pack -&gt; unit
+                          end
+                    end
+                  type 'a expand_fun =
+                      Ast.loc -&gt; string option -&gt; string -&gt; 'a
+                  val add : string -&gt; 'a DynAst.tag -&gt; 'a expand_fun -&gt; unit
+                  val find : string -&gt; 'a DynAst.tag -&gt; 'a expand_fun
+                  val default : string ref
+                  val parse_quotation_result :
+                    (Ast.loc -&gt; string -&gt; 'a) -&gt;
+                    Ast.loc -&gt; Camlp4.Sig.quotation -&gt; string -&gt; string -&gt; 'a
+                  val translate : (string -&gt; string) ref
+                  val expand :
+                    Ast.loc -&gt; Camlp4.Sig.quotation -&gt; 'a DynAst.tag -&gt; 'a
+                  val dump_file : string option ref
+                  module Error : Camlp4.Sig.Error
+                end
+              module AntiquotSyntax : Camlp4.Sig.Parser(Ast).SIMPLE
+              type warning = Loc.t -&gt; string -&gt; unit
+              val default_warning : warning
+              val current_warning : warning ref
+              val print_warning : warning
+              val parse_implem :
+                ?directive_handler:(Ast.str_item -&gt; Ast.str_item option) -&gt;
+                Ast.loc -&gt; char Stream.t -&gt; Ast.str_item
+              val parse_interf :
+                ?directive_handler:(Ast.sig_item -&gt; Ast.sig_item option) -&gt;
+                Ast.loc -&gt; char Stream.t -&gt; Ast.sig_item
+              val print_interf :
+                ?input_file:string -&gt;
+                ?output_file:string -&gt; Ast.sig_item -&gt; unit
+              val print_implem :
+                ?input_file:string -&gt;
+                ?output_file:string -&gt; Ast.str_item -&gt; unit
+              val interf : (Ast.sig_item list * Loc.t option) Gram.Entry.t
+              val implem : (Ast.str_item list * Loc.t option) Gram.Entry.t
+              val top_phrase : Ast.str_item option Gram.Entry.t
+              val use_file : (Ast.str_item list * Loc.t option) Gram.Entry.t
+              val a_CHAR : string Gram.Entry.t
+              val a_FLOAT : string Gram.Entry.t
+              val a_INT : string Gram.Entry.t
+              val a_INT32 : string Gram.Entry.t
+              val a_INT64 : string Gram.Entry.t
+              val a_LABEL : string Gram.Entry.t
+              val a_LIDENT : string Gram.Entry.t
+              val a_NATIVEINT : string Gram.Entry.t
+              val a_OPTLABEL : string Gram.Entry.t
+              val a_STRING : string Gram.Entry.t
+              val a_UIDENT : string Gram.Entry.t
+              val a_ident : string Gram.Entry.t
+              val amp_ctyp : Ast.ctyp Gram.Entry.t
+              val and_ctyp : Ast.ctyp Gram.Entry.t
+              val match_case : Ast.match_case Gram.Entry.t
+              val match_case0 : Ast.match_case Gram.Entry.t
+              val match_case_quot : Ast.match_case Gram.Entry.t
+              val binding : Ast.binding Gram.Entry.t
+              val binding_quot : Ast.binding Gram.Entry.t
+              val rec_binding_quot : Ast.rec_binding Gram.Entry.t
+              val class_declaration : Ast.class_expr Gram.Entry.t
+              val class_description : Ast.class_type Gram.Entry.t
+              val class_expr : Ast.class_expr Gram.Entry.t
+              val class_expr_quot : Ast.class_expr Gram.Entry.t
+              val class_fun_binding : Ast.class_expr Gram.Entry.t
+              val class_fun_def : Ast.class_expr Gram.Entry.t
+              val class_info_for_class_expr : Ast.class_expr Gram.Entry.t
+              val class_info_for_class_type : Ast.class_type Gram.Entry.t
+              val class_longident : Ast.ident Gram.Entry.t
+              val class_longident_and_param : Ast.class_expr Gram.Entry.t
+              val class_name_and_param : (string * Ast.ctyp) Gram.Entry.t
+              val class_sig_item : Ast.class_sig_item Gram.Entry.t
+              val class_sig_item_quot : Ast.class_sig_item Gram.Entry.t
+              val class_signature : Ast.class_sig_item Gram.Entry.t
+              val class_str_item : Ast.class_str_item Gram.Entry.t
+              val class_str_item_quot : Ast.class_str_item Gram.Entry.t
+              val class_structure : Ast.class_str_item Gram.Entry.t
+              val class_type : Ast.class_type Gram.Entry.t
+              val class_type_declaration : Ast.class_type Gram.Entry.t
+              val class_type_longident : Ast.ident Gram.Entry.t
+              val class_type_longident_and_param :
+                Ast.class_type Gram.Entry.t
+              val class_type_plus : Ast.class_type Gram.Entry.t
+              val class_type_quot : Ast.class_type Gram.Entry.t
+              val comma_ctyp : Ast.ctyp Gram.Entry.t
+              val comma_expr : Ast.expr Gram.Entry.t
+              val comma_ipatt : Ast.patt Gram.Entry.t
+              val comma_patt : Ast.patt Gram.Entry.t
+              val comma_type_parameter : Ast.ctyp Gram.Entry.t
+              val constrain : (Ast.ctyp * Ast.ctyp) Gram.Entry.t
+              val constructor_arg_list : Ast.ctyp Gram.Entry.t
+              val constructor_declaration : Ast.ctyp Gram.Entry.t
+              val constructor_declarations : Ast.ctyp Gram.Entry.t
+              val ctyp : Ast.ctyp Gram.Entry.t
+              val ctyp_quot : Ast.ctyp Gram.Entry.t
+              val cvalue_binding : Ast.expr Gram.Entry.t
+              val direction_flag : Ast.direction_flag Gram.Entry.t
+              val direction_flag_quot : Ast.direction_flag Gram.Entry.t
+              val dummy : unit Gram.Entry.t
+              val eq_expr : (string -&gt; Ast.patt -&gt; Ast.patt) Gram.Entry.t
+              val expr : Ast.expr Gram.Entry.t
+              val expr_eoi : Ast.expr Gram.Entry.t
+              val expr_quot : Ast.expr Gram.Entry.t
+              val field_expr : Ast.rec_binding Gram.Entry.t
+              val field_expr_list : Ast.rec_binding Gram.Entry.t
+              val fun_binding : Ast.expr Gram.Entry.t
+              val fun_def : Ast.expr Gram.Entry.t
+              val ident : Ast.ident Gram.Entry.t
+              val ident_quot : Ast.ident Gram.Entry.t
+              val ipatt : Ast.patt Gram.Entry.t
+              val ipatt_tcon : Ast.patt Gram.Entry.t
+              val label : string Gram.Entry.t
+              val label_declaration : Ast.ctyp Gram.Entry.t
+              val label_declaration_list : Ast.ctyp Gram.Entry.t
+              val label_expr : Ast.rec_binding Gram.Entry.t
+              val label_expr_list : Ast.rec_binding Gram.Entry.t
+              val label_ipatt : Ast.patt Gram.Entry.t
+              val label_ipatt_list : Ast.patt Gram.Entry.t
+              val label_longident : Ast.ident Gram.Entry.t
+              val label_patt : Ast.patt Gram.Entry.t
+              val label_patt_list : Ast.patt Gram.Entry.t
+              val labeled_ipatt : Ast.patt Gram.Entry.t
+              val let_binding : Ast.binding Gram.Entry.t
+              val meth_list : (Ast.ctyp * Ast.row_var_flag) Gram.Entry.t
+              val meth_decl : Ast.ctyp Gram.Entry.t
+              val module_binding : Ast.module_binding Gram.Entry.t
+              val module_binding0 : Ast.module_expr Gram.Entry.t
+              val module_binding_quot : Ast.module_binding Gram.Entry.t
+              val module_declaration : Ast.module_type Gram.Entry.t
+              val module_expr : Ast.module_expr Gram.Entry.t
+              val module_expr_quot : Ast.module_expr Gram.Entry.t
+              val module_longident : Ast.ident Gram.Entry.t
+              val module_longident_with_app : Ast.ident Gram.Entry.t
+              val module_rec_declaration : Ast.module_binding Gram.Entry.t
+              val module_type : Ast.module_type Gram.Entry.t
+              val package_type : Ast.module_type Gram.Entry.t
+              val module_type_quot : Ast.module_type Gram.Entry.t
+              val more_ctyp : Ast.ctyp Gram.Entry.t
+              val name_tags : Ast.ctyp Gram.Entry.t
+              val opt_as_lident : string Gram.Entry.t
+              val opt_class_self_patt : Ast.patt Gram.Entry.t
+              val opt_class_self_type : Ast.ctyp Gram.Entry.t
+              val opt_comma_ctyp : Ast.ctyp Gram.Entry.t
+              val opt_dot_dot : Ast.row_var_flag Gram.Entry.t
+              val row_var_flag_quot : Ast.row_var_flag Gram.Entry.t
+              val opt_eq_ctyp : Ast.ctyp Gram.Entry.t
+              val opt_expr : Ast.expr Gram.Entry.t
+              val opt_meth_list : Ast.ctyp Gram.Entry.t
+              val opt_mutable : Ast.mutable_flag Gram.Entry.t
+              val mutable_flag_quot : Ast.mutable_flag Gram.Entry.t
+              val opt_override : Ast.override_flag Gram.Entry.t
+              val override_flag_quot : Ast.override_flag Gram.Entry.t
+              val opt_polyt : Ast.ctyp Gram.Entry.t
+              val opt_private : Ast.private_flag Gram.Entry.t
+              val private_flag_quot : Ast.private_flag Gram.Entry.t
+              val opt_rec : Ast.rec_flag Gram.Entry.t
+              val rec_flag_quot : Ast.rec_flag Gram.Entry.t
+              val opt_virtual : Ast.virtual_flag Gram.Entry.t
+              val virtual_flag_quot : Ast.virtual_flag Gram.Entry.t
+              val opt_when_expr : Ast.expr Gram.Entry.t
+              val patt : Ast.patt Gram.Entry.t
+              val patt_as_patt_opt : Ast.patt Gram.Entry.t
+              val patt_eoi : Ast.patt Gram.Entry.t
+              val patt_quot : Ast.patt Gram.Entry.t
+              val patt_tcon : Ast.patt Gram.Entry.t
+              val phrase : Ast.str_item Gram.Entry.t
+              val poly_type : Ast.ctyp Gram.Entry.t
+              val row_field : Ast.ctyp Gram.Entry.t
+              val sem_expr : Ast.expr Gram.Entry.t
+              val sem_expr_for_list : (Ast.expr -&gt; Ast.expr) Gram.Entry.t
+              val sem_patt : Ast.patt Gram.Entry.t
+              val sem_patt_for_list : (Ast.patt -&gt; Ast.patt) Gram.Entry.t
+              val semi : unit Gram.Entry.t
+              val sequence : Ast.expr Gram.Entry.t
+              val do_sequence : Ast.expr Gram.Entry.t
+              val sig_item : Ast.sig_item Gram.Entry.t
+              val sig_item_quot : Ast.sig_item Gram.Entry.t
+              val sig_items : Ast.sig_item Gram.Entry.t
+              val star_ctyp : Ast.ctyp Gram.Entry.t
+              val str_item : Ast.str_item Gram.Entry.t
+              val str_item_quot : Ast.str_item Gram.Entry.t
+              val str_items : Ast.str_item Gram.Entry.t
+              val type_constraint : unit Gram.Entry.t
+              val type_declaration : Ast.ctyp Gram.Entry.t
+              val type_ident_and_parameters :
+                (string * Ast.ctyp list) Gram.Entry.t
+              val type_kind : Ast.ctyp Gram.Entry.t
+              val type_longident : Ast.ident Gram.Entry.t
+              val type_longident_and_parameters : Ast.ctyp Gram.Entry.t
+              val type_parameter : Ast.ctyp Gram.Entry.t
+              val type_parameters : (Ast.ctyp -&gt; Ast.ctyp) Gram.Entry.t
+              val typevars : Ast.ctyp Gram.Entry.t
+              val val_longident : Ast.ident Gram.Entry.t
+              val value_let : unit Gram.Entry.t
+              val value_val : unit Gram.Entry.t
+              val with_constr : Ast.with_constr Gram.Entry.t
+              val with_constr_quot : Ast.with_constr Gram.Entry.t
+              val prefixop : Ast.expr Gram.Entry.t
+              val infixop0 : Ast.expr Gram.Entry.t
+              val infixop1 : Ast.expr Gram.Entry.t
+              val infixop2 : Ast.expr Gram.Entry.t
+              val infixop3 : Ast.expr Gram.Entry.t
+              val infixop4 : Ast.expr Gram.Entry.t
+            end) -&gt;
+  functor (S : TypedXML) -&gt;
+    sig
+      module Xmllexer :
+        sig
+          val err : Xmllexer.lexing_error -&gt; Camlp4.PreCast.Loc.t -&gt; 'a
+          val __ocaml_lex_tables : Lexing.lex_tables
+          val token : Xmllexer.context -&gt; Lexing.lexbuf -&gt; LexerArg.token
+          val __ocaml_lex_token_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; LexerArg.token
+          val ignore_spaces : Xmllexer.context -&gt; Lexing.lexbuf -&gt; unit
+          val __ocaml_lex_ignore_spaces_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; unit
+          val comment :
+            Xmllexer.context -&gt;
+            Xmllexer.Loc.t list -&gt; Lexing.lexbuf -&gt; string
+          val __ocaml_lex_comment_rec :
+            Xmllexer.context -&gt;
+            Xmllexer.Loc.t list -&gt; Lexing.lexbuf -&gt; int -&gt; string
+          val header : Xmllexer.context -&gt; Lexing.lexbuf -&gt; unit
+          val __ocaml_lex_header_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; unit
+          val cdata : Xmllexer.context -&gt; Lexing.lexbuf -&gt; LexerArg.token
+          val __ocaml_lex_cdata_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; LexerArg.token
+          val pcdata : Xmllexer.context -&gt; Lexing.lexbuf -&gt; string
+          val __ocaml_lex_pcdata_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; string
+          val entity : Xmllexer.context -&gt; Lexing.lexbuf -&gt; string
+          val __ocaml_lex_entity_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; string
+          val ident_name : Xmllexer.context -&gt; Lexing.lexbuf -&gt; string
+          val __ocaml_lex_ident_name_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; string
+          val close_tag : Xmllexer.context -&gt; Lexing.lexbuf -&gt; unit
+          val __ocaml_lex_close_tag_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; unit
+          val attributes :
+            Xmllexer.context -&gt;
+            Lexing.lexbuf -&gt; LexerArg.attribute list * bool
+          val __ocaml_lex_attributes_rec :
+            Xmllexer.context -&gt;
+            Lexing.lexbuf -&gt; int -&gt; LexerArg.attribute list * bool
+          val attr_name :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; LexerArg.attr_name
+          val __ocaml_lex_attr_name_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; LexerArg.attr_name
+          val attr_data :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; LexerArg.attr_value
+          val __ocaml_lex_attr_data_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; LexerArg.attr_value
+          val dq_string : Xmllexer.context -&gt; Lexing.lexbuf -&gt; string
+          val __ocaml_lex_dq_string_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; string
+          val q_string : Xmllexer.context -&gt; Lexing.lexbuf -&gt; string
+          val __ocaml_lex_q_string_rec :
+            Xmllexer.context -&gt; Lexing.lexbuf -&gt; int -&gt; string
+          val lexing_store : char Stream.t -&gt; string -&gt; int -&gt; int
+          val from_context :
+            Xmllexer.context -&gt; (LexerArg.token * Xmllexer.Loc.t) Stream.t
+          val from_lexbuf :
+            Lexing.lexbuf -&gt;
+            bool -&gt; (LexerArg.token * Xmllexer.Loc.t) Stream.t
+          val setup_loc : Lexing.lexbuf -&gt; Xmllexer.Loc.t -&gt; unit
+          val from_string :
+            Xmllexer.Loc.t -&gt;
+            bool -&gt; string -&gt; (LexerArg.token * Xmllexer.Loc.t) Stream.t
+          val from_stream :
+            Xmllexer.Loc.t -&gt;
+            bool -&gt;
+            char Stream.t -&gt; (LexerArg.token * Xmllexer.Loc.t) Stream.t
+        end
+      type state = {
+        stream : (Xhtmlparser.LexerArg.token * Camlp4.PreCast.Loc.t) Stream.t;
+        stack : Xhtmlparser.LexerArg.token Stack.t;
+        loc : Camlp4.PreCast.Loc.t;
+      }
+      exception CamlListExc of string
+      module Error :
+        sig
+          type t =
+              EndOfTagExpected of string
+            | EOFExpected
+            | NoMoreTagExpected
+            | NoMoreData
+          exception E of Xhtmlparser.Make.Error.t
+          val print : Format.formatter -&gt; Xhtmlparser.Make.Error.t -&gt; unit
+          val to_string : Xhtmlparser.Make.Error.t -&gt; string
+        end
+      val err : Xhtmlparser.Make.Error.t -&gt; Camlp4.PreCast.Loc.t -&gt; 'a
+      val pop :
+        Xhtmlparser.Make.state -&gt;
+        Xhtmlparser.LexerArg.token * Xhtmlparser.Make.state
+      val push : Xhtmlparser.LexerArg.token -&gt; Xhtmlparser.Make.state -&gt; unit
+      val expr_of_list :
+        Camlp4.PreCast.Ast.loc -&gt;
+        [&lt; `Elt of Camlp4.PreCast.Ast.expr | `List of Camlp4.PreCast.Ast.expr ]
+        list -&gt; Camlp4.PreCast.Ast.expr
+      val parse :
+        Xmllexer.Loc.t -&gt;
+        bool -&gt;
+        string -&gt; (Xhtmlparser.LexerArg.token * Xmllexer.Loc.t) Stream.t
+      val get_expr : string -&gt; Syntax.Gram.Loc.t -&gt; Syntax.Ast.expr
+      val read_node : Xhtmlparser.Make.state -&gt; Syntax.Ast.expr
+      val read_elems :
+        ?tag:string -&gt; Xhtmlparser.Make.state -&gt; Camlp4.PreCast.Ast.expr
+      val read_attlist :
+        Xhtmlparser.Make.state -&gt;
+        Xhtmlparser.LexerArg.attribute list -&gt; Camlp4.PreCast.Ast.expr
+      val clean_ws : Xhtmlparser.Make.state -&gt; Xhtmlparser.Make.state
+      val to_expr :
+        (Xhtmlparser.LexerArg.token * Camlp4.PreCast.Loc.t) Stream.t -&gt;
+        Camlp4.PreCast.Loc.t -&gt; Syntax.Ast.expr
+      val to_expr_taglist :
+        (Xhtmlparser.LexerArg.token * Camlp4.PreCast.Loc.t) Stream.t -&gt;
+        Camlp4.PreCast.Loc.t -&gt; Camlp4.PreCast.Ast.expr
+      val remove_ws : string -&gt; string
+      val xml_exp :
+        Xmllexer.Loc.t -&gt; string option -&gt; string -&gt; Syntax.Ast.expr
+      val xml_expl :
+        Xmllexer.Loc.t -&gt; string option -&gt; string -&gt; Camlp4.PreCast.Ast.expr
+    end</code></pre></article></div></div></body></html>

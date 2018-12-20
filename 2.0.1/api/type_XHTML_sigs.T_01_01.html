@@ -1,0 +1,859 @@
+<html><head><title></title><meta charset="utf8"/><link rel="stylesheet" href="https://ocsigen.org/tyxml/tmp/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script type="text/javascript" src="https://ocsigen.org/js/client.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js">
+//<![CDATA[
+
+//]]>
+</script></head><body><div class="project-page"><div class="page-header"><p class="logo-ocsigen"><a href=".././../../" class="ocsimore_phrasing_link"><img src=".././../../img/ocsigen-white.svg" alt="Ocsigen"/></a>
+</p><p class="logo-subproject">Tyxml</p><div class="mainmenu"><p><span class="mainmenu-home"><a href=".././../../" class="ocsimore_phrasing_link">Home</a></span>
+<span class="mainmenu-doc"><a href=".././../../tuto/" class="ocsimore_phrasing_link">Doc</a></span>
+</p><p><a href=".././../../eliom/" class="ocsimore_phrasing_link">Eliom</a></p><p><a href=".././../../js_of_ocaml/" class="ocsimore_phrasing_link">Js_of_ocaml</a></p><p><a href=".././../../lwt/" class="ocsimore_phrasing_link">Lwt</a></p><p class="mainmenu-current"><a href=".././../../tyxml/" class="ocsimore_phrasing_link">Tyxml</a></p><p><a href=".././../../ocsigen-start/" class="ocsimore_phrasing_link">Start</a></p></div><form id="googlesearch" action="https://google.com/search"><input name="q" id="gsearch-box" placeholder="Search using Google"/><label for="gsearch-box"><img src="https://ocsigen.org/tyxml/tmp/search.svg" alt="" id="gsearch-icon"/></label><input type="submit" id="gsearch-submit" onclick="document.getElementById('gsearch-box').value += ' site:ocsigen.org';"/></form><aside class="how-drawer"><input id="how-drawer-toggle" type="checkbox"/><label for="how-drawer-toggle" id="how-drawer-label"><span class="how-drawer-icon"></span></label><nav class="how-drawer-content"><ul class="drawermainmenu"><li class="drawermainmenu-home"><a href=".././../../" class="ocsimore_phrasing_link">Home</a>
+</li><li class="drawermainmenu-doc"><a href=".././../../tuto/" class="ocsimore_phrasing_link">Doc</a>
+</li><li class="drawermainmenu-project"><a href=".././../../eliom/" class="ocsimore_phrasing_link">Eliom</a>
+</li><li class="drawermainmenu-project"><a href=".././../../js_of_ocaml/" class="ocsimore_phrasing_link">Js_of_ocaml</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigenserver/" class="ocsimore_phrasing_link">Server</a>
+</li><li class="drawermainmenu-project"><a href=".././../../lwt/" class="ocsimore_phrasing_link">Lwt</a>
+</li><li class="drawermainmenu-project"><a href=".././../../tyxml/" class="ocsimore_phrasing_link">Tyxml</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigen-toolkit/" class="ocsimore_phrasing_link">Toolkit</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigen-start/" class="ocsimore_phrasing_link">Start</a>
+</li><li class="drawermainmenu-page"><a href=".././../../projects" class="ocsimore_phrasing_link">Other projects</a>
+</li><li class="drawermainmenu-page"><a href=".././../../papers" class="ocsimore_phrasing_link">Research papers</a>
+</li><li class="drawermainmenu-page"><a href=".././../../credits" class="ocsimore_phrasing_link">Who does Ocsigen?</a>
+</li><li class="drawermainmenu-page"><a href=".././../../blog" class="ocsimore_phrasing_link">Blog</a>
+</li><li class="drawermainmenu-page"><a href="https://github.com/ocsigen" class="ocsimore_phrasing_link">Source code</a>
+</li></ul><nav class="how-doctree"><h1>TyXML – API reference </h1><h2>Building valid XML tree </h2><h3><a href=".././api/XHTML" class="ocsimore_phrasing_link">XHTML</a></h3><h3><a href=".././api/SVG" class="ocsimore_phrasing_link">SVG</a></h3><h3><a href=".././api/HTML5" class="ocsimore_phrasing_link">HTML5</a></h3><h2>Common DTD's transcriptions</h2><h3><a href=".././api/XHTML_types" class="ocsimore_phrasing_link">XHTML_types</a></h3><h3><a href=".././api/SVG_types" class="ocsimore_phrasing_link">SVG_types</a></h3><h3><a href=".././api/HTML5_types" class="ocsimore_phrasing_link">HTML5_types</a></h3><h2>Low-level XML manipulation</h2><h3><a href=".././api/XML" class="ocsimore_phrasing_link">XML</a></h3><h2>Functorial interface </h2><h3><a href=".././api/XHTML_f" class="ocsimore_phrasing_link">XHTML_f</a></h3><h3><a href=".././api/SVG_f" class="ocsimore_phrasing_link">SVG_f</a></h3><h3><a href=".././api/HTML5_f" class="ocsimore_phrasing_link">HTML5_f</a></h3><h3><a href=".././api/XML_iter" class="ocsimore_phrasing_link">XML_iter</a></h3><h3><a href=".././api/XML_print" class="ocsimore_phrasing_link">XML_print</a></h3><h2>OCamlduce</h2><h3>Common DTD's transcriptions</h3><h4><a href=".././api/XHTML_types_duce" class="ocsimore_phrasing_link">XHTML_types_duce</a></h4><h3>Helpers</h3><h4><a href=".././api/XML_print_duce" class="ocsimore_phrasing_link">XML_print_duce</a></h4><h4><a href=".././api/XHTML_duce" class="ocsimore_phrasing_link">XHTML_duce</a></h4><h2>Syntax extension and simple parser</h2><h3><a href=".././api/Pa_tyxml" class="ocsimore_phrasing_link">Pa_tyxml</a></h3><h3><a href=".././api/Simplexmlparser" class="ocsimore_phrasing_link">Simplexmlparser</a></h3><h2>Indexes</h2><h3> <span><a href=".././api/index_types">Index of types</a></span></h3><h3> <span><a href=".././api/index_exceptions">Index of exceptions</a></span></h3><h3> <span><a href=".././api/index_values">Index of values</a></span></h3><h3> <span><a href=".././api/index_modules">Index of modules</a></span></h3><h3> <span><a href=".././api/index_module_types">Index of module types</a></span></h3></nav></nav></aside></div><p class="reasonwarning">Warning: Reason support is experimental.
+We are looking for beta-tester and contributors.
+</p><button id="reason">Switch to </button><div class="twocols"><nav class="leftcol">Version <select class="how-versions" onchange="location = this.value;"><option value=".././../2.0/api/type_XHTML_sigs.T_01_01">2.0</option><option value=".././../2.0.1/api/type_XHTML_sigs.T_01_01" selected="selected">2.0.1</option><option value=".././../2.0.2/api/type_XHTML_sigs.T_01_01">2.0.2</option><option value=".././../2.1/api/type_XHTML_sigs.T_01_01">2.1</option><option value=".././../2.2/api/type_XHTML_sigs.T_01_01">2.2</option><option value=".././../3.0/api/type_XHTML_sigs.T_01_01">3.0</option><option value=".././../3.2/api/type_XHTML_sigs.T_01_01">3.2</option><option value=".././../3.2.1/api/type_XHTML_sigs.T_01_01">3.2.1</option><option value=".././../3.3/api/type_XHTML_sigs.T_01_01">3.3</option><option value=".././../3.4/api/type_XHTML_sigs.T_01_01">3.4</option><option value=".././../3.5/api/type_XHTML_sigs.T_01_01">3.5</option><option value=".././../3.6/api/type_XHTML_sigs.T_01_01">3.6</option><option value=".././../4.0/api/type_XHTML_sigs.T_01_01">4.0</option><option value=".././../4.0.1/api/type_XHTML_sigs.T_01_01">4.0.1</option><option value=".././../4.1.0/api/type_XHTML_sigs.T_01_01">4.1.0</option><option value=".././../4.3.0/api/type_XHTML_sigs.T_01_01">4.3.0</option><option value=".././../dev/api/type_XHTML_sigs.T_01_01">dev</option></select><nav class="how-doctree"><h1>TyXML – API reference </h1><h2>Building valid XML tree </h2><h3><a href=".././api/XHTML" class="ocsimore_phrasing_link">XHTML</a></h3><h3><a href=".././api/SVG" class="ocsimore_phrasing_link">SVG</a></h3><h3><a href=".././api/HTML5" class="ocsimore_phrasing_link">HTML5</a></h3><h2>Common DTD's transcriptions</h2><h3><a href=".././api/XHTML_types" class="ocsimore_phrasing_link">XHTML_types</a></h3><h3><a href=".././api/SVG_types" class="ocsimore_phrasing_link">SVG_types</a></h3><h3><a href=".././api/HTML5_types" class="ocsimore_phrasing_link">HTML5_types</a></h3><h2>Low-level XML manipulation</h2><h3><a href=".././api/XML" class="ocsimore_phrasing_link">XML</a></h3><h2>Functorial interface </h2><h3><a href=".././api/XHTML_f" class="ocsimore_phrasing_link">XHTML_f</a></h3><h3><a href=".././api/SVG_f" class="ocsimore_phrasing_link">SVG_f</a></h3><h3><a href=".././api/HTML5_f" class="ocsimore_phrasing_link">HTML5_f</a></h3><h3><a href=".././api/XML_iter" class="ocsimore_phrasing_link">XML_iter</a></h3><h3><a href=".././api/XML_print" class="ocsimore_phrasing_link">XML_print</a></h3><h2>OCamlduce</h2><h3>Common DTD's transcriptions</h3><h4><a href=".././api/XHTML_types_duce" class="ocsimore_phrasing_link">XHTML_types_duce</a></h4><h3>Helpers</h3><h4><a href=".././api/XML_print_duce" class="ocsimore_phrasing_link">XML_print_duce</a></h4><h4><a href=".././api/XHTML_duce" class="ocsimore_phrasing_link">XHTML_duce</a></h4><h2>Syntax extension and simple parser</h2><h3><a href=".././api/Pa_tyxml" class="ocsimore_phrasing_link">Pa_tyxml</a></h3><h3><a href=".././api/Simplexmlparser" class="ocsimore_phrasing_link">Simplexmlparser</a></h3><h2>Indexes</h2><h3> <span><a href=".././api/index_types">Index of types</a></span></h3><h3> <span><a href=".././api/index_exceptions">Index of exceptions</a></span></h3><h3> <span><a href=".././api/index_values">Index of values</a></span></h3><h3> <span><a href=".././api/index_modules">Index of modules</a></span></h3><h3> <span><a href=".././api/index_module_types">Index of module types</a></span></h3></nav></nav><article class="rightcol"><pre class=""><code class="language-ocaml translatable">sig
+  module XML : XML_sigs.T
+  module Info : XML_sigs.Info
+  type uri = XML.uri
+  val string_of_uri : XHTML_sigs.T_01_01.uri -&gt; string
+  val uri_of_string : string -&gt; XHTML_sigs.T_01_01.uri
+  type +'a attrib
+  val to_xmlattribs : 'a XHTML_sigs.T_01_01.attrib list -&gt; XML.attrib list
+  val to_attrib : XML.attrib -&gt; 'a XHTML_sigs.T_01_01.attrib
+  val a_class : XHTML_types.nmtokens -&gt; [&gt; `Class ] XHTML_sigs.T_01_01.attrib
+  val a_id : XHTML_types.id -&gt; [&gt; `Id ] XHTML_sigs.T_01_01.attrib
+  val a_title : XHTML_types.cdata -&gt; [&gt; `Title ] XHTML_sigs.T_01_01.attrib
+  val a_xml_lang :
+    XHTML_types.nmtoken -&gt; [&gt; `XML_lang ] XHTML_sigs.T_01_01.attrib
+  val a_onblur : XML.event -&gt; [&gt; `OnBlur ] XHTML_sigs.T_01_01.attrib
+  val a_onclick : XML.event -&gt; [&gt; `OnClick ] XHTML_sigs.T_01_01.attrib
+  val a_ondblclick : XML.event -&gt; [&gt; `OnDblClick ] XHTML_sigs.T_01_01.attrib
+  val a_onchange : XML.event -&gt; [&gt; `OnChange ] XHTML_sigs.T_01_01.attrib
+  val a_onfocus : XML.event -&gt; [&gt; `OnFocus ] XHTML_sigs.T_01_01.attrib
+  val a_onload : XML.event -&gt; [&gt; `OnLoad ] XHTML_sigs.T_01_01.attrib
+  val a_onunload : XML.event -&gt; [&gt; `OnUnload ] XHTML_sigs.T_01_01.attrib
+  val a_onreset : XML.event -&gt; [&gt; `OnReset ] XHTML_sigs.T_01_01.attrib
+  val a_onselect : XML.event -&gt; [&gt; `OnSelect ] XHTML_sigs.T_01_01.attrib
+  val a_onsubmit : XML.event -&gt; [&gt; `OnSubmit ] XHTML_sigs.T_01_01.attrib
+  val a_onmousedown :
+    XML.event -&gt; [&gt; `OnMouseDown ] XHTML_sigs.T_01_01.attrib
+  val a_onmouseup : XML.event -&gt; [&gt; `OnMouseUp ] XHTML_sigs.T_01_01.attrib
+  val a_onmouseover :
+    XML.event -&gt; [&gt; `OnMouseOver ] XHTML_sigs.T_01_01.attrib
+  val a_onmousemove :
+    XML.event -&gt; [&gt; `OnMouseMove ] XHTML_sigs.T_01_01.attrib
+  val a_onmouseout : XML.event -&gt; [&gt; `OnMouseOut ] XHTML_sigs.T_01_01.attrib
+  val a_onkeypress : XML.event -&gt; [&gt; `OnKeyPress ] XHTML_sigs.T_01_01.attrib
+  val a_onkeydown : XML.event -&gt; [&gt; `OnKeyDown ] XHTML_sigs.T_01_01.attrib
+  val a_onkeyup : XML.event -&gt; [&gt; `OnKeyUp ] XHTML_sigs.T_01_01.attrib
+  val a_profile : XML.uri -&gt; [&gt; `Profile ] XHTML_sigs.T_01_01.attrib
+  val a_version :
+    XHTML_types.cdata -&gt; [&gt; `Version ] XHTML_sigs.T_01_01.attrib
+  val a_xmlns :
+    [&lt; `W3_org_1999_xhtml ] -&gt; [&gt; `XMLns ] XHTML_sigs.T_01_01.attrib
+  val a_cite : XML.uri -&gt; [&gt; `Cite ] XHTML_sigs.T_01_01.attrib
+  val a_xml_space :
+    [&lt; `Preserve ] -&gt; [&gt; `XML_space ] XHTML_sigs.T_01_01.attrib
+  val a_accesskey :
+    XHTML_types.character -&gt; [&gt; `Accesskey ] XHTML_sigs.T_01_01.attrib
+  val a_charset :
+    XHTML_types.charset -&gt; [&gt; `Charset ] XHTML_sigs.T_01_01.attrib
+  val a_accept_charset :
+    XHTML_types.charset -&gt; [&gt; `Accept_charset ] XHTML_sigs.T_01_01.attrib
+  val a_accept :
+    XHTML_types.contenttype -&gt; [&gt; `Accept ] XHTML_sigs.T_01_01.attrib
+  val a_href : XML.uri -&gt; [&gt; `Href ] XHTML_sigs.T_01_01.attrib
+  val a_hreflang :
+    XHTML_types.languagecode -&gt; [&gt; `Hreflang ] XHTML_sigs.T_01_01.attrib
+  val a_rel : XHTML_types.linktypes -&gt; [&gt; `Rel ] XHTML_sigs.T_01_01.attrib
+  val a_rev : XHTML_types.linktypes -&gt; [&gt; `Rev ] XHTML_sigs.T_01_01.attrib
+  val a_tabindex :
+    XHTML_types.number -&gt; [&gt; `Tabindex ] XHTML_sigs.T_01_01.attrib
+  val a_type :
+    XHTML_types.contenttype -&gt; [&gt; `Type ] XHTML_sigs.T_01_01.attrib
+  val a_datetime :
+    XHTML_types.cdata -&gt; [&gt; `Datetime ] XHTML_sigs.T_01_01.attrib
+  val a_dir : [&lt; `Ltr | `Rtl ] -&gt; [&gt; `Dir ] XHTML_sigs.T_01_01.attrib
+  val a_action : XML.uri -&gt; [&gt; `Action ] XHTML_sigs.T_01_01.attrib
+  val a_checked : [&lt; `Checked ] -&gt; [&gt; `Checked ] XHTML_sigs.T_01_01.attrib
+  val a_cols : XHTML_types.number -&gt; [&gt; `Cols ] XHTML_sigs.T_01_01.attrib
+  val a_enctype :
+    XHTML_types.contenttype -&gt; [&gt; `Enctype ] XHTML_sigs.T_01_01.attrib
+  val a_for : XHTML_types.idref -&gt; [&gt; `For ] XHTML_sigs.T_01_01.attrib
+  val a_maxlength :
+    XHTML_types.number -&gt; [&gt; `Maxlength ] XHTML_sigs.T_01_01.attrib
+  val a_method : [&lt; `Get | `Post ] -&gt; [&gt; `Method ] XHTML_sigs.T_01_01.attrib
+  val a_multiple : [&lt; `Multiple ] -&gt; [&gt; `Multiple ] XHTML_sigs.T_01_01.attrib
+  val a_name : XHTML_types.cdata -&gt; [&gt; `Name ] XHTML_sigs.T_01_01.attrib
+  val a_rows : XHTML_types.number -&gt; [&gt; `Rows ] XHTML_sigs.T_01_01.attrib
+  val a_selected : [&lt; `Selected ] -&gt; [&gt; `Selected ] XHTML_sigs.T_01_01.attrib
+  val a_size : XHTML_types.number -&gt; [&gt; `Size ] XHTML_sigs.T_01_01.attrib
+  val a_src : XML.uri -&gt; [&gt; `Src ] XHTML_sigs.T_01_01.attrib
+  val a_input_type :
+    [&lt; `Button
+     | `Checkbox
+     | `File
+     | `Hidden
+     | `Image
+     | `Password
+     | `Radio
+     | `Reset
+     | `Submit
+     | `Text ] -&gt;
+    [&gt; `Input_Type ] XHTML_sigs.T_01_01.attrib
+  val a_value : XHTML_types.cdata -&gt; [&gt; `Value ] XHTML_sigs.T_01_01.attrib
+  val a_value_type :
+    [&lt; `Data | `Object | `Ref ] -&gt; [&gt; `Value_Type ] XHTML_sigs.T_01_01.attrib
+  val a_disabled : [&lt; `Disabled ] -&gt; [&gt; `Disabled ] XHTML_sigs.T_01_01.attrib
+  val a_readonly : [&lt; `Readonly ] -&gt; [&gt; `Readonly ] XHTML_sigs.T_01_01.attrib
+  val a_button_type :
+    [&lt; `Button | `Reset | `Submit ] -&gt;
+    [&gt; `Button_Type ] XHTML_sigs.T_01_01.attrib
+  val a_label : XHTML_types.text -&gt; [&gt; `Label ] XHTML_sigs.T_01_01.attrib
+  val a_abbr : XHTML_types.text -&gt; [&gt; `Abbr ] XHTML_sigs.T_01_01.attrib
+  val a_align :
+    [&lt; `Center | `Char | `Justify | `Left | `Right ] -&gt;
+    [&gt; `Align ] XHTML_sigs.T_01_01.attrib
+  val a_axis : XHTML_types.cdata -&gt; [&gt; `Axis ] XHTML_sigs.T_01_01.attrib
+  val a_colspan :
+    XHTML_types.number -&gt; [&gt; `Colspan ] XHTML_sigs.T_01_01.attrib
+  val a_headers :
+    XHTML_types.idrefs -&gt; [&gt; `Headers ] XHTML_sigs.T_01_01.attrib
+  val a_rowspan :
+    XHTML_types.number -&gt; [&gt; `Rowspan ] XHTML_sigs.T_01_01.attrib
+  val a_scope :
+    [&lt; `Col | `Colgroup | `Row | `Rowgroup ] -&gt;
+    [&gt; `Scope ] XHTML_sigs.T_01_01.attrib
+  val a_summary : XHTML_types.text -&gt; [&gt; `Summary ] XHTML_sigs.T_01_01.attrib
+  val a_valign :
+    [&lt; `Baseline | `Bottom | `Middle | `Top ] -&gt;
+    [&gt; `Valign ] XHTML_sigs.T_01_01.attrib
+  val a_border : XHTML_types.pixels -&gt; [&gt; `Border ] XHTML_sigs.T_01_01.attrib
+  val a_cellpadding :
+    XHTML_types.length -&gt; [&gt; `Cellpadding ] XHTML_sigs.T_01_01.attrib
+  val a_cellspacing :
+    XHTML_types.length -&gt; [&gt; `Cellspacing ] XHTML_sigs.T_01_01.attrib
+  val a_datapagesize :
+    XHTML_types.cdata -&gt; [&gt; `Datapagesize ] XHTML_sigs.T_01_01.attrib
+  val a_frame :
+    [&lt; `Above
+     | `Below
+     | `Border
+     | `Box
+     | `Hsides
+     | `LHS
+     | `RHS
+     | `Void
+     | `Vsides ] -&gt;
+    [&gt; `Frame ] XHTML_sigs.T_01_01.attrib
+  val a_rules :
+    [&lt; `All | `Cols | `Groups | `None | `Rows ] -&gt;
+    [&gt; `Rules ] XHTML_sigs.T_01_01.attrib
+  val a_char : XHTML_types.character -&gt; [&gt; `Char ] XHTML_sigs.T_01_01.attrib
+  val a_charoff :
+    XHTML_types.length -&gt; [&gt; `Charoff ] XHTML_sigs.T_01_01.attrib
+  val a_span : XHTML_types.number -&gt; [&gt; `Span ] XHTML_sigs.T_01_01.attrib
+  val a_alt : XHTML_types.text -&gt; [&gt; `Alt ] XHTML_sigs.T_01_01.attrib
+  val a_height : XHTML_types.length -&gt; [&gt; `Height ] XHTML_sigs.T_01_01.attrib
+  val a_longdesc : XML.uri -&gt; [&gt; `Longdesc ] XHTML_sigs.T_01_01.attrib
+  val a_width : XHTML_types.length -&gt; [&gt; `Width ] XHTML_sigs.T_01_01.attrib
+  type shape = [ `Circle | `Default | `Poly | `Rect ]
+  val a_shape :
+    XHTML_sigs.T_01_01.shape -&gt; [&gt; `Shape ] XHTML_sigs.T_01_01.attrib
+  val a_coords : int list -&gt; [&gt; `Coords ] XHTML_sigs.T_01_01.attrib
+  val a_nohref : [&lt; `Nohref ] -&gt; [&gt; `Nohref ] XHTML_sigs.T_01_01.attrib
+  val a_usemap : XHTML_types.idref -&gt; [&gt; `Usemap ] XHTML_sigs.T_01_01.attrib
+  val a_ismap : [&lt; `Ismap ] -&gt; [&gt; `Ismap ] XHTML_sigs.T_01_01.attrib
+  val a_declare : [&lt; `Declare ] -&gt; [&gt; `Declare ] XHTML_sigs.T_01_01.attrib
+  val a_classid : XML.uri -&gt; [&gt; `Classid ] XHTML_sigs.T_01_01.attrib
+  val a_codebase : XML.uri -&gt; [&gt; `Codebase ] XHTML_sigs.T_01_01.attrib
+  val a_data : XML.uri -&gt; [&gt; `Data ] XHTML_sigs.T_01_01.attrib
+  val a_codetype :
+    XHTML_types.contenttype -&gt; [&gt; `Codetype ] XHTML_sigs.T_01_01.attrib
+  val a_archive : XML.uri list -&gt; [&gt; `Archive ] XHTML_sigs.T_01_01.attrib
+  val a_standby : XHTML_types.text -&gt; [&gt; `Standby ] XHTML_sigs.T_01_01.attrib
+  val a_fs_rows :
+    XHTML_types.multilengths -&gt; [&gt; `FS_Rows ] XHTML_sigs.T_01_01.attrib
+  val a_fs_cols :
+    XHTML_types.multilengths -&gt; [&gt; `FS_Cols ] XHTML_sigs.T_01_01.attrib
+  val a_frameborder :
+    [&lt; `One | `Zero ] -&gt; [&gt; `Frameborder ] XHTML_sigs.T_01_01.attrib
+  val a_marginheight :
+    XHTML_types.pixels -&gt; [&gt; `Marginheight ] XHTML_sigs.T_01_01.attrib
+  val a_marginwidth :
+    XHTML_types.pixels -&gt; [&gt; `Marginwidth ] XHTML_sigs.T_01_01.attrib
+  val a_noresize : [&lt; `Noresize ] -&gt; [&gt; `Noresize ] XHTML_sigs.T_01_01.attrib
+  val a_scrolling :
+    [&lt; `Auto | `No | `Yes ] -&gt; [&gt; `Scrolling ] XHTML_sigs.T_01_01.attrib
+  val a_target :
+    XHTML_types.frametarget -&gt; [&gt; `Target ] XHTML_sigs.T_01_01.attrib
+  val a_content :
+    XHTML_types.cdata -&gt; [&gt; `Content ] XHTML_sigs.T_01_01.attrib
+  val a_http_equiv :
+    XHTML_types.nmtoken -&gt; [&gt; `Http_equiv ] XHTML_sigs.T_01_01.attrib
+  val a_scheme : XHTML_types.cdata -&gt; [&gt; `Scheme ] XHTML_sigs.T_01_01.attrib
+  val a_defer : [&lt; `Defer ] -&gt; [&gt; `Defer ] XHTML_sigs.T_01_01.attrib
+  val a_media :
+    XHTML_types.mediadesc -&gt; [&gt; `Media ] XHTML_sigs.T_01_01.attrib
+  val a_style : string -&gt; [&gt; `Style_Attr ] XHTML_sigs.T_01_01.attrib
+  type +'a elt
+  type ('a, 'b) nullary =
+      ?a:'a XHTML_sigs.T_01_01.attrib list -&gt;
+      unit -&gt; 'b XHTML_sigs.T_01_01.elt
+  type ('a, 'b, 'c) unary =
+      ?a:'a XHTML_sigs.T_01_01.attrib list -&gt;
+      'b XHTML_sigs.T_01_01.elt -&gt; 'c XHTML_sigs.T_01_01.elt
+  type ('a, 'b, 'c, 'd) binary =
+      ?a:'a XHTML_sigs.T_01_01.attrib list -&gt;
+      'b XHTML_sigs.T_01_01.elt -&gt;
+      'c XHTML_sigs.T_01_01.elt -&gt; 'd XHTML_sigs.T_01_01.elt
+  type ('a, 'b, 'c, 'd, 'e, 'f) quadry =
+      ?a:'a XHTML_sigs.T_01_01.attrib list -&gt;
+      'b XHTML_sigs.T_01_01.elt -&gt;
+      'c XHTML_sigs.T_01_01.elt -&gt;
+      'd XHTML_sigs.T_01_01.elt -&gt;
+      'e XHTML_sigs.T_01_01.elt -&gt; 'f XHTML_sigs.T_01_01.elt
+  type ('a, 'b, 'c) star =
+      ?a:'a XHTML_sigs.T_01_01.attrib list -&gt;
+      'b XHTML_sigs.T_01_01.elt list -&gt; 'c XHTML_sigs.T_01_01.elt
+  type ('a, 'b, 'c) plus =
+      ?a:'a XHTML_sigs.T_01_01.attrib list -&gt;
+      'b XHTML_sigs.T_01_01.elt -&gt;
+      'b XHTML_sigs.T_01_01.elt list -&gt; 'c XHTML_sigs.T_01_01.elt
+  type html = [ `Html ] XHTML_sigs.T_01_01.elt
+  val html :
+    ?a:[&lt; `Dir | `Id | `Version | `XML_lang | `XMLns ]
+       XHTML_sigs.T_01_01.attrib list -&gt;
+    [&lt; `Head ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Body | `Frameset ] XHTML_sigs.T_01_01.elt -&gt; XHTML_sigs.T_01_01.html
+  val head :
+    ?a:[&lt; `Dir | `Id | `Profile | `XML_lang ] XHTML_sigs.T_01_01.attrib list -&gt;
+    [&lt; `Base | `Title ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Link | `Meta | `Object | `Script | `Style ] XHTML_sigs.T_01_01.elt
+    list -&gt; [&gt; `Head ] XHTML_sigs.T_01_01.elt
+  val title :
+    ([&lt; XHTML_types.title_attrib ], [&lt; XHTML_types.title_content ],
+     [&gt; XHTML_types.title ])
+    XHTML_sigs.T_01_01.unary
+  val body :
+    ([&lt; XHTML_types.body_attrib ], [&lt; XHTML_types.body_content ],
+     [&gt; XHTML_types.body ])
+    XHTML_sigs.T_01_01.star
+  val pcdata : string -&gt; [&gt; `PCDATA ] XHTML_sigs.T_01_01.elt
+  val entity : string -&gt; [&gt; `PCDATA ] XHTML_sigs.T_01_01.elt
+  val space : unit -&gt; [&gt; `PCDATA ] XHTML_sigs.T_01_01.elt
+  val cdata : string -&gt; [&gt; `PCDATA ] XHTML_sigs.T_01_01.elt
+  val cdata_script : string -&gt; [&gt; `PCDATA ] XHTML_sigs.T_01_01.elt
+  val cdata_style : string -&gt; [&gt; `PCDATA ] XHTML_sigs.T_01_01.elt
+  val unsafe_data : string -&gt; 'a XHTML_sigs.T_01_01.elt
+  val h1 :
+    ([&lt; XHTML_types.h1_attrib ], [&lt; XHTML_types.h1_content ],
+     [&gt; XHTML_types.h1 ])
+    XHTML_sigs.T_01_01.star
+  val h2 :
+    ([&lt; XHTML_types.h2_attrib ], [&lt; XHTML_types.h2_content ],
+     [&gt; XHTML_types.h2 ])
+    XHTML_sigs.T_01_01.star
+  val h3 :
+    ([&lt; XHTML_types.h3_attrib ], [&lt; XHTML_types.h3_content ],
+     [&gt; XHTML_types.h3 ])
+    XHTML_sigs.T_01_01.star
+  val h4 :
+    ([&lt; XHTML_types.h4_attrib ], [&lt; XHTML_types.h4_content ],
+     [&gt; XHTML_types.h4 ])
+    XHTML_sigs.T_01_01.star
+  val h5 :
+    ([&lt; XHTML_types.h5_attrib ], [&lt; XHTML_types.h5_content ],
+     [&gt; XHTML_types.h5 ])
+    XHTML_sigs.T_01_01.star
+  val h6 :
+    ([&lt; XHTML_types.h6_attrib ], [&lt; XHTML_types.h6_content ],
+     [&gt; XHTML_types.h6 ])
+    XHTML_sigs.T_01_01.star
+  val address :
+    ([&lt; XHTML_types.address_attrib ], [&lt; XHTML_types.address_content ],
+     [&gt; XHTML_types.address ])
+    XHTML_sigs.T_01_01.star
+  val blockquote :
+    ([&lt; `Cite
+      | `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ],
+     [&lt; `Address
+      | `Blockquote
+      | `Del
+      | `Div
+      | `Dl
+      | `Fieldset
+      | `Form
+      | `H1
+      | `H2
+      | `H3
+      | `H4
+      | `H5
+      | `H6
+      | `Hr
+      | `Ins
+      | `Noscript
+      | `Ol
+      | `P
+      | `PCDATA
+      | `Pre
+      | `Script
+      | `Table
+      | `Ul ],
+     [&gt; `Blockquote ])
+    XHTML_sigs.T_01_01.star
+  val div :
+    ([&lt; XHTML_types.div_attrib ], [&lt; XHTML_types.div_content ],
+     [&gt; XHTML_types.div ])
+    XHTML_sigs.T_01_01.star
+  val p :
+    ([&lt; XHTML_types.p_attrib ], [&lt; XHTML_types.p_content ],
+     [&gt; XHTML_types.p ])
+    XHTML_sigs.T_01_01.star
+  val pre :
+    ([&lt; `Class
+      | `Dir
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Style_Attr
+      | `Title
+      | `XML_lang
+      | `XML_space ],
+     [&lt; `A
+      | `Abbr
+      | `Acronym
+      | `B
+      | `Bdo
+      | `Big
+      | `Br
+      | `Button
+      | `Cite
+      | `Code
+      | `Del
+      | `Dfn
+      | `Em
+      | `I
+      | `Iframe
+      | `Img
+      | `Input
+      | `Ins
+      | `Kbd
+      | `Label
+      | `Map
+      | `Noscript
+      | `Object
+      | `PCDATA
+      | `Q
+      | `Ruby_complex
+      | `Ruby_simple1
+      | `Ruby_simple2
+      | `Samp
+      | `Script
+      | `Select
+      | `Small
+      | `Span
+      | `Strong
+      | `Sub
+      | `Sup
+      | `Textarea
+      | `Tt
+      | `Var ],
+     [&gt; `Pre ])
+    XHTML_sigs.T_01_01.star
+  val abbr :
+    ([&lt; XHTML_types.abbr_attrib ], [&lt; XHTML_types.abbr_content ],
+     [&gt; XHTML_types.abbr ])
+    XHTML_sigs.T_01_01.star
+  val acronym :
+    ([&lt; XHTML_types.acronym_attrib ], [&lt; XHTML_types.acronym_content ],
+     [&gt; XHTML_types.acronym ])
+    XHTML_sigs.T_01_01.star
+  val br :
+    ([&lt; XHTML_types.br_attrib ], [&gt; XHTML_types.br ])
+    XHTML_sigs.T_01_01.nullary
+  val cite :
+    ([&lt; XHTML_types.cite_attrib ], [&lt; XHTML_types.cite_content ],
+     [&gt; XHTML_types.cite ])
+    XHTML_sigs.T_01_01.star
+  val code :
+    ([&lt; XHTML_types.code_attrib ], [&lt; XHTML_types.code_content ],
+     [&gt; XHTML_types.code ])
+    XHTML_sigs.T_01_01.star
+  val dfn :
+    ([&lt; XHTML_types.dfn_attrib ], [&lt; XHTML_types.dfn_content ],
+     [&gt; XHTML_types.dfn ])
+    XHTML_sigs.T_01_01.star
+  val em :
+    ([&lt; XHTML_types.em_attrib ], [&lt; XHTML_types.em_content ],
+     [&gt; XHTML_types.em ])
+    XHTML_sigs.T_01_01.star
+  val kbd :
+    ([&lt; XHTML_types.kbd_attrib ], [&lt; XHTML_types.kbd_content ],
+     [&gt; XHTML_types.kbd ])
+    XHTML_sigs.T_01_01.star
+  val q :
+    ([&lt; XHTML_types.q_attrib ], [&lt; XHTML_types.q_content ],
+     [&gt; XHTML_types.q ])
+    XHTML_sigs.T_01_01.star
+  val samp :
+    ([&lt; XHTML_types.samp_attrib ], [&lt; XHTML_types.samp_content ],
+     [&gt; XHTML_types.samp ])
+    XHTML_sigs.T_01_01.star
+  val span :
+    ([&lt; XHTML_types.span_attrib ], [&lt; XHTML_types.span_content ],
+     [&gt; XHTML_types.span ])
+    XHTML_sigs.T_01_01.star
+  val strong :
+    ([&lt; XHTML_types.strong_attrib ], [&lt; XHTML_types.strong_content ],
+     [&gt; XHTML_types.strong ])
+    XHTML_sigs.T_01_01.star
+  val var :
+    ([&lt; XHTML_types.var_attrib ], [&lt; XHTML_types.var_content ],
+     [&gt; XHTML_types.var ])
+    XHTML_sigs.T_01_01.star
+  val a :
+    ([&lt; XHTML_types.a_attrib ], [&lt; XHTML_types.a_content ],
+     [&gt; XHTML_types.a ])
+    XHTML_sigs.T_01_01.star
+  val dl :
+    ([&lt; XHTML_types.dl_attrib ], [&lt; XHTML_types.dl_content ],
+     [&gt; XHTML_types.dl ])
+    XHTML_sigs.T_01_01.plus
+  val ol :
+    ([&lt; XHTML_types.ol_attrib ], [&lt; XHTML_types.ol_content ],
+     [&gt; XHTML_types.ol ])
+    XHTML_sigs.T_01_01.plus
+  val ul :
+    ([&lt; XHTML_types.ul_attrib ], [&lt; XHTML_types.ul_content ],
+     [&gt; XHTML_types.ul ])
+    XHTML_sigs.T_01_01.plus
+  val dd :
+    ([&lt; XHTML_types.dd_attrib ], [&lt; XHTML_types.dd_content ],
+     [&gt; XHTML_types.dd ])
+    XHTML_sigs.T_01_01.star
+  val dt :
+    ([&lt; XHTML_types.dt_attrib ], [&lt; XHTML_types.dt_content ],
+     [&gt; XHTML_types.dt ])
+    XHTML_sigs.T_01_01.star
+  val li :
+    ([&lt; XHTML_types.li_attrib ], [&lt; XHTML_types.li_content ],
+     [&gt; XHTML_types.li ])
+    XHTML_sigs.T_01_01.star
+  val hr :
+    ([&lt; XHTML_types.hr_attrib ], [&gt; XHTML_types.hr ])
+    XHTML_sigs.T_01_01.nullary
+  val b :
+    ([&lt; XHTML_types.b_attrib ], [&lt; XHTML_types.b_content ],
+     [&gt; XHTML_types.b ])
+    XHTML_sigs.T_01_01.star
+  val big :
+    ([&lt; XHTML_types.big_attrib ], [&lt; XHTML_types.big_content ],
+     [&gt; XHTML_types.big ])
+    XHTML_sigs.T_01_01.star
+  val i :
+    ([&lt; XHTML_types.i_attrib ], [&lt; XHTML_types.i_content ],
+     [&gt; XHTML_types.i ])
+    XHTML_sigs.T_01_01.star
+  val small :
+    ([&lt; XHTML_types.small_attrib ], [&lt; XHTML_types.small_content ],
+     [&gt; XHTML_types.small ])
+    XHTML_sigs.T_01_01.star
+  val sub :
+    ([&lt; XHTML_types.sub_attrib ], [&lt; XHTML_types.sub_content ],
+     [&gt; XHTML_types.sub ])
+    XHTML_sigs.T_01_01.star
+  val sup :
+    ([&lt; XHTML_types.sup_attrib ], [&lt; XHTML_types.sup_content ],
+     [&gt; XHTML_types.sup ])
+    XHTML_sigs.T_01_01.star
+  val tt :
+    ([&lt; XHTML_types.tt_attrib ], [&lt; XHTML_types.tt_content ],
+     [&gt; XHTML_types.tt ])
+    XHTML_sigs.T_01_01.star
+  val bdo :
+    dir:[&lt; `Ltr | `Rtl ] -&gt;
+    ([&lt; XHTML_types.bdo_attrib ], [&lt; XHTML_types.bdo_content ],
+     [&gt; XHTML_types.bdo ])
+    XHTML_sigs.T_01_01.star
+  val area :
+    alt:XHTML_types.text -&gt;
+    ([&lt; XHTML_types.area_attrib ], [&gt; XHTML_types.area ])
+    XHTML_sigs.T_01_01.nullary
+  val map :
+    id:XHTML_types.id -&gt;
+    ([&lt; XHTML_types.map_attrib ], [&lt; XHTML_types.map_content ],
+     [&gt; XHTML_types.map ])
+    XHTML_sigs.T_01_01.plus
+  val del :
+    ([&lt; XHTML_types.del_attrib ], [&lt; XHTML_types.del_content ],
+     [&gt; XHTML_types.del ])
+    XHTML_sigs.T_01_01.star
+  val ins :
+    ([&lt; XHTML_types.ins_attrib ], [&lt; XHTML_types.ins_content ],
+     [&gt; XHTML_types.ins ])
+    XHTML_sigs.T_01_01.star
+  val script :
+    contenttype:XHTML_types.contenttype -&gt;
+    ([&lt; XHTML_types.script_attrib ], [&lt; XHTML_types.script_content ],
+     [&gt; XHTML_types.script ])
+    XHTML_sigs.T_01_01.unary
+  val noscript :
+    ([&lt; XHTML_types.noscript_attrib ], [&lt; XHTML_types.noscript_content ],
+     [&gt; XHTML_types.noscript ])
+    XHTML_sigs.T_01_01.plus
+  module Basic_Forms :
+    sig
+      val form :
+        action:XML.uri -&gt;
+        ([&lt; XHTML_types.form_attrib ], [&lt; XHTML_types.form_content ],
+         [&gt; XHTML_types.form ])
+        XHTML_sigs.T_01_01.plus
+      val input :
+        ([&lt; XHTML_types.input_attrib ], [&gt; XHTML_types.input ])
+        XHTML_sigs.T_01_01.nullary
+      val label :
+        ([&lt; XHTML_types.label_attrib ], [&lt; XHTML_types.label_content ],
+         [&gt; XHTML_types.label ])
+        XHTML_sigs.T_01_01.star
+      val option :
+        ([&lt; XHTML_types.option_attrib ], [&lt; XHTML_types.option_content ],
+         [&gt; XHTML_types.selectoption ])
+        XHTML_sigs.T_01_01.unary
+      val select :
+        ([&lt; XHTML_types.select_attrib ], [&lt; XHTML_types.select_content ],
+         [&gt; XHTML_types.select ])
+        XHTML_sigs.T_01_01.plus
+      val textarea :
+        rows:XHTML_types.number -&gt;
+        cols:XHTML_types.number -&gt;
+        ([&lt; XHTML_types.textarea_attrib ], [&lt; XHTML_types.textarea_content ],
+         [&gt; XHTML_types.textarea ])
+        XHTML_sigs.T_01_01.unary
+    end
+  val form :
+    action:XML.uri -&gt;
+    ([&lt; XHTML_types.form_attrib ], [&lt; XHTML_types.form_content ],
+     [&gt; XHTML_types.form ])
+    XHTML_sigs.T_01_01.plus
+  val input :
+    ([&lt; XHTML_types.input_attrib ], [&gt; XHTML_types.input ])
+    XHTML_sigs.T_01_01.nullary
+  val label :
+    ([&lt; XHTML_types.label_attrib ], [&lt; XHTML_types.label_content ],
+     [&gt; XHTML_types.label ])
+    XHTML_sigs.T_01_01.star
+  val optgroup :
+    label:XHTML_types.text -&gt;
+    ([&lt; XHTML_types.optgroup_attrib ], [&lt; XHTML_types.optgroup_content ],
+     [&gt; XHTML_types.optgroup ])
+    XHTML_sigs.T_01_01.plus
+  val option :
+    ([&lt; XHTML_types.option_attrib ], [&lt; XHTML_types.option_content ],
+     [&gt; XHTML_types.selectoption ])
+    XHTML_sigs.T_01_01.unary
+  val select :
+    ([&lt; XHTML_types.select_attrib ], [&lt; XHTML_types.select_content ],
+     [&gt; XHTML_types.select ])
+    XHTML_sigs.T_01_01.plus
+  val textarea :
+    rows:XHTML_types.number -&gt;
+    cols:XHTML_types.number -&gt;
+    ([&lt; XHTML_types.textarea_attrib ], [&lt; XHTML_types.textarea_content ],
+     [&gt; XHTML_types.textarea ])
+    XHTML_sigs.T_01_01.unary
+  val fieldset :
+    ([&lt; XHTML_types.fieldset_attrib ], [&lt; XHTML_types.fieldset_content ],
+     [&gt; XHTML_types.fieldset ])
+    XHTML_sigs.T_01_01.star
+  val legend :
+    ([&lt; XHTML_types.legend_attrib ], [&lt; XHTML_types.legend_content ],
+     [&gt; XHTML_types.legend ])
+    XHTML_sigs.T_01_01.star
+  val button :
+    ([&lt; XHTML_types.button_attrib ], [&lt; XHTML_types.button_content ],
+     [&gt; XHTML_types.button ])
+    XHTML_sigs.T_01_01.star
+  module Basic_Tables :
+    sig
+      val a_align :
+        [&lt; `Center | `Left | `Right ] -&gt;
+        [&gt; `Align ] XHTML_sigs.T_01_01.attrib
+      val a_scope : [&lt; `Col | `Row ] -&gt; [&gt; `Scope ] XHTML_sigs.T_01_01.attrib
+      val a_valign :
+        [&lt; `Bottom | `Middle | `Top ] -&gt;
+        [&gt; `Valign ] XHTML_sigs.T_01_01.attrib
+      val caption :
+        ([&lt; XHTML_types.caption_attrib ], [&lt; XHTML_types.caption_content ],
+         [&gt; XHTML_types.caption ])
+        XHTML_sigs.T_01_01.star
+      val table :
+        ?caption:[&lt; `Caption ] XHTML_sigs.T_01_01.elt -&gt;
+        ([&lt; XHTML_types.table_attrib ], [&lt; XHTML_types.table_content ],
+         [&gt; XHTML_types.table ])
+        XHTML_sigs.T_01_01.plus
+      val td :
+        ([&lt; XHTML_types.td_attrib ], [&lt; XHTML_types.td_content ],
+         [&gt; XHTML_types.td ])
+        XHTML_sigs.T_01_01.star
+      val th :
+        ([&lt; XHTML_types.th_attrib ], [&lt; XHTML_types.th_content ],
+         [&gt; XHTML_types.th ])
+        XHTML_sigs.T_01_01.star
+      val tr :
+        ([&lt; XHTML_types.tr_attrib ], [&lt; XHTML_types.tr_content ],
+         [&gt; XHTML_types.tr ])
+        XHTML_sigs.T_01_01.plus
+    end
+  val caption :
+    ([&lt; XHTML_types.caption_attrib ], [&lt; XHTML_types.caption_content ],
+     [&gt; XHTML_types.caption ])
+    XHTML_sigs.T_01_01.star
+  val table :
+    ?caption:[&lt; `Caption ] XHTML_sigs.T_01_01.elt -&gt;
+    ?columns:[&lt; `Colgroups of [&lt; `Colgroup ] XHTML_sigs.T_01_01.elt list
+              | `Cols of [&lt; `Col ] XHTML_sigs.T_01_01.elt list ] -&gt;
+    ([&lt; `Border
+      | `Cellpadding
+      | `Cellspacing
+      | `Class
+      | `Datapagesize
+      | `Dir
+      | `Frame
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rules
+      | `Style_Attr
+      | `Summary
+      | `Title
+      | `Width
+      | `XML_lang
+      | `XML_space ],
+     [&lt; `Tr ], [&gt; `Table ])
+    XHTML_sigs.T_01_01.plus
+  val tablex :
+    ?caption:[&lt; `Caption ] XHTML_sigs.T_01_01.elt -&gt;
+    ?columns:[&lt; `Colgroups of [&lt; `Colgroup ] XHTML_sigs.T_01_01.elt list
+              | `Cols of [&lt; `Col ] XHTML_sigs.T_01_01.elt list ] -&gt;
+    ?thead:[&lt; `Thead ] XHTML_sigs.T_01_01.elt -&gt;
+    ?tfoot:[&lt; `Tfoot ] XHTML_sigs.T_01_01.elt -&gt;
+    ([&lt; `Border
+      | `Cellpadding
+      | `Cellspacing
+      | `Class
+      | `Datapagesize
+      | `Dir
+      | `Frame
+      | `Id
+      | `OnClick
+      | `OnDblClick
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `Rules
+      | `Style_Attr
+      | `Summary
+      | `Title
+      | `Width
+      | `XML_lang
+      | `XML_space ],
+     [&lt; `Tbody ], [&gt; `Table ])
+    XHTML_sigs.T_01_01.plus
+  val td :
+    ([&lt; XHTML_types.td_attrib ], [&lt; XHTML_types.td_content ],
+     [&gt; XHTML_types.td ])
+    XHTML_sigs.T_01_01.star
+  val th :
+    ([&lt; XHTML_types.th_attrib ], [&lt; XHTML_types.th_content ],
+     [&gt; XHTML_types.th ])
+    XHTML_sigs.T_01_01.star
+  val tr :
+    ([&lt; XHTML_types.tr_attrib ], [&lt; XHTML_types.tr_content ],
+     [&gt; XHTML_types.tr ])
+    XHTML_sigs.T_01_01.plus
+  val col :
+    ([&lt; XHTML_types.col_attrib ], [&gt; XHTML_types.col ])
+    XHTML_sigs.T_01_01.nullary
+  val colgroup :
+    ([&lt; XHTML_types.colgroup_attrib ], [&lt; XHTML_types.colgroup_content ],
+     [&gt; XHTML_types.colgroup ])
+    XHTML_sigs.T_01_01.star
+  val thead :
+    ([&lt; XHTML_types.thead_attrib ], [&lt; XHTML_types.thead_content ],
+     [&gt; XHTML_types.thead ])
+    XHTML_sigs.T_01_01.plus
+  val tbody :
+    ([&lt; XHTML_types.tbody_attrib ], [&lt; XHTML_types.tbody_content ],
+     [&gt; XHTML_types.tbody ])
+    XHTML_sigs.T_01_01.plus
+  val tfoot :
+    ([&lt; XHTML_types.tfoot_attrib ], [&lt; XHTML_types.tfoot_content ],
+     [&gt; XHTML_types.tfoot ])
+    XHTML_sigs.T_01_01.plus
+  val img :
+    src:XML.uri -&gt;
+    alt:XHTML_types.text -&gt;
+    ([&lt; XHTML_types.img_attrib ], [&gt; XHTML_types.img ])
+    XHTML_sigs.T_01_01.nullary
+  val object_ :
+    ([&lt; XHTML_types.object__attrib ], [&lt; XHTML_types.object__content ],
+     [&gt; XHTML_types.object_ ])
+    XHTML_sigs.T_01_01.star
+  val param :
+    name:XHTML_types.text -&gt;
+    ([&lt; XHTML_types.param_attrib ], [&gt; XHTML_types.param ])
+    XHTML_sigs.T_01_01.nullary
+  val frameset :
+    ?noframes:[&lt; `Noframes ] XHTML_sigs.T_01_01.elt -&gt;
+    ([&lt; XHTML_types.frameset_attrib ], [&lt; XHTML_types.frameset_content ],
+     [&gt; XHTML_types.frameset ])
+    XHTML_sigs.T_01_01.plus
+  val frame :
+    src:XML.uri -&gt;
+    ([&lt; XHTML_types.frame_attrib ], [&gt; XHTML_types.frame ])
+    XHTML_sigs.T_01_01.nullary
+  val noframes :
+    ([&lt; XHTML_types.noframes_attrib ], [&lt; XHTML_types.noframes_content ],
+     [&gt; XHTML_types.noframes ])
+    XHTML_sigs.T_01_01.unary
+  val iframe :
+    ([&lt; XHTML_types.iframe_attrib ], [&lt; XHTML_types.iframe_content ],
+     [&gt; XHTML_types.iframe ])
+    XHTML_sigs.T_01_01.star
+  val meta :
+    content:XHTML_types.cdata -&gt;
+    ([&lt; XHTML_types.meta_attrib ], [&gt; XHTML_types.meta ])
+    XHTML_sigs.T_01_01.nullary
+  val style :
+    contenttype:XHTML_types.contenttype -&gt;
+    ([&lt; XHTML_types.style_attrib ], [&lt; XHTML_types.style_content ],
+     [&gt; XHTML_types.style ])
+    XHTML_sigs.T_01_01.star
+  val link :
+    ([&lt; XHTML_types.link_attrib ], [&gt; XHTML_types.link ])
+    XHTML_sigs.T_01_01.nullary
+  val base :
+    href:XML.uri -&gt;
+    ([&lt; XHTML_types.base_attrib ], [&gt; XHTML_types.base ])
+    XHTML_sigs.T_01_01.nullary
+  val ruby_simple1 :
+    ?a:[&lt; XHTML_types.common ] XHTML_sigs.T_01_01.attrib list -&gt;
+    [&lt; `Rb ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Rt ] XHTML_sigs.T_01_01.elt -&gt;
+    [&gt; `Ruby_simple1 ] XHTML_sigs.T_01_01.elt
+  val ruby_simple2 :
+    ?a:[&lt; XHTML_types.common ] XHTML_sigs.T_01_01.attrib list -&gt;
+    [&lt; `Rb ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Rp ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Rt ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Rp ] XHTML_sigs.T_01_01.elt -&gt;
+    [&gt; `Ruby_simple2 ] XHTML_sigs.T_01_01.elt
+  val ruby_complex :
+    ?a:[&lt; XHTML_types.common ] XHTML_sigs.T_01_01.attrib list -&gt;
+    [&lt; `Rbc ] XHTML_sigs.T_01_01.elt -&gt;
+    [&lt; `Rtc_complex ] XHTML_sigs.T_01_01.elt -&gt;
+    [&gt; `Ruby_complex ] XHTML_sigs.T_01_01.elt
+  val rbc :
+    ([&lt; XHTML_types.rbc_attrib ], [&lt; XHTML_types.rbc_content ],
+     [&gt; XHTML_types.rbc ])
+    XHTML_sigs.T_01_01.plus
+  val rtc :
+    ([&lt; XHTML_types.rtc_attrib ], [&lt; XHTML_types.rtc_content ],
+     [&gt; XHTML_types.rtc ])
+    XHTML_sigs.T_01_01.plus
+  val rtc_complex :
+    ([&lt; XHTML_types.rtc_complex_attrib ],
+     [&lt; XHTML_types.rtc_complex_content ], [&gt; XHTML_types.rtc_complex ])
+    XHTML_sigs.T_01_01.plus
+  val rb :
+    ([&lt; XHTML_types.rb_attrib ], [&lt; XHTML_types.rb_content ],
+     [&gt; XHTML_types.rb ])
+    XHTML_sigs.T_01_01.star
+  val rt :
+    ([&lt; XHTML_types.rt_attrib ], [&lt; XHTML_types.rt_content ],
+     [&gt; XHTML_types.rt ])
+    XHTML_sigs.T_01_01.star
+  val rt_complex :
+    ([&lt; XHTML_types.rt_complex_attrib ], [&lt; XHTML_types.rt_complex_content ],
+     [&gt; XHTML_types.rt_complex ])
+    XHTML_sigs.T_01_01.star
+  val rp :
+    ([&lt; XHTML_types.rp_attrib ], [&lt; XHTML_types.rp_content ],
+     [&gt; XHTML_types.rp ])
+    XHTML_sigs.T_01_01.star
+  val a_rbspan : XHTML_types.number -&gt; [&gt; `Rbspan ] XHTML_sigs.T_01_01.attrib
+  val tot : XML.elt -&gt; 'a XHTML_sigs.T_01_01.elt
+  val totl : XML.elt list -&gt; 'a XHTML_sigs.T_01_01.elt list
+  val toelt : 'a XHTML_sigs.T_01_01.elt -&gt; XML.elt
+  val toeltl : 'a XHTML_sigs.T_01_01.elt list -&gt; XML.elt list
+  type doc = [ `Html ] XHTML_sigs.T_01_01.elt
+  val doc_toelt : XHTML_sigs.T_01_01.doc -&gt; XML.elt
+end</code></pre></article></div></div></body></html>
