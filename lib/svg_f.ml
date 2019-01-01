@@ -691,7 +691,7 @@ struct
   (** Javascript mouse events *)
 
   let a_onclick = Xml.mouse_event_handler_attrib "onclick"
-  let a_onmousedown = Xml.mouse_event_handler_attrib "onmousdown"
+  let a_onmousedown = Xml.mouse_event_handler_attrib "onmousedown"
   let a_onmouseup = Xml.mouse_event_handler_attrib "onmouseup"
   let a_onmouseover = Xml.mouse_event_handler_attrib "onmouseover"
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
