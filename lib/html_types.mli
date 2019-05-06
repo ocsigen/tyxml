@@ -467,6 +467,7 @@ type (+'interactive, +'noscript, +'regular) transparent_without_media =
 (** Metadata without title *)
 type metadata_without_title =
   [
+    | `Template
     | `Style
     | `Script
     | `Noscript of [ | `Meta | `Link | `Style ]
@@ -513,6 +514,7 @@ type core_phrasing =
     | `U
     | `Svg
     | `Time
+    | `Template
     | `Sup
     | `Sub
     | `Strong
@@ -550,6 +552,7 @@ type core_phrasing_without_noscript =
     | `Var
     | `U
     | `Time
+    | `Template
     | `Sup
     | `Sub
     | `Svg
@@ -587,6 +590,7 @@ type core_phrasing_without_interactive =
     | `U
     | `Img
     | `Time
+    | `Template
     | `Sup
     | `Sub
     | `Strong
@@ -622,6 +626,7 @@ type core_phrasing_without_media =
     | `Var
     | `U
     | `Time
+    | `Template
     | `Svg
     | `Sup
     | `Sub
@@ -688,7 +693,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
         > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
         `Datalist `Del `Dfn `Em `I `Img `Ins `Kbd `Map `Mark `Meter
         `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
-        `Small `Span `Strong `Sub `Sup `Svg `Time `U `Var  `Wbr  ] as 'a)
+        `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
 
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
@@ -699,6 +704,7 @@ type phrasing_without_dfn =
     | `Var
     | `U
     | `Time
+    | `Template
     | `Sup
     | `Sub
     | `Strong
@@ -735,6 +741,7 @@ type phrasing_without_label =
     | `Var
     | `U
     | `Time
+    | `Template
     | `Sup
     | `Sub
     | `Strong
@@ -771,6 +778,7 @@ type phrasing_without_progress =
     | `Var
     | `U
     | `Time
+    | `Template
     | `Sup
     | `Sub
     | `Strong
@@ -809,6 +817,7 @@ type phrasing_without_time =
     | `Wbr
     | `Var
     | `U
+    | `Template
     | `Sup
     | `Sub
     | `Strong
@@ -848,6 +857,7 @@ type phrasing_without_meter =
     | `Var
     | `U
     | `Time
+    | `Template
     | `Sup
     | `Img | `Img_interactive
     | `Sub
@@ -1051,7 +1061,7 @@ type +'a between_flow5_and_flow5_without_interactive_header_footer =
        `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
        `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
-       `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
+       `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
 
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
   [< core_flow5
@@ -1067,7 +1077,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
       `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
-      `Table `Textarea `Time `U `Ul `Var `Video `Video_interactive
+      `Table `Template `Textarea `Time `U `Ul `Var `Video `Video_interactive
       `Wbr ] as 'a
 
 type flow5_without_form =
@@ -2231,6 +2241,15 @@ type script_attrib =
 type script_content = [ | `PCDATA ]
 
 type script_content_fun = [ | `PCDATA ]
+
+(* NAME: template, KIND: star, TYPE: [= common ], [= flow5 ], [=`Template], ARG: [= flow5 ], ATTRIB:  OUT: [=`Template] *)
+type template = [ | `Template ]
+
+type template_attrib = [ | common ]
+
+type template_content = [ | flow5 ]
+
+type template_content_fun = [ | flow5 ]
 
 (* NAME: link, KIND: nullary, TYPE: [= common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type ], [=`Link], ARG: notag, ATTRIB:  OUT: [=`Link] *)
 type link = [ | `Link ]

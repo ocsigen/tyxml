@@ -1035,6 +1035,9 @@ module type T = sig
   val noscript :
     ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript]) star
 
+  val template :
+    ([< | template_attrib], [< | template_content_fun], [> | template]) star
+
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
   (** {3 Style Sheets} *)
