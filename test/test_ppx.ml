@@ -214,6 +214,14 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   "touch events",
   [[%html "<div ontouchstart='alert()'></div>"]],
   [div ~a:[a_ontouchstart "alert()"] []] ;
+
+  "empty string as referrer policy",
+  [[%html "<iframe referrerpolicy=''></iframe>"]],
+  [iframe ~a:[a_referrerpolicy `Empty] []];
+
+  "dashes in referrer policy",
+  [[%html "<iframe referrerpolicy='no-referrer-when-downgrade'></iframe>"]],
+  [iframe ~a:[a_referrerpolicy `No_referrer_when_downgrade] []];
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
