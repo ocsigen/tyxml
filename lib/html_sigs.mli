@@ -1061,7 +1061,7 @@ module type T = sig
   [@@ocaml.deprecated "Use txt instead"]
   (** @deprecated Use txt instead *)
 
-  (** {2 Conversion with untyped representation} 
+  (** {2 Conversion with untyped representation}
 
       WARNING: These functions do not ensure HTML or SVG validity! You should
       always explicitly given an appropriate type to the output.

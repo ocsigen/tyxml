@@ -9,7 +9,7 @@
   and removes the ocamlfind library `tyxml.ppx` in favor of `tyxml-ppx`.
   (#197 by Drup, Rudi Grinberg and Anton Bachin)
 * Add simplistic indentation for the Format-based printer (#187 by Drup)
-* Allow the ppx to be used for more exotic tyxml instances, such 
+* Allow the ppx to be used for more exotic tyxml instances, such
   as reactive elements (#200 by Drup)
 * Add `Html.of_seq` and `Svg.of_seq`, which allow to easily import
   HTML parsed with markup in TyXML (#221 by Drup)
