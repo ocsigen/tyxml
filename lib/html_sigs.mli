@@ -256,6 +256,10 @@ module type T = sig
 
   (** {3 Other attributes} *)
 
+  val a_allowfullscreen : unit -> [> | `Allowfullscreen] attrib
+
+  val a_allowpaymentrequest : unit -> [> | `Allowpaymentrequest] attrib
+
   val a_autocomplete : (bool[@onoff]) wrap -> [> | `Autocomplete] attrib
 
   val a_async : unit -> [> | `Async] attrib

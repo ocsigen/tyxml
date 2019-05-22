@@ -1705,6 +1705,8 @@ type iframe_content_fun = [ | `PCDATA ]
 type iframe_attrib =
   [
     | common
+    | `Allowfullscreen
+    | `Allowpaymentrequest
     | `Src
     | (*| `Srcdoc*)
       `Name

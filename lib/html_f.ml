@@ -274,6 +274,12 @@ struct
 
   let a_name = string_attrib "name"
 
+  let a_allowfullscreen =
+    constant_attrib "allowfullscreen"
+
+  let a_allowpaymentrequest =
+    constant_attrib "allowpaymentrequest"
+
   let a_autocomplete x =
     user_attrib C.onoff_of_bool "autocomplete" x
 
