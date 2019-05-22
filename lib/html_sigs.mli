@@ -347,6 +347,11 @@ module type T = sig
 
   val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
 
+  val a_referrerpolicy : referrerpolicy wrap -> [> `Referrerpolicy] attrib
+  (** @see
+     <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes>
+     Iframe HTML documentation. *)
+
   val a_required : unit -> [> | `Required] attrib
 
   val a_reversed : unit -> [> | `Reversed] attrib
@@ -1194,6 +1199,9 @@ module type Wrapped_functions = sig
 
   val string_of_mediadesc :
     ([< Html_types.mediadesc_token] list, string) Xml.W.ft
+
+  val string_of_referrerpolicy :
+    ([< Html_types.referrerpolicy], string) Xml.W.ft
 
   val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
 

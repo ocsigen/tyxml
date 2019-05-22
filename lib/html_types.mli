@@ -1714,6 +1714,7 @@ type iframe_attrib =
     | `Seamless
     | `Width
     | `Height
+    | `Referrerpolicy
   ]
 
 type object__content = [ | flow5 | `Param ]
@@ -2244,6 +2245,18 @@ type link_content_fun = notag
 type link_attrib =
   [ | common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
   ]
+
+type referrerpolicy = [
+  | `Empty
+  | `No_referrer
+  | `No_referrer_when_downgrade
+  | `Origin
+  | `Origin_when_cross_origin
+  | `Same_origin
+  | `Strict_origin
+  | `Strict_origin_when_cross_origin
+  | `Unsafe_url
+]
 
 type big_variant =
   [ `W3_org_1999_xhtml
