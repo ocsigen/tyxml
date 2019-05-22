@@ -434,6 +434,10 @@ let total_variant (unary, nullary) ?separated_by:_ ?default:_ loc _name s =
   if List.mem variand nullary then Some (Exp.variant ~loc variand None)
   else Some (Exp.variant ~loc unary (Some (Common.string loc s)))
 
+let variant_or_empty empty ?separated_by:_ ?default:_ loc _ s =
+  let variand = variand s in
+  let variand = if variand = "" then empty else variand in
+  Some (Exp.variant ~loc variand None)
 
 
 (* Miscellaneous. *)

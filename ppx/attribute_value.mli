@@ -180,6 +180,11 @@ val total_variant : (string * string list) -> parser
     Any other string [s] is mapped to the parse trees for
     [`EverythingElse s]. *)
 
+val variant_or_empty : string -> parser
+(** [variant_or_empty empty] is used for parsing arguments whose type
+   is a variant, possibly the empty string. It behaves like [variant]
+   for every string but the empty one, which will be parsed as if it
+   was the [empty] parameter. *)
 
 
 (* {2 Miscellaneous} *)
