@@ -1,6 +1,9 @@
 # dev
 
-- Allow crossorigin attribute for script element (#243 by Thibault Suzanne)
+## Elements and attributes
+
+* Add allowfullscreen, allowpaymentrequest, referrerpolicy attributes (#242 by Thibault Suzanne)
+* Allow crossorigin attribute for script element (#243 by Thibault Suzanne)
 
 # 4.3.0
 
