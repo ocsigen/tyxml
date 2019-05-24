@@ -1,3 +1,7 @@
+# dev
+
+- Allow crossorigin attribute for script element (#243 by Thibault Suzanne)
+
 # 4.3.0
 
 * Dunify
