@@ -2225,7 +2225,7 @@ type style_attrib = [ | common | `Media | `Mime_type | `Scoped ]
 type script = [ | `Script ]
 
 type script_attrib =
-  [ | common | `Async | `Charset | `Src | `Defer | `Mime_type
+  [ | common | `Async | `Charset | `Src | `Defer | `Mime_type | `Crossorigin
   ]
 
 type script_content = [ | `PCDATA ]
