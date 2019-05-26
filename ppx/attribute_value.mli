@@ -62,7 +62,7 @@ val option : string -> parser -> parser
 val spaces : parser -> parser
 (** [spaces parser _ _ s] splits [s] on spaces, then applies [parser] to each
     component. The resulting parse trees for [e, e', ...] are combined into a
-    parse tree fo [[e; e'; ...]]. *)
+    parse tree of [[e; e'; ...]]. *)
 
 val commas : parser -> parser
 (** Similar to [spaces], but splits on commas. *)

@@ -402,7 +402,7 @@ let type_declaration mapper declaration =
           | Rtag (label, _, _, types) -> label, types
           | Rinherit {ptyp_loc} ->
             Location.raise_errorf ~loc:ptyp_loc
-              "Inclusion is not supported by [@@refect.total_variant]")
+              "Inclusion is not supported by [@@reflect.total_variant]")
       in
 
       let nullary, unary =

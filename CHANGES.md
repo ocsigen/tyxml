@@ -44,7 +44,7 @@
 * Fix handling of comments in the ppx.
 * Fix printing of utf8 in attributes.
 * Properly flush ppx errors. This bug was causing some blank error messages.
-* Fix handling of whitespaces in <select> in the ppx.
+* Fix handling of whitespaces in `<select>` in the ppx.
 
 # 4.0.0
 
@@ -150,7 +150,7 @@ There are two new types and functions (keyboard and mous events) in the Xml sign
 
 # 3.0.0
 
-* In the functorial interface, allow to wrap xml nodes inside a monad by providing an additionnal wrapping module. Used by reactive nodes in eliom.
+* In the functorial interface, allow to wrap xml nodes inside a monad by providing an additional wrapping module. Used by reactive nodes in eliom.
 * Use oasis as build systems
 * Various bug fixes, mostly related to the svg module.
 
@@ -196,7 +196,7 @@ There are two new types and functions (keyboard and mous events) in the Xml sign
 
 # 1.91
 
-* First independant release (was released with ocsigen)
+* First independent release (was released with ocsigen)
 * Add a functorial interface for concrete XML representation
 * Add a functorial interface for stream printer
 * Rename XHTML5 into HTML5
