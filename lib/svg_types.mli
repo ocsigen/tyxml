@@ -22,14 +22,14 @@
 (** SVG types with variants, goes with {!Svg_sigs.T}. *)
 
 (** This module defines basic data types for data, attributes
-    and element occuring in SVG documents.
+    and element occurring in SVG documents.
     It is based on the specification available at http://www.w3.org/TR/SVG/.
 
     This module is experimental, it may lack of some attributes,
     and the interface is very low level and do not take deeply into account
     the needs of SVG elements. *)
 
-(* Some attribtes and elements are tagged with XXX: they
+(* Some attribute and elements are tagged with XXX: they
    may be improved and do not match completely the SVG spec *)
 
 (** {1 Categories of elements and attributes} *)

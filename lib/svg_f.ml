@@ -22,7 +22,7 @@
 (** Type instantiations for SVG *)
 
 (** This module defines basic data types for data, attributes
-    and element occuring in SVG documents.
+    and element occurring in SVG documents.
     It is based on the specification available at http://www.w3.org/TR/SVG/.
 
     This module is experimental, it may lack of some attributes,

@@ -21,7 +21,7 @@
 
 (* _fun prefix are the types that must be used
    in Html_sigs. They are more restrictive as
-   some param are already taken as seperate argument,
+   some param are already taken as separate argument,
    to ensure better compatibility.
    SC *)
 

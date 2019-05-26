@@ -16,7 +16,7 @@
 )
 
 ;; Toplevel ppx tests
-;; WIP this test is temporarly disable, waiting for proper support for
+;; WIP this test is temporarily disable, waiting for proper support for
 ;; toplevel tests in dune.
 
 ; (executable
