@@ -149,12 +149,12 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<figure> <figcaption> hello </figcaption> <img src="foo.jpg" alt="a" /> </figure>|}]],
   [figure ~figcaption:(`Top (figcaption [txt " hello "]))
      [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
-  
+
   "figcaption last",
   [[%html {|<figure> <img src="foo.jpg" alt="a" /> <figcaption> hello </figcaption> </figure>|}]],
   [figure ~figcaption:(`Bottom (figcaption [txt " hello "]))
      [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
-  
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
@@ -214,6 +214,14 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   "touch events",
   [[%html "<div ontouchstart='alert()'></div>"]],
   [div ~a:[a_ontouchstart "alert()"] []] ;
+
+  "empty string as referrer policy",
+  [[%html "<iframe referrerpolicy=''></iframe>"]],
+  [iframe ~a:[a_referrerpolicy `Empty] []];
+
+  "dashes in referrer policy",
+  [[%html "<iframe referrerpolicy='no-referrer-when-downgrade'></iframe>"]],
+  [iframe ~a:[a_referrerpolicy `No_referrer_when_downgrade] []];
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
@@ -326,7 +334,7 @@ let svg_element_names = "svg element names", SvgTests.make Svg.[
 
 ]
 
-(* The regular HTML module, but with most type equality hidden. 
+(* The regular HTML module, but with most type equality hidden.
    This forces the use of the wrapping functions provided in Xml.W.
 *)
 module HtmlWrapped : sig
@@ -353,11 +361,11 @@ let (!:) x = x @: nil ()
 let wrapping =
   let module Html = HtmlWrapped in
   "wrapping", HtmlWrappedTests.make Html.[
-    
+
   "elem",
   !:[%html "<p></p>"],
   !:(p (nil ())) ;
-  
+
   "child",
   !:[%html "<p><span></span></p>"],
   !:(p (span (nil ()) @: nil ())) ;
@@ -381,7 +389,7 @@ let wrapping =
   "txt",
   !:[%html "<p>foo</p>"],
   !:(p (txt !"foo" @: nil ())) ;
-  
+
   "wrapped functions",
   !:[%html "<input method=get />"],
   !:(input ~a:[a_method !`Get] ())
@@ -393,10 +401,10 @@ let elt1() = !: HtmlWrapped.(span !: (txt !"one"))
 let elt2() = !: HtmlWrapped.(b !: (txt !"two"))
 let id = !"pata"
 
-let antiquot = 
+let antiquot =
   let module Html = HtmlWrapped in
   "ppx antiquot", HtmlWrappedTests.make Html.[
-  
+
   "child",
   !:[%html "<p>" (elt1()) "</p>"],
   !:(p (elt1()));

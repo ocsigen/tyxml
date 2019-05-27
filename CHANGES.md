@@ -1,6 +1,9 @@
 # dev
 
-- Allow crossorigin attribute for script element (#243 by Thibault Suzanne)
+## Elements and attributes
+
+* Add allowfullscreen, allowpaymentrequest, referrerpolicy attributes (#242 by Thibault Suzanne)
+* Allow crossorigin attribute for script element (#243 by Thibault Suzanne)
 
 # 4.3.0
 
@@ -9,7 +12,7 @@
   and removes the ocamlfind library `tyxml.ppx` in favor of `tyxml-ppx`.
   (#197 by Drup, Rudi Grinberg and Anton Bachin)
 * Add simplistic indentation for the Format-based printer (#187 by Drup)
-* Allow the ppx to be used for more exotic tyxml instances, such 
+* Allow the ppx to be used for more exotic tyxml instances, such
   as reactive elements (#200 by Drup)
 * Add `Html.of_seq` and `Svg.of_seq`, which allow to easily import
   HTML parsed with markup in TyXML (#221 by Drup)

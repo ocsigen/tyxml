@@ -274,6 +274,15 @@ struct
 
   let a_name = string_attrib "name"
 
+  let a_allowfullscreen =
+    constant_attrib "allowfullscreen"
+
+  let a_allowpaymentrequest =
+    constant_attrib "allowpaymentrequest"
+
+  let a_referrerpolicy x =
+    user_attrib C.string_of_referrerpolicy "referrerpolicy" x
+
   let a_autocomplete x =
     user_attrib C.onoff_of_bool "autocomplete" x
 
@@ -896,6 +905,17 @@ struct
     | `Tty -> "tty"
     | `Tv -> "tv"
     | `Raw_mediadesc s -> s
+
+  let string_of_referrerpolicy = function
+    | `Empty -> ""
+    | `No_referrer -> "no-referrer"
+    | `No_referrer_when_downgrade -> "no-referrer-when-downgrade"
+    | `Origin -> "origin"
+    | `Origin_when_cross_origin -> "origin-when-cross-origin"
+    | `Same_origin -> "same-origin"
+    | `Strict_origin -> "strict-origin"
+    | `Strict_origin_when_cross_origin -> "strict-origin-when-cross-origin"
+    | `Unsafe_url -> "unsafe-url"
 
   let string_of_big_variant = function
     | `Anonymous -> "anonymous"

@@ -256,6 +256,10 @@ module type T = sig
 
   (** {3 Other attributes} *)
 
+  val a_allowfullscreen : unit -> [> | `Allowfullscreen] attrib
+
+  val a_allowpaymentrequest : unit -> [> | `Allowpaymentrequest] attrib
+
   val a_autocomplete : (bool[@onoff]) wrap -> [> | `Autocomplete] attrib
 
   val a_async : unit -> [> | `Async] attrib
@@ -342,6 +346,11 @@ module type T = sig
   val a_pubdate : unit -> [> | `Pubdate] attrib
 
   val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
+
+  val a_referrerpolicy : referrerpolicy wrap -> [> `Referrerpolicy] attrib
+  (** @see
+     <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes>
+     Iframe HTML documentation. *)
 
   val a_required : unit -> [> | `Required] attrib
 
@@ -1061,7 +1070,7 @@ module type T = sig
   [@@ocaml.deprecated "Use txt instead"]
   (** @deprecated Use txt instead *)
 
-  (** {2 Conversion with untyped representation} 
+  (** {2 Conversion with untyped representation}
 
       WARNING: These functions do not ensure HTML or SVG validity! You should
       always explicitly given an appropriate type to the output.
@@ -1190,6 +1199,9 @@ module type Wrapped_functions = sig
 
   val string_of_mediadesc :
     ([< Html_types.mediadesc_token] list, string) Xml.W.ft
+
+  val string_of_referrerpolicy :
+    ([< Html_types.referrerpolicy], string) Xml.W.ft
 
   val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
 

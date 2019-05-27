@@ -192,6 +192,9 @@ let rec to_attribute_parser lang name = function
   | [[%type: linktypes]] ->
     [%expr spaces (total_variant Html_types_reflected.linktype)]
 
+  | [[%type: referrerpolicy]] ->
+    [%expr variant_or_empty "Empty"]
+
   | [[%type: mediadesc]] ->
     [%expr commas (total_variant Html_types_reflected.mediadesc_token)]
 
