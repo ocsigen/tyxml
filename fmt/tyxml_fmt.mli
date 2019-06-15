@@ -46,20 +46,20 @@ module Make
 
   val u : 
     ?a:[< Html_types.u_attrib ] H.attrib list ->
-    'a Fmt.t -> 'a Fmt.t
+    ?sep:unit Fmt.t ->
+    'a Fmt.t -> 'a list Fmt.t
   val b : 
     ?a:[< Html_types.b_attrib ] H.attrib list ->
-    'a Fmt.t -> 'a Fmt.t
+    ?sep:unit Fmt.t ->
+    'a Fmt.t -> 'a list Fmt.t
   val span : 
     ?a:[< Html_types.span_attrib ] H.attrib list ->
-    'a Fmt.t -> 'a Fmt.t
+    ?sep:unit Fmt.t ->
+    'a Fmt.t -> 'a list Fmt.t
   
   val star :
     ('a, Html_types.phrasing, Html_types.phrasing) H.star ->
-    ?a:'a H.attrib list -> 'a Fmt.t -> 'a Fmt.t
-  val starl :
-    ('a, Html_types.phrasing, Html_types.phrasing) H.star ->
-    ?a:'a H.attrib list -> ?sep:unit Fmt.t -> 'a Fmt.t -> 'a list Fmt.t
+    ?a:'a H.attrib list -> ?sep:unit Fmt.t -> 'e Fmt.t -> 'e list Fmt.t
 
   val wrapped : (out list -> out) -> 'a Fmt.t -> 'a Fmt.t
   

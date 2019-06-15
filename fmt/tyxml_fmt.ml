@@ -115,8 +115,8 @@ module Make
     Format.pp_close_stag ppf ();
     ()
     
-  let star (c : _ H.star) ?a f = wrapped (c ?a) f
-  let starl c ?a ?sep f = star c ?a (Fmt.list ?sep f)
+  let star (c : _ H.star) ?a ?sep f =
+    wrapped (c ?a) (Fmt.list ?sep f)
 
   let tagf c fmt =
     Format.kdprintf

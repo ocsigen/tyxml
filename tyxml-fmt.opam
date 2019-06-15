@@ -10,12 +10,12 @@ doc: "https://ocsigen.org/tyxml/manual/"
 dev-repo: "https://github.com/ocsigen/tyxml.git"
 
 build: [
-  ["jbuilder" "build" "-p" name "-j" jobs "@install"]
-  ["jbuilder" "runtest" "-p" name] {with-test}
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
 ]
 
 depends: [
-  "jbuilder" {build}
+  "dune" {build & >= "1.0"}
   "tyxml"
   "fmt"
 ]

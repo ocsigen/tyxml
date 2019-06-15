@@ -1,0 +1,6 @@
+(library
+ (name tyxml_fmt)
+ (public_name tyxml-fmt)
+ (synopsis "Formatters to output well typed HTML elements.")
+ (libraries tyxml.functor fmt)
+ (flags :standard -safe-string))
