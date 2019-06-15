@@ -219,7 +219,7 @@ let make_text ~loc ~lang ss =
         Buffer.add_string buf s ;
         aux ~loc res t
     | `Delim g :: t ->
-      let e = Antiquot.get loc @@ Re.get g 0 in
+      let e = Antiquot.get loc @@ Re.Group.get g 0 in
       aux ~loc (Common.antiquot e :: push_txt buf res) t
   in
   aux ~loc [] @@ Re.split_full Antiquot.re_id @@ String.concat "" ss
