@@ -1,0 +1,18 @@
+(library
+ (name tyxml_ppx_jsx)
+ (public_name tyxml-ppx-jsx.internal)
+ (libraries re.str
+            ppx_tools_versioned
+            markup
+            tyxml.tools
+            tyxml-ppx.common
+ )
+ (preprocess (pps ppx_tools_versioned.metaquot_405))
+ (flags (:standard
+         -safe-string
+         -open Migrate_parsetree
+         -open Ast_405
+         -open Ppx_tools_405
+         -w "-9"
+ ))
+)
