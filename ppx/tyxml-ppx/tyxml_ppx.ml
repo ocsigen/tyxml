@@ -17,6 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
+open Tyxml_ppx_common
+
 (* When dropping support for 4.02, this module can simply be deleted. *)
 module String = struct
   include String
