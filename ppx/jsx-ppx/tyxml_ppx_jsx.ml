@@ -5,8 +5,6 @@ open Asttypes
 
 open Tyxml_ppx_common
 
-let make_html_tag loc name = Exp.ident ~loc @@ Location.mkloc Longident.(Ldot (Lident "Html", name)) loc
-
 let make_html_attr_name name =
   let name =
     match name with
