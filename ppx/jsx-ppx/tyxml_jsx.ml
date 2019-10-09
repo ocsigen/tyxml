@@ -1,6 +1,5 @@
 open Ast_mapper
 open Parsetree
-open Ast_helper
 open Asttypes
 
 open Tyxml_ppx_common
@@ -93,4 +92,4 @@ and expr_mapper mapper e =
 
 let mapper _ _ = { default_mapper with expr = expr_mapper }
 
-let () = Driver.register ~name:"tyxml_ppx_jsx" Versions.ocaml_405 mapper
+let () = Driver.register ~name:"tyxml_jsx" Versions.ocaml_405 mapper
