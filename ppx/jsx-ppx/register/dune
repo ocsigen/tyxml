@@ -1,6 +1,6 @@
 (library
- (name tyxml_ppx_jsx_register)
- (public_name tyxml-ppx-jsx)
- (libraries tyxml-ppx-jsx.internal)
+ (name tyxml_jsx_register)
+ (public_name tyxml-jsx)
+ (libraries tyxml-jsx.internal)
  (kind ppx_rewriter)
 )
