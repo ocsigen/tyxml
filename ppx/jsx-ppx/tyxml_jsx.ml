@@ -40,7 +40,7 @@ let rec map_element_children mapper elements =
     match e with
     | [%expr []] -> List.rev acc
     | [%expr [%e? child] :: [%e? rest]] -> map (Val (children_mapper mapper child) :: acc) rest
-    | e -> error e.pexp_loc "expected list of children elements"
+    | e -> List.rev ((Antiquot e) :: acc)
   in
   map [] elements
 
