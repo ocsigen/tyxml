@@ -267,6 +267,11 @@ let svg = "svg", SvgTests.make Svg.[
   [text
     ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
 
+  "text data-foo",
+  [[%svg "<text data-foo='valfoo' />"]],
+  [text
+    ~a:[a_user_data "foo" "valfoo"] []] ;
+
   "feColorMatrix type",
   [[%svg "<feColorMatrix type='matrix'/>"]],
   [feColorMatrix ~a:[a_feColorMatrix_type `Matrix] []] ;

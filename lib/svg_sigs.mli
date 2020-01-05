@@ -156,6 +156,8 @@ module type T = sig
 
   val a_id : string wrap -> [> | `Id ] attrib
 
+  val a_user_data : string -> string wrap -> [> | `User_data] attrib
+
   val a_xml_base : iri wrap -> [> | `Xml_Base ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)

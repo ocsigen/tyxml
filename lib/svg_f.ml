@@ -244,6 +244,8 @@ struct
 
   let a_id = string_attrib "id"
 
+  let a_user_data name = string_attrib ("data-" ^ name)
+
   let a_xml_base = string_attrib "xml:base"
 
   let a_xml_lang = string_attrib "xml:lang"
