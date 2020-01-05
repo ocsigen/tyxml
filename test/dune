@@ -8,6 +8,13 @@
 )
 
 (test
+ (name test_svg)
+ (modules test_svg)
+ (libraries tyxml alcotest)
+ (package tyxml)
+)
+
+(test
  (name test_ppx)
  (modules test_ppx)
  (libraries tyxml alcotest)
