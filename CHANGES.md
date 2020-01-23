@@ -1,5 +1,7 @@
 # dev
 
+* Modernize the handling of toplevel printers for utop.
+
 ## Elements and attributes
 
 * Add allowfullscreen, allowpaymentrequest, referrerpolicy attributes (#242 by Thibault Suzanne)

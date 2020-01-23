@@ -25,3 +25,6 @@ module Make_printer = Xml_print.Make_typed(Tyxml_xml)(M)
 
 include M
 include P
+
+let _pp = pp ()
+let _pp_elt = pp_elt ()

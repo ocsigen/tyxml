@@ -51,3 +51,13 @@ module Make_printer(O : Xml_sigs.Output) :
                           and type 'a elt := 'a elt
                           and type doc := doc
      [@@ocaml.deprecated "Use Html.pp instead."]
+
+(**/*)
+
+(** Toplevel printers *)
+
+val _pp : Format.formatter -> doc -> unit
+[@@ocaml.toplevel_printer]
+
+val _pp_elt : Format.formatter -> _ elt -> unit
+[@@ocaml.toplevel_printer]

@@ -1,2 +1,0 @@
-# JBUILDER_GEN
-requires(byte, toploop) += "tyxml.top"
