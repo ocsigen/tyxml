@@ -1928,12 +1928,12 @@ type td_content_fun = [ | flow5 ]
 
 type td_attrib = [ | common | `Colspan | `Headers | `Rowspan ]
 
-(* NAME: th, KIND: star, TYPE: [= common | `Colspan | `Headers | `Rowspan | `Scope], [= phrasing], [=`Th], ARG: [= phrasing], ATTRIB:  OUT: [=`Th] *)
+(* NAME: th, KIND: star, TYPE: [= common | `Colspan | `Headers | `Rowspan | `Scope], [= flow5], [=`Th], ARG: [= flow5], ATTRIB:  OUT: [=`Th] *)
 type th = [ | `Th ]
 
-type th_content = [ | phrasing ]
+type th_content = [ | flow5 ]
 
-type th_content_fun = [ | phrasing ]
+type th_content_fun = [ | flow5 ]
 
 type th_attrib = [ | common | `Colspan | `Headers | `Rowspan | `Scope ]
 
