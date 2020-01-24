@@ -141,6 +141,12 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
   [select [option ~a:[a_value "bar"] @@ txt "bar"]] ;
 
+  "datalist",
+  [[%html {|<datalist>
+	<option value="foo">foo</option>
+</datalist>|}]],
+  [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "foo")]) ()];
+  
   "comments",
   [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
   [div [p [txt "a"]; tot (Xml.comment " b "); hr ()]] ;

@@ -973,6 +973,7 @@ module type T = sig
         | `Phras of ([< | phrasing] elt) list_wrap
       ]) ->
     ([< | datalist_attrib], [> | datalist]) nullary
+  [@@reflect.filter_whitespace]
   [@@reflect.element "datalist"]
 
   val optgroup :
