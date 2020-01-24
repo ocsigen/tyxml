@@ -143,7 +143,7 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "whitespace in table",
   [[%html "<table>    <tr><td>foo</td></tr>   <tr><td>bar</td></tr>   </table>"]],
-  [table [tr [td [txt "foo"]] ; tr [td [txt "bar"]]]] ;
+  [tablex [tbody [tr [td [txt "foo"]] ; tr [td [txt "bar"]]]]] ;
 
   "whitespace in table, full example",
   [[%html "<table>
@@ -170,11 +170,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
     </tr>
   </tfoot>
 </table>"]],
-  [table ~caption:(caption [txt "txt"])
+  [tablex ~caption:(caption [txt "txt"])
     ~columns:[colgroup [col ~a:[a_span 2] ()]]
     ~thead:(thead [tr [th [txt "h1"] ; th [txt "h2"]]])
     ~tfoot:(tfoot [tr [td [txt "f1"] ; td [txt "f2"]]])
-    [tr [td [txt "b1"] ; td [txt "b2"]]]] ;
+    [tbody [tr [td [txt "b1"] ; td [txt "b2"]]]]] ;
 
   "whitespace in select",
   [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
