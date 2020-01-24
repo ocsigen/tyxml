@@ -908,6 +908,7 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | table_attrib], [< | table_content_fun], [> | table]) star
+  [@@reflect.filter_whitespace]
   [@@reflect.element "table"]
 
   val tablex :
@@ -916,27 +917,33 @@ module type T = sig
     ?thead: [< | thead] elt wrap ->
     ?tfoot: [< | tfoot] elt wrap ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
+  [@@reflect.filter_whitespace]
   [@@reflect.element "table" "table"]
 
   val colgroup :
     ([< | colgroup_attrib], [< | colgroup_content_fun], [> | colgroup]) star
+  [@@reflect.filter_whitespace]
 
   val col : ([< | col_attrib], [> | col]) nullary
 
   val thead :
     ([< | thead_attrib], [< | thead_content_fun], [> | thead]) star
+  [@@reflect.filter_whitespace]
 
   val tbody :
     ([< | tbody_attrib], [< | tbody_content_fun], [> | tbody]) star
+  [@@reflect.filter_whitespace]
 
   val tfoot :
     ([< | tfoot_attrib], [< | tfoot_content_fun], [> | tfoot]) star
+  [@@reflect.filter_whitespace]
 
   val td : ([< | td_attrib], [< | td_content_fun], [> | td]) star
 
   val th : ([< | th_attrib], [< | th_content_fun], [> | th]) star
 
   val tr : ([< | tr_attrib], [< | tr_content_fun], [> | tr]) star
+  [@@reflect.filter_whitespace]
 
   (** {3 Forms} *)
 
