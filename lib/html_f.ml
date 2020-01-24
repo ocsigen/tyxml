@@ -668,6 +668,8 @@ struct
 
   let noscript = star "noscript"
 
+  let template = star "template"
+
   let article = star "article"
 
   let aside = star "aside"

@@ -18,6 +18,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   canvas [a []],
   "<canvas><a></a></canvas>";
 
+  "template",
+  template ~a:[a_id "idtmpl"] [p [txt "Template"]],
+  "<template id=\"idtmpl\"><p>Template</p></template>" ;
+
 ]
 
 let escaping = "html escaping", tyxml_tests Html.[
