@@ -155,6 +155,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [figure ~figcaption:(`Bottom (figcaption [txt " hello "]))
      [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
 
+  "type in source",
+  [[%html {|<source src="foo.mp3" type="audio/mpeg"/>|}]],
+  [source ~a:[a_src "foo.mp3"; a_mime_type "audio/mpeg"] ()]
+    
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
