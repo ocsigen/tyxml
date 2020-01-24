@@ -222,6 +222,11 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   "dashes in referrer policy",
   [[%html "<iframe referrerpolicy='no-referrer-when-downgrade'></iframe>"]],
   [iframe ~a:[a_referrerpolicy `No_referrer_when_downgrade] []];
+
+  "html data-*",
+  [[%html "<div data-foo='valfoo'></div>"]],
+  [div
+    ~a:[a_user_data "foo" "valfoo"] []] ;
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
@@ -267,7 +272,7 @@ let svg = "svg", SvgTests.make Svg.[
   [text
     ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
 
-  "text data-foo",
+  "svg data-*",
   [[%svg "<text data-foo='valfoo' />"]],
   [text
     ~a:[a_user_data "foo" "valfoo"] []] ;
