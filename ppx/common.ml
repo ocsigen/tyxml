@@ -58,7 +58,6 @@ let find f l =
 let with_loc loc f x =
   with_default_loc loc @@ fun () -> f x
 
-let error_prefix : _ format6 = "Error: "
 let error loc ppf =
   (* Originally written by @Drup in 24d87befcc505a9e3a1b081849b12560ce38028f. *)
   (* We use a custom implementation because the type of Location.raise_errorf
@@ -70,7 +69,7 @@ let error loc ppf =
       Format.pp_print_flush fmt ();
       Location.raise_errorf ~loc "%s@." (Buffer.contents buf))
     fmt
-    (error_prefix^^ppf)
+    ppf
 
 (** Ast manipulation *)
 
