@@ -31,7 +31,7 @@ let parse loc (ns, element_name) attributes =
     let length = String.length prefix in
 
     let is_prefixed =
-      try language = Html && String.sub name 0 length = prefix
+      try String.sub name 0 length = prefix
       with Invalid_argument _ -> false
     in
 
