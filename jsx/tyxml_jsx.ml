@@ -4,8 +4,19 @@ open Asttypes
 
 open Tyxml_syntax
 
+let to_kebab_case name =
+  let length = String.length name in
+  if length > 4 then
+    let first = String.sub name 0 4 in
+    match first with
+    | "aria"
+    | "data" ->
+      first ^ "-" ^ String.lowercase_ascii (String.sub name 4 (length - 1))
+    | _ -> name
+  else
+    name
+
 let make_html_attr_name name =
-  (* Aria attributes are the same as reason-react https://github.com/reasonml/reason-react/blob/5ce8498207ca1f2e9b8305cfca231c837b2d021b/src/ReactDOMRe.re *)
   let name =
     match name with
     | "class_" -> "class"
@@ -17,59 +28,8 @@ let make_html_attr_name name =
     | "begin_" -> "begin"
     | "end_" -> "end"
     | "in_" -> "in"
-    (* accessibility *)
-    | "ariaDetails" -> "aria-details"
-    | "ariaDisabled" -> "aria-disabled"
-    | "ariaHidden" -> "aria-hidden"
-    | "ariaInvalid" -> "aria-invalid"
-    | "ariaKeyshortcuts" -> "aria-keyshortcuts"
-    | "ariaLabel" -> "aria-label"
-    | "ariaRoledescription" -> "aria-roledescription"
-    (* Widget Attributes *)
-    | "ariaAutocomplete" -> "aria-autocomplete"
-    | "ariaChecked" -> "aria-checked"
-    | "ariaExpanded" -> "aria-expanded"
-    | "ariaHaspopup" -> "aria-haspopup"
-    | "ariaLevel" -> "aria-level"
-    | "ariaModal" -> "aria-modal"
-    | "ariaMultiline" -> "aria-multiline"
-    | "ariaMultiselectable" -> "aria-multiselectable"
-    | "ariaOrientation" -> "aria-orientation"
-    | "ariaPlaceholder" -> "aria-placeholder"
-    | "ariaPressed" -> "aria-pressed"
-    | "ariaReadonly" -> "aria-readonly"
-    | "ariaRequired" -> "aria-required"
-    | "ariaSelected" -> "aria-selected"
-    | "ariaSort" -> "aria-sort"
-    | "ariaValuemax" -> "aria-valuemax"
-    | "ariaValuemin" -> "aria-valuemin"
-    | "ariaValuenow" -> "aria-valuenow"
-    | "ariaValuetext" -> "aria-valuetext"
-    (* Live Region Attributes *)
-    | "ariaAtomic" -> "aria-atomic"
-    | "ariaBusy" -> "aria-busy"
-    | "ariaLive" -> "aria-live"
-    | "ariaRelevant" -> "aria-relevant"
-    (* Drag-and-Drop Attributes *)
-    | "ariaDropeffect" -> "aria-dropeffect"
-    | "ariaGrabbed" -> "aria-grabbed"
-    (* Relationship Attributes *)
-    | "ariaActivedescendant" -> "aria-activedescendant"
-    | "ariaColcount" -> "aria-colcount"
-    | "ariaColindex" -> "aria-colindex"
-    | "ariaColspan" -> "aria-colspan"
-    | "ariaControls" -> "aria-controls"
-    | "ariaDescribedby" -> "aria-describedby"
-    | "ariaErrormessage" -> "aria-errormessage"
-    | "ariaFlowto" -> "aria-flowto"
-    | "ariaLabelledby" -> "aria-labelledby"
-    | "ariaOwns" -> "aria-owns"
-    | "ariaPosinset" -> "aria-posinset"
-    | "ariaRowcount" -> "aria-rowcount"
-    | "ariaRowindex" -> "aria-rowindex"
-    | "ariaRowspan" -> "aria-rowspan"
-    | "ariaSetsize" -> "aria-setsize"
-    | name -> name
+    | "method_" -> "method"
+    | name -> to_kebab_case name
   in
   Common.Html, name
 
