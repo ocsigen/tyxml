@@ -22,6 +22,7 @@ depends: [
   "tyxml-ppx"
   "markup" {>= "0.7.2"}
   "ppx_tools_versioned"
+  "reason" {with-test}
 ]
 
 synopsis:"PPX that allows to write TyXML documents with the JSX syntax"
