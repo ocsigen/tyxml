@@ -43,65 +43,84 @@ let rec filter_map f = function
   | None -> filter_map f q
   | Some a -> a :: filter_map f q
 
+(** Children *)
+
+let children_mapper mapper e =
+  match e with
+  (* Convert string constant into Html.txt "constant" for convenience *)
+  | { pexp_desc = Pexp_constant (Pconst_string _); pexp_loc = loc; _ } as str ->
+    [%expr Html.txt [%e str]][@metaloc loc]
+  | _ -> mapper.expr mapper e
+
+let map_element_children mapper elements =
+  let rec map acc e =
+    match e with
+    | [%expr []] -> List.rev acc
+    | [%expr [%e? child] :: [%e? rest]] ->
+      map (Val (children_mapper mapper child) :: acc) rest
+    | e -> List.rev ((Antiquot e) :: acc)
+  in
+  map [] elements
+
+let extract_children mapper args =
+  match
+    List.find
+      (function Labelled "children", _ -> true | _ -> false)
+      args
+  with
+  | _, children -> map_element_children mapper children
+  | exception Not_found -> []
+
+(** Attributes *)
+
 type attr = {
   a_name: Common.name;
   a_value : string value;
   a_loc: Location.t;
 }
 
-let rec map_element_children mapper elements =
-  let rec map acc e =
-    match e with
-    | [%expr []] -> List.rev acc
-    | [%expr [%e? child] :: [%e? rest]] -> map (Val (children_mapper mapper child) :: acc) rest
-    | e -> List.rev ((Antiquot e) :: acc)
-  in
-  map [] elements
-
-and jsx_args_to_tyxml_args mapper args =
-  try
-    let _, children =
-      List.find
-        (function
-          | Labelled "children", _ -> true
-          | _ -> false)
-        args
-    in
-    map_element_children mapper children
-  with Not_found -> []
-
-and extract_attr_value a_name a_value =
+let rec extract_attr_value a_name a_value =
   let a_name = make_html_attr_name a_name in
   match a_value with
-  | { pexp_desc = Pexp_constant (Pconst_string (attr_value, _)); pexp_loc = a_loc; _ } ->
-      { a_loc; a_name; a_value = Val attr_value }
+  | { pexp_desc = Pexp_constant (Pconst_string (attr_value, _));
+      _;
+    } ->
+    (a_name, Val attr_value)
   | e ->
-      { a_loc = e.pexp_loc; a_name; a_value = Antiquot e}
+    (a_name, Antiquot e)
 
-and extract_jsx_attr = function
+and extract_attr = function
   (* Ignore last unit argument as tyxml api is pure *)
   | Nolabel, [%expr ()] -> None
   | Labelled "children", _ -> None
-  | Labelled a_name, a_value -> Some (extract_attr_value a_name a_value)
-  | Nolabel, e -> error e.pexp_loc "Unexpected unlabeled jsx attribute"
-  | Optional name, e -> error e.pexp_loc "Unexpected optional jsx attribute %s" name
+  | Labelled name, value ->
+    Some (extract_attr_value name value)
+  | Nolabel, e ->
+    error e.pexp_loc "Unexpected unlabeled jsx attribute"
+  | Optional name, e ->
+    error e.pexp_loc "Unexpected optional jsx attribute %s" name
 
-and children_mapper mapper e =
-  match e with
-  (* Convert string constant into Html.txt "constant" for convenience *)
-  | { pexp_desc = Pexp_constant (Pconst_string _); pexp_loc = loc; _ } as str -> [%expr Html.txt [%e str]][@metaloc loc]
-  | _ -> expr_mapper mapper e
-
-and expr_mapper mapper e =
+let expr_mapper mapper e =
   match e with
   (* matches <div foo={bar}> child1 child2 </div>; *)
   | { pexp_attributes = [ ({ txt = "JSX"; loc = _ }, PStr []) ];
-    pexp_desc = Pexp_apply ({ pexp_desc = Pexp_ident { txt = Lident html_tag; loc = _ }; _ }, args);
-      pexp_loc = apply_loc
+      pexp_desc = Pexp_apply (
+        { pexp_desc = Pexp_ident { txt = Lident html_tag; loc = _ }; _ },
+        args);
+      pexp_loc = loc
     } ->
-    let attributes = filter_map extract_jsx_attr args |> List.map (fun a -> a.a_name, a.a_value) in
-    let args = jsx_args_to_tyxml_args mapper args in
-    Element.parse ~loc:apply_loc ~parent_lang:Common.Html ~name:(Common.Html, html_tag) ~attributes args
+    let attributes = filter_map extract_attr args in
+    let children = extract_children mapper args in
+    Element.parse ~loc
+        ~parent_lang:Common.Html
+        ~name:(Common.Html, html_tag)
+        ~attributes
+        children
   | _ -> default_mapper.expr mapper e
 
 let mapper _ _ = { default_mapper with expr = expr_mapper }
+
+let () =
+  Driver.register
+    ~name:"tyxml-jsx" Versions.ocaml_405
+    mapper
