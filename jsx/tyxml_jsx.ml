@@ -19,9 +19,10 @@ let to_kebab_case name =
 let make_html_attr_name name =
   let name =
     match name with
-    | "class_" -> "class"
     | "className" -> "class"
     | "htmlFor" -> "for"
+    | "class_" -> "class"
+    | "for_" -> "for"
     | "type_" -> "type"
     | "to_" -> "to"
     | "open_" -> "open"
