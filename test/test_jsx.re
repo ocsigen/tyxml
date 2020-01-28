@@ -58,10 +58,10 @@ let basics = (
   "ppx basics",
   HtmlTests.make(
     Html.[
-      ("elems", [[<p />]], [p([])]),
+      ("elems", [<p />], [p([])]),
       (
         "child",
-        [[<p> <span> foo </span> </p>]],
+        [<p> <span> foo </span> </p>],
         [p([span([txt("foo")])])],
       ),
       (
@@ -69,19 +69,19 @@ let basics = (
         [<> <p /> <span> foo </span> </>],
         [p([]), span([txt("foo")])],
       ),
-      ("attrib", [[<p id=foo />]], [p(~a=[a_id("foo")], [])]),
+      ("attrib", [<p id=foo />], [p(~a=[a_id("foo")], [])]),
       (
         "attribs",
-        [[<p id=foo className=bar />]],
+        [<p id=foo className=bar />],
         [p(~a=[a_id("foo"), a_class(["bar"])], [])],
       ),
       /* can this be done in JSX?
          ("comment", [[%html "<!--foo-->"]], [tot @@ Xml.comment("foo")]),
          */
-      ("txt", [[foo]], [txt("foo")]),
+      ("txt", [foo], [txt("foo")]),
       (
         "document",
-        [[<html> <head> <title> foo </title> </head> <body /> </html>]],
+        [<html> <head> <title> foo </title> </head> <body /> </html>],
         [html(head(title(txt("foo")), []), body([]))],
       ),
       (
@@ -173,36 +173,36 @@ let attribs = (
   "ppx attribs",
   HtmlTests.make(
     Html.[
-      ("unit absent", [[<div hidden />]], [div(~a=[a_hidden()], [])]),
-      ("unit present", [[<div hidden />]], [div(~a=[a_hidden()], [])]),
+      ("unit absent", [<div hidden />], [div(~a=[a_hidden()], [])]),
+      ("unit present", [<div hidden />], [div(~a=[a_hidden()], [])]),
       (
         "bool default",
-        [[<div draggable />]],
+        [<div draggable />],
         [div(~a=[a_draggable(true)], [])],
       ),
       (
         "bool true",
-        [[<div draggable=true />]],
+        [<div draggable=true />],
         [div(~a=[a_draggable(true)], [])],
       ),
       (
         "bool false",
-        [[<div draggable=false />]],
+        [<div draggable=false />],
         [div(~a=[a_draggable(false)], [])],
       ),
       (
         "onoff default",
-        [[<form autocomplete />]],
+        [<form autocomplete />],
         [form(~a=[a_autocomplete(true)], [])],
       ),
       (
         "bool true",
-        [[<form autocomplete=on />]],
+        [<form autocomplete=on />],
         [form(~a=[a_autocomplete(true)], [])],
       ),
       (
         "bool false",
-        [[<form autocomplete=off />]],
+        [<form autocomplete=off />],
         [form(~a=[a_autocomplete(false)], [])],
       ),
       (
@@ -212,37 +212,37 @@ let attribs = (
       ),
       (
         "embed type",
-        [[<embed type_="text/plain" />]],
+        [<embed type_="text/plain" />],
         [embed(~a=[a_mime_type("text/plain")], ())],
       ),
       (
         "output for",
-        [[<output htmlFor=foo />]],
+        [<output htmlFor=foo />],
         [output_elt(~a=[a_output_for(["foo"])], [])],
       ),
       (
         "input min time",
-        [[<input min="2002-10-02T15:00:00Z" />]],
+        [<input min="2002-10-02T15:00:00Z" />],
         [input(~a=[a_input_min(`Datetime("2002-10-02T15:00:00Z"))], ())],
       ),
       (
         "aria attributes",
-        [[<div ariaHidden=true />]],
+        [<div ariaHidden=true />],
         [div(~a=[a_aria("hidden", ["true"])], [])],
       ),
       (
         "touch events",
-        [[<div ontouchstart="alert()" />]],
+        [<div ontouchstart="alert()" />],
         [div(~a=[a_ontouchstart("alert()")], [])],
       ),
       (
         "empty string as referrer policy",
-        [[<iframe referrerpolicy="" />]],
+        [<iframe referrerpolicy="" />],
         [iframe(~a=[a_referrerpolicy(`Empty)], [])],
       ),
       (
         "dashes in referrer policy",
-        [[<iframe referrerpolicy="no-referrer-when-downgrade" />]],
+        [<iframe referrerpolicy="no-referrer-when-downgrade" />],
         [iframe(~a=[a_referrerpolicy(`No_referrer_when_downgrade)], [])],
       ),
     ],
@@ -253,18 +253,18 @@ let ns_nesting = (
   "namespace nesting",
   HtmlTests.make(
     Html.[
-      ("html/svg", [[<svg> <g /> </svg>]], [svg([Svg.g([])])]),
+      ("html/svg", [<svg> <g /> </svg>], [svg([Svg.g([])])]),
       (
         "nested svg",
-        [[<div> <svg> <g /> </svg> </div>]],
+        [<div> <svg> <g /> </svg> </div>],
         [div([svg([Svg.g([])])])],
       ),
       (
         "with_neighbour",
-        [[<div> <span /> <svg> <g /> </svg> foo </div>]],
+        [<div> <span /> <svg> <g /> </svg> foo </div>],
         [div([span([]), svg([Svg.g([])]), txt("foo")])],
       ),
-      ("ambiguous tag", [[<svg> <a /> </svg>]], [svg([Svg.a([])])]),
+      ("ambiguous tag", [<svg> <a /> </svg>], [svg([Svg.a([])])]),
     ],
   ),
 );
@@ -273,10 +273,10 @@ let svg = (
   "svg",
   SvgTests.make(
     Svg.[
-      ("basic", [[<svg />]], [svg([])]),
+      ("basic", [<svg />], [svg([])]),
       (
         "transform",
-        [[<line transform="translate(1) translate(2)" />]],
+        [<line transform="translate(1) translate(2)" />],
         [
           line(
             ~a=[
@@ -288,12 +288,12 @@ let svg = (
       ),
       (
         "offset percentage",
-        [[<stop offset="50.1%" />]],
+        [<stop offset="50.1%" />],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
       (
         "text x, y",
-        [[<text x="1 2" y="3 4" />]],
+        [<text x="1 2" y="3 4" />],
         [
           text(
             ~a=[
@@ -306,7 +306,7 @@ let svg = (
       ),
       (
         "text dx, dy",
-        [[<text dx="1 2" dy="3 4" />]],
+        [<text dx="1 2" dy="3 4" />],
         [
           text(
             ~a=[
@@ -319,22 +319,22 @@ let svg = (
       ),
       (
         "feColorMatrix type",
-        [[<feColorMatrix type_="matrix" />]],
+        [<feColorMatrix type_="matrix" />],
         [feColorMatrix(~a=[a_feColorMatrix_type(`Matrix)], [])],
       ),
       (
         "feTurbulence type",
-        [[<feTurbulence type_="fractalNoise" />]],
+        [<feTurbulence type_="fractalNoise" />],
         [feTurbulence(~a=[a_feTurbulence_type(`FractalNoise)], [])],
       ),
       (
         "animateTransform type",
-        [[<animateTransform type_="translate" />]],
+        [<animateTransform type_="translate" />],
         [animateTransform(~a=[a_animateTransform_type(`Translate)], [])],
       ),
       (
         "feFuncR type, offset",
-        [[<feFuncR type_="identity" offset="0" />]],
+        [<feFuncR type_="identity" offset="0" />],
         [
           feFuncR(
             ~a=[a_transfer_type(`Identity), a_transfer_offset(0.)],
@@ -344,17 +344,17 @@ let svg = (
       ),
       (
         "feComposite operator",
-        [[<feComposite operator="xor" />]],
+        [<feComposite operator="xor" />],
         [feComposite(~a=[a_feComposite_operator(`Xor)], [])],
       ),
       (
         "feMorphology operator",
-        [[<feMorphology operator="erode" />]],
+        [<feMorphology operator="erode" />],
         [feMorphology(~a=[a_feMorphology_operator(`Erode)], [])],
       ),
       (
         "animation fill, values",
-        [[<animation fill="freeze" values="1 2" />]],
+        [<animation fill="freeze" values="1 2" />],
         [
           animation(
             ~a=[a_animation_fill(`Freeze), a_animation_values(["1", "2"])],
@@ -370,60 +370,52 @@ let svg_element_names = (
   "svg element names",
   SvgTests.make(
     Svg.[
-      ("textPath", [[<textPath />]], [textPath([])]),
-      ("linearGradient", [[<linearGradient />]], [linearGradient([])]),
-      ("radialGradient", [[<radialGradient />]], [radialGradient([])]),
-      ("clipPath", [[<clipPath />]], [clipPath([])]),
-      ("feDistantLight", [[<feDistantLight />]], [feDistantLight([])]),
-      ("fePointLight", [[<fePointLight />]], [fePointLight([])]),
-      ("feSpotLight", [[<feSpotLight />]], [feSpotLight([])]),
-      ("feBlend", [[<feBlend />]], [feBlend([])]),
-      ("feColorMatrix", [[<feColorMatrix />]], [feColorMatrix([])]),
+      ("textPath", [<textPath />], [textPath([])]),
+      ("linearGradient", [<linearGradient />], [linearGradient([])]),
+      ("radialGradient", [<radialGradient />], [radialGradient([])]),
+      ("clipPath", [<clipPath />], [clipPath([])]),
+      ("feDistantLight", [<feDistantLight />], [feDistantLight([])]),
+      ("fePointLight", [<fePointLight />], [fePointLight([])]),
+      ("feSpotLight", [<feSpotLight />], [feSpotLight([])]),
+      ("feBlend", [<feBlend />], [feBlend([])]),
+      ("feColorMatrix", [<feColorMatrix />], [feColorMatrix([])]),
       (
         "feComponentTransfer",
-        [[<feComponentTransfer />]],
+        [<feComponentTransfer />],
         [feComponentTransfer([])],
       ),
-      ("feFuncA", [[<feFuncA />]], [feFuncA([])]),
-      ("feFuncG", [[<feFuncG />]], [feFuncG([])]),
-      ("feFuncB", [[<feFuncB />]], [feFuncB([])]),
-      ("feFuncR", [[<feFuncR />]], [feFuncR([])]),
-      ("feComposite", [[<feComposite />]], [feComposite([])]),
-      (
-        "feConvolveMatrix",
-        [[<feConvolveMatrix />]],
-        [feConvolveMatrix([])],
-      ),
+      ("feFuncA", [<feFuncA />], [feFuncA([])]),
+      ("feFuncG", [<feFuncG />], [feFuncG([])]),
+      ("feFuncB", [<feFuncB />], [feFuncB([])]),
+      ("feFuncR", [<feFuncR />], [feFuncR([])]),
+      ("feComposite", [<feComposite />], [feComposite([])]),
+      ("feConvolveMatrix", [<feConvolveMatrix />], [feConvolveMatrix([])]),
       (
         "feDiffuseLighting",
-        [[<feDiffuseLighting />]],
+        [<feDiffuseLighting />],
         [feDiffuseLighting([])],
       ),
       (
         "feDisplacementMap",
-        [[<feDisplacementMap />]],
+        [<feDisplacementMap />],
         [feDisplacementMap([])],
       ),
-      ("feFlood", [[<feFlood />]], [feFlood([])]),
-      ("feGaussianBlur", [[<feGaussianBlur />]], [feGaussianBlur([])]),
-      ("feImage", [[<feImage />]], [feImage([])]),
-      ("feMerge", [[<feMerge />]], [feMerge([])]),
-      ("feMorphology", [[<feMorphology />]], [feMorphology([])]),
-      ("feOffset", [[<feOffset />]], [feOffset([])]),
+      ("feFlood", [<feFlood />], [feFlood([])]),
+      ("feGaussianBlur", [<feGaussianBlur />], [feGaussianBlur([])]),
+      ("feImage", [<feImage />], [feImage([])]),
+      ("feMerge", [<feMerge />], [feMerge([])]),
+      ("feMorphology", [<feMorphology />], [feMorphology([])]),
+      ("feOffset", [<feOffset />], [feOffset([])]),
       (
         "feSpecularLighting",
-        [[<feSpecularLighting />]],
+        [<feSpecularLighting />],
         [feSpecularLighting([])],
       ),
-      ("feTile", [[<feTile />]], [feTile([])]),
-      ("feTurbulence", [[<feTurbulence />]], [feTurbulence([])]),
-      ("animateMotion", [[<animateMotion />]], [animateMotion([])]),
-      ("animateColor", [[<animateColor />]], [animateColor([])]),
-      (
-        "animateTransform",
-        [[<animateTransform />]],
-        [animateTransform([])],
-      ),
+      ("feTile", [<feTile />], [feTile([])]),
+      ("feTurbulence", [<feTurbulence />], [feTurbulence([])]),
+      ("animateMotion", [<animateMotion />], [animateMotion([])]),
+      ("animateColor", [<animateColor />], [animateColor([])]),
+      ("animateTransform", [<animateTransform />], [animateTransform([])]),
     ],
   ),
 );
@@ -478,7 +470,7 @@ let wrapping = {
         ("txt", !:[<p> foo </p>], !:p(txt("foo"^) @: nil())),
         (
           "wrapped functions",
-          !:[<input method=get />],
+          !:[<input method_=`Get />],
           !:input(~a=[a_method(`Get^)], ()),
         ),
       ],
