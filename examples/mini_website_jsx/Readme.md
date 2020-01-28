@@ -3,7 +3,6 @@ To generate the website, compile `minihtml.re` and then execute. This can be don
 
 Content of this directory:
 - `minihtml.re`: Generates the Html.
-- `Makefile`: Simple rules to create the website.
 - `.merlin`: An appropriate merlin file.
 - Readme.md : You are reading it
 
