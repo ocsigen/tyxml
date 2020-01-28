@@ -17,6 +17,15 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
+let find_assembler (lang, name) =
+  let (module Reflected) = Namespace.get lang in
+  let name =
+    try List.assoc name Reflected.renamed_elements
+    with Not_found -> Name_convention.ident name
+  in
+  try Some (name, List.assoc name Reflected.element_assemblers)
+  with Not_found -> None
+
 let parse
     ~loc ~parent_lang
     ~name:((lang, name) as element_name) ~attributes children =
@@ -32,17 +41,11 @@ let parse
         "Nesting of Html element inside svg element is not supported"
   in
 
-  let name =
-    try List.assoc name Reflected.renamed_elements
-    with Not_found -> Name_convention.ident name
+  let name, assembler = match find_assembler element_name with
+    | Some e -> e
+    | None -> Common.error loc "Unknown %s element %s" (Common.lang lang) name
   in
   let element_function = Common.make ~loc lang name in
-
-  let assembler =
-    try List.assoc name Reflected.element_assemblers
-    with Not_found ->
-      Common.error loc "Unknown %s element %s" (Common.lang lang) name
-  in
 
   let children = assembler ~lang ~loc ~name children in
 

@@ -38,3 +38,7 @@ val comment :
   string ->
   Parsetree.expression
 (** [comment ~loc ~ns s] evaluates to a parse tree that represents an XML comment. *)
+
+val find_assembler :
+  Common.name -> 
+  (string * Element_content.assembler) option

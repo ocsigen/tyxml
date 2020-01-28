@@ -4,14 +4,22 @@ open Asttypes
 
 open Tyxml_syntax
 
+let is_jsx e =
+  let f = function
+    | ({ txt = "JSX"; loc = _ }, _) -> true
+    | _ -> false
+  in
+  List.exists f e.pexp_attributes
+
+
 let to_kebab_case name =
   let length = String.length name in
-  if length > 4 then
+  if length > 5 then
     let first = String.sub name 0 4 in
     match first with
     | "aria"
     | "data" ->
-      first ^ "-" ^ String.lowercase_ascii (String.sub name 4 (length - 1))
+      first ^ "-" ^ String.lowercase_ascii (String.sub name 4 (length - 4))
     | _ -> name
   else
     name
@@ -45,20 +53,29 @@ let rec filter_map f = function
 
 (** Children *)
 
-let children_mapper mapper e =
+
+let make_txt ~loc ~lang s =
+  let txt = Common.make ~loc lang "txt" in
+  let arg = Common.wrap lang loc @@ Common.string loc s in
+  Ast_helper.Exp.apply ~loc txt [Common.Label.nolabel, arg]
+
+let element_mapper mapper e =
   match e with
   (* Convert string constant into Html.txt "constant" for convenience *)
-  | { pexp_desc = Pexp_constant (Pconst_string _); pexp_loc = loc; _ } as str ->
-    [%expr Html.txt [%e str]][@metaloc loc]
-  | _ -> mapper.expr mapper e
+  | { pexp_desc = Pexp_constant (Pconst_string (str, _)); pexp_loc = loc; _ } ->
+    make_txt ~loc ~lang:Html str
+  | _ ->
+    mapper.expr mapper e
 
-let map_element_children mapper elements =
+let extract_element_list mapper elements =
   let rec map acc e =
     match e with
     | [%expr []] -> List.rev acc
     | [%expr [%e? child] :: [%e? rest]] ->
-      map (Val (children_mapper mapper child) :: acc) rest
-    | e -> List.rev ((Antiquot e) :: acc)
+      let child = Common.value (element_mapper mapper child) in
+      map (child :: acc) rest
+    | e ->
+      List.rev (Common.antiquot (element_mapper mapper e) :: acc)
   in
   map [] elements
 
@@ -68,7 +85,7 @@ let extract_children mapper args =
       (function Labelled "children", _ -> true | _ -> false)
       args
   with
-  | _, children -> map_element_children mapper children
+  | _, children -> extract_element_list mapper children
   | exception Not_found -> []
 
 (** Attributes *)
@@ -85,9 +102,9 @@ let rec extract_attr_value a_name a_value =
   | { pexp_desc = Pexp_constant (Pconst_string (attr_value, _));
       _;
     } ->
-    (a_name, Val attr_value)
+    (a_name, Common.value attr_value)
   | e ->
-    (a_name, Antiquot e)
+    (a_name, Common.antiquot e)
 
 and extract_attr = function
   (* Ignore last unit argument as tyxml api is pure *)
@@ -100,23 +117,46 @@ and extract_attr = function
   | Optional name, e ->
     error e.pexp_loc "Unexpected optional jsx attribute %s" name
 
+
+let guess_namespace ~loc lid =
+  match lid with
+  | Longident.Ldot (Lident "Html", name) -> (Html, name)
+  | Ldot (Lident "Svg", name) -> (Svg, name)
+  | Lident name -> begin
+    match Element.find_assembler (Html, name) with
+    | Some ("svg", _) -> Svg, name 
+    | Some _ -> Html, name
+    | None -> match Element.find_assembler (Svg, name) with
+      | Some _ -> Svg, name
+      | None -> Common.error loc "Unknown namespace for the element %s" name
+  end
+  | _ ->
+    Common.error loc "Invalid Tyxml tag %a" Pprintast.longident lid
+
+         
 let expr_mapper mapper e =
-  match e with
-  (* matches <div foo={bar}> child1 child2 </div>; *)
-  | { pexp_attributes = [ ({ txt = "JSX"; loc = _ }, PStr []) ];
-      pexp_desc = Pexp_apply (
-        { pexp_desc = Pexp_ident { txt = Lident html_tag; loc = _ }; _ },
-        args);
-      pexp_loc = loc
-    } ->
-    let attributes = filter_map extract_attr args in
-    let children = extract_children mapper args in
-    Element.parse ~loc
-        ~parent_lang:Common.Html
-        ~name:(Common.Html, html_tag)
-        ~attributes
-        children
-  | _ -> default_mapper.expr mapper e
+  if not (is_jsx e) then default_mapper.expr mapper e
+  else
+    let loc = e.pexp_loc in
+    match e with
+    (* matches <> ... </>; *)
+    | [%expr []] 
+    | [%expr [%e? _] :: [%e? _]] ->
+      let l = extract_element_list mapper e in
+      Common.list_wrap_value Common.Html loc l
+    (* matches <div foo={bar}> child1 child2 </div>; *)
+    | {pexp_desc = Pexp_apply
+           ({ pexp_desc = Pexp_ident { txt }; _ }, args )}
+      ->
+      let namespace, tag = guess_namespace ~loc txt in
+      let attributes = filter_map extract_attr args in
+      let children = extract_children mapper args in
+      Element.parse ~loc
+          ~parent_lang:namespace
+          ~name:(namespace, tag)
+          ~attributes
+          children
+     | _ -> default_mapper.expr mapper e
 
 let mapper _ _ = { default_mapper with expr = expr_mapper }
 
