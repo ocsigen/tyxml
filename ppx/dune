@@ -4,7 +4,7 @@
  (libraries re.str
             ppx_tools_versioned
             markup
-            tyxml.syntax
+            tyxml-syntax
  )
  (preprocess (pps ppx_tools_versioned.metaquot_405))
  (flags (:standard

@@ -17,7 +17,7 @@
 
 (library
  (name tyxml_syntax)
- (public_name tyxml.syntax)
+ (public_name tyxml-syntax)
  (libraries uutf re.str
             ppx_tools_versioned
  )
