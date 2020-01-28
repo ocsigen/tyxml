@@ -1,26 +1,34 @@
 ;; Normal tests
 
-(test
- (name test_html)
- (modules test_html)
+(library
+ (name tyxml_test)
  (libraries tyxml alcotest)
- (package tyxml)
+ (modules tyxml_test)
 )
 
-(test
- (name test_svg)
- (modules test_svg)
- (libraries tyxml alcotest)
+(tests
+ (names test_html test_svg)
+ (modules test_html test_svg)
+ (libraries tyxml alcotest tyxml_test)
  (package tyxml)
 )
 
 (test
  (name test_ppx)
  (modules test_ppx)
- (libraries tyxml alcotest)
+ (libraries tyxml alcotest tyxml_test)
  (preprocess (pps tyxml-ppx))
  (package tyxml-ppx)
 )
+
+(test
+ (name test_jsx)
+ (modules test_jsx)
+ (libraries tyxml alcotest tyxml_test)
+ (preprocess (pps tyxml-jsx))
+ (package tyxml-jsx)
+)
+
 
 ;; Toplevel ppx tests
 ;; WIP this test is temporarily disable, waiting for proper support for

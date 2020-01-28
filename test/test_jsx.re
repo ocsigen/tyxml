@@ -3,56 +3,7 @@
     This file is here to torture the jsx ppx. Tests that are directly related to
     html or svg should go to the other files.
 */
-open Tyxml;
-
-module type LANGUAGE = {
-  include Xml_sigs.Typed_pp;
-  type wrap('a);
-  type list_wrap('a);
-  let pp_wrap:
-    ((Format.formatter, 'a) => unit, Format.formatter, wrap('a)) => unit;
-  let pp_wrap_list:
-    ((Format.formatter, 'a) => unit, Format.formatter, list_wrap('a)) => unit;
-  let totl: list_wrap(Xml.elt) => list_wrap(elt('a));
-  let toeltl: list_wrap(elt('a)) => list_wrap(Xml.elt);
-};
-
-module TyTests = (Language: LANGUAGE) => {
-  module Testable = {
-    type t = Language.list_wrap(Xml.elt);
-    let pp = (fmt, x) =>
-      Language.pp_wrap_list(Language.pp_elt(), fmt, Language.totl(x));
-    let equal = (==);
-  };
-
-  let make = l => {
-    let f = ((name, ty1, ty2)) => (
-      name,
-      `Quick,
-      () =>
-        Alcotest.(check((module Testable)))(
-          name,
-          Language.toeltl(ty1),
-          Language.toeltl(ty2),
-        ),
-    );
-
-    List.map(f, l);
-  };
-};
-
-module Html = {
-  include Tyxml.Html;
-  let pp_wrap = pp => pp;
-  let pp_wrap_list = pp => Format.pp_print_list(~pp_sep=(_, ()) => (), pp);
-};
-module Svg = {
-  include Tyxml.Svg;
-  let pp_wrap = pp => pp;
-  let pp_wrap_list = pp => Format.pp_print_list(~pp_sep=(_, ()) => (), pp);
-};
-module HtmlTests = TyTests(Html);
-module SvgTests = TyTests(Svg);
+open Tyxml_test;
 
 let basics = (
   "ppx basics",
@@ -61,27 +12,24 @@ let basics = (
       ("elems", [<p />], [p([])]),
       (
         "child",
-        [<p> <span> foo </span> </p>],
+        [<p> <span> "foo" </span> </p>],
         [p([span([txt("foo")])])],
       ),
       (
         "list",
-        [<> <p /> <span> foo </span> </>],
+        <> <p /> <span> "foo" </span> </>,
         [p([]), span([txt("foo")])],
       ),
-      ("attrib", [<p id=foo />], [p(~a=[a_id("foo")], [])]),
+      ("attrib", [<p id="foo" />], [p(~a=[a_id("foo")], [])]),
       (
         "attribs",
-        [<p id=foo className=bar />],
+        [<p id="foo" className="bar" />],
         [p(~a=[a_id("foo"), a_class(["bar"])], [])],
       ),
-      /* can this be done in JSX?
-         ("comment", [[%html "<!--foo-->"]], [tot @@ Xml.comment("foo")]),
-         */
-      ("txt", [foo], [txt("foo")]),
+      ("txt", <> "foo" </>, [txt("foo")]),
       (
         "document",
-        [<html> <head> <title> foo </title> </head> <body /> </html>],
+        [<html> <head> <title> "foo" </title> </head> <body /> </html>],
         [html(head(title(txt("foo")), []), body([]))],
       ),
       (
@@ -119,52 +67,21 @@ let basics = (
         [
           {
             let f = x => <p> x </p>;
-            f([a([])]);
+            f(a([]));
           },
         ],
         [p([a([])])],
       ),
-      /* can this be done in JSX?
-         (
-           "comments",
-           [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
-           [div([p([txt("a")]), tot(Xml.comment(" b ")), hr()])],
-         ),
-         */
       (
-        "figcaption first",
+        "let fun spread",
         [
-          [
-            <figure>
-              <figcaption> hello </figcaption>
-              <img src="foo.jpg" alt="a" />
-            </figure>,
-          ],
+          {
+            let f = x => <p> ...{x} </p>;
+            f([a([])]);
+          },
         ],
-        [
-          figure(
-            ~figcaption=`Top(figcaption([txt(" hello ")])),
-            [txt(" "), img(~src="foo.jpg", ~alt="a", ()), txt(" ")],
-          ),
-        ],
-      ),
-      (
-        "figcaption last",
-        [
-          [
-            <figure>
-              <img src="foo.jpg" alt="a" />
-              <figcaption> hello </figcaption>
-            </figure>,
-          ],
-        ],
-        [
-          figure(
-            ~figcaption=`Bottom(figcaption([txt(" hello ")])),
-            [txt(" "), img(~src="foo.jpg", ~alt="a", ()), txt(" ")],
-          ),
-        ],
-      ),
+        [p([a([])])],
+      )      
     ],
   ),
 );
@@ -419,31 +336,6 @@ let svg_element_names = (
     ],
   ),
 );
-
-/* The regular HTML module, but with most type equality hidden.
-      This forces the use of the wrapping functions provided in Xml.W.
-   */
-module HtmlWrapped: {
-  include
-    Html_sigs.T with
-      type Xml.elt = Tyxml.Xml.elt and type elt('a) = Html.elt('a);
-  include
-    LANGUAGE with
-      type elt('a) := elt('a) and
-      type wrap('a) := wrap('a) and
-      type list_wrap('a) := list_wrap('a) and
-      type doc := doc;
-} = {
-  include Html;
-  module Svg = Svg;
-};
-module HtmlWrappedTests = TyTests(HtmlWrapped);
-
-let (@:) = (h, t) => HtmlWrapped.Xml.W.(cons(return(h), t));
-let (@-) = HtmlWrapped.Xml.W.append;
-let nil = HtmlWrapped.Xml.W.nil;
-let (^) = HtmlWrapped.Xml.W.return;
-let (!:) = x => x @: nil();
 
 let wrapping = {
   module Html = HtmlWrapped;
