@@ -18,20 +18,7 @@ depends: [
   "ocaml" {>= "4.02"}
   "dune"
   "alcotest" {with-test}
-  "tyxml" {= version}
-  "tyxml-syntax" {= version}
-  "markup" {>= "0.7.2"}
   "ppx_tools_versioned"
 ]
 
-synopsis:"PPX that allows to write TyXML documents with the HTML syntax"
-description:"""
-
-```ocaml
-open Tyxml
-let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
-```
-
-The TyXML PPX is compatible with all TyXML instance, from textual trees
-to reactive virtual DOM trees.
-"""
+synopsis:"Common layer for the JSX and PPX syntaxes for Tyxml"

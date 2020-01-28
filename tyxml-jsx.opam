@@ -16,18 +16,22 @@ build: [
 
 depends: [
   "ocaml" {>= "4.02"}
-  "dune" {build}
+  "dune"
   "alcotest" {with-test}
-  "tyxml"
-  "tyxml-ppx"
-  "markup" {>= "0.7.2"}
+  "tyxml" {= version}
+  "tyxml-syntax" {= version}
   "ppx_tools_versioned"
   "reason" {with-test}
 ]
 
-synopsis:"PPX that allows to write TyXML documents with the JSX syntax"
+synopsis:"JSX syntax to write TyXML documents"
 description:"""
 
-The TyXML PPX is compatible with all TyXML instance, from textual trees
+```reason
+open Tyxml;
+let to_ocaml = <a href="ocaml.org"> "OCaml!" </a>;
+```
+
+Allow to write any TyXML documents with reason's JSX syntax, from textual trees
 to reactive virtual DOM trees.
 """
