@@ -3,7 +3,6 @@ To generate the website, compile `site_html.re` and then execute. This can be do
 
 Content of this directory:
 - `site_html.re`: Generates the Html.
-- `Makefile`: Simple rules to create the website. Uses ocamlbuild
 - `main.js` and `home.css` : auxiliary files for the website.
 - `.merlin`: An appropriate merlin file.
 - Readme.md : You are reading it
