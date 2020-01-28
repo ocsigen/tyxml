@@ -27,7 +27,7 @@ let make_html_attr_name name =
     | "ariaRoledescription" -> "aria-roledescription"
     (* Widget Attributes *)
     | "ariaAutocomplete" -> "aria-autocomplete"
-    | "ariaChecked: true|false|mixed, /* https" -> "aria-checked"
+    | "ariaChecked" -> "aria-checked"
     | "ariaExpanded" -> "aria-expanded"
     | "ariaHaspopup" -> "aria-haspopup"
     | "ariaLevel" -> "aria-level"
@@ -36,7 +36,7 @@ let make_html_attr_name name =
     | "ariaMultiselectable" -> "aria-multiselectable"
     | "ariaOrientation" -> "aria-orientation"
     | "ariaPlaceholder" -> "aria-placeholder"
-    | "ariaPressed: true|false|mixed, /* https" -> "aria-pressed"
+    | "ariaPressed" -> "aria-pressed"
     | "ariaReadonly" -> "aria-readonly"
     | "ariaRequired" -> "aria-required"
     | "ariaSelected" -> "aria-selected"
