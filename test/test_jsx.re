@@ -541,10 +541,7 @@ let antiquot = {
           !:input(~a=[a_method(`Get^)], ()),
         ),
       ],
-      /* should succeed */
-      /* "escape", */
-      /* [%tyxml "<p>(tyxml4)</p>"], */
-      /* [p [txt "(tyxml4)"]]; */
+      ("escape", [<p> "(tyxml4)" </p>], [p([txt("(tyxml4)")])]),
     ),
   );
 };
