@@ -30,7 +30,7 @@ open Parsetree
 
 type lang = Common.lang = Html | Svg
 let lang_of_ns loc ns =
-  if ns = Markup.Ns.html then Common.Html
+  if ns = Markup.Ns.html || ns = "" then Common.Html
   else if ns = Markup.Ns.svg then Common.Svg
   else Common.error loc "Unknown namespace %s" ns
 
