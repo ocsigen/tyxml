@@ -273,10 +273,10 @@ let svg = (
   "svg",
   SvgTests.make(
     Svg.[
-      ("basic", [[%svg "<svg/>"]], [svg([])]),
+      ("basic", [[<svg />]], [svg([])]),
       (
         "transform",
-        [[%svg "<line transform='translate(1) translate(2)'/>"]],
+        [[<line transform="translate(1) translate(2)" />]],
         [
           line(
             ~a=[
@@ -288,12 +288,12 @@ let svg = (
       ),
       (
         "offset percentage",
-        [[%svg "<stop offset='50.1%'/>"]],
+        [[<stop offset="50.1%" />]],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
       (
         "text x, y",
-        [[%svg "<text x='1 2' y='3 4'/>"]],
+        [[<text x="1 2" y="3 4" />]],
         [
           text(
             ~a=[
@@ -306,7 +306,7 @@ let svg = (
       ),
       (
         "text dx, dy",
-        [[%svg "<text dx='1 2' dy='3 4'/>"]],
+        [[<text dx="1 2" dy="3 4" />]],
         [
           text(
             ~a=[
@@ -319,22 +319,22 @@ let svg = (
       ),
       (
         "feColorMatrix type",
-        [[%svg "<feColorMatrix type='matrix'/>"]],
+        [[<feColorMatrix type_="matrix" />]],
         [feColorMatrix(~a=[a_feColorMatrix_type(`Matrix)], [])],
       ),
       (
         "feTurbulence type",
-        [[%svg "<feTurbulence type='fractalNoise'/>"]],
+        [[<feTurbulence type_="fractalNoise" />]],
         [feTurbulence(~a=[a_feTurbulence_type(`FractalNoise)], [])],
       ),
       (
         "animateTransform type",
-        [[%svg "<animateTransform type='translate'/>"]],
+        [[<animateTransform type_="translate" />]],
         [animateTransform(~a=[a_animateTransform_type(`Translate)], [])],
       ),
       (
         "feFuncR type, offset",
-        [[%svg "<feFuncR type='identity' offset='0'/>"]],
+        [[<feFuncR type_="identity" offset="0" />]],
         [
           feFuncR(
             ~a=[a_transfer_type(`Identity), a_transfer_offset(0.)],
@@ -344,17 +344,17 @@ let svg = (
       ),
       (
         "feComposite operator",
-        [[%svg "<feComposite operator='xor'/>"]],
+        [[<feComposite operator="xor" />]],
         [feComposite(~a=[a_feComposite_operator(`Xor)], [])],
       ),
       (
         "feMorphology operator",
-        [[%svg "<feMorphology operator='erode'/>"]],
+        [[<feMorphology operator="erode" />]],
         [feMorphology(~a=[a_feMorphology_operator(`Erode)], [])],
       ),
       (
         "animation fill, values",
-        [[%svg "<animation fill='freeze' values='1 2'/>"]],
+        [[<animation fill="freeze" values="1 2" />]],
         [
           animation(
             ~a=[a_animation_fill(`Freeze), a_animation_values(["1", "2"])],
@@ -370,74 +370,58 @@ let svg_element_names = (
   "svg element names",
   SvgTests.make(
     Svg.[
-      ("textPath", [[%svg "<textPath/>"]], [textPath([])]),
-      (
-        "linearGradient",
-        [[%svg "<linearGradient/>"]],
-        [linearGradient([])],
-      ),
-      (
-        "radialGradient",
-        [[%svg "<radialGradient/>"]],
-        [radialGradient([])],
-      ),
-      ("clipPath", [[%svg "<clipPath/>"]], [clipPath([])]),
-      (
-        "feDistantLight",
-        [[%svg "<feDistantLight/>"]],
-        [feDistantLight([])],
-      ),
-      ("fePointLight", [[%svg "<fePointLight/>"]], [fePointLight([])]),
-      ("feSpotLight", [[%svg "<feSpotLight/>"]], [feSpotLight([])]),
-      ("feBlend", [[%svg "<feBlend/>"]], [feBlend([])]),
-      ("feColorMatrix", [[%svg "<feColorMatrix/>"]], [feColorMatrix([])]),
+      ("textPath", [[<textPath />]], [textPath([])]),
+      ("linearGradient", [[<linearGradient />]], [linearGradient([])]),
+      ("radialGradient", [[<radialGradient />]], [radialGradient([])]),
+      ("clipPath", [[<clipPath />]], [clipPath([])]),
+      ("feDistantLight", [[<feDistantLight />]], [feDistantLight([])]),
+      ("fePointLight", [[<fePointLight />]], [fePointLight([])]),
+      ("feSpotLight", [[<feSpotLight />]], [feSpotLight([])]),
+      ("feBlend", [[<feBlend />]], [feBlend([])]),
+      ("feColorMatrix", [[<feColorMatrix />]], [feColorMatrix([])]),
       (
         "feComponentTransfer",
-        [[%svg "<feComponentTransfer/>"]],
+        [[<feComponentTransfer />]],
         [feComponentTransfer([])],
       ),
-      ("feFuncA", [[%svg "<feFuncA/>"]], [feFuncA([])]),
-      ("feFuncG", [[%svg "<feFuncG/>"]], [feFuncG([])]),
-      ("feFuncB", [[%svg "<feFuncB/>"]], [feFuncB([])]),
-      ("feFuncR", [[%svg "<feFuncR/>"]], [feFuncR([])]),
-      ("feComposite", [[%svg "<feComposite/>"]], [feComposite([])]),
+      ("feFuncA", [[<feFuncA />]], [feFuncA([])]),
+      ("feFuncG", [[<feFuncG />]], [feFuncG([])]),
+      ("feFuncB", [[<feFuncB />]], [feFuncB([])]),
+      ("feFuncR", [[<feFuncR />]], [feFuncR([])]),
+      ("feComposite", [[<feComposite />]], [feComposite([])]),
       (
         "feConvolveMatrix",
-        [[%svg "<feConvolveMatrix/>"]],
+        [[<feConvolveMatrix />]],
         [feConvolveMatrix([])],
       ),
       (
         "feDiffuseLighting",
-        [[%svg "<feDiffuseLighting/>"]],
+        [[<feDiffuseLighting />]],
         [feDiffuseLighting([])],
       ),
       (
         "feDisplacementMap",
-        [[%svg "<feDisplacementMap/>"]],
+        [[<feDisplacementMap />]],
         [feDisplacementMap([])],
       ),
-      ("feFlood", [[%svg "<feFlood/>"]], [feFlood([])]),
-      (
-        "feGaussianBlur",
-        [[%svg "<feGaussianBlur/>"]],
-        [feGaussianBlur([])],
-      ),
-      ("feImage", [[%svg "<feImage/>"]], [feImage([])]),
-      ("feMerge", [[%svg "<feMerge/>"]], [feMerge([])]),
-      ("feMorphology", [[%svg "<feMorphology/>"]], [feMorphology([])]),
-      ("feOffset", [[%svg "<feOffset/>"]], [feOffset([])]),
+      ("feFlood", [[<feFlood />]], [feFlood([])]),
+      ("feGaussianBlur", [[<feGaussianBlur />]], [feGaussianBlur([])]),
+      ("feImage", [[<feImage />]], [feImage([])]),
+      ("feMerge", [[<feMerge />]], [feMerge([])]),
+      ("feMorphology", [[<feMorphology />]], [feMorphology([])]),
+      ("feOffset", [[<feOffset />]], [feOffset([])]),
       (
         "feSpecularLighting",
-        [[%svg "<feSpecularLighting/>"]],
+        [[<feSpecularLighting />]],
         [feSpecularLighting([])],
       ),
-      ("feTile", [[%svg "<feTile/>"]], [feTile([])]),
-      ("feTurbulence", [[%svg "<feTurbulence/>"]], [feTurbulence([])]),
-      ("animateMotion", [[%svg "<animateMotion/>"]], [animateMotion([])]),
-      ("animateColor", [[%svg "<animateColor/>"]], [animateColor([])]),
+      ("feTile", [[<feTile />]], [feTile([])]),
+      ("feTurbulence", [[<feTurbulence />]], [feTurbulence([])]),
+      ("animateMotion", [[<animateMotion />]], [animateMotion([])]),
+      ("animateColor", [[<animateColor />]], [animateColor([])]),
       (
         "animateTransform",
-        [[%svg "<animateTransform/>"]],
+        [[<animateTransform />]],
         [animateTransform([])],
       ),
     ],
