@@ -149,28 +149,23 @@ let bool_exp loc b =
 (* Numeric. *)
 
 let char ?separated_by:_ ?default:_ loc name s =
-  let open Markup in
-  let open Markup.Encoding in
-
-  let report _ error =
-    Common.error loc "%s in attribute %s"
-      (Markup.Error.to_string error |> String.capitalize) name
-  in
-  let decoded = string s |> decode ~report utf_8 in
+  let encoding = `UTF_8 in (* OCaml source files are always in utf8 *)
+  let decoder = Uutf.decoder ~encoding (`String s) in
 
   let c =
-    match next decoded with
-    | None -> Common.error loc "No character in attribute %s" name
-    | Some i when i <= 255 -> Char.chr i
-    | Some _ ->
+    match Uutf.decode decoder with
+    | `End -> Common.error loc "No character in attribute %s" name
+    | `Uchar i when Uchar.is_char i -> Uchar.to_char i
+    | `Uchar _ ->
       Common.error loc "Character out of range in attribute %s" name
+    | `Await -> assert false
+    | `Malformed s ->
+      Common.error loc "Malformed character %s in attribute %s" s name
   in
-
-  begin match next decoded with
-  | None -> ()
-  | Some _ -> Common.error loc "Multiple characters in attribute %s" name
+  begin match Uutf.decode decoder with
+  | `End -> ()
+  | _ -> Common.error loc "Multiple characters in attribute %s" name
   end;
-
   Some (with_default_loc loc @@ fun () -> Ast_convenience.char c)
 
 let onoff ?separated_by:_ ?default:_ loc name s =
