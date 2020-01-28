@@ -24,6 +24,8 @@ module Label = Ast_convenience.Label
 
 type lang = Html | Svg
 
+type name = lang * string
+
 let html_implementation = ref "Html"
 let svg_implementation = ref "Svg"
 

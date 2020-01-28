@@ -18,7 +18,7 @@ let make_html_attr_name name =
     | "in_" -> "in"
     | name -> name
   in
-  Markup.Ns.html, name
+  Common.Html, name
 
 open Common
 
@@ -30,7 +30,7 @@ let rec filter_map f = function
   | Some a -> a :: filter_map f q
 
 type attr = {
-  a_name: Markup.name;
+  a_name: Common.name;
   a_value : string value;
   a_loc: Location.t;
 }
@@ -87,7 +87,7 @@ and expr_mapper mapper e =
     } ->
     let attributes = filter_map extract_jsx_attr args |> List.map (fun a -> a.a_name, a.a_value) in
     let args = jsx_args_to_tyxml_args mapper args in
-    Element.parse ~loc:apply_loc ~parent_lang:Common.Html ~name:(Markup.Ns.html, html_tag) ~attributes args
+    Element.parse ~loc:apply_loc ~parent_lang:Common.Html ~name:(Common.Html, html_tag) ~attributes args
   | _ -> default_mapper.expr mapper e
 
 let mapper _ _ = { default_mapper with expr = expr_mapper }

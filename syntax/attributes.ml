@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
-let parse loc (ns, element_name) attributes =
-  let language, (module Reflected) =
-    Namespace.reflect loc ns in
+let parse loc (language, element_name) attributes =
+  let (module Reflected) =
+    Namespace.get language in
 
   (* For prefix ["prefix"] and attribute names ["prefix-foo"], evaluates to
      [Some "foo"], otherwise evaluates to [None].

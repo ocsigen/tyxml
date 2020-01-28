@@ -19,15 +19,6 @@
 
 (** Namespace-specific values. *)
 
-val reflect :
-  Location.t -> string -> Common.lang * (module Sigs_reflected.S)
-(** When given either [Markup.Ns.html] or [Markup.Ns.svg] as argument, evaluates
-    to the title of the corresponding markup language, the name of the run-time
-    module containing its TyXML implementation, and a preprocessing-time module
-    containing reflection information. *)
-
 val get : Common.lang -> (module Sigs_reflected.S)
-(** Similar to {!reflect} but takes a {!Common.lang} directly. *)
-
-val to_lang : Location.t -> string -> Common.lang
-(** Takes a namespace and returns the appropriate language. *)
+(** Returns the preprocessing-time module
+    containing reflection information associated to the given language. *)

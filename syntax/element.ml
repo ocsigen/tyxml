@@ -19,10 +19,10 @@
 
 let parse
     ~loc ~parent_lang
-    ~name:((ns, name) as element_name) ~attributes children =
+    ~name:((lang, name) as element_name) ~attributes children =
 
   let attributes = Attributes.parse loc element_name attributes in
-  let lang, (module Reflected) = Namespace.reflect loc ns in
+  let (module Reflected) = Namespace.get lang in
 
   let lang = match parent_lang, lang with
     | Common.Html, Svg -> Common.Html

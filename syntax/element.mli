@@ -22,8 +22,8 @@
 val parse :
   loc:Location.t ->
   parent_lang:Common.lang ->
-  name:Markup.name ->
-  attributes:(Markup.name * string Common.value) list ->
+  name:Common.name ->
+  attributes:(Common.name * string Common.value) list ->
   Parsetree.expression Common.value list ->
   Parsetree.expression
 (** [parse ~loc ~parent_lang ~name ~attributes children]
