@@ -20,11 +20,3 @@
 let get : Common.lang -> (module Sigs_reflected.S) = function
   | Html -> (module Html_sigs_reflected)
   | Svg  -> (module Svg_sigs_reflected)
-
-let to_lang loc ns =
-  if ns = Markup.Ns.html then Common.Html
-  else if ns = Markup.Ns.svg then Common.Svg
-  else Common.error loc "Unknown namespace %s" ns
-
-let reflect loc ns =
-  let l = to_lang loc ns in (l, get l)

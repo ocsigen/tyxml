@@ -18,9 +18,8 @@
 (library
  (name tyxml_syntax)
  (public_name tyxml.syntax)
- (libraries re.str
+ (libraries uutf re.str
             ppx_tools_versioned
-            markup
  )
  (preprocess (pps ppx_tools_versioned.metaquot_405))
  (modules_without_implementation sigs_reflected)

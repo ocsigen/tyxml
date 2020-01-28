@@ -1,8 +1,7 @@
 (library
  (name tyxml_jsx)
  (public_name tyxml-jsx.internal)
- (libraries markup
-            ppx_tools_versioned
+ (libraries ppx_tools_versioned
             tyxml.syntax
  )
  (preprocess (pps ppx_tools_versioned.metaquot_405))

@@ -549,7 +549,6 @@ let in_ = total_variant Svg_types_reflected.in_value
 let in2 = in_
 
 let xmlns ?separated_by:_ ?default:_ loc name s =
-  if s <> Markup.Ns.html then
-    Common.error loc "%s: namespace must be %s" name Markup.Ns.html;
-
+  if s <> "http://www.w3.org/1999/xhtml" then
+    Common.error loc "%s: namespace must be http://www.w3.org/1999/xhtml" name;
   Some [%expr `W3_org_1999_xhtml] [@metaloc loc]
