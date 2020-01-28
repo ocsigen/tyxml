@@ -4,6 +4,18 @@ open Asttypes
 
 open Tyxml_syntax
 
+let to_kebab_case name =
+  let length = String.length name in
+  if length > 4 then
+    let first = String.sub name 0 4 in
+    match first with
+    | "aria"
+    | "data" ->
+      first ^ "-" ^ String.lowercase_ascii (String.sub name 4 (length - 1))
+    | _ -> name
+  else
+    name
+
 let make_html_attr_name name =
   let name =
     match name with
@@ -16,7 +28,8 @@ let make_html_attr_name name =
     | "begin_" -> "begin"
     | "end_" -> "end"
     | "in_" -> "in"
-    | name -> name
+    | "method_" -> "method"
+    | name -> to_kebab_case name
   in
   Common.Html, name
 
