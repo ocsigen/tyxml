@@ -2,7 +2,7 @@ open Ast_mapper
 open Parsetree
 open Asttypes
 
-open Tyxml_ppx_common
+open Tyxml_syntax
 
 let make_html_attr_name name =
   let name =
@@ -91,5 +91,3 @@ and expr_mapper mapper e =
   | _ -> default_mapper.expr mapper e
 
 let mapper _ _ = { default_mapper with expr = expr_mapper }
-
-let () = Driver.register ~name:"tyxml_jsx" Versions.ocaml_405 mapper

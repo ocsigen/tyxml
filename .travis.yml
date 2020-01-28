@@ -5,7 +5,7 @@ services:
 - docker
 env:
   global:
-  - PINS="tyxml:. tyxml-ppx:. tyxml-jsx:."
+  - PINS="tyxml:. tyxml-ppx:. tyxml-jsx:. tyxml-syntax:."
   - DISTRO="debian-stable"
   matrix:
   - PACKAGE="tyxml" OCAML_VERSION="4.02.3"
