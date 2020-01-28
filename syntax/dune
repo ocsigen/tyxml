@@ -21,7 +21,6 @@
  (libraries re.str
             ppx_tools_versioned
             markup
-            tyxml.tools
  )
  (preprocess (pps ppx_tools_versioned.metaquot_405))
  (modules_without_implementation sigs_reflected)

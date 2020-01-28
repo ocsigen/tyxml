@@ -424,7 +424,7 @@ let variand s =
     String.sub s 1 (length - 1)
   in
 
-  s |> Tyxml_name.polyvar |> without_backtick
+  s |> Name_convention.polyvar |> without_backtick
 
 let variant ?separated_by:_ ?default:_ loc _ s =
   Some (Exp.variant ~loc (variand s) None)
