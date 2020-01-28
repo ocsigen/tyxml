@@ -217,7 +217,7 @@ let attribs = (
       ),
       (
         "output for",
-        [[<output for_=foo />]],
+        [[<output htmlFor=foo />]],
         [output_elt(~a=[a_output_for(["foo"])], [])],
       ),
       (
