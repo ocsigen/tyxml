@@ -11,6 +11,8 @@ let is_jsx e =
   in
   List.exists f e.pexp_attributes
 
+let lowercase_lead s =
+  String.mapi (fun i c -> if i = 0 then Char.lowercase_ascii c else c) s
 
 let to_kebab_case name =
   let length = String.length name in
@@ -19,7 +21,7 @@ let to_kebab_case name =
     match first with
     | "aria"
     | "data" ->
-      first ^ "-" ^ String.lowercase_ascii (String.sub name 4 (length - 4))
+      first ^ "-" ^ lowercase_lead (String.sub name 4 (length - 4))
     | _ -> name
   else
     name
@@ -118,29 +120,46 @@ and extract_attr = function
     error e.pexp_loc "Unexpected optional jsx attribute %s" name
 
 
-let guess_namespace ~loc lid =
-  match lid with
-  | Longident.Ldot (Lident "Html", name) -> (Html, name)
-  | Ldot (Lident "Svg", name) -> (Svg, name)
-  | Lident name -> begin
-    match Element.find_assembler (Html, name) with
-    | Some ("svg", _) -> Svg, name 
-    | Some _ -> Html, name
-    | None -> match Element.find_assembler (Svg, name) with
-      | Some _ -> Svg, name
-      | None -> Common.error loc "Unknown namespace for the element %s" name
-  end
-  | _ ->
-    Common.error loc "Invalid Tyxml tag %a" Pprintast.longident lid
 
-         
-let expr_mapper mapper e =
+let guess_namespace ~loc hint_lang lid =
+  let annotated_lang, name = match lid with
+    | Longident.Ldot (Ldot (Lident s, name), "createElement")
+      when String.lowercase_ascii s = "html"
+      -> Some Html, lowercase_lead name
+    | Ldot (Ldot (Lident s, name), "createElement")
+      when String.lowercase_ascii s = "svg"
+      -> Some Svg, lowercase_lead name
+    | Lident name ->
+      hint_lang, name
+    | _ ->
+      Common.error loc "Invalid Tyxml tag %a" Pprintast.longident lid
+  in
+  let parent_lang, elt =
+    match Element.find_assembler (Html, name),
+          Element.find_assembler (Svg, name),
+          annotated_lang
+    with
+    | _, Some ("svg", _), Some l -> l, (Svg, name)
+    | _, Some ("svg", _), None -> Svg, (Svg, name)
+    | Some _, None, _ -> Html, (Html, name)
+    | None, Some _, _ -> Svg, (Svg, name)
+    | Some _, Some _, Some lang -> lang, (lang, name)
+    | Some _, Some _, None ->
+      (* In case of doubt, use Html *)
+      Html, (Html, name)
+    | None, None, _ ->
+      Common.error loc "Unknown namespace for the element %s" name
+  in
+  parent_lang, elt
+
+
+let expr_mapper r mapper e =
   if not (is_jsx e) then default_mapper.expr mapper e
   else
     let loc = e.pexp_loc in
     match e with
     (* matches <> ... </>; *)
-    | [%expr []] 
+    | [%expr []]
     | [%expr [%e? _] :: [%e? _]] ->
       let l = extract_element_list mapper e in
       Common.list_wrap_value Common.Html loc l
@@ -148,17 +167,23 @@ let expr_mapper mapper e =
     | {pexp_desc = Pexp_apply
            ({ pexp_desc = Pexp_ident { txt }; _ }, args )}
       ->
-      let namespace, tag = guess_namespace ~loc txt in
+      let hint_lang = !r in
+      let parent_lang, name = guess_namespace ~loc hint_lang txt in
+      let lang = fst name in
+      r := Some lang;
       let attributes = filter_map extract_attr args in
       let children = extract_children mapper args in
-      Element.parse ~loc
-          ~parent_lang:namespace
-          ~name:(namespace, tag)
+      let e = Element.parse ~loc
+          ~parent_lang
+          ~name
           ~attributes
           children
+      in
+      r := hint_lang ;
+      e
      | _ -> default_mapper.expr mapper e
 
-let mapper _ _ = { default_mapper with expr = expr_mapper }
+let mapper _ _ = { default_mapper with expr = expr_mapper (ref None) }
 
 let () =
   Driver.register
