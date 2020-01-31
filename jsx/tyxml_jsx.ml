@@ -142,7 +142,8 @@ let guess_namespace ~loc hint_lang lid =
     | Lident name ->
       hint_lang, name
     | _ ->
-      Common.error loc "Invalid Tyxml tag %a" Pprintast.longident lid
+      Common.error loc "Invalid Tyxml tag %s"
+        (String.concat "." (Longident.flatten lid))
   in
   let parent_lang, elt =
     match Element.find_assembler (Html, name),
