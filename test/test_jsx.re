@@ -90,75 +90,63 @@ let attribs = (
   "ppx attribs",
   HtmlTests.make(
     Html.[
-      ("unit absent", [<div hidden />], [div(~a=[a_hidden()], [])]),
-      ("unit present", [<div hidden />], [div(~a=[a_hidden()], [])]),
-      (
-        "bool default",
-        [<div draggable />],
+      ( "unit",
+        [<div hidden="" />],
+        [div(~a=[a_hidden()], [])]
+      ),
+      ( "bool default",
+        [<div draggable="true" />],
         [div(~a=[a_draggable(true)], [])],
       ),
-      (
-        "bool true",
+      ( "bool true",
         [<div draggable=true />],
         [div(~a=[a_draggable(true)], [])],
       ),
-      (
-        "bool false",
+      ( "bool false",
         [<div draggable=false />],
         [div(~a=[a_draggable(false)], [])],
       ),
-      (
-        "onoff default",
-        [<form autocomplete />],
+      ( "onoff default",
+        [<form autocomplete="" />],
         [form(~a=[a_autocomplete(true)], [])],
       ),
-      (
-        "bool true",
-        [<form autocomplete=on />],
+      ( "bool true",
+        [<form autocomplete="on" />],
         [form(~a=[a_autocomplete(true)], [])],
       ),
-      (
-        "bool false",
-        [<form autocomplete=off />],
+      ( "bool false",
+        [<form autocomplete="off" />],
         [form(~a=[a_autocomplete(false)], [])],
       ),
-      (
-        "link rel=canonical",
-        [<link rel=`Canonical href="/" />],
+      ( "link rel=canonical",
+        [<link rel=[`Canonical] href="/" />],
         [link(~rel=[`Canonical], ~href="/", ())],
       ),
-      (
-        "embed type",
+      ( "embed type",
         [<embed type_="text/plain" />],
         [embed(~a=[a_mime_type("text/plain")], ())],
       ),
-      (
-        "output for",
-        [<output htmlFor=foo />],
+      ( "output for",
+        [<output htmlFor="foo" />],
         [output_elt(~a=[a_output_for(["foo"])], [])],
       ),
-      (
-        "input min time",
+      ( "input min time",
         [<input min="2002-10-02T15:00:00Z" />],
         [input(~a=[a_input_min(`Datetime("2002-10-02T15:00:00Z"))], ())],
       ),
-      (
-        "aria attributes",
-        [<div ariaHidden=true />],
+      ( "aria attributes",
+        [<div ariaHidden=["true"] />],
         [div(~a=[a_aria("hidden", ["true"])], [])],
       ),
-      (
-        "touch events",
+      ( "touch events",
         [<div ontouchstart="alert()" />],
         [div(~a=[a_ontouchstart("alert()")], [])],
       ),
-      (
-        "empty string as referrer policy",
+      ( "empty string as referrer policy",
         [<iframe referrerpolicy="" />],
         [iframe(~a=[a_referrerpolicy(`Empty)], [])],
       ),
-      (
-        "dashes in referrer policy",
+      ( "dashes in referrer policy",
         [<iframe referrerpolicy="no-referrer-when-downgrade" />],
         [iframe(~a=[a_referrerpolicy(`No_referrer_when_downgrade)], [])],
       ),
@@ -170,18 +158,22 @@ let ns_nesting = (
   "namespace nesting",
   HtmlTests.make(
     Html.[
-      ("html/svg", [<svg> <g /> </svg>], [svg([Svg.g([])])]),
-      (
-        "nested svg",
+      ( "html/svg",
+        [<Html.Svg> <g /> </Html.Svg>],
+        [svg([Svg.g([])])]
+      ),
+      ( "nested svg",
         [<div> <svg> <g /> </svg> </div>],
         [div([svg([Svg.g([])])])],
       ),
-      (
-        "with_neighbour",
-        [<div> <span /> <svg> <g /> </svg> foo </div>],
+      ( "with_neighbour",
+        [<div> <span /> <svg> <g /> </svg> "foo" </div>],
         [div([span([]), svg([Svg.g([])]), txt("foo")])],
       ),
-      ("ambiguous tag", [<svg> <a /> </svg>], [svg([Svg.a([])])]),
+      ( "ambiguous tag",
+        [<Html.Svg> <a /> </Html.Svg>],
+        [svg([Svg.a([])])]
+      ),
     ],
   ),
 );
@@ -190,9 +182,11 @@ let svg = (
   "svg",
   SvgTests.make(
     Svg.[
-      ("basic", [<svg />], [svg([])]),
-      (
-        "transform",
+      ( "basic",
+        [<Svg.Svg />],
+        [svg([])]
+      ),
+      ( "transform",
         [<line transform="translate(1) translate(2)" />],
         [
           line(
@@ -203,13 +197,11 @@ let svg = (
           ),
         ],
       ),
-      (
-        "offset percentage",
+      ( "offset percentage",
         [<stop offset="50.1%" />],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
-      (
-        "text x, y",
+      ( "text x, y",
         [<text x="1 2" y="3 4" />],
         [
           text(
@@ -221,8 +213,7 @@ let svg = (
           ),
         ],
       ),
-      (
-        "text dx, dy",
+      ( "text dx, dy",
         [<text dx="1 2" dy="3 4" />],
         [
           text(
@@ -343,26 +334,23 @@ let wrapping = {
     "wrapping",
     HtmlWrappedTests.make(
       Html.[
-        ("elem", !:[<p />], !:p(nil())),
-        ("child", !:[<p> <span /> </p>], !:p(span(nil()) @: nil())),
+        ("elem", !:(<p />), !:p(nil())),
+        ("child", !:(<p> <span /> </p>), !:p(span(nil()) @: nil())),
         (
           "list",
-          [<> <p /> <span> foo </span> </>],
+          <> <p /> <span> "foo" </span> </>,
           p(nil()) @: span(txt("foo"^) @: nil()) @: nil(),
         ),
-        ("attrib", !:[<p id=foo />], !:p(~a=[a_id("foo"^)], nil())),
+        ("attrib", !:(<p id="foo" />), !:p(~a=[a_id("foo"^)], nil())),
         (
           "attribs",
-          !:[<p id=foo className=bar />],
+          !:(<p id="foo" className="bar" />),
           !:p(~a=[a_id("foo"^), a_class(["bar"]^)], nil()),
         ),
-        /* Can this be done with jsx?
-           ("comment", !:[%html "<!--foo-->"], !:(tot @@ Xml.comment("foo"))),
-           */
-        ("txt", !:[<p> foo </p>], !:p(txt("foo"^) @: nil())),
+        ("txt", !:(<p> "foo" </p>), !:p(txt("foo"^) @: nil())),
         (
           "wrapped functions",
-          !:[<input method_=`Get />],
+          !:(<input method_="get" />),
           !:input(~a=[a_method(`Get^)], ()),
         ),
       ],
@@ -380,11 +368,16 @@ let antiquot = {
     "ppx antiquot",
     HtmlWrappedTests.make(
       Html.[
-        ("child", !:[<p> elt1 () </p>], !:p(elt1())),
-        ("list child", !:[<p> elt2 () </p>], !:p(elt2())),
-        (
-          "children",
-          !:[<p> bar elt1 () "foo" elt2 () baz </p>],
+        ( "child",
+          !:(<p> ...{elt1 ()} </p>),
+          !:p(elt1())
+        ),
+        ( "list child",
+          !:(<p> ...{elt2 ()} </p>),
+          !:p(elt2())
+        ),
+        /* ( "children",
+          !:(<p> "bar" elt1 () "foo" elt2 () "baz" </p>),
           !:
             p(
               txt("bar"^)
@@ -394,18 +387,26 @@ let antiquot = {
               @- txt("baz"^)
               @: nil(),
             ),
+        ), */
+        ( "insertion",
+          !:(<p> <em> ...{elt1 ()} </em> </p>),
+          !:p(!:em(elt1()))
         ),
-        ("insertion", !:[<p> <em> elt1 () </em> </p>], !:p(!:em(elt1()))),
         (
           "attrib",
-          !:[<p id> bla </p>],
+          !:(<p id> "bla" </p>),
           !:p(~a=[a_id(id)], !:txt("bla"^)),
         ),
-        ("first child", [(elt1())(<p />)], elt1() @- p(nil()) @: nil()),
-        ("last child", [<> <p /> {elt1()} </>], p(nil()) @: elt1()),
-        (
-          "wrapped functions",
-          !:[<input method=`Get />],
+        /* ( "first child",
+          <> ...{elt1()} <p /> </>,
+          elt1() @- p(nil()) @: nil()
+        ),
+        ( "last child",
+          <> <p /> ...{elt1()} </>,
+          p(nil()) @: elt1()
+        ), */
+        ( "wrapped functions",
+          !:(<input method="get" />),
           !:input(~a=[a_method(`Get^)], ()),
         ),
       ],
