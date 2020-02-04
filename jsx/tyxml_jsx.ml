@@ -6,7 +6,7 @@ open Tyxml_syntax
 
 let is_jsx e =
   let f = function
-    | ({ txt = "JSX"; loc = _ }, _) -> true
+    | { attr_name = {txt = "JSX"}} -> true
     | _ -> false
   in
   List.exists f e.pexp_attributes

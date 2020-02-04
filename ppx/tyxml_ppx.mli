@@ -24,8 +24,6 @@
     <<a_manual chapter="ppx"|here>>. %}
 *)
 
-open Migrate_parsetree.Ast_405
-
 type lang = Html | Svg
 
 val markup_to_expr :
