@@ -377,7 +377,7 @@ let antiquot = {
           !:p(elt2())
         ),
         /* ( "children",
-          !:(<p> "bar" elt1 () "foo" elt2 () "baz" </p>),
+          !:(<p> "bar" (elt1()) "foo" (elt2()) "baz" </p>),
           !:
             p(
               txt("bar"^)
@@ -414,6 +414,21 @@ let antiquot = {
   );
 };
 
+let foo (~children,()) = children
+
+let enable = (
+  "jsx basics",
+  [ ("enable jsx",
+     `Quick,
+     () =>
+       Alcotest.check
+         (Alcotest.list(Alcotest.string),"enable",
+          {module A = { [@tyxml.jsx false]; let a = <foo/> }; A.a},
+          [])
+    )
+  ]
+);
+
 let tests = [
   basics,
   attribs,
@@ -422,6 +437,7 @@ let tests = [
   svg,
   svg_element_names,
   wrapping,
+  enable
 ];
 
 let () = Alcotest.run("tyxml-ppx", tests);

@@ -163,9 +163,13 @@ let guess_namespace ~loc hint_lang lid =
   in
   parent_lang, elt
 
+type config = {
+  mutable lang : Common.lang option ;
+  mutable enabled : bool ;
+}
 
-let expr_mapper r mapper e =
-  if not (is_jsx e) then default_mapper.expr mapper e
+let expr_mapper c mapper e =
+  if not (is_jsx e) || not c.enabled then default_mapper.expr mapper e
   else
     let loc = e.pexp_loc in
     match e with
@@ -178,10 +182,10 @@ let expr_mapper r mapper e =
     | {pexp_desc = Pexp_apply
            ({ pexp_desc = Pexp_ident { txt }; _ }, args )}
       ->
-      let hint_lang = !r in
+      let hint_lang = c.lang in
       let parent_lang, name = guess_namespace ~loc hint_lang txt in
       let lang = fst name in
-      r := Some lang;
+      c.lang <- Some lang;
       let attributes = filter_map extract_attr args in
       let children = extract_children mapper args in
       let e = Element.parse ~loc
@@ -190,13 +194,35 @@ let expr_mapper r mapper e =
           ~attributes
           children
       in
-      r := hint_lang ;
+      c.lang <- hint_lang ;
       e
-     | _ -> default_mapper.expr mapper e
+    | _ -> default_mapper.expr mapper e
 
-let mapper _ _ = { default_mapper with expr = expr_mapper (ref None) }
+let stri_mapper c mapper stri = match stri.pstr_desc with
+  | Pstr_attribute
+      { attr_name = { txt = ("tyxml.jsx" | "tyxml.jsx.enable") as s } ;
+        attr_payload ; attr_loc ;
+      }
+    ->
+    begin match attr_payload with
+      | PStr [%str true] -> c.enabled <- true
+      | PStr [%str false] -> c.enabled <- false
+      | _ ->
+        Common.error
+          attr_loc
+          "Unexpected payload for %s. A boolean is expected." s
+    end ;
+    stri
+  | _ -> default_mapper.structure_item mapper stri
+
+let mapper _ _ =
+  let c = { lang = None; enabled = true } in
+  { default_mapper with
+    expr = expr_mapper c ;
+    structure_item = stri_mapper c ;
+  }
 
 let () =
   Driver.register
-    ~name:"tyxml-jsx" Versions.ocaml_405
+    ~name:"tyxml-jsx" Versions.ocaml_408
     mapper
