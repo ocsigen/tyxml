@@ -36,7 +36,7 @@ let to_kebab_case name =
   else
     name
 
-let make_html_attr_name name =
+let make_attr_name name =
   let name =
     match name with
     | "className" -> "class"
@@ -52,7 +52,7 @@ let make_html_attr_name name =
     | "method_" -> "method"
     | name -> to_kebab_case name
   in
-  Common.Html, name
+  name
 
 open Common
 
@@ -108,22 +108,22 @@ type attr = {
   a_loc: Location.t;
 }
 
-let rec extract_attr_value a_name a_value =
-  let a_name = make_html_attr_name a_name in
+let rec extract_attr_value ~lang a_name a_value =
+  let a_name = make_attr_name a_name in
   match a_value with
   | { pexp_desc = Pexp_constant (Pconst_string (attr_value, _));
       _;
     } ->
-    (a_name, Common.value attr_value)
+    ((lang, a_name), Common.value attr_value)
   | e ->
-    (a_name, Common.antiquot e)
+    ((lang, a_name), Common.antiquot e)
 
-and extract_attr = function
+and extract_attr ~lang = function
   (* Ignore last unit argument as tyxml api is pure *)
   | Nolabel, [%expr ()] -> None
   | Labelled "children", _ -> None
   | Labelled name, value ->
-    Some (extract_attr_value name value)
+    Some (extract_attr_value ~lang name value)
   | Nolabel, e ->
     error e.pexp_loc "Unexpected unlabeled jsx attribute"
   | Optional name, e ->
@@ -186,7 +186,7 @@ let expr_mapper c mapper e =
       let parent_lang, name = guess_namespace ~loc hint_lang txt in
       let lang = fst name in
       c.lang <- Some lang;
-      let attributes = filter_map extract_attr args in
+      let attributes = filter_map (extract_attr ~lang) args in
       let children = extract_children mapper args in
       let e = Element.parse ~loc
           ~parent_lang
