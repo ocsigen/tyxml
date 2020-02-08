@@ -17,9 +17,9 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
-let parse loc (ns, element_name) attributes =
-  let language, (module Reflected) =
-    Namespace.reflect loc ns in
+let parse loc (language, element_name) attributes =
+  let (module Reflected) =
+    Namespace.get language in
 
   (* For prefix ["prefix"] and attribute names ["prefix-foo"], evaluates to
      [Some "foo"], otherwise evaluates to [None].
@@ -45,7 +45,7 @@ let parse loc (ns, element_name) attributes =
     (* Convert the markup name of the attribute to a TyXML name without regard
        to renamed attributes such as "a_input_max." Renaming will be accounted
        for later. *)
-    let tyxml_name = Tyxml_name.attrib local_name in
+    let tyxml_name = Name_convention.attrib local_name in
 
     let test_labeled (e, a, _) = e = element_name && a = local_name in
     let test_blacklisted (a, _, _) = a = tyxml_name in

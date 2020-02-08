@@ -31,7 +31,7 @@ module AC = Ast_convenience
 
 
 let find_attr s l =
-  let f attr = (fst attr).txt = s in
+  let f attr = attr.attr_name.txt = s in
   try Some (List.find f l)
   with Not_found -> None
 
@@ -86,9 +86,9 @@ module FunTyp = struct
 
   let rec no_constructor_arguments = function
     | [] -> true
-    | (Rinherit _)::_
-    | (Rtag (_, _, _, _::_))::_ -> false
-    | (Rtag (_, _, _, []))::more -> no_constructor_arguments more
+    | {prf_desc = Rinherit _}::_
+    | {prf_desc = Rtag (_, _, _::_)}::_ -> false
+    | {prf_desc = Rtag (_, _, [])}::more -> no_constructor_arguments more
 
 
 (* Given the name of a TyXML attribute function and a list of its argument
@@ -232,7 +232,7 @@ let ocaml_attributes_to_renamed_attribute name attributes =
 
   match maybe_attribute with
   | None -> []
-  | Some ({loc}, payload) ->
+  | Some {attr_loc = loc; attr_payload = payload} ->
     let error () =
       Location.raise_errorf ~loc
         "Payload of [@@reflect.attribute] must be a string and a string list"
@@ -283,7 +283,7 @@ let val_item_to_element_info lang value_description =
 
   let maybe_assembler, real_name =
     match maybe_attribute with
-    | Some ({loc}, payload) ->
+    | Some { attr_loc = loc ; attr_payload = payload} ->
       let assembler, real_name = match payload with
         | PStr [%str [%e? assembler] [%e? name]] ->
           Ast_convenience.get_str assembler, Ast_convenience.get_str name
@@ -395,7 +395,7 @@ let reflected_variants = ref []
    accumulated in [reflected_variants]. This function is relevant for
    [html_types.mli]. *)
 let type_declaration mapper declaration =
-  let is_reflect attr = (fst attr).txt = "reflect.total_variant" in
+  let is_reflect attr = attr.attr_name.txt = "reflect.total_variant" in
   if List.exists is_reflect declaration.ptype_attributes then begin
     let name = declaration.ptype_name.txt in
 
@@ -403,8 +403,8 @@ let type_declaration mapper declaration =
     | Some {ptyp_desc = Ptyp_variant (rows, _, _); ptyp_loc} ->
       let rows =
         rows |> List.map (function
-          | Rtag (label, _, _, types) -> label, types
-          | Rinherit {ptyp_loc} ->
+          | {prf_desc = Rtag (label, _, types)} -> label, types
+          | {prf_desc = Rinherit {ptyp_loc}} ->
             Location.raise_errorf ~loc:ptyp_loc
               "Inclusion is not supported by [@@reflect.total_variant]")
       in
@@ -414,13 +414,13 @@ let type_declaration mapper declaration =
 
       let unary =
         match unary with
-        | [name, [[%type: string]]] -> name
+        | [name, [[%type: string]]] -> name.txt
         | _ ->
           Location.raise_errorf ~loc:ptyp_loc
             "Expected exactly one non-nullary constructor `C of string"
       in
 
-      let nullary = List.map fst nullary in
+      let nullary = List.map (fun ({txt},_) -> txt) nullary in
 
       reflected_variants := (name, (unary, nullary))::!reflected_variants
 
@@ -449,7 +449,6 @@ end
 
 (** Create a module based on the various things collected while reading the file. *)
 let emit_module () =
-  default_loc := Location.(in_file !input_name) ;
   begin if !attribute_parsers <> [] then [%str
     open Attribute_value
 
@@ -478,7 +477,7 @@ let emit_module () =
    and as second argument the name of the structure.
 
 *)
-let version =  Versions.ocaml_405
+let version =  Versions.ocaml_408
 
 let read_sig filename =
   Location.input_name := filename ;
@@ -512,6 +511,7 @@ let () =
 
   let in_file = Sys.argv.(1) in
   let out_file = Sys.argv.(2) in
+  Ast_helper.default_loc := Location.in_file in_file ;
 
   let lang =
     let basename = Filename.basename in_file in

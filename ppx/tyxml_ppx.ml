@@ -17,6 +17,8 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
+open Tyxml_syntax
+
 (* When dropping support for 4.02, this module can simply be deleted. *)
 module String = struct
   include String
@@ -27,6 +29,11 @@ open Asttypes
 open Parsetree
 
 type lang = Common.lang = Html | Svg
+let lang_of_ns loc ns =
+  if ns = Markup.Ns.html || ns = "" then Common.Html
+  else if ns = Markup.Ns.svg then Common.Svg
+  else Common.error loc "Unknown namespace %s" ns
+
 
 module Loc = struct
 
@@ -224,7 +231,8 @@ let make_text ~loc ~lang ss =
   in
   aux ~loc [] @@ Re.split_full Antiquot.re_id @@ String.concat "" ss
 
-let replace_attribute ~loc (attr,value) =
+let replace_attribute ~loc ((ns,attr_name),value) =
+  let attr = (lang_of_ns loc ns, attr_name) in
   Antiquot.assert_no_antiquot ~loc "attribute" attr ;
   match Antiquot.contains loc value with
   | `No -> (attr, Common.value value)
@@ -314,8 +322,9 @@ let markup_to_expr lang loc expr =
       let node = make_text ~loc ~lang ss in
       assemble lang (node @ children)
 
-    | Some (`Start_element (name, attributes)) ->
-      let newlang = Namespace.to_lang loc @@ fst name in
+    | Some (`Start_element ((ns, elt_name), attributes)) ->
+      let newlang = lang_of_ns loc ns in
+      let name = (newlang, elt_name) in
       let loc = get_loc () in
 
       let sub_children = assemble newlang [] in

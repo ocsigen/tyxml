@@ -15,3 +15,12 @@
  )
  (package tyxml-ppx)
 )
+
+(alias
+ (name runtest)
+ (deps
+   mini_website_jsx/index.html
+   basic_website_jsx/index.html
+ )
+ (package tyxml-jsx)
+)

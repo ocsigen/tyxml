@@ -149,28 +149,23 @@ let bool_exp loc b =
 (* Numeric. *)
 
 let char ?separated_by:_ ?default:_ loc name s =
-  let open Markup in
-  let open Markup.Encoding in
-
-  let report _ error =
-    Common.error loc "%s in attribute %s"
-      (Markup.Error.to_string error |> String.capitalize) name
-  in
-  let decoded = string s |> decode ~report utf_8 in
+  let encoding = `UTF_8 in (* OCaml source files are always in utf8 *)
+  let decoder = Uutf.decoder ~encoding (`String s) in
 
   let c =
-    match next decoded with
-    | None -> Common.error loc "No character in attribute %s" name
-    | Some i when i <= 255 -> Char.chr i
-    | Some _ ->
+    match Uutf.decode decoder with
+    | `End -> Common.error loc "No character in attribute %s" name
+    | `Uchar i when Uchar.is_char i -> Uchar.to_char i
+    | `Uchar _ ->
       Common.error loc "Character out of range in attribute %s" name
+    | `Await -> assert false
+    | `Malformed s ->
+      Common.error loc "Malformed character %s in attribute %s" s name
   in
-
-  begin match next decoded with
-  | None -> ()
-  | Some _ -> Common.error loc "Multiple characters in attribute %s" name
+  begin match Uutf.decode decoder with
+  | `End -> ()
+  | _ -> Common.error loc "Multiple characters in attribute %s" name
   end;
-
   Some (with_default_loc loc @@ fun () -> Ast_convenience.char c)
 
 let onoff ?separated_by:_ ?default:_ loc name s =
@@ -424,7 +419,7 @@ let variand s =
     String.sub s 1 (length - 1)
   in
 
-  s |> Tyxml_name.polyvar |> without_backtick
+  s |> Name_convention.polyvar |> without_backtick
 
 let variant ?separated_by:_ ?default:_ loc _ s =
   Some (Exp.variant ~loc (variand s) None)
@@ -554,7 +549,6 @@ let in_ = total_variant Svg_types_reflected.in_value
 let in2 = in_
 
 let xmlns ?separated_by:_ ?default:_ loc name s =
-  if s <> Markup.Ns.html then
-    Common.error loc "%s: namespace must be %s" name Markup.Ns.html;
-
+  if s <> "http://www.w3.org/1999/xhtml" then
+    Common.error loc "%s: namespace must be http://www.w3.org/1999/xhtml" name;
   Some [%expr `W3_org_1999_xhtml] [@metaloc loc]

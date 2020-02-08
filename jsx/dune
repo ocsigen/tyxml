@@ -1,11 +1,10 @@
 (library
- (name tyxml_ppx)
- (public_name tyxml-ppx.internal)
- (libraries re.str
-            ppx_tools_versioned
-            markup
+ (name tyxml_jsx)
+ (public_name tyxml-jsx)
+ (libraries ppx_tools_versioned
             tyxml-syntax
  )
+ (kind ppx_rewriter)
  (preprocess (pps ppx_tools_versioned.metaquot_408))
  (flags (:standard
          -safe-string

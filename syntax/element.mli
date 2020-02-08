@@ -17,14 +17,28 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
-let get : Common.lang -> (module Sigs_reflected.S) = function
-  | Html -> (module Html_sigs_reflected)
-  | Svg  -> (module Svg_sigs_reflected)
+(** Element parsing. *)
 
-let to_lang loc ns =
-  if ns = Markup.Ns.html then Common.Html
-  else if ns = Markup.Ns.svg then Common.Svg
-  else Common.error loc "Unknown namespace %s" ns
+val parse :
+  loc:Location.t ->
+  parent_lang:Common.lang ->
+  name:Common.name ->
+  attributes:(Common.name * string Common.value) list ->
+  Parsetree.expression Common.value list ->
+  Parsetree.expression
+(** [parse ~loc ~parent_lang ~name ~attributes children]
+    evaluates to a parse tree for applying the TyXML function corresponding
+    to element [name] to suitable arguments representing [attributes] and
+    [children].
+*)
 
-let reflect loc ns =
-  let l = to_lang loc ns in (l, get l)
+val comment :
+  loc:Location.t ->
+  lang:Common.lang ->
+  string ->
+  Parsetree.expression
+(** [comment ~loc ~ns s] evaluates to a parse tree that represents an XML comment. *)
+
+val find_assembler :
+  Common.name -> 
+  (string * Element_content.assembler) option
