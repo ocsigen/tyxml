@@ -17,6 +17,7 @@ build: [
 depends: [
   "ocaml" {>= "4.02"}
   "dune"
+  "re" {>= "1.5.0"}
   "alcotest" {with-test}
   "ppx_tools_versioned"
 ]
