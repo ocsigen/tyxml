@@ -440,4 +440,4 @@ let tests = [
   enable
 ];
 
-let () = Alcotest.run("tyxml-ppx", tests);
+let () = Alcotest.run("tyxml-jsx", tests);

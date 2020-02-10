@@ -20,4 +20,4 @@ let tests = [
   svg_attributes ;
 ]
 
-let () = Alcotest.run "tyxml" tests
+let () = Alcotest.run "tyxml-svg" tests
