@@ -1,6 +1,6 @@
 open Tyxml;
 
-let this_title = Html.txt("Your Cool Web Page");
+let this_title = "Your Cool Web Page";
 
 let image_box = <div id="image_box" />;
 
@@ -34,13 +34,9 @@ let content_box =
 let main_script = <script src="main.js"> "" </script>;
 
 let home_page_doc =
-  <html>
-    <head>
-      <title> this_title </title>
-      <link rel="stylesheet" href="home.css" />
-    </head>
-    <body> image_box content_box main_script </body>
-  </html>;
+  <Home_page title=this_title>
+    image_box content_box main_script
+  </Home_page>;
 
 // The set of pages in your website.
 let pages = [("index.html", home_page_doc)];
