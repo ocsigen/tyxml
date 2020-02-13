@@ -131,7 +131,7 @@ and extract_attr ~lang = function
 
 
 
-let guess_namespace ~loc hint_lang lid =
+let classify_name ~loc hint_lang lid =
   let annotated_lang, name = match lid with
     | Longident.Ldot (Ldot (Lident s, name), "createElement")
       when String.lowercase_ascii s = "html"
@@ -163,6 +163,27 @@ let guess_namespace ~loc hint_lang lid =
   in
   parent_lang, elt
 
+let is_homemade_component lid = match lid with
+  | Longident.Ldot (( Lident s | Ldot (_, s)), "createElement") ->
+    String.lowercase_ascii s <> "svg"
+    && String.lowercase_ascii s <> "Html"
+    && let c = s.[0] in 'A' <= c && c <= 'Z'
+  | _ -> false
+
+let mk_component ~lang ~loc f attrs children =
+  let children = match children with
+    | [] -> []
+    | l -> [Labelled "children",  Common.list_wrap_value lang loc l]
+  in
+  let mk_attr ((_ns, name), v) =
+    Labelled name, match v with
+    | Common.Val s -> Common.string loc s
+    | Common.Antiquot e -> e
+  in
+  let attrs = List.map mk_attr attrs in
+  let args = attrs @ children @ [Nolabel,[%expr ()]] in
+  Ast_helper.Exp.apply ~loc f args
+  
 type config = {
   mutable lang : Common.lang option ;
   mutable enabled : bool ;
@@ -178,12 +199,26 @@ let expr_mapper c mapper e =
     | [%expr [%e? _] :: [%e? _]] ->
       let l = extract_element_list mapper e in
       Common.list_wrap_value Common.Html loc l
+    (* matches <Component foo={bar}> child1 child2 </div>; *)
+    | {pexp_desc = Pexp_apply
+           ({ pexp_desc = Pexp_ident { txt }; _ } as f_expr, args )}
+      when is_homemade_component txt
+      ->
+      let lang = match c.lang with
+        | Some l -> l | None -> Common.Html
+      in
+      let attributes = filter_map (extract_attr ~lang) args in
+      let children = extract_children mapper args in
+      let e =
+        mk_component ~loc ~lang f_expr attributes children
+      in
+      e
     (* matches <div foo={bar}> child1 child2 </div>; *)
     | {pexp_desc = Pexp_apply
            ({ pexp_desc = Pexp_ident { txt }; _ }, args )}
       ->
       let hint_lang = c.lang in
-      let parent_lang, name = guess_namespace ~loc hint_lang txt in
+      let parent_lang, name = classify_name ~loc hint_lang txt in
       let lang = fst name in
       c.lang <- Some lang;
       let attributes = filter_map (extract_attr ~lang) args in
