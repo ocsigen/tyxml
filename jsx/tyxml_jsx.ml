@@ -136,7 +136,13 @@ let classify_name ~loc hint_lang lid =
     | Longident.Ldot (Ldot (Lident s, name), "createElement")
       when String.lowercase_ascii s = "html"
       -> Some Html, lowercase_lead name
+    | Longident.Ldot (Lident s, name)
+      when String.lowercase_ascii s = "html"
+      -> Some Html, lowercase_lead name
     | Ldot (Ldot (Lident s, name), "createElement")
+      when String.lowercase_ascii s = "svg"
+      -> Some Svg, lowercase_lead name
+    | Longident.Ldot (Lident s, name)
       when String.lowercase_ascii s = "svg"
       -> Some Svg, lowercase_lead name
     | Lident name ->
