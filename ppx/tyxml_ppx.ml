@@ -206,11 +206,6 @@ end
 
 (** Building block to rebuild the output with expressions intertwined. *)
 
-let make_txt ~loc ~lang s =
-  let txt = Common.make ~loc lang "txt" in
-  let arg = Common.wrap lang loc @@ Common.string loc s in
-  Ast_helper.Exp.apply ~loc txt [Common.Label.nolabel, arg]
-
 (** Walk the text list to replace placeholders by OCaml expressions when
     appropriate. Use {!make_txt} on the rest. *)
 let make_text ~loc ~lang ss =
@@ -218,7 +213,7 @@ let make_text ~loc ~lang ss =
   let push_txt buf l =
     let s = Buffer.contents buf in
     Buffer.clear buf ;
-    if s = "" then l else Common.value (make_txt ~loc ~lang s) :: l
+    if s = "" then l else Common.value (Common.txt ~loc ~lang s) :: l
   in
   let rec aux ~loc res = function
     | [] -> push_txt buf res

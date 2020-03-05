@@ -217,6 +217,17 @@ let datalist ~lang ~loc ~name children =
 
   children::(nullary ~lang ~loc ~name [])
 
+
+let script ~lang ~loc ~name children =
+  match children with
+  | [] ->
+    let child = Common.txt ~loc ~lang "" in
+    [Common.Label.Nolabel, child]
+  | [child] ->
+    let child = Common.wrap_value lang loc child in
+    [Common.Label.nolabel, child]
+  | _ -> Common.error loc "%s can have at most one child" name
+
 let details ~lang ~loc ~name children =
   let summary, others = partition (html "summary") children in
 

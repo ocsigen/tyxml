@@ -65,3 +65,6 @@ val list_wrap_value :
 
 
 val error : Location.t -> ('b, Format.formatter, unit, 'a) format4 -> 'b
+
+val txt :
+  loc:Location.t -> lang:lang -> string -> Parsetree.expression

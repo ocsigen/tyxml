@@ -77,6 +77,7 @@ val fieldset : assembler
 val datalist : assembler
 val details : assembler
 val menu : assembler
+val script : assembler
 
 (** {1 Misc utilities} *)
 

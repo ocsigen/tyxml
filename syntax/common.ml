@@ -148,3 +148,8 @@ let wrap implementation loc e =
 let wrap_value lang loc = function
   | Val x -> wrap lang loc x
   | Antiquot e -> add_constraints ~list:false lang e
+
+let txt ~loc ~lang s =
+  let txt = make ~loc lang "txt" in
+  let arg = wrap lang loc @@ string loc s in
+  Ast_helper.Exp.apply ~loc txt [Label.nolabel, arg]
