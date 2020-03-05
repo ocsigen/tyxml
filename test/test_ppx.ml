@@ -156,6 +156,22 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<source src="foo.mp3" type="audio/mpeg"/>|}]],
   [source ~a:[a_src "foo.mp3"; a_mime_type "audio/mpeg"] ()]
     
+  "table with body",
+  [[%html "<table><tbody></tbody></table>"]],
+  [tablex [tbody []]];
+
+  "table with antiquot body",
+  [[%html "<table>"[tbody []]"</table>"]],
+  [tablex [tbody []]];
+
+  "table with tr",
+  [[%html "<table><tr></tr></table>"]],
+  [tablex [tbody [tr[]]]];
+
+  "table with antiquot tr",
+  [[%html "<table><tbody>"[tr []]"</tbody></table>"]],
+  [tablex [tbody [tr[]]]];
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[

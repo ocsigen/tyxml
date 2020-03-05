@@ -298,16 +298,22 @@ let markup_to_expr lang loc expr =
 
   let input_stream, adjust_location = ast_to_stream expr in
 
+  let report loc error = 
+    match error with
+    | `Bad_content _ -> ()
+    | _ ->
+
+      let loc = adjust_location loc in
+      let message =
+        Markup.Error.to_string error |> String.capitalize_ascii
+      in
+      Common.error loc "%s" message
+  in
   let parser =
     Markup.parse_html
       ?context
       ~encoding:Markup.Encoding.utf_8
-      ~report:(fun loc error ->
-        let loc = adjust_location loc in
-        let message =
-          Markup.Error.to_string error |> String.capitalize_ascii
-        in
-        Common.error loc "%s" message)
+      ~report
       input_stream
   in
   let signals = Markup.signals parser in
