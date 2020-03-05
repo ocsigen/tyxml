@@ -301,6 +301,8 @@ struct
   let a_crossorigin x =
     user_attrib C.string_of_big_variant "crossorigin" x
 
+  let a_integrity = string_attrib "integrity"
+
   let a_mediagroup = string_attrib "mediagroup"
 
   let a_challenge = string_attrib "challenge"

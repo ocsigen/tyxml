@@ -273,6 +273,9 @@ module type T = sig
   val a_crossorigin :
     [< | `Anonymous | `Use_credentials ] wrap -> [> | `Crossorigin ] attrib
 
+  val a_integrity :
+    string wrap -> [> | `Integrity ] attrib
+
   val a_mediagroup : string wrap -> [> | `Mediagroup ] attrib
 
   val a_challenge : text wrap -> [> | `Challenge] attrib
@@ -1048,6 +1051,7 @@ module type T = sig
 
   val script :
     ([< | script_attrib], [< | script_content_fun], [> | script]) unary
+  [@@reflect.element "script"]
 
   val noscript :
     ([< | noscript_attrib], [< | noscript_content_fun], [> | noscript]) star
