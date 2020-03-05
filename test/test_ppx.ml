@@ -154,7 +154,7 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "type in source",
   [[%html {|<source src="foo.mp3" type="audio/mpeg"/>|}]],
-  [source ~a:[a_src "foo.mp3"; a_mime_type "audio/mpeg"] ()]
+  [source ~a:[a_src "foo.mp3"; a_mime_type "audio/mpeg"] ()];
     
   "table with body",
   [[%html "<table><tbody></tbody></table>"]],
