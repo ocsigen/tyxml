@@ -31,7 +31,7 @@ let common_nav = Html.nav([links_box]);
 let content_box =
   <div id="content_box"> common_nav main_payload common_footer </div>;
 
-let main_script = <script src="main.js"> "" </script>;
+let main_script = <script src="main.js"></script>;
 
 let home_page_doc =
   <Home_page title=this_title>
