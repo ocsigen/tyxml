@@ -14,7 +14,7 @@ open Tyxml
 let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 ```
 
-Finally, TyXML can be used with Reason's JSX syntax: 
+Finally, TyXML can be used with Reason's JSX syntax:
 
 ```reason
 open Tyxml;
