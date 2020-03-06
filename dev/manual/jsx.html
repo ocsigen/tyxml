@@ -48,7 +48,7 @@ We are looking for beta-tester and contributors.
 while still enjoying the benefits and type-safety of TyXML.
 It is available as the <span class="monospace">tyxml-jsx</span> package:
 </p><pre><code>opam install tyxml-jsx</code></pre><h2 id="syntax"> Syntax  <a class="backref" href="#syntax">&#182;</a></h2><p>This syntax should be familiar to most Reason users:
-</p><pre class="manually-translated"><code class="language-reason"># open Tyxml;
+</p><pre class=""><code class="language-ocaml translatable"># open Tyxml;
 
 # let intro = &lt;span id=&quot;hello&quot;&gt; &quot;Hello!&quot; &lt;/span&gt;;
 let intro: Tyxml_html.elt([&gt; Html_types.span ]) =
@@ -58,15 +58,15 @@ let intro: Tyxml_html.elt([&gt; Html_types.span ]) =
 let svgpath: Tyxml_svg.elt([&gt; Svg_types.path ]) =
   &lt;path d=&quot;M 0 1 L 1 0&quot;&gt;&lt;/path&gt;;</code></pre><p>The quotations will use the <span class="teletype">Html</span> and <span class="teletype">Svg</span> module that are available in scope, but it can also be disambiguated manually by prefixing the namespace.
 </p><p>We can also build list of elements:
-</p><pre class="manually-translated"><code class="language-reason"># let nice_picture = &lt;&gt; &lt;p&gt;&quot;picture: &quot;&lt;/p&gt; &lt;Html.svg&gt; svgpath &lt;/Html.svg&gt; &lt;/&gt; ;
+</p><pre class=""><code class="language-ocaml translatable"># let nice_picture = &lt;&gt; &lt;p&gt;&quot;picture: &quot;&lt;/p&gt; &lt;Html.svg&gt; svgpath &lt;/Html.svg&gt; &lt;/&gt; ;
 let nice_picture: list(Tyxml_html.elt([&gt; `P | `Svg ])) =
   [&lt;p&gt;picture: &lt;/p&gt;,
    &lt;svg&gt;&lt;path d=&quot;M 0 1 L 1 0&quot;&gt;&lt;/path&gt;&lt;/svg&gt;];</code></pre><p>We can nest various elements and use spreads:
-</p><pre class="manually-translated"><code class="language-reason"># let content = &lt;&gt; intro &lt;div class_=&quot;content&quot;&gt; ...nice_picture &lt;/div&gt; &lt;/&gt;;
+</p><pre class=""><code class="language-ocaml translatable"># let content = &lt;&gt; intro &lt;div class_=&quot;content&quot;&gt; ...nice_picture &lt;/div&gt; &lt;/&gt;;
 let content: list(Tyxml_html.elt([&gt; `Div | `Span ])) =
   [&lt;span id=&quot;hello&quot;&gt;Hello!&lt;/span&gt;,
    &lt;div class=&quot;content&quot;&gt;&lt;p&gt;picture: &lt;/p&gt;&lt;svg&gt;&lt;path d=&quot;M 0 1 L 1 0&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/div&gt;];</code></pre><p>Finally, we can insert custom elements:
-</p><pre class="manually-translated"><code class="language-reason"># module Page = {
+</p><pre class=""><code class="language-ocaml translatable"># module Page = {
   let createElement = (~title, ~children, ()) =&gt; {
     &lt;html&gt;
       &lt;head&gt;
