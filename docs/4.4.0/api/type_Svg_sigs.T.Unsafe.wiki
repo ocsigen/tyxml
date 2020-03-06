@@ -1,0 +1,20 @@
+<<code language="ocaml" | sig
+  val data : string Svg_sigs.T.wrap -> 'a Svg_sigs.T.elt
+  val node :
+    string ->
+    ?a:'a Svg_sigs.T.attrib list ->
+    'b Svg_sigs.T.elt Svg_sigs.T.list_wrap -> 'c Svg_sigs.T.elt
+  val leaf :
+    string -> ?a:'a Svg_sigs.T.attrib list -> unit -> 'b Svg_sigs.T.elt
+  val coerce_elt : 'a Svg_sigs.T.elt -> 'b Svg_sigs.T.elt
+  val string_attrib :
+    string -> string Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+  val float_attrib : string -> float Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+  val int_attrib : string -> int Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+  val uri_attrib :
+    string -> Svg_sigs.T.uri Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+  val space_sep_attrib :
+    string -> string list Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+  val comma_sep_attrib :
+    string -> string list Svg_sigs.T.wrap -> 'a Svg_sigs.T.attrib
+end >>

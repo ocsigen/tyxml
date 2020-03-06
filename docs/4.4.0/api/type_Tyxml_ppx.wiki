@@ -1,0 +1,7 @@
+<<code language="ocaml" | sig
+  type lang = Html | Svg
+  val markup_to_expr :
+    Tyxml_ppx.lang ->
+    Location.t -> Parsetree.expression list -> Parsetree.expression
+  val mapper : 'a -> 'b -> Ast_mapper.mapper
+end >>
