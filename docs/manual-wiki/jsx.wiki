@@ -11,7 +11,7 @@ opam install tyxml-jsx
 
 This syntax should be familiar to most Reason users:
 
-<<code language="reason"|
+<<code language="ocaml"|
 # open Tyxml;
 
 # let intro = <span id="hello"> "Hello!" </span>;
@@ -27,7 +27,7 @@ The quotations will use the {{{Html}}} and {{{Svg}}} module that are available i
 
 We can also build list of elements:
 
-<<code language="reason"|
+<<code language="ocaml"|
 # let nice_picture = <> <p>"picture: "</p> <Html.svg> svgpath </Html.svg> </> ;
 let nice_picture: list(Tyxml_html.elt([> `P | `Svg ])) =
   [<p>picture: </p>,
@@ -36,7 +36,7 @@ let nice_picture: list(Tyxml_html.elt([> `P | `Svg ])) =
 
 We can nest various elements and use spreads:
 
-<<code language="reason"|
+<<code language="ocaml"|
 # let content = <> intro <div class_="content"> ...nice_picture </div> </>;
 let content: list(Tyxml_html.elt([> `Div | `Span ])) =
   [<span id="hello">Hello!</span>,
@@ -44,7 +44,7 @@ let content: list(Tyxml_html.elt([> `Div | `Span ])) =
 >>
 
 Finally, we can insert custom elements:
-<<code language="reason"|
+<<code language="ocaml"|
 # module Page = {
   let createElement = (~title, ~children, ()) => {
     <html>
