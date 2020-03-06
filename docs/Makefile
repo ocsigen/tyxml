@@ -6,10 +6,9 @@ PKGS=\
   -package ppx_tools_versioned
 
 INCS=\
-	-I ${BLD}/lib/.*.objs \
-	-I ${BLD}/implem/.*.objs \
-	-I ${BLD}/tools/.*.objs \
-	-I ${BLD}/tools/.*.objs
+	-I ${BLD}/lib/.*.objs/byte \
+	-I ${BLD}/implem/.*.objs/byte \
+	-I ${BLD}/tools/.*.objs/byte
 
 MLIS=\
   $(wildcard ${SRC}/lib/*.mli) \
@@ -35,5 +34,5 @@ api/wiki/index.wiki: ${MLIS} indexdoc
 		-i $(shell ocamlfind query wikidoc) -g odoc_wiki.cma \
 		${MLIS}
 
-clear:
-	rm -rf api
+clean:
+	rm -rf html api

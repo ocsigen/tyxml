@@ -16,3 +16,4 @@ _tests
 *.install
 docs/api/
 _opam
+_wikidoc
