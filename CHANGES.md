@@ -1,11 +1,25 @@
-# dev
+# 4.4.0
 
+* Add support for Reason's JSX syntax with a new `tyxml-jsx` package 
+  (#254 by Joris Giovannangeli and Gabriel Radanne
+   with help from Ulrik Strid and Louis Roché)
 * Modernize the handling of toplevel printers for utop.
+  (Gabriel Radanne)
 
 ## Elements and attributes
 
-* Add allowfullscreen, allowpaymentrequest, referrerpolicy attributes (#242 by Thibault Suzanne)
-* Allow crossorigin attribute for script element (#243 by Thibault Suzanne)
+* Add `allowfullscreen`, `allowpaymentrequest`, `referrerpolicy` attributes 
+  (#242 by Thibault Suzanne)
+* Allow `crossorigin` attribute for script element
+  (#243 by Thibault Suzanne)
+* Greatly improved support of whitespaces in the PPX
+  (#225 by Jules Aguillon)
+* Add preliminary support for ARIA attributes
+  (#253 by Stéphane Legrand and Gabriel Radanne)
+* Add `template` element
+  (#239 Stéphane Legrand)
+
+* Several bug fixes for types and PPX
 
 # 4.3.0
 
