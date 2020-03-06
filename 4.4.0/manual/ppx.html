@@ -1,0 +1,81 @@
+<html><head><title> TyXML Ppx syntax extension </title><meta charset="utf8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><link rel="stylesheet" href="https://ocsigen.org/css/style.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism.min.css"/><script type="text/javascript" src="https://ocsigen.org/js/client.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-core.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-ocaml.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-clike.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-reason.min.js">
+//<![CDATA[
+
+//]]>
+</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js">
+//<![CDATA[
+
+//]]>
+</script></head><body class="ppx tyxml"><div class="project-page"><div class="page-header"><p class="logo-ocsigen"><a href=".././../../" class="ocsimore_phrasing_link"><img src=".././../../img/ocsigen-white.svg" alt="Ocsigen"/></a>
+</p><p class="logo-subproject">Tyxml</p><div class="mainmenu"><p class="mainmenu-home"><a href=".././../../" class="ocsimore_phrasing_link">Home</a></p><p class="mainmenu-doc"><a href=".././../../tuto/" class="ocsimore_phrasing_link">Doc</a></p><p><a href=".././../../eliom/" class="ocsimore_phrasing_link">Eliom</a></p><p><a href=".././../../js_of_ocaml/" class="ocsimore_phrasing_link">Js_of_ocaml</a></p><p><a href=".././../../lwt/" class="ocsimore_phrasing_link">Lwt</a></p><p class="mainmenu-current"><a href=".././../../tyxml/" class="ocsimore_phrasing_link">Tyxml</a></p><p><a href=".././../../ocsigen-start/" class="ocsimore_phrasing_link">Start</a></p></div><form id="googlesearch" action="https://google.com/search"><input name="q" id="gsearch-box" placeholder="Search using Google"/><label for="gsearch-box"><img src="/img/search.svg" alt="" id="gsearch-icon"/></label><input type="submit" id="gsearch-submit" onclick="document.getElementById('gsearch-box').value += ' site:ocsigen.org';"/></form><aside class="how-drawer"><input id="how-drawer-toggle" type="checkbox"/><label for="how-drawer-toggle" id="how-drawer-label"><span class="how-drawer-icon"></span></label><nav class="how-drawer-content"><ul class="drawermainmenu"><li class="drawermainmenu-home"><a href=".././../../" class="ocsimore_phrasing_link">Home</a>
+</li><li class="drawermainmenu-doc"><a href=".././../../tuto/" class="ocsimore_phrasing_link">Doc</a>
+</li><li class="drawermainmenu-project"><a href=".././../../eliom/" class="ocsimore_phrasing_link">Eliom</a>
+</li><li class="drawermainmenu-project"><a href=".././../../js_of_ocaml/" class="ocsimore_phrasing_link">Js_of_ocaml</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigenserver/" class="ocsimore_phrasing_link">Server</a>
+</li><li class="drawermainmenu-project"><a href=".././../../lwt/" class="ocsimore_phrasing_link">Lwt</a>
+</li><li class="drawermainmenu-project"><a href=".././../../tyxml/" class="ocsimore_phrasing_link">Tyxml</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigen-toolkit/" class="ocsimore_phrasing_link">Toolkit</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsigen-start/" class="ocsimore_phrasing_link">Start</a>
+</li><li class="drawermainmenu-project"><a href=".././../../html_of_wiki/" class="ocsimore_phrasing_link">html_of_wiki</a>
+</li><li class="drawermainmenu-project"><a href=".././../../deriving/" class="ocsimore_phrasing_link">deriving</a>
+</li><li class="drawermainmenu-project"><a href=".././../../ocsimore/" class="ocsimore_phrasing_link">Ocsimore (<em>deprecated</em>)</a>
+</li><li class="drawermainmenu-page"><a href=".././../../projects" class="ocsimore_phrasing_link">Other projects</a>
+</li><li class="drawermainmenu-page"><a href=".././../../papers" class="ocsimore_phrasing_link">Research papers</a>
+</li><li class="drawermainmenu-page"><a href=".././../../credits" class="ocsimore_phrasing_link">Who does Ocsigen?</a>
+</li><li class="drawermainmenu-page"><a href=".././../../contributing" class="ocsimore_phrasing_link">Contributing</a>
+</li><li class="drawermainmenu-page"><a href=".././../../blog" class="ocsimore_phrasing_link">Blog</a>
+</li><li class="drawermainmenu-page"><a href=".././../../install" class="ocsimore_phrasing_link">Installation</a>
+</li><li class="drawermainmenu-page"><a href="https://github.com/ocsigen" class="ocsimore_phrasing_link">Source code</a>
+</li></ul><nav class="how-doctree"><h1>TyXML – Manual</h1><h2><a href="intro" class="ocsimore_phrasing_link">Introduction</a></h2><h2><a href="functors" class="ocsimore_phrasing_link">Functorial interface</a></h2><h2><a href="ppx" class="ocsimore_phrasing_link">Ppx syntax extension</a></h2><h2><a href="jsx" class="ocsimore_phrasing_link">JSX syntax</a></h2><h1>Main modules </h1><h2><a href=".././api/Tyxml" class="ocsimore_phrasing_link">Tyxml</a></h2><h2><a href=".././api/Tyxml.Html" class="ocsimore_phrasing_link">Tyxml.Html</a></h2><h2><a href=".././api/Tyxml.Svg" class="ocsimore_phrasing_link">Tyxml.Svg</a></h2><h1>Types and signatures</h1><h2><a href=".././api/Html_sigs" class="ocsimore_phrasing_link">Html_sigs</a></h2><h2><a href=".././api/Html_types" class="ocsimore_phrasing_link">Html_types</a></h2><h2><a href=".././api/Svg_sigs" class="ocsimore_phrasing_link">Svg_sigs</a></h2><h2><a href=".././api/Svg_types" class="ocsimore_phrasing_link">Svg_types</a></h2><h1>TyXML Functors </h1><h2><a href=".././api/Html_f" class="ocsimore_phrasing_link">Html_f</a></h2><h2><a href=".././api/Svg_f" class="ocsimore_phrasing_link">Svg_f</a></h2><h2><a href=".././api/Xml_sigs" class="ocsimore_phrasing_link">Xml_sigs</a></h2><h2><a href=".././api/Xml_wrap" class="ocsimore_phrasing_link">Xml_wrap</a></h2><h2><a href=".././api/Xml_iter" class="ocsimore_phrasing_link">Xml_iter</a></h2><h2><a href=".././api/Xml_print" class="ocsimore_phrasing_link">Xml_print</a></h2><h2><a href=".././api/Xml_stream" class="ocsimore_phrasing_link">Xml_stream</a></h2><h1>Ppx library</h1><h2><a href=".././api/Tyxml_ppx" class="ocsimore_phrasing_link">Tyxml_ppx</a></h2><h1>Indexes</h1><h2> <span><a href=".././api/index_types">Index of types</a></span></h2><h2> <span><a href=".././api/index_exceptions">Index of exceptions</a></span></h2><h2> <span><a href=".././api/index_values">Index of values</a></span></h2><h2> <span><a href=".././api/index_modules">Index of modules</a></span></h2><h2> <span><a href=".././api/index_module_types">Index of module types</a></span></h2></nav></nav></aside></div><p class="reasonwarning">Warning: Reason support is experimental.
+We are looking for beta-tester and contributors.
+</p><button id="reason">Switch to </button><div class="twocols"><nav class="leftcol">Version <select class="how-versions" onchange="location = this.value;"><option value=".././../2.0/manual/ppx">2.0</option><option value=".././../2.0.1/manual/ppx">2.0.1</option><option value=".././../2.0.2/manual/ppx">2.0.2</option><option value=".././../2.1/manual/ppx">2.1</option><option value=".././../2.2/manual/ppx">2.2</option><option value=".././../3.0/manual/ppx">3.0</option><option value=".././../3.2/manual/ppx">3.2</option><option value=".././../3.2.1/manual/ppx">3.2.1</option><option value=".././../3.3/manual/ppx">3.3</option><option value=".././../3.4/manual/ppx">3.4</option><option value=".././../3.5/manual/ppx">3.5</option><option value=".././../3.6/manual/ppx">3.6</option><option value=".././../4.0/manual/ppx">4.0</option><option value=".././../4.0.1/manual/ppx">4.0.1</option><option value=".././../4.1.0/manual/ppx">4.1.0</option><option value=".././../4.3.0/manual/ppx">4.3.0</option><option value=".././../4.4.0/manual/ppx" selected="selected">4.4.0</option><option value=".././../dev/manual/ppx">dev</option></select><nav class="how-doctree"><h1>TyXML – Manual</h1><h2><a href="intro" class="ocsimore_phrasing_link">Introduction</a></h2><h2><a href="functors" class="ocsimore_phrasing_link">Functorial interface</a></h2><h2><a href="ppx" class="ocsimore_phrasing_link">Ppx syntax extension</a></h2><h2><a href="jsx" class="ocsimore_phrasing_link">JSX syntax</a></h2><h1>Main modules </h1><h2><a href=".././api/Tyxml" class="ocsimore_phrasing_link">Tyxml</a></h2><h2><a href=".././api/Tyxml.Html" class="ocsimore_phrasing_link">Tyxml.Html</a></h2><h2><a href=".././api/Tyxml.Svg" class="ocsimore_phrasing_link">Tyxml.Svg</a></h2><h1>Types and signatures</h1><h2><a href=".././api/Html_sigs" class="ocsimore_phrasing_link">Html_sigs</a></h2><h2><a href=".././api/Html_types" class="ocsimore_phrasing_link">Html_types</a></h2><h2><a href=".././api/Svg_sigs" class="ocsimore_phrasing_link">Svg_sigs</a></h2><h2><a href=".././api/Svg_types" class="ocsimore_phrasing_link">Svg_types</a></h2><h1>TyXML Functors </h1><h2><a href=".././api/Html_f" class="ocsimore_phrasing_link">Html_f</a></h2><h2><a href=".././api/Svg_f" class="ocsimore_phrasing_link">Svg_f</a></h2><h2><a href=".././api/Xml_sigs" class="ocsimore_phrasing_link">Xml_sigs</a></h2><h2><a href=".././api/Xml_wrap" class="ocsimore_phrasing_link">Xml_wrap</a></h2><h2><a href=".././api/Xml_iter" class="ocsimore_phrasing_link">Xml_iter</a></h2><h2><a href=".././api/Xml_print" class="ocsimore_phrasing_link">Xml_print</a></h2><h2><a href=".././api/Xml_stream" class="ocsimore_phrasing_link">Xml_stream</a></h2><h1>Ppx library</h1><h2><a href=".././api/Tyxml_ppx" class="ocsimore_phrasing_link">Tyxml_ppx</a></h2><h1>Indexes</h1><h2> <span><a href=".././api/index_types">Index of types</a></span></h2><h2> <span><a href=".././api/index_exceptions">Index of exceptions</a></span></h2><h2> <span><a href=".././api/index_values">Index of values</a></span></h2><h2> <span><a href=".././api/index_modules">Index of modules</a></span></h2><h2> <span><a href=".././api/index_module_types">Index of module types</a></span></h2></nav></nav><article class="rightcol"><h1> TyXML Ppx syntax extension </h1><p>TyXML provides a ppx to allow writing HTML and SVG documents
+in the standard syntax while still enjoying the benefits and type-safety of TyXML.
+It is available as the <span class="monospace">tyxml-ppx</span> package:
+</p><pre><code>opam install tyxml-ppx</code></pre><h2 id="syntax"> Syntax  <a class="backref" href="#syntax">&#182;</a></h2><p>The ppx provides two quotations, <span class="monospace">html</span> and <span class="monospace">svg</span> (and two aliases, <span class="monospace">tyxml.html</span> and <span class="monospace">tyxml.svg</span>).
+</p><pre class=""><code class="language-ocaml translatable">open Tyxml ;;
+
+let content = [%html{|&lt;div id=&quot;content&quot;&gt;some content&lt;/div&gt;|}] ;;
+val content : [&gt; Html_types.div ] Html.elt
+
+let svgpath = [%svg{|&lt;path d=&quot;M 0 1 L 1 0&quot;&gt;&lt;/path&gt;|}] ;;
+val svgpath : [&gt; Svg_types.path ] Svg.elt</code></pre><p>The quotations will use the <span class="teletype">Html</span> and <span class="teletype">Svg</span> module that are available in scope. To use another module name, you can qualify the quotation:
+</p><pre class=""><code class="language-ocaml translatable">let content = [%html.F {|&lt;div id=&quot;content&quot;&gt;some content&lt;/div&gt;|}]
+val content : [&gt; Html_types.div ] F.elt</code></pre><p>A quotation containing multiple elements will automatically produce a list of elements:
+</p><pre class=""><code class="language-ocaml translatable">let my_text = [%html
+  {|This is an &lt;b&gt;HTML&lt;/b&gt; formated &lt;i&gt;content&lt;/i&gt;.|}]
+val my_text : [&gt; `B | `I | `PCDATA ] Html.elt list</code></pre><p>The produced elements can be used inside usual TyXML combinators:
+</p><pre class=""><code class="language-ocaml translatable">let my_span = Html.(span ~a:[a_class [&quot;mytext&quot;]] my_text)
+val my_span : [&gt; Html_types.span ] Html.elt</code></pre><p>It is also possible to use tyxml elements inside quotations using <span class="monospace">antiquotations</span>:
+</p><pre class=""><code class="language-ocaml translatable">let my_paragraphs =
+  [%html &quot;&lt;p&gt;&quot;[my_span]&quot;&lt;/p&gt;&lt;p&gt;more content&lt;/p&gt;&quot;]
+val my_paragraphs : [&gt; Html_types.p ] Html.elt list</code></pre><p>Note here that since <span class="monospace">p</span> expects a list of children (it's a  <span><a href=".././api/Html_sigs.T#VALstar">star</a></span> element), the antiquotation must be of type list, hence the use of <span class="monospace">[</span>, <span class="monospace">]</span>.
+</p><p>It is also possible to use antiquotations for attributes.
+</p><pre class=""><code class="language-ocaml translatable">let my_id = &quot;thediv&quot;
+let my_div = [%html &quot;&lt;div id=&quot;my_id&quot;&gt;&lt;/div&gt;&quot;]
+val my_div : [&gt; Html_types.div ] Html.elt</code></pre><h2 id="let"> Let notation <a class="backref" href="#let">&#182;</a></h2><p>It is also possible to use the ppx with the <span class="monospace">let</span> notation:
+</p><pre class=""><code class="language-ocaml translatable">let%html content = {|&lt;div id=&quot;content&quot;&gt;some content&lt;/div&gt;|} ;;
+val content : [&gt; Html_types.div ] Html.elt</code></pre><p>All the capabilities provided by the ppx are still available with this form. Additionally, the modifiers <span class="monospace">and</span> or <span class="monospace">rec</span> are available. It is also possible to create functions:
+</p><pre class=""><code class="language-ocaml translatable">let%html make_content id = &quot;&lt;div id=&quot;id&quot; &gt;some content&lt;/div&gt;&quot; ;;
+val make_content : string -&gt; [&gt; Html_types.div ] Html.elt</code></pre><h2 id="notes"> Notes <a class="backref" href="#notes">&#182;</a></h2><h3> Locations </h3><p>Due to the code transformations done by the ppx, proper locations are difficult to provide.
+Please report examples of badly located code on <a href="https://github.com/ocsigen/tyxml/issues" class="ocsimore_phrasing_link">the bug tracker</a>.
+</p><h3> Composability </h3><p>Due to various reasons, some <span class="monospace">HTML</span> can not be composed properly using the ppx. For example, this will result in an error:
+</p><pre class=""><code class="language-ocaml translatable">let my_title = [%html &quot;&lt;title&gt;The title&lt;/title&gt;&quot;]
+let my_head = [%html &quot;&lt;head&gt;&quot;my_title&quot;&lt;/head&gt;&quot;]</code></pre><p>You can, however, inline the title element inside the head element:
+</p><pre class=""><code class="language-ocaml translatable">let my_title = [%html &quot;The title&quot;]
+let my_head = [%html &quot;&lt;head&gt;&lt;title&gt;&quot;my_title&quot;&lt;/title&gt;&lt;/head&gt;&quot;]</code></pre></article></div></div></body></html>
