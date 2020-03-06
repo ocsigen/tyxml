@@ -15,8 +15,6 @@
 ==[[Xml_iter|Xml_iter]]
 ==[[Xml_print|Xml_print]]
 ==[[Xml_stream|Xml_stream]]
-=~Ppx library
-==[[Tyxml_ppx|Tyxml_ppx]]
 =~Indexes
 == <<a_api text="Index of types" | index types >>
 == <<a_api text="Index of exceptions" | index exceptions >>

@@ -70,19 +70,6 @@
 
 
 
-=@@id="1_Ppxlibrary"@@~Ppx library=
-
-
-
-
-|<<a_api | module Tyxml_ppx >>|<<div class="odocwiki_info"|~Ty~X~M~L ppx library~.
->>
-|
-
-
-
-
-
 =@@id="1_Indexes"@@~Indexes=
 
 
