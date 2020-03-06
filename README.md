@@ -14,9 +14,19 @@ open Tyxml
 let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 ```
 
-TyXML provides a set of combinators. These combinators use the OCaml type system
+Finally, TyXML can be used with Reason's JSX syntax: 
+
+```reason
+open Tyxml;
+let to_caml = <a href="ocaml.org"> "OCaml!" </a>
+```
+
+TyXML provides a set of combinators which use the OCaml type system
 to ensure the validity of the generated document.
-They are used in various libraries, such as [Eliom][] and [Js_of_ocaml][].
+TyXML can be used on a wide variety of context, either to produce
+textual documents, to manipulate
+the DOM tree using [Js_of_ocaml][], build virtual DOM with [virtual-dom][],
+or for tierless web programming with [Eliom][].
 
 The documentation can be consulted
 [on the TyXML website](https://ocsigen.org/tyxml/). Examples are
@@ -35,4 +45,9 @@ opam install tyxml
 To install the PPX:
 ```sh
 opam install tyxml-ppx
+```
+
+To install the JSX:
+```sh
+opam install tyxml-jsx
 ```
