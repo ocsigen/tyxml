@@ -22,7 +22,7 @@
     @see <http://www.w3.org/TR/html5/> W3C Recommendation *)
 
 (** Concrete implementation of Html typesafe constructors.
-    See {!modtype:Html_sigs.T}.
+    See {!module-type:Html_sigs.T}.
 *)
 include Html_sigs.Make(Tyxml_xml)(Tyxml_svg).T
   with module Xml.W = Xml_wrap.NoWrap

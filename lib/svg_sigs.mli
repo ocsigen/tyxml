@@ -1049,7 +1049,7 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 (** Signature functor for {!Svg_f.Make}. *)
 module Make (Xml : Xml_sigs.T) : sig
 
-  (** See {!modtype:Svg_sigs.T}. *)
+  (** See {!module-type:Svg_sigs.T}. *)
   module type T = T
     with type 'a Xml.W.t = 'a Xml.W.t
      and type 'a Xml.W.tlist = 'a Xml.W.tlist

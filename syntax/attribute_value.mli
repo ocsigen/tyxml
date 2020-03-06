@@ -145,15 +145,16 @@ val angle : parser
 (** Similar to [svg_length], but for SVG angles. *)
 
 val offset : parser
-(** [offset _ _ s produces a parse tree for
+(** [offset _ _ s] produces a parse tree for
 
     - [`Number n] if [s] = [string_of_float n], or
     - [`Percentage n] if [s] has form [(string_of_float n) ^ "%"]. *)
 
 val transform : parser
-(** Parses an SVG transform attribute value. See
-    {:{https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform}
-    transform (MDN)}. *)
+(** Parses an SVG transform attribute value. 
+
+    @see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform>
+*)
 
 
 

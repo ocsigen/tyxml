@@ -351,9 +351,8 @@ module type T = sig
   val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
 
   val a_referrerpolicy : referrerpolicy wrap -> [> `Referrerpolicy] attrib
-  (** @see
-     <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes>
-     Iframe HTML documentation. *)
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes>
+  *)
 
   val a_required : unit -> [> | `Required] attrib
 
@@ -665,7 +664,7 @@ module type T = sig
 
   val a_property : string wrap -> [> | `Property] attrib
 
-  (** {3 {{: https://www.w3.org/TR/wai-aria-1.1/} WAI-ARIA} support} *)
+  (** {3 ARIA support} *)
 
   (** {{: https://www.w3.org/TR/wai-aria-1.1/} WAI-ARIA} is a specification
       written by the W3C, defining a set of additional HTML attributes that can
@@ -1176,7 +1175,7 @@ module Make
     (Svg : Svg_sigs.T with module Xml := Xml) :
 sig
 
-  (** See {!modtype:Html_sigs.T}. *)
+  (** See {!module-type:Html_sigs.T}. *)
   module type T = T
     with type 'a Xml.W.t = 'a Xml.W.t
      and type 'a Xml.W.tlist = 'a Xml.W.tlist

@@ -399,7 +399,7 @@ type listed = [ | resetable | submitable | `Fieldset ]
 type formassociated = [ | listed | `Progress | `Meter | `Label ]
 
 type subressource_integrity = [ | `Crossorigin | `Integrity ]
-(** @see https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity *)
+(** @see <https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity> *)
 
 (** Transparent elements.
     Such elements have a part of they children in their data
