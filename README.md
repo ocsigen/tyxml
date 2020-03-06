@@ -34,6 +34,7 @@ available in the [examples](examples) directory.
 
 [Eliom]: https://ocsigen.org/eliom/manual/clientserver-html
 [Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/api/Tyxml_js
+[virtual-dom]: https://github.com/janestreet/virtual_dom
 
 ## Installation
 
