@@ -29,7 +29,7 @@ description:"""
 
 ```reason
 open Tyxml;
-let to_ocaml = <a href="ocaml.org"> "OCaml!" </a>;
+let to_reason = <a href="reasonml.github.io/"> "Reason!" </a>
 ```
 
 Allow to write any TyXML documents with reason's JSX syntax, from textual trees
