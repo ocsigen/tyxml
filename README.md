@@ -18,7 +18,7 @@ Finally, TyXML can be used with Reason's JSX syntax:
 
 ```reason
 open Tyxml;
-let to_caml = <a href="ocaml.org"> "OCaml!" </a>
+let to_reason = <a href="reasonml.github.io/"> "Reason!" </a>
 ```
 
 TyXML provides a set of combinators which use the OCaml type system
