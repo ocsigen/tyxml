@@ -84,6 +84,7 @@
   val a_externalRessourcesRequired :
     bool wrap -> [> `ExternalRessourcesRequired ] attrib
   val a_id : string wrap -> [> `Id ] attrib
+  val a_user_data : string -> string wrap -> [> `User_data ] attrib
   val a_xml_base : Svg_types.iri wrap -> [> `Xml_Base ] attrib
   val a_xml_lang : Svg_types.iri wrap -> [> `Xml_Lang ] attrib
   val a_xml_space : [< `Default | `Preserve ] wrap -> [> `Xml_Space ] attrib
@@ -750,10 +751,11 @@
     end
   val pp :
     ?encode:(string -> string) ->
-    ?indent:bool -> ?advert:string -> unit -> Format.formatter -> doc -> unit
+    ?indent:bool ->
+    ?advert:string -> unit -> Stdlib.Format.formatter -> doc -> unit
   val pp_elt :
     ?encode:(string -> string) ->
-    ?indent:bool -> unit -> Format.formatter -> 'a elt -> unit
+    ?indent:bool -> unit -> Stdlib.Format.formatter -> 'a elt -> unit
   module Make_printer :
     functor (O : Xml_sigs.Output) ->
       sig
@@ -761,4 +763,6 @@
         val print :
           ?encode:(string -> string) -> ?advert:string -> doc -> O.out
       end
+  val _pp : Stdlib.Format.formatter -> doc -> unit
+  val _pp_elt : Stdlib.Format.formatter -> 'a elt -> unit
 end >>

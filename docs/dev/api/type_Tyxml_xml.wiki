@@ -67,7 +67,7 @@
   val pp :
     ?encode:(string -> string) ->
     ?indent:bool -> unit -> Format.formatter -> elt -> unit
-  val of_seq : Xml_stream.signal Seq.t -> elt list
+  val of_seq : Xml_stream.signal Stdlib.Seq.t -> elt list
   val amap : (ename -> attrib list -> attrib list) -> elt -> elt
   val amap1 : (ename -> attrib list -> attrib list) -> elt -> elt
   val rm_attrib : (aname -> bool) -> attrib list -> attrib list
@@ -100,5 +100,5 @@
     (ename -> attrib list -> 'state -> 'state) -> 'state -> elt -> elt
   val print_list :
     output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
-  val print : Format.formatter -> elt -> unit
+  val print : Stdlib.Format.formatter -> elt -> unit
 end >>

@@ -2,5 +2,6 @@
   type elt
   val pp :
     ?encode:(string -> string) ->
-    ?indent:bool -> unit -> Format.formatter -> Xml_sigs.Pp.elt -> unit
+    ?indent:bool ->
+    unit -> Stdlib.Format.formatter -> Xml_sigs.Pp.elt -> unit
 end >>

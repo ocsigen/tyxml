@@ -100,6 +100,8 @@
                        val a_externalRessourcesRequired :
                          bool wrap -> [> `ExternalRessourcesRequired ] attrib
                        val a_id : string wrap -> [> `Id ] attrib
+                       val a_user_data :
+                         string -> string wrap -> [> `User_data ] attrib
                        val a_xml_base :
                          Svg_types.iri wrap -> [> `Xml_Base ] attrib
                        val a_xml_lang :
@@ -1153,6 +1155,8 @@
     val a_onkeypress : Xml.keyboard_event_handler -> [> `OnKeyPress ] attrib
     val a_onkeydown : Xml.keyboard_event_handler -> [> `OnKeyDown ] attrib
     val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
+    val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
+    val a_allowpaymentrequest : unit -> [> `Allowpaymentrequest ] attrib
     val a_autocomplete : bool wrap -> [> `Autocomplete ] attrib
     val a_async : unit -> [> `Async ] attrib
     val a_autofocus : unit -> [> `Autofocus ] attrib
@@ -1160,6 +1164,7 @@
     val a_muted : unit -> [> `Muted ] attrib
     val a_crossorigin :
       [< `Anonymous | `Use_credentials ] wrap -> [> `Crossorigin ] attrib
+    val a_integrity : string wrap -> [> `Integrity ] attrib
     val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
     val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
     val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
@@ -1210,6 +1215,8 @@
       [< `Audio | `Metadata | `None ] wrap -> [> `Preload ] attrib
     val a_pubdate : unit -> [> `Pubdate ] attrib
     val a_radiogroup : Html_types.text wrap -> [> `Radiogroup ] attrib
+    val a_referrerpolicy :
+      Html_types.referrerpolicy wrap -> [> `Referrerpolicy ] attrib
     val a_required : unit -> [> `Required ] attrib
     val a_reversed : unit -> [> `Reversed ] attrib
     val a_sandbox :
@@ -1807,6 +1814,10 @@
     val noscript :
       ([< Html_types.noscript_attrib ], [< Html_types.noscript_content_fun ],
        [> Html_types.noscript ])
+      star
+    val template :
+      ([< Html_types.template_attrib ], [< Html_types.template_content_fun ],
+       [> Html_types.template ])
       star
     val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
     val style :

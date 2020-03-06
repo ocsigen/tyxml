@@ -94,7 +94,7 @@ module produced by a functor application. It will ensure that exactly
 the right type equalities are exported and will naturally keep track
 of changes in TyXML.
 
-There are some important notes about theses signature functors:
+There are some important notes about these signature functors:
 * {{{module M : Svg_sigs.Make(Tyxml_xml).T}}} doesn't mean that {{{M.Xml}}}
   is a submodule of {{{Xml}}}. It only means that the types {{{uri}}},
   {{{event_handler}}}, {{{mouse_event_handler}}},

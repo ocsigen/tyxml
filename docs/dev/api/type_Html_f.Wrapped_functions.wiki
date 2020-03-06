@@ -117,6 +117,8 @@
       ([< Html_types.linktype ] list, string) Xml.W.ft
     val string_of_mediadesc :
       ([< Html_types.mediadesc_token ] list, string) Xml.W.ft
+    val string_of_referrerpolicy :
+      ([< Html_types.referrerpolicy ], string) Xml.W.ft
     val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
     val string_of_sandbox :
       ([< Html_types.sandbox_token ] list, string) Xml.W.ft

@@ -26,12 +26,15 @@
 >>
 |
 |@@ @style="tet-align: left;"@@\\M|
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_print.Make >> ~[<<a_api | module Xml_print >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_iter.Make >> ~[<<a_api | module Xml_iter >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Svg_sigs.Make >> ~[<<a_api | module Svg_sigs >>~]|<<div class="odocwiki_info"|~Signature functor for <<a_api | module Svg_f.Make >>~.
+>>
+|
 |@@class="odocwiki_index"@ @@<<a_api text="Make"| module Svg_f.Make >> ~[<<a_api | module Svg_f >>~]|<<div class="odocwiki_info"|~Create a new implementation of <<span class="odocwiki_inlinecode"|~Svg>>~, using the given underlying <<span class="odocwiki_inlinecode"|~Xml>>
     implementation~.
 >>
 |
-|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Xml_print.Make >> ~[<<a_api | module Xml_print >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="Make"| module Html_sigs.Make >> ~[<<a_api | module Html_sigs >>~]|<<div class="odocwiki_info"|~Signature functor for <<a_api | module Html_f.Make >>~.
 >>
 |
@@ -39,16 +42,13 @@
     and <<span class="odocwiki_inlinecode"|~Svg>> implementation~.
 >>
 |
-|@@class="odocwiki_index"@ @@<<a_api text="Make"| module Svg_sigs.Make >> ~[<<a_api | module Svg_sigs >>~]|<<div class="odocwiki_info"|~Signature functor for <<a_api | module Svg_f.Make >>~.
->>
-|
 |@@class="odocwiki_index"@ @@<<a_api text="Make_fmt"| module Xml_print.Make_fmt >> ~[<<a_api | module Xml_print >>~]|<<div class="odocwiki_info"|~Printers for raw ~X~M~L modules~.
 >>
 |
-|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Tyxml_html.Make_printer >> ~[<<a_api | module Tyxml_html >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Html documents~.
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Tyxml_svg.Make_printer >> ~[<<a_api | module Tyxml_svg >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Svg documents~.
 >>>>
 |
-|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Tyxml_svg.Make_printer >> ~[<<a_api | module Tyxml_svg >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Svg documents~.
+|@@class="odocwiki_index"@ @@<<a_api text="Make_printer"| module Tyxml_html.Make_printer >> ~[<<a_api | module Tyxml_html >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|~Parametrized stream printer for ~Html documents~.
 >>>>
 |
 |@@class="odocwiki_index"@ @@<<a_api text="Make_simple"| module Xml_print.Make_simple >> ~[<<a_api | module Xml_print >>~]||
@@ -88,9 +88,6 @@
 |@@class="odocwiki_index"@ @@<<a_api text="Tyxml_html"| module Tyxml_html >> |<<div class="odocwiki_info"|~Typesafe constructors and printers for ~Html documents~.
 >>
 |
-|@@class="odocwiki_index"@ @@<<a_api text="Tyxml_name"| module Tyxml_name >> |<<div class="odocwiki_info"|~Gives the tyxml names for ~H~T~M~L elements and attributes~.
->>
-|
 |@@class="odocwiki_index"@ @@<<a_api text="Tyxml_ppx"| module Tyxml_ppx >> |<<div class="odocwiki_info"|~Ty~X~M~L ppx library~.
 >>
 |
@@ -126,14 +123,14 @@
 >>
 |
 |@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Xml_sigs.Typed_xml.Xml >> ~[<<a_api | module Xml_sigs.Typed_xml >>~]||
-|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html_sigs.T.Xml >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|~Underlying ~X~M~L data~-structure
->>
-|
-|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html_sigs.Wrapped_functions.Xml >> ~[<<a_api | module Html_sigs.Wrapped_functions >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Svg_sigs.Wrapped_functions.Xml >> ~[<<a_api | module Svg_sigs.Wrapped_functions >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Svg_sigs.T.Xml >> ~[<<a_api | module Svg_sigs.T >>~]|<<div class="odocwiki_info"|~Underlying ~X~M~L data~-structure
 >>
 |
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html_sigs.T.Xml >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|~Underlying ~X~M~L data~-structure
+>>
+|
+|@@class="odocwiki_index"@ @@<<a_api text="Xml"| module Html_sigs.Wrapped_functions.Xml >> ~[<<a_api | module Html_sigs.Wrapped_functions >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="Xml_iter"| module Xml_iter >> |<<div class="odocwiki_info"|~Basic iterators over ~X~M~L tree ~(functorial interface~)~.
 >>
 |

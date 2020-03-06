@@ -144,6 +144,7 @@
         val a_externalRessourcesRequired :
           bool wrap -> [> `ExternalRessourcesRequired ] attrib
         val a_id : string wrap -> [> `Id ] attrib
+        val a_user_data : string -> string wrap -> [> `User_data ] attrib
         val a_xml_base : Svg_types.iri wrap -> [> `Xml_Base ] attrib
         val a_xml_lang : Svg_types.iri wrap -> [> `Xml_Lang ] attrib
         val a_xml_space :
@@ -1209,6 +1210,7 @@
         val a_externalRessourcesRequired :
           bool wrap -> [> `ExternalRessourcesRequired ] attrib
         val a_id : string wrap -> [> `Id ] attrib
+        val a_user_data : string -> string wrap -> [> `User_data ] attrib
         val a_xml_base : Svg_types.iri wrap -> [> `Xml_Base ] attrib
         val a_xml_lang : Svg_types.iri wrap -> [> `Xml_Lang ] attrib
         val a_xml_space :

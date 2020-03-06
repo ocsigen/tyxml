@@ -52,6 +52,8 @@
     bool Svg_sigs.T.wrap ->
     [> `ExternalRessourcesRequired ] Svg_sigs.T.attrib
   val a_id : string Svg_sigs.T.wrap -> [> `Id ] Svg_sigs.T.attrib
+  val a_user_data :
+    string -> string Svg_sigs.T.wrap -> [> `User_data ] Svg_sigs.T.attrib
   val a_xml_base :
     Svg_types.iri Svg_sigs.T.wrap -> [> `Xml_Base ] Svg_sigs.T.attrib
   val a_xml_lang :
@@ -853,7 +855,7 @@
     [> Svg_types.foreignobject ] Svg_sigs.T.elt
   val pcdata : string Svg_sigs.T.wrap -> [> Svg_types.txt ] Svg_sigs.T.elt
   val of_seq :
-    Xml_stream.signal Seq.t -> 'a Svg_sigs.T.elt Svg_sigs.T.list_wrap
+    Xml_stream.signal Stdlib.Seq.t -> 'a Svg_sigs.T.elt Svg_sigs.T.list_wrap
   val tot : Xml.elt -> 'a Svg_sigs.T.elt
   val totl :
     Xml.elt Svg_sigs.T.list_wrap -> 'a Svg_sigs.T.elt Svg_sigs.T.list_wrap

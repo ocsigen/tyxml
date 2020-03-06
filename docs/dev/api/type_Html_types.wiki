@@ -274,6 +274,7 @@
       | `Progress
       | `Select
       | `Textarea ]
+  type subressource_integrity = [ `Crossorigin | `Integrity ]
   type ('interactive, 'noscript, 'regular, 'media) transparent =
       [ `A of 'interactive
       | `Audio of 'media
@@ -324,7 +325,8 @@
       | `Meta
       | `Noscript of [ `Link | `Meta | `Style ]
       | `Script
-      | `Style ]
+      | `Style
+      | `Template ]
   type metadata =
       [ `Base
       | `Command
@@ -333,6 +335,7 @@
       | `Noscript of [ `Link | `Meta | `Style ]
       | `Script
       | `Style
+      | `Template
       | `Title ]
   type core_interactive =
       [ `Button
@@ -403,6 +406,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -445,6 +449,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -478,6 +483,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Time
       | `U
       | `Var
@@ -519,6 +525,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -573,6 +580,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -613,6 +621,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Time
       | `U
       | `Var
@@ -665,6 +674,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -720,6 +730,7 @@
        | `Sub
        | `Sup
        | `Svg
+       | `Template
        | `Textarea
        | `Time
        | `U
@@ -730,7 +741,7 @@
        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command `Datalist `Del `Dfn
          `Em `I `Img `Ins `Kbd `Map `Mark `Meter `Noscript `Object `PCDATA
          `Progress `Q `Ruby `Samp `Script `Small `Span `Strong `Sub `Sup `Svg
-         `Time `U `Var `Wbr ]
+         `Template `Time `U `Var `Wbr ]
     constraint 'b = [< Html_types.phrasing_without_interactive ]
   type phrasing_without_dfn =
       [ `A of Html_types.phrasing_without_interactive
@@ -775,6 +786,7 @@
       | `Strong
       | `Sub
       | `Sup
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -825,6 +837,7 @@
       | `Strong
       | `Sub
       | `Sup
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -875,6 +888,7 @@
       | `Strong
       | `Sub
       | `Sup
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -926,6 +940,7 @@
       | `Strong
       | `Sub
       | `Sup
+      | `Template
       | `Textarea
       | `U
       | `Var
@@ -975,6 +990,7 @@
       | `Strong
       | `Sub
       | `Sup
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1048,6 +1064,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1116,6 +1133,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1188,6 +1206,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1260,6 +1279,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1335,6 +1355,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1417,6 +1438,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1499,6 +1521,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1581,6 +1604,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1664,6 +1688,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1739,6 +1764,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1820,6 +1846,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -1837,7 +1864,7 @@
          `Img `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav
          `Noscript `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby
          `Samp `Script `Section `Select `Small `Span `Strong `Style `Sub `Sup
-         `Svg `Table `Textarea `Time `U `Ul `Var `Video `Wbr ]
+         `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video `Wbr ]
   type (+'a, +'b) between_flow5_and_flow5_without_header_footer = 'a
     constraint 'a =
       [< `A of 'b
@@ -1915,6 +1942,7 @@
        | `Sup
        | `Svg
        | `Table
+       | `Template
        | `Textarea
        | `Time
        | `U
@@ -1930,7 +1958,7 @@
          `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
          `Object `Object_interactive `Ol `Output `P `PCDATA `Pre `Progress `Q
          `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
-         `Sub `Sup `Svg `Table `Textarea `Time `U `Ul `Var `Video
+         `Sub `Sup `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video
          `Video_interactive `Wbr ]
     constraint 'b = [< Html_types.flow5_without_interactive ]
   type flow5_without_form =
@@ -2008,6 +2036,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -2078,6 +2107,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -2149,6 +2179,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -2989,6 +3020,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -3045,6 +3077,7 @@
       | `Sub
       | `Sup
       | `Svg
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -3559,6 +3592,8 @@
   type iframe_content_fun = [ `PCDATA ]
   type iframe_attrib =
       [ `Accesskey
+      | `Allowfullscreen
+      | `Allowpaymentrequest
       | `Aria
       | `Class
       | `Contenteditable
@@ -3628,6 +3663,7 @@
       | `OnTouchStart
       | `OnVolumeChange
       | `OnWaiting
+      | `Referrerpolicy
       | `Role
       | `Sandbox
       | `Seamless
@@ -3717,6 +3753,7 @@
       | `Sup
       | `Svg
       | `Table
+      | `Template
       | `Textarea
       | `Time
       | `U
@@ -5014,8 +5051,8 @@
       | `XML_lang
       | `XMLns ]
   type th = [ `Th ]
-  type th_content = Html_types.phrasing
-  type th_content_fun = Html_types.phrasing
+  type th_content = Html_types.flow5
+  type th_content_fun = Html_types.flow5
   type th_attrib =
       [ `Accesskey
       | `Aria
@@ -6682,11 +6719,13 @@
       | `Class
       | `Contenteditable
       | `Contextmenu
+      | `Crossorigin
       | `Defer
       | `Dir
       | `Draggable
       | `Hidden
       | `Id
+      | `Integrity
       | `Lang
       | `Mime_type
       | `OnAbort
@@ -6758,6 +6797,10 @@
       | `XMLns ]
   type script_content = [ `PCDATA ]
   type script_content_fun = [ `PCDATA ]
+  type template = [ `Template ]
+  type template_attrib = Html_types.common
+  type template_content = Html_types.flow5
+  type template_content_fun = Html_types.flow5
   type link = [ `Link ]
   type link_content = Html_types.notag
   type link_content_fun = Html_types.notag
@@ -6767,12 +6810,14 @@
       | `Class
       | `Contenteditable
       | `Contextmenu
+      | `Crossorigin
       | `Dir
       | `Draggable
       | `Hidden
       | `Href
       | `Hreflang
       | `Id
+      | `Integrity
       | `Lang
       | `Media
       | `Mime_type
@@ -6844,6 +6889,16 @@
       | `User_data
       | `XML_lang
       | `XMLns ]
+  type referrerpolicy =
+      [ `Empty
+      | `No_referrer
+      | `No_referrer_when_downgrade
+      | `Origin
+      | `Origin_when_cross_origin
+      | `Same_origin
+      | `Strict_origin
+      | `Strict_origin_when_cross_origin
+      | `Unsafe_url ]
   type big_variant =
       [ `All
       | `Anonymous

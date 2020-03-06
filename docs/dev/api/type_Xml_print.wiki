@@ -10,7 +10,7 @@
   val compose_decl : ?version:string -> ?encoding:string -> unit -> string
   val compose_doctype : string -> string list -> string
   val string_of_number : float -> string
-  val pp_number : Format.formatter -> float -> unit
+  val pp_number : Stdlib.Format.formatter -> float -> unit
   module Make_typed_fmt :
     functor
       (Xml : Xml_sigs.Iterable) (Typed_xml : sig

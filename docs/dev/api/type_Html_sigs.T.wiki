@@ -51,6 +51,7 @@
       val a_externalRessourcesRequired :
         bool wrap -> [> `ExternalRessourcesRequired ] attrib
       val a_id : string wrap -> [> `Id ] attrib
+      val a_user_data : string -> string wrap -> [> `User_data ] attrib
       val a_xml_base : Svg_types.iri wrap -> [> `Xml_Base ] attrib
       val a_xml_lang : Svg_types.iri wrap -> [> `Xml_Lang ] attrib
       val a_xml_space :
@@ -870,6 +871,9 @@
     Xml.keyboard_event_handler -> [> `OnKeyDown ] Html_sigs.T.attrib
   val a_onkeyup :
     Xml.keyboard_event_handler -> [> `OnKeyUp ] Html_sigs.T.attrib
+  val a_allowfullscreen : unit -> [> `Allowfullscreen ] Html_sigs.T.attrib
+  val a_allowpaymentrequest :
+    unit -> [> `Allowpaymentrequest ] Html_sigs.T.attrib
   val a_autocomplete :
     bool Html_sigs.T.wrap -> [> `Autocomplete ] Html_sigs.T.attrib
   val a_async : unit -> [> `Async ] Html_sigs.T.attrib
@@ -879,6 +883,8 @@
   val a_crossorigin :
     [< `Anonymous | `Use_credentials ] Html_sigs.T.wrap ->
     [> `Crossorigin ] Html_sigs.T.attrib
+  val a_integrity :
+    string Html_sigs.T.wrap -> [> `Integrity ] Html_sigs.T.attrib
   val a_mediagroup :
     string Html_sigs.T.wrap -> [> `Mediagroup ] Html_sigs.T.attrib
   val a_challenge :
@@ -953,6 +959,9 @@
   val a_pubdate : unit -> [> `Pubdate ] Html_sigs.T.attrib
   val a_radiogroup :
     Html_types.text Html_sigs.T.wrap -> [> `Radiogroup ] Html_sigs.T.attrib
+  val a_referrerpolicy :
+    Html_types.referrerpolicy Html_sigs.T.wrap ->
+    [> `Referrerpolicy ] Html_sigs.T.attrib
   val a_required : unit -> [> `Required ] Html_sigs.T.attrib
   val a_reversed : unit -> [> `Reversed ] Html_sigs.T.attrib
   val a_sandbox :
@@ -1672,6 +1681,10 @@
     ([< Html_types.noscript_attrib ], [< Html_types.noscript_content_fun ],
      [> Html_types.noscript ])
     Html_sigs.T.star
+  val template :
+    ([< Html_types.template_attrib ], [< Html_types.template_content_fun ],
+     [> Html_types.template ])
+    Html_sigs.T.star
   val meta :
     ([< Html_types.meta_attrib ], [> Html_types.meta ]) Html_sigs.T.nullary
   val style :
@@ -1697,7 +1710,8 @@
   val pcdata :
     string Html_sigs.T.wrap -> [> Html_types.pcdata ] Html_sigs.T.elt
   val of_seq :
-    Xml_stream.signal Seq.t -> 'a Html_sigs.T.elt Html_sigs.T.list_wrap
+    Xml_stream.signal Stdlib.Seq.t ->
+    'a Html_sigs.T.elt Html_sigs.T.list_wrap
   val tot : Xml.elt -> 'a Html_sigs.T.elt
   val totl :
     Xml.elt Html_sigs.T.list_wrap -> 'a Html_sigs.T.elt Html_sigs.T.list_wrap
