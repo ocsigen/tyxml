@@ -32,7 +32,7 @@ The documentation can be consulted
 [on the TyXML website](https://ocsigen.org/tyxml/). Examples are
 available in the [examples](examples) directory.
 
-[Eliom]: https://ocsigen.org/eliom/manual/clientserver-html
+[Eliom]: https://ocsigen.org/eliom/latest/manual/clientserver-html.html
 [Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/api/Tyxml_js
 [virtual-dom]: https://github.com/janestreet/virtual_dom
 
