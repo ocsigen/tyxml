@@ -855,6 +855,9 @@ module type T = sig
     alt: text wrap ->
     ([< img_attrib], [> img]) nullary
 
+  val picture : ([< | picture_attrib], [< | picture_content_fun], [> | picture]) star
+  [@@reflect.filter_whitespace]
+
   val iframe :
     ([< | iframe_attrib], [< | iframe_content_fun], [> | iframe]) star
 

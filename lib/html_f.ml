@@ -803,6 +803,8 @@ struct
     let a = (a_src src) :: (a_alt alt) :: a in
     Xml.leaf ~a "img"
 
+  let picture = star "picture"
+
   let meta = terminal "meta"
 
   let style ?(a = []) elts = Xml.node ~a "style" elts

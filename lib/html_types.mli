@@ -543,6 +543,7 @@ type core_phrasing =
     | `B
     | `Abbr
     | `Img | `Img_interactive
+    | `Picture
     | `PCDATA
   ]
 
@@ -580,6 +581,7 @@ type core_phrasing_without_noscript =
     | `Br
     | `Bdo
     | `Img | `Img_interactive
+    | `Picture
     | `B
     | `Abbr
     | `PCDATA
@@ -590,7 +592,6 @@ type core_phrasing_without_interactive =
     | `Wbr
     | `Var
     | `U
-    | `Img
     | `Time
     | `Template
     | `Sup
@@ -606,6 +607,7 @@ type core_phrasing_without_interactive =
     | `Mark
     | `Kbd
     | `Img
+    | `Picture
     | `I
     | `Em
     | `Dfn
@@ -643,6 +645,7 @@ type core_phrasing_without_media =
     | `Label
     | `Kbd
     | `Img | `Img_interactive
+    | `Picture
     | `Iframe
     | `I
     | `Embed
@@ -693,7 +696,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
                                            phrasing,
                                            phrasing_without_media) transparent
         > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
-        `Datalist `Del `Dfn `Em `I `Img `Ins `Kbd `Map `Mark `Meter
+        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
         `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
         `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
 
@@ -719,6 +722,7 @@ type phrasing_without_dfn =
     | `Mark
     | `Label
     | `Img | `Img_interactive
+    | `Picture
     | `Kbd
     | `I
     | `Em
@@ -749,6 +753,7 @@ type phrasing_without_label =
     | `Strong
     | `Span
     | `Img | `Img_interactive
+    | `Picture
     | `Small
     | `Script
     | `Samp
@@ -789,6 +794,7 @@ type phrasing_without_progress =
     | `Script
     | `Samp
     | `Img | `Img_interactive
+    | `Picture
     | `Ruby
     | `Q
     | `Meter
@@ -824,6 +830,7 @@ type phrasing_without_time =
     | `Sub
     | `Strong
     | `Img | `Img_interactive
+    | `Picture
     | `Span
     | `Small
     | `Script
@@ -862,6 +869,7 @@ type phrasing_without_meter =
     | `Template
     | `Sup
     | `Img | `Img_interactive
+    | `Picture
     | `Sub
     | `Strong
     | `Span
@@ -1059,7 +1067,7 @@ type flow5_without_header_footer =
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
   [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
        `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl `Em
-       `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img
+       `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
        `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
@@ -1075,7 +1083,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
       `Datalist `Del `Details `Dfn `Div `Dl `Em `Embed `Fieldset
       `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
-      `Img `Img_interactive `Input `Ins `Kbd `Keygen `Label `Map
+      `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
       `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
@@ -2268,6 +2276,11 @@ type link_attrib =
   [ | common | subressource_integrity
     | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
   ]
+
+type picture = [ | `Picture ]
+type picture_content = [ | img | source | script | template ]
+type picture_content_fun = [ | img | source | script | template ]
+type picture_attrib = [ | common ]
 
 type referrerpolicy = [
   | `Empty
