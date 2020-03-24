@@ -2278,8 +2278,8 @@ type link_attrib =
   ]
 
 type picture = [ | `Picture ]
-type picture_content = [ | img | source | script | template ]
-type picture_content_fun = [ | img | source | script | template ]
+type picture_content = [ | source | script | template ]
+type picture_content_fun = [ | source | script | template ]
 type picture_attrib = [ | common ]
 
 type referrerpolicy = [
