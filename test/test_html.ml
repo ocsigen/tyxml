@@ -14,6 +14,19 @@ let html_elements = "html elements", tyxml_tests Html.[
   template ~a:[a_id "idtmpl"] [p [txt "Template"]],
   "<template id=\"idtmpl\"><p>Template</p></template>" ;
 
+  "picture",
+  div [
+    picture ~a:[a_id "idpicture"]
+      ~img:(img ~a:[a_id "idimg"] ~src:"picture/img.png" ~alt:"test picture/img.png" ()) [
+        source ~a:[a_mime_type "image/webp"; a_src "picture/img1.webp"] ()
+      ; source ~a:[a_mime_type "image/jpeg"; a_src "picture/img2.jpg"] ()
+    ]
+  ],
+  {|<div><picture id="idpicture">|}
+    ^ {|<img src="picture/img.png" alt="test picture/img.png" id="idimg"/>|}
+    ^ {|<source type="image/webp" src="picture/img1.webp"/>|}
+    ^ {|<source type="image/jpeg" src="picture/img2.jpg"/>|}
+  ^ {|</picture></div>|} ;
 ]
 
 let escaping = "html escaping", tyxml_tests Html.[

@@ -245,6 +245,15 @@ let menu ~lang ~loc ~name children =
   in
   children::(nullary ~lang ~loc ~name [])
 
+let picture ~lang ~loc ~name children =
+  let img, others = partition (html "img") children in
+  match img with
+  | [] -> star ~lang ~loc ~name others
+  | [img] ->
+    (Common.Label.labelled "img", Common.wrap_value lang loc img)::
+      (star ~lang ~loc ~name others)
+  | _ -> Common.error loc "%s cannot have more than one img" name
+
 let html ~lang ~loc ~name children =
   let head, others = partition (html "head") children in
   let body, others = partition (html "body") others in
