@@ -701,17 +701,6 @@ and phrasing =
     | core_phrasing
   ]
 
-type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
-  ( [<  core_phrasing
-    | ([< phrasing_without_interactive] as 'b,
-                                           phrasing_without_noscript,
-                                           phrasing,
-                                           phrasing_without_media) transparent
-        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
-        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
-        `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
-        `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
-
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
   [
