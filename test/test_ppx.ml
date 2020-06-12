@@ -5,11 +5,24 @@
 *)
 open Tyxml_test
 
+module Dummy_html = struct
+  include HtmlWrapped
+  let p = HtmlWrapped.a
+end
+
 let basics = "ppx basics", HtmlTests.make Html.[
 
   "elems",
   [[%html "<p></p>"]],
   [p []] ;
+
+  "name space",
+  [[%tyxml.html "<p></p>"]],
+  [p []] ;
+
+  "module",
+  [[%html.Dummy_html "<p></p>"]],
+  [a []] ;
 
   "child",
   [[%html "<p><span>foo</span></p>"]],
@@ -280,11 +293,24 @@ let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
 
 ]
 
+module Dummy_svg = struct
+  include Svg
+  let svg = Svg.text
+end
+
 let svg = "svg", SvgTests.make Svg.[
 
   "basic",
   [[%svg "<svg/>"]],
   [svg []] ;
+
+  "name space",
+  [[%tyxml.svg "<svg/>"]],
+  [svg []] ;
+
+  "module",
+  [[%svg.Dummy_svg "<svg/>"]],
+  [text []] ;
 
   "transform",
   [[%svg "<line transform='translate(1) translate(2)'/>"]],
