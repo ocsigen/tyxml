@@ -25,8 +25,8 @@ module String = struct
   let capitalize_ascii = String.capitalize [@ocaml.warning "-3"]
 end
 
-open Asttypes
-open Parsetree
+open Ppxlib.Asttypes
+open Ppxlib.Parsetree
 
 type lang = Common.lang = Html | Svg
 let lang_of_ns loc ns =
@@ -38,12 +38,6 @@ let lang_of_ns loc ns =
 module Loc = struct
 
   let shift (pos:Lexing.position) x = {pos with pos_cnum = pos.pos_cnum + x}
-
-  let shrink {Location. loc_start ; loc_end ; loc_ghost } ~xbegin ~xend =
-    { Location.loc_ghost ;
-      loc_start = shift loc_start xbegin ;
-      loc_end = shift loc_end xend ;
-    }
 
   (** Returns the real (OCaml) location of the content of a string, taking
       delimiters into account. *)
@@ -251,10 +245,10 @@ let ast_to_stream expressions =
 
   let strings =
     expressions |> List.map @@ fun expr ->
-    match Ast_convenience.get_str_with_quotation_delimiter expr with
-    | Some (s, delimiter) ->
+    match expr.pexp_desc with
+    | Pexp_constant (Pconst_string (s, delimiter)) ->
       (s, Loc.string_start delimiter expr.pexp_loc)
-    | None ->
+    | _ ->
       (Antiquot.create expr, expr.pexp_loc.loc_start)
   in
 
@@ -373,40 +367,21 @@ let is_capitalized s =
     | 'A'..'Z' -> true
     | _ -> false
 
-(** Extract and verify the modname in the annotation [%html.Bar.Baz .. ].
-    We need to fiddle with length to provide a correct location. *)
-let get_modname ~loc len l =
+(** Extract and verify the modname in the annotation [%html.Bar.Baz .. ]. *)
+let get_modname = function
+  | None -> None
+  | Some {txt = longident ; loc} -> let l = Longident.flatten_exn longident in
   let s = String.concat "." l in
-  let loc = Loc.shrink loc ~xbegin:(len - String.length s) ~xend:0 in
   if l = [] then None
   else if not (List.for_all is_capitalized l) then
     Common.error loc "This identifier is not a module name"
   else Some s
-
-let re_dot = Re.(compile @@ char '.')
-let dispatch_ext {txt ; loc} =
-  let l = Re.split re_dot txt in
-  let len = String.length txt in
-  match l with
-  | "html" :: l
-  | "tyxml" :: "html" :: l ->
-    Some (Common.Html, get_modname ~loc len l)
-  | "svg" :: l
-  | "tyxml" :: "svg" :: l ->
-    Some (Common.Svg, get_modname ~loc len l)
-  | _ -> None
 
 let application_to_list expr =
   match expr.pexp_desc with
   | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
   | _ -> [expr]
 
-
-open Ast_mapper
-open Ast_helper
-
-let error { txt ; loc } =
-  Common.error loc "Invalid payload for [%%%s]" txt
 
 let markup_cases ~lang ~modname cases =
   let f ({pc_rhs} as case) =
@@ -438,37 +413,32 @@ let markup_bindings ~lang ~modname l =
   in
   List.map f l
 
-let rec expr mapper e =
+let expand_expression ~arg ~lang e =
+  let modname = get_modname arg in
   match e.pexp_desc with
-  | Pexp_extension (ext, payload) ->
-    begin match dispatch_ext ext, payload with
-    | Some (lang, modname), PStr [{pstr_desc = Pstr_eval (e, _)}] ->
-      begin match e.pexp_desc with
-        | Pexp_let (recflag, bindings, next) ->
-          let bindings = markup_bindings ~lang ~modname bindings in
-          {e with pexp_desc = Pexp_let (recflag, bindings, expr mapper next)}
-        | _ ->
-          markup_to_expr_with_implementation lang modname e.pexp_loc  @@
-          application_to_list e
-      end
-    | Some _, _ -> error ext
-    | None, _ -> default_mapper.expr mapper e
-    end
-  | _ -> default_mapper.expr mapper e
+  | Pexp_let (recflag, bindings, next) ->
+    let bindings = markup_bindings ~lang ~modname bindings in
+    {e with pexp_desc = Pexp_let (recflag, bindings, next)}
+  | _ ->
+    markup_to_expr_with_implementation lang modname e.pexp_loc  @@
+    application_to_list e
 
-let structure_item mapper stri =
-  match stri.pstr_desc with
-  | Pstr_extension ((ext, payload), _attrs) ->
-    begin match dispatch_ext ext, payload with
-    | Some (lang, modname),
-      PStr [{pstr_desc = Pstr_value (recflag, bindings) }] ->
-      let bindings = markup_bindings ~lang ~modname bindings in
-      Str.value recflag bindings
+let expand_html_expr  ~loc:_ ~path:_ ~arg e _ =
+  let lang = Common.Html in
+  expand_expression e ~arg ~lang
 
-    | Some _, _ -> error ext
-    | None, _ -> default_mapper.structure_item mapper stri
-    end
-  | _ -> default_mapper.structure_item mapper stri
+let expand_svg_expr  ~loc:_ ~path:_ ~arg e _ =
+  let lang = Common.Svg in
+  expand_expression e ~arg ~lang
+  
+let expand_str_item recflag value_bindings ~arg ~lang =
+  let bindings = markup_bindings ~lang ~modname:(get_modname arg) value_bindings in 
+  Ppxlib.Ast_helper.Str.value recflag bindings
 
-let mapper _ _ =
-  {default_mapper with expr ; structure_item}
+let expand_html_str_item ~loc:_ ~path:_ ~arg recflag value_bindings =
+  let lang = Common.Html in
+  expand_str_item recflag value_bindings ~arg ~lang
+
+let expand_svg_str_item ~loc:_ ~path:_ ~arg recflag value_bindings =
+  let lang = Common.Svg in
+  expand_str_item recflag value_bindings ~arg ~lang
