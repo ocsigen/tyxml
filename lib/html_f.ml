@@ -439,6 +439,8 @@ struct
   let a_button_type bt =
     user_attrib C.string_of_input_type "type" bt
 
+  let a_script_type sc = user_attrib C.string_of_script_type "type" sc
+
   let a_multiple =
     constant_attrib "multiple"
 
@@ -1053,6 +1055,10 @@ struct
     | `Time -> "time"
     | `Url -> "url"
     | `Week -> "week"
+
+  let string_of_input_type = function
+  | `Module -> "module"
+  | `Mime_type -> "application/javascript" (* How do I let it be any mimetype? *)
 
   let string_of_number_or_datetime = function
     | `Number n -> string_of_int n

@@ -572,6 +572,9 @@ module type T = sig
     [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
   [@@reflect.attribute "type" ["button"]]
 
+  val a_script_type :
+      [< | `Module | `Mime] wrap -> [> | `Script_type] attrib
+
   val a_command_type :
     [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
   [@@reflect.attribute "type" ["command"]]
@@ -1214,6 +1217,9 @@ module type Wrapped_functions = sig
 
   val string_of_input_type :
     ([< Html_types.input_type], string) Xml.W.ft
+
+  val string_of_script_type :
+    ([< Html_types.script_type], string) Xml.W.ft
 
   val string_of_number_or_datetime :
     ([< Html_types.number_or_datetime], string) Xml.W.ft
