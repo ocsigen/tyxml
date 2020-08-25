@@ -29,7 +29,8 @@ struct
 
   module Xml = Xml
 
-  module W = Xml.W
+  module Elt = Xml.Elt
+  module Attr = Xml.Attr
 
   module Info = struct
     let content_type = "text/html"
@@ -44,8 +45,9 @@ struct
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
 
-  type 'a wrap = 'a W.t
-  type 'a list_wrap = 'a W.tlist
+  type 'a wrap = 'a Elt.t
+  type 'a list_wrap = 'a Elt.tlist
+  type 'a attr_wrap = 'a Attr.t
 
   type uri = Xml.uri
   let string_of_uri = Xml.string_of_uri
@@ -75,12 +77,12 @@ struct
 
   let comma_sep_attrib = Xml.comma_sep_attrib
 
-  let user_attrib f name v = Xml.string_attrib name (W.fmap f v)
+  let user_attrib f name v = Xml.string_attrib name (Attr.fmap f v)
 
   let bool_attrib = user_attrib C.string_of_bool
 
   let constant_attrib a () =
-    string_attrib a (W.return a)
+    string_attrib a (Attr.return a)
 
   let linktypes_attrib name x =
     user_attrib C.string_of_linktypes name x
@@ -507,17 +509,17 @@ struct
   let terminal tag ?a () = Xml.leaf ?a tag
 
   let unary tag ?a elt =
-    Xml.node ?a tag (W.singleton elt)
+    Xml.node ?a tag (Elt.singleton elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 
   let plus tag ?a elt elts =
-    Xml.node ?a tag (W.cons elt elts)
+    Xml.node ?a tag (Elt.cons elt elts)
 
   let option_cons opt elts =
     match opt with
     | None -> elts
-    | Some x -> W.cons x elts
+    | Some x -> Elt.cons x elts
 
   let body = star "body"
 
@@ -526,7 +528,7 @@ struct
   let title = unary "title"
 
   let html ?a head body =
-    let content = W.cons head (W.singleton body) in
+    let content = Elt.cons head (Elt.singleton body) in
     Xml.node ?a "html" content
 
   let footer = star "footer"
@@ -686,7 +688,7 @@ struct
     in
     match srcs with
     | None -> Xml.node name ~a elts
-    | Some srcs -> Xml.node name ~a (W.append srcs elts)
+    | Some srcs -> Xml.node name ~a (Elt.append srcs elts)
 
   let audio = video_audio "audio"
 
@@ -699,7 +701,7 @@ struct
 
   let menu ?children ?a () =
     let children = match children with
-      | None -> W.nil ()
+      | None -> Elt.nil ()
       | Some (`Lis l)
       | Some (`Flows l) -> l in
     Xml.node ?a "menu" children
@@ -733,7 +735,7 @@ struct
 
   let datalist ?children ?a () =
     let children = match children with
-      | None -> W.nil ()
+      | None -> Elt.nil ()
       | Some (`Options x | `Phras x) -> x in
     Xml.node ?a "datalist" children
 
@@ -756,8 +758,8 @@ struct
   let figure ?figcaption ?a elts =
     let content = match figcaption with
       | None -> elts
-      | Some (`Top c) -> W.cons c elts
-      | Some (`Bottom c) -> W.append elts (W.singleton c)
+      | Some (`Top c) -> Elt.cons c elts
+      | Some (`Bottom c) -> Elt.append elts (Elt.singleton c)
     in
     Xml.node ?a "figure" content
 
@@ -767,7 +769,7 @@ struct
     let content = option_cons thead (option_cons tfoot elts) in
     let content = match columns with
       | None -> content
-      | Some columns -> W.append columns content in
+      | Some columns -> Elt.append columns content in
     let content = option_cons caption content in
     Xml.node ?a "table" content
 
@@ -794,7 +796,7 @@ struct
   let object_ ?params ?(a = []) elts =
     let elts = match params with
       | None -> elts
-      | Some e -> W.append e elts in
+      | Some e -> Elt.append e elts in
     Xml.node ~a "object" elts
 
   let param = terminal "param"
@@ -804,7 +806,7 @@ struct
     Xml.leaf ~a "img"
 
   let picture ~img ?a elts =
-    let content = W.cons img elts in
+    let content = Elt.cons img elts in
     Xml.node ?a "picture" content
 
   let meta = terminal "meta"
@@ -859,7 +861,7 @@ struct
 end
 
 module Wrapped_functions
-    (Xml : Xml_sigs.T with type ('a,'b) W.ft = 'a -> 'b) =
+    (Xml : Xml_sigs.T with type ('a,'b) Attr.ft = 'a -> 'b) =
 struct
 
   module Xml = Xml
@@ -1108,6 +1110,6 @@ struct
 end
 
 module Make
-    (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
+    (Xml : Xml_sigs.T with type ('a, 'b) Attr.ft = 'a -> 'b)
     (Svg : Svg_sigs.T with module Xml := Xml) =
   Make_with_wrapped_functions(Xml)(Wrapped_functions(Xml))(Svg)

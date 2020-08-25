@@ -17,19 +17,29 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
-module type T = sig
-  type 'a t
+module type APP = sig
+  type +'a t
   val return : 'a -> 'a t
 
   type (-'a, 'b) ft
   val fmap : ('a, 'b) ft -> 'a t -> 'b t
+end
+
+module type MANY = sig
+  type 'a t
+  val return : 'a -> 'a t
 
   type 'a tlist
   val nil : unit -> 'a tlist
   val singleton : 'a t -> 'a tlist
   val cons : 'a t -> 'a tlist -> 'a tlist
   val append : 'a tlist -> 'a tlist -> 'a tlist
-  val map : ('a, 'b) ft -> 'a tlist -> 'b tlist
+end
+
+module type T = sig
+  type +'a t
+  include APP with type 'a t := 'a t
+  include MANY with type 'a t := 'a t
 end
 
 module type NoWrap =
@@ -48,5 +58,4 @@ module NoWrap = struct
   let singleton x = [x]
   let cons x xs = x::xs
   let append x y= x@y
-  let map = List.map
 end

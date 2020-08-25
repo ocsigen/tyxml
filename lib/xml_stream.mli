@@ -33,5 +33,5 @@ type signal = [
 exception Malformed_stream
   
 module Import (Xml : Xml_sigs.T) : sig
-  val of_seq : signal Seq.t -> Xml.elt Xml.list_wrap
+  val of_seq : signal Seq.t -> Xml.elt Xml.Elt.tlist
 end

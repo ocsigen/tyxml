@@ -109,7 +109,8 @@ module Make_with_wrapped_functions
 struct
 
   module Xml = Xml
-  module W = Xml.W
+  module Elt = Xml.Elt
+  module Attr = Xml.Attr
 
   module Info = struct
     let content_type = "image/svg+xml"
@@ -135,8 +136,9 @@ struct
 
   type +'a elt = Xml.elt
 
-  type 'a wrap = 'a W.t
-  type 'a list_wrap = 'a W.tlist
+  type 'a wrap = 'a Elt.t
+  type 'a attr_wrap = 'a Attr.t
+  type 'a list_wrap = 'a Elt.tlist
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
@@ -156,10 +158,10 @@ struct
   let to_attrib x = x
 
   let nullary tag ?a () =
-    Xml.node ?a tag (W.nil ())
+    Xml.node ?a tag (Elt.nil ())
 
   let unary tag ?a elt =
-    Xml.node ?a tag (W.singleton elt)
+    Xml.node ?a tag (Elt.singleton elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 
@@ -185,7 +187,7 @@ struct
   (* Custom XML attributes *)
 
   let user_attrib f name v =
-    Xml.string_attrib name (W.fmap f v)
+    Xml.string_attrib name (Attr.fmap f v)
 
   let number_attrib = float_attrib
 
@@ -737,8 +739,8 @@ struct
   *)
   let svg ?(a = []) children =
     let attribs =
-      string_attrib "xmlns" (W.return "http://www.w3.org/2000/svg")
-      :: string_attrib "xmlns:xlink" (W.return "http://www.w3.org/1999/xlink")
+      string_attrib "xmlns" (Attr.return "http://www.w3.org/2000/svg")
+      :: string_attrib "xmlns:xlink" (Attr.return "http://www.w3.org/1999/xlink")
       :: to_xmlattribs a
     in
     star ~a:(attribs) "svg" children
@@ -927,7 +929,7 @@ struct
 end
 
 module Wrapped_functions
-    (Xml : Xml_sigs.T with type ('a,'b) W.ft = 'a -> 'b) =
+    (Xml : Xml_sigs.T with type ('a,'b) Attr.ft = 'a -> 'b) =
 struct
 
   module Xml = Xml
@@ -1134,5 +1136,5 @@ struct
 end
 
 module Make
-    (Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b)) =
+    (Xml : Xml_sigs.T with type ('a, 'b) Attr.ft = ('a -> 'b)) =
   Make_with_wrapped_functions(Xml)(Wrapped_functions(Xml))

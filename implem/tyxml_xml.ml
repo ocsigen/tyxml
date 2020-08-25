@@ -22,10 +22,8 @@
 
 module M = struct
 
-  module W = Xml_wrap.NoWrap
-
-  type 'a wrap = 'a
-  type 'a list_wrap = 'a list
+  module Elt = Xml_wrap.NoWrap
+  module Attr = Xml_wrap.NoWrap
 
   type uri = string
   let uri_of_string s = s

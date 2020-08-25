@@ -97,14 +97,16 @@ module type T = sig
       In most cases, ['a wrap = 'a]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!React.S.t}.
   *)
-  type 'a wrap = 'a Xml.W.t
+  type 'a wrap = 'a Xml.Elt.t
 
   (** [list_wrap] is a container for list of elements.
 
       In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!ReactiveData.RList.t}.
   *)
-  type 'a list_wrap = 'a Xml.W.tlist
+  type 'a list_wrap = 'a Xml.Elt.tlist
+
+  type 'a attr_wrap = 'a Xml.Attr.t
 
   (** A nullary element is an element that doesn't have any children. *)
   type ('a, 'b) nullary = ?a:('a attrib list) -> unit -> 'b elt
@@ -125,17 +127,17 @@ module type T = sig
   (** {3 Uri} *)
 
   type uri = Xml.uri
-  val string_of_uri : (uri, string) Xml.W.ft
-  val uri_of_string : (string, uri) Xml.W.ft
+  val string_of_uri : (uri, string) Xml.Attr.ft
+  val uri_of_string : (string, uri) Xml.Attr.ft
 
   (** {2:attributes Attributes} *)
 
-  val a_class : nmtokens wrap -> [> | `Class] attrib
+  val a_class : nmtokens attr_wrap -> [> | `Class] attrib
   (** This attribute assigns a class name or set of class names to an
       element. Any number of elements may be assigned the same class
       name or names.  *)
 
-  val a_user_data : nmtoken -> text wrap -> [> | `User_data] attrib
+  val a_user_data : nmtoken -> text attr_wrap -> [> | `User_data] attrib
   (** May be used to specify custom attributes.
       The example given by the W3C is as follows :
       {v
@@ -144,11 +146,11 @@ module type T = sig
 </ol> v}
       It should be used for preprocessing ends only. *)
 
-  val a_id : text wrap -> [> | `Id] attrib
+  val a_id : text attr_wrap -> [> | `Id] attrib
   (** This attribute assigns a name to an element. This name must be
       unique in a document. The text should be without any space. *)
 
-  val a_title : text wrap -> [> | `Title] attrib
+  val a_title : text attr_wrap -> [> | `Title] attrib
   (** This attribute offers advisory information about the element for
       which it is set.
 
@@ -164,9 +166,9 @@ module type T = sig
 
   (** {3 I18N} *)
 
-  val a_xml_lang : languagecode wrap -> [> | `XML_lang] attrib
+  val a_xml_lang : languagecode attr_wrap -> [> | `XML_lang] attrib
 
-  val a_lang : languagecode wrap -> [> | `Lang] attrib
+  val a_lang : languagecode attr_wrap -> [> | `Lang] attrib
 
   (** {3 Events}
 
@@ -260,7 +262,7 @@ module type T = sig
 
   val a_allowpaymentrequest : unit -> [> | `Allowpaymentrequest] attrib
 
-  val a_autocomplete : (bool[@onoff]) wrap -> [> | `Autocomplete] attrib
+  val a_autocomplete : (bool[@onoff]) attr_wrap -> [> | `Autocomplete] attrib
 
   val a_async : unit -> [> | `Async] attrib
 
@@ -271,64 +273,64 @@ module type T = sig
   val a_muted : unit -> [> | `Muted] attrib
 
   val a_crossorigin :
-    [< | `Anonymous | `Use_credentials ] wrap -> [> | `Crossorigin ] attrib
+    [< | `Anonymous | `Use_credentials ] attr_wrap -> [> | `Crossorigin ] attrib
 
   val a_integrity :
-    string wrap -> [> | `Integrity ] attrib
+    string attr_wrap -> [> | `Integrity ] attrib
 
-  val a_mediagroup : string wrap -> [> | `Mediagroup ] attrib
+  val a_mediagroup : string attr_wrap -> [> | `Mediagroup ] attrib
 
-  val a_challenge : text wrap -> [> | `Challenge] attrib
+  val a_challenge : text attr_wrap -> [> | `Challenge] attrib
 
-  val a_contenteditable : bool wrap -> [> | `Contenteditable] attrib
+  val a_contenteditable : bool attr_wrap -> [> | `Contenteditable] attrib
 
-  val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
+  val a_contextmenu : idref attr_wrap -> [> | `Contextmenu] attrib
 
   val a_controls : unit -> [> | `Controls] attrib
 
-  val a_dir : [< | `Rtl | `Ltr] wrap -> [> | `Dir] attrib
+  val a_dir : [< | `Rtl | `Ltr] attr_wrap -> [> | `Dir] attrib
 
-  val a_draggable : bool wrap -> [> | `Draggable] attrib
+  val a_draggable : bool attr_wrap -> [> | `Draggable] attrib
 
-  val a_form : idref wrap -> [> | `Form] attrib
+  val a_form : idref attr_wrap -> [> | `Form] attrib
 
-  val a_formaction : Xml.uri wrap -> [> | `Formaction] attrib
+  val a_formaction : Xml.uri attr_wrap -> [> | `Formaction] attrib
 
-  val a_formenctype : contenttype wrap -> [> | `Formenctype] attrib
+  val a_formenctype : contenttype attr_wrap -> [> | `Formenctype] attrib
 
   val a_formnovalidate : unit -> [> | `Formnovalidate] attrib
 
-  val a_formtarget : text wrap -> [> | `Formtarget] attrib
+  val a_formtarget : text attr_wrap -> [> | `Formtarget] attrib
 
   val a_hidden : unit -> [> | `Hidden] attrib
 
-  val a_high : float_number wrap -> [> | `High] attrib
+  val a_high : float_number attr_wrap -> [> | `High] attrib
 
-  val a_icon : Xml.uri wrap -> [> | `Icon] attrib
+  val a_icon : Xml.uri attr_wrap -> [> | `Icon] attrib
 
   val a_ismap : unit -> [> | `Ismap] attrib
 
-  val a_keytype : text wrap -> [> | `Keytype] attrib
+  val a_keytype : text attr_wrap -> [> | `Keytype] attrib
 
-  val a_list : idref wrap -> [> | `List] attrib
+  val a_list : idref attr_wrap -> [> | `List] attrib
 
   val a_loop : unit -> [> | `Loop] attrib
 
-  val a_low : float_number wrap -> [> | `High] attrib
+  val a_low : float_number attr_wrap -> [> | `High] attrib
 
-  val a_max : float_number wrap -> [> | `Max] attrib
+  val a_max : float_number attr_wrap -> [> | `Max] attrib
 
-  val a_input_max : number_or_datetime wrap -> [> | `Input_Max] attrib
+  val a_input_max : number_or_datetime attr_wrap -> [> | `Input_Max] attrib
   [@@reflect.attribute "max" ["input"]]
 
-  val a_min : float_number wrap -> [> | `Min] attrib
+  val a_min : float_number attr_wrap -> [> | `Min] attrib
 
-  val a_input_min : number_or_datetime wrap -> [> | `Input_Min] attrib
+  val a_input_min : number_or_datetime attr_wrap -> [> | `Input_Min] attrib
   [@@reflect.attribute "min" ["input"]]
 
   val a_inputmode :
     [< `Verbatim | `Latin | `Latin_name | `Latin_prose | `Full_width_latin
-    | `Kana | `Katakana | `Numeric | `Tel | `Email | `Url ] wrap ->
+    | `Kana | `Katakana | `Numeric | `Tel | `Email | `Url ] attr_wrap ->
     [> `Inputmode] attrib
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes> Input HTML documentation. *)
 
@@ -336,21 +338,21 @@ module type T = sig
 
   val a_open : unit -> [> | `Open] attrib
 
-  val a_optimum : float_number wrap -> [> | `Optimum] attrib
+  val a_optimum : float_number attr_wrap -> [> | `Optimum] attrib
 
-  val a_pattern : text wrap -> [> | `Pattern] attrib
+  val a_pattern : text attr_wrap -> [> | `Pattern] attrib
 
-  val a_placeholder : text wrap -> [> | `Placeholder] attrib
+  val a_placeholder : text attr_wrap -> [> | `Placeholder] attrib
 
-  val a_poster : Xml.uri wrap -> [> | `Poster] attrib
+  val a_poster : Xml.uri attr_wrap -> [> | `Poster] attrib
 
-  val a_preload : [< | `None | `Metadata | `Audio] wrap -> [> | `Preload] attrib
+  val a_preload : [< | `None | `Metadata | `Audio] attr_wrap -> [> | `Preload] attrib
 
   val a_pubdate : unit -> [> | `Pubdate] attrib
 
-  val a_radiogroup : text wrap -> [> | `Radiogroup] attrib
+  val a_radiogroup : text attr_wrap -> [> | `Radiogroup] attrib
 
-  val a_referrerpolicy : referrerpolicy wrap -> [> `Referrerpolicy] attrib
+  val a_referrerpolicy : referrerpolicy attr_wrap -> [> `Referrerpolicy] attrib
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes>
   *)
 
@@ -358,20 +360,20 @@ module type T = sig
 
   val a_reversed : unit -> [> | `Reversed] attrib
 
-  val a_sandbox : [< | sandbox_token ] list wrap -> [> | `Sandbox] attrib
+  val a_sandbox : [< | sandbox_token ] list attr_wrap -> [> | `Sandbox] attrib
 
-  val a_spellcheck : bool wrap -> [> | `Spellcheck] attrib
+  val a_spellcheck : bool attr_wrap -> [> | `Spellcheck] attrib
 
   val a_scoped : unit -> [> | `Scoped] attrib
 
   val a_seamless : unit -> [> | `Seamless] attrib
 
-  val a_sizes : (number * number) list option wrap -> [> | `Sizes] attrib
+  val a_sizes : (number * number) list option attr_wrap -> [> | `Sizes] attrib
 
-  val a_span : number wrap -> [> | `Span] attrib
+  val a_span : number attr_wrap -> [> | `Span] attrib
 
   (** @deprecated Use {!a_xml_lang} instead. *)
-  val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
+  val a_srclang : nmtoken attr_wrap -> [> | `XML_lang] attrib
   [@@ocaml.deprecated "Use a_xml_lang instead."]
 
   type image_candidate =
@@ -379,54 +381,54 @@ module type T = sig
     | `Url_width of uri * number
     | `Url_pixel of uri * float_number ]
 
-  val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
+  val a_srcset : image_candidate list attr_wrap -> [> | `Srcset] attrib
 
-  val a_img_sizes : text list wrap -> [> | `Img_sizes] attrib
+  val a_img_sizes : text list attr_wrap -> [> | `Img_sizes] attrib
   [@@reflect.attribute "sizes" ["img"]]
 
-  val a_start : number wrap -> [> | `Start] attrib
+  val a_start : number attr_wrap -> [> | `Start] attrib
 
-  val a_step : float_number option wrap -> [> | `Step] attrib
+  val a_step : float_number option attr_wrap -> [> | `Step] attrib
 
-  val a_wrap : [< | `Soft | `Hard] wrap -> [> | `Wrap] attrib
+  val a_wrap : [< | `Soft | `Hard] attr_wrap -> [> | `Wrap] attrib
 
-  val a_version : cdata wrap -> [> | `Version] attrib
+  val a_version : cdata attr_wrap -> [> | `Version] attrib
 
-  val a_xmlns : [< | `W3_org_1999_xhtml] wrap -> [> | `XMLns] attrib
+  val a_xmlns : [< | `W3_org_1999_xhtml] attr_wrap -> [> | `XMLns] attrib
 
-  val a_manifest : Xml.uri wrap -> [> | `Manifest] attrib
+  val a_manifest : Xml.uri attr_wrap -> [> | `Manifest] attrib
 
-  val a_cite : Xml.uri wrap -> [> | `Cite] attrib
+  val a_cite : Xml.uri attr_wrap -> [> | `Cite] attrib
 
-  val a_xml_space : [< | `Default | `Preserve] wrap -> [> | `XML_space] attrib
+  val a_xml_space : [< | `Default | `Preserve] attr_wrap -> [> | `XML_space] attrib
 
-  val a_accesskey : character wrap -> [> | `Accesskey] attrib
+  val a_accesskey : character attr_wrap -> [> | `Accesskey] attrib
   (** This attribute assigns an access key to an element. An access key
       is a single character from the document character
       set. NB: authors should consider the input method of the
       expected reader when specifying an accesskey. *)
 
-  val a_charset : charset wrap -> [> | `Charset] attrib
+  val a_charset : charset attr_wrap -> [> | `Charset] attrib
   (** This attribute specifies the character encoding of the resource
       designated by the link. Please consult the section on character
       encodings for more details. *)
 
-  val a_accept_charset : charsets wrap -> [> | `Accept_charset] attrib
+  val a_accept_charset : charsets attr_wrap -> [> | `Accept_charset] attrib
 
-  val a_accept : contenttypes wrap -> [> | `Accept] attrib
+  val a_accept : contenttypes attr_wrap -> [> | `Accept] attrib
 
-  val a_href : Xml.uri wrap -> [> | `Href] attrib
+  val a_href : Xml.uri attr_wrap -> [> | `Href] attrib
   (** This attribute specifies the location of a Web resource, thus
       defining a link between the current element (the source anchor)
       and the destination anchor defined by this attribute. *)
 
-  val a_hreflang : languagecode wrap -> [> | `Hreflang] attrib
+  val a_hreflang : languagecode attr_wrap -> [> | `Hreflang] attrib
   (** This attribute specifies the base language of the resource
       designated by href and may only be used when href is specified. *)
 
-  val a_download : string option wrap -> [> | `Download] attrib
+  val a_download : string option attr_wrap -> [> | `Download] attrib
 
-  val a_rel : linktypes wrap -> [> | `Rel] attrib
+  val a_rel : linktypes attr_wrap -> [> | `Rel] attrib
   (** This attribute describes the relationship from the current
       document to the anchor specified by the href attribute. The
       value of this attribute is a space-separated list of link
@@ -437,13 +439,13 @@ module type T = sig
       document. The value of this attribute is a space-separated
       list of link types. *)
 
-  val a_tabindex : number wrap -> [> | `Tabindex] attrib
+  val a_tabindex : number attr_wrap -> [> | `Tabindex] attrib
   (** This attribute specifies the position of the current
       element in the tabbing order for the current document. This
       value must be a number between 0 and 32767. User agents
       should ignore leading zeros. *)
 
-  val a_mime_type : contenttype wrap -> [> | `Mime_type] attrib
+  val a_mime_type : contenttype attr_wrap -> [> | `Mime_type] attrib
   [@@reflect.attribute "type" ["object"; "embed"; "area"; "link"; "source"]]
   (** This attribute gives an advisory hint as to the content type
       of the content available at the link target address. It
@@ -454,9 +456,9 @@ module type T = sig
       risk that it may become inconsistent with the content
       available at the link target address. *)
 
-  val a_datetime : cdata wrap -> [> | `Datetime] attrib
+  val a_datetime : cdata attr_wrap -> [> | `Datetime] attrib
 
-  val a_action : Xml.uri wrap -> [> | `Action] attrib
+  val a_action : Xml.uri attr_wrap -> [> | `Action] attrib
   (** This attribute specifies a form processing agent. User agent
       behavior for a value other than an HTTP URI is undefined. *)
 
@@ -466,49 +468,49 @@ module type T = sig
       button is on. User agents must ignore this attribute for
       other control types. *)
 
-  val a_cols : number wrap -> [> | `Cols] attrib
+  val a_cols : number attr_wrap -> [> | `Cols] attrib
   (** This attribute specifies the visible width in average
       character widths. Users should be able to enter longer lines
       than this, so user agents should provide some means to
       scroll through the contents of the control when the contents
-      extend beyond the visible area. User agents may wrap visible
+      extend beyond the visible area. User agents may attr_wrap visible
       text lines to keep long lines visible without the need for
       scrolling. *)
 
-  val a_enctype : contenttype wrap -> [> | `Enctype] attrib
+  val a_enctype : contenttype attr_wrap -> [> | `Enctype] attrib
 
-  val a_label_for : idref wrap -> [> | `Label_for] attrib
+  val a_label_for : idref attr_wrap -> [> | `Label_for] attrib
   [@@reflect.attribute "for" ["label"]]
 
-  val a_for : idref wrap -> [> | `Label_for] attrib
+  val a_for : idref attr_wrap -> [> | `Label_for] attrib
   [@@ocaml.deprecated "Use a_label_for"]
   (** @deprecated Use a_label_for *)
 
-  val a_output_for : idrefs wrap -> [> | `Output_for] attrib
+  val a_output_for : idrefs attr_wrap -> [> | `Output_for] attrib
   [@@reflect.attribute "for" ["output"]]
 
-  val a_for_list : idrefs wrap -> [> | `Output_for] attrib
+  val a_for_list : idrefs attr_wrap -> [> | `Output_for] attrib
   [@@ocaml.deprecated "Use a_output_for"]
   (** @deprecated Use a_output_for *)
 
-  val a_maxlength : number wrap -> [> | `Maxlength] attrib
+  val a_maxlength : number attr_wrap -> [> | `Maxlength] attrib
 
-  val a_minlength : number wrap -> [> | `Minlength] attrib
+  val a_minlength : number attr_wrap -> [> | `Minlength] attrib
 
   val a_method :
-    [< | `Get | `Post] wrap -> [> | `Method] attrib
+    [< | `Get | `Post] attr_wrap -> [> | `Method] attrib
 
   val a_formmethod :
-    [< | `Get | `Post] wrap -> [> | `Method] attrib
+    [< | `Get | `Post] attr_wrap -> [> | `Method] attrib
   [@@ocaml.deprecated "Use a_method"]
   (** @deprecated Use a_method *)
 
   val a_multiple : unit -> [> | `Multiple] attrib
 
-  val a_name : text wrap -> [> | `Name] attrib
+  val a_name : text attr_wrap -> [> | `Name] attrib
   (** This attribute assigns the control name. *)
 
-  val a_rows : number wrap -> [> | `Rows] attrib
+  val a_rows : number attr_wrap -> [> | `Rows] attrib
   (** This attribute specifies the number of visible text
       lines. Users should be able to enter more lines than this,
       so user agents should provide some means to scroll through
@@ -519,9 +521,9 @@ module type T = sig
   (** When set, this boolean attribute specifies that
       this option is pre-selected. *)
 
-  val a_size : number wrap -> [> | `Size] attrib
+  val a_size : number attr_wrap -> [> | `Size] attrib
 
-  val a_src : Xml.uri wrap -> [> | `Src] attrib
+  val a_src : Xml.uri attr_wrap -> [> | `Src] attrib
 
   val a_input_type : [<
     | `Url
@@ -546,123 +548,123 @@ module type T = sig
     | `Datetime
     | `Date
     | `Color
-    | `Button] wrap -> [> | `Input_Type] attrib
+    | `Button] attr_wrap -> [> | `Input_Type] attrib
   [@@reflect.attribute "type" ["input"]]
 
-  val a_text_value : text wrap -> [> | `Text_Value] attrib
+  val a_text_value : text attr_wrap -> [> | `Text_Value] attrib
   [@@reflect.attribute "value" ["param"; "button"; "option"]]
   (** This attribute specifies the initial value of the
       control. If this attribute is not set, the initial value is
       set to the contents of the [option] element. *)
 
-  val a_int_value : number wrap -> [> | `Int_Value] attrib
+  val a_int_value : number attr_wrap -> [> | `Int_Value] attrib
   [@@reflect.attribute "value" ["li"]]
 
-  val a_value : cdata wrap -> [> | `Value] attrib
+  val a_value : cdata attr_wrap -> [> | `Value] attrib
 
-  val a_float_value : float_number wrap -> [> | `Float_Value] attrib
+  val a_float_value : float_number attr_wrap -> [> | `Float_Value] attrib
   [@@reflect.attribute "value" ["progress"; "meter"]]
 
   val a_disabled : unit -> [> | `Disabled] attrib
 
   val a_readonly : unit -> [> | `ReadOnly] attrib
   val a_button_type :
-    [< | `Button | `Submit | `Reset] wrap -> [> | `Button_Type] attrib
+    [< | `Button | `Submit | `Reset] attr_wrap -> [> | `Button_Type] attrib
   [@@reflect.attribute "type" ["button"]]
 
   val a_command_type :
-    [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
+    [< | `Command | `Checkbox | `Radio] attr_wrap -> [> | `Command_Type] attrib
   [@@reflect.attribute "type" ["command"]]
 
-  val a_menu_type : [< | `Context | `Toolbar] wrap -> [> | `Menu_Type] attrib
+  val a_menu_type : [< | `Context | `Toolbar] attr_wrap -> [> | `Menu_Type] attrib
   [@@reflect.attribute "type" ["menu"]]
 
-  val a_label : text wrap -> [> | `Label] attrib
+  val a_label : text attr_wrap -> [> | `Label] attrib
 
   val a_align :
-    [< | `Left | `Right | `Justify | `Char] wrap -> [> | `Align] attrib
+    [< | `Left | `Right | `Justify | `Char] attr_wrap -> [> | `Align] attrib
   [@@ocaml.deprecated "Use CSS text-align"]
   (** @deprecated Use CSS text-align *)
 
-  val a_axis : cdata wrap -> [> | `Axis] attrib
+  val a_axis : cdata attr_wrap -> [> | `Axis] attrib
   [@@ocaml.deprecated "Not supported in HTML5"]
   (** @deprecated Not supported in HTML5 *)
 
-  val a_colspan : number wrap -> [> | `Colspan] attrib
+  val a_colspan : number attr_wrap -> [> | `Colspan] attrib
 
-  val a_headers : idrefs wrap -> [> | `Headers] attrib
+  val a_headers : idrefs attr_wrap -> [> | `Headers] attrib
 
-  val a_rowspan : number wrap -> [> | `Rowspan] attrib
+  val a_rowspan : number attr_wrap -> [> | `Rowspan] attrib
 
   val a_scope :
-    [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
+    [< | `Row | `Col | `Rowgroup | `Colgroup] attr_wrap -> [> | `Scope] attrib
   [@@ocaml.deprecated "Not supported in HTML5"]
   (** @deprecated Not supported in HTML5 *)
 
-  val a_summary : text wrap -> [> | `Summary] attrib
+  val a_summary : text attr_wrap -> [> | `Summary] attrib
   [@@ocaml.deprecated "Move content elsewhere or to a <caption> child"]
   (** @deprecated Move content elsewhere or to a <caption> child *)
 
-  val a_border : pixels wrap -> [> | `Border] attrib
+  val a_border : pixels attr_wrap -> [> | `Border] attrib
   [@@ocaml.deprecated "Use CSS border and/or border-width"]
   (** @deprecated Use CSS border and/or border-width *)
 
   val a_rules :
-    [< | `None | `Groups | `Rows | `Cols | `All] wrap -> [> | `Rules] attrib
+    [< | `None | `Groups | `Rows | `Cols | `All] attr_wrap -> [> | `Rules] attrib
   [@@ocaml.deprecated "Use CSS border"]
   (** @deprecated Use CSS border *)
 
-  val a_char : character wrap -> [> | `Char] attrib
+  val a_char : character attr_wrap -> [> | `Char] attrib
   [@@ocaml.deprecated "The char attribute is not supported in HTML5"]
   (** @deprecated The char attribute is not supported in HTML5 *)
 
-  val a_alt : text wrap -> [> | `Alt] attrib
+  val a_alt : text attr_wrap -> [> | `Alt] attrib
 
-  val a_height : number wrap -> [> | `Height] attrib
+  val a_height : number attr_wrap -> [> | `Height] attrib
 
-  val a_width : number wrap -> [> | `Width] attrib
+  val a_width : number attr_wrap -> [> | `Width] attrib
 
   type shape = [ | `Rect | `Circle | `Poly | `Default ]
 
-  val a_shape : shape wrap -> [> | `Shape] attrib
+  val a_shape : shape attr_wrap -> [> | `Shape] attrib
 
-  val a_coords : numbers wrap -> [> | `Coords] attrib
+  val a_coords : numbers attr_wrap -> [> | `Coords] attrib
 
-  val a_usemap : idref wrap -> [> | `Usemap] attrib
+  val a_usemap : idref attr_wrap -> [> | `Usemap] attrib
 
-  val a_data : Xml.uri wrap -> [> | `Data] attrib
+  val a_data : Xml.uri attr_wrap -> [> | `Data] attrib
 
-  val a_codetype : contenttype wrap -> [> | `Codetype] attrib
+  val a_codetype : contenttype attr_wrap -> [> | `Codetype] attrib
   [@@ocaml.deprecated "Not supported in HTML5"]
   (** @deprecated Not supported in HTML5 *)
 
-  val a_frameborder : [< | `Zero | `One] wrap -> [> | `Frameborder] attrib
+  val a_frameborder : [< | `Zero | `One] attr_wrap -> [> | `Frameborder] attrib
   [@@ocaml.deprecated "Use CSS border"]
   (** @deprecated Use CSS border *)
 
-  val a_marginheight : pixels wrap -> [> | `Marginheight] attrib
+  val a_marginheight : pixels attr_wrap -> [> | `Marginheight] attrib
   [@@ocaml.deprecated "Use CSS margin"]
   (** @deprecated Use CSS *)
 
-  val a_marginwidth : pixels wrap -> [> | `Marginwidth] attrib
+  val a_marginwidth : pixels attr_wrap -> [> | `Marginwidth] attrib
   [@@ocaml.deprecated "Use CSS margin"]
   (** @deprecated Use CSS *)
 
-  val a_scrolling : [< | `Yes | `No | `Auto] wrap -> [> | `Scrolling] attrib
+  val a_scrolling : [< | `Yes | `No | `Auto] attr_wrap -> [> | `Scrolling] attrib
 
-  val a_target : frametarget wrap -> [> | `Target] attrib
+  val a_target : frametarget attr_wrap -> [> | `Target] attrib
 
-  val a_content : text wrap -> [> | `Content] attrib
+  val a_content : text attr_wrap -> [> | `Content] attrib
 
-  val a_http_equiv : text wrap -> [> | `Http_equiv] attrib
+  val a_http_equiv : text attr_wrap -> [> | `Http_equiv] attrib
 
   val a_defer : unit -> [> | `Defer] attrib
 
-  val a_media : mediadesc wrap -> [> | `Media] attrib
+  val a_media : mediadesc attr_wrap -> [> | `Media] attrib
 
-  val a_style : string wrap -> [> | `Style_Attr] attrib
+  val a_style : string attr_wrap -> [> | `Style_Attr] attrib
 
-  val a_property : string wrap -> [> | `Property] attrib
+  val a_property : string attr_wrap -> [> | `Property] attrib
 
   (** {3 ARIA support} *)
 
@@ -676,12 +678,12 @@ module type T = sig
       WAI-ARIA tutorial}.
   *)
 
-  val a_role : string list wrap -> [> | `Role] attrib
+  val a_role : string list attr_wrap -> [> | `Role] attrib
   (** @see <https://www.w3.org/TR/role-attribute> Role attribute specification
       @see <https://www.w3.org/TR/wai-aria-1.1/#role_definitions> List of WAI-ARIA roles
   *)
 
-  val a_aria : string -> string list wrap -> [> | `Aria] attrib
+  val a_aria : string -> string list attr_wrap -> [> | `Aria] attrib
   (** Basic support for WAI-ARIA attributes: [a_aria "foo"] corresponds to an
       "aria-foo" attribute.
 
@@ -809,7 +811,7 @@ module type T = sig
   val wbr : ([< | wbr_attrib], [> | wbr]) nullary
 
   val bdo :
-    dir: [< | `Ltr | `Rtl] wrap ->
+    dir: [< | `Ltr | `Rtl] attr_wrap ->
     ([< | bdo_attrib], [< | bdo_content_fun], [> | bdo]) star
 
   val abbr : ([< | abbr_attrib], [< | abbr_content_fun], [> | abbr]) star
@@ -851,8 +853,8 @@ module type T = sig
   (** {3 Embedded} *)
 
   val img :
-    src: Xml.uri wrap ->
-    alt: text wrap ->
+    src: Xml.uri attr_wrap ->
+    alt: text attr_wrap ->
     ([< img_attrib], [> img]) nullary
 
   val picture : img:([< | img] elt wrap) -> ([< | picture_attrib], [< | picture_content_fun], [> | picture]) star
@@ -874,13 +876,13 @@ module type T = sig
   val embed : ([< | embed_attrib], [> | embed]) nullary
 
   val audio :
-    ?src:Xml.uri wrap ->
+    ?src:Xml.uri attr_wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
   [@@reflect.element "audio_video"]
 
   val video :
-    ?src:Xml.uri wrap ->
+    ?src:Xml.uri attr_wrap ->
     ?srcs: (([< | source] elt) list_wrap) ->
     ([< | video_attrib], 'a, [> 'a video]) star
   [@@reflect.element "audio_video"]
@@ -890,7 +892,7 @@ module type T = sig
   val source : ([< | source_attrib], [> | source]) nullary
 
   val area :
-    alt: text wrap ->
+    alt: text attr_wrap ->
     ([<
       | common
       | `Alt
@@ -992,7 +994,7 @@ module type T = sig
   [@@reflect.element "datalist"]
 
   val optgroup :
-    label: text wrap  ->
+    label: text attr_wrap  ->
     ([< | optgroup_attrib], [< | optgroup_content_fun], [> | optgroup]) star
 
   val option :
@@ -1040,7 +1042,7 @@ module type T = sig
     ([< | summary_attrib], [< | summary_content_fun], [> | summary]) star
 
   val command :
-    label: text wrap ->
+    label: text attr_wrap ->
     ([< | command_attrib], [> | command]) nullary
 
   val menu :
@@ -1074,8 +1076,8 @@ module type T = sig
     ([< | style_attrib], [< | style_content_fun], [> | style]) star
 
   val link :
-    rel: linktypes wrap ->
-    href: Xml.uri wrap ->
+    rel: linktypes attr_wrap ->
+    href: Xml.uri attr_wrap ->
     ([< | link_attrib], [> | link]) nullary
 
   (** {3 Ruby} *)
@@ -1147,29 +1149,31 @@ module type T = sig
         If it is a standard HTML attribute which is missing,
         please report to the Ocsigen team.
     *)
-    val string_attrib : string -> string wrap -> 'a attrib
+    val string_attrib : string -> string attr_wrap -> 'a attrib
 
     (** Same, for float attribute *)
-    val float_attrib : string -> float wrap -> 'a attrib
+    val float_attrib : string -> float attr_wrap -> 'a attrib
 
     (** Same, for int attribute *)
-    val int_attrib : string -> int wrap -> 'a attrib
+    val int_attrib : string -> int attr_wrap -> 'a attrib
 
     (** Same, for URI attribute *)
-    val uri_attrib : string -> uri wrap -> 'a attrib
+    val uri_attrib : string -> uri attr_wrap -> 'a attrib
 
     (** Same, for a space separated list of values *)
-    val space_sep_attrib : string -> string list wrap -> 'a attrib
+    val space_sep_attrib : string -> string list attr_wrap -> 'a attrib
 
     (** Same, for a comma separated list of values *)
-    val comma_sep_attrib : string -> string list wrap -> 'a attrib
+    val comma_sep_attrib : string -> string list attr_wrap -> 'a attrib
 
   end
 
 end
 
 (** Equivalent to {!T}, but without wrapping. *)
-module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
+module type NoWrap = T
+  with module Xml.Elt = Xml_wrap.NoWrap
+   and module Xml.Attr = Xml_wrap.NoWrap
 
 
 (** {2 Signature functors}
@@ -1183,9 +1187,10 @@ sig
 
   (** See {!module-type:Html_sigs.T}. *)
   module type T = T
-    with type 'a Xml.W.t = 'a Xml.W.t
-     and type 'a Xml.W.tlist = 'a Xml.W.tlist
-     and type ('a,'b) Xml.W.ft = ('a,'b) Xml.W.ft
+    with type 'a Xml.Elt.t = 'a Xml.Elt.t
+     and type 'a Xml.Elt.tlist = 'a Xml.Elt.tlist
+     and type 'a Xml.Attr.t = 'a Xml.Attr.t
+     and type ('a,'b) Xml.Attr.ft = ('a,'b) Xml.Attr.ft
      and type Xml.uri = Xml.uri
      and type Xml.event_handler = Xml.event_handler
      and type Xml.mouse_event_handler = Xml.mouse_event_handler
@@ -1202,36 +1207,36 @@ module type Wrapped_functions = sig
   module Xml : Xml_sigs.T
 
   val string_of_big_variant :
-    ([< Html_types.big_variant], string) Xml.W.ft
+    ([< Html_types.big_variant], string) Xml.Attr.ft
 
-  val string_of_bool : (bool, string) Xml.W.ft
+  val string_of_bool : (bool, string) Xml.Attr.ft
 
-  val onoff_of_bool : (bool, string) Xml.W.ft
+  val onoff_of_bool : (bool, string) Xml.Attr.ft
 
-  val string_of_character : (Html_types.character, string) Xml.W.ft
+  val string_of_character : (Html_types.character, string) Xml.Attr.ft
 
   val string_of_input_type :
-    ([< Html_types.input_type], string) Xml.W.ft
+    ([< Html_types.input_type], string) Xml.Attr.ft
 
   val string_of_number_or_datetime :
-    ([< Html_types.number_or_datetime], string) Xml.W.ft
+    ([< Html_types.number_or_datetime], string) Xml.Attr.ft
 
   val string_of_linktypes :
-    ([< Html_types.linktype] list, string) Xml.W.ft
+    ([< Html_types.linktype] list, string) Xml.Attr.ft
 
   val string_of_mediadesc :
-    ([< Html_types.mediadesc_token] list, string) Xml.W.ft
+    ([< Html_types.mediadesc_token] list, string) Xml.Attr.ft
 
   val string_of_referrerpolicy :
-    ([< Html_types.referrerpolicy], string) Xml.W.ft
+    ([< Html_types.referrerpolicy], string) Xml.Attr.ft
 
-  val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
+  val string_of_numbers : (Html_types.numbers, string) Xml.Attr.ft
 
   val string_of_sandbox :
-    ([< Html_types.sandbox_token] list, string) Xml.W.ft
+    ([< Html_types.sandbox_token] list, string) Xml.Attr.ft
 
   val string_of_sizes :
-    ((Html_types.number * Html_types.number) list option, string) Xml.W.ft
+    ((Html_types.number * Html_types.number) list option, string) Xml.Attr.ft
 
   type image_candidate =
     [ `Url of Xml.uri
@@ -1239,10 +1244,10 @@ module type Wrapped_functions = sig
     | `Url_pixel of Xml.uri * Html_types.float_number ]
 
   val string_of_srcset :
-    ([< image_candidate] list, string) Xml.W.ft
+    ([< image_candidate] list, string) Xml.Attr.ft
 
-  val string_of_step : (float option, string) Xml.W.ft
+  val string_of_step : (float option, string) Xml.Attr.ft
 
-  val unoption_string : (string option, string) Xml.W.ft
+  val unoption_string : (string option, string) Xml.Attr.ft
 
 end

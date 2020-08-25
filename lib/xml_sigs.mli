@@ -22,14 +22,12 @@
 
 module type T = sig
 
-  module W : Xml_wrap.T
-
-  type 'a wrap = 'a W.t
-  type 'a list_wrap = 'a W.tlist
+  module Elt : Xml_wrap.MANY
+  module Attr : Xml_wrap.APP
 
   type uri
-  val string_of_uri : (uri, string) W.ft
-  val uri_of_string : (string, uri) W.ft
+  val string_of_uri : (uri, string) Attr.ft
+  val uri_of_string : (string, uri) Attr.ft
 
   type aname = string
   type event_handler
@@ -39,17 +37,17 @@ module type T = sig
 
   type attrib
 
-  val float_attrib : aname -> float wrap -> attrib
-  val int_attrib : aname -> int wrap -> attrib
-  val string_attrib : aname -> string wrap -> attrib
-  val space_sep_attrib : aname -> string list wrap -> attrib
-  val comma_sep_attrib : aname -> string list wrap -> attrib
+  val float_attrib : aname -> float Attr.t -> attrib
+  val int_attrib : aname -> int Attr.t -> attrib
+  val string_attrib : aname -> string Attr.t -> attrib
+  val space_sep_attrib : aname -> string list Attr.t -> attrib
+  val comma_sep_attrib : aname -> string list Attr.t -> attrib
   val event_handler_attrib : aname -> event_handler -> attrib
   val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
   val keyboard_event_handler_attrib : aname -> keyboard_event_handler -> attrib
   val touch_event_handler_attrib : aname -> touch_event_handler -> attrib
-  val uri_attrib : aname -> uri wrap -> attrib
-  val uris_attrib : aname -> uri list wrap -> attrib
+  val uri_attrib : aname -> uri Attr.t -> attrib
+  val uris_attrib : aname -> uri list Attr.t -> attrib
 
   type elt
   type ename = string
@@ -57,12 +55,12 @@ module type T = sig
   val empty : unit -> elt
   val comment : string -> elt
 
-  val pcdata : string wrap -> elt
-  val encodedpcdata : string wrap -> elt
+  val pcdata : string Elt.t -> elt
+  val encodedpcdata : string Elt.t -> elt
   val entity : string -> elt
 
   val leaf : ?a:(attrib list) -> ename -> elt
-  val node : ?a:(attrib list) -> ename -> elt list_wrap -> elt
+  val node : ?a:(attrib list) -> ename -> elt Elt.tlist -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
@@ -70,7 +68,7 @@ module type T = sig
 
 end
 
-module type NoWrap = T with module W = Xml_wrap.NoWrap
+module type NoWrap = T with module Elt = Xml_wrap.NoWrap and module Attr = Xml_wrap.NoWrap
 module type Iterable = sig
 
   include NoWrap
