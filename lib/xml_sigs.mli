@@ -22,7 +22,8 @@
 
 module type T = sig
 
-  module Elt : Xml_wrap.MANY
+  module Elt : Xml_wrap.NODE
+  module Child : Xml_wrap.MANY with type 'a t = 'a Elt.child
   module Attr : Xml_wrap.APP
 
   type uri
@@ -49,18 +50,21 @@ module type T = sig
   val uri_attrib : aname -> uri Attr.t -> attrib
   val uris_attrib : aname -> uri list Attr.t -> attrib
 
-  type elt
+  type data
+  type elt = data Elt.t
+  type children = data Child.list
+  
   type ename = string
 
   val empty : unit -> elt
   val comment : string -> elt
 
-  val pcdata : string Elt.t -> elt
-  val encodedpcdata : string Elt.t -> elt
+  val pcdata : string Child.t -> elt
+  val encodedpcdata : string Child.t -> elt
   val entity : string -> elt
 
   val leaf : ?a:(attrib list) -> ename -> elt
-  val node : ?a:(attrib list) -> ename -> elt Elt.tlist -> elt
+  val node : ?a:(attrib list) -> ename -> children -> elt
 
   val cdata : string -> elt
   val cdata_script : string -> elt
@@ -68,7 +72,10 @@ module type T = sig
 
 end
 
-module type NoWrap = T with module Elt = Xml_wrap.NoWrap and module Attr = Xml_wrap.NoWrap
+module type NoWrap = T
+  with module Elt = Xml_wrap.NoWrap
+   and module Child = Xml_wrap.NoWrap
+   and module Attr = Xml_wrap.NoWrap
 module type Iterable = sig
 
   include NoWrap
@@ -84,15 +91,15 @@ module type Iterable = sig
     | AStrL of separator * string list
   val acontent : attrib -> acontent
 
-  type econtent = private
+  type content = private
     | Empty
     | Comment of string
     | EncodedPCDATA of string
     | PCDATA of string
     | Entity of string
     | Leaf of ename * attrib list
-    | Node of ename * attrib list * elt list
-  val content : elt -> econtent
+    | Node of ename * attrib list * children
+  val content : elt -> content
 
 end
 

@@ -110,6 +110,7 @@ struct
 
   module Xml = Xml
   module Elt = Xml.Elt
+  module Child = Xml.Child
   module Attr = Xml.Attr
 
   module Info = struct
@@ -134,18 +135,19 @@ struct
 
   type 'a attrib = Xml.attrib
 
-  type +'a elt = Xml.elt
+  type +'a data = Xml.data
 
-  type 'a wrap = 'a Elt.t
+  type 'a elt = 'a data Xml.Elt.t
+  type 'a child = 'a data Xml.Child.t
+  type 'a children = 'a data Xml.Child.list
   type 'a attr_wrap = 'a Attr.t
-  type 'a list_wrap = 'a Elt.tlist
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b child -> 'c elt
 
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
+    ?a: (('a attrib) list) -> 'b children -> 'c elt
 
   let tot x = x
 
@@ -158,10 +160,10 @@ struct
   let to_attrib x = x
 
   let nullary tag ?a () =
-    Xml.node ?a tag (Elt.nil ())
+    Xml.node ?a tag (Child.nil ())
 
   let unary tag ?a elt =
-    Xml.node ?a tag (Elt.singleton elt)
+    Xml.node ?a tag (Child.singleton elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 

@@ -23,6 +23,7 @@
 module M = struct
 
   module Elt = Xml_wrap.NoWrap
+  module Child = Xml_wrap.NoWrap
   module Attr = Xml_wrap.NoWrap
 
   type uri = string
@@ -65,17 +66,18 @@ module M = struct
   (** Element *)
 
   type ename = string
-  type econtent =
+  type content =
     | Empty
     | Comment of string
     | EncodedPCDATA of string
     | PCDATA of string
     | Entity of string
     | Leaf of ename * attrib list
-    | Node of ename * attrib list * econtent list
-
-  type elt =  econtent
-
+    | Node of ename * attrib list * children
+  and data = content
+  and elt = data
+  and children = data list
+  
   let content elt = elt
 
   let empty () = Empty

@@ -83,13 +83,12 @@ let string loc = with_loc loc Ast_convenience.str
 
 let add_constraints ~list lang e =
   let loc = {e.Parsetree.pexp_loc with loc_ghost = true} in
-  let elt = make_lid ~loc lang "elt" in
   let wrap =
-    if list then make_lid ~loc lang "list_wrap"
-    else make_lid ~loc lang "wrap"
+    if list then make_lid ~loc lang "children"
+    else make_lid ~loc lang "child"
   in
   let ty =
-    Typ.(constr ~loc wrap [ constr ~loc elt [any ~loc ()]])
+    Typ.(constr ~loc wrap [any ~loc ()])
   in
   Exp.constraint_ ~loc e ty
 
@@ -120,18 +119,18 @@ let list_wrap_value lang loc =
   let (!!) = make ~loc lang in
   let nil =
     [%expr
-      [%e !!"Xml.Elt.nil"]
+      [%e !!"Xml.Child.nil"]
       ()] [@metaloc loc]
   in
   let cons acc x =
-    [%expr [%e !!"Xml.Elt.cons"]
-        ([%e !!"Xml.Elt.return"] [%e x])
+    [%expr [%e !!"Xml.Child.cons"]
+        ([%e !!"Xml.Elt.inject"] [%e x])
         [%e acc]
     ][@metaloc loc]
   in
   let append acc x =
     [%expr
-      [%e !!"Xml.Elt.append"]
+      [%e !!"Xml.Child.append"]
         [%e add_constraints ~list:true lang x] [%e acc]
     ][@metaloc loc]
   in
@@ -142,7 +141,7 @@ let list_wrap lang loc l =
 
 let wrap implementation loc e =
   [%expr
-    [%e make ~loc implementation "Xml.Elt.return"]
+    [%e make ~loc implementation "Xml.Child.return"]
     [%e e]] [@metaloc loc]
 
 let wrap_value lang loc = function

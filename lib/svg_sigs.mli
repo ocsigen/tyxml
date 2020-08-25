@@ -36,10 +36,7 @@ module type T = sig
       Note that the concrete implementation of this type can vary.
       See {!Xml} for details.
   *)
-  type +'a elt
-
-  (** A complete SVG document. *)
-  type doc = [ `Svg ] elt
+  type +'a data
 
   (** SVG attributes
 
@@ -76,14 +73,18 @@ module type T = sig
       In most cases, ['a wrap = 'a]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!React.S.t}.
   *)
-  type 'a wrap = 'a Xml.Elt.t
+  type 'a elt = 'a data Xml.Elt.t
 
+  (** A complete SVG document. *)
+  type doc = [ `Svg ] elt
+  
   (** [list_wrap] is a containre for list of elements.
 
       In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!ReactiveData.RList.t}.
   *)
-  type 'a list_wrap = 'a Xml.Elt.tlist
+  type 'a child = 'a data Xml.Child.t
+  type 'a children = 'a data Xml.Child.list
 
   type 'a attr_wrap = 'a Xml.Attr.t
 
@@ -91,11 +92,11 @@ module type T = sig
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
   (** A unary element is an element that have exactly one children. *)
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b child -> 'c elt
 
   (** A star element is an element that has any number of children, including zero. *)
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
+    ?a: (('a attrib) list) -> 'b children -> 'c elt
 
   (** Various information about SVG, such as the doctype, ... *)
   module Info : Xml_sigs.Info
@@ -694,7 +695,7 @@ module type T = sig
 
   (** {2:elements Elements} *)
 
-  val txt : string wrap -> [> | txt] elt
+  val txt : string Xml.Elt.child -> [> | txt] elt
 
   val svg : ([< | svg_attr], [< | svg_content], [> | svg]) star
 
@@ -953,15 +954,15 @@ module type T = sig
   (** @deprecated Removed in SVG2 *)
 
   val metadata :
-    ?a: ((metadata_attr attrib) list) -> Xml.elt list_wrap -> [> | metadata] elt
+    ?a: ((metadata_attr attrib) list) -> Xml.children -> [> | metadata] elt
 
   val foreignObject :
     ?a: ((foreignobject_attr attrib) list) ->
-    Xml.elt list_wrap -> [> | foreignobject] elt
+    Xml.children -> [> | foreignobject] elt
 
   (** {3 Deprecated} *)
 
-  val pcdata : string wrap -> [> txt] elt
+  val pcdata : string Xml.Child.t -> [> txt] elt
   [@@ocaml.deprecated "Use txt instead"]
   (** @deprecated Use txt instead *)
 
@@ -975,12 +976,12 @@ module type T = sig
       It can be used with HTML and SVG parsing libraries, such as Markup.
       @raise Xml_stream.Malformed_stream if the stream is malformed.
   *)
-  val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
+  val of_seq : Xml_stream.signal Seq.t -> 'a children
 
   val tot : Xml.elt -> 'a elt
-  val totl : Xml.elt list_wrap -> ('a elt) list_wrap
+  val totl : Xml.children -> 'a children
   val toelt : 'a elt -> Xml.elt
-  val toeltl : ('a elt) list_wrap -> Xml.elt list_wrap
+  val toeltl : 'a children -> Xml.children
 
   val doc_toelt : doc -> Xml.elt
   val to_xmlattribs : ('a attrib) list -> Xml.attrib list
@@ -996,13 +997,13 @@ module type T = sig
   module Unsafe : sig
 
     (** Insert raw text without any encoding *)
-    val data : string wrap -> 'a elt
+    val data : string Xml.Child.t -> 'a elt
 
     (** Insert an XML node that is not implemented in this module.
         If it is a standard SVG node which is missing,
         please report to the Ocsigen team.
     *)
-    val node : string -> ?a:'a attrib list -> 'b elt list_wrap -> 'c elt
+    val node : string -> ?a:'a attrib list -> 'b children -> 'c elt
 
     (** Insert an XML node without children
         that is not implemented in this module.
@@ -1056,7 +1057,8 @@ module Make (Xml : Xml_sigs.T) : sig
   (** See {!module-type:Svg_sigs.T}. *)
   module type T = T
     with type 'a Xml.Elt.t = 'a Xml.Elt.t
-     and type 'a Xml.Elt.tlist = 'a Xml.Elt.tlist
+     and type 'a Xml.Elt.child = 'a Xml.Elt.child
+     and type 'a Xml.Child.list = 'a Xml.Child.list
      and type 'a Xml.Attr.t = 'a Xml.Attr.t
      and type ('a,'b) Xml.Attr.ft = ('a,'b) Xml.Attr.ft
      and type Xml.uri = Xml.uri
@@ -1065,7 +1067,7 @@ module Make (Xml : Xml_sigs.T) : sig
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
      and type Xml.touch_event_handler = Xml.touch_event_handler
      and type Xml.attrib = Xml.attrib
-     and type Xml.elt = Xml.elt
+     and type Xml.data = Xml.data
 
 end
 

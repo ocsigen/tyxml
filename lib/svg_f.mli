@@ -88,7 +88,7 @@ val string_of_transforms : transforms -> string
 *)
 module Make(Xml : Xml_sigs.T with type ('a, 'b) Attr.ft = ('a -> 'b))
   : Svg_sigs.Make(Xml).T
-    with type +'a elt = Xml.elt
+    with type +'a data = Xml.data
      and type +'a attrib = Xml.attrib
 
 (** The standard set of wrapped functions, when [W.ft] is the regular function. *)
@@ -101,5 +101,5 @@ module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
     (C : Svg_sigs.Wrapped_functions with module Xml = Xml)
   : Svg_sigs.Make(Xml).T
-    with type +'a elt = Xml.elt
+    with type +'a data = Xml.data
      and type +'a attrib = Xml.attrib

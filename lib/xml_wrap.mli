@@ -17,6 +17,12 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
 *)
 
+module type NODE = sig
+  type 'a t
+  type 'a child
+  val inject : 'a t -> 'a child
+end
+
 module type APP = sig
   type 'a t
   val return : 'a -> 'a t
@@ -29,22 +35,27 @@ module type MANY = sig
   type 'a t
   val return : 'a -> 'a t
 
-  type 'a tlist
-  val nil : unit -> 'a tlist
-  val singleton : 'a t -> 'a tlist
-  val cons : 'a t -> 'a tlist -> 'a tlist
-  val append : 'a tlist -> 'a tlist -> 'a tlist
+  type 'a list
+  val nil : unit -> 'a list
+  val singleton : 'a t -> 'a list
+  val cons : 'a t -> 'a list -> 'a list
+  val append : 'a list -> 'a list -> 'a list
 end
 
-module type T = sig
-  type +'a t
-  include APP with type 'a t := 'a t
-  include MANY with type 'a t := 'a t
-end
+module type NoWrap = sig
+  type 'a t = 'a
+  type 'a child = 'a
+  val return : 'a -> 'a
+  val inject : 'a -> 'a
 
-module type NoWrap =
-  T with type 'a t = 'a
-     and type 'a tlist = 'a list
-     and type (-'a, 'b) ft = 'a -> 'b
+  type (-'a, 'b) ft = 'a -> 'b
+  val fmap : ('a, 'b) ft -> 'a t -> 'b t
+
+  type 'a list = 'a List.t
+  val nil : unit -> 'a list
+  val singleton : 'a -> 'a list
+  val cons : 'a -> 'a list -> 'a list
+  val append : 'a list -> 'a list -> 'a list
+end
 
 module NoWrap : NoWrap

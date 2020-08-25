@@ -35,7 +35,7 @@ module Make
     (Xml : Xml_sigs.T with type ('a, 'b) Attr.ft = 'a -> 'b)
     (Svg : Svg_sigs.T with module Xml := Xml)
   : Html_sigs.Make(Xml)(Svg).T
-    with type +'a elt = Xml.elt
+    with type +'a data = Xml.data
      and type +'a attrib = Xml.attrib
 
 (** The standard set of wrapped functions, when [W.ft] is the regular function. *)
@@ -49,5 +49,5 @@ module Make_with_wrapped_functions
     (C : Html_sigs.Wrapped_functions with module Xml = Xml)
     (Svg : Svg_sigs.T with module Xml := Xml)
   : Html_sigs.Make(Xml)(Svg).T
-    with type +'a elt = Xml.elt
+    with type +'a data = Xml.data
      and type +'a attrib = Xml.attrib

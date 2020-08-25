@@ -30,6 +30,7 @@ struct
   module Xml = Xml
 
   module Elt = Xml.Elt
+  module Child = Xml.Child
   module Attr = Xml.Attr
 
   module Info = struct
@@ -45,8 +46,12 @@ struct
         "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
   end
 
-  type 'a wrap = 'a Elt.t
-  type 'a list_wrap = 'a Elt.tlist
+  type 'a attrib = Xml.attrib
+  type +'a data = Xml.data
+  
+  type 'a elt = 'a data Xml.Elt.t
+  type 'a child = 'a data Xml.Child.t
+  type 'a children = 'a data Xml.Child.list
   type 'a attr_wrap = 'a Attr.t
 
   type uri = Xml.uri
@@ -59,7 +64,6 @@ struct
     | `Url_pixel of uri * Html_types.float_number ]
 
 
-  type 'a attrib = Xml.attrib
 
   let to_xmlattribs x = x
   let to_attrib x = x
@@ -497,29 +501,27 @@ struct
 
   let a_aria name = space_sep_attrib ("aria-" ^ name)
 
-  type 'a elt = Xml.elt
-
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
 
-  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b elt wrap -> 'c elt
+  type ('a, 'b, 'c) unary = ?a: (('a attrib) list) -> 'b child -> 'c elt
 
   type ('a, 'b, 'c) star =
-    ?a: (('a attrib) list) -> ('b elt) list_wrap -> 'c elt
+    ?a: (('a attrib) list) -> 'b children -> 'c elt
 
   let terminal tag ?a () = Xml.leaf ?a tag
 
   let unary tag ?a elt =
-    Xml.node ?a tag (Elt.singleton elt)
+    Xml.node ?a tag (Child.singleton elt)
 
   let star tag ?a elts = Xml.node ?a tag elts
 
   let plus tag ?a elt elts =
-    Xml.node ?a tag (Elt.cons elt elts)
+    Xml.node ?a tag (Child.cons elt elts)
 
   let option_cons opt elts =
     match opt with
     | None -> elts
-    | Some x -> Elt.cons x elts
+    | Some x -> Child.cons x elts
 
   let body = star "body"
 
@@ -528,7 +530,7 @@ struct
   let title = unary "title"
 
   let html ?a head body =
-    let content = Elt.cons head (Elt.singleton body) in
+    let content = Child.cons head (Child.singleton body) in
     Xml.node ?a "html" content
 
   let footer = star "footer"
@@ -688,7 +690,7 @@ struct
     in
     match srcs with
     | None -> Xml.node name ~a elts
-    | Some srcs -> Xml.node name ~a (Elt.append srcs elts)
+    | Some srcs -> Xml.node name ~a (Child.append srcs elts)
 
   let audio = video_audio "audio"
 
@@ -701,7 +703,7 @@ struct
 
   let menu ?children ?a () =
     let children = match children with
-      | None -> Elt.nil ()
+      | None -> Child.nil ()
       | Some (`Lis l)
       | Some (`Flows l) -> l in
     Xml.node ?a "menu" children
@@ -735,7 +737,7 @@ struct
 
   let datalist ?children ?a () =
     let children = match children with
-      | None -> Elt.nil ()
+      | None -> Child.nil ()
       | Some (`Options x | `Phras x) -> x in
     Xml.node ?a "datalist" children
 
@@ -758,8 +760,8 @@ struct
   let figure ?figcaption ?a elts =
     let content = match figcaption with
       | None -> elts
-      | Some (`Top c) -> Elt.cons c elts
-      | Some (`Bottom c) -> Elt.append elts (Elt.singleton c)
+      | Some (`Top c) -> Child.cons c elts
+      | Some (`Bottom c) -> Child.append elts (Child.singleton c)
     in
     Xml.node ?a "figure" content
 
@@ -769,7 +771,7 @@ struct
     let content = option_cons thead (option_cons tfoot elts) in
     let content = match columns with
       | None -> content
-      | Some columns -> Elt.append columns content in
+      | Some columns -> Child.append columns content in
     let content = option_cons caption content in
     Xml.node ?a "table" content
 
@@ -796,7 +798,7 @@ struct
   let object_ ?params ?(a = []) elts =
     let elts = match params with
       | None -> elts
-      | Some e -> Elt.append e elts in
+      | Some e -> Child.append e elts in
     Xml.node ~a "object" elts
 
   let param = terminal "param"
@@ -806,7 +808,7 @@ struct
     Xml.leaf ~a "img"
 
   let picture ~img ?a elts =
-    let content = Elt.cons img elts in
+    let content = Child.cons img elts in
     Xml.node ?a "picture" content
 
   let meta = terminal "meta"

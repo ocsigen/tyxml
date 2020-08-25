@@ -47,10 +47,7 @@ module type T = sig
       Note that the concrete implementation of this type can vary.
       See {!Xml} for details.
   *)
-  type +'a elt
-
-  (** A complete HTML document. *)
-  type doc = html elt
+  type +'a data
 
   (** HTML attributes
 
@@ -97,14 +94,18 @@ module type T = sig
       In most cases, ['a wrap = 'a]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!React.S.t}.
   *)
-  type 'a wrap = 'a Xml.Elt.t
+  type 'a elt = 'a data Xml.Elt.t
+
+  (** A complete HTML document. *)
+  type doc = html elt
 
   (** [list_wrap] is a container for list of elements.
 
       In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!ReactiveData.RList.t}.
   *)
-  type 'a list_wrap = 'a Xml.Elt.tlist
+  type 'a child = 'a data Xml.Child.t
+  type 'a children = 'a data Xml.Child.list
 
   type 'a attr_wrap = 'a Xml.Attr.t
 
@@ -112,11 +113,11 @@ module type T = sig
   type ('a, 'b) nullary = ?a:('a attrib list) -> unit -> 'b elt
 
   (** A unary element is an element that have exactly one children. *)
-  type ('a, 'b, 'c) unary = ?a:('a attrib list) -> 'b elt wrap -> 'c elt
+  type ('a, 'b, 'c) unary = ?a:('a attrib list) -> 'b child -> 'c elt
 
   (** A star element is an element that has any number of children, including zero. *)
   type ('a, 'b, 'c) star =
-    ?a:('a attrib list) -> 'b elt list_wrap -> 'c elt
+    ?a:('a attrib list) -> 'b children -> 'c elt
 
   (** Associated SVG module, for the {!svg} combinator. *)
   module Svg : Svg_sigs.T with module Xml := Xml
@@ -692,17 +693,17 @@ module type T = sig
 
   (** {2:elements Elements} *)
 
-  val txt : string wrap -> [> | txt] elt
+  val txt : string Xml.Child.t -> [> | txt] elt
 
   val html :
     ?a: ((html_attrib attrib) list) ->
-    [< | head] elt wrap -> [< | body] elt wrap -> [> | html] elt
+    [< | head] child -> [< | body] child -> [> | html] elt
   [@@reflect.filter_whitespace]
   [@@reflect.element "html"]
 
   val head :
     ?a: ((head_attrib attrib) list) ->
-    [< | title] elt wrap -> (head_content_fun elt) list_wrap -> [> | head] elt
+    [< | title] child -> head_content_fun children -> [> | head] elt
   [@@reflect.filter_whitespace]
   [@@reflect.element "head"]
 
@@ -713,7 +714,9 @@ module type T = sig
   val body : ([< | body_attrib], [< | body_content_fun], [> | body]) star
 
 
-  val svg : ?a : [< svg_attrib ] Svg.attrib list -> [< svg_content ] Svg.elt list_wrap -> [> svg ] elt
+  val svg :
+    ?a : [< svg_attrib ] Svg.attrib list ->
+    [< svg_content ] Svg.children -> [> svg ] elt
 
   (** {3 Section} *)
 
@@ -785,7 +788,7 @@ module type T = sig
     ([< | figcaption_attrib], [< | figcaption_content_fun], [> | figcaption]) star
 
   val figure :
-    ?figcaption: ([`Top of [< | figcaption ] elt wrap | `Bottom of [< | figcaption ] elt wrap ]) ->
+    ?figcaption: ([`Top of [< | figcaption ] child | `Bottom of [< | figcaption ] child ]) ->
     ([< | figure_attrib], [< | figure_content_fun], [> | figure]) star
   [@@reflect.element "figure"]
 
@@ -857,7 +860,7 @@ module type T = sig
     alt: text attr_wrap ->
     ([< img_attrib], [> img]) nullary
 
-  val picture : img:([< | img] elt wrap) -> ([< | picture_attrib], [< | picture_content_fun], [> | picture]) star
+  val picture : img:([< | img] child) -> ([< | picture_attrib], [< | picture_content_fun], [> | picture]) star
   [@@reflect.filter_whitespace]
   [@@reflect.element "picture"]
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture>
@@ -867,7 +870,7 @@ module type T = sig
     ([< | iframe_attrib], [< | iframe_content_fun], [> | iframe]) star
 
   val object_ :
-    ?params: (([< | param] elt) list_wrap ) ->
+    ?params: ([< | param] children) ->
     ([< | object__attrib], 'a, [> | `Object of 'a]) star
   [@@reflect.element "object_" "object"]
 
@@ -877,13 +880,13 @@ module type T = sig
 
   val audio :
     ?src:Xml.uri attr_wrap ->
-    ?srcs:(([< | source] elt) list_wrap) ->
+    ?srcs:([< | source] children) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
   [@@reflect.element "audio_video"]
 
   val video :
     ?src:Xml.uri attr_wrap ->
-    ?srcs: (([< | source] elt) list_wrap) ->
+    ?srcs: ([< | source] children) ->
     ([< | video_attrib], 'a, [> 'a video]) star
   [@@reflect.element "audio_video"]
 
@@ -913,19 +916,19 @@ module type T = sig
     ([< | caption_attrib], [< | caption_content_fun], [> | caption]) star
 
   val table :
-    ?caption: [< | caption] elt wrap ->
-    ?columns: [< | colgroup] elt list_wrap ->
-    ?thead: [< | thead] elt wrap ->
-    ?tfoot: [< | tfoot] elt wrap ->
+    ?caption: [< | caption] child ->
+    ?columns: [< | colgroup] children ->
+    ?thead: [< | thead] child ->
+    ?tfoot: [< | tfoot] child ->
     ([< | table_attrib], [< | table_content_fun], [> | table]) star
   [@@reflect.filter_whitespace]
   [@@reflect.element "table"]
 
   val tablex :
-    ?caption: [< | caption] elt wrap ->
-    ?columns: [< | colgroup] elt list_wrap ->
-    ?thead: [< | thead] elt wrap ->
-    ?tfoot: [< | tfoot] elt wrap ->
+    ?caption: [< | caption] child ->
+    ?columns: [< | colgroup] children ->
+    ?thead: [< | thead] child ->
+    ?tfoot: [< | tfoot] child ->
     ([< | tablex_attrib], [< | tablex_content_fun], [> | tablex]) star
   [@@reflect.filter_whitespace]
   [@@reflect.element "table" "table"]
@@ -960,7 +963,7 @@ module type T = sig
   val form : ([< | form_attrib], [< | form_content_fun], [> | form]) star
 
   val fieldset :
-    ?legend: [< | legend ] elt wrap ->
+    ?legend: [< | legend ] child ->
     ([< | fieldset_attrib], [< | fieldset_content_fun], [> | fieldset]) star
   [@@reflect.element "fieldset"]
 
@@ -986,8 +989,8 @@ module type T = sig
   val datalist :
     ?children:(
       [<
-        | `Options of ([< | selectoption] elt) list_wrap
-        | `Phras of ([< | phrasing] elt) list_wrap
+        | `Options of [< | selectoption] children
+        | `Phras of [< | phrasing] children
       ]) ->
     ([< | datalist_attrib], [> | datalist]) nullary
   [@@reflect.filter_whitespace]
@@ -1034,7 +1037,7 @@ module type T = sig
   (** {3 Interactive} *)
 
   val details :
-    [< | summary] elt wrap ->
+    [< | summary] child ->
     ([< | details_attrib], [< | details_content_fun], [> | details]) star
   [@@reflect.element "details"]
 
@@ -1048,8 +1051,8 @@ module type T = sig
   val menu :
     ?children:(
       [<
-        | `Lis of ([< | `Li of [< | common]] elt) list_wrap
-        | `Flows of ([< | flow5] elt) list_wrap
+        | `Lis of [< | `Li of [< | common]] children
+        | `Flows of [< | flow5] children
       ]) ->
     ([< | menu_attrib], [> | menu]) nullary
   [@@reflect.element "menu"]
@@ -1090,7 +1093,7 @@ module type T = sig
 
   (** {3 Deprecated} *)
 
-  val pcdata : string wrap -> [> | pcdata] elt
+  val pcdata : string Xml.Child.t -> [> | pcdata] elt
   [@@ocaml.deprecated "Use txt instead"]
   (** @deprecated Use txt instead *)
 
@@ -1104,12 +1107,12 @@ module type T = sig
       It can be used with HTML and SVG parsing libraries, such as Markup.
       @raise Xml_stream.Malformed_stream if the stream is malformed.
   *)
-  val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
+  val of_seq : Xml_stream.signal Seq.t -> 'a children
 
   val tot : Xml.elt -> 'a elt
-  val totl : Xml.elt list_wrap -> 'a elt list_wrap
+  val totl : Xml.children -> 'a children
   val toelt : 'a elt -> Xml.elt
-  val toeltl : 'a elt list_wrap -> Xml.elt list_wrap
+  val toeltl : 'a children -> Xml.children
 
   val doc_toelt : doc -> Xml.elt
   val to_xmlattribs : 'a attrib list -> Xml.attrib list
@@ -1125,13 +1128,13 @@ module type T = sig
   module Unsafe : sig
 
     (** Insert raw text without any encoding *)
-    val data : string wrap -> 'a elt
+    val data : string Xml.Child.t -> 'a elt
 
     (** Insert an XML node that is not implemented in this module.
         If it is a standard HTML node which is missing,
         please report to the Ocsigen team.
     *)
-    val node : string -> ?a:'a attrib list -> 'b elt list_wrap -> 'c elt
+    val node : string -> ?a:'a attrib list -> 'b children -> 'c elt
 
     (** Insert an XML node without children
         that is not implemented in this module.
@@ -1188,7 +1191,8 @@ sig
   (** See {!module-type:Html_sigs.T}. *)
   module type T = T
     with type 'a Xml.Elt.t = 'a Xml.Elt.t
-     and type 'a Xml.Elt.tlist = 'a Xml.Elt.tlist
+     and type 'a Xml.Elt.child = 'a Xml.Elt.child
+     and type 'a Xml.Child.list = 'a Xml.Child.list
      and type 'a Xml.Attr.t = 'a Xml.Attr.t
      and type ('a,'b) Xml.Attr.ft = ('a,'b) Xml.Attr.ft
      and type Xml.uri = Xml.uri
@@ -1197,7 +1201,7 @@ sig
      and type Xml.keyboard_event_handler = Xml.keyboard_event_handler
      and type Xml.touch_event_handler = Xml.touch_event_handler
      and type Xml.attrib = Xml.attrib
-     and type Xml.elt = Xml.elt
+     and type Xml.data = Xml.data
      and module Svg := Svg
 end
 

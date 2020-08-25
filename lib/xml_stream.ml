@@ -36,19 +36,19 @@ module Import
 
   let of_list l =
     List.fold_right
-      (fun a b -> Xml.Elt.(cons (return a) b))
-      l (Xml.Elt.nil ())
+      (fun a b -> Xml.Child.(cons (Xml.Elt.inject a) b))
+      l (Xml.Child.nil ())
 
   let mk_attribs attrs =
     (* TODO: This is not very structured *)
     let f ((_,name), v) = Xml.string_attrib name (Xml.Attr.return v) in
     List.map f attrs
 
-  let rec mk children (seq : signal Seq.t) = match seq () with
+  let rec mk (children : Xml.elt list) (seq : signal Seq.t) = match seq () with
     | Cons (`Comment s, q) ->
       mk (Xml.comment s :: children) q
     | Cons (`Text s, q) ->
-      mk (List.map (fun x -> Xml.pcdata @@ Xml.Elt.return x) s @ children) q
+      mk (List.map (fun x -> Xml.pcdata @@ Xml.Child.return x) s @ children) q
     | Cons (`Start_element ((_, name), attrs), q) ->
       let a = mk_attribs attrs in
       let sub_children, rest = mk [] q in

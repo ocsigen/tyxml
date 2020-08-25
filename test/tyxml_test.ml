@@ -14,25 +14,19 @@ let tyxml_tests l =
 (* Boilerplate to make writing the PPX and JSX tests easier *)
 
 module type LANGUAGE = sig
-  include Xml_sigs.Typed_pp
-  type 'a wrap
-  type 'a list_wrap
-  val pp_wrap :
-    (Format.formatter -> 'a -> unit) ->
-    Format.formatter -> 'a wrap -> unit
-  val pp_wrap_list :
-    (Format.formatter -> 'a -> unit) ->
-    Format.formatter -> 'a list_wrap -> unit
-  val totl : Xml.elt list_wrap -> ('a elt) list_wrap
-  val toeltl : ('a elt) list_wrap -> Xml.elt list_wrap
+  type 'a data
+  type 'a children
+  include Xml_sigs.Typed_pp with type 'a elt := 'a data
+  val pp_children : Format.formatter -> 'a children -> unit
+  val totl : Xml.children -> 'a children
+  val toeltl : 'a children -> Xml.children
 end
 
 module TyTests (Language : LANGUAGE) = struct
   module Testable = struct
-    type t = Xml.elt Language.list_wrap
+    type t = Xml.children
     let pp fmt x =
-      Language.pp_wrap_list
-        (Language.pp_elt ())
+      Language.pp_children
         fmt (Language.totl x)
     let equal = (=)
   end
@@ -48,13 +42,13 @@ end
 
 module Html = struct
   include Tyxml.Html
-  let pp_wrap pp = pp
-  let pp_wrap_list pp = Format.pp_print_list ~pp_sep:(fun _ () -> ()) pp
+  let pp_children fmt =
+    Format.pp_print_list ~pp_sep:(fun _ () -> ()) (pp_elt ()) fmt
 end
 module Svg = struct
   include Tyxml.Svg
-  let pp_wrap pp = pp
-  let pp_wrap_list pp = Format.pp_print_list ~pp_sep:(fun _ () -> ()) pp
+  let pp_children fmt =
+    Format.pp_print_list ~pp_sep:(fun _ () -> ()) (pp_elt ()) fmt
 end
 module HtmlTests = TyTests (Html)
 module SvgTests = TyTests (Svg)
@@ -65,12 +59,11 @@ module SvgTests = TyTests (Svg)
 *)
 module HtmlWrapped : sig
   include Html_sigs.T
-    with type Xml.elt = Tyxml.Xml.elt
-     and type 'a elt = 'a Html.elt
+    with type Xml.data = Tyxml.Xml.data
+     and type 'a data = 'a Html.data
   include LANGUAGE
-    with type 'a elt := 'a elt
-     and type 'a wrap := 'a wrap
-     and type 'a list_wrap := 'a list_wrap
+    with type 'a data := 'a data
+     and type 'a children = 'a Html.data Xml.Child.list
      and type doc := doc
 end = struct
   include Html
@@ -78,10 +71,10 @@ end = struct
 end
 module HtmlWrappedTests = TyTests(HtmlWrapped)
 
-let (@:) h t =  HtmlWrapped.Xml.Elt.(cons (return h) t)
-let (@-) =  HtmlWrapped.Xml.Elt.append
-let nil = HtmlWrapped.Xml.Elt.nil
-let (!) = HtmlWrapped.Xml.Elt.return
+let (@:) h t =  HtmlWrapped.Xml.(Child.cons (Elt.inject h) t)
+let (@-) =  HtmlWrapped.Xml.Child.append
+let nil = HtmlWrapped.Xml.Child.nil
+let (!) = HtmlWrapped.Xml.Child.return
 let (!:) x = x @: nil ()
 
 let (!!) = HtmlWrapped.Xml.Attr.return
