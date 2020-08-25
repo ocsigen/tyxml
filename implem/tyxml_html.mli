@@ -25,7 +25,6 @@
     See {!module-type:Html_sigs.T}.
 *)
 include Html_sigs.Make(Tyxml_xml)(Tyxml_svg).T
-  with module Xml.W = Xml_wrap.NoWrap
 
 (** {2 Printers} *)
 
