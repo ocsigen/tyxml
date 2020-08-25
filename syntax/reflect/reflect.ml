@@ -71,10 +71,10 @@ module FunTyp = struct
   (** Extract the type inside [wrap]. *)
   let unwrap = function
     (* Optional argument are [_ wrap *predef*.option], In 4.02 *)
-    | {ptyp_desc = Ptyp_constr (lid, [[%type: [%t? _] wrap] as t])}
+    | {ptyp_desc = Ptyp_constr (lid, [[%type: [%t? _] attr_wrap] as t])}
       when Longident.last lid.txt = "option" ->
       Some t
-    | [%type: [%t? _] wrap] as t -> Some t
+    | [%type: [%t? _] attr_wrap] as t -> Some t
     | _ -> None
 
   (** Extract the type of for html/svg attributes. *)
@@ -96,7 +96,7 @@ module FunTyp = struct
    that should be used for that attribute. *)
 let rec to_attribute_parser lang name = function
   | [] -> [%expr nowrap presence]
-  | [[%type: [%t? ty] wrap]] ->
+  | [[%type: [%t? ty] attr_wrap]] ->
     [%expr wrap [%e to_attribute_parser lang name [ty]]]
 
   | [[%type: character]] -> [%expr char]
@@ -157,9 +157,9 @@ let rec to_attribute_parser lang name = function
   | [[%type: iri]]
   | [[%type: color]] -> [%expr string]
 
-  | [[%type: nmtoken]; [%type: text wrap]] -> [%expr wrap string]
-  | [[%type: string]; [%type: string wrap]] -> [%expr wrap string]
-  | [[%type: string]; [%type: string list wrap]] -> [%expr wrap (spaces string)]
+  | [[%type: nmtoken]; [%type: text attr_wrap]] -> [%expr wrap string]
+  | [[%type: string]; [%type: string attr_wrap]] -> [%expr wrap string]
+  | [[%type: string]; [%type: string list attr_wrap]] -> [%expr wrap (spaces string)]
 
   | [[%type: Xml.event_handler]]
   | [[%type: Xml.mouse_event_handler]]

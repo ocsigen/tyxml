@@ -48,7 +48,10 @@ val list_wrap : lang -> Location.t -> Parsetree.expression list -> Parsetree.exp
 val wrap :
   lang -> Location.t -> Parsetree.expression -> Parsetree.expression
 (** [wrap implementation loc e] creates a parse tree for
-    [implementation.Xml.W.return e]. *)
+    [implementation.Xml.Elt.return e]. *)
+
+val attr_wrap :
+  lang -> Location.t -> Parsetree.expression -> Parsetree.expression
 
 type 'a value =
   | Val of 'a

@@ -120,18 +120,18 @@ let list_wrap_value lang loc =
   let (!!) = make ~loc lang in
   let nil =
     [%expr
-      [%e !!"Xml.W.nil"]
+      [%e !!"Xml.Elt.nil"]
       ()] [@metaloc loc]
   in
   let cons acc x =
-    [%expr [%e !!"Xml.W.cons"]
-        ([%e !!"Xml.W.return"] [%e x])
+    [%expr [%e !!"Xml.Elt.cons"]
+        ([%e !!"Xml.Elt.return"] [%e x])
         [%e acc]
     ][@metaloc loc]
   in
   let append acc x =
     [%expr
-      [%e !!"Xml.W.append"]
+      [%e !!"Xml.Elt.append"]
         [%e add_constraints ~list:true lang x] [%e acc]
     ][@metaloc loc]
   in
@@ -142,12 +142,17 @@ let list_wrap lang loc l =
 
 let wrap implementation loc e =
   [%expr
-    [%e make ~loc implementation "Xml.W.return"]
+    [%e make ~loc implementation "Xml.Elt.return"]
     [%e e]] [@metaloc loc]
 
 let wrap_value lang loc = function
   | Val x -> wrap lang loc x
   | Antiquot e -> add_constraints ~list:false lang e
+
+let attr_wrap implementation loc e =
+  [%expr
+    [%e make ~loc implementation "Xml.Attr.return"]
+    [%e e]] [@metaloc loc]
 
 let txt ~loc ~lang s =
   let txt = make ~loc lang "txt" in

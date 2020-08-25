@@ -78,7 +78,7 @@ val spaces_or_commas : parser -> parser
 
 val wrap : parser -> Common.lang -> vparser
 (** [wrap parser module_ _ _ s] applies [parser _ _ s] to get a parse tree for
-    [e], then evaluates to the parse tree for [module_.Xml.W.return e]. *)
+    [e], then evaluates to the parse tree for [module_.Xml.Attr.return e]. *)
 
 val nowrap : parser -> Common.lang -> vparser
 (** [nowrap parser _ _ _ s] evaluates to [parser _ _ s]. The purpose of this

@@ -91,7 +91,7 @@ let wrap (parser : parser) implementation =
   fun ?separated_by:_ ?default:_ loc name s ->
   match parser loc name s with
   | None -> Common.error loc "wrap applied to presence; nothing to wrap"
-  | Some e -> Some (Common.wrap implementation loc e)
+  | Some e -> Some (Common.attr_wrap implementation loc e)
 
 let nowrap (parser : parser) _ =
   expr @@
