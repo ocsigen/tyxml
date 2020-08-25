@@ -18,7 +18,7 @@
 *)
 
 module type APP = sig
-  type +'a t
+  type 'a t
   val return : 'a -> 'a t
 
   type (-'a, 'b) ft
