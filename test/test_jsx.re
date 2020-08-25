@@ -341,17 +341,17 @@ let wrapping = {
           <> <p /> <span> "foo" </span> </>,
           p(nil()) @: span(txt("foo"^) @: nil()) @: nil(),
         ),
-        ("attrib", !:(<p id="foo" />), !:p(~a=[a_id("foo"^)], nil())),
+        ("attrib", !:(<p id="foo" />), !:p(~a=[a_id(!!"foo")], nil())),
         (
           "attribs",
           !:(<p id="foo" className="bar" />),
-          !:p(~a=[a_id("foo"^), a_class(["bar"]^)], nil()),
+          !:p(~a=[a_id(!!"foo"), a_class(!!["bar"])], nil()),
         ),
         ("txt", !:(<p> "foo" </p>), !:p(txt("foo"^) @: nil())),
         (
           "wrapped functions",
           !:(<input method_="get" />),
-          !:input(~a=[a_method(`Get^)], ()),
+          !:input(~a=[a_method(!!`Get)], ()),
         ),
       ],
     ),
@@ -360,7 +360,7 @@ let wrapping = {
 
 let elt1 = () => !:HtmlWrapped.(span(!:txt("one"^)));
 let elt2 = () => !:HtmlWrapped.(b(!:txt("two"^)));
-let id = "pata"^;
+let id = !!"pata";
 
 let antiquot = {
   module Html = HtmlWrapped;
@@ -407,7 +407,7 @@ let antiquot = {
         ), */
         ( "wrapped functions",
           !:(<input method="get" />),
-          !:input(~a=[a_method(`Get^)], ()),
+          !:input(~a=[a_method(!!`Get)], ()),
         ),
       ],
     ),

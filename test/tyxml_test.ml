@@ -61,7 +61,7 @@ module SvgTests = TyTests (Svg)
 
 
 (* The regular HTML module, but with most type equality hidden.
-   This forces the use of the wrapping functions provided in Xml.W.
+   This forces the use of the wrapping functions
 *)
 module HtmlWrapped : sig
   include Html_sigs.T
@@ -78,8 +78,10 @@ end = struct
 end
 module HtmlWrappedTests = TyTests(HtmlWrapped)
 
-let (@:) h t =  HtmlWrapped.Xml.W.(cons (return h) t)
-let (@-) =  HtmlWrapped.Xml.W.append
-let nil = HtmlWrapped.Xml.W.nil
-let (!) = HtmlWrapped.Xml.W.return
+let (@:) h t =  HtmlWrapped.Xml.Elt.(cons (return h) t)
+let (@-) =  HtmlWrapped.Xml.Elt.append
+let nil = HtmlWrapped.Xml.Elt.nil
+let (!) = HtmlWrapped.Xml.Elt.return
 let (!:) x = x @: nil ()
+
+let (!!) = HtmlWrapped.Xml.Attr.return

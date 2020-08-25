@@ -394,11 +394,11 @@ let wrapping =
 
   "attrib",
   !:[%html "<p id=foo></p>"],
-  !:(p ~a:[a_id !"foo"] (nil())) ;
+  !:(p ~a:[a_id !!"foo"] (nil())) ;
 
   "attribs",
   !:[%html "<p id=foo class=bar></p>"],
-  !:(p ~a:[a_id !"foo"; a_class !["bar"] ] (nil())) ;
+  !:(p ~a:[a_id !!"foo"; a_class !!["bar"] ] (nil())) ;
 
   "comment",
   !:[%html "<!--foo-->"],
@@ -410,14 +410,14 @@ let wrapping =
 
   "wrapped functions",
   !:[%html "<input method=get />"],
-  !:(input ~a:[a_method !`Get] ())
+  !:(input ~a:[a_method !!`Get] ())
 
 ]
 
 
 let elt1() = !: HtmlWrapped.(span !: (txt !"one"))
 let elt2() = !: HtmlWrapped.(b !: (txt !"two"))
-let id = !"pata"
+let id = !!"pata"
 
 let antiquot =
   let module Html = HtmlWrapped in
@@ -454,8 +454,8 @@ let antiquot =
   (p (nil()) @: (elt1()));
 
   "wrapped functions",
-  !:[%html "<input method="!`Get" />"],
-  !:(input ~a:[a_method !`Get] ())
+  !:[%html "<input method="!!`Get" />"],
+  !:(input ~a:[a_method !!`Get] ())
 
   (* should succeed *)
   (* "escape", *)
