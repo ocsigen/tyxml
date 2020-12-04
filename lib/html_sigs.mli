@@ -327,10 +327,9 @@ module type T = sig
   [@@reflect.attribute "min" ["input"]]
 
   val a_inputmode :
-    [< `Verbatim | `Latin | `Latin_name | `Latin_prose | `Full_width_latin
-    | `Kana | `Katakana | `Numeric | `Tel | `Email | `Url ] wrap ->
+    [< `None | `Text | `Decimal | `Numeric | `Tel | `Search | `Email | `Url ] wrap ->
     [> `Inputmode] attrib
-  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes> Input HTML documentation. *)
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode> inputmode documentation. *)
 
   val a_novalidate : unit -> [> | `Novalidate] attrib
 
