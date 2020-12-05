@@ -2369,6 +2369,9 @@ type big_variant =
   | `Tel
   | `Email
   | `Url
+  | `Text
+  | `Decimal
+  | `Search
   ]
 
 type sandbox_token =

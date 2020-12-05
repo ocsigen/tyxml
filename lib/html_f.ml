@@ -1021,6 +1021,8 @@ struct
     | `Tel -> "tel"
     | `Email -> "email"
     | `Url -> "url"
+    | `Text -> "text"
+    | `Decimal -> "decimal"
     | `Other s -> s
 
   let string_of_input_type = function
