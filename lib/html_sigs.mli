@@ -387,6 +387,9 @@ module type T = sig
 
   val a_step : float_number option wrap -> [> | `Step] attrib
 
+  val a_translate : [< | `Yes | `No]  wrap -> [> | `Translate] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate> [translate] global attribute documentation. *)
+
   val a_wrap : [< | `Soft | `Hard] wrap -> [> | `Wrap] attrib
 
   val a_version : cdata wrap -> [> | `Version] attrib

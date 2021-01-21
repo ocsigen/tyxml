@@ -419,6 +419,9 @@ struct
   let a_step step =
     user_attrib C.string_of_step "step" step
 
+  let a_translate x =
+    user_attrib C.string_of_big_variant "translate" x
+  
   let a_wrap x =
     user_attrib C.string_of_big_variant "wrap" x
 
