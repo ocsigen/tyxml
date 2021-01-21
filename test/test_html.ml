@@ -29,6 +29,14 @@ let html_elements = "html elements", tyxml_tests Html.[
   ^ {|</picture></div>|} ;
 ]
 
+let html_attributes = "html attributes", tyxml_tests Html.[
+
+  "translate",
+  div ~a:[a_translate `No] [p ~a:[a_translate `Yes] []],
+  "<div translate=\"no\"><p translate=\"yes\"></p></div>" ;
+
+]
+
 let escaping = "html escaping", tyxml_tests Html.[
 
   "cdata",
@@ -93,6 +101,7 @@ let escaping = "html escaping", tyxml_tests Html.[
 
 let tests = [
   html_elements ;
+  html_attributes ;
   escaping ;
 ]
 
