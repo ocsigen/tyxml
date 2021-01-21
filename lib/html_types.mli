@@ -276,6 +276,7 @@ type core =
     | `Spellcheck
     | `Style_Attr
     | `Tabindex
+    | `Translate
     | `Title
     | `User_data
     | `XMLns
