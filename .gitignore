@@ -1,4 +1,6 @@
-_build
+_build/
+_opam/
+.vscode/
 **/*.mlpack
 **/*.mllib
 **/*.odocl
@@ -15,5 +17,4 @@ _tests
 .merlin
 *.install
 docs/api/
-_opam
 _wikidoc
