@@ -360,7 +360,6 @@ let markup_to_expr_with_implementation lang modname loc expr =
   | _ ->
     markup_to_expr lang loc expr
 
-
 let is_capitalized s =
   if String.length s < 0 then false
   else match s.[0] with
@@ -370,18 +369,18 @@ let is_capitalized s =
 (** Extract and verify the modname in the annotation [%html.Bar.Baz .. ]. *)
 let get_modname = function
   | None -> None
-  | Some {txt = longident ; loc} -> let l = Longident.flatten_exn longident in
-  let s = String.concat "." l in
-  if l = [] then None
-  else if not (List.for_all is_capitalized l) then
-    Common.error loc "This identifier is not a module name"
-  else Some s
+  | Some {txt = longident ; loc} ->
+    let l = Longident.flatten_exn longident in
+    let s = String.concat "." l in
+    if l = [] then None
+    else if not (List.for_all is_capitalized l) then
+      Common.error loc "This identifier is not a module name"
+    else Some s
 
 let application_to_list expr =
   match expr.pexp_desc with
   | Pexp_apply (f, arguments) -> f::(List.map snd arguments)
   | _ -> [expr]
-
 
 let markup_cases ~lang ~modname cases =
   let f ({pc_rhs} as case) =
@@ -413,32 +412,18 @@ let markup_bindings ~lang ~modname l =
   in
   List.map f l
 
-let expand_expression ~arg ~lang e =
+let expand_expr ~lang ~loc:_ ~path:_ ~arg e _ =
   let modname = get_modname arg in
   match e.pexp_desc with
   | Pexp_let (recflag, bindings, next) ->
     let bindings = markup_bindings ~lang ~modname bindings in
     {e with pexp_desc = Pexp_let (recflag, bindings, next)}
   | _ ->
-    markup_to_expr_with_implementation lang modname e.pexp_loc  @@
+    markup_to_expr_with_implementation lang modname e.pexp_loc @@
     application_to_list e
-
-let expand_html_expr  ~loc:_ ~path:_ ~arg e _ =
-  let lang = Common.Html in
-  expand_expression e ~arg ~lang
-
-let expand_svg_expr  ~loc:_ ~path:_ ~arg e _ =
-  let lang = Common.Svg in
-  expand_expression e ~arg ~lang
   
-let expand_str_item recflag value_bindings ~arg ~lang =
-  let bindings = markup_bindings ~lang ~modname:(get_modname arg) value_bindings in 
+let expand_str_item ~lang ~loc:_ ~path:_ ~arg recflag value_bindings =
+  let bindings =
+    markup_bindings ~lang ~modname:(get_modname arg) value_bindings
+  in 
   Ppxlib.Ast_helper.Str.value recflag bindings
-
-let expand_html_str_item ~loc:_ ~path:_ ~arg recflag value_bindings =
-  let lang = Common.Html in
-  expand_str_item recflag value_bindings ~arg ~lang
-
-let expand_svg_str_item ~loc:_ ~path:_ ~arg recflag value_bindings =
-  let lang = Common.Svg in
-  expand_str_item recflag value_bindings ~arg ~lang

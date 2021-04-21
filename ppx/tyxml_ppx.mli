@@ -33,7 +33,8 @@ val markup_to_expr :
     converts it to a TyXML expression representing the markup
     contained therein. *)
 
-val expand_html_expr :
+val expand_expr :
+  lang:lang ->
   loc: Ppxlib.Location.t ->
   path: string ->
   arg: Ppxlib.Longident.t Asttypes.loc option ->
@@ -41,26 +42,12 @@ val expand_html_expr :
   Ppxlib.attribute list ->
   Ppxlib.expression
 
-val expand_svg_expr :
-  loc: Ppxlib.Location.t ->
-  path: string ->
-  arg: Ppxlib.Longident.t Asttypes.loc option ->
-  Ppxlib.expression ->
-  Ppxlib.attribute list ->
-  Ppxlib.expression
-        
-val expand_html_str_item : 
+val expand_str_item : 
+  lang:lang ->
   loc: Ppxlib.Location.t ->
   path: string ->
   arg: Ppxlib.Longident.t Asttypes.loc option ->
   Ppxlib.rec_flag ->
   Ppxlib.value_binding list ->
   Ppxlib.structure_item
-
-val expand_svg_str_item : 
-  loc: Ppxlib.Location.t ->
-  path: string ->
-  arg: Ppxlib.Longident.t Asttypes.loc option ->
-  Ppxlib.rec_flag ->
-  Ppxlib.value_binding list ->
-  Ppxlib.structure_item
+    
