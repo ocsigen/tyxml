@@ -188,56 +188,48 @@ let mk_component ~lang ~loc f attrs children =
   let args = attrs @ children @ [Nolabel,[%expr ()]] in
   Ppxlib.Ast_helper.Exp.apply ~loc f args
   
-type config = {
-  mutable lang : Common.lang option ;
-  mutable enabled : bool ;
-}
-
-let stri_mapper c default_transform_str_item stri = match stri.pstr_desc with
-  | Pstr_attribute
-      { attr_name = { txt = ("tyxml.jsx" | "tyxml.jsx.enable") as s } ;
-        attr_payload ; attr_loc ;
-      }
-    ->
-    begin match attr_payload with
-      | PStr [%str true] -> c.enabled <- true
-      | PStr [%str false] -> c.enabled <- false
-      | _ ->
-        Common.error
-          attr_loc
-          "Unexpected payload for %s. A boolean is expected." s
-    end ;
-    stri
-  | _ -> default_transform_str_item stri
-
 let traverse = object(self)
-  inherit Ppxlib.Ast_traverse.map as super
+  inherit [Common.lang option] Ppxlib.Ast_traverse.map_with_context as super
 
-  val c = { lang = None; enabled = true }
-  
-  method! structure_item =
-    stri_mapper c super#structure_item
-  
-  method expr_mapper c e =
-    if not (is_jsx e) || not c.enabled then super#expression e
+  val mutable enabled = true
+
+  method! structure_item hint_lang stri = match stri.pstr_desc with
+    | Pstr_attribute
+        { attr_name = { txt = ("tyxml.jsx" | "tyxml.jsx.enable") as s } ;
+          attr_payload ; attr_loc ;
+        }
+      ->
+      begin match attr_payload with
+        | PStr [%str true] -> enabled <- true
+        | PStr [%str false] -> enabled <- false
+        | _ ->
+          Common.error
+            attr_loc
+            "Unexpected payload for %s. A boolean is expected." s
+      end ;
+      stri
+    | _ -> super#structure_item hint_lang stri
+
+  method! expression hint_lang e =
+    if not (is_jsx e) || not enabled then super#expression hint_lang e
     else
       let loc = e.pexp_loc in
       match e with
       (* matches <> ... </>; *)
       | [%expr []]
       | [%expr [%e? _] :: [%e? _]] ->
-        let l = extract_element_list self#expression e in
+        let l = extract_element_list (self#expression hint_lang) e in
         Common.list_wrap_value Common.Html loc l
       (* matches <Component foo={bar}> child1 child2 </div>; *)
       | {pexp_desc = Pexp_apply
              ({ pexp_desc = Pexp_ident { txt }; _ } as f_expr, args )}
         when is_homemade_component txt
         ->
-        let lang = match c.lang with
+        let lang = match hint_lang with
           | Some l -> l | None -> Common.Html
         in
         let attributes = filter_map (extract_attr ~lang) args in
-        let children = extract_children self#expression args in
+        let children = extract_children (self#expression hint_lang) args in
         let e =
           mk_component ~loc ~lang f_expr attributes children
         in
@@ -246,27 +238,24 @@ let traverse = object(self)
       | {pexp_desc = Pexp_apply
              ({ pexp_desc = Pexp_ident { txt }; _ }, args )}
         ->
-        let hint_lang = c.lang in
         let parent_lang, name = classify_name ~loc hint_lang txt in
         let lang = fst name in
-        c.lang <- Some lang;
         let attributes = filter_map (extract_attr ~lang) args in
-        let children = extract_children self#expression args in
+        let children =
+          extract_children (self#expression @@ Some lang) args
+        in
         let e = Element.parse ~loc
             ~parent_lang
             ~name
             ~attributes
             children
         in
-        c.lang <- hint_lang ;
         e
-      | _ -> super#expression e
+      | _ -> super#expression hint_lang e
 
-  method! expression =
-    self#expr_mapper c
 end
 
 let () =
-Ppxlib.Driver.register_transformation
-  ~impl:traverse#structure
-  "tyxml-jsx"
+  Ppxlib.Driver.register_transformation
+    ~impl:(traverse#structure None)
+    "tyxml-jsx"
