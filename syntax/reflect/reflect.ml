@@ -226,7 +226,7 @@ end
    from markup name to TyXML name should be performed. *)
 
 let get_str = function
-  | {pexp_desc=Pexp_constant (Pconst_string (s, _)); _} -> Some s
+  | {pexp_desc=Pexp_constant (Pconst_string (s, _, _)); _} -> Some s
   | _ -> None
 
 let ocaml_attributes_to_renamed_attribute name attributes =

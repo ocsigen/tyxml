@@ -37,7 +37,7 @@ let to_txt = function
   | [%expr[%e? {pexp_desc = Pexp_ident f; _}]
       ( [%e? {pexp_desc = Pexp_ident f2; _}] [%e? arg])] -> begin
       match Longident.last_exn f.txt, Longident.last_exn f2.txt, arg.pexp_desc with
-      | "txt", "return", Pexp_constant (Pconst_string (s, _)) -> Some s
+      | "txt", "return", Pexp_constant (Pconst_string (s, _, _)) -> Some s
       | _ -> None
     end
   | _ -> None

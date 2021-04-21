@@ -37,24 +37,13 @@ let lang_of_ns loc ns =
 
 module Loc = struct
 
-  let shift (pos:Lexing.position) x = {pos with pos_cnum = pos.pos_cnum + x}
-
-  (** Returns the real (OCaml) location of the content of a string, taking
-      delimiters into account. *)
-  let string_start delimiter loc =
-    let delimiter_length = match delimiter with
-      | None -> 1
-      | Some d -> String.length d + 2
-    in
-    shift loc.Location.loc_start delimiter_length
-
   (** 0-width locations do not show in the toplevel. We expand them to
       one-width.
   *)
   let one_width ?(ghost=false) pos =
     { Location.loc_ghost = ghost ;
       loc_start = pos ;
-      loc_end = shift pos 1
+      loc_end = {pos with pos_cnum = pos.pos_cnum + 1}
     }
 
   (** Given a list of input strings for Markup.ml, evaluates to a function that
@@ -246,8 +235,8 @@ let ast_to_stream expressions =
   let strings =
     expressions |> List.map @@ fun expr ->
     match expr.pexp_desc with
-    | Pexp_constant (Pconst_string (s, delimiter)) ->
-      (s, Loc.string_start delimiter expr.pexp_loc)
+    | Pexp_constant (Pconst_string (s, loc, _)) ->
+      (s, loc.loc_start)
     | _ ->
       (Antiquot.create expr, expr.pexp_loc.loc_start)
   in
