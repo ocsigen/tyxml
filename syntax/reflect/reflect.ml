@@ -345,93 +345,91 @@ let val_item_to_element_info lang value_description =
     Some (assembler, labeled_attributes, rename)
 
 
-
 let attribute_parsers = ref []
 let labeled_attributes = ref []
 let renamed_attributes = ref []
 let element_assemblers = ref []
 let renamed_elements = ref []
-
-(* Walks over signature items, looking for elements and attributes. Calls the
-   functions immediately above, and accumulates their results in the above
-   references. This function is relevant for [html_sigs.mli] and
-   [svg_sigs.mli]. *)
-let signature_item lang transform_item item =
-  begin match item.psig_desc with
-  | Psig_value {pval_name = {txt = name}; pval_type = type_; pval_attributes; pval_loc = loc}
-      when is_attribute name ->
-    (* Attribute declaration. *)
-
-    let argument_types = List.map snd @@ FunTyp.arguments type_ in
-    let attribute_parser_mapping =
-      name, FunTyp.to_attribute_parser lang name argument_types ~loc in
-    attribute_parsers := attribute_parser_mapping::!attribute_parsers;
-
-    let renaming = ocaml_attributes_to_renamed_attribute name pval_attributes in
-    renamed_attributes := renaming @ !renamed_attributes
-
-  | Psig_value v ->
-    (* Non-attribute, but potentially an element declaration. *)
-
-    begin match val_item_to_element_info lang v with
-    | None -> ()
-    | Some (assembler, labeled_attributes', rename) ->
-      element_assemblers := (v.pval_name.txt, assembler)::!element_assemblers;
-      labeled_attributes := labeled_attributes' @ !labeled_attributes;
-      renamed_elements := rename @ !renamed_elements
-    end
-
-  | _ -> ()
-  end;
-
-  transform_item item
-
-
-
 let reflected_variants = ref []
 
-(* Walks over type declarations (which will be in signature items). For each
-   that is marked with [@@reflect.total_variant], expects it to be a polymorphic
-   variant. Splits the constructors into those that have no arguments, and one
-   constructor that has one string argument. This constructor information is
-   accumulated in [reflected_variants]. This function is relevant for
-   [html_types.mli]. *)
-let type_declaration transform_decl declaration =
-  let is_reflect attr = attr.attr_name.txt = "reflect.total_variant" in
-  if List.exists is_reflect declaration.ptype_attributes then begin
-    let name = declaration.ptype_name.txt in
+class reflector lang = object
+  inherit Ast_traverse.iter as super
 
-    match declaration.ptype_manifest with
-    | Some {ptyp_desc = Ptyp_variant (rows, _, _); ptyp_loc} ->
-      let rows =
-        rows |> List.map (function
-          | {prf_desc = Rtag (label, _, types)} -> label, types
-          | {prf_desc = Rinherit {ptyp_loc}} ->
+  (* Walks over signature items, looking for elements and attributes. Calls the
+     functions immediately above, and accumulates their results in the above
+     references. This function is relevant for [html_sigs.mli] and
+     [svg_sigs.mli]. *)
+  method! signature_item item =
+    begin match item.psig_desc with
+      | Psig_value {pval_name = {txt = name}; pval_type = type_; pval_attributes; pval_loc = loc}
+        when is_attribute name ->
+        (* Attribute declaration. *)
+
+        let argument_types = List.map snd @@ FunTyp.arguments type_ in
+        let attribute_parser_mapping =
+          name, FunTyp.to_attribute_parser lang name argument_types ~loc in
+        attribute_parsers := attribute_parser_mapping::!attribute_parsers;
+
+        let renaming = ocaml_attributes_to_renamed_attribute name pval_attributes in
+        renamed_attributes := renaming @ !renamed_attributes
+
+      | Psig_value v ->
+        (* Non-attribute, but potentially an element declaration. *)
+
+        begin match val_item_to_element_info lang v with
+          | None -> ()
+          | Some (assembler, labeled_attributes', rename) ->
+            element_assemblers := (v.pval_name.txt, assembler)::!element_assemblers;
+            labeled_attributes := labeled_attributes' @ !labeled_attributes;
+            renamed_elements := rename @ !renamed_elements
+        end
+
+      | _ -> ()
+    end;
+    super#signature_item item
+
+  (* Walks over type declarations (which will be in signature items). For each
+     that is marked with [@@reflect.total_variant], expects it to be a polymorphic
+     variant. Splits the constructors into those that have no arguments, and one
+     constructor that has one string argument. This constructor information is
+     accumulated in [reflected_variants]. This function is relevant for
+     [html_types.mli]. *)
+  method! type_declaration declaration =
+    let is_reflect attr = attr.attr_name.txt = "reflect.total_variant" in
+    if List.exists is_reflect declaration.ptype_attributes then begin
+      let name = declaration.ptype_name.txt in
+
+      match declaration.ptype_manifest with
+      | Some {ptyp_desc = Ptyp_variant (rows, _, _); ptyp_loc} ->
+        let rows =
+          rows |> List.map (function
+            | {prf_desc = Rtag (label, _, types)} -> label, types
+            | {prf_desc = Rinherit {ptyp_loc}} ->
+              Location.raise_errorf ~loc:ptyp_loc
+                "Inclusion is not supported by [@@reflect.total_variant]")
+        in
+
+        let nullary, unary =
+          List.partition (fun (_, types) -> types = []) rows in
+
+        let unary =
+          match unary with
+          | [name, [[%type: string]]] -> name.txt
+          | _ ->
             Location.raise_errorf ~loc:ptyp_loc
-              "Inclusion is not supported by [@@reflect.total_variant]")
-      in
+              "Expected exactly one non-nullary constructor `C of string"
+        in
 
-      let nullary, unary =
-        List.partition (fun (_, types) -> types = []) rows in
+        let nullary = List.map (fun ({txt},_) -> txt) nullary in
 
-      let unary =
-        match unary with
-        | [name, [[%type: string]]] -> name.txt
-        | _ ->
-          Location.raise_errorf ~loc:ptyp_loc
-            "Expected exactly one non-nullary constructor `C of string"
-      in
+        reflected_variants := (name, (unary, nullary))::!reflected_variants
 
-      let nullary = List.map (fun ({txt},_) -> txt) nullary in
-
-      reflected_variants := (name, (unary, nullary))::!reflected_variants
-
-    | _ ->
-      Location.raise_errorf ~loc:declaration.ptype_loc
-        "[@@reflect.total_variant] expects a polymorphic variant type"
-  end;
-
-  transform_decl declaration
+      | _ ->
+        Location.raise_errorf ~loc:declaration.ptype_loc
+          "[@@reflect.total_variant] expects a polymorphic variant type"
+    end;
+    super#type_declaration declaration
+end
 
 (** Small set of combinators to help {!make_module}. *)
 module Combi = struct
@@ -472,14 +470,14 @@ let emit_module () =
 
     ] else []
   end @
-
-  List.map Combi.(let_ (Ast_builder.Default.pvar ~loc) (tuple2 str (list str))) !reflected_variants
+  List.map
+    Combi.(let_ (Ast_builder.Default.pvar ~loc) (tuple2 str (list str)))
+    !reflected_variants
 
 
 (* Crude I/O tools to read a signature and output a structure.
    The executable will take as first argument the name of the signature
    and as second argument the name of the structure.
-
 *)
 
 let read_sig filename =
@@ -526,13 +524,8 @@ let () =
     else `Html
   in
 
-  let iterate = object
-    inherit Ast_traverse.iter as super
-    method! signature_item = signature_item lang super#signature_item
-    method! type_declaration = type_declaration super#type_declaration
-  end in
-
   let reflected_struct sig_ =
+    let iterate = new reflector lang in
     iterate#signature sig_ ;
     emit_module ()
   in
