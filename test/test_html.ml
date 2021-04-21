@@ -41,35 +41,19 @@ let escaping = "html escaping", tyxml_tests Html.[
 
   "cdata",
   cdata "<bar>]]>foo<bar/>",
-  {|
-<![CDATA[
-<bar>foo<bar/>
-]]>
-|} ;
+  "\n<![CDATA[\n<bar>foo<bar/>\n]]>\n" ;
 
   "cdata multi",
   cdata "<bar>]]>foo<b]]>ar/>",
-  {|
-<![CDATA[
-<bar>foo<bar/>
-]]>
-|} ;
+  "\n<![CDATA[\n<bar>foo<bar/>\n]]>\n" ;
 
   "cdata_script" ,
   cdata_script "<bar>]]>foo<bar/>" ,
-  {|
-//<![CDATA[
-<bar>foo<bar/>
-//]]>
-|} ;
+  "\n//<![CDATA[\n<bar>foo<bar/>\n//]]>\n" ;
 
   "cdata_style" ,
   cdata_style "<bar>]]>foo<bar/>" ,
-  {|
-/* <![CDATA[ */
-<bar>foo<bar/>
-/* ]]> */
-|} ;
+  "\n/* <![CDATA[ */\n<bar>foo<bar/>\n/* ]]> */\n" ;
 
   "comment",
   tot (Xml.comment
