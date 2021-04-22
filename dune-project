@@ -1,4 +1,4 @@
-(lang dune 2.0)
+(lang dune 2.7)
 
 (name tyxml)
 (license "LGPL-2.1-only with OCaml-LGPL-linking-exception")

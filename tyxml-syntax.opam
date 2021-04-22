@@ -8,15 +8,16 @@ homepage: "https://github.com/ocsigen/tyxml"
 doc: "https://ocsigen.org/tyxml/latest/manual/intro"
 bug-reports: "https://github.com/ocsigen/tyxml/issues"
 depends: [
-  "dune" {>= "2.0"}
+  "dune" {>= "2.7"}
   "ocaml" {>= "4.02"}
   "alcotest" {with-test}
   "ppxlib"
   "re" {>= "1.5.0"}
   "uutf" {>= "1.0.0"}
+  "odoc" {with-doc}
 ]
 build: [
-  ["dune" "subst"] {pinned}
+  ["dune" "subst"] {dev}
   [
     "dune"
     "build"
