@@ -23,7 +23,7 @@ depends: [
   "tyxml-syntax" {= version}
   "alcotest" {with-test}
   "reason" {with-test}
-  "ppxlib"
+  "ppxlib" {>= "0.18"}
   "odoc" {with-doc}
 ]
 build: [

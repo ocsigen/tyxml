@@ -29,7 +29,8 @@
   (tyxml-syntax (= :version))
   (alcotest :with-test)
   (reason :with-test)
-   ppxlib))
+  (ppxlib
+   (>= 0.18))))
 
 (package
  (name tyxml-ppx)
@@ -51,7 +52,8 @@
   (alcotest :with-test)
   (markup
    (>= 0.7.2))
-   ppxlib))
+  (ppxlib
+   (>= 0.18))))
 
 (package
  (name tyxml-syntax)
@@ -60,7 +62,8 @@
   (ocaml
    (>= 4.02))
   (alcotest :with-test)
-   ppxlib
+  (ppxlib
+   (>= 0.18))
   (re
    (>= 1.5.0))
   (uutf
