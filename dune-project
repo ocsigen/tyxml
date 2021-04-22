@@ -24,12 +24,12 @@
 )
  (depends
   (ocaml
-   (>= 4.02))
+   (>= 4.04))
   (tyxml :version)
   (tyxml-syntax :version)
   (alcotest :with-test)
   (reason :with-test)
-   ppx_tools_versioned))
+   ppxlib))
 
 (package
  (name tyxml-ppx)
@@ -45,13 +45,13 @@
 )
  (depends
   (ocaml
-   (>= 4.02))
+   (>= 4.04))
   (tyxml :version)
   (tyxml-syntax :version)
   (alcotest :with-test)
   (markup
    (>= 0.7.2))
-   ppx_tools_versioned))
+   ppxlib))
 
 (package
  (name tyxml-syntax)
@@ -59,10 +59,8 @@
  (depends
   (ocaml
    (>= 4.02))
-  (tyxml :version)
-  (tyxml-syntax :version)
   (alcotest :with-test)
-   ppx_tools_versioned
+   ppxlib
   (re
    (>= 1.5.0))
   (uutf

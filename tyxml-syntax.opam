@@ -10,10 +10,8 @@ bug-reports: "https://github.com/ocsigen/tyxml/issues"
 depends: [
   "dune" {>= "2.0"}
   "ocaml" {>= "4.02"}
-  "tyxml" {version}
-  "tyxml-syntax" {version}
   "alcotest" {with-test}
-  "ppx_tools_versioned"
+  "ppxlib"
   "re" {>= "1.5.0"}
   "uutf" {>= "1.0.0"}
 ]

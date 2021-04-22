@@ -18,12 +18,12 @@ doc: "https://ocsigen.org/tyxml/latest/manual/intro"
 bug-reports: "https://github.com/ocsigen/tyxml/issues"
 depends: [
   "dune" {>= "2.0"}
-  "ocaml" {>= "4.02"}
+  "ocaml" {>= "4.04"}
   "tyxml" {version}
   "tyxml-syntax" {version}
   "alcotest" {with-test}
   "reason" {with-test}
-  "ppx_tools_versioned"
+  "ppxlib"
 ]
 build: [
   ["dune" "subst"] {pinned}
