@@ -7,8 +7,8 @@
 )
 
 (tests
- (names test_html test_svg test_typing)
- (modules test_html test_svg test_typing)
+ (names test_html test_svg)
+ (modules test_html test_svg)
  (libraries tyxml alcotest tyxml_test)
  (package tyxml)
 )
