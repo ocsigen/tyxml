@@ -14,8 +14,12 @@ For more detail about wikidoc, see [how](https://github.com/ocsigen/html_of_wiki
 - Ensure the doc builds (`make -C docs`)
 - Make sure the dev doc is up-to-date (see above)
 - In the wikidoc branch, copy dev to VERSION
-- dune-release tag $VERSION
-- dune-release distrib -n tyxml
-- dune-release publish distrib
-- dune-release opam pkg
-- dune-release opam submit
+
+- Use dune-release:
+```
+dune-release tag
+dune-release distrib
+DUNE_RELEASE_DELEGATE=github-dune-release-delegate dune-release publish distrib
+dune-release opam pkg
+dune-release opam submit
+```
