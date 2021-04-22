@@ -40,7 +40,7 @@ jobs:
         uses: avsm/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: ${{ matrix.os == 'ubuntu-latest' }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-depext-flags: --with-test
 
       - run: opam install . --deps-only --with-test
