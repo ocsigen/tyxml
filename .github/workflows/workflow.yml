@@ -22,11 +22,13 @@ jobs:
           - 4.08.x
           - 4.09.x
           - 4.10.x
+          - 4.11.x
+          - 4.12.x
         include:
           - os: macos-latest
-            ocaml-compiler: 4.10.x
+            ocaml-compiler: 4.12.x
           - os: windows-latest
-            ocaml-compiler: 4.10.x
+            ocaml-compiler: 4.12.x
 
     runs-on: ${{ matrix.os }}
 
@@ -38,7 +40,7 @@ jobs:
         uses: avsm/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: ${{ matrix.os == 'ubuntu-latest' }}
+          dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-depext-flags: --with-test
 
       - run: opam install . --deps-only --with-test
