@@ -50,7 +50,8 @@
            val cdata : string -> elt
            val cdata_script : string -> elt
            val cdata_style : string -> elt
-         end) ->
+         end)
+  ->
   sig
     type 'a elt = Xml.elt
     type doc = [ `Svg ] elt

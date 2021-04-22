@@ -486,6 +486,8 @@
 |@@class="odocwiki_index"@ @@<<a_api text="a_transfer_offset"| value Svg_sigs.T.a_transfer_offset >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="a_transfer_type"| value Svg_sigs.T.a_transfer_type >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="a_transform"| value Svg_sigs.T.a_transform >> ~[<<a_api | module Svg_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="a_translate"| value Html_sigs.T.a_translate >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|>>
+|
 |@@class="odocwiki_index"@ @@<<a_api text="a_type"| value Svg_sigs.T.a_type >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="a_u1"| value Svg_sigs.T.a_u1 >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="a_u2"| value Svg_sigs.T.a_u2 >> ~[<<a_api | module Svg_sigs.T >>~]||
@@ -684,6 +686,8 @@
 |
 |@@class="odocwiki_index"@ @@<<a_api text="entity"| value Xml_sigs.T.entity >> ~[<<a_api | module Xml_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="event_handler_attrib"| value Xml_sigs.T.event_handler_attrib >> ~[<<a_api | module Xml_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="expand_expr"| value Tyxml_ppx.expand_expr >> ~[<<a_api | module Tyxml_ppx >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="expand_str_item"| value Tyxml_ppx.expand_str_item >> ~[<<a_api | module Tyxml_ppx >>~]||
 |@@ @style="tet-align: left;"@@\\F|
 |@@class="odocwiki_index"@ @@<<a_api text="feBlend"| value Svg_sigs.T.feBlend >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="feColorMatrix"| value Svg_sigs.T.feColorMatrix >> ~[<<a_api | module Svg_sigs.T >>~]||
@@ -807,7 +811,6 @@
 |@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib"| value Xml_iter.Make.map_string_attrib >> ~[<<a_api | module Xml_iter.Make >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib_in_list"| value Tyxml_xml.map_string_attrib_in_list >> ~[<<a_api | module Tyxml_xml >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="map_string_attrib_in_list"| value Xml_iter.Make.map_string_attrib_in_list >> ~[<<a_api | module Xml_iter.Make >>~]||
-|@@class="odocwiki_index"@ @@<<a_api text="mapper"| value Tyxml_ppx.mapper >> ~[<<a_api | module Tyxml_ppx >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="mark"| value Html_sigs.T.mark >> ~[<<a_api | module Html_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="marker"| value Svg_sigs.T.marker >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="markup_to_expr"| value Tyxml_ppx.markup_to_expr >> ~[<<a_api | module Tyxml_ppx >>~]|<<div class="odocwiki_info"|~Given the payload of a <<span class="odocwiki_inlinecode"|~%html ~.~.~.>> or <<span class="odocwiki_inlinecode"|~%svg ~.~.~.>> expression~,
@@ -872,6 +875,8 @@
 |@@class="odocwiki_index"@ @@<<a_api text="pcdata"| value Html_sigs.T.pcdata >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|>>>>
 |
 |@@class="odocwiki_index"@ @@<<a_api text="pcdata"| value Xml_sigs.T.pcdata >> ~[<<a_api | module Xml_sigs.T >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="picture"| value Html_sigs.T.picture >> ~[<<a_api | module Html_sigs.T >>~]|<<div class="odocwiki_info"|>>
+|
 |@@class="odocwiki_index"@ @@<<a_api text="polygon"| value Svg_sigs.T.polygon >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="polyline"| value Svg_sigs.T.polyline >> ~[<<a_api | module Svg_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="pp"| value Tyxml_svg.pp >> ~[<<a_api | module Tyxml_svg >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_inlinecode"|pp ~(~)>> is a <<span class="odocwiki_inlinecode"|~Format>> printer for ~Svg documents~.

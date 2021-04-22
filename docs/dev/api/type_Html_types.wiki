@@ -80,6 +80,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -217,6 +218,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -394,6 +396,7 @@
       | `Meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -437,6 +440,7 @@
       | `Meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -472,6 +476,7 @@
       | `Mark
       | `Meter
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -513,6 +518,7 @@
       | `Meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -568,6 +574,7 @@
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -610,6 +617,7 @@
       | `Noscript of Html_types.phrasing_without_noscript
       | `Object of Html_types.phrasing
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -662,6 +670,7 @@
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -718,6 +727,7 @@
        | `Object_interactive of Html_types.phrasing
        | `Output
        | `PCDATA
+       | `Picture
        | `Progress
        | `Q
        | `Ruby
@@ -740,8 +750,8 @@
        | `Wbr
        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command `Datalist `Del `Dfn
          `Em `I `Img `Ins `Kbd `Map `Mark `Meter `Noscript `Object `PCDATA
-         `Progress `Q `Ruby `Samp `Script `Small `Span `Strong `Sub `Sup `Svg
-         `Template `Time `U `Var `Wbr ]
+         `Picture `Progress `Q `Ruby `Samp `Script `Small `Span `Strong `Sub
+         `Sup `Svg `Template `Time `U `Var `Wbr ]
     constraint 'b = [< Html_types.phrasing_without_interactive ]
   type phrasing_without_dfn =
       [ `A of Html_types.phrasing_without_interactive
@@ -775,6 +785,7 @@
       | `Object_interactive of Html_types.phrasing_without_dfn
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -826,6 +837,7 @@
       | `Object_interactive of Html_types.phrasing_without_label
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -878,6 +890,7 @@
       | `Object_interactive of Html_types.phrasing_without_progress
       | `Output
       | `PCDATA
+      | `Picture
       | `Q
       | `Ruby
       | `Samp
@@ -929,6 +942,7 @@
       | `Object_interactive of Html_types.phrasing_without_time
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -979,6 +993,7 @@
       | `Object_interactive of Html_types.phrasing_without_meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -1048,6 +1063,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1117,6 +1133,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1190,6 +1207,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1263,6 +1281,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1339,6 +1358,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1422,6 +1442,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1505,6 +1526,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1588,6 +1610,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1673,6 +1696,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1748,6 +1772,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1830,6 +1855,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1862,9 +1888,10 @@
          `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl
          `Em `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I
          `Img `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav
-         `Noscript `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby
-         `Samp `Script `Section `Select `Small `Span `Strong `Style `Sub `Sup
-         `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video `Wbr ]
+         `Noscript `Object `Ol `Output `P `PCDATA `Picture `Pre `Progress `Q
+         `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
+         `Sub `Sup `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video
+         `Wbr ]
   type (+'a, +'b) between_flow5_and_flow5_without_header_footer = 'a
     constraint 'a =
       [< `A of 'b
@@ -1926,6 +1953,7 @@
        | `Output
        | `P
        | `PCDATA
+       | `Picture
        | `Pre
        | `Progress
        | `Q
@@ -1956,10 +1984,10 @@
          `Details `Dfn `Div `Dl `Em `Embed `Fieldset `Figure `Form `H1 `H2
          `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe `Img `Img_interactive `Input
          `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
-         `Object `Object_interactive `Ol `Output `P `PCDATA `Pre `Progress `Q
-         `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
-         `Sub `Sup `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video
-         `Video_interactive `Wbr ]
+         `Object `Object_interactive `Ol `Output `P `PCDATA `Picture `Pre
+         `Progress `Q `Ruby `Samp `Script `Section `Select `Small `Span
+         `Strong `Style `Sub `Sup `Svg `Table `Template `Textarea `Time `U
+         `Ul `Var `Video `Video_interactive `Wbr ]
     constraint 'b = [< Html_types.flow5_without_interactive ]
   type flow5_without_form =
       [ `A of Html_types.flow5_without_interactive
@@ -2020,6 +2048,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -2092,6 +2121,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -2164,6 +2194,7 @@
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -2272,6 +2303,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2369,6 +2401,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2456,6 +2489,7 @@
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2611,6 +2645,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2695,6 +2730,7 @@
           | `Style_Attr
           | `Tabindex
           | `Title
+          | `Translate
           | `User_data
           | `XML_lang
           | `XMLns ] ]
@@ -2774,6 +2810,7 @@
           | `Style_Attr
           | `Tabindex
           | `Title
+          | `Translate
           | `User_data
           | `XML_lang
           | `XMLns ] ]
@@ -2853,6 +2890,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2933,6 +2971,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3006,6 +3045,7 @@
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Rp
@@ -3063,6 +3103,7 @@
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Rp
@@ -3232,6 +3273,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3326,6 +3368,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3418,6 +3461,7 @@
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3501,6 +3545,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3584,6 +3629,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3672,6 +3718,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -3737,6 +3784,7 @@
       | `P
       | `PCDATA
       | `Param
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -3844,6 +3892,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `Usemap
       | `User_data
       | `Width
@@ -3928,6 +3977,7 @@
       | `Tabindex
       | `Text_Value
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4011,6 +4061,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4097,6 +4148,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4195,6 +4247,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4286,6 +4339,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4369,6 +4423,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4453,6 +4508,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4542,6 +4598,7 @@
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4624,6 +4681,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4709,6 +4767,7 @@
       | `Summary
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4790,6 +4849,7 @@
       | `Summary
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4871,6 +4931,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4952,6 +5013,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5047,6 +5109,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5131,6 +5194,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5223,6 +5287,7 @@
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5306,6 +5371,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5392,6 +5458,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5501,6 +5568,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Value
       | `Width
@@ -5592,6 +5660,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Wrap
       | `XML_lang
@@ -5686,6 +5755,7 @@
       | `Tabindex
       | `Text_Value
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5773,6 +5843,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5859,6 +5930,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5940,6 +6012,7 @@
       | `Tabindex
       | `Text_Value
       | `Title
+      | `Translate
       | `User_data
       | `Value
       | `XML_lang
@@ -6030,6 +6103,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6113,6 +6187,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6200,6 +6275,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6283,6 +6359,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6364,6 +6441,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6453,6 +6531,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6535,6 +6614,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6624,6 +6704,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6707,6 +6788,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6792,6 +6874,7 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6886,9 +6969,14 @@
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
+  type picture = [ `Picture ]
+  type picture_content = [ `Script | `Source | `Template ]
+  type picture_content_fun = [ `Script | `Source | `Template ]
+  type picture_attrib = Html_types.common
   type referrerpolicy =
       [ `Empty
       | `No_referrer
@@ -6917,6 +7005,7 @@
       | `Command
       | `Context
       | `Controls
+      | `Decimal
       | `Default
       | `Defer
       | `Disabled
@@ -6962,9 +7051,11 @@
       | `Rtl
       | `Scoped
       | `Seamless
+      | `Search
       | `Selected
       | `Soft
       | `Tel
+      | `Text
       | `Toolbar
       | `Url
       | `Use_credentials

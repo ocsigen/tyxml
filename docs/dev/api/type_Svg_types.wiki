@@ -1,6 +1,7 @@
 <<code language="ocaml" | sig
   type animation_element =
-      [ `Animate | `AnimateColor | `AnimateMotion | `AnimateTransform | `Set ]
+      [ `Animate | `AnimateColor | `AnimateMotion | `AnimateTransform | `Set
+      ]
   type descriptive_element = [ `Desc | `Metadata | `Title ]
   type basic_shape_element =
       [ `Circle | `Ellipse | `Line | `Polygon | `Polyline | `Rect ]
@@ -82,7 +83,8 @@
       | `RepeatDur
       | `Restart ]
   type animation_value_attr =
-      [ `By | `CalcMode | `From | `KeySplines | `KeyTimes | `To | `Valuesanim ]
+      [ `By | `CalcMode | `From | `KeySplines | `KeyTimes | `To | `Valuesanim
+      ]
   type animation_addition_attr = [ `Accumulate | `Additive ]
   type presentation_attr =
       [ `Alignment_Baseline
@@ -3074,7 +3076,8 @@
   type fepointlight = [ `FePointLight ]
   type fepointlight_content = [ `Animate | `Set ]
   type fepointlight_attr =
-      [ `Id | `User_data | `X | `Xml_base | `Xml_lang | `Xml_space | `Y | `Z ]
+      [ `Id | `User_data | `X | `Xml_base | `Xml_lang | `Xml_space | `Y | `Z
+      ]
   type fespotlight = [ `FeSpotLight ]
   type fespotlight_content = [ `Animate | `Set ]
   type fespotlight_attr =

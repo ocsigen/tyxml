@@ -2,6 +2,17 @@
   type lang = Html | Svg
   val markup_to_expr :
     Tyxml_ppx.lang ->
-    Location.t -> Parsetree.expression list -> Parsetree.expression
-  val mapper : 'a -> 'b -> Ast_mapper.mapper
+    Location.t -> Ppxlib.expression list -> Ppxlib.expression
+  val expand_expr :
+    lang:Tyxml_ppx.lang ->
+    loc:Ppxlib.Location.t ->
+    path:string ->
+    arg:Ppxlib.Longident.t Asttypes.loc option ->
+    Ppxlib.expression -> Ppxlib.attribute list -> Ppxlib.expression
+  val expand_str_item :
+    lang:Tyxml_ppx.lang ->
+    loc:Ppxlib.Location.t ->
+    path:string ->
+    arg:Ppxlib.Longident.t Asttypes.loc option ->
+    Ppxlib.rec_flag -> Ppxlib.value_binding list -> Ppxlib.structure_item
 end >>

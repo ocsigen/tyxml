@@ -12,14 +12,15 @@
   val string_of_number : float -> string
   val pp_number : Stdlib.Format.formatter -> float -> unit
   module Make_typed_fmt :
-    functor
-      (Xml : Xml_sigs.Iterable) (Typed_xml : sig
-                                               module Info : Xml_sigs.Info
-                                               type 'a elt
-                                               type doc
-                                               val toelt : 'a elt -> Xml.elt
-                                               val doc_toelt : doc -> Xml.elt
-                                             end) ->
+    functor (Xml : Xml_sigs.Iterable)
+      (Typed_xml : sig
+                     module Info : Xml_sigs.Info
+                     type 'a elt
+                     type doc
+                     val toelt : 'a elt -> Xml.elt
+                     val doc_toelt : doc -> Xml.elt
+                   end)
+      ->
       sig
         val pp_elt :
           ?encode:(string -> string) ->
@@ -44,14 +45,15 @@
         val print_list : ?encode:(string -> string) -> Xml.elt list -> O.out
       end
   module Make_typed :
-    functor
-      (Xml : Xml_sigs.Iterable) (Typed_xml : sig
-                                               module Info : Xml_sigs.Info
-                                               type 'a elt
-                                               type doc
-                                               val toelt : 'a elt -> Xml.elt
-                                               val doc_toelt : doc -> Xml.elt
-                                             end) (O : Xml_sigs.Output) ->
+    functor (Xml : Xml_sigs.Iterable)
+      (Typed_xml : sig
+                     module Info : Xml_sigs.Info
+                     type 'a elt
+                     type doc
+                     val toelt : 'a elt -> Xml.elt
+                     val doc_toelt : doc -> Xml.elt
+                   end)
+      (O : Xml_sigs.Output) ->
       sig
         val print_list :
           ?encode:(string -> string) -> 'a Typed_xml.elt list -> O.out
@@ -67,14 +69,15 @@
           ?encode:(string -> string) -> Xml.elt list -> unit
       end
   module Make_typed_simple :
-    functor
-      (Xml : Xml_sigs.Iterable) (Typed_xml : sig
-                                               module Info : Xml_sigs.Info
-                                               type 'a elt
-                                               type doc
-                                               val toelt : 'a elt -> Xml.elt
-                                               val doc_toelt : doc -> Xml.elt
-                                             end) ->
+    functor (Xml : Xml_sigs.Iterable)
+      (Typed_xml : sig
+                     module Info : Xml_sigs.Info
+                     type 'a elt
+                     type doc
+                     val toelt : 'a elt -> Xml.elt
+                     val doc_toelt : doc -> Xml.elt
+                   end)
+      ->
       sig
         val print_list :
           output:(string -> unit) ->

@@ -127,8 +127,8 @@
         [< `End | `Inherit | `Middle | `Start ] Svg_sigs.T.wrap ->
         [> `Text_Anchor ] Svg_sigs.T.attrib
       val a_text_decoration :
-        [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline ]
-        Svg_sigs.T.wrap -> [> `Text_Decoration ] Svg_sigs.T.attrib
+        [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline
+        ] Svg_sigs.T.wrap -> [> `Text_Decoration ] Svg_sigs.T.attrib
       val a_text_rendering :
         [< `Auto
          | `GeometricPrecision
@@ -188,8 +188,8 @@
       val a_fy :
         Svg_types.coord Svg_sigs.T.wrap -> [> `Fy ] Svg_sigs.T.attrib
       val a_offset :
-        [< `Number of Svg_types.number | `Percentage of Svg_types.percentage ]
-        Svg_sigs.T.wrap -> [> `Offset ] Svg_sigs.T.attrib
+        [< `Number of Svg_types.number | `Percentage of Svg_types.percentage
+        ] Svg_sigs.T.wrap -> [> `Offset ] Svg_sigs.T.attrib
       val a_patternUnits :
         [< `ObjectBoundingBox | `UserSpaceOnUse ] Svg_sigs.T.wrap ->
         [> `PatternUnits ] Svg_sigs.T.attrib
@@ -1082,8 +1082,8 @@
         [< `End | `Inherit | `Middle | `Start ] wrap ->
         [> `Text_Anchor ] attrib
       val a_text_decoration :
-        [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline ]
-        wrap -> [> `Text_Decoration ] attrib
+        [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline
+        ] wrap -> [> `Text_Decoration ] attrib
       val a_text_rendering :
         [< `Auto
          | `GeometricPrecision
@@ -1125,8 +1125,8 @@
       val a_fx : Svg_types.coord wrap -> [> `Fx ] attrib
       val a_fy : Svg_types.coord wrap -> [> `Fy ] attrib
       val a_offset :
-        [< `Number of Svg_types.number | `Percentage of Svg_types.percentage ]
-        wrap -> [> `Offset ] attrib
+        [< `Number of Svg_types.number | `Percentage of Svg_types.percentage
+        ] wrap -> [> `Offset ] attrib
       val a_patternUnits :
         [< `ObjectBoundingBox | `UserSpaceOnUse ] wrap ->
         [> `PatternUnits ] attrib

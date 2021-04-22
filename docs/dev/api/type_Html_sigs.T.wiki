@@ -89,8 +89,8 @@
         [< `End | `Inherit | `Middle | `Start ] wrap ->
         [> `Text_Anchor ] attrib
       val a_text_decoration :
-        [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline ]
-        wrap -> [> `Text_Decoration ] attrib
+        [< `Blink | `Inherit | `Line_through | `None | `Overline | `Underline
+        ] wrap -> [> `Text_Decoration ] attrib
       val a_text_rendering :
         [< `Auto
          | `GeometricPrecision
@@ -132,8 +132,8 @@
       val a_fx : Svg_types.coord wrap -> [> `Fx ] attrib
       val a_fy : Svg_types.coord wrap -> [> `Fy ] attrib
       val a_offset :
-        [< `Number of Svg_types.number | `Percentage of Svg_types.percentage ]
-        wrap -> [> `Offset ] attrib
+        [< `Number of Svg_types.number | `Percentage of Svg_types.percentage
+        ] wrap -> [> `Offset ] attrib
       val a_patternUnits :
         [< `ObjectBoundingBox | `UserSpaceOnUse ] wrap ->
         [> `PatternUnits ] attrib
@@ -931,17 +931,7 @@
     Html_types.number_or_datetime Html_sigs.T.wrap ->
     [> `Input_Min ] Html_sigs.T.attrib
   val a_inputmode :
-    [< `Email
-     | `Full_width_latin
-     | `Kana
-     | `Katakana
-     | `Latin
-     | `Latin_name
-     | `Latin_prose
-     | `Numeric
-     | `Tel
-     | `Url
-     | `Verbatim ]
+    [< `Decimal | `Email | `None | `Numeric | `Search | `Tel | `Text | `Url ]
     Html_sigs.T.wrap -> [> `Inputmode ] Html_sigs.T.attrib
   val a_novalidate : unit -> [> `Novalidate ] Html_sigs.T.attrib
   val a_open : unit -> [> `Open ] Html_sigs.T.attrib
@@ -993,6 +983,8 @@
   val a_step :
     Html_types.float_number option Html_sigs.T.wrap ->
     [> `Step ] Html_sigs.T.attrib
+  val a_translate :
+    [< `No | `Yes ] Html_sigs.T.wrap -> [> `Translate ] Html_sigs.T.attrib
   val a_wrap :
     [< `Hard | `Soft ] Html_sigs.T.wrap -> [> `Wrap ] Html_sigs.T.attrib
   val a_version :
@@ -1416,6 +1408,11 @@
     src:Xml.uri Html_sigs.T.wrap ->
     alt:Html_types.text Html_sigs.T.wrap ->
     ([< Html_types.img_attrib ], [> Html_types.img ]) Html_sigs.T.nullary
+  val picture :
+    img:[< Html_types.img ] Html_sigs.T.elt Html_sigs.T.wrap ->
+    ([< Html_types.picture_attrib ], [< Html_types.picture_content_fun ],
+     [> Html_types.picture ])
+    Html_sigs.T.star
   val iframe :
     ([< Html_types.iframe_attrib ], [< Html_types.iframe_content_fun ],
      [> Html_types.iframe ])
@@ -1526,6 +1523,7 @@
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ],

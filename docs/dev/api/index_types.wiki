@@ -724,6 +724,10 @@
 |@@class="odocwiki_index"@ @@<<a_api text="phrasing_without_noscript"| type Html_types.phrasing_without_noscript >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="phrasing_without_progress"| type Html_types.phrasing_without_progress >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="phrasing_without_time"| type Html_types.phrasing_without_time >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="picture"| type Html_types.picture >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="picture_attrib"| type Html_types.picture_attrib >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="picture_content"| type Html_types.picture_content >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="picture_content_fun"| type Html_types.picture_content_fun >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="pixels"| type Html_types.pixels >> ~[<<a_api | module Html_types >>~]|<<div class="odocwiki_info"|~The value is an integer that represents the number of pixels of
         the canvas ~(screen~, paper~)~.
 >>
