@@ -1,7 +1,7 @@
 (lang dune 2.0)
 
 (name tyxml)
-(license "LGPL-2.1 with OCaml linking exception")
+(license "LGPL-2.1-only with OCaml-LGPL-linking-exception")
 (authors "The ocsigen team")
 (maintainers "dev@ocsigen.org")
 (source (github ocsigen/tyxml))
@@ -25,8 +25,8 @@
  (depends
   (ocaml
    (>= 4.04))
-  (tyxml :version)
-  (tyxml-syntax :version)
+  (tyxml (= :version))
+  (tyxml-syntax (= :version))
   (alcotest :with-test)
   (reason :with-test)
    ppxlib))
@@ -46,8 +46,8 @@
  (depends
   (ocaml
    (>= 4.04))
-  (tyxml :version)
-  (tyxml-syntax :version)
+  (tyxml (= :version))
+  (tyxml-syntax (= :version))
   (alcotest :with-test)
   (markup
    (>= 0.7.2))
