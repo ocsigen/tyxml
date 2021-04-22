@@ -226,17 +226,7 @@ We are looking for beta-tester and contributors.
   val a_input_min :
     Html_types.number_or_datetime wrap -&gt; [&gt; `Input_Min ] attrib
   val a_inputmode :
-    [&lt; `Email
-     | `Full_width_latin
-     | `Kana
-     | `Katakana
-     | `Latin
-     | `Latin_name
-     | `Latin_prose
-     | `Numeric
-     | `Tel
-     | `Url
-     | `Verbatim ]
+    [&lt; `Decimal | `Email | `None | `Numeric | `Search | `Tel | `Text | `Url ]
     wrap -&gt; [&gt; `Inputmode ] attrib
   val a_novalidate : unit -&gt; [&gt; `Novalidate ] attrib
   val a_open : unit -&gt; [&gt; `Open ] attrib
@@ -270,6 +260,7 @@ We are looking for beta-tester and contributors.
   val a_img_sizes : Html_types.text list wrap -&gt; [&gt; `Img_sizes ] attrib
   val a_start : Html_types.number wrap -&gt; [&gt; `Start ] attrib
   val a_step : Html_types.float_number option wrap -&gt; [&gt; `Step ] attrib
+  val a_translate : [&lt; `No | `Yes ] wrap -&gt; [&gt; `Translate ] attrib
   val a_wrap : [&lt; `Hard | `Soft ] wrap -&gt; [&gt; `Wrap ] attrib
   val a_version : Html_types.cdata wrap -&gt; [&gt; `Version ] attrib
   val a_xmlns : [&lt; `W3_org_1999_xhtml ] wrap -&gt; [&gt; `XMLns ] attrib
@@ -602,6 +593,11 @@ We are looking for beta-tester and contributors.
     src:Xml.uri wrap -&gt;
     alt:Html_types.text wrap -&gt;
     ([&lt; Html_types.img_attrib ], [&gt; Html_types.img ]) nullary
+  val picture :
+    img:[&lt; Html_types.img ] elt wrap -&gt;
+    ([&lt; Html_types.picture_attrib ], [&lt; Html_types.picture_content_fun ],
+     [&gt; Html_types.picture ])
+    star
   val iframe :
     ([&lt; Html_types.iframe_attrib ], [&lt; Html_types.iframe_content_fun ],
      [&gt; Html_types.iframe ])
@@ -706,6 +702,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ],

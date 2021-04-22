@@ -48,6 +48,17 @@ We are looking for beta-tester and contributors.
   type lang = Html | Svg
   val markup_to_expr :
     Tyxml_ppx.lang -&gt;
-    Location.t -&gt; Parsetree.expression list -&gt; Parsetree.expression
-  val mapper : 'a -&gt; 'b -&gt; Ast_mapper.mapper
+    Location.t -&gt; Ppxlib.expression list -&gt; Ppxlib.expression
+  val expand_expr :
+    lang:Tyxml_ppx.lang -&gt;
+    loc:Ppxlib.Location.t -&gt;
+    path:string -&gt;
+    arg:Ppxlib.Longident.t Asttypes.loc option -&gt;
+    Ppxlib.expression -&gt; Ppxlib.attribute list -&gt; Ppxlib.expression
+  val expand_str_item :
+    lang:Tyxml_ppx.lang -&gt;
+    loc:Ppxlib.Location.t -&gt;
+    path:string -&gt;
+    arg:Ppxlib.Longident.t Asttypes.loc option -&gt;
+    Ppxlib.rec_flag -&gt; Ppxlib.value_binding list -&gt; Ppxlib.structure_item
 end</code></pre></article></div></div></body></html>

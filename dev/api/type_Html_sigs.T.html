@@ -135,8 +135,8 @@ We are looking for beta-tester and contributors.
         [&lt; `End | `Inherit | `Middle | `Start ] wrap -&gt;
         [&gt; `Text_Anchor ] attrib
       val a_text_decoration :
-        [&lt; `Blink | `Inherit | `Line_through | `None | `Overline | `Underline ]
-        wrap -&gt; [&gt; `Text_Decoration ] attrib
+        [&lt; `Blink | `Inherit | `Line_through | `None | `Overline | `Underline
+        ] wrap -&gt; [&gt; `Text_Decoration ] attrib
       val a_text_rendering :
         [&lt; `Auto
          | `GeometricPrecision
@@ -178,8 +178,8 @@ We are looking for beta-tester and contributors.
       val a_fx : Svg_types.coord wrap -&gt; [&gt; `Fx ] attrib
       val a_fy : Svg_types.coord wrap -&gt; [&gt; `Fy ] attrib
       val a_offset :
-        [&lt; `Number of Svg_types.number | `Percentage of Svg_types.percentage ]
-        wrap -&gt; [&gt; `Offset ] attrib
+        [&lt; `Number of Svg_types.number | `Percentage of Svg_types.percentage
+        ] wrap -&gt; [&gt; `Offset ] attrib
       val a_patternUnits :
         [&lt; `ObjectBoundingBox | `UserSpaceOnUse ] wrap -&gt;
         [&gt; `PatternUnits ] attrib
@@ -977,17 +977,7 @@ We are looking for beta-tester and contributors.
     Html_types.number_or_datetime Html_sigs.T.wrap -&gt;
     [&gt; `Input_Min ] Html_sigs.T.attrib
   val a_inputmode :
-    [&lt; `Email
-     | `Full_width_latin
-     | `Kana
-     | `Katakana
-     | `Latin
-     | `Latin_name
-     | `Latin_prose
-     | `Numeric
-     | `Tel
-     | `Url
-     | `Verbatim ]
+    [&lt; `Decimal | `Email | `None | `Numeric | `Search | `Tel | `Text | `Url ]
     Html_sigs.T.wrap -&gt; [&gt; `Inputmode ] Html_sigs.T.attrib
   val a_novalidate : unit -&gt; [&gt; `Novalidate ] Html_sigs.T.attrib
   val a_open : unit -&gt; [&gt; `Open ] Html_sigs.T.attrib
@@ -1039,6 +1029,8 @@ We are looking for beta-tester and contributors.
   val a_step :
     Html_types.float_number option Html_sigs.T.wrap -&gt;
     [&gt; `Step ] Html_sigs.T.attrib
+  val a_translate :
+    [&lt; `No | `Yes ] Html_sigs.T.wrap -&gt; [&gt; `Translate ] Html_sigs.T.attrib
   val a_wrap :
     [&lt; `Hard | `Soft ] Html_sigs.T.wrap -&gt; [&gt; `Wrap ] Html_sigs.T.attrib
   val a_version :
@@ -1462,6 +1454,11 @@ We are looking for beta-tester and contributors.
     src:Xml.uri Html_sigs.T.wrap -&gt;
     alt:Html_types.text Html_sigs.T.wrap -&gt;
     ([&lt; Html_types.img_attrib ], [&gt; Html_types.img ]) Html_sigs.T.nullary
+  val picture :
+    img:[&lt; Html_types.img ] Html_sigs.T.elt Html_sigs.T.wrap -&gt;
+    ([&lt; Html_types.picture_attrib ], [&lt; Html_types.picture_content_fun ],
+     [&gt; Html_types.picture ])
+    Html_sigs.T.star
   val iframe :
     ([&lt; Html_types.iframe_attrib ], [&lt; Html_types.iframe_content_fun ],
      [&gt; Html_types.iframe ])
@@ -1572,6 +1569,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ],

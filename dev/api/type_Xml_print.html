@@ -58,14 +58,15 @@ We are looking for beta-tester and contributors.
   val string_of_number : float -&gt; string
   val pp_number : Stdlib.Format.formatter -&gt; float -&gt; unit
   module Make_typed_fmt :
-    functor
-      (Xml : Xml_sigs.Iterable) (Typed_xml : sig
-                                               module Info : Xml_sigs.Info
-                                               type 'a elt
-                                               type doc
-                                               val toelt : 'a elt -&gt; Xml.elt
-                                               val doc_toelt : doc -&gt; Xml.elt
-                                             end) -&gt;
+    functor (Xml : Xml_sigs.Iterable)
+      (Typed_xml : sig
+                     module Info : Xml_sigs.Info
+                     type 'a elt
+                     type doc
+                     val toelt : 'a elt -&gt; Xml.elt
+                     val doc_toelt : doc -&gt; Xml.elt
+                   end)
+      -&gt;
       sig
         val pp_elt :
           ?encode:(string -&gt; string) -&gt;
@@ -90,14 +91,15 @@ We are looking for beta-tester and contributors.
         val print_list : ?encode:(string -&gt; string) -&gt; Xml.elt list -&gt; O.out
       end
   module Make_typed :
-    functor
-      (Xml : Xml_sigs.Iterable) (Typed_xml : sig
-                                               module Info : Xml_sigs.Info
-                                               type 'a elt
-                                               type doc
-                                               val toelt : 'a elt -&gt; Xml.elt
-                                               val doc_toelt : doc -&gt; Xml.elt
-                                             end) (O : Xml_sigs.Output) -&gt;
+    functor (Xml : Xml_sigs.Iterable)
+      (Typed_xml : sig
+                     module Info : Xml_sigs.Info
+                     type 'a elt
+                     type doc
+                     val toelt : 'a elt -&gt; Xml.elt
+                     val doc_toelt : doc -&gt; Xml.elt
+                   end)
+      (O : Xml_sigs.Output) -&gt;
       sig
         val print_list :
           ?encode:(string -&gt; string) -&gt; 'a Typed_xml.elt list -&gt; O.out
@@ -113,14 +115,15 @@ We are looking for beta-tester and contributors.
           ?encode:(string -&gt; string) -&gt; Xml.elt list -&gt; unit
       end
   module Make_typed_simple :
-    functor
-      (Xml : Xml_sigs.Iterable) (Typed_xml : sig
-                                               module Info : Xml_sigs.Info
-                                               type 'a elt
-                                               type doc
-                                               val toelt : 'a elt -&gt; Xml.elt
-                                               val doc_toelt : doc -&gt; Xml.elt
-                                             end) -&gt;
+    functor (Xml : Xml_sigs.Iterable)
+      (Typed_xml : sig
+                     module Info : Xml_sigs.Info
+                     type 'a elt
+                     type doc
+                     val toelt : 'a elt -&gt; Xml.elt
+                     val doc_toelt : doc -&gt; Xml.elt
+                   end)
+      -&gt;
       sig
         val print_list :
           output:(string -&gt; unit) -&gt;

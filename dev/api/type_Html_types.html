@@ -126,6 +126,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -263,6 +264,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -440,6 +442,7 @@ We are looking for beta-tester and contributors.
       | `Meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -483,6 +486,7 @@ We are looking for beta-tester and contributors.
       | `Meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -518,6 +522,7 @@ We are looking for beta-tester and contributors.
       | `Mark
       | `Meter
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -559,6 +564,7 @@ We are looking for beta-tester and contributors.
       | `Meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -614,6 +620,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -656,6 +663,7 @@ We are looking for beta-tester and contributors.
       | `Noscript of Html_types.phrasing_without_noscript
       | `Object of Html_types.phrasing
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -708,6 +716,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -764,6 +773,7 @@ We are looking for beta-tester and contributors.
        | `Object_interactive of Html_types.phrasing
        | `Output
        | `PCDATA
+       | `Picture
        | `Progress
        | `Q
        | `Ruby
@@ -786,8 +796,8 @@ We are looking for beta-tester and contributors.
        | `Wbr
        &gt; `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command `Datalist `Del `Dfn
          `Em `I `Img `Ins `Kbd `Map `Mark `Meter `Noscript `Object `PCDATA
-         `Progress `Q `Ruby `Samp `Script `Small `Span `Strong `Sub `Sup `Svg
-         `Template `Time `U `Var `Wbr ]
+         `Picture `Progress `Q `Ruby `Samp `Script `Small `Span `Strong `Sub
+         `Sup `Svg `Template `Time `U `Var `Wbr ]
     constraint 'b = [&lt; Html_types.phrasing_without_interactive ]
   type phrasing_without_dfn =
       [ `A of Html_types.phrasing_without_interactive
@@ -821,6 +831,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing_without_dfn
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -872,6 +883,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing_without_label
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -924,6 +936,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing_without_progress
       | `Output
       | `PCDATA
+      | `Picture
       | `Q
       | `Ruby
       | `Samp
@@ -975,6 +988,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing_without_time
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -1025,6 +1039,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing_without_meter
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Ruby
@@ -1094,6 +1109,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1163,6 +1179,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1236,6 +1253,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1309,6 +1327,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1385,6 +1404,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1468,6 +1488,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1551,6 +1572,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1634,6 +1656,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1719,6 +1742,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1794,6 +1818,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1876,6 +1901,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -1908,9 +1934,10 @@ We are looking for beta-tester and contributors.
          `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl
          `Em `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I
          `Img `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav
-         `Noscript `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby
-         `Samp `Script `Section `Select `Small `Span `Strong `Style `Sub `Sup
-         `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video `Wbr ]
+         `Noscript `Object `Ol `Output `P `PCDATA `Picture `Pre `Progress `Q
+         `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
+         `Sub `Sup `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video
+         `Wbr ]
   type (+'a, +'b) between_flow5_and_flow5_without_header_footer = 'a
     constraint 'a =
       [&lt; `A of 'b
@@ -1972,6 +1999,7 @@ We are looking for beta-tester and contributors.
        | `Output
        | `P
        | `PCDATA
+       | `Picture
        | `Pre
        | `Progress
        | `Q
@@ -2002,10 +2030,10 @@ We are looking for beta-tester and contributors.
          `Details `Dfn `Div `Dl `Em `Embed `Fieldset `Figure `Form `H1 `H2
          `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe `Img `Img_interactive `Input
          `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
-         `Object `Object_interactive `Ol `Output `P `PCDATA `Pre `Progress `Q
-         `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
-         `Sub `Sup `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video
-         `Video_interactive `Wbr ]
+         `Object `Object_interactive `Ol `Output `P `PCDATA `Picture `Pre
+         `Progress `Q `Ruby `Samp `Script `Section `Select `Small `Span
+         `Strong `Style `Sub `Sup `Svg `Table `Template `Textarea `Time `U
+         `Ul `Var `Video `Video_interactive `Wbr ]
     constraint 'b = [&lt; Html_types.flow5_without_interactive ]
   type flow5_without_form =
       [ `A of Html_types.flow5_without_interactive
@@ -2066,6 +2094,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -2138,6 +2167,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -2210,6 +2240,7 @@ We are looking for beta-tester and contributors.
       | `Output
       | `P
       | `PCDATA
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -2318,6 +2349,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2415,6 +2447,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2502,6 +2535,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2657,6 +2691,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2741,6 +2776,7 @@ We are looking for beta-tester and contributors.
           | `Style_Attr
           | `Tabindex
           | `Title
+          | `Translate
           | `User_data
           | `XML_lang
           | `XMLns ] ]
@@ -2820,6 +2856,7 @@ We are looking for beta-tester and contributors.
           | `Style_Attr
           | `Tabindex
           | `Title
+          | `Translate
           | `User_data
           | `XML_lang
           | `XMLns ] ]
@@ -2899,6 +2936,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -2979,6 +3017,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3052,6 +3091,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Rp
@@ -3109,6 +3149,7 @@ We are looking for beta-tester and contributors.
       | `Object_interactive of Html_types.phrasing
       | `Output
       | `PCDATA
+      | `Picture
       | `Progress
       | `Q
       | `Rp
@@ -3278,6 +3319,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3372,6 +3414,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3464,6 +3507,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3547,6 +3591,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3630,6 +3675,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -3718,6 +3764,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -3783,6 +3830,7 @@ We are looking for beta-tester and contributors.
       | `P
       | `PCDATA
       | `Param
+      | `Picture
       | `Pre
       | `Progress
       | `Q
@@ -3890,6 +3938,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `Usemap
       | `User_data
       | `Width
@@ -3974,6 +4023,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Text_Value
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4057,6 +4107,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4143,6 +4194,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4241,6 +4293,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4332,6 +4385,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4415,6 +4469,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Width
       | `XML_lang
@@ -4499,6 +4554,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4588,6 +4644,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4670,6 +4727,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4755,6 +4813,7 @@ We are looking for beta-tester and contributors.
       | `Summary
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4836,6 +4895,7 @@ We are looking for beta-tester and contributors.
       | `Summary
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4917,6 +4977,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -4998,6 +5059,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5093,6 +5155,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5177,6 +5240,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5269,6 +5333,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Target
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5352,6 +5417,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5438,6 +5504,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5547,6 +5614,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Value
       | `Width
@@ -5638,6 +5706,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `Wrap
       | `XML_lang
@@ -5732,6 +5801,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Text_Value
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5819,6 +5889,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5905,6 +5976,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -5986,6 +6058,7 @@ We are looking for beta-tester and contributors.
       | `Tabindex
       | `Text_Value
       | `Title
+      | `Translate
       | `User_data
       | `Value
       | `XML_lang
@@ -6076,6 +6149,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6159,6 +6233,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6246,6 +6321,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6329,6 +6405,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6410,6 +6487,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6499,6 +6577,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6581,6 +6660,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6670,6 +6750,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6753,6 +6834,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6838,6 +6920,7 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
@@ -6932,9 +7015,14 @@ We are looking for beta-tester and contributors.
       | `Style_Attr
       | `Tabindex
       | `Title
+      | `Translate
       | `User_data
       | `XML_lang
       | `XMLns ]
+  type picture = [ `Picture ]
+  type picture_content = [ `Script | `Source | `Template ]
+  type picture_content_fun = [ `Script | `Source | `Template ]
+  type picture_attrib = Html_types.common
   type referrerpolicy =
       [ `Empty
       | `No_referrer
@@ -6963,6 +7051,7 @@ We are looking for beta-tester and contributors.
       | `Command
       | `Context
       | `Controls
+      | `Decimal
       | `Default
       | `Defer
       | `Disabled
@@ -7008,9 +7097,11 @@ We are looking for beta-tester and contributors.
       | `Rtl
       | `Scoped
       | `Seamless
+      | `Search
       | `Selected
       | `Soft
       | `Tel
+      | `Text
       | `Toolbar
       | `Url
       | `Use_credentials

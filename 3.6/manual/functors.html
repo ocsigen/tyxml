@@ -60,7 +60,7 @@ module <span class="monospace">W</span> of type <span><a href=".././api/Xml_wrap
 </p><pre class=""><code class="language-ocaml translatable">type 'a wrap = 'a W.t</code></pre><p>and
 </p><pre class=""><code class="language-ocaml translatable">type 'a list_wrap = 'a W.tlist</code></pre><p>.
 The purpose of the <span class="monospace">Wrap</span> module is explained in the next section.
-</p><h2 id="wrap"> Wrapping up the nodes  <a class="backref" href="#wrap">&#182;</a></h2><p>The <span class="monospace">W</span> module in <span><span class="doclink_error">Error a_api: exception Api.Error(&quot;invalid contents: Xml_sigs.T&quot;)</span></span> allows to wrap Xml elements
+</p><h2 id="wrap"> Wrapping up the nodes  <a class="backref" href="#wrap">&#182;</a></h2><p>The <span class="monospace">W</span> module in <span><span class="doclink_error">Error a_api: exception Dune__exe__Api.Error(&quot;invalid contents: Xml_sigs.T&quot;)</span></span> allows to wrap Xml elements
 in a monad <span class="monospace">'a t</span>.  A good example of application is the <span class="monospace">R</span>
 modules with reactive nodes in Eliom. Here is the simplified signature
 of the <span class="teletype">div</span> element:
