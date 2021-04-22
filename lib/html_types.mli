@@ -378,19 +378,30 @@ type labelable = [ | resetable | `Progress | `Meter | `Button ]
 
 type labelable_without_interactive = [ `Progress | `Meter]
 
-type formatblock =
+type formatblock_without_sectioning_heading_header_footer_address =
+  [
+    | `Pre
+    | `P
+    | `Div
+    | `Blockquote
+  ]
+type formatblock_without_sectioning_heading_header_footer =
+  [
+    | formatblock_without_sectioning_heading_header_footer_address
+    | `Address
+  ]
+type formatblock_without_header_footer =
   [
     | heading
     | sectioning
-    | `Pre
-    | `P
+    | formatblock_without_sectioning_heading_header_footer
+  ]
+type formatblock =
+  [
+    | formatblock_without_header_footer
     | `Header
     | `Footer
-    | `Div
-    | `Blockquote
-    | `Address
   ]
-
 type sectionningroot =
   [ | `Td | `Figure | `Fieldset | `Details | `Body | `Blockquote
   ]
@@ -427,7 +438,7 @@ type (+'interactive, +'noscript, +'regular, +'media) transparent =
     | `Audio of 'media
     | `Video of 'media
   ]
-(* _interactive variants are not used for now *)
+
 type (+'noscript, +'regular, +'media) transparent_without_interactive =
   [
     | `Noscript of 'noscript
@@ -690,17 +701,6 @@ and phrasing =
     | core_phrasing
   ]
 
-type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
-  ( [<  core_phrasing
-    | ([< phrasing_without_interactive] as 'b,
-                                           phrasing_without_noscript,
-                                           phrasing,
-                                           phrasing_without_media) transparent
-        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
-        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
-        `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
-        `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
-
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
   [
@@ -898,245 +898,226 @@ type phrasing_without_meter =
        phrasing_without_meter, phrasing_without_media) transparent
   ]
 
-type core_flow5 =
+type core_block_misc = [ 
+    | `Ul
+    | `Style
+    | `Ol
+    | `Menu
+    | `Hr
+    | `Form
+    | `Figure
+    | `Dl
+    | `Main
+    | `Table
+  ]
+
+type core_block = 
   [
+    | formassociated
+    | formatblock
+    | core_block_misc
+    | `Details
+    | `Form
+  ]
+  
+type core_block_without_form = 
+  [
+    | formassociated
+    | formatblock
+    | core_block_misc
+    | `Details
+  ]
+
+type core_block_without_header_footer =
+  [
+    | formatblock_without_header_footer
     | core_phrasing
     | formassociated
-    | formatblock
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
+    | core_block_misc
     | `Details
-    | `Main
+    | `Form
+  ]
+type core_block_without_sectioning_heading_header_footer =
+  [
+    | formatblock_without_sectioning_heading_header_footer
+    | formassociated
+    | core_block_misc
+    | `Details
+    | `Form
+  ]
+type core_block_without_sectioning_heading_header_footer_address =
+  [
+    | formatblock_without_sectioning_heading_header_footer_address
+    | formassociated
+    | core_block_misc
+    | `Details
+    | `Form
   ]
 
-type core_flow5_without_interactive =
-  [
-    | core_phrasing_without_interactive
-    | formassociated
-    | formatblock
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Main
-  ]
-
-type core_flow5_without_noscript =
-  [
-    | core_phrasing_without_noscript
-    | formassociated
-    | formatblock
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Details
-    | `Main
-  ]
-type core_flow5_without_media =
-  [
-    | core_phrasing_without_media
-    | formassociated
-    | formatblock
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Details
-    | `Main
-  ]
+type[@deprecated] core_flow5 =
+  [ core_phrasing | core_block ]
+type[@deprecated] core_flow5_without_interactive =
+  [ core_phrasing_without_interactive | core_block ]
+type[@deprecated] core_flow5_without_noscript =
+  [ core_phrasing_without_noscript | core_block ]
+type[@deprecated] core_flow5_without_media =
+  [ core_phrasing_without_media | core_block ]
 
 type flow5_without_interactive =
-  [
-    core_flow5_without_interactive
-  | (flow5_without_noscript, flow5, flow5_without_media)
-      transparent_without_interactive
+  [ core_phrasing_without_interactive
+  | core_block
+  | (flow5_without_noscript,
+     flow5,
+     flow5_without_media) transparent_without_interactive
   ]
-
 and flow5_without_noscript =
-  [ | core_flow5_without_noscript
-    | (flow5_without_interactive,
-       flow5,
-       flow5_without_media) transparent_without_noscript
+  [ core_phrasing_without_noscript
+  | core_block
+  | (flow5_without_interactive,
+     flow5,
+     flow5_without_media) transparent_without_noscript
   ]
-
 and flow5_without_media =
-  [ core_flow5_without_media
+  [ core_phrasing_without_media
+  | core_block
   | (flow5_without_interactive,
      flow5_without_noscript,
      flow5) transparent_without_media ]
 and flow5 =
-  [
-    | core_flow5
-    | (flow5_without_interactive, flow5_without_noscript, flow5,
-       flow5_without_media) transparent
+  [ core_phrasing
+  | core_block
+  | (flow5_without_interactive,
+     flow5_without_noscript,
+     flow5,
+     flow5_without_media) transparent
   ]
 
-type flow5_without_table =
-  [
-    | core_phrasing
-    | formassociated
-    | formatblock
-    | `Ul
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Details
-    | `Main
-    | (flow5_without_interactive, flow5_without_noscript, flow5,
-       flow5_without_media) transparent
-  ]
 
 type flow5_without_interactive_header_footer =
-  [
-    | heading
-    | sectioning
-    | `Pre
-    | `P
-    | `Div
-    | `Blockquote
-    | `Address
-    | core_phrasing_without_interactive
-    | formassociated
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Main
-    | (flow5_without_noscript, flow5, flow5_without_media)
-        transparent_without_interactive
+  [ core_phrasing_without_interactive
+  | core_block
+  | (flow5_without_noscript_header_footer,
+     flow5_without_header_footer,
+     flow5_without_media_header_footer) transparent_without_interactive
+  ]
+and flow5_without_noscript_header_footer =
+  [ core_phrasing_without_noscript
+  | core_block
+  | (flow5_without_interactive_header_footer,
+     flow5_without_header_footer,
+     flow5_without_media_header_footer) transparent_without_noscript
+  ]
+and flow5_without_media_header_footer =
+  [ core_phrasing_without_media
+  | core_block
+  | (flow5_without_interactive_header_footer,
+     flow5_without_noscript_header_footer,
+     flow5_without_header_footer) transparent_without_media ]
+and flow5_without_header_footer =
+  [ core_phrasing
+  | core_block
+  | (flow5_without_interactive_header_footer,
+     flow5_without_noscript_header_footer,
+     flow5_without_header_footer,
+     flow5_without_media_header_footer) transparent
   ]
 
-type flow5_without_header_footer =
-  [
-    | heading
-    | sectioning
-    | `Pre
-    | `P
-    | `Div
-    | `Blockquote
-    | `Address
-    | core_phrasing
-    | formassociated
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Details
-    | `Main
-    | (flow5_without_interactive_header_footer,
-       flow5_without_noscript, flow5,
-       flow5_without_media) transparent
+type flow5_without_interactive_sectioning_heading_header_footer =
+  [ core_phrasing_without_interactive
+  | core_block_without_sectioning_heading_header_footer
+  | (flow5_without_noscript_sectioning_heading_header_footer,
+     flow5_without_sectioning_heading_header_footer,
+     flow5_without_media_sectioning_heading_header_footer)
+      transparent_without_interactive
   ]
-
-type +'a between_flow5_and_flow5_without_interactive_header_footer =
-  [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
-       `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl `Em
-       `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
-       `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
-       `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
-       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
-       `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
-
-type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
-  [< core_flow5
-  | ([< flow5_without_interactive ] as 'b,
-                                       flow5_without_noscript, 'a,
-                                       flow5_without_media)
+and flow5_without_noscript_sectioning_heading_header_footer =
+  [ core_phrasing_without_noscript
+  | core_block_without_sectioning_heading_header_footer
+  | (flow5_without_interactive_sectioning_heading_header_footer,
+     flow5_without_sectioning_heading_header_footer,
+     flow5_without_media_sectioning_heading_header_footer)
+      transparent_without_noscript
+  ]
+and flow5_without_media_sectioning_heading_header_footer =
+  [ core_phrasing_without_media
+  | core_block_without_sectioning_heading_header_footer
+  | (flow5_without_interactive_sectioning_heading_header_footer,
+     flow5_without_noscript_sectioning_heading_header_footer,
+     flow5_without_sectioning_heading_header_footer)
+      transparent_without_media
+  ]
+and flow5_without_sectioning_heading_header_footer =
+  [ core_phrasing
+  | core_block_without_sectioning_heading_header_footer
+  | (flow5_without_interactive_sectioning_heading_header_footer,
+     flow5_without_noscript_sectioning_heading_header_footer,
+     flow5_without_sectioning_heading_header_footer,
+     flow5_without_media_sectioning_heading_header_footer)
       transparent
-      > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B
-      `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
-      `Datalist `Del `Details `Dfn `Div `Dl `Em `Embed `Fieldset
-      `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
-      `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
-      `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
-      `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
-      `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
-      `Table `Template `Textarea `Time `U `Ul `Var `Video `Video_interactive
-      `Wbr ] as 'a
-
-type flow5_without_form =
-  [
-    | core_phrasing
-    | formassociated
-    | formatblock
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Figure
-    | `Dl
-    | `Details
-    | `Main
-    | (flow5_without_interactive, flow5_without_noscript, flow5,
-       flow5_without_media) transparent
   ]
 
-type flow5_without_sectioning_heading_header_footer_address =
-  [
-    | core_phrasing
-    | formassociated
-    | `Pre
-    | `P
-    | `Div
-    | `Blockquote
-    | `Ul
-    | `Table
-    | `Style
-    | `Ol
-    | `Menu
-    | `Hr
-    | `Form
-    | `Figure
-    | `Dl
-    | `Details
-    | `Main
-    | (flow5_without_interactive, flow5_without_noscript, flow5,
-       flow5_without_media) transparent
+type flow5_without_interactive_sectioning_heading_header_footer_address =
+  [ core_phrasing_without_interactive
+  | core_block_without_sectioning_heading_header_footer_address
+  | (flow5_without_noscript_sectioning_heading_header_footer_address,
+     flow5_without_sectioning_heading_header_footer_address,
+     flow5_without_media_sectioning_heading_header_footer_address)
+      transparent_without_interactive
+  ]
+and flow5_without_noscript_sectioning_heading_header_footer_address =
+  [ core_phrasing_without_noscript
+  | core_block_without_sectioning_heading_header_footer_address
+  | (flow5_without_interactive_sectioning_heading_header_footer_address,
+     flow5_without_sectioning_heading_header_footer_address,
+     flow5_without_media_sectioning_heading_header_footer_address)
+      transparent_without_noscript
+  ]
+and flow5_without_media_sectioning_heading_header_footer_address =
+  [ core_phrasing_without_media
+  | core_block_without_sectioning_heading_header_footer_address
+  | (flow5_without_interactive_sectioning_heading_header_footer_address,
+     flow5_without_noscript_sectioning_heading_header_footer_address,
+     flow5_without_sectioning_heading_header_footer_address)
+      transparent_without_media
+  ]
+and flow5_without_sectioning_heading_header_footer_address =
+  [ core_phrasing
+  | core_block_without_sectioning_heading_header_footer_address
+  | (flow5_without_interactive_sectioning_heading_header_footer_address,
+     flow5_without_noscript_sectioning_heading_header_footer_address,
+     flow5_without_sectioning_heading_header_footer_address,
+     flow5_without_media_sectioning_heading_header_footer_address)
+      transparent
   ]
 
-type flow5_without_sectioning_heading_header_footer =
-  [
-    | flow5_without_sectioning_heading_header_footer_address
-    | `Address
+
+type flow5_without_interactive_form =
+  [ core_phrasing_without_interactive
+  | core_block_without_form
+  | (flow5_without_noscript_form,
+     flow5_without_form,
+     flow5_without_media_form) transparent_without_interactive
+  ]
+and flow5_without_noscript_form =
+  [ core_phrasing_without_noscript
+  | core_block_without_form
+  | (flow5_without_interactive_form,
+     flow5_without_form,
+     flow5_without_media_form) transparent_without_noscript
+  ]
+and flow5_without_media_form =
+  [ core_phrasing_without_media
+  | core_block_without_form
+  | (flow5_without_interactive_form,
+     flow5_without_noscript_form,
+     flow5_without_form) transparent_without_media ]
+and flow5_without_form =
+  [ core_phrasing
+  | core_block_without_form
+  | (flow5_without_interactive_form,
+     flow5_without_noscript_form,
+     flow5_without_form,
+     flow5_without_media_form) transparent
   ]
 
 (*
@@ -1189,9 +1170,9 @@ type body_attrib =
     | `OnUnload
   ]
 
-type body_content = flow5
+type body_content = flow5_without_header_footer
 
-type body_content_fun = flow5
+type body_content_fun = flow5_without_header_footer
 
 
 type svg = [ `Svg ]
@@ -1235,18 +1216,18 @@ type header_attrib = [ | common ]
 (* NAME: section, KIND: star, TYPE: [= common ], [= flow5 ], [=`Section], ARG: [= flow5 ], ATTRIB:  OUT: [=`Section] *)
 type section = [ | `Section ]
 
-type section_content = [ | flow5 ]
+type section_content = [ | flow5_without_header_footer ]
 
-type section_content_fun = [ | flow5 ]
+type section_content_fun = [ | flow5_without_header_footer ]
 
 type section_attrib = [ | common ]
 
 (* NAME: nav, KIND: star, TYPE: [= common ], [= flow5 ], [=`Nav], ARG: [= flow5 ], ATTRIB:  OUT: [=`Nav] *)
 type nav = [ | `Nav ]
 
-type nav_content = [ | flow5 ]
+type nav_content = [ | flow5_without_header_footer ]
 
-type nav_content_fun = [ | flow5 ]
+type nav_content_fun = [ | flow5_without_header_footer ]
 
 type nav_attrib = [ | common ]
 
@@ -1329,27 +1310,27 @@ type address_attrib = [ | common ]
 (* NAME: article, KIND: star, TYPE: [= common ], [= flow5 ], [=`Article], ARG: [= flow5 ], ATTRIB:  OUT: [=`Article] *)
 type article = [ | `Article ]
 
-type article_content = [ | flow5 ]
+type article_content = [ | flow5_without_header_footer ]
 
-type article_content_fun = [ | flow5 ]
+type article_content_fun = [ | flow5_without_header_footer ]
 
 type article_attrib = [ | common ]
 
 (* NAME: aside, KIND: star, TYPE: [= common ], [= flow5 ], [=`Aside], ARG: [= flow5 ], ATTRIB:  OUT: [=`Aside] *)
 type aside = [ | `Aside ]
 
-type aside_content = [ | flow5 ]
+type aside_content = [ | flow5_without_header_footer ]
 
-type aside_content_fun = [ | flow5 ]
+type aside_content_fun = [ | flow5_without_header_footer ]
 
 type aside_attrib = [ | common ]
 
 (* NAME: main, KIND: star, TYPE: [= common ], [= flow5 ], [=`Main], ARG: [= flow5 ], ATTRIB:  OUT: [=`Main] *)
 type main = [ | `Main ]
 
-type main_content = [ | flow5 ]
+type main_content = [ | flow5_without_header_footer ]
 
-type main_content_fun = [ | flow5 ]
+type main_content_fun = [ | flow5_without_header_footer ]
 
 type main_attrib = [ | common ]
 
@@ -1374,18 +1355,18 @@ type pre_attrib = [ | common ]
 (* NAME: blockquote, KIND: star, TYPE: [= common | `Cite ],[= flow5 ], [=`Blockquote], ARG: [= flow5 ], ATTRIB:  OUT: [=`Blockquote] *)
 type blockquote = [ | `Blockquote ]
 
-type blockquote_content = [ | flow5 ]
+type blockquote_content = [ | flow5_without_header_footer ]
 
-type blockquote_content_fun = [ | flow5 ]
+type blockquote_content_fun = [ | flow5_without_header_footer ]
 
 type blockquote_attrib = [ | common | `Cite ]
 
 (* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]
 
-type div_content = [ | flow5 ]
+type div_content = [ | flow5_without_header_footer ]
 
-type div_content_fun = [ | flow5 ]
+type div_content_fun = [ | flow5_without_header_footer ]
 
 type div_attrib = [ | common ]
 
@@ -1399,9 +1380,9 @@ type ol_content_fun = [ | `Li of [ | common | `Int_Value ] ]
 type ol_attrib = [ | common | `Reversed | `Start ]
 
 (* NAME: li, KIND: star, TYPE: [= common | `Int_Value] as 'a, [=flow5 ], [=`Li of 'a], ARG: [=flow5 ], ATTRIB:  OUT: [=`Li of 'a] *)
-type li_content = [ | flow5 ]
+type li_content = [ | flow5_without_header_footer ]
 
-type li_content_fun = [ | flow5 ]
+type li_content_fun = [ | flow5_without_header_footer ]
 
 type li_attrib = [ | common | `Int_Value ]
 
@@ -1418,18 +1399,18 @@ type ul_attrib = [ | common ]
 (* NAME: dd, KIND: star, TYPE: [= common ], [= flow5 ], [=`Dd], ARG: [= flow5 ], ATTRIB:  OUT: [=`Dd] *)
 type dd = [ | `Dd ]
 
-type dd_content = [ | flow5 ]
+type dd_content = [ | flow5_without_header_footer ]
 
-type dd_content_fun = [ | flow5 ]
+type dd_content_fun = [ | flow5_without_header_footer ]
 
 type dd_attrib = [ | common ]
 
 (* NAME: dt, KIND: star, TYPE: [= common ], [= phrasing], [=`Dt], ARG: [= phrasing], ATTRIB:  OUT: [=`Dt] *)
 type dt = [ | `Dt ]
 
-type dt_content = [ | flow5_without_sectioning_heading_header_footer ]
+type dt_content = [ | flow5_without_sectioning_heading_header_footer_address ]
 
-type dt_content_fun = [ | flow5_without_sectioning_heading_header_footer ]
+type dt_content_fun = [ | flow5_without_sectioning_heading_header_footer_address ]
 
 type dt_attrib = [ | common ]
 
@@ -1446,9 +1427,9 @@ type dl_attrib = [ | common ]
 (* NAME: figcaption, KIND: star, TYPE: [= common ], [= flow5], [=`Figcaption], ARG: [= flow5], ATTRIB:  OUT: [=`Figcaption] *)
 type figcaption = [ | `Figcaption ]
 
-type figcaption_content = [ | flow5 ]
+type figcaption_content = [ | flow5_without_header_footer ]
 
-type figcaption_content_fun = [ | flow5 ]
+type figcaption_content_fun = [ | flow5_without_header_footer ]
 
 type figcaption_attrib = [ | common ]
 
@@ -1456,9 +1437,9 @@ type figcaption_attrib = [ | common ]
 (* figure *)
 type figure = [ | `Figure ]
 
-type figure_content = [ | flow5 ]
+type figure_content = [ | flow5_without_header_footer ]
 
-type figure_content_fun = [ | flow5 ]
+type figure_content_fun = [ | flow5_without_header_footer ]
 
 type figure_attrib = [ | common ]
 
@@ -1688,9 +1669,9 @@ type var_content_fun = [ | phrasing ]
 type var_attrib = [ | common ]
 
 (* NAME: a, KIND: star, TYPE: [= common | `Href | `Hreflang | `Media | `Rel | `Target | `Mime_type ], 'a, [= `A of 'a ], ARG: 'a, ATTRIB:  OUT: [= `A of 'a ] *)
-type a_content = flow5_without_interactive
+type a_content = flow5_without_interactive_header_footer
 
-type a_content_fun = flow5_without_interactive
+type a_content_fun = flow5_without_interactive_header_footer
 
 type 'a a = [ | `A of 'a ]
 type a_ = [ `A of a_content ] (* should not be used as it may break *)
@@ -1701,18 +1682,18 @@ type a_attrib =
 
 (* NAME: del, KIND: star, TYPE: [= common | `Cite | `Datetime ], 'a,[=`Del of 'a], ARG: 'a, ATTRIB:  OUT: [=`Del of 'a] *)
 type 'a del = [ | `Del of 'a ]
-type del_content = flow5
+type del_content = flow5_without_header_footer
 type del_ = del_content del
-type del_content_fun = flow5
+type del_content_fun = flow5_without_header_footer
 
 type del_attrib = [ | common | `Cite | `Datetime ]
 
 (* NAME: ins, KIND: star, TYPE: [= common | `Cite | `Datetime ],'a ,[=`Ins of 'a], ARG: 'a , ATTRIB:  OUT: [=`Ins of 'a] *)
 type 'a ins = [ | `Ins of 'a ]
 
-type ins_content = flow5
+type ins_content = flow5_without_header_footer
 type ins_ = ins_content ins
-type ins_content_fun = flow5
+type ins_content_fun = flow5_without_header_footer
 
 type ins_attrib = [ | common | `Cite | `Datetime ]
 
@@ -1738,9 +1719,9 @@ type iframe_attrib =
     | `Referrerpolicy
   ]
 
-type object__content = [ | flow5 | `Param ]
+type object__content = [ | flow5_without_header_footer | `Param ]
 
-type object__content_fun = flow5
+type object__content_fun = flow5_without_header_footer
 
 type 'a object_ = [ | `Object of 'a | `Object_interactive of 'a]
 type object__ = object__content object_
@@ -1794,9 +1775,9 @@ type media_attrib =
 type 'a audio = [ | `Audio of 'a ]
 type 'a audio_interactive = [ | `Audio of 'a | `Audio_interactive of 'a ]
 
-type audio_content = flow5_without_media
+type audio_content = flow5_without_media_header_footer
 type audio_ = audio_content audio
-type audio_content_fun = flow5_without_media
+type audio_content_fun = flow5_without_media_header_footer
 
 type audio_attrib =
   [ | common
@@ -1807,9 +1788,9 @@ type audio_attrib =
 type 'a video = [ | `Video of 'a ]
 type 'a video_interactive = [ | `Video of 'a | `Video_interactive of 'a ]
 
-type video_content = flow5_without_media
+type video_content = flow5_without_media_header_footer
 type video_ = video_content video
-type video_content_fun = flow5_without_media
+type video_content_fun = flow5_without_media_header_footer
 
 type video_attrib =
   [ | common
@@ -1822,9 +1803,9 @@ type video_attrib =
 (* NAME: canvas, KIND: star, TYPE: [= common |`Width |`Height],'a, [=`Canvas of 'a], ARG: 'a, ATTRIB:  OUT: [=`Canvas of 'a] *)
 type 'a canvas = [ | `Canvas of 'a ]
 
-type canvas_content = flow5
+type canvas_content = flow5_without_header_footer
 type canvas_ = canvas_content canvas
-type canvas_content_fun = flow5
+type canvas_content_fun = flow5_without_header_footer
 
 type canvas_attrib = [ | common | `Width | `Height ]
 
@@ -1861,19 +1842,19 @@ type area_attrib =
 (* NAME: map, KIND: plus, TYPE: [=common | `Name ],'a, [=`Map of 'a], ARG: 'a, ATTRIB:  OUT: [=`Map of 'a] *)
 type 'a map = [ | `Map of 'a ]
 
-type map_content = flow5
+type map_content = flow5_without_header_footer
 type map_ = map_content map
 
-type map_content_fun = flow5
+type map_content_fun = flow5_without_header_footer
 
 type map_attrib = [ | common | `Name ]
 
 (* NAME: caption, KIND: star, TYPE: [= common ], [= flow5_without_table], [=`Caption], ARG: [= flow5_without_table], ATTRIB:  OUT: [=`Caption] *)
 type caption = [ | `Caption ]
 
-type caption_content = [ | flow5_without_table ]
+type caption_content = flow5_without_header_footer
 
-type caption_content_fun = [ | flow5_without_table ]
+type caption_content_fun = flow5_without_header_footer
 
 type caption_attrib = [ | common ]
 
@@ -1943,18 +1924,18 @@ type tfoot_attrib = [ | common ]
 (* NAME: td, KIND: star, TYPE: [= common | `Colspan | `Headers | `Rowspan ], [= flow5 ], [=`Td], ARG: [= flow5 ], ATTRIB:  OUT: [=`Td] *)
 type td = [ | `Td ]
 
-type td_content = [ | flow5 ]
+type td_content = [ | flow5_without_header_footer ]
 
-type td_content_fun = [ | flow5 ]
+type td_content_fun = [ | flow5_without_header_footer ]
 
 type td_attrib = [ | common | `Colspan | `Headers | `Rowspan ]
 
 (* NAME: th, KIND: star, TYPE: [= common | `Colspan | `Headers | `Rowspan | `Scope], [= flow5], [=`Th], ARG: [= flow5], ATTRIB:  OUT: [=`Th] *)
 type th = [ | `Th ]
 
-type th_content = [ | flow5 ]
+type th_content = [ | flow5_without_header_footer ]
 
-type th_content_fun = [ | flow5 ]
+type th_content_fun = [ | flow5_without_header_footer ]
 
 type th_attrib = [ | common | `Colspan | `Headers | `Rowspan | `Scope ]
 
@@ -1990,9 +1971,9 @@ type form_attrib =
 (* NAME: fieldset, KIND: star, TYPE: [= common | `Disabled | `Form | `Name], [= flow5 ], [=`Fieldset], ARG: [= flow5 ], ATTRIB:  OUT: [=`Fieldset] *)
 type fieldset = [ | `Fieldset ]
 
-type fieldset_content = [ | flow5 ]
+type fieldset_content = [ | flow5_without_header_footer ]
 
-type fieldset_content_fun = [ | flow5 ]
+type fieldset_content_fun = [ | flow5_without_header_footer ]
 
 type fieldset_attrib = [ | common | `Disabled | `Form | `Name ]
 
@@ -2184,9 +2165,9 @@ type output_elt_attrib = [ | common | `Form | `Output_for | `Name ]
 (* NAME: details, KIND: star, TYPE: [= common | `Open ], [= flow5] elt, [= `Details], ARG: [= flow5] elt, ATTRIB:  OUT: [= `Details] *)
 type details = [ | `Details ]
 
-type details_content = [ | flow5 ]
+type details_content = [ | flow5_without_header_footer ]
 
-type details_content_fun = [ | flow5 ]
+type details_content_fun = [ | flow5_without_header_footer ]
 
 type details_attrib = [ | common | `Open ]
 
@@ -2220,11 +2201,11 @@ type menu_content_fun = notag
 type menu_attrib = [ | common | `Label | `Menu_Type ]
 
 (* NAME: noscript, KIND: plus, TYPE: [= common ], 'a, [=`Noscript of 'a], ARG: 'a, ATTRIB:  OUT: [=`Noscript of 'a] *)
-type noscript = [ | `Noscript of flow5_without_noscript ]
+type noscript = [ | `Noscript of flow5_without_noscript_header_footer ]
 
-type noscript_content = flow5_without_noscript
+type noscript_content = flow5_without_noscript_header_footer
 
-type noscript_content_fun = flow5_without_noscript
+type noscript_content_fun = flow5_without_noscript_header_footer
 
 type noscript_attrib = [ | common ]
 
@@ -2262,9 +2243,9 @@ type template = [ | `Template ]
 
 type template_attrib = [ | common ]
 
-type template_content = [ | flow5 ]
+type template_content = [ | flow5_without_header_footer ]
 
-type template_content_fun = [ | flow5 ]
+type template_content_fun = [ | flow5_without_header_footer ]
 
 (* NAME: link, KIND: nullary, TYPE: [= common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type ], [=`Link], ARG: notag, ATTRIB:  OUT: [=`Link] *)
 type link = [ | `Link ]

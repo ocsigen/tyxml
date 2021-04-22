@@ -7,8 +7,8 @@
 )
 
 (tests
- (names test_html test_svg)
- (modules test_html test_svg)
+ (names test_html test_svg test_typing)
+ (modules test_html test_svg test_typing)
  (libraries tyxml alcotest tyxml_test)
  (package tyxml)
 )
@@ -43,11 +43,11 @@
 ; (rule
 ;  (targets html_fail.result)
 ;  (deps    ppx.exe html_fail.ml)
-;  (action (system "TERM= %{ocaml} -I ../implem/.tyxml.objs/ -noinit -noprompt -ppx './%{exe:ppx.exe} --as-ppx' < html_fail.ml 2>&1 | tail -n +3 > %{targets}"))
+;  (action (system "TERM= %{ocaml} -I ../implem/.tyxml.objs/byte/ -noinit -noprompt -ppx './%{exe:ppx.exe} --as-ppx' < html_fail.ml 2>&1 | tail -n +3 > %{targets}"))
 ; )
 
-; (alias
-;  (name   runtest)
+; (rule
+;  (alias   runtest)
 ;  (deps   html_fail.result html_fail.expected)
 ;  (action (diff html_fail.expected html_fail.result))
 ;  (package tyxml-ppx)

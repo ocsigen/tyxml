@@ -1,3 +1,8 @@
+# NEXT
+
+* Better support for nesting of block elements
+  (#265 by Gabriel Radanne)
+
 # 4.4.0
 
 * Add support for Reason's JSX syntax with a new `tyxml-jsx` package 
