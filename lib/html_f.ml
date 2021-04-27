@@ -1056,9 +1056,10 @@ struct
     | `Url -> "url"
     | `Week -> "week"
 
-  let string_of_input_type = function
+  let string_of_script_type = function
+  | `Javascript -> "application/javascript"
   | `Module -> "module"
-  | `Mime_type -> "application/javascript" (* How do I let it be any mimetype? *)
+  | `Mime s -> s
 
   let string_of_number_or_datetime = function
     | `Number n -> string_of_int n

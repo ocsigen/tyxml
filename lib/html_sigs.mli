@@ -573,7 +573,8 @@ module type T = sig
   [@@reflect.attribute "type" ["button"]]
 
   val a_script_type :
-      [< | `Module | `Mime] wrap -> [> | `Script_type] attrib
+    Html_types.script_type wrap -> [> | `Script_type] attrib
+  [@@reflect.attribute "type" ["script"]]
 
   val a_command_type :
     [< | `Command | `Checkbox | `Radio] wrap -> [> | `Command_Type] attrib
