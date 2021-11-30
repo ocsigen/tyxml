@@ -540,7 +540,19 @@ let number_or_datetime ?separated_by:_ ?default:_ loc _ s =
   | None -> Some [%expr `Datetime [%e Common.string loc s]]
   [@metaloc loc]
 
-
+let script_type =
+  (* According to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script, non-javascript
+     MIME types are allowed, but then denotes the <script> content as a "data block" (whatever that
+     is), implying that any `src` attribute be ignored. As a first approximation, let's just make
+     sure that any non-"module" type attribute is a plausible mime type.  *)
+  let maybeMime = Re.Str.regexp ".+/.+" in
+  fun ?separated_by:_ ?default:_ loc _ s ->
+    if s = "module"
+    then Some [%expr `Module]
+    else if Re.Str.string_match maybeMime s 0
+         then Some [%expr `Mime [%e Common.string loc s]]
+         else Common.error loc {|script type attribute must be "module" or a mime type|}
+    [@metaloc loc]
 
 (* Special-cased. *)
 

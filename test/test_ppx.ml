@@ -199,6 +199,14 @@ let basics = "ppx basics", HtmlTests.make Html.[
     ]
   ]];
 
+  "script type=module",
+  [[%html {|<script type="module"></script>|}]],
+  [script ~a:[a_script_type `Module] @@ txt ""];
+
+  "script type=mime",
+  [[%html {|<script type="text/javascript"></script>|}]],
+  [script ~a:[a_script_type (`Mime "text/javascript")] @@ txt ""];
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
