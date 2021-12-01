@@ -2250,7 +2250,7 @@ type script = [ | `Script ]
 
 type script_attrib =
   [ | common | subressource_integrity
-    | `Async | `Charset | `Src | `Defer | `Mime_type
+    | `Async | `Charset | `Src | `Defer | `Script_type
   ]
 
 type script_content = [ | `PCDATA ]
@@ -2408,3 +2408,5 @@ type input_type =
   | `Time
   | `Url
   | `Week ]
+
+type script_type = [ `Javascript | `Module | `Mime of string ]
