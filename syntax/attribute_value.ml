@@ -484,6 +484,17 @@ let paint ?separated_by:_ ?default:_ loc name s =
             `Icc ([%e iri], Some [%e paint_without_icc loc name remainder])]
     end [@metaloc loc]
 
+let fill_rule ?separated_by:_ ?default:_ loc _name s =
+  begin match s with
+  | "nonzero" ->
+    Some [%expr `Nonzero]
+  
+  | "evenodd" ->
+    Some [%expr `Evenodd]
+
+  | _ -> None
+  end [@metaloc loc]
+
 let srcset_element =
   let space = Re_str.regexp " +" in
 
