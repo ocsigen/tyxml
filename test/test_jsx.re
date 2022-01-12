@@ -158,7 +158,22 @@ let attribs = (
         [<script type_="text/javascript" />],
         [script(~a=[a_script_type(`Mime("text/javascript"))], txt(""))],
       ),
-    ],
+      ( "camel-case data attribs",
+        [<div dataFooBar="baz"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+      ),
+      ( "kebab-case data attribs",
+        [<div data_foo_bar="baz"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+      ),
+      ( "kebab-case data attribs, again",
+        [<div datafoo_bar="baz"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+      ),
+    ]
   ),
 );
 
