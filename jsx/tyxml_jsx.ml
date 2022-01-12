@@ -22,23 +22,27 @@ end
 let lowercase_lead s =
   String.mapi (fun i c -> if i = 0 then Char.lowercase_ascii c else c) s
 
-let to_kebab_case name =
+let to_kebab_case =
   let open Re in
-  let kebab string =
-    replace (Posix.compile_pat "[A-Z]") ~f:(fun g -> "-" ^ Group.get g 0) string
-    |> String.lowercase_ascii
-    |> replace_string (compile @@ char '_') ~by:"-" in
-  match exec_opt (Perl.compile_pat {|^(data_?|aria_?)(.+)|}) name with
-  | None -> 
-    if name.[0] == '_'
-    (* need to keep the leading underscore, as that's what the syntax support keys
-       off of to know to use Unsafe.string_attrib *)
-    then "_" ^ kebab @@ String.sub name 1 (String.length name - 1)
-    else name
-  | Some g ->
-    let prefix = String.sub name 0 4 in
-    let suffix = kebab @@ Group.get g 2 in
-    prefix ^ (if suffix.[0] == '-' then "" else "-") ^ suffix
+  let camelPat = Posix.compile_pat "[A-Z]" in
+  let underscore = compile @@ char '_' in
+  let prefixes = Perl.compile_pat {|^(data_?|aria_?)(.+)|} in
+  fun name ->
+    let kebab string =
+      replace camelPat ~f:(fun g -> "-" ^ Group.get g 0) string
+      |> String.lowercase_ascii
+      |> replace_string underscore ~by:"-" in
+    match exec_opt prefixes name with
+    | None -> 
+      if name.[0] == '_'
+      (* need to keep the leading underscore, as that's what the syntax support keys
+         off of to know to use Unsafe.string_attrib *)
+      then "_" ^ kebab @@ String.sub name 1 (String.length name - 1)
+      else name
+    | Some g ->
+      let prefix = String.sub name 0 4 in
+      let suffix = kebab @@ Group.get g 2 in
+      prefix ^ (if suffix.[0] == '-' then "" else "-") ^ suffix
 
 let make_attr_name name =
   let name =

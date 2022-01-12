@@ -283,6 +283,12 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<div data-foo='valfoo'></div>"]],
   [div
     ~a:[a_user_data "foo" "valfoo"] []] ;
+  
+  "arbitrary (unchecked) attributes via an escape hatch",
+  [[%html "<div _some-attr='value'></div>"]],
+  [div
+    ~a:[Unsafe.string_attrib "some-attr" "value"] []]
+      
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
