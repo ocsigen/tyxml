@@ -33,7 +33,7 @@ The documentation can be consulted
 available in the [examples](examples) directory.
 
 [Eliom]: https://ocsigen.org/eliom/latest/manual/clientserver-html.html
-[Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/api/Tyxml_js
+[Js_of_ocaml]: https://ocsigen.org/js_of_ocaml/latest/api/js_of_ocaml-tyxml/Js_of_ocaml_tyxml/Tyxml_js
 [virtual-dom]: https://github.com/janestreet/virtual_dom
 
 ## Installation
