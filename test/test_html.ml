@@ -23,9 +23,9 @@ let html_elements = "html elements", tyxml_tests Html.[
     ]
   ],
   {|<div><picture id="idpicture">|}
-    ^ {|<img src="picture/img.png" alt="test picture/img.png" id="idimg"/>|}
     ^ {|<source type="image/webp" src="picture/img1.webp"/>|}
     ^ {|<source type="image/jpeg" src="picture/img2.jpg"/>|}
+    ^ {|<img src="picture/img.png" alt="test picture/img.png" id="idimg"/>|}
   ^ {|</picture></div>|} ;
 ]
 
