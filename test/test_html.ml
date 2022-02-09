@@ -82,11 +82,21 @@ let escaping = "html escaping", tyxml_tests Html.[
 
 ]
 
+let indent = "html indent", tyxml_tests ~indent:true Html.[
+  "no break between text nodes",
+  p [ 
+    span ~a:[ a_class [ "some padding ............................" ] ] [
+      txt "some text here"; txt ". and here"
+    ]
+  ],
+  "<p>\n <span class=\"some padding ............................\">some text here\n  . and here\n </span>\n</p>"
+]
 
 let tests = [
   html_elements ;
   html_attributes ;
   escaping ;
+  indent ;
 ]
 
 let () = Alcotest.run "tyxml" tests
