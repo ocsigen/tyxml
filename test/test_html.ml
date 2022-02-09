@@ -89,7 +89,7 @@ let indent = "html indent", tyxml_tests ~indent:true Html.[
       txt "some text here"; txt ". and here"
     ]
   ],
-  "<p>\n <span class=\"some padding ............................\">some text here\n  . and here\n </span>\n</p>"
+  "<p>\n <span class=\"some padding ............................\">\n  some text here. and here\n </span>\n</p>"
 ]
 
 let tests = [
