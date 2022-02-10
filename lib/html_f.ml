@@ -809,7 +809,8 @@ struct
     Xml.leaf ~a "img"
 
   let picture ~img ?a elts =
-    let content = W.cons img elts in
+    let tail_node = W.cons img (W.nil ()) in
+    let content = W.append elts tail_node in
     Xml.node ?a "picture" content
 
   let meta = terminal "meta"
