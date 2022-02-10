@@ -267,6 +267,10 @@ struct
       close_box indent fmt
     end
 
+  let elt_needs_cut = function
+    | Comment _ | Node _ | Leaf _ -> true
+    | Entity _ | PCDATA _ | EncodedPCDATA _ | Empty -> false
+
   let rec pp_tag encode indent fmt tag attrs children =
     match children with
     | [] -> pp_closedtag encode indent fmt tag attrs
@@ -276,13 +280,13 @@ struct
         (open_box indent)
         (pp_tag_and_attribs encode indent) (tag, attrs)
         (cut indent)
-        (pp_elts encode indent) children
+        (pp_elts true encode indent) children
         (close_box indent)
         (cut indent)
         tag ;
       close_box indent fmt
 
-  and pp_elt encode indent fmt elt = match content elt with
+  and pp_elt encode indent fmt = function
     | Comment texte ->
       Format.fprintf fmt "<!--%s-->" (escape_comment texte)
 
@@ -303,10 +307,18 @@ struct
 
     | Empty -> ()
 
-  and pp_elts encode indent =
-    Format.pp_print_list
-      ~pp_sep:(fun fmt () -> cut indent fmt)
-      (pp_elt encode indent)
+  and pp_elts prev_did_cut encode indent fmt = function
+    | elt :: tl ->
+      let elt = content elt in
+      let need_cut = elt_needs_cut elt in
+      if not prev_did_cut && need_cut then cut indent fmt;
+      pp_elt encode indent fmt elt;
+      if need_cut then cut indent fmt;
+      pp_elts need_cut encode indent fmt tl
+    | [] -> ()
+
+  let pp_elt encode indent fmt elt =
+    pp_elt encode indent fmt (content elt)
 
   let pp ?(encode=encode_unsafe_char) ?(indent=false) () =
     pp_elt encode indent
