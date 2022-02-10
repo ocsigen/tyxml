@@ -13,8 +13,7 @@ let html_elements = "html elements", tyxml_tests Html.[
   "template",
   template ~a:[a_id "idtmpl"] [p [txt "Template"]],
   "<template id=\"idtmpl\"><p>Template</p></template>" ;
-
-  "picture",
+  "picture_src",
   div [
     picture ~a:[a_id "idpicture"]
       ~img:(img ~a:[a_id "idimg"] ~src:"picture/img.png" ~alt:"test picture/img.png" ()) [
@@ -25,6 +24,22 @@ let html_elements = "html elements", tyxml_tests Html.[
   {|<div><picture id="idpicture">|}
     ^ {|<source type="image/webp" src="picture/img1.webp"/>|}
     ^ {|<source type="image/jpeg" src="picture/img2.jpg"/>|}
+    ^ {|<img src="picture/img.png" alt="test picture/img.png" id="idimg"/>|}
+    ^ {|</picture></div>|} ;
+
+  "picture_srcset",
+  div [
+    picture ~a:[a_id "idpicture"]
+      ~img:(img ~a:[a_id "idimg"] ~src:"picture/img.png" ~alt:"test picture/img.png" ()) [
+      source ~a:[a_mime_type "image/webp";
+                 a_srcset [`Url (Xml.uri_of_string "picture/img1.webp")]] ()
+    ; source ~a:[a_mime_type "image/jpeg";
+                 a_srcset [`Url (Xml.uri_of_string "picture/img2.jpg")]] ()
+    ]
+  ],
+  {|<div><picture id="idpicture">|}
+    ^ {|<source type="image/webp" srcset="picture/img1.webp"/>|}
+    ^ {|<source type="image/jpeg" srcset="picture/img2.jpg"/>|}
     ^ {|<img src="picture/img.png" alt="test picture/img.png" id="idimg"/>|}
   ^ {|</picture></div>|} ;
 ]
