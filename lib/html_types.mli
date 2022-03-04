@@ -392,7 +392,7 @@ type formatblock =
   ]
 
 type sectionningroot =
-  [ | `Td | `Figure | `Fieldset | `Details | `Body | `Blockquote
+  [ | `Td | `Figure | `Fieldset | `Details | `Body | `Blockquote | `Dialog
   ]
 
 type listed = [ | resetable | submitable | `Fieldset ]
@@ -914,6 +914,7 @@ type core_flow5 =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
   ]
 
 type core_flow5_without_interactive =
@@ -931,6 +932,7 @@ type core_flow5_without_interactive =
     | `Figure
     | `Dl
     | `Main
+    | `Dialog
   ]
 
 type core_flow5_without_noscript =
@@ -949,6 +951,7 @@ type core_flow5_without_noscript =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
   ]
 type core_flow5_without_media =
   [
@@ -966,6 +969,7 @@ type core_flow5_without_media =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
   ]
 
 type flow5_without_interactive =
@@ -1009,6 +1013,7 @@ type flow5_without_table =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1034,6 +1039,7 @@ type flow5_without_interactive_header_footer =
     | `Figure
     | `Dl
     | `Main
+    | `Dialog
     | (flow5_without_noscript, flow5, flow5_without_media)
         transparent_without_interactive
   ]
@@ -1060,6 +1066,7 @@ type flow5_without_header_footer =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
     | (flow5_without_interactive_header_footer,
        flow5_without_noscript, flow5,
        flow5_without_media) transparent
@@ -1067,7 +1074,7 @@ type flow5_without_header_footer =
 
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
   [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
-       `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl `Em
+       `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog `Div `Dl `Em
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
@@ -1082,7 +1089,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       transparent
       > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B
       `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
-      `Datalist `Del `Details `Dfn `Div `Dl `Em `Embed `Fieldset
+      `Datalist `Del `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset
       `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
@@ -1106,6 +1113,7 @@ type flow5_without_form =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1129,6 +1137,7 @@ type flow5_without_sectioning_heading_header_footer_address =
     | `Dl
     | `Details
     | `Main
+    | `Dialog
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1379,6 +1388,15 @@ type blockquote_content = [ | flow5 ]
 type blockquote_content_fun = [ | flow5 ]
 
 type blockquote_attrib = [ | common | `Cite ]
+
+(* NAME: dialog, KIND: star, TYPE: [= common | `Open ], [= flow5 ], [=`Dialog], ARG: [= flow5 ], ATTRIB:  OUT: [=`Dialog] *)
+type dialog = [ | `Dialog ]
+
+type dialog_content = [ | flow5 ]
+
+type dialog_content_fun = [ | flow5 ]
+
+type dialog_attrib = [ | common | `Open ]
 
 (* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]

@@ -573,6 +573,8 @@ struct
 
   let blockquote = star "blockquote"
 
+  let dialog = star "dialog"
+
   let div = star "div"
 
   let p = star "p"

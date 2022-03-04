@@ -150,7 +150,7 @@ let basics = "ppx basics", HtmlTests.make Html.[
 	<option value="foo">foo</option>
 </datalist>|}]],
   [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "foo")]) ()];
-  
+
   "comments",
   [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
   [div [p [txt "a"]; tot (Xml.comment " b "); hr ()]] ;
@@ -168,7 +168,7 @@ let basics = "ppx basics", HtmlTests.make Html.[
   "type in source",
   [[%html {|<source src="foo.mp3" type="audio/mpeg"/>|}]],
   [source ~a:[a_src "foo.mp3"; a_mime_type "audio/mpeg"] ()];
-    
+
   "table with body",
   [[%html "<table><tbody></tbody></table>"]],
   [tablex [tbody []]];
@@ -184,6 +184,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   "table with antiquot tr",
   [[%html "<table><tbody>"[tr []]"</tbody></table>"]],
   [tablex [tbody [tr[]]]];
+
+  "dialog",
+  [[%html {|<dialog open>foo</dialog>|}]],
+  [dialog ~a:[a_open ()] [txt "foo"] ];
 
   "picture",
   [[%html {|<div><picture id="idpicture">

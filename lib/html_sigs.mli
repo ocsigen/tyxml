@@ -769,6 +769,10 @@ module type T = sig
     ([< | blockquote_attrib], [< | blockquote_content_fun], [> | blockquote])
       star
 
+  val dialog :
+    ([< | dialog_attrib], [< | dialog_content_fun], [> | dialog]) star
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog> *)
+
   val div : ([< | div_attrib], [< | div_content_fun], [> | div]) star
 
   val dl : ([< | dl_attrib], [< | dl_content_fun], [> | dl]) star
