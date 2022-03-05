@@ -180,6 +180,7 @@ module type T = sig
   val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
   val a_oncanplaythrough : Xml.event_handler -> [> | `OnCanPlayThrough] attrib
   val a_onchange : Xml.event_handler -> [> | `OnChange] attrib
+  val a_onclose : Xml.event_handler -> [> | `OnClose] attrib
   val a_ondurationchange : Xml.event_handler -> [> | `OnDurationChange] attrib
   val a_onemptied : Xml.event_handler -> [> | `OnEmptied] attrib
   val a_onended : Xml.event_handler -> [> | `OnEnded] attrib

@@ -293,6 +293,7 @@ type events =
     | `OnCanPlayThrough
     | `OnChange
     | `OnClick
+    | `OnClose
     | `OnContextMenu
     | `OnDblClick
     | `OnDrag
