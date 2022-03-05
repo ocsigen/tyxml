@@ -6,7 +6,7 @@ let to_string = Format.asprintf "%a" (Html.pp_elt ())
 
 let tyxml_tests l =
   let f (name, (ty : Html_types.body_content Html.elt), s) =
-    name, `Quick, fun () -> Alcotest.(check string) name (to_string ty) s
+    name, `Quick, fun () -> Alcotest.(check string) name s (to_string ty)
   in
   List.map f l
 
