@@ -1,5 +1,8 @@
 # NEXT
 
+* Add support for `dialog` element and `onclose` attribute
+  (#301 by Julien Sagot)
+
 * Add support for `type` attribute on `<script>` elements
   (#293 by Ulrik @ulrikstrid Strid and Chas @cemerick Emerick)
 

@@ -118,6 +118,7 @@ struct
   let a_oncanplay = Xml.event_handler_attrib "oncanplay"
   let a_oncanplaythrough = Xml.event_handler_attrib "oncanplaythrough"
   let a_onchange = Xml.event_handler_attrib "onchange"
+  let a_onclose = Xml.event_handler_attrib "onclose"
   let a_ondurationchange = Xml.event_handler_attrib "ondurationchange"
   let a_onemptied = Xml.event_handler_attrib "onemptied"
   let a_onended = Xml.event_handler_attrib "onended"
@@ -572,6 +573,8 @@ struct
   let address = star "address"
 
   let blockquote = star "blockquote"
+
+  let dialog = star "dialog"
 
   let div = star "div"
 
