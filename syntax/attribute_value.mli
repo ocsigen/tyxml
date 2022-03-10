@@ -201,6 +201,9 @@ val paint : parser
 val srcset_element : parser
 (** Used for [a_srcset]. *)
 
+val autocomplete : parser
+(** Used for [a_autocomplete]. *)
+
 val number_or_datetime : parser
 (** Used for [a_input_min] and [a_input_max]. *)
 

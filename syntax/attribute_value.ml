@@ -540,6 +540,17 @@ let number_or_datetime ?separated_by:_ ?default:_ loc _ s =
   | None -> Some [%expr `Datetime [%e Common.string loc s]]
   [@metaloc loc]
 
+let autocomplete ?separated_by:_ ?default:_ loc name s =
+  match s with
+  | "on" | "" -> Some [%expr `On]
+  | "off" -> Some [%expr `Off]
+  | tks ->
+    match spaces (string) loc name tks with
+      | Some tks -> Some [%expr `Tokens [%e tks]]
+      | None -> Common.error loc "Bad autocomplete tokens"
+  [@metaloc loc]
+
+
 let script_type =
   (* According to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script, non-javascript
      MIME types are allowed, but then denotes the <script> content as a "data block" (whatever that

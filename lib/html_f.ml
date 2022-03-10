@@ -56,7 +56,6 @@ struct
     | `Url_width of uri * Html_types.number
     | `Url_pixel of uri * Html_types.float_number ]
 
-
   type 'a attrib = Xml.attrib
 
   let to_xmlattribs x = x
@@ -285,7 +284,7 @@ struct
     user_attrib C.string_of_referrerpolicy "referrerpolicy" x
 
   let a_autocomplete x =
-    user_attrib C.onoff_of_bool "autocomplete" x
+    user_attrib C.string_of_autocomplete "autocomplete" x
 
   let a_async =
     constant_attrib "async"
@@ -1120,6 +1119,12 @@ struct
       Printf.sprintf "%s %sx" (Xml.string_of_uri url) (Xml_print.string_of_number v)
     in
     String.concat ", " (List.map f l)
+
+  let string_of_autocomplete (l : Html_types.autocomplete_option) =
+    match l with
+    | `On | `Tokens [] -> "on"
+    | `Off -> "off"
+    | `Tokens strs -> String.concat " " strs
 
 end
 

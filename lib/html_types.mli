@@ -2429,3 +2429,5 @@ type input_type =
   | `Week ]
 
 type script_type = [ `Javascript | `Module | `Mime of string ]
+
+type autocomplete_option = [ `On | `Off | `Tokens of string list]

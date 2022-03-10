@@ -1,4 +1,6 @@
 # NEXT
+* Expand options for `autocomplete` attribute on `<input>` elements
+  (#302 by Aron @aronerben Erben)
 
 * Add support for `dialog` element and `onclose` attribute
   (#301 by Julien Sagot)
