@@ -1593,7 +1593,7 @@ type script_attr =
     | `Xlink_href
   ]
 
-type animation = [ | `Animation ]
+type animation = [ | `Animate ]
 
 (* star *)
 type animation_content = descriptive_element
