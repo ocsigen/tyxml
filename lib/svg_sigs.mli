@@ -486,13 +486,13 @@ module type T = sig
   val a_fill : paint wrap -> [> | `Fill ] attrib
 
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
-    [@@reflect.attribute "fill" ["animation"]]
+    [@@reflect.attribute "fill" ["animate"]]
 
   val a_calcMode :
     [< | `Discrete | `Linear | `Paced | `Spline ] wrap -> [> | `CalcMode ] attrib
 
   val a_animation_values : strings wrap -> [> | `Valuesanim ] attrib
-    [@@reflect.attribute "values" ["animation"]]
+    [@@reflect.attribute "values" ["animate"]]
 
   val a_keyTimes : strings wrap -> [> | `KeyTimes ] attrib
 
@@ -884,8 +884,8 @@ module type T = sig
   val script :
     ([< | script_attr], [< | script_content], [> | script]) unary
 
-  val animation :
-    ([< | animation_attr], [< | animation_content], [> | animation]) star
+  val animate :
+    ([< | animate_attr], [< | animate_content], [> | animate]) star
 
   val set : ([< | set_attr], [< | set_content], [> | set]) star
 
@@ -962,6 +962,11 @@ module type T = sig
   val pcdata : string wrap -> [> txt] elt
   [@@ocaml.deprecated "Use txt instead"]
   (** @deprecated Use txt instead *)
+
+  val animation :
+    ([< | animate_attr], [< | animate_content], [> | animate]) star
+  [@@ocaml.deprecated "Use animate instead"]
+  (** @deprecated Use animate instead *)
 
   (** {2 Conversion with untyped representation}
 
