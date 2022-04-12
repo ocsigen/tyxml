@@ -1,5 +1,9 @@
 # NEXT
 
+* Fix the SVG element `<animate>` (by the way, deprecate `animation` et
+  al. in favor of `animate` et al.)
+  (#306 by Idir @ilankri Lankri)
+
 * Add support for `dialog` element and `onclose` attribute
   (#301 by Julien Sagot)
 
