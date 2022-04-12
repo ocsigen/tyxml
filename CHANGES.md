@@ -20,7 +20,7 @@
 
 # 4.4.0
 
-* Add support for Reason's JSX syntax with a new `tyxml-jsx` package 
+* Add support for Reason's JSX syntax with a new `tyxml-jsx` package
   (#254 by Joris Giovannangeli and Gabriel Radanne
    with help from Ulrik Strid and Louis Roché)
 * Modernize the handling of toplevel printers for utop.
@@ -28,7 +28,7 @@
 
 ## Elements and attributes
 
-* Add `allowfullscreen`, `allowpaymentrequest`, `referrerpolicy` attributes 
+* Add `allowfullscreen`, `allowpaymentrequest`, `referrerpolicy` attributes
   (#242 by Thibault Suzanne)
 * Allow `crossorigin` attribute for script element
   (#243 by Thibault Suzanne)

@@ -147,7 +147,7 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "datalist",
   [[%html {|<datalist>
-	<option value="foo">foo</option>
+        <option value="foo">foo</option>
 </datalist>|}]],
   [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "foo")]) ()];
 
