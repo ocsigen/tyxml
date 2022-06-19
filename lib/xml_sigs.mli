@@ -44,6 +44,7 @@ module type T = sig
   val string_attrib : aname -> string wrap -> attrib
   val space_sep_attrib : aname -> string list wrap -> attrib
   val comma_sep_attrib : aname -> string list wrap -> attrib
+  val semicolon_sep_attrib : aname -> string list wrap -> attrib
   val event_handler_attrib : aname -> event_handler -> attrib
   val mouse_event_handler_attrib : aname -> mouse_event_handler -> attrib
   val keyboard_event_handler_attrib : aname -> keyboard_event_handler -> attrib
@@ -75,7 +76,7 @@ module type Iterable = sig
 
   include NoWrap
 
-  type separator = Space | Comma
+  type separator = Space | Comma | Semicolon
 
   val aname : attrib -> aname
 

@@ -538,11 +538,11 @@ struct
   let a_calcMode x =
     user_attrib C.string_of_big_variant "calcMode" x
 
-  let a_animation_values = Xml.comma_sep_attrib "values"
+  let a_animation_values = Xml.semicolon_sep_attrib "values"
 
-  let a_keyTimes = Xml.comma_sep_attrib "keyTimes"
+  let a_keyTimes = Xml.semicolon_sep_attrib "keyTimes"
 
-  let a_keySplines = Xml.comma_sep_attrib "keySplines"
+  let a_keySplines = Xml.semicolon_sep_attrib "keySplines"
 
   let a_from = string_attrib "from"
 
