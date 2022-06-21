@@ -8,6 +8,9 @@
 * Add support for `type` attribute on `<script>` elements
   (#293 by Ulrik @ulrikstrid Strid and Chas @cemerick Emerick)
 
+* Add svg `fill-rule` attribute
+  (#294 by Eric @dedbox Griffis)
+
 # 4.5.0
 
 * Move all the PPXs to ppxlib

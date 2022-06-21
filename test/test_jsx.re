@@ -303,6 +303,16 @@ let svg = (
           ),
         ],
       ),
+      (
+        "fill_rule nonzero",
+        [<path fill_rule="nonzero" />],
+        [path(~a=[a_fill_rule(`Nonzero)], [])],
+      ),
+      (
+        "fill_rule evenodd",
+        [<path fill_rule="evenodd" />],
+        [path(~a=[a_fill_rule(`Evenodd)], [])],
+      ),
     ],
   ),
 );

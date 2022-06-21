@@ -101,6 +101,10 @@ let string_of_paint = function
     (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
   | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
 
+let string_of_fill_rule = function
+  | `Nonzero -> "nonzero"
+  | `Evenodd -> "evenodd"
+
 module Make_with_wrapped_functions
 
     (Xml : Xml_sigs.T)
@@ -534,6 +538,8 @@ struct
 
   let a_animation_fill x =
     user_attrib C.string_of_big_variant "fill" x
+
+  let a_fill_rule = user_attrib C.string_of_fill_rule "fill-rule"
 
   let a_calcMode x =
     user_attrib C.string_of_big_variant "calcMode" x
@@ -1105,6 +1111,8 @@ struct
     | Some __svg -> string_of_angle __svg
 
   let string_of_paint = string_of_paint
+
+  let string_of_fill_rule = string_of_fill_rule
 
   let string_of_strokedasharray = function
     | [] -> "none"
