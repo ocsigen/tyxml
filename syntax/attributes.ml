@@ -104,15 +104,23 @@ let parse loc (language, element_name) attributes =
           labeled, e::regular
         in
 
-        (* Check if this is a "data-foo" or "aria-foo" attribute. Parse the
-           attribute value, and accumulate it in the list of attributes passed
+        (* Check if this is a "data-foo", "aria-foo", or unsafe attribute. Parse
+           the attribute value, and accumulate it in the list of attributes passed
            in ~a. *)
         match parse_prefixed "data-" local_name,
-              parse_prefixed "aria-" local_name
+              parse_prefixed "aria-" local_name,
+              parse_prefixed "_" local_name
         with
-        | Some tag, _ -> parse_prefixed_attribute tag "a_user_data"
-        | _, Some tag -> parse_prefixed_attribute tag "a_aria"
-        | None, None ->
+        | Some tag, _, _ -> parse_prefixed_attribute tag "a_user_data"
+        | _, Some tag, _ -> parse_prefixed_attribute tag "a_aria"
+        | _, _, Some tag ->
+          let identifier = Common.make ~loc language "Unsafe.string_attrib" in
+          let tag = Common.string loc tag in
+          let value = match value with
+                      | Val s -> Common.string loc s
+                      | Antiquot v -> v in
+          labeled, [%expr [%e identifier] [%e tag] [%e value]] :: regular
+        | None, None, None ->
           let tyxml_name =
             match Common.find test_renamed Reflected.renamed_attributes with
             | Some (name, _, _) -> name

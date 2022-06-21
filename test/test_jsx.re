@@ -158,7 +158,32 @@ let attribs = (
         [<script type_="text/javascript" />],
         [script(~a=[a_script_type(`Mime("text/javascript"))], txt(""))],
       ),
-    ],
+      ( "camel-case data attribs",
+        [<div dataFooBar="baz"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+      ),
+      ( "kebab-case data attribs",
+        [<div data_foo_bar="baz"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+      ),
+      ( "kebab-case data attribs, again",
+        [<div datafoo_bar="baz"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+      ),
+      ( "arbitrary (unchecked) attributes via an escape hatch",
+        [<div _some_attr="value"/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil ())],
+      ),
+      ( "arbitrary (unchecked) attributes via an escape hatch, with antiquotation",
+        [<div _some_attr={"val" ++ "ue"}/>],
+        // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
+        [div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil ())],
+      ),
+    ]
   ),
 );
 

@@ -2,7 +2,9 @@
 
 * Add support for `dialog` element and `onclose` attribute
   (#301 by Julien Sagot)
-
+* Add an escape hatch for emitting attributes with non-standard names
+  in jsx or ppx code (a leading `_` character on attribute name)
+  (#295 Chas @cemerick Emerick)
 * Add support for `type` attribute on `<script>` elements
   (#293 by Ulrik @ulrikstrid Strid and Chas @cemerick Emerick)
 
