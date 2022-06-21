@@ -147,7 +147,7 @@ let basics = "ppx basics", HtmlTests.make Html.[
 
   "datalist",
   [[%html {|<datalist>
-	<option value="foo">foo</option>
+        <option value="foo">foo</option>
 </datalist>|}]],
   [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "foo")]) ()];
 
@@ -370,9 +370,9 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<feMorphology operator='erode'/>"]],
   [feMorphology ~a:[a_feMorphology_operator `Erode] []] ;
 
-  "animation fill, values",
-  [[%svg "<animation fill='freeze' values='1 2'/>"]],
-  [animation ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
+  "animate fill, values",
+  [[%svg "<animate fill='freeze' values='1 2'/>"]],
+  [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
 ]
 

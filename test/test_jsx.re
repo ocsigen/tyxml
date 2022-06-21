@@ -81,7 +81,7 @@ let basics = (
           },
         ],
         [p([a([])])],
-      )      
+      )
     ],
   ),
 );
@@ -269,10 +269,10 @@ let svg = (
         [feMorphology(~a=[a_feMorphology_operator(`Erode)], [])],
       ),
       (
-        "animation fill, values",
-        [<animation fill="freeze" values="1 2" />],
+        "animate fill, values",
+        [<animate fill="freeze" values="1 2" />],
         [
-          animation(
+          animate(
             ~a=[a_animation_fill(`Freeze), a_animation_values(["1", "2"])],
             [],
           ),
