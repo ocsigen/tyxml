@@ -1,5 +1,9 @@
 # NEXT
 
+* Fix the SVG animation attributes `a_animation_values`, `a_keyTimes` and `a_keySplines`
+  to contain semicolon separated values.
+  (#?? by @rand00)
+
 * Fix the SVG element `<animate>` (by the way, deprecate `animation` et
   al. in favor of `animate` et al.)
   (#306 by Idir @ilankri Lankri)
