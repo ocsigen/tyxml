@@ -1854,7 +1854,7 @@ type source_content = notag
 
 type source_content_fun = notag
 
-type source_attrib = [ | common | `Src | `Mime_type | `Media ]
+type source_attrib = [ | common | `Src | `Srcset | `Mime_type | `Media ]
 
 (* NAME: area, KIND: nullary, TYPE: [= common | `Alt | `Coords | `Shape| `Target | `Rel | `Media| `Hreflang | `Mime_type],[=`Area], ARG: notag, ATTRIB:  OUT: [=`Area] *)
 type area = [ | `Area ]
