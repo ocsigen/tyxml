@@ -211,6 +211,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<script type="text/javascript"></script>|}]],
   [script ~a:[a_script_type (`Mime "text/javascript")] @@ txt ""];
 
+  "script empty",
+  [[%html {|<script></script>|}]],
+  [script @@ txt ""];
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
