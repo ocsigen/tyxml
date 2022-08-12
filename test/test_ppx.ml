@@ -215,6 +215,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<script></script>|}]],
   [script @@ txt ""];
 
+  "textarea empty",
+  [[%html {|<textarea></textarea>|}]],
+  [textarea @@ txt ""];
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
