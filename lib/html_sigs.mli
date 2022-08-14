@@ -1012,6 +1012,7 @@ module type T = sig
 
   val textarea :
     ([< | textarea_attrib], [< | textarea_content_fun], [> | textarea]) unary
+  [@@reflect.element "textarea"]
 
   val keygen : ([< | keygen_attrib], [> | keygen]) nullary
 

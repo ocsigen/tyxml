@@ -218,7 +218,7 @@ let datalist ~lang ~loc ~name children =
   children::(nullary ~lang ~loc ~name [])
 
 
-let script ~lang ~loc ~name children =
+let at_most_one_child ~lang ~loc ~name children =
   match children with
   | [] ->
     let child = Common.txt ~loc ~lang "" in
@@ -227,6 +227,11 @@ let script ~lang ~loc ~name children =
     let child = Common.wrap_value lang loc child in
     [Nolabel, child]
   | _ -> Common.error loc "%s can have at most one child" name
+
+let script = at_most_one_child
+
+(* https://html.spec.whatwg.org/#the-textarea-element *)
+let textarea = at_most_one_child
 
 let details ~lang ~loc ~name children =
   let summary, others = partition (html "summary") children in

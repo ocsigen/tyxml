@@ -79,6 +79,7 @@ val details : assembler
 val menu : assembler
 val picture : assembler
 val script : assembler
+val textarea : assembler
 
 (** {1 Misc utilities} *)
 
