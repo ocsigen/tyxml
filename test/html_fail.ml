@@ -1,3 +1,3 @@
-open Tyxml.Html ;;
+open Tyxml.Html;;
 
-div [a [a []]] ;;
+div [ a [ a [] ] ]

@@ -16,12 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Basic iterators over XML tree (functorial interface). *)
 
-module Make(Xml : Xml_sigs.Iterable) : sig
-
+module Make (Xml : Xml_sigs.Iterable) : sig
   open Xml
 
   val amap : (ename -> attrib list -> attrib list) -> elt -> elt
@@ -30,24 +29,44 @@ module Make(Xml : Xml_sigs.Iterable) : sig
   val amap1 : (ename -> attrib list -> attrib list) -> elt -> elt
   (** Edit attributes only for one element. *)
 
-  (** The following can safely be exported by higher level libraries,
-      because removing an attribute from a element is always legal. *)
+  (** The following can safely be exported by higher level libraries, because
+      removing an attribute from a element is always legal. *)
 
   val rm_attrib : (aname -> bool) -> attrib list -> attrib list
-  val rm_attrib_from_list : (aname -> bool) -> (string -> bool) -> attrib list -> attrib list
 
-  val map_int_attrib :
-    (aname -> bool) -> (int -> int) -> attrib list -> attrib list
-  val map_float_attrib :
-    (aname -> bool) -> (float -> float) -> attrib list -> attrib list
-  val map_string_attrib :
-    (aname -> bool) -> (string -> string) -> attrib list -> attrib list
-  val map_string_attrib_in_list :
-    (aname -> bool) -> (string -> string) -> attrib list -> attrib list
+  val rm_attrib_from_list
+    :  (aname -> bool) ->
+    (string -> bool) ->
+    attrib list ->
+    attrib list
 
-  (** Exporting the following by higher level libraries would drive
-      a hole through a type system, because they allow to add {e any}
-      attribute to {e any} element. *)
+  val map_int_attrib
+    :  (aname -> bool) ->
+    (int -> int) ->
+    attrib list ->
+    attrib list
+
+  val map_float_attrib
+    :  (aname -> bool) ->
+    (float -> float) ->
+    attrib list ->
+    attrib list
+
+  val map_string_attrib
+    :  (aname -> bool) ->
+    (string -> string) ->
+    attrib list ->
+    attrib list
+
+  val map_string_attrib_in_list
+    :  (aname -> bool) ->
+    (string -> string) ->
+    attrib list ->
+    attrib list
+
+  (** Exporting the following by higher level libraries would drive a hole
+      through a type system, because they allow to add {e any} attribute to
+      {e any} element. *)
 
   val add_int_attrib : aname -> int -> attrib list -> attrib list
   val add_float_attrib : aname -> float -> attrib list -> attrib list
@@ -55,18 +74,26 @@ module Make(Xml : Xml_sigs.Iterable) : sig
   val add_comma_sep_attrib : aname -> string -> attrib list -> attrib list
   val add_space_sep_attrib : aname -> string -> attrib list -> attrib list
 
-  val fold : (unit -> 'a) -> (string -> 'a) -> (string -> 'a) -> (string -> 'a) ->
-    (string -> 'a) -> (ename -> attrib list -> 'a) ->
+  val fold
+    :  (unit -> 'a) ->
+    (string -> 'a) ->
+    (string -> 'a) ->
+    (string -> 'a) ->
+    (string -> 'a) ->
+    (ename -> attrib list -> 'a) ->
     (ename -> attrib list -> 'a list -> 'a) ->
-    elt -> 'a
+    elt ->
+    'a
 
   val all_entities : elt -> string list
 
-  val translate :
-    (ename -> attrib list -> elt) ->
+  val translate
+    :  (ename -> attrib list -> elt) ->
     (ename -> attrib list -> elt list -> elt) ->
     ('state -> ename -> attrib list -> elt list) ->
     ('state -> ename -> attrib list -> elt list -> elt list) ->
-    (ename -> attrib list -> 'state -> 'state) -> 'state -> elt -> elt
-
+    (ename -> attrib list -> 'state -> 'state) ->
+    'state ->
+    elt ->
+    elt
 end

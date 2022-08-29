@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 open Asttypes
 open Parsetree
@@ -27,28 +27,25 @@ type assembler =
   expression Common.value list ->
   (arg_label * expression) list
 
-
-
 (* Helpers. *)
 
 (* Given a parse tree [e], if [e] represents [_.txt s], where [s] is a string
    constant, evaluates to [Some s]. Otherwise, evaluates to [None]. *)
 let to_txt = function
-  | [%expr[%e? {pexp_desc = Pexp_ident f; _}]
-      ( [%e? {pexp_desc = Pexp_ident f2; _}] [%e? arg])] -> begin
-      match Longident.last_exn f.txt, Longident.last_exn f2.txt, arg.pexp_desc with
+  | [%expr
+      [%e? { pexp_desc = Pexp_ident f; _ }]
+        ([%e? { pexp_desc = Pexp_ident f2; _ }] [%e? arg])] -> (
+      match
+        (Longident.last_exn f.txt, Longident.last_exn f2.txt, arg.pexp_desc)
+      with
       | "txt", "return", Pexp_constant (Pconst_string (s, _, _)) -> Some s
-      | _ -> None
-    end
+      | _ -> None)
   | _ -> None
 
 (** Test if the expression is a txt containing only whitespaces. *)
 let is_whitespace = function
-  | Common.Val e -> begin
-      match to_txt e with
-      | Some s when String.trim s = "" -> true
-      | _ -> false
-    end
+  | Common.Val e -> (
+      match to_txt e with Some s when String.trim s = "" -> true | _ -> false)
   | _ -> false
 
 (* Given a list of parse trees representing children of an element, filters out
@@ -64,16 +61,18 @@ let filter_surrounding_whitespace children =
   in
   aux @@ aux children
 
-(** Improve an assembler by first applying [filter_whitespace] on children
-  Used by the [[@@reflect.filter_whitespace]] annotation *)
+(** Improve an assembler by first applying [filter_whitespace] on children Used
+    by the [\[@@reflect.filter_whitespace\]] annotation *)
 let comp_filter_whitespace assembler ~lang ~loc ~name children =
   assembler ~lang ~loc ~name (filter_whitespace children)
 
 (* Given a parse tree and a string [name], checks whether the parse tree is an
    application of a function with name [name]. *)
 let is_element_with_name name = function
-  | Common.Val {pexp_desc = Pexp_apply ({pexp_desc = Pexp_ident {txt}}, _)}
-      when txt = name -> true
+  | Common.Val
+      { pexp_desc = Pexp_apply ({ pexp_desc = Pexp_ident { txt } }, _) }
+    when txt = name ->
+      true
   | _ -> false
 
 (* Partitions a list of elements according to [is_element_with_name name]. *)
@@ -85,26 +84,21 @@ let partition name children =
 let html local_name =
   Longident.Ldot (Lident Common.(implementation Html), local_name)
 
-
-
 (* Generic. *)
 
 let nullary ~lang:_ ~loc ~name children =
-  if children <> [] then
-    Common.error loc "%s should have no content" name;
-  [Nolabel, [%expr ()] [@metaloc loc]]
+  if children <> [] then Common.error loc "%s should have no content" name;
+  [ (Nolabel, ([%expr ()] [@metaloc loc])) ]
 
 let unary ~lang ~loc ~name children =
   match children with
-  | [child] ->
-    let child = Common.wrap_value lang loc child in
-    [Nolabel, child]
+  | [ child ] ->
+      let child = Common.wrap_value lang loc child in
+      [ (Nolabel, child) ]
   | _ -> Common.error loc "%s should have exactly one child" name
 
 let star ~lang ~loc ~name:_ children =
-  [Nolabel, Common.list_wrap_value lang loc children]
-
-
+  [ (Nolabel, Common.list_wrap_value lang loc children) ]
 
 (* Special-cased. *)
 
@@ -112,60 +106,58 @@ let head ~lang ~loc ~name children =
   let title, others = partition (html "title") children in
 
   match title with
-  | [title] ->
-    (Nolabel, Common.wrap_value lang loc title) :: star ~lang ~loc ~name others
+  | [ title ] ->
+      (Nolabel, Common.wrap_value lang loc title)
+      :: star ~lang ~loc ~name others
   | _ ->
-    Common.error loc
-      "%s element must have exactly one title child element" name
+      Common.error loc "%s element must have exactly one title child element"
+        name
 
 let figure ~lang ~loc ~name children =
   let caption, children =
     let rec is_first_figcaption = function
       | [] -> is_last_figcaption (List.rev children)
       | h :: t ->
-        if is_whitespace h then is_first_figcaption t
-        else if is_element_with_name (html "figcaption") h then
-          `Top h,t
-        else is_last_figcaption (List.rev children)
+          if is_whitespace h then is_first_figcaption t
+          else if is_element_with_name (html "figcaption") h then (`Top h, t)
+          else is_last_figcaption (List.rev children)
     and is_last_figcaption = function
-      | [] -> `No, children
+      | [] -> (`No, children)
       | h :: t ->
-        if is_whitespace h then is_last_figcaption t
-        else if is_element_with_name (html "figcaption") h then
-          `Bottom h, (List.rev t)
-        else `No, children
+          if is_whitespace h then is_last_figcaption t
+          else if is_element_with_name (html "figcaption") h then
+            (`Bottom h, List.rev t)
+          else (`No, children)
     in
     is_first_figcaption children
   in
-  begin match caption with
+  begin
+    match caption with
     | `No -> star ~lang ~loc ~name children
-    | `Top elt -> 
-      (Labelled "figcaption",
-       [%expr `Top [%e Common.wrap_value lang loc elt]])::
-      (star ~lang ~loc ~name children)
+    | `Top elt ->
+        (Labelled "figcaption", [%expr `Top [%e Common.wrap_value lang loc elt]])
+        :: star ~lang ~loc ~name children
     | `Bottom elt ->
-      (Labelled "figcaption",
-       [%expr `Bottom [%e Common.wrap_value lang loc elt]])::
-      (star ~lang ~loc ~name children)
+        ( Labelled "figcaption",
+          [%expr `Bottom [%e Common.wrap_value lang loc elt]] )
+        :: star ~lang ~loc ~name children
   end [@metaloc loc]
 
 let object_ ~lang ~loc ~name children =
   let params, others = partition (html "param") children in
 
   if params <> [] then
-    (Labelled "params", Common.list_wrap_value lang loc params) ::
-    star ~lang ~loc ~name others
-  else
-    star ~lang ~loc ~name others
+    (Labelled "params", Common.list_wrap_value lang loc params)
+    :: star ~lang ~loc ~name others
+  else star ~lang ~loc ~name others
 
 let audio_video ~lang ~loc ~name children =
   let sources, others = partition (html "source") children in
 
   if sources <> [] then
-    (Labelled "srcs", Common.list_wrap_value lang loc sources) ::
-    star ~lang ~loc ~name others
-  else
-    star ~lang ~loc ~name others
+    (Labelled "srcs", Common.list_wrap_value lang loc sources)
+    :: star ~lang ~loc ~name others
+  else star ~lang ~loc ~name others
 
 let table ~lang ~loc ~name children =
   let caption, others = partition (html "caption") children in
@@ -175,57 +167,56 @@ let table ~lang ~loc ~name children =
 
   let one label = function
     | [] -> []
-    | [child] -> [Labelled label, Common.wrap_value lang loc child]
+    | [ child ] -> [ (Labelled label, Common.wrap_value lang loc child) ]
     | _ -> Common.error loc "%s cannot have more than one %s" name label
   in
 
   let columns =
     if columns = [] then []
-    else [Labelled "columns", Common.list_wrap_value lang loc columns]
+    else [ (Labelled "columns", Common.list_wrap_value lang loc columns) ]
   in
 
-  (one "caption" caption) @
-    columns @
-    (one "thead" thead) @
-    (one "tfoot" tfoot) @
-    (star ~lang ~loc ~name others)
+  one "caption" caption
+  @ columns
+  @ one "thead" thead
+  @ one "tfoot" tfoot
+  @ star ~lang ~loc ~name others
 
 let fieldset ~lang ~loc ~name children =
   let legend, others = partition (html "legend") children in
 
   match legend with
   | [] -> star ~lang ~loc ~name others
-  | [legend] ->
-    (Labelled "legend", Common.wrap_value lang loc legend)::
-      (star ~lang ~loc ~name others)
+  | [ legend ] ->
+      (Labelled "legend", Common.wrap_value lang loc legend)
+      :: star ~lang ~loc ~name others
   | _ -> Common.error loc "%s cannot have more than one legend" name
 
 let datalist ~lang ~loc ~name children =
   let options, others = partition (html "option") children in
 
   let children =
-    begin match others with
-    | [] ->
-      Labelled "children",
-      [%expr `Options [%e Common.list_wrap_value lang loc options]]
-
-    | _ ->
-      Labelled "children",
-      [%expr `Phras [%e Common.list_wrap_value lang loc children]]
+    begin
+      match others with
+      | [] ->
+          ( Labelled "children",
+            [%expr `Options [%e Common.list_wrap_value lang loc options]] )
+      | _ ->
+          ( Labelled "children",
+            [%expr `Phras [%e Common.list_wrap_value lang loc children]] )
     end [@metaloc loc]
   in
 
-  children::(nullary ~lang ~loc ~name [])
-
+  children :: nullary ~lang ~loc ~name []
 
 let at_most_one_child ~lang ~loc ~name children =
   match children with
   | [] ->
-    let child = Common.txt ~loc ~lang "" in
-    [Nolabel, child]
-  | [child] ->
-    let child = Common.wrap_value lang loc child in
-    [Nolabel, child]
+      let child = Common.txt ~loc ~lang "" in
+      [ (Nolabel, child) ]
+  | [ child ] ->
+      let child = Common.wrap_value lang loc child in
+      [ (Nolabel, child) ]
   | _ -> Common.error loc "%s can have at most one child" name
 
 let script = at_most_one_child
@@ -237,36 +228,38 @@ let details ~lang ~loc ~name children =
   let summary, others = partition (html "summary") children in
 
   match summary with
-  | [summary] ->
-    (Nolabel, Common.wrap_value lang loc summary)::
-      (star ~lang ~loc ~name others)
+  | [ summary ] ->
+      (Nolabel, Common.wrap_value lang loc summary)
+      :: star ~lang ~loc ~name others
   | _ -> Common.error loc "%s must have exactly one summary child" name
 
 let menu ~lang ~loc ~name children =
   let children =
-    Labelled "child",
-    [%expr `Flows [%e Common.list_wrap_value lang loc children]]
-      [@metaloc loc]
+    ( Labelled "child",
+      ([%expr `Flows [%e Common.list_wrap_value lang loc children]] [@metaloc
+                                                                      loc]) )
   in
-  children::(nullary ~lang ~loc ~name [])
+  children :: nullary ~lang ~loc ~name []
 
 let picture ~lang ~loc ~name children =
   let img, others = partition (html "img") children in
   match img with
   | [] -> star ~lang ~loc ~name others
-  | [img] ->
-    (Labelled "img", Common.wrap_value lang loc img)::
-      (star ~lang ~loc ~name others)
+  | [ img ] ->
+      (Labelled "img", Common.wrap_value lang loc img)
+      :: star ~lang ~loc ~name others
   | _ -> Common.error loc "%s cannot have more than one img" name
 
 let html ~lang ~loc ~name children =
   let head, others = partition (html "head") children in
   let body, others = partition (html "body") others in
 
-  match head, body, others with
-  | [head], [body], [] ->
-    [Nolabel, Common.wrap_value lang loc head;
-     Nolabel, Common.wrap_value lang loc body]
+  match (head, body, others) with
+  | [ head ], [ body ], [] ->
+      [
+        (Nolabel, Common.wrap_value lang loc head);
+        (Nolabel, Common.wrap_value lang loc body);
+      ]
   | _ ->
-    Common.error loc
-      "%s element must have exactly head and body child elements" name
+      Common.error loc
+        "%s element must have exactly head and body child elements" name

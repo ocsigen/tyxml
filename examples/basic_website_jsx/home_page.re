@@ -7,5 +7,5 @@ let createElement = (~title: string, ~children: list('a), ()): Html.doc => {
       <link rel="stylesheet" href="home.css" />
     </head>
     <body> ...children </body>
-  </html>
+  </html>;
 };

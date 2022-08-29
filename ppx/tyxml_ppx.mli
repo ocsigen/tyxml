@@ -15,39 +15,38 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** TyXML ppx library.
 
     This is the documentation for the internal ppx library.
     {% Documentation for the ppx itself is available
-    <<a_manual chapter="ppx"|here>>. %}
-*)
+    <<a_manual chapter="ppx"|here>>. %} *)
 
 type lang = Html | Svg
 
-val markup_to_expr :
-  lang ->
-  Location.t -> Ppxlib.expression list -> Ppxlib.expression
-(** Given the payload of a [%html ...] or [%svg ...] expression,
-    converts it to a TyXML expression representing the markup
-    contained therein. *)
+val markup_to_expr
+  :  lang ->
+  Location.t ->
+  Ppxlib.expression list ->
+  Ppxlib.expression
+(** Given the payload of a [%html ...] or [%svg ...] expression, converts it to
+    a TyXML expression representing the markup contained therein. *)
 
-val expand_expr :
-  lang:lang ->
-  loc: Ppxlib.Location.t ->
-  path: string ->
-  arg: Ppxlib.Longident.t Asttypes.loc option ->
+val expand_expr
+  :  lang:lang ->
+  loc:Ppxlib.Location.t ->
+  path:string ->
+  arg:Ppxlib.Longident.t Asttypes.loc option ->
   Ppxlib.expression ->
   Ppxlib.attribute list ->
   Ppxlib.expression
 
-val expand_str_item : 
-  lang:lang ->
-  loc: Ppxlib.Location.t ->
-  path: string ->
-  arg: Ppxlib.Longident.t Asttypes.loc option ->
+val expand_str_item
+  :  lang:lang ->
+  loc:Ppxlib.Location.t ->
+  path:string ->
+  arg:Ppxlib.Longident.t Asttypes.loc option ->
   Ppxlib.rec_flag ->
   Ppxlib.value_binding list ->
   Ppxlib.structure_item
-    

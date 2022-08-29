@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 open Ppxlib.Ast_helper
 open Ppxlib.Parsetree
@@ -23,7 +23,6 @@ open Ppxlib.Parsetree
 (** Lang utilities *)
 
 type lang = Html | Svg
-
 type name = lang * string
 
 let html_implementation = ref "Html"
@@ -33,29 +32,18 @@ let implemenentation_ref = function
   | Html -> html_implementation
   | Svg -> svg_implementation
 
-let set_implementation lang s =
-  (implemenentation_ref lang) := s
-
-let implementation lang =
-  !(implemenentation_ref lang)
-
-let lang = function
-  | Html -> "HTML"
-  | Svg -> "SVG"
+let set_implementation lang s = implemenentation_ref lang := s
+let implementation lang = !(implemenentation_ref lang)
+let lang = function Html -> "HTML" | Svg -> "SVG"
 
 let make_lid ~loc i s =
-  { txt =
-    (Longident.parse @@ implementation i ^ "." ^ s);
-    loc }
+  { txt = Longident.parse @@ implementation i ^ "." ^ s; loc }
 
-let make ~loc i s =
-  Exp.ident ~loc @@ make_lid ~loc i s
+let make ~loc i s = Exp.ident ~loc @@ make_lid ~loc i s
 
 (** Generic *)
 
-let find f l =
-  try Some (List.find f l)
-  with Not_found -> None
+let find f l = try Some (List.find f l) with Not_found -> None
 
 let error loc ppf =
   (* Originally written by @Drup in 24d87befcc505a9e3a1b081849b12560ce38028f. *)
@@ -67,70 +55,50 @@ let error loc ppf =
     (fun _ ->
       Format.pp_print_flush fmt ();
       Location.raise_errorf ~loc "%s@." (Buffer.contents buf))
-    fmt
-    ppf
+    fmt ppf
 
 (** Ast manipulation *)
 
 let int loc = Ast_builder.Default.eint ~loc
-
 let float loc fl = Ast_builder.Default.efloat ~loc @@ string_of_float fl
-
 let string loc = Ast_builder.Default.estring ~loc
 
 let add_constraints ~list lang e =
-  let loc = {e.pexp_loc with loc_ghost = true} in
+  let loc = { e.pexp_loc with loc_ghost = true } in
   let elt = make_lid ~loc lang "elt" in
   let wrap =
-    if list then make_lid ~loc lang "list_wrap"
-    else make_lid ~loc lang "wrap"
+    if list then make_lid ~loc lang "list_wrap" else make_lid ~loc lang "wrap"
   in
-  let ty =
-    Typ.(constr ~loc wrap [ constr ~loc elt [any ~loc ()]])
-  in
+  let ty = Typ.(constr ~loc wrap [ constr ~loc elt [ any ~loc () ] ]) in
   Exp.constraint_ ~loc e ty
 
-type 'a value =
-  | Val of 'a
-  | Antiquot of expression
+type 'a value = Val of 'a | Antiquot of expression
 
 let value x = Val x
 let antiquot e = Antiquot e
-let map_value f = function
-  | Val x -> Val (f x)
-  | Antiquot x -> Antiquot x
+let map_value f = function Val x -> Val (f x) | Antiquot x -> Antiquot x
 
 let list_gen cons append nil l =
-  let f acc = function
-    | Val x -> cons acc x
-    | Antiquot e -> append acc e
-  in
-  (l |> List.rev |> List.fold_left f nil)
+  let f acc = function Val x -> cons acc x | Antiquot e -> append acc e in
+  l |> List.rev |> List.fold_left f nil
 
 let list loc l =
-  let nil = [%expr []][@metaloc loc] in
-  let cons acc x = [%expr [%e x]::[%e acc]][@metaloc loc] in
-  let append acc x = [%expr [%e x]@[%e acc]][@metaloc loc] in
+  let nil = ([%expr []] [@metaloc loc]) in
+  let cons acc x = ([%expr [%e x] :: [%e acc]] [@metaloc loc]) in
+  let append acc x = ([%expr [%e x] @ [%e acc]] [@metaloc loc]) in
   list_gen cons append nil @@ List.map (fun x -> Val x) l
 
 let list_wrap_value lang loc =
-  let (!!) = make ~loc lang in
-  let nil =
-    [%expr
-      [%e !!"Xml.W.nil"]
-      ()] [@metaloc loc]
-  in
+  let ( !! ) = make ~loc lang in
+  let nil = ([%expr [%e !!"Xml.W.nil"] ()] [@metaloc loc]) in
   let cons acc x =
-    [%expr [%e !!"Xml.W.cons"]
-        ([%e !!"Xml.W.return"] [%e x])
-        [%e acc]
-    ][@metaloc loc]
+    ([%expr [%e !!"Xml.W.cons"] ([%e !!"Xml.W.return"] [%e x]) [%e acc]] [@metaloc
+                                                                           loc])
   in
   let append acc x =
-    [%expr
-      [%e !!"Xml.W.append"]
-        [%e add_constraints ~list:true lang x] [%e acc]
-    ][@metaloc loc]
+    ([%expr
+       [%e !!"Xml.W.append"] [%e add_constraints ~list:true lang x] [%e acc]] [@metaloc
+                                                                                loc])
   in
   list_gen cons append nil
 
@@ -138,9 +106,7 @@ let list_wrap lang loc l =
   list_wrap_value lang loc @@ List.map (fun x -> Val x) l
 
 let wrap implementation loc e =
-  [%expr
-    [%e make ~loc implementation "Xml.W.return"]
-    [%e e]] [@metaloc loc]
+  ([%expr [%e make ~loc implementation "Xml.W.return"] [%e e]] [@metaloc loc])
 
 let wrap_value lang loc = function
   | Val x -> wrap lang loc x
@@ -149,4 +115,4 @@ let wrap_value lang loc = function
 let txt ~loc ~lang s =
   let txt = make ~loc lang "txt" in
   let arg = wrap lang loc @@ string loc s in
-  Ast_helper.Exp.apply ~loc txt [Nolabel, arg]
+  Ast_helper.Exp.apply ~loc txt [ (Nolabel, arg) ]

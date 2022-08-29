@@ -3,32 +3,29 @@
 (library
  (name tyxml_test)
  (libraries tyxml alcotest)
- (modules tyxml_test)
-)
+ (modules tyxml_test))
 
 (tests
  (names test_html test_svg)
  (modules test_html test_svg)
  (libraries tyxml alcotest tyxml_test)
- (package tyxml)
-)
+ (package tyxml))
 
 (test
  (name test_ppx)
  (modules test_ppx)
  (libraries tyxml alcotest tyxml_test)
- (preprocess (pps tyxml-ppx))
- (package tyxml-ppx)
-)
+ (preprocess
+  (pps tyxml-ppx))
+ (package tyxml-ppx))
 
 (test
  (name test_jsx)
  (modules test_jsx)
  (libraries tyxml alcotest tyxml_test)
- (preprocess (pps tyxml-jsx))
- (package tyxml-jsx)
-)
-
+ (preprocess
+  (pps tyxml-jsx))
+ (package tyxml-jsx))
 
 ;; Toplevel ppx tests
 ;; WIP this test is temporarily disable, waiting for proper support for
@@ -57,7 +54,6 @@
 
 (test
  (name emitbig)
- (libraries  tyxml unix)
+ (libraries tyxml unix)
  (modules emitbig)
- (package tyxml)
-)
+ (package tyxml))

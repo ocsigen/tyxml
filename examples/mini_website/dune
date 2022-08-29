@@ -1,9 +1,9 @@
 (executable
- (name      minihtml)
- (libraries tyxml)
-)
+ (name minihtml)
+ (libraries tyxml))
+
 (rule
  (targets index.html)
  (deps minihtml.exe)
- (action (run %{exe:minihtml.exe}))
-)
+ (action
+  (run %{exe:minihtml.exe})))

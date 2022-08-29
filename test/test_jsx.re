@@ -76,12 +76,12 @@ let basics = (
         "let fun spread",
         [
           {
-            let f = x => <p> ...{x} </p>;
+            let f = x => <p> ...x </p>;
             f([a([])]);
           },
         ],
         [p([a([])])],
-      )      
+      ),
     ],
   ),
 );
@@ -90,128 +90,175 @@ let attribs = (
   "ppx attribs",
   HtmlTests.make(
     Html.[
-      ( "unit",
-        [<div hidden="" />],
-        [div(~a=[a_hidden()], [])]
-      ),
-      ( "bool default",
+      ("unit", [<div hidden="" />], [div(~a=[a_hidden()], [])]),
+      (
+        "bool default",
         [<div draggable="true" />],
         [div(~a=[a_draggable(true)], [])],
       ),
-      ( "bool true",
+      (
+        "bool true",
         [<div draggable=true />],
         [div(~a=[a_draggable(true)], [])],
       ),
-      ( "bool false",
+      (
+        "bool false",
         [<div draggable=false />],
         [div(~a=[a_draggable(false)], [])],
       ),
-      ( "form autocomplete default is on",
+      (
+        "form autocomplete default is on",
         [<form autocomplete="" />],
         [form(~a=[a_autocomplete(`On)], [])],
       ),
-      ( "form autocomplete on",
+      (
+        "form autocomplete on",
         [<form autocomplete="on" />],
         [form(~a=[a_autocomplete(`On)], [])],
       ),
-      ( "form autocomplete off",
+      (
+        "form autocomplete off",
         [<form autocomplete="off" />],
         [form(~a=[a_autocomplete(`Off)], [])],
       ),
-      ( "form autocomplete tokenlist",
+      (
+        "form autocomplete tokenlist",
         [<form autocomplete="section-blue shipping street-address" />],
-        [form(~a=[a_autocomplete(`Tokens(["section-blue", "shipping", "street-address"]))], [])],
+        [
+          form(
+            ~a=[
+              a_autocomplete(
+                `Tokens(["section-blue", "shipping", "street-address"]),
+              ),
+            ],
+            [],
+          ),
+        ],
       ),
-      ( "form autocomplete tokenlist empty",
+      (
+        "form autocomplete tokenlist empty",
         [<form autocomplete="on" />],
         [form(~a=[a_autocomplete(`Tokens([]))], [])],
       ),
-      ( "input autocomplete default is on",
+      (
+        "input autocomplete default is on",
         [<input autocomplete="" />],
         [input(~a=[a_autocomplete(`On)], ())],
       ),
-      ( "input autocomplete on",
+      (
+        "input autocomplete on",
         [<input autocomplete="on" />],
         [input(~a=[a_autocomplete(`On)], ())],
       ),
-      ( "input autocomplete off",
+      (
+        "input autocomplete off",
         [<input autocomplete="off" />],
         [input(~a=[a_autocomplete(`Off)], ())],
       ),
-      ( "input autocomplete tokenlist",
+      (
+        "input autocomplete tokenlist",
         [<input autocomplete="section-blue shipping street-address" />],
-        [input(~a=[a_autocomplete(`Tokens(["section-blue", "shipping", "street-address"]))], ())],
+        [
+          input(
+            ~a=[
+              a_autocomplete(
+                `Tokens(["section-blue", "shipping", "street-address"]),
+              ),
+            ],
+            (),
+          ),
+        ],
       ),
-      ( "input autocomplete tokenlist empty",
+      (
+        "input autocomplete tokenlist empty",
         [<input autocomplete="on" />],
         [input(~a=[a_autocomplete(`Tokens([]))], ())],
       ),
-      ( "link rel=canonical",
+      (
+        "link rel=canonical",
         [<link rel=[`Canonical] href="/" />],
         [link(~rel=[`Canonical], ~href="/", ())],
       ),
-      ( "embed type",
+      (
+        "embed type",
         [<embed type_="text/plain" />],
         [embed(~a=[a_mime_type("text/plain")], ())],
       ),
-      ( "output for",
+      (
+        "output for",
         [<output htmlFor="foo" />],
         [output_elt(~a=[a_output_for(["foo"])], [])],
       ),
-      ( "input min time",
+      (
+        "input min time",
         [<input min="2002-10-02T15:00:00Z" />],
         [input(~a=[a_input_min(`Datetime("2002-10-02T15:00:00Z"))], ())],
       ),
-      ( "aria attributes",
+      (
+        "aria attributes",
         [<div ariaHidden=["true"] />],
         [div(~a=[a_aria("hidden", ["true"])], [])],
       ),
-      ( "touch events",
+      (
+        "touch events",
         [<div ontouchstart="alert()" />],
         [div(~a=[a_ontouchstart("alert()")], [])],
       ),
-      ( "empty string as referrer policy",
+      (
+        "empty string as referrer policy",
         [<iframe referrerpolicy="" />],
         [iframe(~a=[a_referrerpolicy(`Empty)], [])],
       ),
-      ( "dashes in referrer policy",
+      (
+        "dashes in referrer policy",
         [<iframe referrerpolicy="no-referrer-when-downgrade" />],
         [iframe(~a=[a_referrerpolicy(`No_referrer_when_downgrade)], [])],
       ),
-      ( "script type=module",
+      (
+        "script type=module",
         [<script type_="module" />],
         [script(~a=[a_script_type(`Module)], txt(""))],
       ),
-      ( "script type=mime",
+      (
+        "script type=mime",
         [<script type_="text/javascript" />],
         [script(~a=[a_script_type(`Mime("text/javascript"))], txt(""))],
       ),
-      ( "camel-case data attribs",
-        [<div dataFooBar="baz"/>],
+      (
+        "camel-case data attribs",
+        [<div dataFooBar="baz" />],
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
-        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil())],
       ),
-      ( "kebab-case data attribs",
-        [<div data_foo_bar="baz"/>],
+      (
+        "kebab-case data attribs",
+        [<div data_foo_bar="baz" />],
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
-        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil())],
       ),
-      ( "kebab-case data attribs, again",
-        [<div datafoo_bar="baz"/>],
+      (
+        "kebab-case data attribs, again",
+        [<div datafoo_bar="baz" />],
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
-        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil ())],
+        [div(~a=[a_user_data("foo-bar", "baz")], Xml.W.nil())],
       ),
-      ( "arbitrary (unchecked) attributes via an escape hatch",
-        [<div _some_attr="value"/>],
+      (
+        "arbitrary (unchecked) attributes via an escape hatch",
+        [<div _some_attr="value" />],
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
-        [div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil ())],
+        [
+          div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil()),
+        ],
       ),
-      ( "arbitrary (unchecked) attributes via an escape hatch, with antiquotation",
-        [<div _some_attr={"val" ++ "ue"}/>],
+      (
+        "arbitrary (unchecked) attributes via an escape hatch, with antiquotation",
+        [<div _some_attr={"val" ++ "ue"} />],
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
-        [div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil ())],
+        [
+          div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil()),
+        ],
       ),
-    ]
+    ],
   ),
 );
 
@@ -219,21 +266,21 @@ let ns_nesting = (
   "namespace nesting",
   HtmlTests.make(
     Html.[
-      ( "html/svg",
-        [<Html.Svg> <g /> </Html.Svg>],
-        [svg([Svg.g([])])]
-      ),
-      ( "nested svg",
+      ("html/svg", [<Html.Svg> <g /> </Html.Svg>], [svg([Svg.g([])])]),
+      (
+        "nested svg",
         [<div> <svg> <g /> </svg> </div>],
         [div([svg([Svg.g([])])])],
       ),
-      ( "with_neighbour",
+      (
+        "with_neighbour",
         [<div> <span /> <svg> <g /> </svg> "foo" </div>],
         [div([span([]), svg([Svg.g([])]), txt("foo")])],
       ),
-      ( "ambiguous tag",
+      (
+        "ambiguous tag",
         [<Html.Svg> <a /> </Html.Svg>],
-        [svg([Svg.a([])])]
+        [svg([Svg.a([])])],
       ),
     ],
   ),
@@ -243,11 +290,9 @@ let svg = (
   "svg",
   SvgTests.make(
     Svg.[
-      ( "basic",
-        [<Svg.Svg />],
-        [svg([])]
-      ),
-      ( "transform",
+      ("basic", [<Svg.Svg />], [svg([])]),
+      (
+        "transform",
         [<line transform="translate(1) translate(2)" />],
         [
           line(
@@ -258,11 +303,13 @@ let svg = (
           ),
         ],
       ),
-      ( "offset percentage",
+      (
+        "offset percentage",
         [<stop offset="50.1%" />],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
-      ( "text x, y",
+      (
+        "text x, y",
         [<text x="1 2" y="3 4" />],
         [
           text(
@@ -274,7 +321,8 @@ let svg = (
           ),
         ],
       ),
-      ( "text dx, dy",
+      (
+        "text dx, dy",
         [<text dx="1 2" dy="3 4" />],
         [
           text(
@@ -405,23 +453,23 @@ let wrapping = {
     "wrapping",
     HtmlWrappedTests.make(
       Html.[
-        ("elem", !:(<p />), !:p(nil())),
-        ("child", !:(<p> <span /> </p>), !:p(span(nil()) @: nil())),
+        ("elem", !:<p />, !:p(nil())),
+        ("child", !:<p> <span /> </p>, !:p(span(nil()) @: nil())),
         (
           "list",
           <> <p /> <span> "foo" </span> </>,
           p(nil()) @: span(txt("foo"^) @: nil()) @: nil(),
         ),
-        ("attrib", !:(<p id="foo" />), !:p(~a=[a_id("foo"^)], nil())),
+        ("attrib", !:<p id="foo" />, !:p(~a=[a_id("foo"^)], nil())),
         (
           "attribs",
-          !:(<p id="foo" className="bar" />),
+          !:<p id="foo" className="bar" />,
           !:p(~a=[a_id("foo"^), a_class(["bar"]^)], nil()),
         ),
-        ("txt", !:(<p> "foo" </p>), !:p(txt("foo"^) @: nil())),
+        ("txt", !:<p> "foo" </p>, !:p(txt("foo"^) @: nil())),
         (
           "wrapped functions",
-          !:(<input method_="get" />),
+          !:<input method_="get" />,
           !:input(~a=[a_method(`Get^)], ()),
         ),
       ],
@@ -439,45 +487,37 @@ let antiquot = {
     "ppx antiquot",
     HtmlWrappedTests.make(
       Html.[
-        ( "child",
-          !:(<p> ...{elt1 ()} </p>),
-          !:p(elt1())
-        ),
-        ( "list child",
-          !:(<p> ...{elt2 ()} </p>),
-          !:p(elt2())
-        ),
+        ("child", !:<p> ...{elt1()} </p>, !:p(elt1())),
+        ("list child", !:<p> ...{elt2()} </p>, !:p(elt2())),
         /* ( "children",
-          !:(<p> "bar" (elt1()) "foo" (elt2()) "baz" </p>),
-          !:
-            p(
-              txt("bar"^)
-              @: elt1()
-              @- txt("foo"^)
-              @: elt2()
-              @- txt("baz"^)
-              @: nil(),
-            ),
-        ), */
-        ( "insertion",
-          !:(<p> <em> ...{elt1 ()} </em> </p>),
-          !:p(!:em(elt1()))
-        ),
+             !:(<p> "bar" (elt1()) "foo" (elt2()) "baz" </p>),
+             !:
+               p(
+                 txt("bar"^)
+                 @: elt1()
+                 @- txt("foo"^)
+                 @: elt2()
+                 @- txt("baz"^)
+                 @: nil(),
+               ),
+           ), */
+        ("insertion", !:<p> <em> ...{elt1()} </em> </p>, !:p(!:em(elt1()))),
         (
           "attrib",
-          !:(<p id> "bla" </p>),
+          !:<p id> "bla" </p>,
           !:p(~a=[a_id(id)], !:txt("bla"^)),
         ),
         /* ( "first child",
-          <> ...{elt1()} <p /> </>,
-          elt1() @- p(nil()) @: nil()
-        ),
-        ( "last child",
-          <> <p /> ...{elt1()} </>,
-          p(nil()) @: elt1()
-        ), */
-        ( "wrapped functions",
-          !:(<input method="get" />),
+             <> ...{elt1()} <p /> </>,
+             elt1() @- p(nil()) @: nil()
+           ),
+           ( "last child",
+             <> <p /> ...{elt1()} </>,
+             p(nil()) @: elt1()
+           ), */
+        (
+          "wrapped functions",
+          !:<input method="get" />,
           !:input(~a=[a_method(`Get^)], ()),
         ),
       ],
@@ -485,19 +525,29 @@ let antiquot = {
   );
 };
 
-let foo (~children,()) = children
+let foo = (~children, ()) => children;
 
 let enable = (
   "jsx basics",
-  [ ("enable jsx",
-     `Quick,
-     () =>
-       Alcotest.check
-         (Alcotest.list(Alcotest.string),"enable",
-          {module A = { [@tyxml.jsx false]; let a = <foo/> }; A.a},
-          [])
-    )
-  ]
+  [
+    (
+      "enable jsx",
+      `Quick,
+      () =>
+        Alcotest.check(
+          Alcotest.list(Alcotest.string),
+          "enable",
+          {
+            module A = {
+              [@tyxml.jsx false];
+              let a = <foo />;
+            };
+            A.a;
+          },
+          [],
+        ),
+    ),
+  ],
 );
 
 let tests = [
@@ -508,7 +558,7 @@ let tests = [
   svg,
   svg_element_names,
   wrapping,
-  enable
+  enable,
 ];
 
 let () = Alcotest.run("tyxml-jsx", tests);

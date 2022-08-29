@@ -31,12 +31,10 @@ let common_nav = Html.nav([links_box]);
 let content_box =
   <div id="content_box"> common_nav main_payload common_footer </div>;
 
-let main_script = <script src="main.js"></script>;
+let main_script = <script src="main.js" />;
 
 let home_page_doc =
-  <Home_page title=this_title>
-    image_box content_box main_script
-  </Home_page>;
+  <Home_page title=this_title> image_box content_box main_script </Home_page>;
 
 // The set of pages in your website.
 let pages = [("index.html", home_page_doc)];

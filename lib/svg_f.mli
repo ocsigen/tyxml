@@ -15,16 +15,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Typesafe constructors for SVG documents (Functorial interface)
 
-    This module is experimental, it may lack of some attributes,
-    and the interface is very low level and do not take deeply into account
-    the needs of SVG elements.
+    This module is experimental, it may lack of some attributes, and the
+    interface is very low level and do not take deeply into account the needs of
+    SVG elements.
 
-    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %}
-*)
+    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %} *)
 
 (*
 open Svg_types
@@ -80,26 +79,24 @@ val string_of_transforms : transforms -> string
 *)
 
 (** Create a new implementation of [Svg], using the given underlying [Xml]
-    implementation. Will output a module of type {!Svg_sigs.T} with
-    the various type equalities.
+    implementation. Will output a module of type {!Svg_sigs.T} with the various
+    type equalities.
 
     If your [Xml] implementation uses a special function wrapping, use
-    {!Make_with_wrapped_functions}.
-*)
-module Make(Xml : Xml_sigs.T with type ('a, 'b) W.ft = ('a -> 'b))
-  : Svg_sigs.Make(Xml).T
+    {!Make_with_wrapped_functions}. *)
+module Make (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b) :
+  Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
 
 (** The standard set of wrapped functions, when [W.ft] is the regular function. *)
-module Wrapped_functions
-    (Xml: Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b)
-  : Svg_sigs.Wrapped_functions with module Xml = Xml
+module Wrapped_functions (Xml : Xml_sigs.T with type ('a, 'b) W.ft = 'a -> 'b) :
+  Svg_sigs.Wrapped_functions with module Xml = Xml
 
 (** Similar to {!Make} but with a custom set of wrapped functions. *)
 module Make_with_wrapped_functions
     (Xml : Xml_sigs.T)
-    (C : Svg_sigs.Wrapped_functions with module Xml = Xml)
-  : Svg_sigs.Make(Xml).T
+    (C : Svg_sigs.Wrapped_functions with module Xml = Xml) :
+  Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib

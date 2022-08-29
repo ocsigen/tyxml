@@ -15,11 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
-module M = Html_f.Make(Tyxml_xml)(Tyxml_svg)
-module P = Xml_print.Make_typed_fmt(Tyxml_xml)(M)
-module Make_printer = Xml_print.Make_typed(Tyxml_xml)(M)
+module M = Html_f.Make (Tyxml_xml) (Tyxml_svg)
+module P = Xml_print.Make_typed_fmt (Tyxml_xml) (M)
+
+module Make_printer = Xml_print.Make_typed (Tyxml_xml) (M)
 [@@ocaml.warning "-3"]
 
 include M

@@ -17,24 +17,23 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Basic functions for construction and manipulation of XML tree. *)
 
-include Xml_sigs.Iterable
-  with type uri = string
-   and type event_handler = string
-   and type mouse_event_handler = string
-   and type keyboard_event_handler = string
-   and type touch_event_handler = string
+include
+  Xml_sigs.Iterable
+    with type uri = string
+     and type event_handler = string
+     and type mouse_event_handler = string
+     and type keyboard_event_handler = string
+     and type touch_event_handler = string
 
-include Xml_sigs.Pp
-  with type elt := elt
+include Xml_sigs.Pp with type elt := elt
 
 (** {2 Import/Export} *)
 
 val of_seq : Xml_stream.signal Seq.t -> elt list
-
 
 (** {2 Iterators} *)
 
@@ -44,46 +43,74 @@ val amap : (ename -> attrib list -> attrib list) -> elt -> elt
 val amap1 : (ename -> attrib list -> attrib list) -> elt -> elt
 (** Edit attributes only for one element. *)
 
-(** The following can safely be exported by higher level libraries,
-    because removing an attribute from a element is always legal. *)
+(** The following can safely be exported by higher level libraries, because
+    removing an attribute from a element is always legal. *)
 
 val rm_attrib : (aname -> bool) -> attrib list -> attrib list
-val rm_attrib_from_list : (aname -> bool) -> (string -> bool) -> attrib list -> attrib list
 
-val map_int_attrib :
-  (aname -> bool) -> (int -> int) -> attrib list -> attrib list
-val map_string_attrib :
-  (aname -> bool) -> (string -> string) -> attrib list -> attrib list
-val map_string_attrib_in_list :
-  (aname -> bool) -> (string -> string) -> attrib list -> attrib list
+val rm_attrib_from_list
+  :  (aname -> bool) ->
+  (string -> bool) ->
+  attrib list ->
+  attrib list
 
-(** Exporting the following by higher level libraries would drive
-    a hole through a type system, because they allow to add {e any}
-    attribute to {e any} element. *)
+val map_int_attrib
+  :  (aname -> bool) ->
+  (int -> int) ->
+  attrib list ->
+  attrib list
+
+val map_string_attrib
+  :  (aname -> bool) ->
+  (string -> string) ->
+  attrib list ->
+  attrib list
+
+val map_string_attrib_in_list
+  :  (aname -> bool) ->
+  (string -> string) ->
+  attrib list ->
+  attrib list
+
+(** Exporting the following by higher level libraries would drive a hole through
+    a type system, because they allow to add {e any} attribute to {e any}
+    element. *)
 
 val add_int_attrib : aname -> int -> attrib list -> attrib list
 val add_string_attrib : aname -> string -> attrib list -> attrib list
 val add_comma_sep_attrib : aname -> string -> attrib list -> attrib list
 val add_space_sep_attrib : aname -> string -> attrib list -> attrib list
 
-val fold : (unit -> 'a) -> (string -> 'a) -> (string -> 'a) -> (string -> 'a) ->
-  (string -> 'a) -> (ename -> attrib list -> 'a) ->
+val fold
+  :  (unit -> 'a) ->
+  (string -> 'a) ->
+  (string -> 'a) ->
+  (string -> 'a) ->
+  (string -> 'a) ->
+  (ename -> attrib list -> 'a) ->
   (ename -> attrib list -> 'a list -> 'a) ->
-  elt -> 'a
+  elt ->
+  'a
 
 val all_entities : elt -> string list
 
-val translate :
-  (ename -> attrib list -> elt) ->
+val translate
+  :  (ename -> attrib list -> elt) ->
   (ename -> attrib list -> elt list -> elt) ->
   ('state -> ename -> attrib list -> elt list) ->
   ('state -> ename -> attrib list -> elt list -> elt list) ->
-  (ename -> attrib list -> 'state -> 'state) -> 'state -> elt -> elt
+  (ename -> attrib list -> 'state -> 'state) ->
+  'state ->
+  elt ->
+  elt
 
 (** {2 Deprecated printers} *)
 
-val print_list:
-  output:(string -> unit) -> ?encode:(string -> string) -> elt list -> unit
+val print_list
+  :  output:(string -> unit) ->
+  ?encode:(string -> string) ->
+  elt list ->
+  unit
   [@@ocaml.deprecated "Use Xml.pp instead."]
 
 val print : Format.formatter -> elt -> unit

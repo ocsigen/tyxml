@@ -15,22 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Signature of [Html_sigs_reflected] and [Svg_sigs_reflected] (but not
     [Html_types_reflected]). *)
 
-module type S =
-sig
-  val attribute_parsers :
-    (string * (Common.lang -> Attribute_value.vparser)) list
+module type S = sig
+  val attribute_parsers
+    : (string * (Common.lang -> Attribute_value.vparser)) list
   (** Pairs [tyxml_attribute_name, wrapped_attribute_value_parser]. *)
 
   val renamed_attributes : (string * string * string list) list
   (** Triples [tyxml_attribute_name, markup_name, in_element_types]. *)
 
-  val labeled_attributes :
-    (string * string * (Common.lang -> Attribute_value.vparser)) list
+  val labeled_attributes
+    : (string * string * (Common.lang -> Attribute_value.vparser)) list
   (** Triples [tyxml_element_name, label, wrapped_attribute_value_parser]. *)
 
   val element_assemblers : (string * Element_content.assembler) list

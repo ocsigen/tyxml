@@ -1,0 +1,6 @@
+version = 0.24.1
+profile = conventional
+break-infix = fit-or-vertical
+doc-comments = before-except-val
+ocp-indent-compat = true
+parse-docstrings = true

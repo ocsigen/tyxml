@@ -16,18 +16,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** XML Signatures. *)
 
 module type T = sig
-
   module W : Xml_wrap.T
 
   type 'a wrap = 'a W.t
   type 'a list_wrap = 'a W.tlist
-
   type uri
+
   val string_of_uri : (uri, string) W.ft
   val uri_of_string : (string, uri) W.ft
 
@@ -36,7 +35,6 @@ module type T = sig
   type mouse_event_handler
   type keyboard_event_handler
   type touch_event_handler
-
   type attrib
 
   val float_attrib : aname -> float wrap -> attrib
@@ -56,23 +54,19 @@ module type T = sig
 
   val empty : unit -> elt
   val comment : string -> elt
-
   val pcdata : string wrap -> elt
   val encodedpcdata : string wrap -> elt
   val entity : string -> elt
-
-  val leaf : ?a:(attrib list) -> ename -> elt
-  val node : ?a:(attrib list) -> ename -> elt list_wrap -> elt
-
+  val leaf : ?a:attrib list -> ename -> elt
+  val node : ?a:attrib list -> ename -> elt list_wrap -> elt
   val cdata : string -> elt
   val cdata_script : string -> elt
   val cdata_style : string -> elt
-
 end
 
 module type NoWrap = T with module W = Xml_wrap.NoWrap
-module type Iterable = sig
 
+module type Iterable = sig
   include NoWrap
 
   type separator = Space | Comma
@@ -84,6 +78,7 @@ module type Iterable = sig
     | AInt of int
     | AStr of string
     | AStrL of separator * string list
+
   val acontent : attrib -> acontent
 
   type econtent = private
@@ -94,131 +89,139 @@ module type Iterable = sig
     | Entity of string
     | Leaf of ename * attrib list
     | Node of ename * attrib list * elt list
-  val content : elt -> econtent
 
+  val content : elt -> econtent
 end
 
 module type Info = sig
-  val content_type: string
-  val alternative_content_types: string list
-  val version: string
-  val standard: string
-  val namespace: string
-  val doctype: string
-  val emptytags: string list
+  val content_type : string
+  val alternative_content_types : string list
+  val version : string
+  val standard : string
+  val namespace : string
+  val doctype : string
+  val emptytags : string list
 end
 
 module type Output = sig
   type out
   type m
-  val empty: m
-  val concat: m -> m -> m
-  val put: string -> m
-  val make: m -> out
+
+  val empty : m
+  val concat : m -> m -> m
+  val put : string -> m
+  val make : m -> out
 end
 
 module type Typed_xml = sig
-
   module Xml : NoWrap
   module Info : Info
 
   type 'a elt
   type doc
+
   val toelt : 'a elt -> Xml.elt
   val doc_toelt : doc -> Xml.elt
-
 end
 
 module type Printer = sig
-
   type xml_elt
   type out
 
-  val print_list: ?encode:(string -> string) -> xml_elt list -> out
-
+  val print_list : ?encode:(string -> string) -> xml_elt list -> out
 end
 
 module type Simple_printer = sig
-
   type xml_elt
 
-  val print_list:
-    output:(string -> unit) ->
+  val print_list
+    :  output:(string -> unit) ->
     ?encode:(string -> string) ->
-    xml_elt list -> unit
-
+    xml_elt list ->
+    unit
 end
 
 module type Typed_printer = sig
-
   type 'a elt
   type doc
   type out
 
-  val print_list: ?encode:(string -> string) -> 'a elt list -> out
-  val print: ?encode:(string -> string) -> ?advert:string-> doc -> out
-
+  val print_list : ?encode:(string -> string) -> 'a elt list -> out
+  val print : ?encode:(string -> string) -> ?advert:string -> doc -> out
 end
 
-
 module type Typed_simple_printer = sig
-
   type 'a elt
   type doc
 
-  val print_list:
-    output:(string -> unit) ->
+  val print_list
+    :  output:(string -> unit) ->
     ?encode:(string -> string) ->
-    'a elt list -> unit
+    'a elt list ->
+    unit
 
-  val print:
-    output:(string -> unit) ->
-    ?encode:(string -> string) -> ?advert:string->
-    doc -> unit
-
+  val print
+    :  output:(string -> unit) ->
+    ?encode:(string -> string) ->
+    ?advert:string ->
+    doc ->
+    unit
 end
 
 module type Pp = sig
-
   type elt
 
-(** [pp ()] is a {!Format} printer for untyped XML.
+  val pp
+    :  ?encode:(string -> string) ->
+    ?indent:bool ->
+    unit ->
+    Format.formatter ->
+    elt ->
+    unit
+  (** [pp ()] is a {!Format} printer for untyped XML.
 
-    It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.asprintf "%a" (pp ()) my_xml]}
+      It can be used in combination with ["%a"]. For example, to get a string:
 
-    A custom encoding function can be provided with the [~encode] argument.
-    Various implementations of [encode] are available in {!Xml_print}.
-*)
-  val pp:
-    ?encode:(string -> string) -> ?indent:bool -> unit ->
-    Format.formatter -> elt -> unit
+      {[
+        let s = Format.asprintf "%a" (pp ()) my_xml
+      ]}
+
+      A custom encoding function can be provided with the [~encode] argument.
+      Various implementations of [encode] are available in {!Xml_print}. *)
 end
 
 module type Typed_pp = sig
-
   type 'a elt
   type doc
 
-(** [pp_elt ()] is a {!Format} printer for individual elements.
+  val pp_elt
+    :  ?encode:(string -> string) ->
+    ?indent:bool ->
+    unit ->
+    Format.formatter ->
+    'a elt ->
+    unit
+  (** [pp_elt ()] is a {!Format} printer for individual elements.
 
-    A custom encoding function can be provided with the [~encode] argument.
-    Various implementations of [encode] are available in {!Xml_print}.
-*)
-  val pp_elt :
-    ?encode:(string -> string) -> ?indent:bool -> unit ->
-    Format.formatter -> 'a elt -> unit
+      A custom encoding function can be provided with the [~encode] argument.
+      Various implementations of [encode] are available in {!Xml_print}. *)
 
-(** [pp ()] is a {!Format} printer for complete documents.
+  val pp
+    :  ?encode:(string -> string) ->
+    ?indent:bool ->
+    ?advert:string ->
+    unit ->
+    Format.formatter ->
+    doc ->
+    unit
+  (** [pp ()] is a {!Format} printer for complete documents.
 
-    It can be used in combination with ["%a"]. For example, to get a string:
-    {[let s = Format.asprintf "%a" (pp ()) my_document]}
+      It can be used in combination with ["%a"]. For example, to get a string:
 
-    A custom encoding function can be provided with the [~encode] argument.
-    Various implementations of [encode] are available in {!Xml_print}.
-*)
-  val pp:
-    ?encode:(string -> string) -> ?indent:bool -> ?advert:string -> unit ->
-    Format.formatter -> doc -> unit
+      {[
+        let s = Format.asprintf "%a" (pp ()) my_document
+      ]}
 
+      A custom encoding function can be provided with the [~encode] argument.
+      Various implementations of [encode] are available in {!Xml_print}. *)
 end

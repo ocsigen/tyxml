@@ -15,16 +15,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 module type T = sig
   type 'a t
+
   val return : 'a -> 'a t
 
   type (-'a, 'b) ft
+
   val fmap : ('a, 'b) ft -> 'a t -> 'b t
 
   type 'a tlist
+
   val nil : unit -> 'a tlist
   val singleton : 'a t -> 'a tlist
   val cons : 'a t -> 'a tlist -> 'a tlist
@@ -33,7 +36,8 @@ module type T = sig
 end
 
 module type NoWrap =
-  T with type 'a t = 'a
+  T
+    with type 'a t = 'a
      and type 'a tlist = 'a list
      and type (-'a, 'b) ft = 'a -> 'b
 
@@ -41,12 +45,13 @@ module NoWrap = struct
   type 'a t = 'a
   type 'a tlist = 'a list
   type (-'a, 'b) ft = 'a -> 'b
-  external return : 'a -> 'a = "%identity"
-  let fmap f :  'a t -> 'b t = f
 
+  external return : 'a -> 'a = "%identity"
+
+  let fmap f : 'a t -> 'b t = f
   let nil () = []
-  let singleton x = [x]
-  let cons x xs = x::xs
-  let append x y= x@y
+  let singleton x = [ x ]
+  let cons x xs = x :: xs
+  let append x y = x @ y
   let map = List.map
 end
