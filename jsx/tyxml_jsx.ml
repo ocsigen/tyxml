@@ -9,16 +9,6 @@ let is_jsx e =
   in
   List.exists f e.pexp_attributes
 
-(* When dropping support for 4.02, this module can simply be deleted. *)
-module String = struct
-  include String
-  let lowercase_ascii = String.lowercase [@ocaml.warning "-3"]
-end
-module Char = struct
-  include Char
-  let lowercase_ascii = Char.lowercase [@ocaml.warning "-3"]
-end
-
 let lowercase_lead s =
   String.mapi (fun i c -> if i = 0 then Char.lowercase_ascii c else c) s
 
