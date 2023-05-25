@@ -2052,6 +2052,7 @@ type input_attrib =
     | `Form
     | `Formaction
     | `Formenctype
+    | `Formmethod
     | `Method
     | `Formnovalidate
     | `Formtarget
@@ -2114,6 +2115,7 @@ type button_attrib =
     | `Form
     | `Formaction
     | `Formenctype
+    | `Formmethod
     | `Method
     | `Formnovalidate
     | `Formtarget
