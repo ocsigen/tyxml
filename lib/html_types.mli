@@ -2050,7 +2050,7 @@ type input_attrib =
     | `Checked
     | `Disabled
     | `Form
-    | `Formation
+    | `Formaction
     | `Formenctype
     | `Method
     | `Formnovalidate
