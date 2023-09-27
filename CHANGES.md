@@ -5,6 +5,10 @@
 * Expand options for `autocomplete` attribute on `<input>` elements
   (#302 by Aron @aronerben Erben)
 
+* Fix the SVG element `<animate>` (by the way, deprecate `animation` et
+  al. in favor of `animate` et al.)
+  (#306 by Idir @ilankri Lankri)
+
 * Add support for `dialog` element and `onclose` attribute
   (#301 by Julien Sagot)
 * Add an escape hatch for emitting attributes with non-standard names
@@ -30,7 +34,7 @@
 
 # 4.4.0
 
-* Add support for Reason's JSX syntax with a new `tyxml-jsx` package 
+* Add support for Reason's JSX syntax with a new `tyxml-jsx` package
   (#254 by Joris Giovannangeli and Gabriel Radanne
    with help from Ulrik Strid and Louis Roché)
 * Modernize the handling of toplevel printers for utop.
@@ -38,7 +42,7 @@
 
 ## Elements and attributes
 
-* Add `allowfullscreen`, `allowpaymentrequest`, `referrerpolicy` attributes 
+* Add `allowfullscreen`, `allowpaymentrequest`, `referrerpolicy` attributes
   (#242 by Thibault Suzanne)
 * Allow `crossorigin` attribute for script element
   (#243 by Thibault Suzanne)

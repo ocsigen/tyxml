@@ -1597,12 +1597,12 @@ type script_attr =
     | `Xlink_href
   ]
 
-type animation = [ | `Animation ]
+type animate = [ | `Animate ]
 
 (* star *)
-type animation_content = descriptive_element
+type animate_content = descriptive_element
 
-type animation_attr =
+type animate_attr =
   [
     | conditional_processing_attr
     | core_attr
@@ -2060,3 +2060,17 @@ type big_variant =
   | `XML
   | `Xor
   ]
+
+(** {2 Deprecated} *)
+
+type animation = animate
+[@@ocaml.deprecated "Use animate instead"]
+(** @deprecated Use animate instead *)
+
+type animation_content = animate_content
+[@@ocaml.deprecated "Use animate_content instead"]
+(** @deprecated Use animate_content instead *)
+
+type animation_attr = animate_attr
+[@@ocaml.deprecated "Use animate_attr instead"]
+(** @deprecated Use animate_attr instead *)

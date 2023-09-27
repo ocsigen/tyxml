@@ -868,7 +868,9 @@ struct
 
   let script = unary "script"
 
-  let animation = star "animate"
+  let animate = star "animate"
+
+  let animation = animate
 
   let set = star "set"
 
