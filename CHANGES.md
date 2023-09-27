@@ -1,4 +1,7 @@
 # NEXT
+* Add additional variants to `linktype` for the `rel` attribute (Leon
+  @LogicalOverflow Vack)
+
 * Expand options for `autocomplete` attribute on `<input>` elements
   (#302 by Aron @aronerben Erben)
 
