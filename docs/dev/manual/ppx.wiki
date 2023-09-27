@@ -59,6 +59,27 @@ let my_div = [%html "<div id="my_id"></div>"]
 val my_div : [> Html_types.div ] Html.elt
 >>
 
+==@@id="unsafe"@@ "Unsafe" attributes
+
+Some Javascript libraries and frameworks depend upon HTML markup that includes non-standard
+attributes, which tyxml would usually reject. When constructing elements using tyxml's API directly,
+the available workaround is to use the <<a_api text="Unsafe"|val Html_sigs.T.Unsafe>> constructors.
+The same relaxed semantics can be had when using the ppx by prefixing non-standard attribute names
+with a leading underscore.
+
+So, while this will fail:
+<<code language="ocaml"|
+[%html {|<button hx_post="/clicked" hx_swap="outerHTML">Click Me</button>|}]
+>>
+
+This will not:
+<<code language="ocaml"|
+[%html {|<button _hx_post="/clicked" _hx_swap="outerHTML">Click Me</button>|}]
+>>
+
+Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g.
+<<a_api text="Unsafe.string_attrib"|val Html_sigs.T.Unsafe.string_attrib>>.
+
 ==@@id="let"@@ Let notation
 
 It is also possible to use the ppx with the ##let## notation:

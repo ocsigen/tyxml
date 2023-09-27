@@ -26,6 +26,7 @@
       | `Author
       | `Bookmark
       | `Canonical
+      | `Dns_prefetch
       | `External
       | `First
       | `Help
@@ -33,13 +34,20 @@
       | `Index
       | `Last
       | `License
+      | `Manifest
+      | `Me
+      | `Modulepreload
       | `Next
       | `Nofollow
       | `Noopener
       | `Noreferrer
+      | `Opener
       | `Other of string
       | `Pingback
+      | `Preconnect
       | `Prefetch
+      | `Preload
+      | `Prerender
       | `Prev
       | `Search
       | `Sidebar
@@ -91,6 +99,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -161,6 +170,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -256,7 +266,8 @@
       | `Pre
       | `Section ]
   type sectionningroot =
-      [ `Blockquote | `Body | `Details | `Fieldset | `Figure | `Td ]
+      [ `Blockquote | `Body | `Details | `Dialog | `Fieldset | `Figure | `Td
+      ]
   type listed =
       [ `Button
       | `Fieldset
@@ -1029,6 +1040,7 @@
       | `Datalist
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1102,6 +1114,7 @@
       | `Command
       | `Datalist
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1173,6 +1186,7 @@
       | `Datalist
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1247,6 +1261,7 @@
       | `Datalist
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1323,6 +1338,7 @@
       | `Datalist
       | `Del of Html_types.flow5
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1404,6 +1420,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1487,6 +1504,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1571,6 +1589,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1657,6 +1676,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1739,6 +1759,7 @@
       | `Datalist
       | `Del of Html_types.flow5
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1818,6 +1839,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -1885,13 +1907,13 @@
     constraint 'a =
       [< Html_types.flow5
        > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
-         `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Div `Dl
-         `Em `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I
-         `Img `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav
-         `Noscript `Object `Ol `Output `P `PCDATA `Picture `Pre `Progress `Q
-         `Ruby `Samp `Script `Section `Select `Small `Span `Strong `Style
-         `Sub `Sup `Svg `Table `Template `Textarea `Time `U `Ul `Var `Video
-         `Wbr ]
+         `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog
+         `Div `Dl `Em `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup
+         `Hr `I `Img `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter
+         `Nav `Noscript `Object `Ol `Output `P `PCDATA `Picture `Pre
+         `Progress `Q `Ruby `Samp `Script `Section `Select `Small `Span
+         `Strong `Style `Sub `Sup `Svg `Table `Template `Textarea `Time `U
+         `Ul `Var `Video `Wbr ]
   type (+'a, +'b) between_flow5_and_flow5_without_header_footer = 'a
     constraint 'a =
       [< `A of 'b
@@ -1914,6 +1936,7 @@
        | `Del of 'a
        | `Details
        | `Dfn
+       | `Dialog
        | `Div
        | `Dl
        | `Em
@@ -1981,13 +2004,13 @@
        | `Wbr
        > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B `Bdo
          `Blockquote `Br `Button `Canvas `Cite `Code `Command `Datalist `Del
-         `Details `Dfn `Div `Dl `Em `Embed `Fieldset `Figure `Form `H1 `H2
-         `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe `Img `Img_interactive `Input
-         `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
-         `Object `Object_interactive `Ol `Output `P `PCDATA `Picture `Pre
-         `Progress `Q `Ruby `Samp `Script `Section `Select `Small `Span
-         `Strong `Style `Sub `Sup `Svg `Table `Template `Textarea `Time `U
-         `Ul `Var `Video `Video_interactive `Wbr ]
+         `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset `Figure `Form
+         `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe `Img `Img_interactive
+         `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav
+         `Noscript `Object `Object_interactive `Ol `Output `P `PCDATA
+         `Picture `Pre `Progress `Q `Ruby `Samp `Script `Section `Select
+         `Small `Span `Strong `Style `Sub `Sup `Svg `Table `Template
+         `Textarea `Time `U `Ul `Var `Video `Video_interactive `Wbr ]
     constraint 'b = [< Html_types.flow5_without_interactive ]
   type flow5_without_form =
       [ `A of Html_types.flow5_without_interactive
@@ -2010,6 +2033,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -2092,6 +2116,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -2165,6 +2190,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -2246,6 +2272,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -2331,6 +2358,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -2431,6 +2459,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -2588,6 +2617,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -2649,6 +2679,89 @@
       | `User_data
       | `XML_lang
       | `XMLns ]
+  type dialog = [ `Dialog ]
+  type dialog_content = Html_types.flow5
+  type dialog_content_fun = Html_types.flow5
+  type dialog_attrib =
+      [ `Accesskey
+      | `Aria
+      | `Class
+      | `Contenteditable
+      | `Contextmenu
+      | `Dir
+      | `Draggable
+      | `Hidden
+      | `Id
+      | `Lang
+      | `OnAbort
+      | `OnBlur
+      | `OnCanPlay
+      | `OnCanPlayThrough
+      | `OnChange
+      | `OnClick
+      | `OnClose
+      | `OnContextMenu
+      | `OnDblClick
+      | `OnDrag
+      | `OnDragEnd
+      | `OnDragEnter
+      | `OnDragLeave
+      | `OnDragOver
+      | `OnDragStart
+      | `OnDrop
+      | `OnDurationChange
+      | `OnEmptied
+      | `OnEnded
+      | `OnError
+      | `OnFocus
+      | `OnFormChange
+      | `OnFormInput
+      | `OnInput
+      | `OnInvalid
+      | `OnKeyDown
+      | `OnKeyPress
+      | `OnKeyUp
+      | `OnLoad
+      | `OnLoadStart
+      | `OnLoadedData
+      | `OnLoadedMetaData
+      | `OnMouseDown
+      | `OnMouseMove
+      | `OnMouseOut
+      | `OnMouseOver
+      | `OnMouseUp
+      | `OnMouseWheel
+      | `OnPause
+      | `OnPlay
+      | `OnPlaying
+      | `OnProgress
+      | `OnRateChange
+      | `OnReadyStateChange
+      | `OnScroll
+      | `OnSeeked
+      | `OnSeeking
+      | `OnSelect
+      | `OnShow
+      | `OnStalled
+      | `OnSubmit
+      | `OnSuspend
+      | `OnTimeUpdate
+      | `OnTouchCancel
+      | `OnTouchEnd
+      | `OnTouchMove
+      | `OnTouchStart
+      | `OnVolumeChange
+      | `OnWaiting
+      | `Open
+      | `Role
+      | `Spellcheck
+      | `Style_Attr
+      | `Tabindex
+      | `Title
+      | `Translate
+      | `User_data
+      | `XML_lang
+      | `XMLns ]
   type div = [ `Div ]
   type div_content = Html_types.flow5
   type div_content_fun = Html_types.flow5
@@ -2673,6 +2786,7 @@
           | `OnCanPlayThrough
           | `OnChange
           | `OnClick
+          | `OnClose
           | `OnContextMenu
           | `OnDblClick
           | `OnDrag
@@ -2753,6 +2867,7 @@
           | `OnCanPlayThrough
           | `OnChange
           | `OnClick
+          | `OnClose
           | `OnContextMenu
           | `OnDblClick
           | `OnDrag
@@ -2831,6 +2946,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -2914,6 +3030,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3216,6 +3333,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3310,6 +3428,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3402,6 +3521,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3488,6 +3608,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3572,6 +3693,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3657,6 +3779,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3744,6 +3867,7 @@
       | `Del of Html_types.flow5
       | `Details
       | `Dfn
+      | `Dialog
       | `Div
       | `Dl
       | `Em
@@ -3835,6 +3959,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -3919,6 +4044,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4003,6 +4129,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4090,6 +4217,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4189,6 +4317,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4280,6 +4409,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4366,6 +4496,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4450,6 +4581,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4505,6 +4637,7 @@
       | `Role
       | `Spellcheck
       | `Src
+      | `Srcset
       | `Style_Attr
       | `Tabindex
       | `Title
@@ -4538,6 +4671,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4624,6 +4758,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4709,6 +4844,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4791,6 +4927,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4873,6 +5010,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -4955,6 +5093,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5051,6 +5190,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5135,6 +5275,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5229,6 +5370,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5314,6 +5456,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5401,6 +5544,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5480,8 +5624,9 @@
       | `Disabled
       | `Draggable
       | `Form
-      | `Formation
+      | `Formaction
       | `Formenctype
+      | `Formmethod
       | `Formnovalidate
       | `Formtarget
       | `Height
@@ -5504,6 +5649,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5599,6 +5745,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5684,6 +5831,7 @@
       | `Form
       | `Formaction
       | `Formenctype
+      | `Formmethod
       | `Formnovalidate
       | `Formtarget
       | `Hidden
@@ -5697,6 +5845,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5784,6 +5933,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5873,6 +6023,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -5953,6 +6104,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6046,6 +6198,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6130,6 +6283,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6217,6 +6371,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6301,6 +6456,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6383,6 +6539,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6473,6 +6630,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6557,6 +6715,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6646,6 +6805,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6730,6 +6890,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6809,13 +6970,13 @@
       | `Id
       | `Integrity
       | `Lang
-      | `Mime_type
       | `OnAbort
       | `OnBlur
       | `OnCanPlay
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -6869,6 +7030,7 @@
       | `OnVolumeChange
       | `OnWaiting
       | `Role
+      | `Script_type
       | `Spellcheck
       | `Src
       | `Style_Attr
@@ -6910,6 +7072,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag
@@ -7094,4 +7257,6 @@
       | `Time
       | `Url
       | `Week ]
+  type script_type = [ `Javascript | `Mime of string | `Module ]
+  type autocomplete_option = [ `Off | `On | `Tokens of string list ]
 end >>

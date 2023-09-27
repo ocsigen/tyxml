@@ -102,7 +102,7 @@ There are some important notes about these signature functors:
   {{{attrib}}} and {{{elt}}} are the
   same in both modules.  This is useful when not exporting the exact
   module that was used in the functor, but another (smaller and
-  simpler) module. This is the case in <<a_api project="js_of_ocaml"| module Tyxml_js.R >>,
+  simpler) module. This is the case in <<a_api project="js_of_ocaml" subproject="js_of_ocaml-tyxml" | module Js_of_ocaml_tyxml.Tyxml_js.R >>,
   for example.
 
 * <<a_api | module Html_f >> and <<a_api | module Svg_f >> functors

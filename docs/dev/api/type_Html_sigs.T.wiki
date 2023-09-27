@@ -126,7 +126,7 @@
         [< `ObjectBoundingBox | `UserSpaceOnUse ] wrap ->
         [ `GradientUnits ] attrib
       val a_gradientTransform :
-        Svg_types.transforms wrap -> [> `Gradient_Transform ] attrib
+        Svg_types.transforms wrap -> [> `GradientTransform ] attrib
       val a_spreadMethod :
         [< `Pad | `Reflect | `Repeat ] wrap -> [> `SpreadMethod ] attrib
       val a_fx : Svg_types.coord wrap -> [> `Fx ] attrib
@@ -262,6 +262,7 @@
       val a_fill : Svg_types.paint wrap -> [> `Fill ] attrib
       val a_animation_fill :
         [< `Freeze | `Remove ] wrap -> [> `Fill_Animation ] attrib
+      val a_fill_rule : Svg_types.fill_rule wrap -> [> `Fill_rule ] attrib
       val a_calcMode :
         [< `Discrete | `Linear | `Paced | `Spline ] wrap ->
         [> `CalcMode ] attrib
@@ -660,9 +661,9 @@
         ([< Svg_types.script_attr ], [< Svg_types.script_content ],
          [> Svg_types.script ])
         unary
-      val animation :
-        ([< Svg_types.animation_attr ], [< Svg_types.animation_content ],
-         [> Svg_types.animation ])
+      val animate :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
         star
       val set :
         ([< Svg_types.set_attr ], [< Svg_types.set_content ],
@@ -723,6 +724,10 @@
         ?a:Svg_types.foreignobject_attr attrib list ->
         Xml.elt list_wrap -> [> Svg_types.foreignobject ] elt
       val pcdata : string wrap -> [> Svg_types.txt ] elt
+      val animation :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
+        star
       val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
       val tot : Xml.elt -> 'a elt
       val totl : Xml.elt list_wrap -> 'a elt list_wrap
@@ -775,6 +780,7 @@
   val a_oncanplaythrough :
     Xml.event_handler -> [> `OnCanPlayThrough ] Html_sigs.T.attrib
   val a_onchange : Xml.event_handler -> [> `OnChange ] Html_sigs.T.attrib
+  val a_onclose : Xml.event_handler -> [> `OnClose ] Html_sigs.T.attrib
   val a_ondurationchange :
     Xml.event_handler -> [> `OnDurationChange ] Html_sigs.T.attrib
   val a_onemptied : Xml.event_handler -> [> `OnEmptied ] Html_sigs.T.attrib
@@ -875,7 +881,8 @@
   val a_allowpaymentrequest :
     unit -> [> `Allowpaymentrequest ] Html_sigs.T.attrib
   val a_autocomplete :
-    bool Html_sigs.T.wrap -> [> `Autocomplete ] Html_sigs.T.attrib
+    Html_types.autocomplete_option Html_sigs.T.wrap ->
+    [> `Autocomplete ] Html_sigs.T.attrib
   val a_async : unit -> [> `Async ] Html_sigs.T.attrib
   val a_autofocus : unit -> [> `Autofocus ] Html_sigs.T.attrib
   val a_autoplay : unit -> [> `Autoplay ] Html_sigs.T.attrib
@@ -1046,7 +1053,7 @@
   val a_method :
     [< `Get | `Post ] Html_sigs.T.wrap -> [> `Method ] Html_sigs.T.attrib
   val a_formmethod :
-    [< `Get | `Post ] Html_sigs.T.wrap -> [> `Method ] Html_sigs.T.attrib
+    [< `Get | `Post ] Html_sigs.T.wrap -> [> `Formmethod ] Html_sigs.T.attrib
   val a_multiple : unit -> [> `Multiple ] Html_sigs.T.attrib
   val a_name :
     Html_types.text Html_sigs.T.wrap -> [> `Name ] Html_sigs.T.attrib
@@ -1095,6 +1102,9 @@
   val a_button_type :
     [< `Button | `Reset | `Submit ] Html_sigs.T.wrap ->
     [> `Button_Type ] Html_sigs.T.attrib
+  val a_script_type :
+    Html_types.script_type Html_sigs.T.wrap ->
+    [> `Script_type ] Html_sigs.T.attrib
   val a_command_type :
     [< `Checkbox | `Command | `Radio ] Html_sigs.T.wrap ->
     [> `Command_Type ] Html_sigs.T.attrib
@@ -1268,6 +1278,10 @@
   val blockquote :
     ([< Html_types.blockquote_attrib ],
      [< Html_types.blockquote_content_fun ], [> Html_types.blockquote ])
+    Html_sigs.T.star
+  val dialog :
+    ([< Html_types.dialog_attrib ], [< Html_types.dialog_content_fun ],
+     [> Html_types.dialog ])
     Html_sigs.T.star
   val div :
     ([< Html_types.div_attrib ], [< Html_types.div_content_fun ],
@@ -1463,6 +1477,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag

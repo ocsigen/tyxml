@@ -1,5 +1,5 @@
 =Module <<a_api_type | module Tyxml.Html5 >> =
-<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Html5>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_html>>>><<span class="odocwiki_warning"|Deprecated.>>"~Use ~Html"
+<<pre class="ocsforge_color odocwiki_code"|<<span class="ocsforge_color_keyword"|module>> <<span class="ocsforge_color_uid"|<<span class="ocsforge_color_uid"|Html5>>>> <<span class="ocsforge_color_delimiter"|~:>> <<span class="odocwiki_type"|Tyxml_html>>>><<span class="odocwiki_warning"|Deprecated>>"~Use ~Html"
 ~Deprecated alias for <<a_api | module Tyxml.Html >>~.
 
 ----

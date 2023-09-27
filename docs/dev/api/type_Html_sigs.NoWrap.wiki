@@ -171,7 +171,7 @@
         [< `ObjectBoundingBox | `UserSpaceOnUse ] wrap ->
         [ `GradientUnits ] attrib
       val a_gradientTransform :
-        Svg_types.transforms wrap -> [> `Gradient_Transform ] attrib
+        Svg_types.transforms wrap -> [> `GradientTransform ] attrib
       val a_spreadMethod :
         [< `Pad | `Reflect | `Repeat ] wrap -> [> `SpreadMethod ] attrib
       val a_fx : Svg_types.coord wrap -> [> `Fx ] attrib
@@ -307,6 +307,7 @@
       val a_fill : Svg_types.paint wrap -> [> `Fill ] attrib
       val a_animation_fill :
         [< `Freeze | `Remove ] wrap -> [> `Fill_Animation ] attrib
+      val a_fill_rule : Svg_types.fill_rule wrap -> [> `Fill_rule ] attrib
       val a_calcMode :
         [< `Discrete | `Linear | `Paced | `Spline ] wrap ->
         [> `CalcMode ] attrib
@@ -705,9 +706,9 @@
         ([< Svg_types.script_attr ], [< Svg_types.script_content ],
          [> Svg_types.script ])
         unary
-      val animation :
-        ([< Svg_types.animation_attr ], [< Svg_types.animation_content ],
-         [> Svg_types.animation ])
+      val animate :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
         star
       val set :
         ([< Svg_types.set_attr ], [< Svg_types.set_content ],
@@ -768,6 +769,10 @@
         ?a:Svg_types.foreignobject_attr attrib list ->
         Xml.elt list_wrap -> [> Svg_types.foreignobject ] elt
       val pcdata : string wrap -> [> Svg_types.txt ] elt
+      val animation :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
+        star
       val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
       val tot : Xml.elt -> 'a elt
       val totl : Xml.elt list_wrap -> 'a elt list_wrap
@@ -810,6 +815,7 @@
   val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
   val a_oncanplaythrough : Xml.event_handler -> [> `OnCanPlayThrough ] attrib
   val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
+  val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
   val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
   val a_onemptied : Xml.event_handler -> [> `OnEmptied ] attrib
   val a_onended : Xml.event_handler -> [> `OnEnded ] attrib
@@ -878,7 +884,8 @@
   val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
   val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
   val a_allowpaymentrequest : unit -> [> `Allowpaymentrequest ] attrib
-  val a_autocomplete : bool wrap -> [> `Autocomplete ] attrib
+  val a_autocomplete :
+    Html_types.autocomplete_option wrap -> [> `Autocomplete ] attrib
   val a_async : unit -> [> `Async ] attrib
   val a_autofocus : unit -> [> `Autofocus ] attrib
   val a_autoplay : unit -> [> `Autoplay ] attrib
@@ -977,7 +984,7 @@
   val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
   val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
   val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
-  val a_formmethod : [< `Get | `Post ] wrap -> [> `Method ] attrib
+  val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
   val a_multiple : unit -> [> `Multiple ] attrib
   val a_name : Html_types.text wrap -> [> `Name ] attrib
   val a_rows : Html_types.number wrap -> [> `Rows ] attrib
@@ -1018,6 +1025,7 @@
   val a_readonly : unit -> [> `ReadOnly ] attrib
   val a_button_type :
     [< `Button | `Reset | `Submit ] wrap -> [> `Button_Type ] attrib
+  val a_script_type : Html_types.script_type wrap -> [> `Script_type ] attrib
   val a_command_type :
     [< `Checkbox | `Command | `Radio ] wrap -> [> `Command_Type ] attrib
   val a_menu_type : [< `Context | `Toolbar ] wrap -> [> `Menu_Type ] attrib
@@ -1149,6 +1157,10 @@
   val blockquote :
     ([< Html_types.blockquote_attrib ],
      [< Html_types.blockquote_content_fun ], [> Html_types.blockquote ])
+    star
+  val dialog :
+    ([< Html_types.dialog_attrib ], [< Html_types.dialog_content_fun ],
+     [> Html_types.dialog ])
     star
   val div :
     ([< Html_types.div_attrib ], [< Html_types.div_content_fun ],
@@ -1328,6 +1340,7 @@
       | `OnCanPlayThrough
       | `OnChange
       | `OnClick
+      | `OnClose
       | `OnContextMenu
       | `OnDblClick
       | `OnDrag

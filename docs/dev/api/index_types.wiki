@@ -30,6 +30,9 @@
 |@@class="odocwiki_index"@ @@<<a_api text="altglyphitem_content"| type Svg_types.altglyphitem_content >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="aname"| type Xml_sigs.T.aname >> ~[<<a_api | module Xml_sigs.T >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="angle"| type Svg_types.Unit.angle >> ~[<<a_api | module Svg_types.Unit >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animate"| type Svg_types.animate >> ~[<<a_api | module Svg_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animate_attr"| type Svg_types.animate_attr >> ~[<<a_api | module Svg_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animate_content"| type Svg_types.animate_content >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animatecolor"| type Svg_types.animatecolor >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animatecolor_attr"| type Svg_types.animatecolor_attr >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animatecolor_content"| type Svg_types.animatecolor_content >> ~[<<a_api | module Svg_types >>~]||
@@ -39,11 +42,14 @@
 |@@class="odocwiki_index"@ @@<<a_api text="animatetransform"| type Svg_types.animatetransform >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animatetransform_attr"| type Svg_types.animatetransform_attr >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animatetransform_content"| type Svg_types.animatetransform_content >> ~[<<a_api | module Svg_types >>~]||
-|@@class="odocwiki_index"@ @@<<a_api text="animation"| type Svg_types.animation >> ~[<<a_api | module Svg_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animation"| type Svg_types.animation >> ~[<<a_api | module Svg_types >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|>>>>
+|
 |@@class="odocwiki_index"@ @@<<a_api text="animation_addition_attr"| type Svg_types.animation_addition_attr >> ~[<<a_api | module Svg_types >>~]||
-|@@class="odocwiki_index"@ @@<<a_api text="animation_attr"| type Svg_types.animation_attr >> ~[<<a_api | module Svg_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animation_attr"| type Svg_types.animation_attr >> ~[<<a_api | module Svg_types >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|>>>>
+|
 |@@class="odocwiki_index"@ @@<<a_api text="animation_attr_target_attr"| type Svg_types.animation_attr_target_attr >> ~[<<a_api | module Svg_types >>~]||
-|@@class="odocwiki_index"@ @@<<a_api text="animation_content"| type Svg_types.animation_content >> ~[<<a_api | module Svg_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="animation_content"| type Svg_types.animation_content >> ~[<<a_api | module Svg_types >>~]|<<div class="odocwiki_info"|<<span class="odocwiki_deprecated"|>>>>
+|
 |@@class="odocwiki_index"@ @@<<a_api text="animation_element"| type Svg_types.animation_element >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animation_event_attr"| type Svg_types.animation_event_attr >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="animation_timing_attr"| type Svg_types.animation_timing_attr >> ~[<<a_api | module Svg_types >>~]||
@@ -74,6 +80,7 @@
 |@@class="odocwiki_index"@ @@<<a_api text="audio_content"| type Html_types.audio_content >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="audio_content_fun"| type Html_types.audio_content_fun >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="audio_interactive"| type Html_types.audio_interactive >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="autocomplete_option"| type Html_types.autocomplete_option >> ~[<<a_api | module Html_types >>~]||
 |@@ @style="tet-align: left;"@@\\B|
 |@@class="odocwiki_index"@ @@<<a_api text="b"| type Html_types.b >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="b_attrib"| type Html_types.b_attrib >> ~[<<a_api | module Html_types >>~]||
@@ -228,6 +235,10 @@
 |@@class="odocwiki_index"@ @@<<a_api text="dfn_attrib"| type Html_types.dfn_attrib >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="dfn_content"| type Html_types.dfn_content >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="dfn_content_fun"| type Html_types.dfn_content_fun >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dialog"| type Html_types.dialog >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dialog_attrib"| type Html_types.dialog_attrib >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dialog_content"| type Html_types.dialog_content >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="dialog_content_fun"| type Html_types.dialog_content_fun >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="div"| type Html_types.div >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="div_attrib"| type Html_types.div_attrib >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="div_content"| type Html_types.div_content >> ~[<<a_api | module Html_types >>~]||
@@ -364,6 +375,7 @@
 |@@class="odocwiki_index"@ @@<<a_api text="figure_attrib"| type Html_types.figure_attrib >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="figure_content"| type Html_types.figure_content >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="figure_content_fun"| type Html_types.figure_content_fun >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="fill_rule"| type Svg_types.fill_rule >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="filter"| type Svg_types.filter >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="filter_attr"| type Svg_types.filter_attr >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="filter_content"| type Svg_types.filter_content >> ~[<<a_api | module Svg_types >>~]||
@@ -792,6 +804,7 @@
 |@@class="odocwiki_index"@ @@<<a_api text="script_content"| type Svg_types.script_content >> ~[<<a_api | module Svg_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="script_content"| type Html_types.script_content >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="script_content_fun"| type Html_types.script_content_fun >> ~[<<a_api | module Html_types >>~]||
+|@@class="odocwiki_index"@ @@<<a_api text="script_type"| type Html_types.script_type >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="section"| type Html_types.section >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="section_attrib"| type Html_types.section_attrib >> ~[<<a_api | module Html_types >>~]||
 |@@class="odocwiki_index"@ @@<<a_api text="section_content"| type Html_types.section_content >> ~[<<a_api | module Html_types >>~]||

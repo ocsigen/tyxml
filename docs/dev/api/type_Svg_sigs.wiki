@@ -179,7 +179,7 @@
         [ `GradientUnits ] Svg_sigs.T.attrib
       val a_gradientTransform :
         Svg_types.transforms Svg_sigs.T.wrap ->
-        [> `Gradient_Transform ] Svg_sigs.T.attrib
+        [> `GradientTransform ] Svg_sigs.T.attrib
       val a_spreadMethod :
         [< `Pad | `Reflect | `Repeat ] Svg_sigs.T.wrap ->
         [> `SpreadMethod ] Svg_sigs.T.attrib
@@ -370,6 +370,9 @@
       val a_animation_fill :
         [< `Freeze | `Remove ] Svg_sigs.T.wrap ->
         [> `Fill_Animation ] Svg_sigs.T.attrib
+      val a_fill_rule :
+        Svg_types.fill_rule Svg_sigs.T.wrap ->
+        [> `Fill_rule ] Svg_sigs.T.attrib
       val a_calcMode :
         [< `Discrete | `Linear | `Paced | `Spline ] Svg_sigs.T.wrap ->
         [> `CalcMode ] Svg_sigs.T.attrib
@@ -845,9 +848,9 @@
         ([< Svg_types.script_attr ], [< Svg_types.script_content ],
          [> Svg_types.script ])
         Svg_sigs.T.unary
-      val animation :
-        ([< Svg_types.animation_attr ], [< Svg_types.animation_content ],
-         [> Svg_types.animation ])
+      val animate :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
         Svg_sigs.T.star
       val set :
         ([< Svg_types.set_attr ], [< Svg_types.set_content ],
@@ -914,6 +917,10 @@
         [> Svg_types.foreignobject ] Svg_sigs.T.elt
       val pcdata :
         string Svg_sigs.T.wrap -> [> Svg_types.txt ] Svg_sigs.T.elt
+      val animation :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
+        Svg_sigs.T.star
       val of_seq :
         Xml_stream.signal Stdlib.Seq.t ->
         'a Svg_sigs.T.elt Svg_sigs.T.list_wrap
@@ -1119,7 +1126,7 @@
         [< `ObjectBoundingBox | `UserSpaceOnUse ] wrap ->
         [ `GradientUnits ] attrib
       val a_gradientTransform :
-        Svg_types.transforms wrap -> [> `Gradient_Transform ] attrib
+        Svg_types.transforms wrap -> [> `GradientTransform ] attrib
       val a_spreadMethod :
         [< `Pad | `Reflect | `Repeat ] wrap -> [> `SpreadMethod ] attrib
       val a_fx : Svg_types.coord wrap -> [> `Fx ] attrib
@@ -1255,6 +1262,7 @@
       val a_fill : Svg_types.paint wrap -> [> `Fill ] attrib
       val a_animation_fill :
         [< `Freeze | `Remove ] wrap -> [> `Fill_Animation ] attrib
+      val a_fill_rule : Svg_types.fill_rule wrap -> [> `Fill_rule ] attrib
       val a_calcMode :
         [< `Discrete | `Linear | `Paced | `Spline ] wrap ->
         [> `CalcMode ] attrib
@@ -1653,9 +1661,9 @@
         ([< Svg_types.script_attr ], [< Svg_types.script_content ],
          [> Svg_types.script ])
         unary
-      val animation :
-        ([< Svg_types.animation_attr ], [< Svg_types.animation_content ],
-         [> Svg_types.animation ])
+      val animate :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
         star
       val set :
         ([< Svg_types.set_attr ], [< Svg_types.set_content ],
@@ -1716,6 +1724,10 @@
         ?a:Svg_types.foreignobject_attr attrib list ->
         Xml.elt list_wrap -> [> Svg_types.foreignobject ] elt
       val pcdata : string wrap -> [> Svg_types.txt ] elt
+      val animation :
+        ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+         [> Svg_types.animate ])
+        star
       val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
       val tot : Xml.elt -> 'a elt
       val totl : Xml.elt list_wrap -> 'a elt list_wrap
@@ -1920,7 +1932,7 @@
               [< `ObjectBoundingBox | `UserSpaceOnUse ] wrap ->
               [ `GradientUnits ] attrib
             val a_gradientTransform :
-              Svg_types.transforms wrap -> [> `Gradient_Transform ] attrib
+              Svg_types.transforms wrap -> [> `GradientTransform ] attrib
             val a_spreadMethod :
               [< `Pad | `Reflect | `Repeat ] wrap ->
               [> `SpreadMethod ] attrib
@@ -2069,6 +2081,8 @@
             val a_fill : Svg_types.paint wrap -> [> `Fill ] attrib
             val a_animation_fill :
               [< `Freeze | `Remove ] wrap -> [> `Fill_Animation ] attrib
+            val a_fill_rule :
+              Svg_types.fill_rule wrap -> [> `Fill_rule ] attrib
             val a_calcMode :
               [< `Discrete | `Linear | `Paced | `Spline ] wrap ->
               [> `CalcMode ] attrib
@@ -2502,9 +2516,9 @@
               ([< Svg_types.script_attr ], [< Svg_types.script_content ],
                [> Svg_types.script ])
               unary
-            val animation :
-              ([< Svg_types.animation_attr ],
-               [< Svg_types.animation_content ], [> Svg_types.animation ])
+            val animate :
+              ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+               [> Svg_types.animate ])
               star
             val set :
               ([< Svg_types.set_attr ], [< Svg_types.set_content ],
@@ -2574,6 +2588,10 @@
               ?a:Svg_types.foreignobject_attr attrib list ->
               Xml.elt list_wrap -> [> Svg_types.foreignobject ] elt
             val pcdata : string wrap -> [> Svg_types.txt ] elt
+            val animation :
+              ([< Svg_types.animate_attr ], [< Svg_types.animate_content ],
+               [> Svg_types.animate ])
+              star
             val of_seq : Xml_stream.signal Seq.t -> 'a elt list_wrap
             val tot : Xml.elt -> 'a elt
             val totl : Xml.elt list_wrap -> 'a elt list_wrap
@@ -2625,6 +2643,7 @@
       val string_of_offset : ([< Svg_types.offset ], string) Xml.W.ft
       val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
       val string_of_paint : ([< Svg_types.paint ], string) Xml.W.ft
+      val string_of_fill_rule : ([< Svg_types.fill_rule ], string) Xml.W.ft
       val string_of_strokedasharray : (Svg_types.lengths, string) Xml.W.ft
       val string_of_transform : (Svg_types.transform, string) Xml.W.ft
       val string_of_transforms : (Svg_types.transforms, string) Xml.W.ft
