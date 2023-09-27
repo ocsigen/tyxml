@@ -108,6 +108,7 @@ type linktype =
     | `Author
     | `Bookmark
     | `Canonical
+    | `Dns_prefetch
     | `External
     | `First
     | `Help
@@ -115,13 +116,20 @@ type linktype =
     | `Index
     | `Last
     | `License
+    | `Manifest
+    | `Me
+    | `Modulepreload
     | `Next
     | `Nofollow
-    | `Noreferrer
     | `Noopener
+    | `Noreferrer
+    | `Opener
     | `Pingback
+    | `Preconnect
     | `Prefetch
     | `Prev
+    | `Preload
+    | `Prerender
     | `Search
     | `Stylesheet
     | `Sidebar
@@ -151,6 +159,8 @@ type linktypes = linktype list
         Gives the permalink for the nearest ancestor section.}
         {- [`Canonical]:
         Gives the preferred location for accessing the current document.}
+        {- [`Dns_prefetch]:
+        Specifies that the user agent should preemptively perform DNS resolution for the target resource's origin..}
         {- [`External]:
         Indicates that the referenced document is not part of the same site as the current document.}
         {- [`First]:
@@ -165,18 +175,32 @@ type linktypes = linktype list
         Indicates that the current document is a part of a series, and that the last document in the series is the referenced document.}
         {- [`Licence]:
         Indicates that the main content of the current document is covered by the copyright license described by the referenced document.}
+        {- [`Manifest]:
+        Imports or links to an application manifest.}
+        {- [`Me]:
+        Indicates that the current document represents the person who owns the linked content.}
+        {- [`Modulepreload]:
+        Specifies that the user agent must preemptively fetch the module script and store it in the document's module map for later evaluation. Optionally, the module's dependencies can be fetched as well.}
         {- [`Next]:
         Indicates that the current document is a part of a series, and that the next document in the series is the referenced document.}
         {- [`Nofollow]:
         Indicates that the current document's original author or publisher does not endorse the referenced document.}
-        {- [`Noreferrer]:
-        Requires that the user agent not send an HTTP Referer (sic) header if the user follows the hyperlink.}
         {- [`Noopener]:
         Instructs the browser to open the link without granting the new browsing context access to the document that opened it.}
+        {- [`Noreferrer]:
+        Requires that the user agent not send an HTTP Referer (sic) header if the user follows the hyperlink.}
+        {- [`Opener]:
+        Creates an auxiliary browsing context if the hyperlink would otherwise create a top-level traversable with a non-auxiliary browsing context (i.e., has "_blank" as target attribute value).}
         {- [`Pingback]:
         Gives the address of the pingback server that handles pingbacks to the current document.}
+        {- [`Preconnect]:
+        Specifies that the user agent should preemptively connect to the target resource's origin.}
         {- [`Prefetch]:
         Specifies that the target resource should be preemptively cached.}
+        {- [`Preload]:
+        Specifies that the user agent must preemptively fetch and cache the target resource for current navigation according to the potential destination given by the as attribute (and the priority associated with the corresponding destination).}
+        {- [`Prerender]:
+        Specifies that the user agent should preemptively fetch the target resource and process it in a way that helps deliver a faster response in the future.}
         {- [`Prev]:
         Indicates that the current document is a part of a series, and that the previous document in the series is the referenced document.}
         {- [`Search]:
@@ -1854,7 +1878,7 @@ type source_content = notag
 
 type source_content_fun = notag
 
-type source_attrib = [ | common | `Src | `Mime_type | `Media ]
+type source_attrib = [ | common | `Src | `Srcset | `Mime_type | `Media ]
 
 (* NAME: area, KIND: nullary, TYPE: [= common | `Alt | `Coords | `Shape| `Target | `Rel | `Media| `Hreflang | `Mime_type],[=`Area], ARG: notag, ATTRIB:  OUT: [=`Area] *)
 type area = [ | `Area ]
@@ -2050,8 +2074,9 @@ type input_attrib =
     | `Checked
     | `Disabled
     | `Form
-    | `Formation
+    | `Formaction
     | `Formenctype
+    | `Formmethod
     | `Method
     | `Formnovalidate
     | `Formtarget
@@ -2114,6 +2139,7 @@ type button_attrib =
     | `Form
     | `Formaction
     | `Formenctype
+    | `Formmethod
     | `Method
     | `Formnovalidate
     | `Formtarget
@@ -2429,3 +2455,5 @@ type input_type =
   | `Week ]
 
 type script_type = [ `Javascript | `Module | `Mime of string ]
+
+type autocomplete_option = [ `On | `Off | `Tokens of string list]

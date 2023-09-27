@@ -56,7 +56,6 @@ struct
     | `Url_width of uri * Html_types.number
     | `Url_pixel of uri * Html_types.float_number ]
 
-
   type 'a attrib = Xml.attrib
 
   let to_xmlattribs x = x
@@ -256,7 +255,7 @@ struct
   let a_method x =
     user_attrib C.string_of_big_variant "method" x
 
-  let a_formmethod = a_method
+  let a_formmethod x = user_attrib C.string_of_big_variant "formmethod" x
 
   let a_enctype = string_attrib "enctype"
 
@@ -285,7 +284,7 @@ struct
     user_attrib C.string_of_referrerpolicy "referrerpolicy" x
 
   let a_autocomplete x =
-    user_attrib C.onoff_of_bool "autocomplete" x
+    user_attrib C.string_of_autocomplete "autocomplete" x
 
   let a_async =
     constant_attrib "async"
@@ -887,6 +886,7 @@ struct
     | `Author -> "author"
     | `Bookmark -> "bookmark"
     | `Canonical -> "canonical"
+    | `Dns_prefetch -> "dns-prefetch"
     | `External -> "external"
     | `First -> "first"
     | `Help -> "help"
@@ -894,12 +894,19 @@ struct
     | `Index -> "index"
     | `Last -> "last"
     | `License -> "license"
+    | `Manifest -> "manifest"
+    | `Me -> "me"
+    | `Modulepreload -> "modulepreload"
     | `Next -> "next"
     | `Nofollow -> "nofollow"
-    | `Noreferrer -> "noreferrer"
     | `Noopener -> "noopener"
+    | `Noreferrer -> "noreferrer"
+    | `Opener -> "opener"
     | `Pingback -> "pingback"
+    | `Preconnect -> "preconnect"
     | `Prefetch -> "prefetch"
+    | `Preload -> "preload"
+    | `Prerender -> "prerender"
     | `Prev -> "prev"
     | `Search -> "search"
     | `Stylesheet -> "stylesheet"
@@ -1120,6 +1127,12 @@ struct
       Printf.sprintf "%s %sx" (Xml.string_of_uri url) (Xml_print.string_of_number v)
     in
     String.concat ", " (List.map f l)
+
+  let string_of_autocomplete (l : Html_types.autocomplete_option) =
+    match l with
+    | `On | `Tokens [] -> "on"
+    | `Off -> "off"
+    | `Tokens strs -> String.concat " " strs
 
 end
 

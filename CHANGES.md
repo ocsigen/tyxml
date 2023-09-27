@@ -1,4 +1,13 @@
-# NEXT
+# 4.6.0
+
+* Update for OCaml 5.0 and drop support for OCaml 4.2.0
+  (#312 by @rr0gi)
+
+* Add additional variants to `linktype` for the `rel` attribute
+  (Leon @LogicalOverflow Vack)
+
+* Expand options for `autocomplete` attribute on `<input>` elements
+  (#302 by Aron @aronerben Erben)
 
 * Fix the SVG animation attributes `a_animation_values`, `a_keyTimes` and `a_keySplines`
   to contain semicolon separated values.
@@ -10,9 +19,14 @@
 
 * Add support for `dialog` element and `onclose` attribute
   (#301 by Julien Sagot)
-
+* Add an escape hatch for emitting attributes with non-standard names
+  in jsx or ppx code (a leading `_` character on attribute name)
+  (#295 Chas @cemerick Emerick)
 * Add support for `type` attribute on `<script>` elements
   (#293 by Ulrik @ulrikstrid Strid and Chas @cemerick Emerick)
+
+* Add svg `fill-rule` attribute
+  (#294 by Eric @dedbox Griffis)
 
 # 4.5.0
 

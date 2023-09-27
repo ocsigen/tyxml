@@ -211,6 +211,9 @@ let rec to_attribute_parser lang name ~loc = function
   | [[%type: image_candidate list]] ->
     [%expr commas srcset_element]
 
+  | [[%type: autocomplete_option]] ->
+    [%expr autocomplete]
+
   | _ ->
     let name = strip_a name in
     let name = if name = "in" then "in_" else name in

@@ -19,12 +19,6 @@
 
 open Tyxml_syntax
 
-(* When dropping support for 4.02, this module can simply be deleted. *)
-module String = struct
-  include String
-  let capitalize_ascii = String.capitalize [@ocaml.warning "-3"]
-end
-
 open Ppxlib.Asttypes
 open Ppxlib.Parsetree
 

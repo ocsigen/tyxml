@@ -211,6 +211,14 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<script type="text/javascript"></script>|}]],
   [script ~a:[a_script_type (`Mime "text/javascript")] @@ txt ""];
 
+  "script empty",
+  [[%html {|<script></script>|}]],
+  [script @@ txt ""];
+
+  "textarea empty",
+  [[%html {|<textarea></textarea>|}]],
+  [textarea @@ txt ""];
+
 ]
 
 let attribs = "ppx attribs", HtmlTests.make Html.[
@@ -235,17 +243,45 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<div draggable=false></div>"]],
   [div ~a:[a_draggable false] []] ;
 
-  "onoff default",
+  "form autocomplete default is on",
   [[%html "<form autocomplete></form>"]],
-  [form ~a:[a_autocomplete true] []] ;
+  [form ~a:[a_autocomplete `On] []] ;
 
-  "bool true",
+  "form autocomplete on",
   [[%html "<form autocomplete=on></form>"]],
-  [form ~a:[a_autocomplete true] []] ;
+  [form ~a:[a_autocomplete `On] []] ;
 
-  "bool false",
+  "form autocomplete off",
   [[%html "<form autocomplete=off></form>"]],
-  [form ~a:[a_autocomplete false] []] ;
+  [form ~a:[a_autocomplete `Off] []] ;
+
+  "form autocomplete tokenlist",
+  [[%html "<form autocomplete='section-blue shipping street-address'></form>"]],
+  [form ~a:[a_autocomplete (`Tokens ["section-blue"; "shipping"; "street-address"] )] []] ;
+
+  "form autocomplete tokenlist empty",
+  [[%html "<form autocomplete=on></form>"]],
+  [form ~a:[a_autocomplete (`Tokens [] )] []] ;
+
+  "input autocomplete default is on",
+  [[%html "<input autocomplete/>"]],
+  [input ~a:[a_autocomplete `On] ()] ;
+  
+  "input autocomplete on",
+  [[%html "<input autocomplete='on'/>"]],
+  [input ~a:[a_autocomplete `On] ()] ;
+  
+  "input autocomplete off",
+  [[%html "<input autocomplete='off'/>"]],
+  [input~a:[a_autocomplete `Off] ()] ;
+  
+  "input autocomplete tokenlist",
+  [[%html "<input autocomplete='section-blue shipping street-address'/>"]],
+  [input ~a:[a_autocomplete (`Tokens ["section-blue"; "shipping"; "street-address"] )] ()] ;
+  
+  "input autocomplete tokenlist empty",
+  [[%html "<input autocomplete='on'/>"]],
+  [input ~a:[a_autocomplete (`Tokens [] )] ()] ;
 
   "link rel=canonical",
   [[%html "<link rel=canonical href='/'>"]],
@@ -283,6 +319,12 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<div data-foo='valfoo'></div>"]],
   [div
     ~a:[a_user_data "foo" "valfoo"] []] ;
+  
+  "arbitrary (unchecked) attributes via an escape hatch",
+  [[%html "<div _some-attr='value'></div>"]],
+  [div
+    ~a:[Unsafe.string_attrib "some-attr" "value"] []]
+      
 ]
 
 let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
@@ -373,6 +415,14 @@ let svg = "svg", SvgTests.make Svg.[
   "animate fill, values",
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
+
+  "fill_rule type nonzero",
+  [[%svg "<path fill-rule='nonzero'/>"]],
+  [path ~a:[a_fill_rule `Nonzero] []] ;
+
+  "fill_rule type evenodd",
+  [[%svg "<path fill-rule='evenodd'/>"]],
+  [path ~a:[a_fill_rule `Evenodd] []] ;
 
 ]
 

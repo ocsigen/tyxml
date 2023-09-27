@@ -9,30 +9,30 @@ let is_jsx e =
   in
   List.exists f e.pexp_attributes
 
-(* When dropping support for 4.02, this module can simply be deleted. *)
-module String = struct
-  include String
-  let lowercase_ascii = String.lowercase [@ocaml.warning "-3"]
-end
-module Char = struct
-  include Char
-  let lowercase_ascii = Char.lowercase [@ocaml.warning "-3"]
-end
-
 let lowercase_lead s =
   String.mapi (fun i c -> if i = 0 then Char.lowercase_ascii c else c) s
 
-let to_kebab_case name =
-  let length = String.length name in
-  if length > 5 then
-    let first = String.sub name 0 4 in
-    match first with
-    | "aria"
-    | "data" ->
-      first ^ "-" ^ lowercase_lead (String.sub name 4 (length - 4))
-    | _ -> name
-  else
-    name
+let to_kebab_case =
+  let open Re in
+  let camelPat = Posix.compile_pat "[A-Z]" in
+  let underscore = compile @@ char '_' in
+  let prefixes = Perl.compile_pat {|^(data_?|aria_?)(.+)|} in
+  fun name ->
+    let kebab string =
+      replace camelPat ~f:(fun g -> "-" ^ Group.get g 0) string
+      |> String.lowercase_ascii
+      |> replace_string underscore ~by:"-" in
+    match exec_opt prefixes name with
+    | None -> 
+      if name.[0] == '_'
+      (* need to keep the leading underscore, as that's what the syntax support keys
+         off of to know to use Unsafe.string_attrib *)
+      then "_" ^ kebab @@ String.sub name 1 (String.length name - 1)
+      else name
+    | Some g ->
+      let prefix = String.sub name 0 4 in
+      let suffix = kebab @@ Group.get g 2 in
+      prefix ^ (if suffix.[0] == '-' then "" else "-") ^ suffix
 
 let make_attr_name name =
   let name =

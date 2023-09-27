@@ -484,6 +484,17 @@ let paint ?separated_by:_ ?default:_ loc name s =
             `Icc ([%e iri], Some [%e paint_without_icc loc name remainder])]
     end [@metaloc loc]
 
+let fill_rule ?separated_by:_ ?default:_ loc _name s =
+  begin match s with
+  | "nonzero" ->
+    Some [%expr `Nonzero]
+  
+  | "evenodd" ->
+    Some [%expr `Evenodd]
+
+  | _ -> None
+  end [@metaloc loc]
+
 let srcset_element =
   let space = Re_str.regexp " +" in
 
@@ -539,6 +550,17 @@ let number_or_datetime ?separated_by:_ ?default:_ loc _ s =
   | Some n -> Some [%expr `Number [%e n]]
   | None -> Some [%expr `Datetime [%e Common.string loc s]]
   [@metaloc loc]
+
+let autocomplete ?separated_by:_ ?default:_ loc name s =
+  match s with
+  | "on" | "" -> Some [%expr `On]
+  | "off" -> Some [%expr `Off]
+  | tks ->
+    match spaces (string) loc name tks with
+      | Some tks -> Some [%expr `Tokens [%e tks]]
+      | None -> Common.error loc "Bad autocomplete tokens"
+  [@metaloc loc]
+
 
 let script_type =
   (* According to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script, non-javascript

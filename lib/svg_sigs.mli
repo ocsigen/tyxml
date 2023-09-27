@@ -275,7 +275,7 @@ module type T = sig
     [< `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
     [ | `GradientUnits ] attrib
 
-  val a_gradientTransform : transforms wrap -> [> | `Gradient_Transform ] attrib
+  val a_gradientTransform : transforms wrap -> [> | `GradientTransform ] attrib
 
   val a_spreadMethod :
     [< `Pad | `Reflect | `Repeat ] wrap -> [> | `SpreadMethod ] attrib
@@ -487,6 +487,8 @@ module type T = sig
 
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
     [@@reflect.attribute "fill" ["animate"]]
+
+  val a_fill_rule : fill_rule wrap -> [> | `Fill_rule ] attrib
 
   val a_calcMode :
     [< | `Discrete | `Linear | `Paced | `Spline ] wrap -> [> | `CalcMode ] attrib
@@ -1110,6 +1112,8 @@ module type Wrapped_functions = sig
   val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
 
   val string_of_paint : ([< Svg_types.paint], string) Xml.W.ft
+  
+  val string_of_fill_rule : ([< Svg_types.fill_rule], string) Xml.W.ft
 
   val string_of_strokedasharray : (Svg_types.lengths, string) Xml.W.ft
 

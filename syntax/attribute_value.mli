@@ -198,8 +198,17 @@ val paint : parser
    {:{https://www.w3.org/TR/SVG/painting.html#SpecifyingPaint} Specifying
    paint}. *)
 
+val fill_rule : parser
+(** Parses an SVG fill-rule value.
+
+    @see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule>
+*)
+
 val srcset_element : parser
 (** Used for [a_srcset]. *)
+
+val autocomplete : parser
+(** Used for [a_autocomplete]. *)
 
 val number_or_datetime : parser
 (** Used for [a_input_min] and [a_input_max]. *)

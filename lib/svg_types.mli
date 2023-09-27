@@ -288,6 +288,10 @@ type paint =
   [ paint_whitout_icc
   | `Icc of (iri * paint_whitout_icc option) ]
 
+type fill_rule =
+  [ `Nonzero
+  | `Evenodd ]
+
 (* Transformation *)
 type transform =
   [ `Matrix of (float * float * float * float * float * float)

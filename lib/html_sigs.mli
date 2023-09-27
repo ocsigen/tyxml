@@ -261,7 +261,8 @@ module type T = sig
 
   val a_allowpaymentrequest : unit -> [> | `Allowpaymentrequest] attrib
 
-  val a_autocomplete : (bool[@onoff]) wrap -> [> | `Autocomplete] attrib
+  val a_autocomplete : autocomplete_option wrap -> [> | `Autocomplete] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete> autocomplete documentation. *)
 
   val a_async : unit -> [> | `Async] attrib
 
@@ -502,9 +503,7 @@ module type T = sig
     [< | `Get | `Post] wrap -> [> | `Method] attrib
 
   val a_formmethod :
-    [< | `Get | `Post] wrap -> [> | `Method] attrib
-  [@@ocaml.deprecated "Use a_method"]
-  (** @deprecated Use a_method *)
+    [< | `Get | `Post] wrap -> [> | `Formmethod] attrib
 
   val a_multiple : unit -> [> | `Multiple] attrib
 
@@ -1011,6 +1010,7 @@ module type T = sig
 
   val textarea :
     ([< | textarea_attrib], [< | textarea_content_fun], [> | textarea]) unary
+  [@@reflect.element "textarea"]
 
   val keygen : ([< | keygen_attrib], [> | keygen]) nullary
 
@@ -1254,6 +1254,9 @@ module type Wrapped_functions = sig
 
   val string_of_srcset :
     ([< image_candidate] list, string) Xml.W.ft
+
+  val string_of_autocomplete :
+    (Html_types.autocomplete_option, string) Xml.W.ft
 
   val string_of_step : (float option, string) Xml.W.ft
 
