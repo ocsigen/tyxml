@@ -255,7 +255,7 @@ struct
   let a_method x =
     user_attrib C.string_of_big_variant "method" x
 
-  let a_formmethod = a_method
+  let a_formmethod x = user_attrib C.string_of_big_variant "formmethod" x
 
   let a_enctype = string_attrib "enctype"
 

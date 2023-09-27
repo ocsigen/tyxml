@@ -10,6 +10,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "input",
+  input ~a:[a_formaction "post.html"; a_formmethod `Post] (),
+  "<input formaction=\"post.html\" formmethod=\"POST\"/>";
+
   "a",
   canvas [a []],
   "<canvas><a></a></canvas>";

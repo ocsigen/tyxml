@@ -503,9 +503,7 @@ module type T = sig
     [< | `Get | `Post] wrap -> [> | `Method] attrib
 
   val a_formmethod :
-    [< | `Get | `Post] wrap -> [> | `Method] attrib
-  [@@ocaml.deprecated "Use a_method"]
-  (** @deprecated Use a_method *)
+    [< | `Get | `Post] wrap -> [> | `Formmethod] attrib
 
   val a_multiple : unit -> [> | `Multiple] attrib
 
