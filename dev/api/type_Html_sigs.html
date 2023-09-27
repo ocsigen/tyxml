@@ -186,7 +186,7 @@ We are looking for beta-tester and contributors.
             [&lt; `ObjectBoundingBox | `UserSpaceOnUse ] wrap -&gt;
             [ `GradientUnits ] attrib
           val a_gradientTransform :
-            Svg_types.transforms wrap -&gt; [&gt; `Gradient_Transform ] attrib
+            Svg_types.transforms wrap -&gt; [&gt; `GradientTransform ] attrib
           val a_spreadMethod :
             [&lt; `Pad | `Reflect | `Repeat ] wrap -&gt; [&gt; `SpreadMethod ] attrib
           val a_fx : Svg_types.coord wrap -&gt; [&gt; `Fx ] attrib
@@ -333,6 +333,8 @@ We are looking for beta-tester and contributors.
           val a_fill : Svg_types.paint wrap -&gt; [&gt; `Fill ] attrib
           val a_animation_fill :
             [&lt; `Freeze | `Remove ] wrap -&gt; [&gt; `Fill_Animation ] attrib
+          val a_fill_rule :
+            Svg_types.fill_rule wrap -&gt; [&gt; `Fill_rule ] attrib
           val a_calcMode :
             [&lt; `Discrete | `Linear | `Paced | `Spline ] wrap -&gt;
             [&gt; `CalcMode ] attrib
@@ -756,9 +758,9 @@ We are looking for beta-tester and contributors.
             ([&lt; Svg_types.script_attr ], [&lt; Svg_types.script_content ],
              [&gt; Svg_types.script ])
             unary
-          val animation :
-            ([&lt; Svg_types.animation_attr ], [&lt; Svg_types.animation_content ],
-             [&gt; Svg_types.animation ])
+          val animate :
+            ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+             [&gt; Svg_types.animate ])
             star
           val set :
             ([&lt; Svg_types.set_attr ], [&lt; Svg_types.set_content ],
@@ -827,6 +829,10 @@ We are looking for beta-tester and contributors.
             ?a:Svg_types.foreignobject_attr attrib list -&gt;
             Xml.elt list_wrap -&gt; [&gt; Svg_types.foreignobject ] elt
           val pcdata : string wrap -&gt; [&gt; Svg_types.txt ] elt
+          val animation :
+            ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+             [&gt; Svg_types.animate ])
+            star
           val of_seq : Xml_stream.signal Seq.t -&gt; 'a elt list_wrap
           val tot : Xml.elt -&gt; 'a elt
           val totl : Xml.elt list_wrap -&gt; 'a elt list_wrap
@@ -884,6 +890,7 @@ We are looking for beta-tester and contributors.
       val a_oncanplaythrough :
         Xml.event_handler -&gt; [&gt; `OnCanPlayThrough ] Html_sigs.T.attrib
       val a_onchange : Xml.event_handler -&gt; [&gt; `OnChange ] Html_sigs.T.attrib
+      val a_onclose : Xml.event_handler -&gt; [&gt; `OnClose ] Html_sigs.T.attrib
       val a_ondurationchange :
         Xml.event_handler -&gt; [&gt; `OnDurationChange ] Html_sigs.T.attrib
       val a_onemptied :
@@ -1002,7 +1009,8 @@ We are looking for beta-tester and contributors.
       val a_allowpaymentrequest :
         unit -&gt; [&gt; `Allowpaymentrequest ] Html_sigs.T.attrib
       val a_autocomplete :
-        bool Html_sigs.T.wrap -&gt; [&gt; `Autocomplete ] Html_sigs.T.attrib
+        Html_types.autocomplete_option Html_sigs.T.wrap -&gt;
+        [&gt; `Autocomplete ] Html_sigs.T.attrib
       val a_async : unit -&gt; [&gt; `Async ] Html_sigs.T.attrib
       val a_autofocus : unit -&gt; [&gt; `Autofocus ] Html_sigs.T.attrib
       val a_autoplay : unit -&gt; [&gt; `Autoplay ] Html_sigs.T.attrib
@@ -1202,7 +1210,8 @@ We are looking for beta-tester and contributors.
       val a_method :
         [&lt; `Get | `Post ] Html_sigs.T.wrap -&gt; [&gt; `Method ] Html_sigs.T.attrib
       val a_formmethod :
-        [&lt; `Get | `Post ] Html_sigs.T.wrap -&gt; [&gt; `Method ] Html_sigs.T.attrib
+        [&lt; `Get | `Post ] Html_sigs.T.wrap -&gt;
+        [&gt; `Formmethod ] Html_sigs.T.attrib
       val a_multiple : unit -&gt; [&gt; `Multiple ] Html_sigs.T.attrib
       val a_name :
         Html_types.text Html_sigs.T.wrap -&gt; [&gt; `Name ] Html_sigs.T.attrib
@@ -1253,6 +1262,9 @@ We are looking for beta-tester and contributors.
       val a_button_type :
         [&lt; `Button | `Reset | `Submit ] Html_sigs.T.wrap -&gt;
         [&gt; `Button_Type ] Html_sigs.T.attrib
+      val a_script_type :
+        Html_types.script_type Html_sigs.T.wrap -&gt;
+        [&gt; `Script_type ] Html_sigs.T.attrib
       val a_command_type :
         [&lt; `Checkbox | `Command | `Radio ] Html_sigs.T.wrap -&gt;
         [&gt; `Command_Type ] Html_sigs.T.attrib
@@ -1437,6 +1449,10 @@ We are looking for beta-tester and contributors.
       val blockquote :
         ([&lt; Html_types.blockquote_attrib ],
          [&lt; Html_types.blockquote_content_fun ], [&gt; Html_types.blockquote ])
+        Html_sigs.T.star
+      val dialog :
+        ([&lt; Html_types.dialog_attrib ], [&lt; Html_types.dialog_content_fun ],
+         [&gt; Html_types.dialog ])
         Html_sigs.T.star
       val div :
         ([&lt; Html_types.div_attrib ], [&lt; Html_types.div_content_fun ],
@@ -1637,6 +1653,7 @@ We are looking for beta-tester and contributors.
           | `OnCanPlayThrough
           | `OnChange
           | `OnClick
+          | `OnClose
           | `OnContextMenu
           | `OnDblClick
           | `OnDrag
@@ -2117,7 +2134,7 @@ We are looking for beta-tester and contributors.
             [&lt; `ObjectBoundingBox | `UserSpaceOnUse ] wrap -&gt;
             [ `GradientUnits ] attrib
           val a_gradientTransform :
-            Svg_types.transforms wrap -&gt; [&gt; `Gradient_Transform ] attrib
+            Svg_types.transforms wrap -&gt; [&gt; `GradientTransform ] attrib
           val a_spreadMethod :
             [&lt; `Pad | `Reflect | `Repeat ] wrap -&gt; [&gt; `SpreadMethod ] attrib
           val a_fx : Svg_types.coord wrap -&gt; [&gt; `Fx ] attrib
@@ -2264,6 +2281,8 @@ We are looking for beta-tester and contributors.
           val a_fill : Svg_types.paint wrap -&gt; [&gt; `Fill ] attrib
           val a_animation_fill :
             [&lt; `Freeze | `Remove ] wrap -&gt; [&gt; `Fill_Animation ] attrib
+          val a_fill_rule :
+            Svg_types.fill_rule wrap -&gt; [&gt; `Fill_rule ] attrib
           val a_calcMode :
             [&lt; `Discrete | `Linear | `Paced | `Spline ] wrap -&gt;
             [&gt; `CalcMode ] attrib
@@ -2687,9 +2706,9 @@ We are looking for beta-tester and contributors.
             ([&lt; Svg_types.script_attr ], [&lt; Svg_types.script_content ],
              [&gt; Svg_types.script ])
             unary
-          val animation :
-            ([&lt; Svg_types.animation_attr ], [&lt; Svg_types.animation_content ],
-             [&gt; Svg_types.animation ])
+          val animate :
+            ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+             [&gt; Svg_types.animate ])
             star
           val set :
             ([&lt; Svg_types.set_attr ], [&lt; Svg_types.set_content ],
@@ -2758,6 +2777,10 @@ We are looking for beta-tester and contributors.
             ?a:Svg_types.foreignobject_attr attrib list -&gt;
             Xml.elt list_wrap -&gt; [&gt; Svg_types.foreignobject ] elt
           val pcdata : string wrap -&gt; [&gt; Svg_types.txt ] elt
+          val animation :
+            ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+             [&gt; Svg_types.animate ])
+            star
           val of_seq : Xml_stream.signal Seq.t -&gt; 'a elt list_wrap
           val tot : Xml.elt -&gt; 'a elt
           val totl : Xml.elt list_wrap -&gt; 'a elt list_wrap
@@ -2801,6 +2824,7 @@ We are looking for beta-tester and contributors.
       val a_oncanplaythrough :
         Xml.event_handler -&gt; [&gt; `OnCanPlayThrough ] attrib
       val a_onchange : Xml.event_handler -&gt; [&gt; `OnChange ] attrib
+      val a_onclose : Xml.event_handler -&gt; [&gt; `OnClose ] attrib
       val a_ondurationchange :
         Xml.event_handler -&gt; [&gt; `OnDurationChange ] attrib
       val a_onemptied : Xml.event_handler -&gt; [&gt; `OnEmptied ] attrib
@@ -2875,7 +2899,8 @@ We are looking for beta-tester and contributors.
       val a_onkeyup : Xml.keyboard_event_handler -&gt; [&gt; `OnKeyUp ] attrib
       val a_allowfullscreen : unit -&gt; [&gt; `Allowfullscreen ] attrib
       val a_allowpaymentrequest : unit -&gt; [&gt; `Allowpaymentrequest ] attrib
-      val a_autocomplete : bool wrap -&gt; [&gt; `Autocomplete ] attrib
+      val a_autocomplete :
+        Html_types.autocomplete_option wrap -&gt; [&gt; `Autocomplete ] attrib
       val a_async : unit -&gt; [&gt; `Async ] attrib
       val a_autofocus : unit -&gt; [&gt; `Autofocus ] attrib
       val a_autoplay : unit -&gt; [&gt; `Autoplay ] attrib
@@ -2983,7 +3008,7 @@ We are looking for beta-tester and contributors.
       val a_maxlength : Html_types.number wrap -&gt; [&gt; `Maxlength ] attrib
       val a_minlength : Html_types.number wrap -&gt; [&gt; `Minlength ] attrib
       val a_method : [&lt; `Get | `Post ] wrap -&gt; [&gt; `Method ] attrib
-      val a_formmethod : [&lt; `Get | `Post ] wrap -&gt; [&gt; `Method ] attrib
+      val a_formmethod : [&lt; `Get | `Post ] wrap -&gt; [&gt; `Formmethod ] attrib
       val a_multiple : unit -&gt; [&gt; `Multiple ] attrib
       val a_name : Html_types.text wrap -&gt; [&gt; `Name ] attrib
       val a_rows : Html_types.number wrap -&gt; [&gt; `Rows ] attrib
@@ -3024,6 +3049,8 @@ We are looking for beta-tester and contributors.
       val a_readonly : unit -&gt; [&gt; `ReadOnly ] attrib
       val a_button_type :
         [&lt; `Button | `Reset | `Submit ] wrap -&gt; [&gt; `Button_Type ] attrib
+      val a_script_type :
+        Html_types.script_type wrap -&gt; [&gt; `Script_type ] attrib
       val a_command_type :
         [&lt; `Checkbox | `Command | `Radio ] wrap -&gt; [&gt; `Command_Type ] attrib
       val a_menu_type :
@@ -3160,6 +3187,10 @@ We are looking for beta-tester and contributors.
       val blockquote :
         ([&lt; Html_types.blockquote_attrib ],
          [&lt; Html_types.blockquote_content_fun ], [&gt; Html_types.blockquote ])
+        star
+      val dialog :
+        ([&lt; Html_types.dialog_attrib ], [&lt; Html_types.dialog_content_fun ],
+         [&gt; Html_types.dialog ])
         star
       val div :
         ([&lt; Html_types.div_attrib ], [&lt; Html_types.div_content_fun ],
@@ -3341,6 +3372,7 @@ We are looking for beta-tester and contributors.
           | `OnCanPlayThrough
           | `OnChange
           | `OnClick
+          | `OnClose
           | `OnContextMenu
           | `OnDblClick
           | `OnDrag
@@ -3729,7 +3761,7 @@ We are looking for beta-tester and contributors.
                  [&lt; `ObjectBoundingBox | `UserSpaceOnUse ] wrap -&gt;
                  [ `GradientUnits ] attrib
                val a_gradientTransform :
-                 Svg_types.transforms wrap -&gt; [&gt; `Gradient_Transform ] attrib
+                 Svg_types.transforms wrap -&gt; [&gt; `GradientTransform ] attrib
                val a_spreadMethod :
                  [&lt; `Pad | `Reflect | `Repeat ] wrap -&gt;
                  [&gt; `SpreadMethod ] attrib
@@ -3883,6 +3915,8 @@ We are looking for beta-tester and contributors.
                val a_fill : Svg_types.paint wrap -&gt; [&gt; `Fill ] attrib
                val a_animation_fill :
                  [&lt; `Freeze | `Remove ] wrap -&gt; [&gt; `Fill_Animation ] attrib
+               val a_fill_rule :
+                 Svg_types.fill_rule wrap -&gt; [&gt; `Fill_rule ] attrib
                val a_calcMode :
                  [&lt; `Discrete | `Linear | `Paced | `Spline ] wrap -&gt;
                  [&gt; `CalcMode ] attrib
@@ -4325,9 +4359,9 @@ We are looking for beta-tester and contributors.
                  ([&lt; Svg_types.script_attr ], [&lt; Svg_types.script_content ],
                   [&gt; Svg_types.script ])
                  unary
-               val animation :
-                 ([&lt; Svg_types.animation_attr ],
-                  [&lt; Svg_types.animation_content ], [&gt; Svg_types.animation ])
+               val animate :
+                 ([&lt; Svg_types.animate_attr ],
+                  [&lt; Svg_types.animate_content ], [&gt; Svg_types.animate ])
                  star
                val set :
                  ([&lt; Svg_types.set_attr ], [&lt; Svg_types.set_content ],
@@ -4397,6 +4431,10 @@ We are looking for beta-tester and contributors.
                  ?a:Svg_types.foreignobject_attr attrib list -&gt;
                  Xml.elt list_wrap -&gt; [&gt; Svg_types.foreignobject ] elt
                val pcdata : string wrap -&gt; [&gt; Svg_types.txt ] elt
+               val animation :
+                 ([&lt; Svg_types.animate_attr ],
+                  [&lt; Svg_types.animate_content ], [&gt; Svg_types.animate ])
+                 star
                val of_seq : Xml_stream.signal Seq.t -&gt; 'a elt list_wrap
                val tot : Xml.elt -&gt; 'a elt
                val totl : Xml.elt list_wrap -&gt; 'a elt list_wrap
@@ -4515,6 +4553,7 @@ We are looking for beta-tester and contributors.
             val a_oncanplaythrough :
               Xml.event_handler -&gt; [&gt; `OnCanPlayThrough ] attrib
             val a_onchange : Xml.event_handler -&gt; [&gt; `OnChange ] attrib
+            val a_onclose : Xml.event_handler -&gt; [&gt; `OnClose ] attrib
             val a_ondurationchange :
               Xml.event_handler -&gt; [&gt; `OnDurationChange ] attrib
             val a_onemptied : Xml.event_handler -&gt; [&gt; `OnEmptied ] attrib
@@ -4612,7 +4651,9 @@ We are looking for beta-tester and contributors.
             val a_allowfullscreen : unit -&gt; [&gt; `Allowfullscreen ] attrib
             val a_allowpaymentrequest :
               unit -&gt; [&gt; `Allowpaymentrequest ] attrib
-            val a_autocomplete : bool wrap -&gt; [&gt; `Autocomplete ] attrib
+            val a_autocomplete :
+              Html_types.autocomplete_option wrap -&gt;
+              [&gt; `Autocomplete ] attrib
             val a_async : unit -&gt; [&gt; `Async ] attrib
             val a_autofocus : unit -&gt; [&gt; `Autofocus ] attrib
             val a_autoplay : unit -&gt; [&gt; `Autoplay ] attrib
@@ -4737,7 +4778,8 @@ We are looking for beta-tester and contributors.
             val a_minlength :
               Html_types.number wrap -&gt; [&gt; `Minlength ] attrib
             val a_method : [&lt; `Get | `Post ] wrap -&gt; [&gt; `Method ] attrib
-            val a_formmethod : [&lt; `Get | `Post ] wrap -&gt; [&gt; `Method ] attrib
+            val a_formmethod :
+              [&lt; `Get | `Post ] wrap -&gt; [&gt; `Formmethod ] attrib
             val a_multiple : unit -&gt; [&gt; `Multiple ] attrib
             val a_name : Html_types.text wrap -&gt; [&gt; `Name ] attrib
             val a_rows : Html_types.number wrap -&gt; [&gt; `Rows ] attrib
@@ -4781,6 +4823,8 @@ We are looking for beta-tester and contributors.
             val a_button_type :
               [&lt; `Button | `Reset | `Submit ] wrap -&gt;
               [&gt; `Button_Type ] attrib
+            val a_script_type :
+              Html_types.script_type wrap -&gt; [&gt; `Script_type ] attrib
             val a_command_type :
               [&lt; `Checkbox | `Command | `Radio ] wrap -&gt;
               [&gt; `Command_Type ] attrib
@@ -4927,6 +4971,10 @@ We are looking for beta-tester and contributors.
               ([&lt; Html_types.blockquote_attrib ],
                [&lt; Html_types.blockquote_content_fun ],
                [&gt; Html_types.blockquote ])
+              star
+            val dialog :
+              ([&lt; Html_types.dialog_attrib ],
+               [&lt; Html_types.dialog_content_fun ], [&gt; Html_types.dialog ])
               star
             val div :
               ([&lt; Html_types.div_attrib ], [&lt; Html_types.div_content_fun ],
@@ -5115,6 +5163,7 @@ We are looking for beta-tester and contributors.
                 | `OnCanPlayThrough
                 | `OnChange
                 | `OnClick
+                | `OnClose
                 | `OnContextMenu
                 | `OnDblClick
                 | `OnDrag
@@ -5397,6 +5446,8 @@ We are looking for beta-tester and contributors.
       val string_of_character : (Html_types.character, string) Xml.W.ft
       val string_of_input_type :
         ([&lt; Html_types.input_type ], string) Xml.W.ft
+      val string_of_script_type :
+        ([&lt; Html_types.script_type ], string) Xml.W.ft
       val string_of_number_or_datetime :
         ([&lt; Html_types.number_or_datetime ], string) Xml.W.ft
       val string_of_linktypes :
@@ -5418,6 +5469,8 @@ We are looking for beta-tester and contributors.
       val string_of_srcset :
         ([&lt; Html_sigs.Wrapped_functions.image_candidate ] list, string)
         Xml.W.ft
+      val string_of_autocomplete :
+        (Html_types.autocomplete_option, string) Xml.W.ft
       val string_of_step : (float option, string) Xml.W.ft
       val unoption_string : (string option, string) Xml.W.ft
     end

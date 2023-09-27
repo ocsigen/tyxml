@@ -225,7 +225,7 @@ We are looking for beta-tester and contributors.
         [ `GradientUnits ] Svg_sigs.T.attrib
       val a_gradientTransform :
         Svg_types.transforms Svg_sigs.T.wrap -&gt;
-        [&gt; `Gradient_Transform ] Svg_sigs.T.attrib
+        [&gt; `GradientTransform ] Svg_sigs.T.attrib
       val a_spreadMethod :
         [&lt; `Pad | `Reflect | `Repeat ] Svg_sigs.T.wrap -&gt;
         [&gt; `SpreadMethod ] Svg_sigs.T.attrib
@@ -416,6 +416,9 @@ We are looking for beta-tester and contributors.
       val a_animation_fill :
         [&lt; `Freeze | `Remove ] Svg_sigs.T.wrap -&gt;
         [&gt; `Fill_Animation ] Svg_sigs.T.attrib
+      val a_fill_rule :
+        Svg_types.fill_rule Svg_sigs.T.wrap -&gt;
+        [&gt; `Fill_rule ] Svg_sigs.T.attrib
       val a_calcMode :
         [&lt; `Discrete | `Linear | `Paced | `Spline ] Svg_sigs.T.wrap -&gt;
         [&gt; `CalcMode ] Svg_sigs.T.attrib
@@ -891,9 +894,9 @@ We are looking for beta-tester and contributors.
         ([&lt; Svg_types.script_attr ], [&lt; Svg_types.script_content ],
          [&gt; Svg_types.script ])
         Svg_sigs.T.unary
-      val animation :
-        ([&lt; Svg_types.animation_attr ], [&lt; Svg_types.animation_content ],
-         [&gt; Svg_types.animation ])
+      val animate :
+        ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+         [&gt; Svg_types.animate ])
         Svg_sigs.T.star
       val set :
         ([&lt; Svg_types.set_attr ], [&lt; Svg_types.set_content ],
@@ -960,6 +963,10 @@ We are looking for beta-tester and contributors.
         [&gt; Svg_types.foreignobject ] Svg_sigs.T.elt
       val pcdata :
         string Svg_sigs.T.wrap -&gt; [&gt; Svg_types.txt ] Svg_sigs.T.elt
+      val animation :
+        ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+         [&gt; Svg_types.animate ])
+        Svg_sigs.T.star
       val of_seq :
         Xml_stream.signal Stdlib.Seq.t -&gt;
         'a Svg_sigs.T.elt Svg_sigs.T.list_wrap
@@ -1165,7 +1172,7 @@ We are looking for beta-tester and contributors.
         [&lt; `ObjectBoundingBox | `UserSpaceOnUse ] wrap -&gt;
         [ `GradientUnits ] attrib
       val a_gradientTransform :
-        Svg_types.transforms wrap -&gt; [&gt; `Gradient_Transform ] attrib
+        Svg_types.transforms wrap -&gt; [&gt; `GradientTransform ] attrib
       val a_spreadMethod :
         [&lt; `Pad | `Reflect | `Repeat ] wrap -&gt; [&gt; `SpreadMethod ] attrib
       val a_fx : Svg_types.coord wrap -&gt; [&gt; `Fx ] attrib
@@ -1301,6 +1308,7 @@ We are looking for beta-tester and contributors.
       val a_fill : Svg_types.paint wrap -&gt; [&gt; `Fill ] attrib
       val a_animation_fill :
         [&lt; `Freeze | `Remove ] wrap -&gt; [&gt; `Fill_Animation ] attrib
+      val a_fill_rule : Svg_types.fill_rule wrap -&gt; [&gt; `Fill_rule ] attrib
       val a_calcMode :
         [&lt; `Discrete | `Linear | `Paced | `Spline ] wrap -&gt;
         [&gt; `CalcMode ] attrib
@@ -1699,9 +1707,9 @@ We are looking for beta-tester and contributors.
         ([&lt; Svg_types.script_attr ], [&lt; Svg_types.script_content ],
          [&gt; Svg_types.script ])
         unary
-      val animation :
-        ([&lt; Svg_types.animation_attr ], [&lt; Svg_types.animation_content ],
-         [&gt; Svg_types.animation ])
+      val animate :
+        ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+         [&gt; Svg_types.animate ])
         star
       val set :
         ([&lt; Svg_types.set_attr ], [&lt; Svg_types.set_content ],
@@ -1762,6 +1770,10 @@ We are looking for beta-tester and contributors.
         ?a:Svg_types.foreignobject_attr attrib list -&gt;
         Xml.elt list_wrap -&gt; [&gt; Svg_types.foreignobject ] elt
       val pcdata : string wrap -&gt; [&gt; Svg_types.txt ] elt
+      val animation :
+        ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+         [&gt; Svg_types.animate ])
+        star
       val of_seq : Xml_stream.signal Seq.t -&gt; 'a elt list_wrap
       val tot : Xml.elt -&gt; 'a elt
       val totl : Xml.elt list_wrap -&gt; 'a elt list_wrap
@@ -1966,7 +1978,7 @@ We are looking for beta-tester and contributors.
               [&lt; `ObjectBoundingBox | `UserSpaceOnUse ] wrap -&gt;
               [ `GradientUnits ] attrib
             val a_gradientTransform :
-              Svg_types.transforms wrap -&gt; [&gt; `Gradient_Transform ] attrib
+              Svg_types.transforms wrap -&gt; [&gt; `GradientTransform ] attrib
             val a_spreadMethod :
               [&lt; `Pad | `Reflect | `Repeat ] wrap -&gt;
               [&gt; `SpreadMethod ] attrib
@@ -2115,6 +2127,8 @@ We are looking for beta-tester and contributors.
             val a_fill : Svg_types.paint wrap -&gt; [&gt; `Fill ] attrib
             val a_animation_fill :
               [&lt; `Freeze | `Remove ] wrap -&gt; [&gt; `Fill_Animation ] attrib
+            val a_fill_rule :
+              Svg_types.fill_rule wrap -&gt; [&gt; `Fill_rule ] attrib
             val a_calcMode :
               [&lt; `Discrete | `Linear | `Paced | `Spline ] wrap -&gt;
               [&gt; `CalcMode ] attrib
@@ -2548,9 +2562,9 @@ We are looking for beta-tester and contributors.
               ([&lt; Svg_types.script_attr ], [&lt; Svg_types.script_content ],
                [&gt; Svg_types.script ])
               unary
-            val animation :
-              ([&lt; Svg_types.animation_attr ],
-               [&lt; Svg_types.animation_content ], [&gt; Svg_types.animation ])
+            val animate :
+              ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+               [&gt; Svg_types.animate ])
               star
             val set :
               ([&lt; Svg_types.set_attr ], [&lt; Svg_types.set_content ],
@@ -2620,6 +2634,10 @@ We are looking for beta-tester and contributors.
               ?a:Svg_types.foreignobject_attr attrib list -&gt;
               Xml.elt list_wrap -&gt; [&gt; Svg_types.foreignobject ] elt
             val pcdata : string wrap -&gt; [&gt; Svg_types.txt ] elt
+            val animation :
+              ([&lt; Svg_types.animate_attr ], [&lt; Svg_types.animate_content ],
+               [&gt; Svg_types.animate ])
+              star
             val of_seq : Xml_stream.signal Seq.t -&gt; 'a elt list_wrap
             val tot : Xml.elt -&gt; 'a elt
             val totl : Xml.elt list_wrap -&gt; 'a elt list_wrap
@@ -2671,6 +2689,7 @@ We are looking for beta-tester and contributors.
       val string_of_offset : ([&lt; Svg_types.offset ], string) Xml.W.ft
       val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
       val string_of_paint : ([&lt; Svg_types.paint ], string) Xml.W.ft
+      val string_of_fill_rule : ([&lt; Svg_types.fill_rule ], string) Xml.W.ft
       val string_of_strokedasharray : (Svg_types.lengths, string) Xml.W.ft
       val string_of_transform : (Svg_types.transform, string) Xml.W.ft
       val string_of_transforms : (Svg_types.transforms, string) Xml.W.ft

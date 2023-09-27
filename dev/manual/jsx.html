@@ -92,8 +92,17 @@ module Page:
   &lt;/Page&gt;;
 let page: Html.doc = ....</code></pre><p>In the previous examples, we used the textual implementation of tyxml (module <span class="teletype">Tyxml</span>) in the <span class="monospace">tyxml</span> library), but it works equally well
 with other implementations:
-- The DOM tree with the <span class="monospace">js_of_ocaml-tyxml</span> library. Either the <span class="teletype">Js_of_ocaml_tyxml.Tyxml_js</span> or the reactive 
-version in <span class="teletype">Js_of_ocaml_tyxml.Tyxml_js.R</span>.
+- The DOM tree with the <span class="monospace">js_of_ocaml-tyxml</span> library. Either the <span><span class="doclink_error">Error a_api: exception Dune__exe__Api.Error(&quot;invalid contents: Js_of_ocaml_tyxml.Tyxml_js&quot;)</span></span> or the reactive 
+version in <span><span class="doclink_error">Error a_api: exception Dune__exe__Api.Error(&quot;invalid contents: Js_of_ocaml_tyxml.Tyxml_js.R&quot;)</span></span>.
 - The <span class="monospace">virtual_dom</span> library with the module <span class="teletype">Virtual_dom.Tyxml</span>.
 </p><p>In each case, simply open the module and the JSX syntax will use it.
+</p><h2 id="unsafe"> &quot;Unsafe&quot; attributes <a class="backref" href="#unsafe">&#182;</a></h2><p>Some Javascript libraries and frameworks depend upon HTML markup that includes non-standard
+attributes, which tyxml would usually reject. When constructing elements using tyxml's API directly,
+the available workaround is to use the <span><span class="doclink_error">Error a_api: exception Dune__exe__Api.Error(&quot;invalid ocaml id \&quot;Html_sigs.T.Unsafe\&quot;&quot;)</span></span> constructors.
+The same relaxed semantics can be had when using JSX by prefixing non-standard attribute names
+with a leading underscore.
+</p><p>So, while this will fail:
+</p><pre class=""><code class="language-ocaml translatable">let button = &lt;button hx_post=&quot;/clicked&quot; hx_swap=&quot;outerHTML&quot;&gt;Click Me&lt;/button&gt;</code></pre><p>This will not:
+</p><pre class=""><code class="language-ocaml translatable">let button = &lt;button _hx_post=&quot;/clicked&quot; _hx_swap=&quot;outerHTML&quot;&gt;Click Me&lt;/button&gt;</code></pre><p>Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g.
+<span><a href=".././api/Html_sigs.T.Unsafe#VALstring_attrib">Unsafe.string_attrib</a></span>.
 </p><h2 id="tips"> Tips <a class="backref" href="#tips">&#182;</a></h2><p>It can sometime be necessary to disable the JSX syntax. For that purpose, simply use the toogle `[@tyxml.jsx false]` to turn the JSX on and off.</p></article></div></div></body></html>

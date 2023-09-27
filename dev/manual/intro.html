@@ -50,7 +50,7 @@ let to_ocaml = Html.(a ~a:[a_href &quot;ocaml.org&quot;] [txt &quot;OCaml!&quot;
 </p><h3> Use with another library </h3><p>TyXML combinators can be used in conjunction with other libraries. Please consult the relevant document. For example,
 <span><a href=".././../../eliom/latest/manual/clientserver-html">Eliom</a></span>
 and
-<span><a href=".././../../js_of_ocaml/latest/api/js_of_ocaml/Tyxml_js/#module-Tyxml_js">Js_of_ocaml</a></span>.
+<span><a href=".././../../js_of_ocaml/latest/api/js_of_ocaml-tyxml/Js_of_ocaml_tyxml/Tyxml_js/#module-Tyxml_js">Js_of_ocaml</a></span>.
 </p><h3> Use with the PPX </h3><p>TyXML can also be used with the standard HTML syntax, using <span><a href=".././manual/ppx">the PPX syntax extension</a></span>:
 </p><pre class=""><code class="language-ocaml translatable">open Tyxml
 let%html to_ocaml = &quot;&lt;a href='ocaml.org'&gt;OCaml!&lt;/a&gt;&quot;</code></pre><p>This syntax is available both while using TyXML standalone, or with another library. In order to do so, install the <span class="monospace">tyxml-ppx</span> OPAM package and link the <span class="monospace">tyxml.ppx</span> <span class="monospace">ocamlfind</span> library.
@@ -107,7 +107,7 @@ The last two combinators have special types due to their specific constraints: <
   html
     (head mytitle [])
     (body [mycontent])</code></pre><p>If you are using <span><a href=".././../../eliom/latest/manual/clientserver-html">Eliom</a></span>
-or <span><a href=".././../../js_of_ocaml/latest/api/js_of_ocaml/Tyxml_js/#module-Tyxml_js">Js_of_ocaml</a></span>,
+or <span><a href=".././../../js_of_ocaml/latest/api/js_of_ocaml-tyxml/Js_of_ocaml_tyxml/Tyxml_js/#module-Tyxml_js">Js_of_ocaml</a></span>,
 this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, <span><a href=".././api/Tyxml.Html#VALpp">Tyxml.Html.pp</a></span>, that we can use to print files:
 </p><pre class=""><code class="language-ocaml translatable">let () =
   let file = open_out &quot;index.html&quot; in

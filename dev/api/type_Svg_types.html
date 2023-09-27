@@ -238,6 +238,7 @@ We are looking for beta-tester and contributors.
       | `CurrentColor
       | `Icc of Svg_types.iri * Svg_types.paint_whitout_icc option
       | `None ]
+  type fill_rule = [ `Evenodd | `Nonzero ]
   type transform =
       [ `Matrix of float * float * float * float * float * float
       | `Rotate of Svg_types.Unit.angle * (float * float) option
@@ -4641,9 +4642,9 @@ We are looking for beta-tester and contributors.
       | `Xml_base
       | `Xml_lang
       | `Xml_space ]
-  type animation = [ `Animation ]
-  type animation_content = Svg_types.descriptive_element
-  type animation_attr =
+  type animate = [ `Animate ]
+  type animate_content = Svg_types.descriptive_element
+  type animate_attr =
       [ `Accumulate
       | `Additive
       | `AttributeName
@@ -5496,4 +5497,7 @@ We are looking for beta-tester and contributors.
       | `Wrap
       | `XML
       | `Xor ]
+  type animation = Svg_types.animate
+  type animation_content = Svg_types.animate_content
+  type animation_attr = Svg_types.animate_attr
 end</code></pre></article></div></div></body></html>
