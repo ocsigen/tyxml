@@ -275,7 +275,7 @@ module type T = sig
     [< `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
     [ | `GradientUnits ] attrib
 
-  val a_gradientTransform : transforms wrap -> [> | `Gradient_Transform ] attrib
+  val a_gradientTransform : transforms wrap -> [> | `GradientTransform ] attrib
 
   val a_spreadMethod :
     [< `Pad | `Reflect | `Repeat ] wrap -> [> | `SpreadMethod ] attrib
