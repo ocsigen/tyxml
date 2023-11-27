@@ -416,6 +416,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "fill_opacity, circle",
+  [[%svg "<circle cx=50 cy=50 r=50 fill-opacity=0.5 />"]],
+  [rect ~a:[a_cx (50., None); a_cy (50., None); a_r (50., None); a_fill_opacity (`Number 0.5)] []] ;
+
   "fill_rule type nonzero",
   [[%svg "<path fill-rule='nonzero'/>"]],
   [path ~a:[a_fill_rule `Nonzero] []] ;

@@ -368,7 +368,7 @@ struct
   let a_fy = user_attrib string_of_coord "fy"
 
   let a_offset x =
-    user_attrib C.string_of_offset "offset" x
+    user_attrib C.string_of_number_or_percentage "offset" x
 
   let a_patternUnits x =
     user_attrib C.string_of_big_variant "patternUnits" x
@@ -538,6 +538,8 @@ struct
 
   let a_animation_fill x =
     user_attrib C.string_of_big_variant "fill" x
+
+  let a_fill_opacity = user_attrib C.string_of_number_or_percentage "fill-opacity"
 
   let a_fill_rule = user_attrib C.string_of_fill_rule "fill-rule"
 
@@ -1104,7 +1106,7 @@ struct
 
   let string_of_numbers_semicolon = list ~sep:"; " string_of_number
 
-  let string_of_offset = function
+  let string_of_number_or_percentage = function
     | `Number x -> string_of_number x
     | `Percentage x -> string_of_percentage x
 

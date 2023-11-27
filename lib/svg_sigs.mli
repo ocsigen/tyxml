@@ -488,6 +488,10 @@ module type T = sig
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
     [@@reflect.attribute "fill" ["animate"]]
 
+  val a_fill_opacity :
+    [< `Number of number | `Percentage of percentage ] wrap ->
+    [> | `Fill_opacity ] attrib
+
   val a_fill_rule : fill_rule wrap -> [> | `Fill_rule ] attrib
 
   val a_calcMode :
