@@ -1111,7 +1111,8 @@ module type Wrapped_functions = sig
 
   val string_of_numbers_semicolon : (float list, string) Xml.W.ft
 
-  val string_of_offset : ([< Svg_types.offset], string) Xml.W.ft
+  val string_of_number_or_percentage :
+    ([< `Number of number | `Percentage of percentage ], string) Xml.W.ft
 
   val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
 
