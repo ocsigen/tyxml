@@ -24,6 +24,9 @@
 * Add svg `fill-rule` attribute
   (#294 by Eric @dedbox Griffis)
 
+* Fix typo `whitout` in type definition
+	(#324 by Martin @MBodin Bodin)
+
 # 4.5.0
 
 * Move all the PPXs to ppxlib
