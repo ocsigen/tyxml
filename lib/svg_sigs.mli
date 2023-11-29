@@ -488,9 +488,7 @@ module type T = sig
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
     [@@reflect.attribute "fill" ["animate"]]
 
-  val a_fill_opacity :
-    [< `Number of number | `Percentage of percentage ] wrap ->
-    [> | `Fill_opacity ] attrib
+  val a_fill_opacity : number wrap -> [> | `Fill_opacity ] attrib
 
   val a_fill_rule : fill_rule wrap -> [> | `Fill_rule ] attrib
 
@@ -636,6 +634,8 @@ module type T = sig
        | `Alphabetic | `Hanging | `Mathematical | `Central | `Middle
        | `Text_after_edge | `Text_before_edge | `Inherit ] wrap ->
     [> | `Dominant_Baseline ] attrib
+
+  val a_opacity : number wrap -> [> | `Opacity ] attrib
 
   val a_stop_color : color wrap -> [> | `Stop_Color ] attrib
 
@@ -1111,8 +1111,7 @@ module type Wrapped_functions = sig
 
   val string_of_numbers_semicolon : (float list, string) Xml.W.ft
 
-  val string_of_number_or_percentage :
-    ([< `Number of number | `Percentage of percentage ], string) Xml.W.ft
+  val string_of_offset : ([< Svg_types.offset], string) Xml.W.ft
 
   val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
 

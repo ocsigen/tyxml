@@ -368,7 +368,7 @@ struct
   let a_fy = user_attrib string_of_coord "fy"
 
   let a_offset x =
-    user_attrib C.string_of_number_or_percentage "offset" x
+    user_attrib C.string_of_offset "offset" x
 
   let a_patternUnits x =
     user_attrib C.string_of_big_variant "patternUnits" x
@@ -539,7 +539,7 @@ struct
   let a_animation_fill x =
     user_attrib C.string_of_big_variant "fill" x
 
-  let a_fill_opacity = user_attrib C.string_of_number_or_percentage "fill-opacity"
+  let a_fill_opacity = user_attrib C.string_of_opacity "fill-opacity"
 
   let a_fill_rule = user_attrib C.string_of_fill_rule "fill-rule"
 
@@ -713,9 +713,12 @@ struct
   let a_ontouchmove = Xml.touch_event_handler_attrib "ontouchmove"
   let a_ontouchcancel = Xml.touch_event_handler_attrib "ontouchcancel"
 
+
+  let a_opacity = user_attrib C.string_of_opacity "opacity"
+
   let a_stop_color = color_attrib "stop-color"
 
-  let a_stop_opacity = user_attrib C.string_of_number "stop-opacity"
+  let a_stop_opacity = user_attrib C.string_of_opacity "stop-opacity"
 
   let a_stroke = user_attrib C.string_of_paint "stroke"
 
@@ -737,7 +740,7 @@ struct
     user_attrib C.string_of_length "stroke-dashoffset"
 
   let a_stroke_opacity =
-    user_attrib C.string_of_number "stroke-opacity"
+    user_attrib C.string_of_opacity "stroke-opacity"
 
   (* xlink namespace given a nickname since some attributes mandated by
      the svg standard such as xlink:href live in that namespace, and we
@@ -1106,7 +1109,7 @@ struct
 
   let string_of_numbers_semicolon = list ~sep:"; " string_of_number
 
-  let string_of_number_or_percentage = function
+  let string_of_offset = function
     | `Number x -> string_of_number x
     | `Percentage x -> string_of_percentage x
 
@@ -1115,6 +1118,8 @@ struct
     | Some __svg -> string_of_angle __svg
 
   let string_of_paint = string_of_paint
+
+  let string_of_opacity = string_of_number
 
   let string_of_fill_rule = string_of_fill_rule
 
