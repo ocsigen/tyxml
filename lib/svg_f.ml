@@ -90,7 +90,7 @@ let string_of_color s = s
 
 let string_of_icccolor s = s
 
-let string_of_paint_whitout_icc = function
+let string_of_paint_without_icc = function
   | `None -> "none"
   | `CurrentColor -> "currentColor"
   | `Color (c, icc) -> opt_concat (string_of_color c) string_of_icccolor icc
@@ -98,8 +98,8 @@ let string_of_paint_whitout_icc = function
 let string_of_paint = function
   | `Icc (iri, None) -> string_of_iri iri
   | `Icc (iri, Some b) ->
-    (string_of_iri iri) ^" "^ (string_of_paint_whitout_icc b)
-  | #paint_whitout_icc as c -> string_of_paint_whitout_icc c
+    (string_of_iri iri) ^" "^ (string_of_paint_without_icc b)
+  | #paint_without_icc as c -> string_of_paint_without_icc c
 
 let string_of_fill_rule = function
   | `Nonzero -> "nonzero"

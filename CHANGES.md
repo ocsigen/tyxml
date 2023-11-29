@@ -1,3 +1,8 @@
+# NEXT
+
+* Fix typo `whitout` in type definition
+	(#324 by Martin @MBodin Bodin)
+
 # 4.6.0
 
 * Update for OCaml 5.0 and drop support for OCaml 4.2.0
