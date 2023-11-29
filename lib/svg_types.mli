@@ -278,7 +278,7 @@ type strings = string list
 
 type color = string
 
-(* ICC color specification *)
+(* ICC color profile specification *)
 type icccolor = string
 
 type paint_without_icc =
