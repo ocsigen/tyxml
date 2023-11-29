@@ -484,6 +484,31 @@ let paint ?separated_by:_ ?default:_ loc name s =
             `Icc ([%e iri], Some [%e paint_without_icc loc name remainder])]
     end [@metaloc loc]
 
+let fill_opacity =
+  let bad_form name loc =
+    Common.error loc "Value of %s must be a number or percentage" name in
+
+  let regexp = Re_str.regexp "\\([-+0-9eE.]+\\)\\(%\\)?" in
+
+  fun ?separated_by:_ ?default:_ loc name s ->
+    if not @@ does_match regexp s then bad_form name loc;
+
+    begin
+      let n =
+        match float_exp loc (Re_str.matched_group 1 s) with
+        | Some n -> n
+        | None -> bad_form name loc
+      in
+
+      let v =
+        if group_matched 2 s then [%expr [%e n] /. 100.]
+        else [%expr [%e n]] in
+
+      if v >= 0. && v <= 1. then Some v
+      else
+        Common.error loc "Value of %s must be between 0 and 1." name in
+    end [@metaloc loc]
+
 let fill_rule ?separated_by:_ ?default:_ loc _name s =
   begin match s with
   | "nonzero" ->
