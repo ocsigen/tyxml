@@ -422,7 +422,7 @@ let svg = "svg", SvgTests.make Svg.[
 
   "fill_opacity percentage, rect",
   [[%svg "<rect x=1 y='2' width=3 height='4' fill-opacity='50%' />"]],
-  [rect ~a:[a_cx (1., None); a_cy (2., None); a_width (3., None); a_height (4., None); a_fill_opacity 0.5] []] ;
+  [rect ~a:[a_x (1., None); a_y (2., None); a_width (3., None); a_height (4., None); a_fill_opacity 0.5] []] ;
 
   "fill_rule type nonzero",
   [[%svg "<path fill-rule='nonzero'/>"]],
