@@ -338,7 +338,7 @@ let svg = (
       ),
       (
         "fill_opacity percentage, rect",
-        [<rect x=1 y='2' width=3 height='4' fill_opacity='50%' />],
+        [<rect x=1 y="2" width=3 height="4" fill_opacity="50%" />],
         [rect(~a=[a_cx((1., None)), a_cy((2., None)), a_width((3., None)), a_height((4., None)), a_fill_opacity(0.5)], [])],
       ),
       (
