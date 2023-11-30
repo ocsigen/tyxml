@@ -279,6 +279,8 @@ type strings = string list
 type color = string
 type icccolor = string
 
+type opacity = float
+
 type paint_whitout_icc =
   [ `None | `CurrentColor
   | `Color of (color * icccolor option)

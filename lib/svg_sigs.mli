@@ -78,7 +78,7 @@ module type T = sig
   *)
   type 'a wrap = 'a Xml.W.t
 
-  (** [list_wrap] is a containre for list of elements.
+  (** [list_wrap] is a container for list of elements.
 
       In most cases, ['a list_wrap = 'a list]. For [R] modules (in eliom or js_of_ocaml),
       It will be {!ReactiveData.RList.t}.
@@ -488,7 +488,7 @@ module type T = sig
   val a_animation_fill : [< | `Freeze | `Remove ] wrap -> [> | `Fill_Animation ] attrib
     [@@reflect.attribute "fill" ["animate"]]
 
-  val a_fill_opacity : number wrap -> [> | `Fill_opacity ] attrib
+  val a_fill_opacity : opacity wrap -> [> | `Fill_opacity ] attrib
 
   val a_fill_rule : fill_rule wrap -> [> | `Fill_rule ] attrib
 
@@ -635,11 +635,11 @@ module type T = sig
        | `Text_after_edge | `Text_before_edge | `Inherit ] wrap ->
     [> | `Dominant_Baseline ] attrib
 
-  val a_opacity : number wrap -> [> | `Opacity ] attrib
+  val a_opacity : opacity wrap -> [> | `Opacity ] attrib
 
   val a_stop_color : color wrap -> [> | `Stop_Color ] attrib
 
-  val a_stop_opacity : number wrap -> [> | `Stop_Opacity ] attrib
+  val a_stop_opacity : opacity wrap -> [> | `Stop_Opacity ] attrib
 
   val a_stroke : paint wrap -> [> | `Stroke ] attrib
 
@@ -658,7 +658,7 @@ module type T = sig
 
   val a_stroke_dashoffset : Unit.length wrap -> [> `Stroke_Dashoffset ] attrib
 
-  val a_stroke_opacity : float wrap -> [> `Stroke_Opacity ] attrib
+  val a_stroke_opacity : opacity wrap -> [> `Stroke_Opacity ] attrib
 
   (** {2 Events}
 
@@ -1117,7 +1117,7 @@ module type Wrapped_functions = sig
 
   val string_of_paint : ([< Svg_types.paint], string) Xml.W.ft
 
-  val string_of_opacity : (float, string) Xml.W.ft
+  val string_of_opacity : (Svg_types.opacity, string) Xml.W.ft
   
   val string_of_fill_rule : ([< Svg_types.fill_rule], string) Xml.W.ft
 

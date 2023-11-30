@@ -198,8 +198,10 @@ val paint : parser
    {:{https://www.w3.org/TR/SVG/painting.html#SpecifyingPaint} Specifying
    paint}. *)
 
-val fill_opacity : parser
-(** Parses an SVG fill-opacity value, converting it into a number between 0. and 1.
+val opacity : parser
+(** Parses an SVG fill-opacity value (either a percentage or a number),
+  converting it into a number between 0. and 1.
+  This parser is also used in other places expecting opacity.
 
     @see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-opacity>
 *)

@@ -484,7 +484,7 @@ let paint ?separated_by:_ ?default:_ loc name s =
             `Icc ([%e iri], Some [%e paint_without_icc loc name remainder])]
     end [@metaloc loc]
 
-let fill_opacity =
+let opacity =
   let bad_form name loc =
     Common.error loc "Value of %s must be a number or percentage" name in
 

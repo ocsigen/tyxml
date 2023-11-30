@@ -154,6 +154,8 @@ let rec to_attribute_parser lang name ~loc = function
   | [[%type: iri]]
   | [[%type: color]] -> [%expr string]
 
+  | [[%type: opacity]] -> [%expr opacity]
+
   | [[%type: nmtoken]; [%type: text wrap]] -> [%expr wrap string]
   | [[%type: string]; [%type: string wrap]] -> [%expr wrap string]
   | [[%type: string]; [%type: string list wrap]] -> [%expr wrap (spaces string)]
