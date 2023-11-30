@@ -502,7 +502,8 @@ let fill_opacity =
           if group_matched 2 s then (n /. 100.)
           else n in
 
-        if v >= 0. && v <= 1. then Some [%expr [%e v]]
+        if v >= 0. && v <= 1. then
+          Some [%expr [%e (Common.float loc @@ v)]]
         else
           Common.error loc "Value of %s must be between 0 and 1." name
 

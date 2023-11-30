@@ -332,6 +332,16 @@ let svg = (
         ],
       ),
       (
+        "fill_opacity float, circle",
+        [<circle cx=1 cy=2 r=3 fill-opacity=0.5 />],
+        [circle(~a=[a_cx (1., None); a_cy (2., None); a_r (3., None); a_fill_opacity 0.5], [])],
+      ),
+      (
+        "fill_opacity percentage, rect",
+        [<rect x=1 y='2' width=3 height='4' fill-opacity='50%' />],
+        [rect(~a=[a_cx (1., None); a_cy (2., None); a_width (3., None); a_height (4., None); a_fill_opacity 0.5], [])],
+      ),
+      (
         "fill_rule nonzero",
         [<path fill_rule="nonzero" />],
         [path(~a=[a_fill_rule(`Nonzero)], [])],
