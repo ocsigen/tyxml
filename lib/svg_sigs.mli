@@ -1116,6 +1116,8 @@ module type Wrapped_functions = sig
   val string_of_orient : (Svg_types.Unit.angle option, string) Xml.W.ft
 
   val string_of_paint : ([< Svg_types.paint], string) Xml.W.ft
+
+  val string_of_opacity : (float, string) Xml.W.ft
   
   val string_of_fill_rule : ([< Svg_types.fill_rule], string) Xml.W.ft
 

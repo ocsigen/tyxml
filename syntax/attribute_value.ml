@@ -501,12 +501,12 @@ let fill_opacity =
       in
 
       let v =
-        if group_matched 2 s then [%expr [%e n] /. 100.]
-        else [%expr [%e n]] in
+        if group_matched 2 s then (n /. 100.)
+        else n in
 
-      if v >= 0. && v <= 1. then Some v
+      if v >= 0. && v <= 1. then Some [%expr [%e v]]
       else
-        Common.error loc "Value of %s must be between 0 and 1." name in
+        Common.error loc "Value of %s must be between 0 and 1." name
     end [@metaloc loc]
 
 let fill_rule ?separated_by:_ ?default:_ loc _name s =
