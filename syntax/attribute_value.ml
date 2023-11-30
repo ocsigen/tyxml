@@ -494,19 +494,20 @@ let fill_opacity =
     if not @@ does_match regexp s then bad_form name loc;
 
     begin
-      let n =
-        match float_exp loc (Re_str.matched_group 1 s) with
-        | Some n -> n
-        | None -> bad_form name loc
-      in
 
-      let v =
-        if group_matched 2 s then (n /. 100.)
-        else n in
+      try
+        let n = float_of_string (Re_str.matched_group 1 s) in
 
-      if v >= 0. && v <= 1. then Some [%expr [%e v]]
-      else
-        Common.error loc "Value of %s must be between 0 and 1." name
+        let v =
+          if group_matched 2 s then (n /. 100.)
+          else n in
+
+        if v >= 0. && v <= 1. then Some [%expr [%e v]]
+        else
+          Common.error loc "Value of %s must be between 0 and 1." name
+
+      with Failure _ -> bad_form name loc
+
     end [@metaloc loc]
 
 let fill_rule ?separated_by:_ ?default:_ loc _name s =
