@@ -1117,7 +1117,7 @@ module type Wrapped_functions = sig
 
   val string_of_paint : ([< Svg_types.paint], string) Xml.W.ft
 
-  val string_of_opacity : (Svg_types.alpha_value, string) Xml.W.ft
+  val string_of_alpha_value : (Svg_types.alpha_value, string) Xml.W.ft
   
   val string_of_fill_rule : ([< Svg_types.fill_rule], string) Xml.W.ft
 
