@@ -484,31 +484,26 @@ let paint ?separated_by:_ ?default:_ loc name s =
             `Icc ([%e iri], Some [%e paint_without_icc loc name remainder])]
     end [@metaloc loc]
 
-let opacity =
+let alpha_value =
   let bad_form name loc =
     Common.error loc "Value of %s must be a number or percentage" name in
-
   let regexp = Re_str.regexp "\\([-+0-9eE.]+\\)\\(%\\)?" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then bad_form name loc;
-
     begin
-
       try
         let n = float_of_string (Re_str.matched_group 1 s) in
-
         let v =
           if group_matched 2 s then (n /. 100.)
           else n in
-
         if v >= 0. && v <= 1. then
           Some [%expr [%e (Common.float loc @@ v)]]
         else
-          Common.error loc "Value of %s must be between 0 and 1." name
-
+          let (min, max) =
+            if group_matched 2 s then ("0", "1") else ("0%", "100%") in
+          Common.error loc "Value of %s must be between %s and %s." name min max
       with Failure _ -> bad_form name loc
-
     end [@metaloc loc]
 
 let fill_rule ?separated_by:_ ?default:_ loc _name s =
