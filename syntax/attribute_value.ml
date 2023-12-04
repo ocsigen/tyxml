@@ -494,14 +494,15 @@ let alpha_value =
     begin
       try
         let n = float_of_string (Re_str.matched_group 1 s) in
+        let percent = group_matched 2 s in
         let v =
-          if group_matched 2 s then (n /. 100.)
+          if percent then (n /. 100.)
           else n in
         if v >= 0. && v <= 1. then
           Some [%expr [%e (Common.float loc @@ v)]]
         else
           let (min, max) =
-            if group_matched 2 s then ("0", "1") else ("0%", "100%") in
+            if percent then ("0%", "100%") else ("0", "1") in
           Common.error loc "Value of %s must be between %s and %s." name min max
       with Failure _ -> bad_form name loc
     end [@metaloc loc]

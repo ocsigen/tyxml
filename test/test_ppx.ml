@@ -417,7 +417,7 @@ let svg = "svg", SvgTests.make Svg.[
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
   "opacity, circle",
-  [[%svg "<circle cx=1 cy=2 r=3 fill='green' opacity=0.5 />"]],
+  [[%svg "<circle cx=1 cy=2 r=3 fill='green' opacity=.5 />"]],
   [circle ~a:[a_cx (1., None); a_cy (2., None); a_r (3., None);
     a_fill (`Color ("green", None)); a_opacity 0.5] []] ;
 

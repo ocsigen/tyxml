@@ -333,7 +333,7 @@ let svg = (
       ),
       (
         "opacity, circle",
-        [<circle cx="1" cy="2" r="3" fill="green" opacity="0.5" />],
+        [<circle cx="1" cy="2" r="3" fill="green" opacity=".5" />],
         [circle(~a=[a_cx((1., None)), a_cy((2., None)), a_r((3., None)),
 					a_fill(`Color (("green", None))), a_opacity(0.5)], [])],
       ),
