@@ -415,7 +415,7 @@ let rec transform =
   fun ?separated_by:_ ?default:_ loc name s ->
     if does_match regexp_wsp s then
       Some [%expr []]
-    else if does_match regexp_wsp s then
+    else if does_match regexp s then
       begin
         let item = Re_str.matched_group 1 s in
         let rest = Re_str.matched_group 2 s in
