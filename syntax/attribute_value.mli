@@ -198,6 +198,14 @@ val paint : parser
    {:{https://www.w3.org/TR/SVG/painting.html#SpecifyingPaint} Specifying
    paint}. *)
 
+val alpha_value : parser
+(** Parses an SVG alpha value (either a percentage or a number),
+  converting it into a number between 0. and 1.
+  This parser is used in various places expecting opacity values.
+
+    @see <https://www.w3.org/TR/css-color-4/#alpha-syntax>
+*)
+
 val fill_rule : parser
 (** Parses an SVG fill-rule value.
 

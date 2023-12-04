@@ -279,6 +279,10 @@ type strings = string list
 type color = string
 type icccolor = string
 
+(* An alpha value can be either a number or a percentage.
+  We represent both as a number between 0 and 1. *)
+type alpha_value = float
+
 type paint_whitout_icc =
   [ `None | `CurrentColor
   | `Color of (color * icccolor option)
