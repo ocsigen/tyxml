@@ -876,8 +876,12 @@ type altglyph_attr =
 
 type altglyphdef = [ | `AltGlyphDef ]
 
-(* unary *)
 type altglyphdef_attr = [ | core_attr ]
+
+(* unary *)
+type altglyphdef_content =
+  [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
+  ]
 
 type altglyphitem = [ | `AltGlyphItem ]
 
