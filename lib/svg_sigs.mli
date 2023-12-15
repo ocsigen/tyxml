@@ -764,6 +764,10 @@ module type T = sig
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
+  type altglyphdef_content =
+    [ | `Ref of (glyphref elt) list | `Item of (altglyphitem elt) list
+    ]
+
   val altGlyphDef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
