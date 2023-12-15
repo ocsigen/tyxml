@@ -262,6 +262,10 @@ let svg = (
         [<stop offset="50.1%" />],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
+      ( "g with space",
+        [<g> </g>],
+        [g(~a=[], [])],
+      ),
       ( "text x, y",
         [<text x="1 2" y="3 4" />],
         [
