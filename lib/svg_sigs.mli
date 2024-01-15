@@ -298,6 +298,8 @@ module type T = sig
 
   val a_patternTransform : transforms wrap -> [> | `PatternTransform ] attrib
 
+  val a_clip_path : iri wrap -> [> | `Clip_Path ] attrib
+
   val a_clipPathUnits :
     [< `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
     [> | `ClipPathUnits ] attrib
