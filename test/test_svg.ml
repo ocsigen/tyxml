@@ -36,7 +36,7 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
   "use with clip-path",
   use ~a:[ a_clip_path "url(#test-clip)"; a_href "#test-object"] [],
-  {|<use clip-path = "url(#test-clip)" href = "#test-object" />|}
+  {|<use clip-path="url(#test-clip)" href="#test-object"></use>|}
 
 ]
 
