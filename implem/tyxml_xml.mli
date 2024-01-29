@@ -35,6 +35,8 @@ include Xml_sigs.Pp
 
 val of_seq : Xml_stream.signal Seq.t -> elt list
 
+val to_seq : ?namespace:ename -> elt -> Xml_stream.output Seq.t
+val to_seql : ?namespace:ename -> elt list -> Xml_stream.output Seq.t
 
 (** {2 Iterators} *)
 
