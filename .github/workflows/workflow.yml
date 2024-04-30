@@ -1,8 +1,8 @@
 name: Main workflow
 
 on:
-  pull_request:
   push:
+  pull_request:
   schedule:
     # Prime the caches every Monday
     - cron: 0 1 * * MON
@@ -15,31 +15,30 @@ jobs:
         os:
           - ubuntu-latest
         ocaml-compiler:
-          - 4.04.x
-          - 4.05.x
-          - 4.11.x
-          - 4.13.x
-          - 4.14.x
-          - 5.0.x
-          - 5.1.x
+          - "4.04"
+          - "4.05"
+          - "4.11"
+          - "4.13"
+          - "4.14"
+          - "5.0"
+          - "5.1"
         include:
           - os: macos-latest
-            ocaml-compiler: 4.14.x
+            ocaml-compiler: "4.14"
           - os: windows-latest
-            ocaml-compiler: 4.14.x
-          - os: macos-latest
-            ocaml-compiler: 5.1.x
+            ocaml-compiler: "4.14"
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout tree
+        uses: actions/checkout@v4
 
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+      - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          allow-prerelease-opam: true
           opam-depext-flags: --with-test
 
       - run: opam install . --deps-only --with-test
@@ -47,3 +46,17 @@ jobs:
       - run: opam exec -- make build
 
       - run: opam exec -- make test
+
+  lint-opam:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tree
+        uses: actions/checkout@v4
+
+      - name: Set-up OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: "4.14"
+          allow-prerelease-opam: true
+
+      - uses: ocaml/setup-ocaml/lint-opam@v2
