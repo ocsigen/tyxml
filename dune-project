@@ -18,8 +18,8 @@
 "\| open Tyxml;
 "\| let to_reason = <a href=\"reasonml.github.io/\"> \"Reason!\" </a>
 "\| ```
-"\|  
-"\| The TyXML JSX allow to write TyXML documents with reason's JSX syntax. 
+"\|
+"\| The TyXML JSX allow to write TyXML documents with reason's JSX syntax.
 "\| It works with textual trees, virtual DOM trees, or any TyXML module.
 )
  (depends
@@ -35,13 +35,13 @@
 (package
  (name tyxml-ppx)
  (synopsis "PPX to write TyXML documents with the HTML syntax")
- (description 
+ (description
 "\| ```ocaml
 "\| open Tyxml
 "\| let%html to_ocaml = \"<a href='ocaml.org'>OCaml!</a>\"
 "\| ```
-"\|  
-"\| The TyXML PPX allow to write TyXML documents using the traditional HTML syntax. 
+"\|
+"\| The TyXML PPX allow to write TyXML documents using the traditional HTML syntax.
 "\| It works with textual trees, virtual DOM trees, or any TyXML module.
 )
  (depends
@@ -53,7 +53,9 @@
   (markup
    (>= 0.7.2))
   (ppxlib
-   (>= 0.18))))
+   (>= 0.18))
+  (re
+   (>= 1.5.0))))
 
 (package
  (name tyxml-syntax)
