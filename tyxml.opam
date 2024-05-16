@@ -11,7 +11,7 @@ doc: "https://ocsigen.org/tyxml/latest/manual/intro"
 bug-reports: "https://github.com/ocsigen/tyxml/issues"
 depends: [
   "dune" {>= "2.7"}
-  "ocaml" {>= "4.04"}
+  "ocaml" {>= "4.03"}
   "alcotest" {with-test}
   "re" {>= "1.5.0"}
   "seq"
