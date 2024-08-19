@@ -31,7 +31,7 @@ module M = struct
   let uri_of_string s = s
   let string_of_uri s = s
 
-  type separator = Space | Comma
+  type separator = Space | Comma | Semicolon
 
   (** Attributes *)
 
@@ -56,6 +56,7 @@ module M = struct
   let string_attrib name value = name, AStr value
   let space_sep_attrib name values = name, AStrL (Space, values)
   let comma_sep_attrib name values = name, AStrL (Comma, values)
+  let semicolon_sep_attrib name values = name, AStrL (Semicolon, values)
   let event_handler_attrib name value = name, AStr value
   let mouse_event_handler_attrib name value = name, AStr value
   let keyboard_event_handler_attrib name value = name, AStr value
