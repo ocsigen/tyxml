@@ -378,12 +378,12 @@ let markup_cases ~lang ~modname cases =
 let rec markup_function ~lang ~modname e =
   let loc = e.pexp_loc in
   match e.pexp_desc with
-  | Pexp_fun (label,def,pat,content) ->
+  | Pexp_function (params, constraint_, (Pfunction_body content)) ->
     let content = markup_function ~lang ~modname content in
-    {e with pexp_desc = Pexp_fun (label,def,pat,content)}
-  | Pexp_function cases ->
+    {e with pexp_desc = Pexp_function (params, constraint_, (Pfunction_body content))}
+  | Pexp_function (params, constraint_, (Pfunction_cases (cases, loc, attr))) ->
     let cases = markup_cases ~lang ~modname cases in
-    {e with pexp_desc = Pexp_function cases}
+    {e with pexp_desc = Pexp_function (params, constraint_, (Pfunction_cases (cases, loc, attr)))}
   | _ ->
     markup_to_expr_with_implementation lang modname loc @@
     application_to_list e
