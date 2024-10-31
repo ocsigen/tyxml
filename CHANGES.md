@@ -3,6 +3,10 @@
 * Add support for the clip-path presentation attribute
 	(#333 by Martin @MBodin Bodin)
 
+* Add support for the `popover` API and for the `name` attribute on
+  `<details>` elements
+  (#341 by @SylvainBoilard)
+
 # 4.6.0
 
 * Update for OCaml 5.0 and drop support for OCaml 4.2.0
