@@ -1,4 +1,4 @@
-name: Main workflow
+name: Builds, tests & co
 
 on:
   push:
@@ -14,20 +14,16 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          - macos-latest
+          - windows-latest
         ocaml-compiler:
-          - "4.04"
-          - "4.05"
-          - "4.11"
-          - "4.13"
-          - "4.14"
-          - "5.0"
-          - "5.1"
-          - "5.2"
+          - 5
+          - 4
         include:
-          - os: macos-latest
-            ocaml-compiler: "5.2"
-          - os: windows-latest
-            ocaml-compiler: "5.2"
+          - os: ubuntu-latest
+            ocaml-compiler: "4.04"
+          - os: ubuntu-latest
+            ocaml-compiler: "4.04"
 
     runs-on: ${{ matrix.os }}
 
@@ -51,10 +47,8 @@ jobs:
     steps:
       - name: Checkout tree
         uses: actions/checkout@v4
-
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "4.14"
-
+          ocaml-compiler: 4
       - uses: ocaml/setup-ocaml/lint-opam@v3
