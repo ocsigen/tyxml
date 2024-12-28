@@ -112,6 +112,7 @@ struct
   let a_onabort = Xml.event_handler_attrib "onabort"
   let a_onafterprint = Xml.event_handler_attrib "onafterprint"
   let a_onbeforeprint = Xml.event_handler_attrib "onbeforeprint"
+  let a_onbeforetoggle = Xml.event_handler_attrib "onbeforetoggle"
   let a_onbeforeunload = Xml.event_handler_attrib "onbeforeunload"
   let a_onblur = Xml.event_handler_attrib "onblur"
   let a_oncanplay = Xml.event_handler_attrib "oncanplay"
@@ -151,6 +152,7 @@ struct
   let a_onsubmit = Xml.event_handler_attrib "onsubmit"
   let a_onsuspend = Xml.event_handler_attrib "onsuspend"
   let a_ontimeupdate = Xml.event_handler_attrib "ontimeupdate"
+  let a_ontoggle = Xml.event_handler_attrib "ontoggle"
   let a_onundo = Xml.event_handler_attrib "onundo"
   let a_onunload = Xml.event_handler_attrib "onunload"
   let a_onvolumechange = Xml.event_handler_attrib "onvolumechange"
@@ -373,6 +375,14 @@ struct
   let a_pattern = string_attrib "pattern"
 
   let a_placeholder = string_attrib "placeholder"
+
+  let a_popover x =
+    user_attrib C.string_of_big_variant "popover" x
+
+  let a_popovertarget = string_attrib "popovertarget"
+
+  let a_popovertargetaction x =
+    user_attrib C.string_of_big_variant "popovertargetaction" x
 
   let a_poster = uri_attrib "poster"
 
@@ -1002,6 +1012,7 @@ struct
     | `Yes -> "yes"
     | `No -> "no"
     | `Auto -> "auto"
+    | `Manual -> "manual"
     | `Circle -> "circle"
     | `Poly -> "poly"
     | `Alternate -> "alternate"
@@ -1039,6 +1050,9 @@ struct
     | `Url -> "url"
     | `Text -> "text"
     | `Decimal -> "decimal"
+    | `Hide -> "hide"
+    | `Show -> "show"
+    | `Toggle -> "toggle"
     | `Other s -> s
 
   let string_of_input_type = function
