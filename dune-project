@@ -22,7 +22,7 @@ The TyXML JSX allow to write TyXML documents with reason's JSX syntax.
 It works with textual trees, virtual DOM trees, or any TyXML module.
 ")
  (depends
-  (ocaml (>= 4.04))
+  (ocaml (>= 4.08))
   (tyxml (= :version))
   (tyxml-syntax (= :version))
   (ppxlib (>= 0.36))
@@ -42,7 +42,7 @@ The TyXML PPX allow to write TyXML documents using the traditional HTML syntax.
 It works with textual trees, virtual DOM trees, or any TyXML module.
 ")
  (depends
-  (ocaml (>= 4.04))
+  (ocaml (>= 4.08))
   (tyxml (= :version))
   (tyxml-syntax (= :version))
   (markup (>= 0.7.2))
@@ -54,7 +54,7 @@ It works with textual trees, virtual DOM trees, or any TyXML module.
  (name tyxml-syntax)
  (synopsis "Common layer for the JSX and PPX syntaxes for Tyxml")
  (depends
-  (ocaml (>= 4.03))
+  (ocaml (>= 4.08))
   (ppxlib (>= 0.36))
   (re (>= 1.5.0))
   (uutf (>= 1.0.0))
@@ -65,7 +65,7 @@ It works with textual trees, virtual DOM trees, or any TyXML module.
  (synopsis "A library for building correct HTML and SVG documents")
  (description "TyXML provides a set of convenient combinators that uses the OCaml type system to ensure the validity of the generated documents. TyXML can be used with any representation of HTML and SVG: the textual one, provided directly by this package, or DOM trees (`js_of_ocaml-tyxml`) virtual DOM (`virtual-dom`) and reactive or replicated trees (`eliom`). You can also create your own representation and use it to instantiate a new set of combinators.")
  (depends
-  (ocaml (>= 4.03))
+  (ocaml (>= 4.08))
   (re (>= 1.5.0))
   (uutf (>= 1.0.0))
   seq
