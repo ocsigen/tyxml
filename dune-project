@@ -25,7 +25,7 @@ It works with textual trees, virtual DOM trees, or any TyXML module.
   (ocaml (>= 4.04))
   (tyxml (= :version))
   (tyxml-syntax (= :version))
-  (ppxlib (>= 0.18))
+  (ppxlib (>= 0.36))
   (alcotest :with-test)
   (reason :with-test)))
 
@@ -46,7 +46,7 @@ It works with textual trees, virtual DOM trees, or any TyXML module.
   (tyxml (= :version))
   (tyxml-syntax (= :version))
   (markup (>= 0.7.2))
-  (ppxlib (>= 0.18))
+  (ppxlib (>= 0.36))
   (re (>= 1.5.0))
   (alcotest :with-test)))
 
@@ -55,7 +55,7 @@ It works with textual trees, virtual DOM trees, or any TyXML module.
  (synopsis "Common layer for the JSX and PPX syntaxes for Tyxml")
  (depends
   (ocaml (>= 4.03))
-  (ppxlib (>= 0.18))
+  (ppxlib (>= 0.36))
   (re (>= 1.5.0))
   (uutf (>= 1.0.0))
   (alcotest :with-test)))
