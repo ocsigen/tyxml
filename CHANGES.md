@@ -2,6 +2,10 @@
 
 * Add support for the clip-path presentation attribute
 	(#333 by Martin @MBodin Bodin)
+* Add support for Microdata attributes
+  (#343 by toastal)
+* Add support for <meta itemprop> to be in flow content
+  (#343 by toastal)
 * Fix typo for `subresource` & English orthographic fixes
   (#345 by toastal)
 
