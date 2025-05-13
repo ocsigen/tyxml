@@ -694,6 +694,24 @@ module type T = sig
       @see <https://www.w3.org/TR/wai-aria-1.1/#state_prop_def> List of WAI-ARIA attributes
   *)
 
+  (** {3 Microdata support} *)
+
+  (** {{: https://html.spec.whatwg.org/multipage/microdata.html} Microdata} is
+      a specification written by the W3C, defining a set of additional HTML
+      attributes that can be applied to elements to annotate content with
+      specific machine-readable labels using schemas.
+  *)
+
+  val a_itemid : Xml.uri wrap -> [> | `ItemID ] attrib
+
+  val a_itemprop : string wrap -> [> | `ItemProp ] attrib
+
+  val a_itemref : idrefs wrap -> [> | `ItemRef ] attrib
+
+  val a_itemscope : unit -> [> | `ItemScope ] attrib
+
+  val a_itemtype : Xml.uri list wrap -> [> | `ItemType ] attrib
+
   (** {2:elements Elements} *)
 
   val txt : string wrap -> [> | txt] elt
