@@ -380,8 +380,19 @@ type aria =
     | `Aria
   ]
 
+(** {2 Microdata} *)
+
+type microdata =
+  [
+    | `ItemID
+    | `ItemProp
+    | `ItemRef
+    | `ItemScope
+    | `ItemType
+  ]
+
 (** Common attributes *)
-type common = [ | core | i18n | events | aria ]
+type common = [ | core | i18n | events | aria | microdata ]
 
 (** {1 Categories of HTML elements}
 
