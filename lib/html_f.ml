@@ -70,6 +70,8 @@ struct
 
   let uri_attrib a s = Xml.uri_attrib a s
 
+  let uris_attrib a ss = Xml.uris_attrib a ss
+
   let space_sep_attrib = Xml.space_sep_attrib
 
   let comma_sep_attrib = Xml.comma_sep_attrib
@@ -857,6 +859,8 @@ struct
     let string_attrib = Xml.string_attrib
 
     let uri_attrib a s = Xml.uri_attrib a s
+
+    let uris_attrib a ss = Xml.uris_attrib a ss
 
     let space_sep_attrib = Xml.space_sep_attrib
 
