@@ -54,7 +54,7 @@ type nmtoken = string
         @see <http://www.w3.org/TR/2000/REC-xml-20001006> XML 1.0 *)
 
 type nmtokens = nmtoken list
-(** One or more white space separated NMTOKEN values *)
+(** One or more whitespace-separated NMTOKEN values *)
 
 (** {2 Data Types} *)
 
