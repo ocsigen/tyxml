@@ -18,10 +18,10 @@ doc: "https://ocsigen.org/tyxml/latest/manual/intro"
 bug-reports: "https://github.com/ocsigen/tyxml/issues"
 depends: [
   "dune" {>= "2.7"}
-  "ocaml" {>= "4.04"}
+  "ocaml" {>= "4.08"}
   "tyxml" {= version}
   "tyxml-syntax" {= version}
-  "ppxlib" {>= "0.18"}
+  "ppxlib" {>= "0.36"}
   "alcotest" {with-test}
   "reason" {with-test}
   "odoc" {with-doc}
