@@ -109,6 +109,7 @@ module Make(Xml : Xml_sigs.Iterable) = struct
             match sep with
             | Space -> space_sep_attrib (aname head) values' :: tail
             | Comma -> comma_sep_attrib (aname head) values' :: tail
+            | Semicolon -> semicolon_sep_attrib (aname head) values' :: tail
         end
       | _ -> head :: rm_attrib_from_list is_attrib is_value tail
 
@@ -118,6 +119,7 @@ module Make(Xml : Xml_sigs.Iterable) = struct
         begin match sep with
           | Comma -> comma_sep_attrib (aname head) (List.map f values)
           | Space -> space_sep_attrib (aname head) (List.map f values)
+          | Semicolon -> semicolon_sep_attrib (aname head) (List.map f values)
         end
       | _ -> head in
     List.map aux l
