@@ -874,9 +874,9 @@ type altglyph_attr =
     | `Xlink_href
   ]
 
+(* unary *)
 type altglyphdef = [ | `AltGlyphDef ]
 
-(* unary *)
 type altglyphdef_attr = [ | core_attr ]
 
 type altglyphitem = [ | `AltGlyphItem ]
