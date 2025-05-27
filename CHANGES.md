@@ -2,6 +2,8 @@
 
 * Add support for the clip-path presentation attribute
 	(#333 by Martin @MBodin Bodin)
+* Add support for Microdata attributes
+  (#343 by toastal)
 
 # 4.6.0
 

@@ -54,7 +54,7 @@ type nmtoken = string
         @see <http://www.w3.org/TR/2000/REC-xml-20001006> XML 1.0 *)
 
 type nmtokens = nmtoken list
-(** One or more white space separated NMTOKEN values *)
+(** One or more whitespace-separated NMTOKEN values *)
 
 (** {2 Data Types} *)
 
@@ -380,8 +380,19 @@ type aria =
     | `Aria
   ]
 
+(** {2 Microdata} *)
+
+type microdata =
+  [
+    | `ItemID
+    | `ItemProp
+    | `ItemRef
+    | `ItemScope
+    | `ItemType
+  ]
+
 (** Common attributes *)
-type common = [ | core | i18n | events | aria ]
+type common = [ | core | i18n | events | aria | microdata ]
 
 (** {1 Categories of HTML elements}
 

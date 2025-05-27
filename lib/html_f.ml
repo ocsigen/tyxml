@@ -70,6 +70,8 @@ struct
 
   let uri_attrib a s = Xml.uri_attrib a s
 
+  let uris_attrib a ss = Xml.uris_attrib a ss
+
   let space_sep_attrib = Xml.space_sep_attrib
 
   let comma_sep_attrib = Xml.comma_sep_attrib
@@ -500,6 +502,18 @@ struct
 
   let a_aria name = space_sep_attrib ("aria-" ^ name)
 
+  (* Microdata *)
+
+  let a_itemid = uri_attrib "itemid"
+
+  let a_itemprop = string_attrib "itemprop"
+
+  let a_itemref = space_sep_attrib "itemref"
+
+  let a_itemscope = constant_attrib "itemscope"
+
+  let a_itemtype = uris_attrib "itemtype"
+
   type 'a elt = Xml.elt
 
   type ('a, 'b) nullary = ?a: (('a attrib) list) -> unit -> 'b elt
@@ -857,6 +871,8 @@ struct
     let string_attrib = Xml.string_attrib
 
     let uri_attrib a s = Xml.uri_attrib a s
+
+    let uris_attrib a ss = Xml.uris_attrib a ss
 
     let space_sep_attrib = Xml.space_sep_attrib
 
