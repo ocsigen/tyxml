@@ -58,6 +58,8 @@ Error: This expression has type
             | `Map of Html_types.flow5
             | `Mark
             | `Menu
+            | `Meta
+            | `Meta_with_itemprop
             | `Meter
             | `Nav
             | `Noscript of Html_types.flow5_without_noscript

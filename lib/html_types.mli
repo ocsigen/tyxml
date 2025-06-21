@@ -582,6 +582,7 @@ type core_phrasing =
     | `Img | `Img_interactive
     | `Picture
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
   ]
 
 type core_phrasing_without_noscript =
@@ -622,6 +623,7 @@ type core_phrasing_without_noscript =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
   ]
 type core_phrasing_without_interactive =
   [
@@ -657,6 +659,7 @@ type core_phrasing_without_interactive =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
   ]
 
 type core_phrasing_without_media =
@@ -697,6 +700,7 @@ type core_phrasing_without_media =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
   ]
 
 type phrasing_without_noscript =
@@ -733,9 +737,10 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
                                            phrasing,
                                            phrasing_without_media) transparent
         > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
-        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
-        `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
-        `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
+        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark 
+        `Meta `Meta_with_itemprop `Meter `Noscript `Object `PCDATA `Progress `Q
+        `Ruby `Samp `Script `Small `Span `Strong `Sub `Sup `Svg `Template `Time
+        `U `Var `Wbr ] as 'a)
 
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
@@ -772,6 +777,7 @@ type phrasing_without_dfn =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
     | (phrasing_without_interactive, phrasing_without_noscript,
        phrasing_without_dfn, phrasing_without_media) transparent
   ]
@@ -810,6 +816,7 @@ type phrasing_without_label =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
     | (phrasing_without_interactive, phrasing_without_noscript,
        phrasing_without_label, phrasing_without_media) transparent
   ]
@@ -851,6 +858,7 @@ type phrasing_without_progress =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
     | (phrasing_without_interactive, phrasing_without_noscript,
        phrasing_without_progress, phrasing_without_media) transparent
   ]
@@ -889,6 +897,7 @@ type phrasing_without_time =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
     | (phrasing_without_interactive, phrasing_without_noscript,
        phrasing_without_time, phrasing_without_media) transparent
   ]
@@ -930,6 +939,7 @@ type phrasing_without_meter =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta | `Meta_with_itemprop
     | (phrasing_without_interactive, phrasing_without_noscript,
        phrasing_without_meter, phrasing_without_media) transparent
   ]
@@ -2286,6 +2296,8 @@ type noscript_attrib = [ | common ]
 
 (* NAME: meta, KIND: nullary, TYPE: [= common | `Http_equiv | `Name | `Content | `Charset ], [=`Meta], ARG: notag, ATTRIB:  OUT: [=`Meta] *)
 type meta = [ | `Meta ]
+
+type meta_with_itemprop = [ | `Meta | `Meta_with_itemprop ]
 
 type meta_content = notag
 

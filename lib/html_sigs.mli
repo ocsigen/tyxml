@@ -1097,6 +1097,10 @@ module type T = sig
 
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
+  val meta_itemprop :
+    string wrap ->
+    ([< | meta_attrib], [> | meta_with_itemprop]) nullary
+
   (** {3 Style Sheets} *)
 
   val style :
