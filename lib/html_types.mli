@@ -424,7 +424,7 @@ type listed = [ | resetable | submitable | `Fieldset ]
 
 type formassociated = [ | listed | `Progress | `Meter | `Label ]
 
-type subressource_integrity = [ | `Crossorigin | `Integrity ]
+type subresource_integrity = [ | `Crossorigin | `Integrity ]
 (** @see <https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity> *)
 
 (** Transparent elements.
@@ -2294,7 +2294,7 @@ type style_attrib = [ | common | `Media | `Mime_type | `Scoped ]
 type script = [ | `Script ]
 
 type script_attrib =
-  [ | common | subressource_integrity
+  [ | common | subresource_integrity
     | `Async | `Charset | `Src | `Defer | `Script_type
   ]
 
@@ -2319,7 +2319,7 @@ type link_content = notag
 type link_content_fun = notag
 
 type link_attrib =
-  [ | common | subressource_integrity
+  [ | common | subresource_integrity
     | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
   ]
 
