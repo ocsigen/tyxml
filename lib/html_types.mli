@@ -427,6 +427,9 @@ type formassociated = [ | listed | `Progress | `Meter | `Label ]
 type subresource_integrity = [ | `Crossorigin | `Integrity ]
 (** @see <https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity> *)
 
+type script_supporting = [ | `Script | `Template ]
+(** @see <https://developer.mozilla.org/en-US/docs/Glossary/Script-supporting_element> *)
+
 (** Transparent elements.
     Such elements have a part of they children in their data
     and behaves like them. We could do something like [a: 'a elt list -> 'a elt]
