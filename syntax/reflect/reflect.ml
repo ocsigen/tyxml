@@ -174,6 +174,7 @@ let rec to_attribute_parser lang name ~loc = function
   | [[%type: shape]] ->
     [%expr variant]
 
+  | [[%type: Xml.uri list]]
   | [[%type: nmtokens]]
   | [[%type: idrefs]]
   | [[%type: charsets]]

@@ -1169,6 +1169,9 @@ module type T = sig
     (** Same, for URI attribute *)
     val uri_attrib : string -> uri wrap -> 'a attrib
 
+    (** Same, for a space-separated list of URI attributes *)
+    val uris_attrib : string -> uri list wrap -> 'a attrib
+
     (** Same, for a space-separated list of values *)
     val space_sep_attrib : string -> string list wrap -> 'a attrib
 
