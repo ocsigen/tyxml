@@ -379,6 +379,9 @@ struct
   let a_patternTransform x =
     user_attrib C.string_of_transforms "patternTransform" x
 
+  let a_clip_path =
+    string_attrib "clip-path"
+
   let a_clipPathUnits x =
     user_attrib C.string_of_big_variant "clipPathUnits" x
 

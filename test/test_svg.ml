@@ -32,9 +32,18 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
 
 ]
 
+let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
+
+  "use with clip-path",
+  use ~a:[ a_clip_path "url(#test-clip)"; a_href "#test-object"] [],
+  {|<use clip-path="url(#test-clip)" href="#test-object"></use>|}
+
+]
+
 let tests = [
   svg_attributes ;
-  svg_filters
+  svg_filters ;
+  svg_clip_path
 ]
 
 let () = Alcotest.run "tyxml-svg" tests
