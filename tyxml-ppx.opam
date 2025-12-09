@@ -17,7 +17,7 @@ homepage: "https://github.com/ocsigen/tyxml"
 doc: "https://ocsigen.org/tyxml/latest/manual/intro"
 bug-reports: "https://github.com/ocsigen/tyxml/issues"
 depends: [
-  "dune" {>= "2.7"}
+  "dune" {>= "3.18"}
   "ocaml" {>= "4.08"}
   "tyxml" {= version}
   "tyxml-syntax" {= version}
@@ -42,3 +42,4 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/ocsigen/tyxml.git"
+x-maintenance-intent: ["(latest)"]
