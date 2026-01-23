@@ -18,7 +18,7 @@
 (library
  (name tyxml_syntax)
  (public_name tyxml-syntax)
- (libraries uutf re.str
+ (libraries re.str
             ppxlib
  )
  (preprocess (pps ppxlib.metaquot))

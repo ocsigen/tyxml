@@ -2,7 +2,7 @@ BLD=../_build/default
 SRC=..
 
 PKGS=\
-  -package uutf -package re -package markup \
+  -package re -package markup \
   -package ppxlib
 
 INCS=\

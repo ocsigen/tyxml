@@ -149,23 +149,21 @@ let bool_exp loc b =
 (* Numeric. *)
 
 let char ?separated_by:_ ?default:_ loc name s =
-  let encoding = `UTF_8 in (* OCaml source files are always in utf8 *)
-  let decoder = Uutf.decoder ~encoding (`String s) in
-
-  let c =
-    match Uutf.decode decoder with
-    | `End -> Common.error loc "No character in attribute %s" name
-    | `Uchar i when Uchar.is_char i -> Uchar.to_char i
-    | `Uchar _ ->
-      Common.error loc "Character out of range in attribute %s" name
-    | `Await -> assert false
-    | `Malformed s ->
-      Common.error loc "Malformed character %s in attribute %s" s name
+  if s = "" then Common.error loc "No character in attribute %s" name;
+  let dec = String.get_utf_8_uchar s 0 in
+  let c, next_pos =
+    if Uchar.utf_decode_is_valid dec then
+       let u = Uchar.utf_decode_uchar dec in
+       let w = Uchar.utf_decode_length dec in
+       if Uchar.is_char u then (Uchar.to_char u, w)
+       else Common.error loc "Character out of range in attribute %s" name
+    else
+       let w = Uchar.utf_decode_length dec in
+       let s_mal = String.sub s 0 w in
+       Common.error loc "Malformed character %s in attribute %s" s_mal name
   in
-  begin match Uutf.decode decoder with
-  | `End -> ()
-  | _ -> Common.error loc "Multiple characters in attribute %s" name
-  end;
+  if next_pos < String.length s then
+    Common.error loc "Multiple characters in attribute %s" name;
   Some (Ast_builder.Default.echar ~loc c)
 
 

@@ -122,14 +122,24 @@ module Utf8 = struct
   let normalize src =
     let warn = ref false in
     let buffer = Buffer.create (String.length src) in
-    Uutf.String.fold_utf_8
-      (fun _ _ d ->
-         match d with
-         | `Uchar code -> Uutf.Buffer.add_utf_8 buffer code
-         | `Malformed _ ->
-               Uutf.Buffer.add_utf_8 buffer Uutf.u_rep;
-               warn:=true)
-      () src;
+    let len = String.length src in
+    let rec loop i =
+      if i >= len then ()
+      else
+        let dec = String.get_utf_8_uchar src i in
+        let code =
+          if Uchar.utf_decode_is_valid dec then
+            Uchar.utf_decode_uchar dec
+          else begin
+            warn := true;
+            Uchar.rep
+          end
+        in
+        Buffer.add_utf_8_uchar buffer code;
+        let w = Uchar.utf_decode_length dec in
+        loop (i + w)
+    in
+    loop 0;
     (Buffer.contents buffer, !warn)
 
   let normalization_needed src =
@@ -151,46 +161,53 @@ module Utf8 = struct
     if normalization_needed src then begin
       let warn = ref false in
       let buffer = Buffer.create (String.length src) in
-      Uutf.String.fold_utf_8
-        (fun _ _ d ->
-           match d with
-           | `Uchar u ->
-               begin match Uchar.to_int u with
-               | 34 ->
-                   Buffer.add_string buffer "&quot;"
-               | 38 ->
-                   Buffer.add_string buffer "&amp;"
-               | 60 ->
-                   Buffer.add_string buffer "&lt;"
-               | 62 ->
-                   Buffer.add_string buffer "&gt;"
-               | code ->
-                   let u =
-                     (* Illegal characters in html
-                        http://en.wikipedia.org/wiki/Character_encodings_in_HTML
-                        http://www.w3.org/TR/html5/syntax.html *)
-                     if (* A. control C0 *)
-                       (code <= 31 && code <> 9 && code <> 10 && code <> 13)
-                       (* B. DEL + control C1
-                          - invalid in html
-                          - discouraged in xml;
-                          except 0x85 see http://www.w3.org/TR/newline
-                          but let's discard it anyway *)
-                       || (code >= 127 && code <= 159)
-                       (* C. UTF-16 surrogate halves : already discarded
-                          by uutf || (code >= 0xD800 && code <= 0xDFFF) *)
-                       (* D. BOM related *)
-                       || code land 0xFFFF = 0xFFFE
-                       || code land 0xFFFF = 0xFFFF
-                     then (warn:=true; Uutf.u_rep)
-                     else u
-                   in
-                   Uutf.Buffer.add_utf_8 buffer u
-               end
-           | `Malformed _ ->
-               Uutf.Buffer.add_utf_8 buffer Uutf.u_rep;
-               warn:=true)
-        () src;
+      let len = String.length src in
+      let rec loop i =
+        if i >= len then ()
+        else
+          let dec = String.get_utf_8_uchar src i in
+          if Uchar.utf_decode_is_valid dec then
+            let u = Uchar.utf_decode_uchar dec in
+            let w = Uchar.utf_decode_length dec in
+              begin match Uchar.to_int u with
+              | 34 ->
+                  Buffer.add_string buffer "&quot;"
+              | 38 ->
+                  Buffer.add_string buffer "&amp;"
+              | 60 ->
+                  Buffer.add_string buffer "&lt;"
+              | 62 ->
+                  Buffer.add_string buffer "&gt;"
+              | code ->
+                  let u =
+                    (* Illegal characters in html
+                       http://en.wikipedia.org/wiki/Character_encodings_in_HTML
+                       http://www.w3.org/TR/html5/syntax.html *)
+                    if (* A. control C0 *)
+                      (code <= 31 && code <> 9 && code <> 10 && code <> 13)
+                      (* B. DEL + control C1
+                         - invalid in html
+                         - discouraged in xml;
+                         except 0x85 see http://www.w3.org/TR/newline
+                         but let's discard it anyway *)
+                      || (code >= 127 && code <= 159)
+                      (* C. UTF-16 surrogate halves : checked by String.get_utf_8_uchar *)
+                      (* D. BOM related *)
+                      || code land 0xFFFF = 0xFFFE
+                      || code land 0xFFFF = 0xFFFF
+                    then (warn:=true; Uchar.rep)
+                    else u
+                  in
+                  Buffer.add_utf_8_uchar buffer u
+              end;
+              loop (i + w)
+          else
+            let w = Uchar.utf_decode_length dec in
+            Buffer.add_utf_8_uchar buffer Uchar.rep;
+            warn:=true;
+            loop (i + w)
+      in
+      loop 0;
       (Buffer.contents buffer, !warn)
     end else
       (src, false)
