@@ -1,7 +1,6 @@
-=TyXML
-==Manual
+=TyXML - Manual
 ===[[intro|Introduction]]
 ===[[functors|Functorial interface]]
 ===[[ppx|Ppx syntax extension]]
 ===[[jsx|JSX syntax]]
-==API
+=TyXML - API
