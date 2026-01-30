@@ -1,4 +1,4 @@
-{1 Main modules }
+{2 Main modules }
 
 {!modules:
 Tyxml
@@ -6,7 +6,7 @@ Tyxml.Html
 Tyxml.Svg
 }
 
-{1 Types and signatures}
+{2 Types and signatures}
 
 {!modules:
 Html_sigs
@@ -15,7 +15,7 @@ Svg_sigs
 Svg_types
 }
 
-{1 TyXML Functors }
+{2 TyXML Functors }
 
 {!modules:
 Html_f
@@ -27,6 +27,6 @@ Xml_print
 Xml_stream
 }
 
-{1 Indexes}
+{2 Indexes}
 
 {!indexlist}
