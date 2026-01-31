@@ -5,6 +5,10 @@
 * Fix typo for `subresource` & English orthographic fixes
   (#345 by toastal)
 
+* Add support for the `popover` API and for the `name` attribute on
+  `<details>` elements
+  (#341 by @SylvainBoilard)
+
 # 4.6.0
 
 * Update for OCaml 5.0 and drop support for OCaml 4.2.0
