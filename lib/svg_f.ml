@@ -228,7 +228,7 @@ struct
   let a_contentStyleType = string_attrib "contentStyleType"
 
   let a_zoomAndPan x =
-    user_attrib C.string_of_big_variant "zoomAndSpan" x
+    user_attrib C.string_of_big_variant "zoomAndPan" x
 
   let a_href = string_attrib "href"
 
@@ -238,13 +238,13 @@ struct
     Xml.space_sep_attrib "requiredFeatures"
 
   let a_requiredExtensions =
-    Xml.space_sep_attrib "requiredExtension"
+    Xml.space_sep_attrib "requiredExtensions"
 
   let a_systemLanguage =
     Xml.comma_sep_attrib "systemLanguage"
 
   let a_externalRessourcesRequired =
-    user_attrib C.string_of_bool "externalRessourcesRequired"
+    user_attrib C.string_of_bool "externalResourcesRequired"
 
   let a_id = string_attrib "id"
 
@@ -395,7 +395,7 @@ struct
     user_attrib C.string_of_big_variant "primitiveUnits" x
 
   let a_filterRes =
-    user_attrib C.string_of_number_optional_number "filterResUnits"
+    user_attrib C.string_of_number_optional_number "filterRes"
 
   let a_result = string_attrib "result"
 
@@ -469,7 +469,7 @@ struct
   let a_targetY = user_attrib C.string_of_int "targetY"
 
   let a_edgeMode x =
-    user_attrib C.string_of_big_variant "targetY" x
+    user_attrib C.string_of_big_variant "edgeMode" x
 
   let a_preserveAlpha = user_attrib C.string_of_bool "preserveAlpha"
 
@@ -494,7 +494,7 @@ struct
 
   let a_radius = user_attrib C.string_of_number_optional_number "radius"
 
-  let a_baseFrenquency =
+  let a_baseFrequency =
     user_attrib C.string_of_number_optional_number "baseFrequency"
 
   let a_numOctaves = user_attrib C.string_of_int "numOctaves"
@@ -513,7 +513,7 @@ struct
   let a_xlink_actuate x =
     user_attrib C.string_of_big_variant "xlink:actuate" x
 
-  let a_target = string_attrib "xlink:target"
+  let a_target = string_attrib "target"
 
   let a_viewTarget = string_attrib "viewTarget"
 
@@ -586,7 +586,7 @@ struct
 
   let a_unicode = string_attrib "unicode"
 
-  let a_glyph_name = string_attrib "glyphname"
+  let a_glyph_name = string_attrib "glyph-name"
 
   let a_orientation x =
     user_attrib C.string_of_big_variant "orientation" x
@@ -901,7 +901,7 @@ struct
 
   let font_face_uri = star "font-face-uri"
 
-  let font_face_format = nullary "font-face-uri"
+  let font_face_format = nullary "font-face-format"
 
   let font_face_name = nullary "font-face-name"
 
@@ -960,14 +960,14 @@ struct
 
   let string_of_big_variant = function
     | `A -> "a"
-    | `Absolute_colorimetric -> "absolute_colorimetric"
-    | `Align -> ""
+    | `Absolute_colorimetric -> "absolute-colorimetric"
+    | `Align -> "align"
     | `Always -> "always"
     | `Atop -> "atop"
     | `Arithmetic -> "arithmetic"
     | `Auto -> "auto"
     | `B -> "b"
-    | `Bever -> "bevel"
+    | `Bevel -> "bevel"
     | `Blink -> "blink"
     | `Butt -> "butt"
     | `CSS -> "CSS"
@@ -1025,7 +1025,7 @@ struct
     | `Remove -> "remove"
     | `Repeat -> "repeat"
     | `Replace -> "replace"
-    | `Relative_colorimetric -> "relative_colorimetric"
+    | `Relative_colorimetric -> "relative-colorimetric"
     | `Rotate -> "rotate"
     | `Round -> "round"
     | `Saturate -> "saturate"
@@ -1062,27 +1062,27 @@ struct
 
   let string_of_dominant_baseline = function
     | `Auto -> "auto"
-    | `Use_script -> "usescript"
-    | `No_change -> "nochange"
-    | `Reset_size -> "resetsize"
+    | `Use_script -> "use-script"
+    | `No_change -> "no-change"
+    | `Reset_size -> "reset-size"
     | `Ideographic -> "ideographic"
     | `Alphabetic -> "alphabetic"
     | `Hanging -> "hanging"
     | `Mathematical -> "mathematical"
     | `Central -> "central"
     | `Middle -> "middle"
-    | `Text_after_edge -> "textafteredge"
-    | `Text_before_edge -> "textbeforeedge"
+    | `Text_after_edge -> "text-after-edge"
+    | `Text_before_edge -> "text-before-edge"
     | `Inherit -> "inherit"
 
 
   let string_of_in_value = function
-    | `SourceGraphic -> "sourceGraphic"
-    | `SourceAlpha -> "sourceAlpha"
-    | `BackgroundImage -> "backgroundImage"
-    | `BackgroundAlpha -> "backgroundAlpha"
-    | `FillPaint -> "fillPaint"
-    | `StrokePaint -> "strokePaint"
+    | `SourceGraphic -> "SourceGraphic"
+    | `SourceAlpha -> "SourceAlpha"
+    | `BackgroundImage -> "BackgroundImage"
+    | `BackgroundAlpha -> "BackgroundAlpha"
+    | `FillPaint -> "FillPaint"
+    | `StrokePaint -> "StrokePaint"
     | `Ref _svg -> _svg
 
   let string_of_int = string_of_int

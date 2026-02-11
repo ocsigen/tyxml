@@ -388,7 +388,7 @@ struct
     constant_attrib "required"
 
   let a_reversed =
-    constant_attrib "reserved"
+    constant_attrib "reversed"
 
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
@@ -408,7 +408,7 @@ struct
   let a_span = int_attrib "span"
 
   (*let a_srcdoc*)
-  let a_srclang = string_attrib "xml:lang"
+  let a_srclang = string_attrib "srclang"
 
   let a_srcset = srcset_attrib "srcset"
 
@@ -878,7 +878,7 @@ struct
     | `Allow_popups -> "allow-popups"
     | `Allow_top_navigation -> "allow-top-navigation"
     | `Allow_same_origin -> "allow-same-origin"
-    | `Allow_script -> "allow-script"
+    | `Allow_script -> "allow-scripts"
 
   let string_of_linktype = function
     | `Alternate -> "alternate"
@@ -974,7 +974,7 @@ struct
     | `Audio -> "audio"
     | `Pubdate -> "pubdate"
     | `Required -> "required"
-    | `Reversed -> "reserved"
+    | `Reversed -> "reversed"
     | `Scoped -> "scoped"
     | `Seamless -> "seamless"
     | `Any -> "any"

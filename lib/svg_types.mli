@@ -52,7 +52,7 @@ type container_element =
     | `G
     | `Marker
     | `Mask
-    | `Missing_glyph
+    | `MissingGlyph
     | `Pattern
     | `Svg
     | `Switch
@@ -364,7 +364,7 @@ type svg_attr =
     | `Height
     | `ViewBox
     | `PreserveAspectRatio
-    | `ZoomAndPlan
+    | `ZoomAndPan
     | `Version
     | `BaseProfile
     | `ContentScriptType
@@ -882,7 +882,7 @@ type altglyphdef_attr = [ | core_attr ]
 type altglyphitem = [ | `AltGlyphItem ]
 
 
-type altglyphitem_content = [ | `glyphRef ]
+type altglyphitem_content = [ | `GlyphRef ]
 
 type altglyphitem_attr = [ | core_attr ]
 
@@ -952,7 +952,7 @@ type marker_attr =
     | `Orient
   ]
 
-type colorprofile = [ | `ColorProfile ]
+type colorprofile = [ | `Color_Profile ]
 
 (* star *)
 type colorprofile_content = [ | descriptive_element ]
@@ -1021,7 +1021,7 @@ type radialgradient_attr =
 type stop = [ | `Stop ]
 
 (* star *)
-type stop_content = [ | `Animate | `Animate_Color | `Set ]
+type stop_content = [ | `Animate | `AnimateColor | `Set ]
 
 type stop_attr =
   [ | core_attr | presentation_attr | `Class | `Style | `Offset
@@ -1257,21 +1257,21 @@ type fefunca_content = [ | `Animate | `Set ]
 
 type fefunca_attr = [ | core_attr | transfer_attr ]
 
-type fefuncg = [ | `FeFuncA ]
+type fefuncg = [ | `FeFuncG ]
 
 (* star *)
 type fefuncg_content = [ | `Animate | `Set ]
 
 type fefuncg_attr = [ | core_attr | transfer_attr ]
 
-type fefuncb = [ | `FeFuncA ]
+type fefuncb = [ | `FeFuncB ]
 
 (* star *)
 type fefuncb_content = [ | `Animate | `Set ]
 
 type fefuncb_attr = [ | core_attr | transfer_attr ]
 
-type fefuncr = [ | `FeFuncA ]
+type fefuncr = [ | `FeFuncR ]
 
 (* star *)
 type fefuncr_content = [ | `Animate | `Set ]
@@ -1403,7 +1403,7 @@ type feimage_attr =
     | `Class
     | `Style
     | `ExternalResourcesRequired
-    | `PreserveAspectRadio
+    | `PreserveAspectRatio
   ]
 
 type femerge = [ | `FeMerge ]
@@ -1972,7 +1972,7 @@ type big_variant =
   | `Arithmetic
   | `Auto
   | `B
-  | `Bever
+  | `Bevel
   | `Blink
   | `Butt
   | `CSS
