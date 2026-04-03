@@ -1,5 +1,7 @@
 # NEXT
 
+* Fix typo `whitout` in type definition
+	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute
 	(#333 by Martin @MBodin Bodin)
 * Fix typo for `subresource` & English orthographic fixes

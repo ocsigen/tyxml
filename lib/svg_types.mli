@@ -277,16 +277,18 @@ type percentage = float
 type strings = string list
 
 type color = string
+
+(* ICC color profile specification *)
 type icccolor = string
 
-type paint_whitout_icc =
+type paint_without_icc =
   [ `None | `CurrentColor
   | `Color of (color * icccolor option)
   ]
 
 type paint =
-  [ paint_whitout_icc
-  | `Icc of (iri * paint_whitout_icc option) ]
+  [ paint_without_icc
+  | `Icc of (iri * paint_without_icc option) ]
 
 type fill_rule =
   [ `Nonzero
