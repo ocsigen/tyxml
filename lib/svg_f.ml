@@ -243,7 +243,7 @@ struct
   let a_systemLanguage =
     Xml.comma_sep_attrib "systemLanguage"
 
-  let a_externalRessourcesRequired =
+  let a_externalResourcesRequired =
     user_attrib C.string_of_bool "externalResourcesRequired"
 
   let a_id = string_attrib "id"
