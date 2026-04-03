@@ -134,7 +134,7 @@ module type T = sig
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
-  val a_zoomAndPan : [< | `Disable | `Magnify ] wrap -> [> | `ZoomAndSpan ] attrib
+  val a_zoomAndPan : [< | `Disable | `Magnify ] wrap -> [> | `ZoomAndPan ] attrib
 
   val a_href : iri wrap -> [> | `Xlink_href ] attrib
 
@@ -147,12 +147,12 @@ module type T = sig
   (** @deprecated Removed in SVG2 *)
 
   val a_requiredExtensions :
-    spacestrings wrap -> [> | `RequiredExtension ] attrib
+    spacestrings wrap -> [> | `RequiredExtensions ] attrib
 
   val a_systemLanguage : commastrings wrap -> [> | `SystemLanguage ] attrib
 
   val a_externalRessourcesRequired :
-    bool wrap -> [> | `ExternalRessourcesRequired ] attrib
+    bool wrap -> [> | `ExternalResourcesRequired ] attrib
 
   val a_id : string wrap -> [> | `Id ] attrib
 
@@ -172,7 +172,7 @@ module type T = sig
 
   val a_media : commastrings wrap -> [> | `Media ] attrib
 
-  val a_xlink_title : string wrap -> [> | `Title ] attrib
+  val a_xlink_title : string wrap -> [> | `Xlink_title ] attrib
     [@@ocaml.deprecated "Use a child title element"]
   (** @deprecated Use a child title element *)
 
@@ -269,7 +269,7 @@ module type T = sig
       | `Perceptual
       | `Relative_colorimetric
       | `Saturation
-      | `Absolute_colorimetric ] wrap -> [> | `Rendering_Indent ] attrib
+      | `Absolute_colorimetric ] wrap -> [> | `Rendering_Intent ] attrib
 
   val a_gradientUnits :
     [< `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
@@ -315,7 +315,7 @@ module type T = sig
     [< | `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
     [> | `PrimitiveUnits ] attrib
 
-  val a_filterRes : number_optional_number wrap -> [> | `FilterResUnits ] attrib
+  val a_filterRes : number_optional_number wrap -> [> | `FilterRes ] attrib
 
   val a_result : string wrap -> [> | `Result ] attrib
 
@@ -411,9 +411,9 @@ module type T = sig
   val a_targetY : int wrap -> [> | `TargetY ] attrib
 
   val a_edgeMode :
-    [< | `Duplicate | `Wrap | `None ] wrap -> [> | `TargetY ] attrib
+    [< | `Duplicate | `Wrap | `None ] wrap -> [> | `EdgeMode ] attrib
 
-  val a_preserveAlpha : bool wrap -> [> | `TargetY ] attrib
+  val a_preserveAlpha : bool wrap -> [> | `PreserveAlpha ] attrib
 
   val a_surfaceScale : number wrap -> [> | `SurfaceScale ] attrib
 
@@ -435,7 +435,7 @@ module type T = sig
 
   val a_radius : number_optional_number wrap -> [> | `Radius ] attrib
 
-  val a_baseFrenquency :
+  val a_baseFrequency :
     number_optional_number wrap -> [> | `BaseFrequency ] attrib
 
   val a_numOctaves : int wrap -> [> | `NumOctaves ] attrib
@@ -459,7 +459,7 @@ module type T = sig
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
-  val a_target : string wrap -> [> | `Xlink_target ] attrib
+  val a_target : string wrap -> [> | `Target ] attrib
 
   val a_viewTarget : string wrap -> [> | `ViewTarget ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
@@ -535,13 +535,13 @@ module type T = sig
 
   val a_unicode : string wrap -> [> | `Unicode ] attrib
 
-  val a_glyph_name : string wrap -> [> | `glyphname ] attrib
+  val a_glyph_name : string wrap -> [> | `GlyphName ] attrib
 
   val a_orientation : [< | `H | `V ] wrap -> [> | `Orientation ] attrib
 
   val a_arabic_form :
     [< | `Initial | `Medial | `Terminal | `Isolated ] wrap ->
-    [> | `Arabicform ] attrib
+    [> | `ArabicForm ] attrib
 
   val a_lang : string wrap -> [> | `Lang ] attrib
 
@@ -647,7 +647,7 @@ module type T = sig
     [< `Butt | `Round | `Square ] wrap -> [> | `Stroke_Linecap ] attrib
 
   val a_stroke_linejoin :
-    [< `Miter | `Round | `Bever ] wrap -> [> `Stroke_Linejoin ] attrib
+    [< `Miter | `Round | `Bevel ] wrap -> [> `Stroke_Linejoin ] attrib
 
   val a_stroke_miterlimit : float wrap -> [> `Stroke_Miterlimit ] attrib
 

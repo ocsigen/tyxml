@@ -316,7 +316,7 @@ module type T = sig
 
   val a_loop : unit -> [> | `Loop] attrib
 
-  val a_low : float_number wrap -> [> | `High] attrib
+  val a_low : float_number wrap -> [> | `Low] attrib
 
   val a_max : float_number wrap -> [> | `Max] attrib
 

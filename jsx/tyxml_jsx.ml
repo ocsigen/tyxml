@@ -168,7 +168,7 @@ let classify_name ~loc hint_lang lid =
 let is_homemade_component lid = match lid with
   | Longident.Ldot (( Lident s | Ldot (_, s)), "createElement") ->
     String.lowercase_ascii s <> "svg"
-    && String.lowercase_ascii s <> "Html"
+    && String.lowercase_ascii s <> "html"
     && let c = s.[0] in 'A' <= c && c <= 'Z'
   | _ -> false
 

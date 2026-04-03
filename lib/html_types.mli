@@ -1101,7 +1101,7 @@ type +'a between_flow5_and_flow5_without_interactive_header_footer =
   [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
        `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog `Div `Dl `Em
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
-       `Input `Ins `Kbd `Keygen `Label `Map`Mark `Menu `Meter `Nav `Noscript
+       `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
        `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
        `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
@@ -1208,7 +1208,7 @@ type body_attrib =
     | common
     | `OnAfterPrint
     | `OnBeforePrint
-    | `OneBeforeUnload
+    | `OnBeforeUnload
     | `OnHashChange
     | `OnMessage
     | `OnOffLine
@@ -2186,7 +2186,7 @@ type option_content_fun = [ | `PCDATA ]
 
 type option_content = [ | `PCDATA ]
 
-(* NAME: keygen, KIND: nullary, TYPE: [= common | `Autofcus | `Challenge | `Disabled | `Form | `Keytype | `Name ], [=`Keygen], ARG: notag, ATTRIB:  OUT: [=`Keygen] *)
+(* NAME: keygen, KIND: nullary, TYPE: [= common | `Autofocus | `Challenge | `Disabled | `Form | `Keytype | `Name ], [=`Keygen], ARG: notag, ATTRIB:  OUT: [=`Keygen] *)
 type keygen = [ | `Keygen ]
 
 type keygen_content = notag
@@ -2194,7 +2194,7 @@ type keygen_content = notag
 type keygen_content_fun = notag
 
 type keygen_attrib =
-  [ | common | `Autofcus | `Challenge | `Disabled | `Form | `Keytype | `Name
+  [ | common | `Autofocus | `Challenge | `Disabled | `Form | `Keytype | `Name
   ]
 
 (* NAME: progress, KIND: star, TYPE: [= common | `Float_Value |`Max| `Form ],[= phrasing_without_progress], [=`Progress], ARG: [= phrasing_without_progress], ATTRIB:  OUT: [=`Progress] *)
