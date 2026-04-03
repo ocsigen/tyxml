@@ -151,7 +151,7 @@ module type T = sig
 
   val a_systemLanguage : commastrings wrap -> [> | `SystemLanguage ] attrib
 
-  val a_externalRessourcesRequired :
+  val a_externalResourcesRequired :
     bool wrap -> [> | `ExternalResourcesRequired ] attrib
 
   val a_id : string wrap -> [> | `Id ] attrib
