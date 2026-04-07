@@ -427,6 +427,9 @@ type formassociated = [ | listed | `Progress | `Meter | `Label ]
 type subresource_integrity = [ | `Crossorigin | `Integrity ]
 (** @see <https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity> *)
 
+type script_supporting = [ | `Script | `Template ]
+(** @see <https://developer.mozilla.org/en-US/docs/Glossary/Script-supporting_element> *)
+
 (** Transparent elements.
     Such elements have a part of they children in their data
     and behaves like them. We could do something like [a: 'a elt list -> 'a elt]
@@ -1423,12 +1426,12 @@ type dialog_content_fun = [ | flow5 ]
 
 type dialog_attrib = [ | common | `Open ]
 
-(* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
+(* NAME: div, KIND: star, TYPE: [= common ], [= flow5 | `Dd | `Dt ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]
 
-type div_content = [ | flow5 ]
+type div_content = [ | flow5 | `Dd | `Dt ]
 
-type div_content_fun = [ | flow5 ]
+type div_content_fun = [ | flow5 | `Dd | `Dt ]
 
 type div_attrib = [ | common ]
 
@@ -1479,9 +1482,9 @@ type dt_attrib = [ | common ]
 
 type dl = [ | `Dl ]
 
-type dl_content = [ | `Dt | `Dd ]
+type dl_content = [ | script_supporting | `Div | `Dd | `Dt ]
 
-type dl_content_fun = [ | `Dt | `Dd ]
+type dl_content_fun = [ | script_supporting | `Div | `Dd | `Dt ]
 
 type dl_attrib = [ | common ]
 

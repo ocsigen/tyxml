@@ -6,6 +6,9 @@
 	(#333 by Martin @MBodin Bodin)
 * Fix typo for `subresource` & English orthographic fixes
   (#345 by toastal)
+* Allow `<div>` to wrap `<dd>` / `<dt>` as well as script-supporting elements
+  in `<dl>`
+  (#344 by toastal)
 
 # 4.6.0
 
