@@ -303,6 +303,26 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<div aria-hidden=true></div>"]],
   [div ~a:[a_aria "hidden" ["true"]] []] ;
 
+  "microdata attributes",
+  [[%html "<dl itemscope itemtype='https://md.example.com/track https://md.example.com/lighting'><dt>Name</dt><dd itemprop='name'>Turnout Lantern Kit</dd><dt>Purpose<dd>For retrofitting 2 <span itemprop='track-type'>C</span> Track turnouts.<meta itemprop='scale' content='HO'></dl>"]],
+  [dl
+    ~a: [
+      a_itemscope ();
+      a_itemtype ["https://md.example.com/track"; "https://md.example.com/lighting"];
+    ]
+    [
+      dt [txt "Name"];
+      dd ~a: [a_itemprop "name"] [txt "Turnout Lantern Kit"];
+      dt [txt "Purpose"];
+      dd
+        [
+          txt "For retrofitting 2 ";
+          span ~a: [a_itemprop "track-type"] [txt "C"];
+          txt " Track turnouts.";
+          meta_itemprop "scale" ~a: [a_content "HO"] ();
+        ]
+  ]];
+
   "touch events",
   [[%html "<div ontouchstart='alert()'></div>"]],
   [div ~a:[a_ontouchstart "alert()"] []] ;

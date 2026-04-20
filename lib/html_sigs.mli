@@ -694,6 +694,24 @@ module type T = sig
       @see <https://www.w3.org/TR/wai-aria-1.1/#state_prop_def> List of WAI-ARIA attributes
   *)
 
+  (** {3 Microdata support} *)
+
+  (** {{: https://html.spec.whatwg.org/multipage/microdata.html} Microdata} is
+      a specification written by the W3C, defining a set of additional HTML
+      attributes that can be applied to elements to annotate content with
+      specific machine-readable labels using schemas.
+  *)
+
+  val a_itemid : Xml.uri wrap -> [> | `ItemID ] attrib
+
+  val a_itemprop : string wrap -> [> | `ItemProp ] attrib
+
+  val a_itemref : idrefs wrap -> [> | `ItemRef ] attrib
+
+  val a_itemscope : unit -> [> | `ItemScope ] attrib
+
+  val a_itemtype : Xml.uri list wrap -> [> | `ItemType ] attrib
+
   (** {2:elements Elements} *)
 
   val txt : string wrap -> [> | txt] elt
@@ -1079,6 +1097,10 @@ module type T = sig
 
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
+  val meta_itemprop :
+    string wrap ->
+    ([< | meta_attrib], [> | meta_with_itemprop]) nullary
+
   (** {3 Style Sheets} *)
 
   val style :
@@ -1168,6 +1190,9 @@ module type T = sig
 
     (** Same, for URI attribute *)
     val uri_attrib : string -> uri wrap -> 'a attrib
+
+    (** Same, for a space-separated list of URI attributes *)
+    val uris_attrib : string -> uri list wrap -> 'a attrib
 
     (** Same, for a space-separated list of values *)
     val space_sep_attrib : string -> string list wrap -> 'a attrib
