@@ -233,6 +233,7 @@ struct
   let pp_sep indent = function
     | Space -> fun fmt () -> sp indent fmt
     | Comma -> fun fmt () -> Format.fprintf fmt ",%t" (sp indent)
+    | Semicolon -> fun fmt () -> Format.fprintf fmt ";%t" (sp indent)
 
   let pp_attrib_value encode indent fmt a = match acontent a with
     | AFloat f -> Format.fprintf fmt "\"%a\"" pp_number f
@@ -363,6 +364,7 @@ struct
   let separator_to_string = function
     | Space -> " "
     | Comma -> ", "
+    | Semicolon -> "; "
 
   let attrib_value_to_string encode a = match acontent a with
     | AFloat f -> Printf.sprintf "\"%s\"" (string_of_number f)
