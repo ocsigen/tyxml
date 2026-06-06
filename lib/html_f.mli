@@ -21,7 +21,7 @@
 
 (** Typesafe constructors for HTML documents (Functorial interface)
 
-    {% See <<a_manual chapter="functors"|the manual of the functorial interface>>. %}
+    {% See {{!page-"functors"}the manual of the functorial interface}. %}
 *)
 
 (** Create a new implementation of [HTML], using the given underlying [Xml]
