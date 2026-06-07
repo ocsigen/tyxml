@@ -1,0 +1,21 @@
+;; Declarative wodoc config for the TyXML documentation.
+;;   wodoc build --config doc/wodoc --out <dir>/<label> --label <v> \
+;;               --menu https://ocsigen.org/wodoc/menu.html [--local]
+;; (wodoc build runs `dune build @doc --profile release` itself when --src is omitted.)
+;; TyXML has no client/server split, so plain `dune build @doc` is enough (no
+;; odoc-driver). The auxiliary packages (tyxml-ppx/syntax/jsx) live on ocaml.org;
+;; the manual's ppx/jsx pages document their use. odoc puts the manual pages and
+;; the API together under the tyxml/ package dir.
+(project tyxml)
+(title TyXML)
+(pub /tyxml)
+(profile release)                   ; dev profile treats warning 67 as an error
+(landing tyxml/intro.html)          ; the manual's Introduction is the entry point
+(nav
+  (section "TyXML - Manual"
+    (link "Introduction"          tyxml/intro.html    intro)
+    (link "Functorial interface"  tyxml/functors.html functors)
+    (link "Ppx syntax extension"  tyxml/ppx.html      ppx)
+    (link "JSX syntax"            tyxml/jsx.html      jsx))
+  (section "TyXML - API"
+    (link "API reference" tyxml/api.html api)))

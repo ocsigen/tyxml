@@ -1,0 +1,56 @@
+# How the TyXML documentation is generated
+
+The TyXML documentation published at <https://ocsigen.org/tyxml/> is built with
+**odoc** and themed with the Ocsigen site chrome by
+[**wodoc**](https://github.com/ocsigen/wodoc) (an odoc driver). The same odoc
+sources are also what ocaml.org renders.
+
+## Sources
+
+| What | Where | Format |
+|---|---|---|
+| Manual | [`docs/*.mld`](../docs) (intro, functors, ppx, jsx) | odoc pages |
+| API overview | [`docs/api.mld`](../docs/api.mld) | odoc page |
+| API | the `.mli` of the `tyxml` package | odoc comments |
+| Site configuration (nav, …) | [`doc/wodoc`](wodoc) | wodoc config (S-expression) |
+
+TyXML has **no client/server split**, so a single `dune build @doc` (plain odoc)
+builds the manual and the API together — no odoc-driver. The auxiliary packages
+(`tyxml-ppx`/`-syntax`/`-jsx`) live on ocaml.org; the manual's ppx/jsx pages
+document their use. The left navigation and page theming are declared in
+[`doc/wodoc`](wodoc) and produced by `wodoc build`.
+
+## Build
+
+```
+wodoc build --config doc/wodoc --label dev --out _doc-site/dev \
+  --menu https://ocsigen.org/wodoc/menu.html
+```
+
+`wodoc build` runs `dune build @doc --profile release` (the dev profile treats
+warning 67 as an error), assembles every page into the Ocsigen site (shared
+header/menu/drawer, the version `<select>`, the left navigation from `doc/wodoc`),
+and writes the version redirect. `--menu` is fetched from its single canonical
+copy in `ocsigen.github.io`.
+
+### Preview locally
+
+Add `--local` to also fetch the shared `/css//img/` assets so the build renders
+offline; `wodoc build` then prints the exact command to serve it.
+
+## Versions and deployment (CI)
+
+[`.github/workflows/doc.yml`](../.github/workflows/doc.yml) builds and publishes
+to the project's **`gh-pages`** branch (served at `ocsigen.org/tyxml/`). The CI
+triggers **only on `master`** (and manual dispatch), so pushing a feature/doc
+branch never deploys:
+
+- **push to `master`** → rebuilds and deploys the **`dev`** docs
+  (`ocsigen.org/tyxml/dev/`).
+- **manual run** (Actions → *Documentation* → *Run workflow*) → builds any version
+  and optionally makes it `latest`. For the current release: *label* = `4.6.0`,
+  *ref* = `latest-mli-odoc` (the released API with its odoc doc-comments), and tick
+  *set_latest*. The version-independent doc sources are overlaid from `master`.
+
+Each run replaces only its own `<label>/` directory; the other version directories
+already on `gh-pages` are preserved.
