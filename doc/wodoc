@@ -1,6 +1,6 @@
 ;; Declarative wodoc config for the TyXML documentation.
 ;;   wodoc build --config doc/wodoc --out <dir>/<label> --label <v> \
-;;               --menu https://ocsigen.org/wodoc/menu.html [--local]
+;;               --menu https://ocsigen.org/doc/menu.html [--local]
 ;; (wodoc build runs `dune build @doc --profile release` itself when --src is omitted.)
 ;; TyXML has no client/server split, so plain `dune build @doc` is enough (no
 ;; odoc-driver). The auxiliary packages (tyxml-ppx/syntax/jsx) live on ocaml.org;

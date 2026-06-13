@@ -24,7 +24,7 @@ document their use. The left navigation and page theming are declared in
 
 ```
 wodoc build --config doc/wodoc --label dev --out _doc-site/dev \
-  --menu https://ocsigen.org/wodoc/menu.html
+  --menu https://ocsigen.org/doc/menu.html
 ```
 
 `wodoc build` runs `dune build @doc --profile release` (the dev profile treats
