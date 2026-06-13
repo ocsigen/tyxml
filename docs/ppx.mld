@@ -1,17 +1,17 @@
-= TyXML Ppx syntax extension =
+{0 TyXML Ppx syntax extension}
 
 TyXML provides a ppx to allow writing HTML and SVG documents
 in the standard syntax while still enjoying the benefits and type-safety of TyXML.
-It is available as the ##tyxml-ppx## package:
-<<code|
+It is available as the [tyxml-ppx] package:
+{[
 opam install tyxml-ppx
->>
+]}
 
-==@@id="syntax"@@ Syntax ==
+{1:syntax Syntax}
 
-The ppx provides two quotations, ##html## and ##svg## (and two aliases, ##tyxml.html## and ##tyxml.svg##).
+The ppx provides two quotations, [html] and [svg] (and two aliases, [tyxml.html] and [tyxml.svg]).
 
-<<code language="ocaml"|
+{@ocaml[
 open Tyxml ;;
 
 let content = [%html{|<div id="content">some content</div>|}] ;;
@@ -19,100 +19,100 @@ val content : [> Html_types.div ] Html.elt
 
 let svgpath = [%svg{|<path d="M 0 1 L 1 0"></path>|}] ;;
 val svgpath : [> Svg_types.path ] Svg.elt
->>
+]}
 
-The quotations will use the {{{Html}}} and {{{Svg}}} module that are available in scope. To use another module name, you can qualify the quotation:
+The quotations will use the [Html] and [Svg] module that are available in scope. To use another module name, you can qualify the quotation:
 
-<<code language="ocaml"|
+{@ocaml[
 let content = [%html.F {|<div id="content">some content</div>|}]
 val content : [> Html_types.div ] F.elt
->>
+]}
 
 A quotation containing multiple elements will automatically produce a list of elements:
 
-<<code language="ocaml"|
+{@ocaml[
 let my_text = [%html
   {|This is an <b>HTML</b> formated <i>content</i>.|}]
 val my_text : [> `B | `I | `PCDATA ] Html.elt list
->>
+]}
 
 The produced elements can be used inside usual TyXML combinators:
-<<code language="ocaml"|
+{@ocaml[
 let my_span = Html.(span ~a:[a_class ["mytext"]] my_text)
 val my_span : [> Html_types.span ] Html.elt
->>
+]}
 
-It is also possible to use tyxml elements inside quotations using ##antiquotations##:
+It is also possible to use tyxml elements inside quotations using [antiquotations]:
 
-<<code language="ocaml"|
+{@ocaml[
 let my_paragraphs =
   [%html "<p>"[my_span]"</p><p>more content</p>"]
 val my_paragraphs : [> Html_types.p ] Html.elt list
->>
+]}
 
-Note here that since ##p## expects a list of children (it's a  <<a_api text="star"|val Html_sigs.T.star>> element), the antiquotation must be of type list, hence the use of ##[##, ##]##.
+Note here that since [p] expects a list of children (it's a  {{!Html_sigs.T.star}star} element), the antiquotation must be of type list, hence the use of [[], []].
 
 It is also possible to use antiquotations for attributes.
-<<code language="ocaml"|
+{@ocaml[
 let my_id = "thediv"
 let my_div = [%html "<div id="my_id"></div>"]
 val my_div : [> Html_types.div ] Html.elt
->>
+]}
 
-==@@id="unsafe"@@ "Unsafe" attributes
+{1:unsafe "Unsafe" attributes}
 
 Some Javascript libraries and frameworks depend upon HTML markup that includes non-standard
 attributes, which tyxml would usually reject. When constructing elements using tyxml's API directly,
-the available workaround is to use the <<a_api text="Unsafe"|val Html_sigs.T.Unsafe>> constructors.
+the available workaround is to use the {{!Html_sigs.T.Unsafe}Unsafe} constructors.
 The same relaxed semantics can be had when using the ppx by prefixing non-standard attribute names
 with a leading underscore.
 
 So, while this will fail:
-<<code language="ocaml"|
+{@ocaml[
 [%html {|<button hx_post="/clicked" hx_swap="outerHTML">Click Me</button>|}]
->>
+]}
 
 This will not:
-<<code language="ocaml"|
+{@ocaml[
 [%html {|<button _hx_post="/clicked" _hx_swap="outerHTML">Click Me</button>|}]
->>
+]}
 
 Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g.
-<<a_api text="Unsafe.string_attrib"|val Html_sigs.T.Unsafe.string_attrib>>.
+{{!Html_sigs.T.Unsafe.string_attrib}Unsafe.string_attrib}.
 
-==@@id="let"@@ Let notation
+{1:let Let notation}
 
-It is also possible to use the ppx with the ##let## notation:
-<<code language="ocaml"|
+It is also possible to use the ppx with the [let] notation:
+{@ocaml[
 let%html content = {|<div id="content">some content</div>|} ;;
 val content : [> Html_types.div ] Html.elt
->>
+]}
 
-All the capabilities provided by the ppx are still available with this form. Additionally, the modifiers ##and## or ##rec## are available. It is also possible to create functions:
-<<code language="ocaml"|
+All the capabilities provided by the ppx are still available with this form. Additionally, the modifiers [and] or [rec] are available. It is also possible to create functions:
+{@ocaml[
 let%html make_content id = "<div id="id" >some content</div>" ;;
 val make_content : string -> [> Html_types.div ] Html.elt
->>
+]}
 
-==@@id="notes"@@ Notes
+{1:notes Notes}
 
-=== Locations ===
+{2 Locations}
 
 Due to the code transformations done by the ppx, proper locations are difficult to provide.
-Please report examples of badly located code on [[https://github.com/ocsigen/tyxml/issues|the bug tracker]].
+Please report examples of badly located code on {{:https://github.com/ocsigen/tyxml/issues}the bug tracker}.
 
-=== Composability ===
+{2 Composability}
 
-Due to various reasons, some ##HTML## can not be composed properly using the ppx. For example, this will result in an error:
+Due to various reasons, some [HTML] can not be composed properly using the ppx. For example, this will result in an error:
 
-<<code language="ocaml"|
+{@ocaml[
 let my_title = [%html "<title>The title</title>"]
 let my_head = [%html "<head>"my_title"</head>"]
->>
+]}
 
 You can, however, inline the title element inside the head element:
 
-<<code language="ocaml"|
+{@ocaml[
 let my_title = [%html "The title"]
 let my_head = [%html "<head><title>"my_title"</title></head>"]
->>
+]}

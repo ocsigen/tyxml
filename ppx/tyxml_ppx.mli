@@ -21,7 +21,7 @@
 
     This is the documentation for the internal ppx library.
     {% Documentation for the ppx itself is available
-    <<a_manual chapter="ppx"|here>>. %}
+    {{!page-"ppx"}here}. %}
 *)
 
 type lang = Html | Svg

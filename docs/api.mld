@@ -1,3 +1,5 @@
+{0 API reference}
+
 {2 Main modules }
 
 {!modules:
@@ -26,7 +28,3 @@ Xml_iter
 Xml_print
 Xml_stream
 }
-
-{2 Indexes}
-
-{!indexlist}
