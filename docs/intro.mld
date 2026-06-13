@@ -16,7 +16,7 @@ To use TyXML in standalone manner, simply install the [tyxml] OPAM package, link
 {2 Use with another library}
 
 TyXML combinators can be used in conjunction with other libraries. Please consult the relevant document. For example,
-{{:/eliom/latest/clientserver-html.html}Eliom}
+{{:https://ocsigen.org/eliom/latest/clientserver-html.html}Eliom}
 and
 {{!Js_of_ocaml_tyxml.Tyxml_js}Js_of_ocaml}.
 
@@ -126,7 +126,7 @@ let mypage =
     (body [mycontent])
 ]}
 
-If you are using {{:/eliom/latest/clientserver-html.html}Eliom}
+If you are using {{:https://ocsigen.org/eliom/latest/clientserver-html.html}Eliom}
 or {{!Js_of_ocaml_tyxml.Tyxml_js}Js_of_ocaml},
 this is the end of TyXML's territory. However, for standalone use, we now need to print our document as an HTML file. The standalone implementation comes with a printer, {!Tyxml.Html.pp}, that we can use to print files:
 
