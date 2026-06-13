@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Module Xml_print — TyXML</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/ocsigen-odoc.css"/>
+  <script src="../../highlight.pack.js"></script>
+  <script src="../../wodoc-highlight.js"></script>
+</head>
+<body class="wodoc-page wodoc-doc">
+  <!-- Shared site menu — THE single source of truth for the header, top menu and
+     drawer of EVERY Ocsigen doc page (vitrine + all projects). Canonical copy
+     lives here in ocsigen.github.io; each project's build fetches it. Injected
+     by `wodoc assemble --menu`. Holes filled by the tool (braces omitted here so
+     this comment is not itself rewritten by the hole-filler):
+       subproject  the sub-project name shown next to the Ocsigen logo
+                   (empty on the vitrine), via --subproject
+       leftnav     the project's left navigation, expanded into BOTH the mobile
+                   drawer (below) and the left column (in the page template),
+                   via --leftnav
+     The current entry is highlighted by adding the `current` class to the
+     element carrying data-wodoc-page=<id>: --current on the vitrine (page id),
+     --menu-current in a project (the project id). Nothing is hardcoded here, so
+     this file is the ONLY place the menu is defined.
+
+     Links are the FINAL site paths (/<project>/, /<page>): the target layout
+     where each project is served at ocsigen.org/<project>/ — no transitional
+     /wodoc/ prefix. -->
+<div class="page-header">
+  <p class="logo-ocsigen"><a href="/"><img src="/img/ocsigen-white.svg" alt="Ocsigen"/></a></p>
+  <p class="logo-subproject">TyXML</p>
+
+  <div class="mainmenu">
+    <p class="mainmenu-home" data-wodoc-page="githubio"><a href="/">Home</a></p>
+    <p class="mainmenu-doc" data-wodoc-page="tuto"><a href="/tuto/">Doc</a></p>
+    <p data-wodoc-page="eliom"><a href="/eliom/">Eliom</a></p>
+    <p data-wodoc-page="js_of_ocaml"><a href="/js_of_ocaml/">Js_of_ocaml</a></p>
+    <p data-wodoc-page="ocsigenserver"><a href="/ocsigenserver/">Server</a></p>
+    <p data-wodoc-page="lwt"><a href="/lwt/">Lwt</a></p>
+    <p data-wodoc-page="tyxml" class="current"><a href="/tyxml/">Tyxml</a></p>
+    <p data-wodoc-page="ocsigen-start"><a href="/ocsigen-start/">Start</a></p>
+  </div>
+
+  <form id="googlesearch" action="https://google.com/search">
+    <input name="q" id="gsearch-box" placeholder="Search using Google"/>
+    <label for="gsearch-box"><img src="/img/search.svg" alt="" id="gsearch-icon"/></label>
+    <input type="submit" id="gsearch-submit" onclick="document.getElementById('gsearch-box').value += ' site:ocsigen.org';"/>
+  </form>
+
+  <aside class="how-drawer">
+    <input id="how-drawer-toggle" type="checkbox"/>
+    <label for="how-drawer-toggle" id="how-drawer-label"><span class="how-drawer-icon"></span></label>
+    <nav class="how-drawer-content">
+      <ul class="drawermainmenu">
+        <li class="drawermainmenu-home" data-wodoc-page="githubio"><a href="/">Home</a></li>
+        <li class="drawermainmenu-doc" data-wodoc-page="tuto"><a href="/tuto/">Doc</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="eliom"><a href="/eliom/">Eliom</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="js_of_ocaml"><a href="/js_of_ocaml/">Js_of_ocaml</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="ocsigenserver"><a href="/ocsigenserver/">Server</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="lwt"><a href="/lwt/">Lwt</a></li>
+        <li class="drawermainmenu-project current" data-wodoc-page="tyxml"><a href="/tyxml/">Tyxml</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="ocsigen-toolkit"><a href="/ocsigen-toolkit/">Toolkit</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="ocsigen-start"><a href="/ocsigen-start/">Start</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="ocsipersist"><a href="/ocsipersist/">Ocsipersist</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="reactiveData"><a href="/reactiveData/">ReactiveData</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="ocsigen-i18n"><a href="/ocsigen-i18n/">i18n</a></li>
+        <li class="drawermainmenu-project" data-wodoc-page="wodoc"><a href="/wodoc/">Wodoc</a></li>
+        <li class="drawermainmenu-page" data-wodoc-page="projects"><a href="/projects">Other projects</a></li>
+        <li class="drawermainmenu-page" data-wodoc-page="papers"><a href="/papers">Research papers</a></li>
+        <li class="drawermainmenu-page" data-wodoc-page="credits"><a href="/credits">Who does Ocsigen?</a></li>
+        <li class="drawermainmenu-page" data-wodoc-page="contributing"><a href="/contributing">Contributing</a></li>
+        <li class="drawermainmenu-page" data-wodoc-page="blog"><a href="/blog">Blog</a></li>
+        <li class="drawermainmenu-page" data-wodoc-page="install"><a href="/install">Installation</a></li>
+        <li class="drawermainmenu-page"><a href="https://github.com/ocsigen">Source code</a></li>
+      </ul>
+      <!-- On mobile the left column is hidden; its menu lives here in the burger
+           (.how-doctree, shown only on narrow screens), as the old site did.
+           Empty on the vitrine; the leftnav hole is filled (with the same
+           fragment as the left column) only on project pages. -->
+      <nav class="how-doctree"><div class="docversion">
+  <label>Version:
+    <select class="wodoc-version" onchange="wodocVersion(this.value)">
+      <option value="dev">dev</option>
+    </select>
+  </label>
+</div>
+<div class="page-toc">
+  <h3>On this page</h3>
+  <nav class="odoc-toc odoc-local-toc"><ul><li><a href="#encoding-functions">Encoding functions</a></li><li><a href="#utilities">Utilities</a></li><li><a href="#formatter-functors">Formatter functors</a></li><li><a href="#deprecated-functors">Deprecated functors</a></li></ul></nav>
+</div>
+<nav class="api-nav manual-nav">
+<h3>TyXML - Manual</h3>
+<ul class="api-section">
+<li class="ml3" data-wodoc-page="intro"><a href="../../tyxml/intro.html">Introduction</a></li>
+<li class="ml3" data-wodoc-page="functors"><a href="../../tyxml/functors.html">Functorial interface</a></li>
+<li class="ml3" data-wodoc-page="ppx"><a href="../../tyxml/ppx.html">Ppx syntax extension</a></li>
+<li class="ml3" data-wodoc-page="jsx"><a href="../../tyxml/jsx.html">JSX syntax</a></li>
+</ul>
+<h3>TyXML - API</h3>
+<ul class="api-section">
+<li class="ml3" data-wodoc-page="api"><a href="../../tyxml/api.html">API reference</a></li>
+</ul>
+</nav>
+</nav>
+    </nav>
+  </aside>
+</div>
+
+
+  <div class="project-page">
+    <div class="twocols">
+      <nav class="leftcol">
+        <div class="docversion">
+  <label>Version:
+    <select class="wodoc-version" onchange="wodocVersion(this.value)">
+      <option value="dev">dev</option>
+    </select>
+  </label>
+</div>
+<div class="page-toc">
+  <h3>On this page</h3>
+  <nav class="odoc-toc odoc-local-toc"><ul><li><a href="#encoding-functions">Encoding functions</a></li><li><a href="#utilities">Utilities</a></li><li><a href="#formatter-functors">Formatter functors</a></li><li><a href="#deprecated-functors">Deprecated functors</a></li></ul></nav>
+</div>
+<nav class="api-nav manual-nav">
+<h3>TyXML - Manual</h3>
+<ul class="api-section">
+<li class="ml3" data-wodoc-page="intro"><a href="../../tyxml/intro.html">Introduction</a></li>
+<li class="ml3" data-wodoc-page="functors"><a href="../../tyxml/functors.html">Functorial interface</a></li>
+<li class="ml3" data-wodoc-page="ppx"><a href="../../tyxml/ppx.html">Ppx syntax extension</a></li>
+<li class="ml3" data-wodoc-page="jsx"><a href="../../tyxml/jsx.html">JSX syntax</a></li>
+</ul>
+<h3>TyXML - API</h3>
+<ul class="api-section">
+<li class="ml3" data-wodoc-page="api"><a href="../../tyxml/api.html">API reference</a></li>
+</ul>
+</nav>
+
+      </nav>
+      <article class="rightcol">
+        <header class="odoc-preamble"><h1>Module <code><span>Xml_print</span></code></h1><p>Printing utilities.</p><p>This module contains various encoding functions that can be used with <a href="../Tyxml_html/index.html#val-pp"><code>Tyxml.Html.pp</code></a> and <a href="../Tyxml_svg/index.html#val-pp"><code>Tyxml.Svg.pp</code></a>.</p><p>It also contains functors to create printers for your own XML data structure.</p></header>
+        <div class="odoc-content"><h3 id="encoding-functions">Encoding functions</h3><div class="odoc-spec"><div class="spec value anchored" id="val-encode_unsafe_char"><code><span><span class="keyword">val</span> encode_unsafe_char : <span>string <span class="arrow">&#45;&gt;</span></span> string</span></code></div><div class="spec-doc"><p>The encoder maps strings to HTML and <em>must</em> encode the unsafe characters <code>'&lt;'</code>, <code>'&gt;'</code>, <code>'&quot;'</code>, <code>'&amp;'</code> and the control characters 0-8, 11-12, 14-31, 127 to HTML entities. <code>encode_unsafe_char</code> is the default for <code>?encode</code> in <code>output</code> and <code>pretty_print</code> below. Other implementations are provided by the module <code>Netencoding</code> in the <a href="http://www.ocaml-programming.de/programming/ocamlnet.html">OcamlNet</a> library, e.g.:</p><pre class="language-ocaml"><code>let encode = Netencoding.Html.encode ~in_enc:`Enc_iso88591 ~out_enc:`Enc_usascii ()</code></pre><p>Where national characters are replaced by HTML entities. The user is of course free to write her own implementation.</p><ul class="at-tags"><li class="see"><span class="at-tag">see</span> <a href="http://www.ocaml-programming.de/programming/ocamlnet.html" class="value">http://www.ocaml-programming.de/programming/ocamlnet.html</a> <p>OcamlNet</p></li></ul></div></div><div class="odoc-spec"><div class="spec value anchored" id="val-encode_unsafe_char_and_at"><code><span><span class="keyword">val</span> encode_unsafe_char_and_at : <span>string <span class="arrow">&#45;&gt;</span></span> string</span></code></div><div class="spec-doc"><p>In addition, encode <code>&quot;@&quot;</code> as <code>&quot;&amp;#64;&quot;</code> in the hope that this will fool simple minded email address harvesters.</p></div></div><div class="odoc-spec"><div class="spec module anchored" id="module-Utf8"><code><span><span class="keyword">module</span> <a href="Utf8/index.html">Utf8</a></span><span> : <span class="keyword">sig</span> ... <span class="keyword">end</span></span></code></div><div class="spec-doc"><p>Utf8 normalizer and encoder for HTML.</p></div></div><h3 id="utilities">Utilities</h3><div class="odoc-spec"><div class="spec value anchored" id="val-compose_decl"><code><span><span class="keyword">val</span> compose_decl : <span><span class="optlabel">?version</span>:string <span class="arrow">&#45;&gt;</span></span> <span><span class="optlabel">?encoding</span>:string <span class="arrow">&#45;&gt;</span></span> <span>unit <span class="arrow">&#45;&gt;</span></span> string</span></code></div><div class="spec-doc"><p><code>encoding</code> is the name of the character encoding, e.g. <code>&quot;US-ASCII&quot;</code> or <code>&quot;UTF-8&quot;</code></p></div></div><div class="odoc-spec"><div class="spec value anchored" id="val-compose_doctype"><code><span><span class="keyword">val</span> compose_doctype : <span>string <span class="arrow">&#45;&gt;</span></span> <span><span>string list</span> <span class="arrow">&#45;&gt;</span></span> string</span></code></div></div><div class="odoc-spec"><div class="spec value anchored" id="val-string_of_number"><code><span><span class="keyword">val</span> string_of_number : <span>float <span class="arrow">&#45;&gt;</span></span> string</span></code></div><div class="spec-doc"><p>Convert a float to a string using a compact representation compatible with the Javascript norm.</p></div></div><div class="odoc-spec"><div class="spec value anchored" id="val-pp_number"><code><span><span class="keyword">val</span> pp_number : <span><span class="xref-unresolved">Stdlib</span>.Format.formatter <span class="arrow">&#45;&gt;</span></span> <span>float <span class="arrow">&#45;&gt;</span></span> unit</span></code></div><div class="spec-doc"><p>See <a href="#val-string_of_number"><code>string_of_number</code></a>.</p></div></div><h3 id="formatter-functors">Formatter functors</h3><div class="odoc-spec"><div class="spec module anchored" id="module-Make_typed_fmt"><code><span><span class="keyword">module</span> <a href="Make_typed_fmt/index.html">Make_typed_fmt</a></span><span>
+  (<a href="Make_typed_fmt/argument-1-Xml/index.html">Xml</a> : <a href="../Xml_sigs/module-type-Iterable/index.html">Xml_sigs.Iterable</a>)
+  (<a href="Make_typed_fmt/argument-2-Typed_xml/index.html">Typed_xml</a> : <a href="../Xml_sigs/module-type-Typed_xml/index.html">Xml_sigs.Typed_xml</a> <span class="keyword">with</span> <span><span class="keyword">module</span> <a href="../Xml_sigs/module-type-Typed_xml/Xml/index.html">Xml</a> := <a href="Make_typed_fmt/argument-1-Xml/index.html">Xml</a></span>) : 
+  <a href="../Xml_sigs/module-type-Typed_pp/index.html">Xml_sigs.Typed_pp</a>
+    <span class="keyword">with</span> <span><span class="keyword">type</span> <span>'a <a href="../Xml_sigs/module-type-Typed_pp/index.html#type-elt">elt</a></span> := <span><span class="type-var">'a</span> <a href="Make_typed_fmt/argument-2-Typed_xml/index.html#type-elt">Typed_xml.elt</a></span></span>
+     <span class="keyword">and</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Typed_pp/index.html#type-doc">doc</a> := <a href="Make_typed_fmt/argument-2-Typed_xml/index.html#type-doc">Typed_xml.doc</a></span></span></code></div><div class="spec-doc"><p>Printers for typed XML modules such as the one produced by <a href="../Svg_f/index.html"><code>Svg_f</code></a> and <a href="../Html_f/index.html"><code>Html_f</code></a>.</p></div></div><div class="odoc-spec"><div class="spec module-type anchored" id="module-type-TagList"><code><span><span class="keyword">module</span> <span class="keyword">type</span> <a href="module-type-TagList/index.html">TagList</a></span><span> = <span class="keyword">sig</span> ... <span class="keyword">end</span></span></code></div><div class="spec-doc"><p>List of tags that can be printed as empty tags: <code>&lt;foo /&gt;</code>.</p></div></div><div class="odoc-spec"><div class="spec module anchored" id="module-Make_fmt"><code><span><span class="keyword">module</span> <a href="Make_fmt/index.html">Make_fmt</a></span><span>
+  (<a href="Make_fmt/argument-1-Xml/index.html">Xml</a> : <a href="../Xml_sigs/module-type-Iterable/index.html">Xml_sigs.Iterable</a>)
+  (<a href="Make_fmt/argument-2-I/index.html">I</a> : <a href="module-type-TagList/index.html">TagList</a>) : 
+  <a href="../Xml_sigs/module-type-Pp/index.html">Xml_sigs.Pp</a> <span class="keyword">with</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Pp/index.html#type-elt">elt</a> := <a href="Make_fmt/argument-1-Xml/index.html#type-elt">Xml.elt</a></span></span></code></div><div class="spec-doc"><p>Printers for raw XML modules.</p></div></div><h3 id="deprecated-functors">Deprecated functors</h3><p>Use <a href="Make_fmt/index.html"><code>Make_fmt</code></a> and <a href="Make_typed_fmt/index.html"><code>Make_typed_fmt</code></a> instead.</p><div class="odoc-spec"><div class="spec module anchored" id="module-Make"><code><span><span class="keyword">module</span> <a href="Make/index.html">Make</a></span><span>
+  (<a href="Make/argument-1-Xml/index.html">Xml</a> : <a href="../Xml_sigs/module-type-Iterable/index.html">Xml_sigs.Iterable</a>)
+  (<a href="Make/argument-2-I/index.html">I</a> : <a href="module-type-TagList/index.html">TagList</a>)
+  (<a href="Make/argument-3-O/index.html">O</a> : <a href="../Xml_sigs/module-type-Output/index.html">Xml_sigs.Output</a>) : 
+  <a href="../Xml_sigs/module-type-Printer/index.html">Xml_sigs.Printer</a> <span class="keyword">with</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Printer/index.html#type-out">out</a> := <a href="Make/argument-3-O/index.html#type-out">O.out</a></span> <span class="keyword">and</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Printer/index.html#type-xml_elt">xml_elt</a> := <a href="Make/argument-1-Xml/index.html#type-elt">Xml.elt</a></span></span></code></div></div><div class="odoc-spec"><div class="spec module anchored" id="module-Make_typed"><code><span><span class="keyword">module</span> <a href="Make_typed/index.html">Make_typed</a></span><span>
+  (<a href="Make_typed/argument-1-Xml/index.html">Xml</a> : <a href="../Xml_sigs/module-type-Iterable/index.html">Xml_sigs.Iterable</a>)
+  (<a href="Make_typed/argument-2-Typed_xml/index.html">Typed_xml</a> : <a href="../Xml_sigs/module-type-Typed_xml/index.html">Xml_sigs.Typed_xml</a> <span class="keyword">with</span> <span><span class="keyword">module</span> <a href="../Xml_sigs/module-type-Typed_xml/Xml/index.html">Xml</a> := <a href="Make_typed/argument-1-Xml/index.html">Xml</a></span>)
+  (<a href="Make_typed/argument-3-O/index.html">O</a> : <a href="../Xml_sigs/module-type-Output/index.html">Xml_sigs.Output</a>) : 
+  <a href="../Xml_sigs/module-type-Typed_printer/index.html">Xml_sigs.Typed_printer</a>
+    <span class="keyword">with</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Typed_printer/index.html#type-out">out</a> := <a href="Make_typed/argument-3-O/index.html#type-out">O.out</a></span>
+     <span class="keyword">and</span> <span><span class="keyword">type</span> <span>'a <a href="../Xml_sigs/module-type-Typed_printer/index.html#type-elt">elt</a></span> := <span><span class="type-var">'a</span> <a href="Make_typed/argument-2-Typed_xml/index.html#type-elt">Typed_xml.elt</a></span></span>
+     <span class="keyword">and</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Typed_printer/index.html#type-doc">doc</a> := <a href="Make_typed/argument-2-Typed_xml/index.html#type-doc">Typed_xml.doc</a></span></span></code></div></div><div class="odoc-spec"><div class="spec module anchored" id="module-Make_simple"><code><span><span class="keyword">module</span> <a href="Make_simple/index.html">Make_simple</a></span><span>
+  (<a href="Make_simple/argument-1-Xml/index.html">Xml</a> : <a href="../Xml_sigs/module-type-Iterable/index.html">Xml_sigs.Iterable</a>)
+  (<a href="Make_simple/argument-2-I/index.html">I</a> : <a href="module-type-TagList/index.html">TagList</a>) : 
+  <a href="../Xml_sigs/module-type-Simple_printer/index.html">Xml_sigs.Simple_printer</a> <span class="keyword">with</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Simple_printer/index.html#type-xml_elt">xml_elt</a> := <a href="Make_simple/argument-1-Xml/index.html#type-elt">Xml.elt</a></span></span></code></div></div><div class="odoc-spec"><div class="spec module anchored" id="module-Make_typed_simple"><code><span><span class="keyword">module</span> <a href="Make_typed_simple/index.html">Make_typed_simple</a></span><span>
+  (<a href="Make_typed_simple/argument-1-Xml/index.html">Xml</a> : <a href="../Xml_sigs/module-type-Iterable/index.html">Xml_sigs.Iterable</a>)
+  (<a href="Make_typed_simple/argument-2-Typed_xml/index.html">Typed_xml</a> : <a href="../Xml_sigs/module-type-Typed_xml/index.html">Xml_sigs.Typed_xml</a> <span class="keyword">with</span> <span><span class="keyword">module</span> <a href="../Xml_sigs/module-type-Typed_xml/Xml/index.html">Xml</a> := <a href="Make_typed_simple/argument-1-Xml/index.html">Xml</a></span>) : 
+  <a href="../Xml_sigs/module-type-Typed_simple_printer/index.html">Xml_sigs.Typed_simple_printer</a>
+    <span class="keyword">with</span> <span><span class="keyword">type</span> <span>'a <a href="../Xml_sigs/module-type-Typed_simple_printer/index.html#type-elt">elt</a></span> := <span><span class="type-var">'a</span> <a href="Make_typed_simple/argument-2-Typed_xml/index.html#type-elt">Typed_xml.elt</a></span></span>
+     <span class="keyword">and</span> <span><span class="keyword">type</span> <a href="../Xml_sigs/module-type-Typed_simple_printer/index.html#type-doc">doc</a> := <a href="Make_typed_simple/argument-2-Typed_xml/index.html#type-doc">Typed_xml.doc</a></span></span></code></div></div></div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    var wodocPub = "/tyxml";
+    // Switch version: keep the current page, swapping only the version segment.
+    function wodocVersion(v) {
+      if (!v) return;
+      var re = new RegExp('^(' + wodocPub + '/)[^/]+');
+      var p = location.pathname;
+      location.href =
+        re.test(p) ? p.replace(re, '$1' + v) : wodocPub + '/' + v + '/index.html';
+    }
+    // Build the version <select> from the project's versions.json (the single
+    // source of truth, refreshed on every build/release), so even older frozen
+    // pages list the current set. Falls back to the baked <option>s on failure.
+    (function () {
+      var seg = (location.pathname.match(
+        new RegExp('^' + wodocPub + '/([^/]+)')) || [])[1];
+      function select(sel) {
+        var i;
+        for (i = 0; i < sel.options.length; i++)
+          if (sel.options[i].value === seg) { sel.selectedIndex = i; return; }
+        if (seg) {
+          var o = document.createElement('option');
+          o.value = seg; o.textContent = seg; o.selected = true;
+          sel.insertBefore(o, sel.firstChild);
+        }
+      }
+      fetch(wodocPub + '/versions.json')
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (m) {
+          var list = m.list || [], latest = m.latest;
+          document.querySelectorAll('.wodoc-version').forEach(function (sel) {
+            sel.innerHTML = '';
+            list.forEach(function (v) {
+              var o = document.createElement('option');
+              if (v === latest) { o.value = 'latest'; o.textContent = v + ' (latest)'; }
+              else { o.value = v; o.textContent = v; }
+              sel.appendChild(o);
+            });
+            select(sel);
+          });
+        })
+        .catch(function () {
+          document.querySelectorAll('.wodoc-version').forEach(select);
+        });
+    })();
+  </script>
+</body>
+</html>
