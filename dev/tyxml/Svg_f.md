@@ -5,7 +5,7 @@ Typesafe constructors for SVG documents (Functorial interface)
 
 This module is experimental, it may lack of some attributes, and the interface is very low level and do not take deeply into account the needs of SVG elements.
 
-` See {{!page-"functors"}the manual of the functorial interface}. `
+See [the manual of the functorial interface](./functors.md).
 
 ```ocaml
 module Make

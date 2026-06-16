@@ -16,7 +16,7 @@ Equivalent to [`T`](./Html_sigs-module-type-T.md), but without wrapping.
 
 ### Signature functors
 
-` See {{!page-"functors"}the manual of the functorial interface}. `
+See [the manual of the functorial interface](./functors.md).
 
 ```ocaml
 module Make

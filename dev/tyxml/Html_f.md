@@ -3,7 +3,7 @@
 
 Typesafe constructors for HTML documents (Functorial interface)
 
-` See {{!page-"functors"}the manual of the functorial interface}. `
+See [the manual of the functorial interface](./functors.md).
 
 ```ocaml
 module Make

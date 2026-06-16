@@ -3,8 +3,7 @@
 
 TyXML ppx library.
 
-This is the documentation for the internal ppx library. ` Documentation for the ppx itself is available
-    {{!page-"ppx"}here}. `
+This is the documentation for the internal ppx library. Documentation for the ppx itself is available `here`.
 
 ```ocaml
 type lang = 

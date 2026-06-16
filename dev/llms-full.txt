@@ -648,8 +648,7 @@ val traverse :
 
 TyXML ppx library.
 
-This is the documentation for the internal ppx library. ` Documentation for the ppx itself is available
-    {{!page-"ppx"}here}. `
+This is the documentation for the internal ppx library. Documentation for the ppx itself is available `here`.
 
 ```ocaml
 type lang = 
@@ -9301,7 +9300,7 @@ val unoption_string : (string option, string) Xml.W.ft
 
 Typesafe constructors for HTML documents (Functorial interface)
 
-` See {{!page-"functors"}the manual of the functorial interface}. `
+See [the manual of the functorial interface](./functors.md).
 
 ```ocaml
 module Make
@@ -20607,7 +20606,7 @@ Equivalent to [`T`](./Html_sigs-module-type-T.md), but without wrapping.
 
 ### Signature functors
 
-` See {{!page-"functors"}the manual of the functorial interface}. `
+See [the manual of the functorial interface](./functors.md).
 
 ```ocaml
 module Make
@@ -28696,7 +28695,7 @@ Typesafe constructors for SVG documents (Functorial interface)
 
 This module is experimental, it may lack of some attributes, and the interface is very low level and do not take deeply into account the needs of SVG elements.
 
-` See {{!page-"functors"}the manual of the functorial interface}. `
+See [the manual of the functorial interface](./functors.md).
 
 ```ocaml
 module Make
