@@ -23,7 +23,7 @@
     and the interface is very low level and do not take deeply into account
     the needs of SVG elements.
 
-    {% See {{!page-"functors"}the manual of the functorial interface}. %}
+    See {{!page-"functors"}the manual of the functorial interface}.
 *)
 
 (*
