@@ -18,6 +18,10 @@ on:
         required: false
         default: ""
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   build-deploy:
     if: github.repository == 'ocsigen/tyxml' && (github.event_name != 'workflow_dispatch' || github.event.inputs.version == '')
