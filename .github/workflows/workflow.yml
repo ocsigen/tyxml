@@ -2,6 +2,8 @@ name: Builds, tests & co
 
 on:
   push:
+    branches:
+      - master
   pull_request:
   schedule:
     # Prime the caches every Monday
