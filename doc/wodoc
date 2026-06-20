@@ -19,3 +19,9 @@
     (link "JSX syntax"            tyxml/jsx.html      jsx))
   (section "TyXML - API"
     (link "API reference" tyxml/api.html api)))
+
+;; Sibling Ocsigen projects this doc links to, so wodoc rewrites their
+;; ocaml.org cross-references to relative links into their deployed docs.
+;; (pkg deploy-dir layout wrapper-module)
+(hosted
+  (eliom eliom true Eliom))
