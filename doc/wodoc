@@ -10,10 +10,10 @@
 (title TyXML)
 (pub /tyxml)
 (profile release)                   ; dev profile treats warning 67 as an error
-(landing tyxml/intro.html)          ; the manual's Introduction is the entry point
+(landing tyxml/index.html)          ; the package home page (docs/index.mld)
 (nav
   (section "TyXML - Manual"
-    (link "Introduction"          tyxml/intro.html    intro)
+    (link "Introduction"          tyxml/index.html    index)
     (link "Functorial interface"  tyxml/functors.html functors)
     (link "Ppx syntax extension"  tyxml/ppx.html      ppx)
     (link "JSX syntax"            tyxml/jsx.html      jsx))
