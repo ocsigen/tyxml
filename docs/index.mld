@@ -1,3 +1,5 @@
+@children_order functors ppx jsx api
+
 {0 TyXML}
 
 Tyxml is a library for building statically correct HTML and SVG documents.
