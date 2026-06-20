@@ -8,7 +8,8 @@
 ;; the API together under the tyxml/ package dir.
 (project tyxml)
 (title TyXML)
-(pub /tyxml)
+(url-prefix /tyxml)
+(css /css/style.css /css/ocsigen-odoc.css)  ; shared Ocsigen theme (wodoc css default changed)
 (profile release)                   ; dev profile treats warning 67 as an error
 (landing tyxml/index.html)          ; the package home page (docs/index.mld)
 (nav
