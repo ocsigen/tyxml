@@ -3,7 +3,7 @@
 > Tyxml is a library for building statically correct HTML and SVG documents.
 
 ## Manual
-- [TyXML](tyxml/intro.md)
+- [TyXML](tyxml/index.md)
 - [The functorial interface](tyxml/functors.md)
 - [TyXML Ppx syntax extension](tyxml/ppx.md)
 - [TyXML JSX syntax](tyxml/jsx.md)
@@ -12,7 +12,6 @@
 - [tyxml-jsx index](tyxml-jsx/index.md)
 - [tyxml-ppx index](tyxml-ppx/index.md)
 - [tyxml-syntax index](tyxml-syntax/index.md)
-- [tyxml index](tyxml/index.md)
 
 ## API
 - [Module `Tyxml_jsx`](tyxml-jsx/Tyxml_jsx.md)
