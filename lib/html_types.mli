@@ -297,6 +297,7 @@ type core =
     | `Hidden
     | `Id
     | i18n
+    | `Popover
     | `Spellcheck
     | `Style_Attr
     | `Tabindex
@@ -312,6 +313,7 @@ type core =
 type events =
   [
     | `OnAbort
+    | `OnBeforeToggle
     | `OnBlur
     | `OnCanPlay
     | `OnCanPlayThrough
@@ -357,6 +359,7 @@ type events =
     | `OnSubmit
     | `OnSuspend
     | `OnTimeUpdate
+    | `OnToggle
     | `OnTouchStart
     | `OnTouchEnd
     | `OnTouchMove
@@ -2090,6 +2093,8 @@ type input_attrib =
     | `Name
     | `Pattern
     | `Placeholder
+    | `Popovertarget
+    | `Popovertargetaction
     | `ReadOnly
     | `Required
     | `Size
@@ -2144,6 +2149,8 @@ type button_attrib =
     | `Formnovalidate
     | `Formtarget
     | `Name
+    | `Popovertarget
+    | `Popovertargetaction
     | `Text_Value
     | `Button_Type
   ]
@@ -2233,7 +2240,7 @@ type details_content = [ | flow5 ]
 
 type details_content_fun = [ | flow5 ]
 
-type details_attrib = [ | common | `Open ]
+type details_attrib = [ | common | `Open | `Name ]
 
 (* NAME: summary, KIND: star, TYPE: [= common ],[= phrasing ], [=`Summary], ARG: [= phrasing ], ATTRIB:  OUT: [=`Summary] *)
 type summary = [ | `Summary ]
@@ -2401,6 +2408,7 @@ type big_variant =
   | `One
   | `Zero
   | `Auto
+  | `Manual
   | `No
   | `Yes
   | `Defer
@@ -2418,6 +2426,9 @@ type big_variant =
   | `Text
   | `Decimal
   | `Search
+  | `Hide
+  | `Show
+  | `Toggle
   ]
 
 type sandbox_token =

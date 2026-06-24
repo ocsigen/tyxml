@@ -175,6 +175,7 @@ module type T = sig
   val a_onabort : Xml.event_handler -> [> | `OnAbort] attrib
   val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
   val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
+  val a_onbeforetoggle : Xml.event_handler -> [> | `OnBeforeToggle] attrib
   val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload] attrib
   val a_onblur : Xml.event_handler -> [> | `OnBlur] attrib
   val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
@@ -215,6 +216,7 @@ module type T = sig
   val a_onsubmit : Xml.event_handler -> [> | `OnSubmit] attrib
   val a_onsuspend : Xml.event_handler -> [> | `OnSuspend] attrib
   val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate] attrib
+  val a_ontoggle : Xml.event_handler -> [> | `OnToggle] attrib
   val a_onundo : Xml.event_handler -> [> | `OnUndo] attrib
   val a_onunload : Xml.event_handler -> [> | `OnUnload] attrib
   val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange] attrib
@@ -342,6 +344,12 @@ module type T = sig
   val a_pattern : text wrap -> [> | `Pattern] attrib
 
   val a_placeholder : text wrap -> [> | `Placeholder] attrib
+
+  val a_popover : [< | `Auto | `Manual] wrap -> [> | `Popover] attrib
+
+  val a_popovertarget : text wrap -> [> | `Popovertarget] attrib
+
+  val a_popovertargetaction : [< | `Hide | `Show | `Toggle] wrap -> [> | `Popovertargetaction] attrib
 
   val a_poster : Xml.uri wrap -> [> | `Poster] attrib
 
