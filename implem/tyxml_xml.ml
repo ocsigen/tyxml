@@ -112,8 +112,11 @@ include M
 include Xml_print.Make_simple(M)(struct let emptytags = [] end)
 [@@ocaml.warning "-3"]
 
-include Xml_iter.Make(M)
+module Iter = Xml_iter.Make(M)
+include Iter
 include Xml_print.Make_fmt(M)(struct let emptytags = [] end)
 
 include Xml_stream.Import(M)
+include Xml_stream.Export(struct include M include Iter end)
+
 let print fmt x = print_list ~output:(Format.pp_print_string fmt) [x]
