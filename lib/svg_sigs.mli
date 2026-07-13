@@ -699,47 +699,62 @@ module type T = sig
   val txt : string wrap -> [> | txt] elt
 
   val svg : ([< | svg_attr], [< | svg_content], [> | svg]) star
+    [@@reflect.filter_whitespace]
 
   val g : ([< | g_attr], [< | g_content], [> | g]) star
+    [@@reflect.filter_whitespace]
 
   val defs : ([< | defs_attr], [< | defs_content], [> | defs]) star
+    [@@reflect.filter_whitespace]
 
   val desc : ([< | desc_attr], [< | desc_content], [> | desc]) unary
 
   val title : ([< | title_attr], [< | title_content], [> | title]) unary
 
   val symbol : ([< | symbol_attr], [< | symbol_content], [> | symbol]) star
+    [@@reflect.filter_whitespace]
 
   val use : ([< | use_attr], [< | use_content], [> | use]) star
+    [@@reflect.filter_whitespace]
 
   val image : ([< | image_attr], [< | image_content], [> | image]) star
+    [@@reflect.filter_whitespace]
 
   val switch : ([< | switch_attr], [< | switch_content], [> | switch]) star
+    [@@reflect.filter_whitespace]
 
   val style : ([< | style_attr], [< | style_content], [> | style]) unary
 
   val path : ([< | path_attr], [< | path_content], [> | path]) star
+    [@@reflect.filter_whitespace]
 
   val rect : ([< | rect_attr], [< | rect_content], [> | rect]) star
+    [@@reflect.filter_whitespace]
 
   val circle : ([< | circle_attr], [< | circle_content], [> | circle]) star
+    [@@reflect.filter_whitespace]
 
   val ellipse :
     ([< | ellipse_attr], [< | ellipse_content], [> | ellipse]) star
+    [@@reflect.filter_whitespace]
 
   val line : ([< | line_attr], [< | line_content], [> | line]) star
+    [@@reflect.filter_whitespace]
 
   val polyline :
     ([< | polyline_attr], [< | polyline_content], [> | polyline]) star
+    [@@reflect.filter_whitespace]
 
   val polygon :
     ([< | polygon_attr], [< | polygon_content], [> | polygon]) star
+    [@@reflect.filter_whitespace]
 
   val text : ([< | text_attr], [< | text_content], [> | text]) star
 
   val tspan : ([< | tspan_attr], [< | tspan_content], [> | tspan]) star
 
   val tref : ([< | tref_attr], [< | tref_content], [> | tref]) star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
@@ -758,12 +773,14 @@ module type T = sig
   val altGlyphDef :
     ([< | altglyphdef_attr], [< | altglyphdef_content], [> | altglyphdef])
       unary
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
   val altGlyphItem :
     ([< | altglyphitem_attr], [< | altglyphitem_content], [> | altglyphitem
                                                           ]) star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
@@ -772,92 +789,117 @@ module type T = sig
   (** @deprecated Removed in SVG2 *)
 
   val marker : ([< | marker_attr], [< | marker_content], [> | marker]) star
+    [@@reflect.filter_whitespace]
 
   val color_profile :
     ([< | colorprofile_attr], [< | colorprofile_content], [> | colorprofile
                                                           ]) star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
   val linearGradient :
     ([< | lineargradient_attr], [< | lineargradient_content],
      [> | lineargradient]) star
+    [@@reflect.filter_whitespace]
 
   val radialGradient :
     ([< | radialgradient_attr], [< | radialgradient_content],
      [> | radialgradient]) star
+    [@@reflect.filter_whitespace]
 
   val stop :
     ([< | stop_attr], [< | stop_content], [> | stop ]) star
+    [@@reflect.filter_whitespace]
 
   val pattern :
     ([< | pattern_attr], [< | pattern_content], [> | pattern]) star
+    [@@reflect.filter_whitespace]
 
   val clipPath :
     ([< | clippath_attr], [< | clippath_content], [> | clippath]) star
+    [@@reflect.filter_whitespace]
 
   val filter : ([< | filter_attr], [< | filter_content], [> | filter]) star
+    [@@reflect.filter_whitespace]
 
   val feDistantLight :
     ([< | fedistantlight_attr], [< | fedistantlight_content],
      [> | fedistantlight]) star
+    [@@reflect.filter_whitespace]
 
   val fePointLight :
     ([< | fepointlight_attr], [< | fepointlight_content], [> | fepointlight
                                                           ]) star
+    [@@reflect.filter_whitespace]
 
   val feSpotLight :
     ([< | fespotlight_attr], [< | fespotlight_content], [> | fespotlight])
       star
+    [@@reflect.filter_whitespace]
 
   val feBlend :
     ([< | feblend_attr], [< | feblend_content], [> | feblend]) star
+    [@@reflect.filter_whitespace]
 
   val feColorMatrix :
     ([< | fecolormatrix_attr], [< | fecolormatrix_content],
      [> | fecolormatrix]) star
+    [@@reflect.filter_whitespace]
 
   val feComponentTransfer :
     ([< | fecomponenttransfer_attr], [< | fecomponenttransfer_content],
      [> | fecomponenttransfer]) star
+    [@@reflect.filter_whitespace]
 
   val feFuncA :
     ([< | fefunca_attr], [< | fefunca_content], [> | fefunca]) star
+    [@@reflect.filter_whitespace]
 
   val feFuncG :
     ([< | fefuncg_attr], [< | fefuncg_content], [> | fefuncg]) star
+    [@@reflect.filter_whitespace]
 
   val feFuncB :
     ([< | fefuncb_attr], [< | fefuncb_content], [> | fefuncb]) star
+    [@@reflect.filter_whitespace]
 
   val feFuncR :
     ([< | fefuncr_attr], [< | fefuncr_content], [> | fefuncr]) star
+    [@@reflect.filter_whitespace]
 
   val feComposite :
     ([< | fecomposite_attr], [< | fecomposite_content], [> | fecomposite])
       star
+    [@@reflect.filter_whitespace]
 
   val feConvolveMatrix :
     ([< | feconvolvematrix_attr], [< | feconvolvematrix_content],
      [> | feconvolvematrix]) star
+    [@@reflect.filter_whitespace]
 
   val feDiffuseLighting :
     ([< | fediffuselighting_attr], [< | fediffuselighting_content],
      [> | fediffuselighting]) star
+    [@@reflect.filter_whitespace]
 
   val feDisplacementMap :
     ([< | fedisplacementmap_attr], [< | fedisplacementmap_content],
      [> | fedisplacementmap]) star
+    [@@reflect.filter_whitespace]
 
   val feFlood :
     ([< | feflood_attr], [< | feflood_content], [> | feflood]) star
+    [@@reflect.filter_whitespace]
 
   val feGaussianBlur :
     ([< | fegaussianblur_attr], [< | fegaussianblur_content],
      [> | fegaussianblur]) star
+    [@@reflect.filter_whitespace]
 
   val feImage :
     ([< | feimage_attr], [< | feimage_content], [> | feimage]) star
+    [@@reflect.filter_whitespace]
 
   val feMerge :
     ([< | femerge_attr], [< | femerge_content], [> | femerge]) star
@@ -865,59 +907,76 @@ module type T = sig
   val feMorphology :
     ([< | femorphology_attr], [< | femorphology_content], [> | femorphology
                                                           ]) star
+    [@@reflect.filter_whitespace]
 
   val feOffset :
     ([< | feoffset_attr], [< | feoffset_content], [> | feoffset]) star
+    [@@reflect.filter_whitespace]
 
   val feSpecularLighting :
     ([< | fespecularlighting_attr], [< | fespecularlighting_content],
      [> | fespecularlighting]) star
+    [@@reflect.filter_whitespace]
 
   val feTile : ([< | fetile_attr], [< | fetile_content], [> | fetile]) star
+    [@@reflect.filter_whitespace]
 
   val feTurbulence :
     ([< | feturbulence_attr], [< | feturbulence_content], [> | feturbulence
                                                           ]) star
+    [@@reflect.filter_whitespace]
 
   val cursor : ([< | cursor_attr], [< | cursor_content], [> | cursor]) star
+    [@@reflect.filter_whitespace]
 
   val a : ([< | a_attr], [< | a_content], [> | a]) star
+    [@@reflect.filter_whitespace]
 
   val view : ([< | view_attr], [< | view_content], [> | view]) star
+    [@@reflect.filter_whitespace]
 
   val script :
     ([< | script_attr], [< | script_content], [> | script]) unary
 
   val animate :
     ([< | animate_attr], [< | animate_content], [> | animate]) star
+    [@@reflect.filter_whitespace]
 
   val set : ([< | set_attr], [< | set_content], [> | set]) star
+    [@@reflect.filter_whitespace]
 
   val animateMotion :
     ([< | animatemotion_attr], [< | animatemotion_content],
      [> | animatemotion]) star
+    [@@reflect.filter_whitespace]
 
   val mpath : ([< | mpath_attr], [< | mpath_content], [> | mpath]) star
+    [@@reflect.filter_whitespace]
 
   val animateColor :
     ([< | animatecolor_attr], [< | animatecolor_content], [> | animatecolor
                                                           ]) star
+    [@@reflect.filter_whitespace]
 
   val animateTransform :
     ([< | animatetransform_attr], [< | animatetransform_content],
      [> | animatetransform]) star
+    [@@reflect.filter_whitespace]
 
   val font : ([< | font_attr], [< | font_content], [> | font]) star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
   val glyph : ([< | glyph_attr], [< | glyph_content], [> | glyph]) star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
   val missing_glyph :
     ([< | missingglyph_attr], [< | missingglyph_content], [> | missingglyph
                                                           ]) star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
@@ -936,12 +995,14 @@ module type T = sig
   val font_face_src :
     ([< | font_face_src_attr], [< | font_face_src_content], [> | font_face_src])
       star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
   val font_face_uri :
     ([< | font_face_uri_attr], [< | font_face_uri_content], [> | font_face_uri])
       star
+    [@@reflect.filter_whitespace]
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 

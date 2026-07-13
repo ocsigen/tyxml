@@ -374,6 +374,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<stop offset='50.1%'/>"]],
   [stop ~a:[a_offset (`Percentage 50.1)] []] ;
 
+  "g with space",
+  [[%svg "<g> </g>"]],
+  [g ~a:[] []] ;
+
   "text x, y",
   [[%svg "<text x='1 2' y='3 4'/>"]],
   [text ~a:[a_x_list [1., None; 2., None]; a_y_list [3., None; 4., None]] []] ;
