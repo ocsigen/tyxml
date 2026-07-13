@@ -109,7 +109,7 @@ module type T = sig
   (** A nullary element is an element that doesn't have any children. *)
   type ('a, 'b) nullary = ?a:('a attrib list) -> unit -> 'b elt
 
-  (** A unary element is an element that have exactly one children. *)
+  (** A unary element is an element that has exactly one children. *)
   type ('a, 'b, 'c) unary = ?a:('a attrib list) -> 'b elt wrap -> 'c elt
 
   (** A star element is an element that has any number of children, including zero. *)
