@@ -424,6 +424,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<path fill-rule='evenodd'/>"]],
   [path ~a:[a_fill_rule `Evenodd] []] ;
 
+  "transform with random spacing",
+  [[%svg "<g transform='translate   ( 200 ,  200)   matrix(-0,1,.1,.0,1e-5,1.E5) scale ( -1. , 0 )'></g>"]],
+  [g ~a:[a_transform [`Translate (200., Some 200.); `Matrix (-0., 1., 0.1, 0., 1e-5, 1e5); `Scale (-1., Some 0.)]] []] ;
+
 ]
 
 let svg_element_names = "svg element names", SvgTests.make Svg.[

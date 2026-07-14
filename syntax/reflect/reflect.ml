@@ -200,7 +200,7 @@ let rec to_attribute_parser lang name ~loc = function
     [%expr spaces_or_commas svg_length]
 
   | [[%type: transforms]] ->
-    [%expr spaces_or_commas transform]
+    [%expr transform]
 
   | [[%type: paint]] ->
     [%expr paint]

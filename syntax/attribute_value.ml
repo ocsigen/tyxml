@@ -74,11 +74,11 @@ let list
   |> Common.list loc
   |> fun e -> Some e
 
-let spaces = list (Re_str.regexp " +") "space"
-let commas = list (Re_str.regexp " *, *") "comma"
-let semicolons = list (Re_str.regexp " *; *") "semicolon"
+let spaces = list (Re_str.regexp "[ \t\r\n]+") "space"
+let commas = list (Re_str.regexp "[ \t\r\n]*,[ \t\r\n]*") "comma"
+let semicolons = list (Re_str.regexp "[ \t\r\n]*;[ \t\r\n]*") "semicolon"
 
-let spaces_or_commas_regexp = Re_str.regexp "\\( *, *\\)\\| +"
+let spaces_or_commas_regexp = Re_str.regexp "\\([ \t\r\n]*,[ \t\r\n]*\\)\\|[ \t\r\n]+"
 let spaces_or_commas_ = exp_list spaces_or_commas_regexp "space- or comma"
 let spaces_or_commas = list spaces_or_commas_regexp "space- or comma"
 
@@ -347,8 +347,8 @@ let offset =
       else Some [%expr `Number [%e n]]
     end [@metaloc loc]
 
-let transform =
-  let regexp = Re_str.regexp "\\([^(]+\\)(\\([^)]*\\))" in
+let transform_item =
+  let regexp = Re_str.regexp "\\([a-zA-Z]+\\)[ \t\r\n]*(\\([^)]*\\))" in
 
   fun ?separated_by:_ ?default:_ loc name s ->
     if not @@ does_match regexp s then
@@ -407,6 +407,25 @@ let transform =
     in
 
     Some e
+
+let rec transform =
+  let regexp_wsp = Re_str.regexp "[ \t\r\n]*" in
+  let regexp = Re_str.regexp "[ \t\r\n]*\\([a-zA-Z]+[ \t\r\n]*([^)]*)\\)\\(.*\\)" in
+
+  fun ?separated_by:_ ?default:_ loc name s ->
+    if does_match regexp_wsp s then
+      Some [%expr []]
+    else if does_match regexp s then
+      begin
+        let item = Re_str.matched_group 1 s in
+        let rest = Re_str.matched_group 2 s in
+        Option.bind (transform_item loc name item) (fun item ->
+          Option.bind (transform loc name rest) (fun l ->
+            Some [%expr [%e item] :: [%e l]]))
+      end
+    else
+      Common.error loc "Value of %s is not a list of SVG transform" name
+    [@metaloc loc]
 
 
 
