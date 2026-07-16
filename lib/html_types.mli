@@ -550,6 +550,7 @@ type core_phrasing =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -590,6 +591,7 @@ type core_phrasing_without_noscript =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -628,6 +630,7 @@ type core_phrasing_without_interactive =
     | `Script
     | `Svg
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -665,6 +668,7 @@ type core_phrasing_without_media =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -723,7 +727,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
                                            phrasing_without_media) transparent
         > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
         `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
-        `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
+        `Noscript `Object `PCDATA `Progress `Q `Ruby `S `Samp `Script
         `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
 
 (** Phrasing without the interactive markups *)
@@ -743,6 +747,7 @@ type phrasing_without_dfn =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -783,6 +788,7 @@ type phrasing_without_label =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -819,6 +825,7 @@ type phrasing_without_progress =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Img | `Img_interactive
     | `Picture
     | `Ruby
@@ -861,6 +868,7 @@ type phrasing_without_time =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -902,6 +910,7 @@ type phrasing_without_meter =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -1102,7 +1111,7 @@ type +'a between_flow5_and_flow5_without_interactive_header_footer =
        `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog `Div `Dl `Em
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
-       `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
+       `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
        `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
        `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
 
@@ -1118,7 +1127,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
-      `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
+      `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
       `Table `Template `Textarea `Time `U `Ul `Var `Video `Video_interactive
       `Wbr ] as 'a
@@ -1558,6 +1567,15 @@ type u_content = [ | phrasing ]
 type u_content_fun = [ | phrasing ]
 
 type u_attrib = [ | common ]
+
+(* NAME: s, KIND: star, TYPE: [= common ], [= phrasing ], [=`S], ARG: [= phrasing ], ATTRIB:  OUT: [=`S] *)
+type s = [ | `S ]
+
+type s_content = [ | phrasing ]
+
+type s_content_fun = [ | phrasing ]
+
+type s_attrib = [ | common ]
 
 (* NAME: small, KIND: star, TYPE: [= common ], [= phrasing ], [=`Small], ARG: [= phrasing ], ATTRIB:  OUT: [=`Small] *)
 type small = [ | `Small ]

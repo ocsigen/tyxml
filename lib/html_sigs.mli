@@ -807,6 +807,10 @@ module type T = sig
 
   val u : ([< | u_attrib], [< | u_content_fun], [> | u]) star
 
+  val s : ([< | s_attrib], [< | s_content_fun], [> | s]) star
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s>
+      s element documentation on MDN *)
+
   val small :
     ([< | small_attrib], [< | small_content_fun], [> | small]) star
 

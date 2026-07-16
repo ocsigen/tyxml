@@ -6,6 +6,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   dialog ~a:[a_open ()] [div []],
   "<dialog open=\"open\"><div></div></dialog>" ;
 
+  "s",
+  p [s [txt "old price"]],
+  "<p><s>old price</s></p>" ;
+
   "div",
   div [a []],
   "<div><a></a></div>" ;

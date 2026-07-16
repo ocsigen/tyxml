@@ -189,6 +189,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<dialog open>foo</dialog>|}]],
   [dialog ~a:[a_open ()] [txt "foo"] ];
 
+  "s",
+  [[%html {|<s>foo</s>|}]],
+  [s [txt "foo"] ];
+
   "picture",
   [[%html {|<div><picture id="idpicture">
     <img src="picture/img.png" alt="test picture/img.png" id="idimg"/>

@@ -3,6 +3,7 @@
 * Fix the development-profile build with recent compilers: anonymize
   unused functor parameters in printer and functor signatures
   (warning 67)
+* Add support for the `s` element
 * Fix typo `whitout` in type definition
 	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute

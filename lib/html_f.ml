@@ -629,6 +629,8 @@ struct
 
   let u = star "u"
 
+  let s = star "s"
+
   let small = star "small"
 
   let sub = star "sub"
