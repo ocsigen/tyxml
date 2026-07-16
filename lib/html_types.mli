@@ -1861,16 +1861,18 @@ type iframe_content_fun = [ | `PCDATA ]
 type iframe_attrib =
   [
     | common
+    | `Allow
     | `Allowfullscreen
     | `Allowpaymentrequest
     | `Src
-    | (*| `Srcdoc*)
-      `Name
+    | `Srcdoc
+    | `Name
     | `Sandbox
     | `Seamless
     | `Width
     | `Height
     | `Referrerpolicy
+    | `Loading
   ]
 
 type object__content = [ | flow5 | `Param ]
@@ -1913,7 +1915,11 @@ type img = [ `Img ]
 type img_interactive = [ `Img | `Img_interactive ]
 type img_content = notag
 type img_content_fun = notag
-type img_attrib = [ | common | `Height | `Ismap | `Width | `Srcset | `Img_sizes]
+type img_attrib =
+  [ | common | `Height | `Ismap | `Width | `Srcset | `Img_sizes
+    | `Crossorigin | `Usemap | `Referrerpolicy
+    | `Loading | `Decoding | `Fetchpriority
+  ]
 
 (* Attributes used by audio and video. *)
 type media_attrib =
@@ -2546,6 +2552,11 @@ type big_variant =
   | `Hide_popover
   | `Toggle_popover
   | `Other of string
+  | `Lazy
+  | `Eager
+  | `Sync
+  | `High
+  | `Low
   | `Defer
   | `Verbatim
   | `Latin

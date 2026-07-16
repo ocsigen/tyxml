@@ -209,6 +209,15 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "img loading",
+  [[%html {|<img src="x.png" alt="x" loading="eager" decoding="auto" fetchpriority="high"/>|}]],
+  [img ~src:"x.png" ~alt:"x"
+     ~a:[a_loading `Eager; a_decoding `Auto; a_fetchpriority `High] () ];
+
+  "iframe srcdoc",
+  [[%html {|<iframe srcdoc="hello" allow="fullscreen" loading="lazy"></iframe>|}]],
+  [iframe ~a:[a_srcdoc "hello"; a_allow "fullscreen"; a_loading `Lazy] [] ];
+
   "popovertarget",
   [[%html {|<button popovertarget="p" popovertargetaction="toggle">x</button>|}]],
   [button ~a:[a_popovertarget "p"; a_popovertargetaction `Toggle]

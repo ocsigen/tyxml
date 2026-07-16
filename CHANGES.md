@@ -14,6 +14,9 @@
 * Add the `popovertarget` and `popovertargetaction` attributes on
   buttons and inputs, and the `command` and `commandfor` attributes
   (Invoker Commands) on buttons
+* Add the `loading`, `decoding` and `fetchpriority` attributes on images,
+  and the `srcdoc`, `allow` and `loading` attributes on iframes; also
+  allow `crossorigin`, `usemap` and `referrerpolicy` on images
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

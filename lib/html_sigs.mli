@@ -257,6 +257,10 @@ module type T = sig
 
   (** {3 Other attributes} *)
 
+  val a_allow : text wrap -> [> | `Allow] attrib
+  (** Permissions policy of an iframe.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow> allow documentation. *)
+
   val a_allowfullscreen : unit -> [> | `Allowfullscreen] attrib
 
   val a_allowpaymentrequest : unit -> [> | `Allowpaymentrequest] attrib
@@ -354,6 +358,15 @@ module type T = sig
   val a_keytype : text wrap -> [> | `Keytype] attrib
 
   val a_list : idref wrap -> [> | `List] attrib
+
+  val a_loading : [< | `Lazy | `Eager ] wrap -> [> | `Loading] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading> loading documentation. *)
+
+  val a_decoding : [< | `Sync | `Async | `Auto ] wrap -> [> | `Decoding] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding> decoding documentation. *)
+
+  val a_fetchpriority : [< | `High | `Low | `Auto ] wrap -> [> | `Fetchpriority] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority> fetchpriority documentation. *)
 
   val a_loop : unit -> [> | `Loop] attrib
 
@@ -457,6 +470,10 @@ module type T = sig
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot> slot documentation. *)
 
   val a_span : number wrap -> [> | `Span] attrib
+
+  val a_srcdoc : text wrap -> [> | `Srcdoc] attrib
+  (** Inline HTML document of an iframe, given as escaped text.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc> srcdoc documentation. *)
 
   (** @deprecated Use {!a_xml_lang} instead. *)
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib

@@ -39,6 +39,17 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "img loading",
+  img ~src:"x.png" ~alt:"x"
+    ~a:[a_loading `Lazy; a_decoding `Async; a_fetchpriority `Low] (),
+  "<img src=\"x.png\" alt=\"x\" loading=\"lazy\" decoding=\"async\""
+  ^ " fetchpriority=\"low\"/>" ;
+
+  "iframe srcdoc",
+  iframe ~a:[a_srcdoc "<p>Hi</p>"; a_allow "fullscreen"; a_loading `Lazy] [],
+  "<iframe srcdoc=\"&lt;p&gt;Hi&lt;/p&gt;\" allow=\"fullscreen\""
+  ^ " loading=\"lazy\"></iframe>" ;
+
   "popovertarget",
   button ~a:[a_popovertarget "pop"; a_popovertargetaction `Toggle]
     [txt "Toggle"],

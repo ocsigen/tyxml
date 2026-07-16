@@ -275,6 +275,8 @@ struct
 
   let a_name = string_attrib "name"
 
+  let a_allow = string_attrib "allow"
+
   let a_allowfullscreen =
     constant_attrib "allowfullscreen"
 
@@ -372,6 +374,15 @@ struct
 
   let a_list = string_attrib "list"
 
+  let a_loading x =
+    user_attrib C.string_of_big_variant "loading" x
+
+  let a_decoding x =
+    user_attrib C.string_of_big_variant "decoding" x
+
+  let a_fetchpriority x =
+    user_attrib C.string_of_big_variant "fetchpriority" x
+
   let a_loop =
     constant_attrib "loop"
 
@@ -457,7 +468,8 @@ struct
 
   let a_span = int_attrib "span"
 
-  (*let a_srcdoc*)
+  let a_srcdoc = string_attrib "srcdoc"
+
   let a_srclang = string_attrib "srclang"
 
   let a_kind x =
@@ -1095,6 +1107,11 @@ struct
     | `Sentences -> "sentences"
     | `Words -> "words"
     | `Characters -> "characters"
+    | `Lazy -> "lazy"
+    | `Eager -> "eager"
+    | `Sync -> "sync"
+    | `High -> "high"
+    | `Low -> "low"
     | `Show -> "show"
     | `Hide -> "hide"
     | `Toggle -> "toggle"
