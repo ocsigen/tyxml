@@ -328,6 +328,7 @@ type core =
 type events =
   [
     | `OnAbort
+    | `OnAuxClick
     | `OnBlur
     | `OnCanPlay
     | `OnCanPlayThrough
@@ -358,6 +359,17 @@ type events =
     | `OnMouseMove
     | `OnMouseOut
     | `OnMouseWheel
+    | `OnWheel
+    | `OnPointerCancel
+    | `OnPointerDown
+    | `OnPointerEnter
+    | `OnPointerLeave
+    | `OnPointerMove
+    | `OnPointerOut
+    | `OnPointerOver
+    | `OnPointerUp
+    | `OnGotPointerCapture
+    | `OnLostPointerCapture
     | `OnPause
     | `OnPlay
     | `OnPlaying

@@ -164,6 +164,7 @@ struct
   let a_onmousewheel = Xml.event_handler_attrib "onmousewheel"
 
   (** Javascript mouse events *)
+  let a_onauxclick = Xml.mouse_event_handler_attrib "onauxclick"
   let a_onclick = Xml.mouse_event_handler_attrib "onclick"
   let a_oncontextmenu = Xml.mouse_event_handler_attrib "oncontextmenu"
   let a_ondblclick = Xml.mouse_event_handler_attrib "ondblclick"
@@ -179,6 +180,21 @@ struct
   let a_onmouseover = Xml.mouse_event_handler_attrib "onmouseover"
   let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
+  let a_onwheel = Xml.mouse_event_handler_attrib "onwheel"
+
+  (** Javascript pointer events *)
+  let a_onpointercancel = Xml.mouse_event_handler_attrib "onpointercancel"
+  let a_onpointerdown = Xml.mouse_event_handler_attrib "onpointerdown"
+  let a_onpointerenter = Xml.mouse_event_handler_attrib "onpointerenter"
+  let a_onpointerleave = Xml.mouse_event_handler_attrib "onpointerleave"
+  let a_onpointermove = Xml.mouse_event_handler_attrib "onpointermove"
+  let a_onpointerout = Xml.mouse_event_handler_attrib "onpointerout"
+  let a_onpointerover = Xml.mouse_event_handler_attrib "onpointerover"
+  let a_onpointerup = Xml.mouse_event_handler_attrib "onpointerup"
+  let a_ongotpointercapture =
+    Xml.mouse_event_handler_attrib "ongotpointercapture"
+  let a_onlostpointercapture =
+    Xml.mouse_event_handler_attrib "onlostpointercapture"
 
   (** Javascript touch events *)
   let a_ontouchstart = Xml.touch_event_handler_attrib "ontouchstart"

@@ -209,6 +209,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "pointer events",
+  [[%html {|<div onpointerdown="d()" onpointerup="u()" onwheel="w()"></div>|}]],
+  [div ~a:[a_onpointerdown "d()"; a_onpointerup "u()"; a_onwheel "w()"] [] ];
+
   "declarative shadow DOM",
   [[%html {|<template shadowrootmode="closed" shadowrootclonable><p>x</p></template>|}]],
   [template ~a:[a_shadowrootmode `Closed; a_shadowrootclonable ()]

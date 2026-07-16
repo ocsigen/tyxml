@@ -227,6 +227,7 @@ module type T = sig
 
   (** {4 Mouse events} *)
 
+  val a_onauxclick : Xml.mouse_event_handler -> [> | `OnAuxClick] attrib
   val a_onclick : Xml.mouse_event_handler -> [> | `OnClick] attrib
   val a_oncontextmenu : Xml.mouse_event_handler -> [> | `OnContextMenu] attrib
   val a_ondblclick : Xml.mouse_event_handler -> [> | `OnDblClick] attrib
@@ -242,6 +243,25 @@ module type T = sig
   val a_onmouseover : Xml.mouse_event_handler -> [> | `OnMouseOver] attrib
   val a_onmousemove : Xml.mouse_event_handler -> [> | `OnMouseMove] attrib
   val a_onmouseout : Xml.mouse_event_handler -> [> | `OnMouseOut] attrib
+  val a_onwheel : Xml.mouse_event_handler -> [> | `OnWheel] attrib
+
+  (** {4 Pointer events}
+
+      In the DOM, pointer events inherit from mouse events, so the
+      handlers use {!Xml.mouse_event_handler}. *)
+
+  val a_onpointercancel : Xml.mouse_event_handler -> [> | `OnPointerCancel] attrib
+  val a_onpointerdown : Xml.mouse_event_handler -> [> | `OnPointerDown] attrib
+  val a_onpointerenter : Xml.mouse_event_handler -> [> | `OnPointerEnter] attrib
+  val a_onpointerleave : Xml.mouse_event_handler -> [> | `OnPointerLeave] attrib
+  val a_onpointermove : Xml.mouse_event_handler -> [> | `OnPointerMove] attrib
+  val a_onpointerout : Xml.mouse_event_handler -> [> | `OnPointerOut] attrib
+  val a_onpointerover : Xml.mouse_event_handler -> [> | `OnPointerOver] attrib
+  val a_onpointerup : Xml.mouse_event_handler -> [> | `OnPointerUp] attrib
+  val a_ongotpointercapture :
+    Xml.mouse_event_handler -> [> | `OnGotPointerCapture] attrib
+  val a_onlostpointercapture :
+    Xml.mouse_event_handler -> [> | `OnLostPointerCapture] attrib
 
   (** {4 Touch events} *)
   val a_ontouchstart : Xml.touch_event_handler -> [> | `OnTouchStart] attrib

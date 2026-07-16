@@ -35,6 +35,8 @@
 * Add the declarative shadow DOM attributes on templates:
   `shadowrootmode`, `shadowrootdelegatesfocus`, `shadowrootclonable`
   and `shadowrootserializable`
+* Add the pointer event handler attributes (`a_onpointerdown`, etc.),
+  `a_onwheel` and `a_onauxclick`
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

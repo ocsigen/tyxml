@@ -39,6 +39,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "pointer events",
+  div ~a:[a_onpointerdown "d()"; a_onwheel "w()"; a_onauxclick "a()"] [],
+  "<div onpointerdown=\"d()\" onwheel=\"w()\" onauxclick=\"a()\"></div>" ;
+
   "declarative shadow DOM",
   div [template ~a:[a_shadowrootmode `Open; a_shadowrootdelegatesfocus ();
                     a_shadowrootclonable (); a_shadowrootserializable ()]
