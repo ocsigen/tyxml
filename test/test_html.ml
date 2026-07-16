@@ -22,6 +22,15 @@ let html_elements = "html elements", tyxml_tests Html.[
   p [data ~value:"42" [txt "forty-two"]],
   "<p><data value=\"42\">forty-two</data></p>" ;
 
+  "track",
+  video ~tracks:[
+    track ~src:"video_en.vtt"
+      ~a:[a_kind `Subtitles; a_track_srclang "en";
+          a_label "English"; a_default ()] ()
+  ] [],
+  "<video><track src=\"video_en.vtt\" kind=\"subtitles\" srclang=\"en\""
+  ^ " label=\"English\" default=\"default\"/></video>" ;
+
   "div",
   div [a []],
   "<div><a></a></div>" ;

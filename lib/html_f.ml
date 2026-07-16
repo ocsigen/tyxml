@@ -41,7 +41,8 @@ struct
       Xml_print.compose_doctype "html" []
     let emptytags =
       [ "area"; "base"; "br"; "col"; "command"; "embed"; "hr"; "img";
-        "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
+        "input"; "keygen"; "link"; "meta"; "param"; "source"; "track";
+        "wbr" ]
   end
 
   type 'a wrap = 'a W.t
@@ -410,6 +411,14 @@ struct
   (*let a_srcdoc*)
   let a_srclang = string_attrib "srclang"
 
+  let a_kind x =
+    user_attrib C.string_of_big_variant "kind" x
+
+  let a_track_srclang = string_attrib "srclang"
+
+  let a_default =
+    constant_attrib "default"
+
   let a_srcset = srcset_attrib "srcset"
 
   let a_img_sizes = comma_sep_attrib "sizes"
@@ -694,11 +703,16 @@ struct
 
   let search = star "search"
 
-  let video_audio name ?src ?srcs ?(a = []) elts =
+  let video_audio name ?src ?srcs ?tracks ?(a = []) elts =
     let a =
       match src with
       | None -> a
       | Some uri -> (a_src uri) :: a
+    in
+    let elts =
+      match tracks with
+      | None -> elts
+      | Some tracks -> W.append tracks elts
     in
     match srcs with
     | None -> Xml.node name ~a elts
@@ -723,6 +737,9 @@ struct
   let embed = terminal "embed"
 
   let source = terminal "source"
+
+  let track ~src ?(a = []) () =
+    Xml.leaf ~a: ((a_src src) :: a) "track"
 
   let meter = star "meter"
 
@@ -980,6 +997,10 @@ struct
     | `Open -> "open"
     | `None -> "none"
     | `Metadata -> "metadata"
+    | `Subtitles -> "subtitles"
+    | `Captions -> "captions"
+    | `Descriptions -> "descriptions"
+    | `Chapters -> "chapters"
     | `Audio -> "audio"
     | `Pubdate -> "pubdate"
     | `Required -> "required"

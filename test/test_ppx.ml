@@ -205,6 +205,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<data value="42">foo</data>|}]],
   [data ~value:"42" [txt "foo"] ];
 
+  "track in video",
+  [[%html {|<video><track src="v.vtt" kind="subtitles" srclang="en" default/></video>|}]],
+  [video ~tracks:[track ~src:"v.vtt"
+      ~a:[a_kind `Subtitles; a_track_srclang "en"; a_default ()] ()] []];
+
   "picture",
   [[%html {|<div><picture id="idpicture">
     <img src="picture/img.png" alt="test picture/img.png" id="idimg"/>

@@ -1952,6 +1952,15 @@ type source_content_fun = notag
 
 type source_attrib = [ | common | `Src | `Srcset | `Mime_type | `Media ]
 
+(* NAME: track, KIND: nullary, TYPE: [= common |`Kind |`Srclang |`Label |`Default ], [=`Track], ARG: notag, ATTRIB:  OUT: [=`Track] *)
+type track = [ | `Track ]
+
+type track_content = notag
+
+type track_content_fun = notag
+
+type track_attrib = [ | common | `Kind | `Srclang | `Label | `Default ]
+
 (* NAME: area, KIND: nullary, TYPE: [= common | `Alt | `Coords | `Shape| `Target | `Rel | `Media| `Hreflang | `Mime_type],[=`Area], ARG: notag, ATTRIB:  OUT: [=`Area] *)
 type area = [ | `Area ]
 
@@ -2439,6 +2448,10 @@ type big_variant =
   | `Open
   | `Audio
   | `Metadata
+  | `Subtitles
+  | `Captions
+  | `Descriptions
+  | `Chapters
   | `None
   | `Pubdate
   | `Required

@@ -375,6 +375,24 @@ module type T = sig
   val a_srclang : nmtoken wrap -> [> | `XML_lang] attrib
   [@@ocaml.deprecated "Use a_xml_lang instead."]
 
+  val a_kind :
+    [< | `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata]
+      wrap -> [> | `Kind] attrib
+  (** How a text track is meant to be used, for [track] elements.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind>
+      kind attribute documentation on MDN *)
+
+  val a_track_srclang : languagecode wrap -> [> | `Srclang] attrib
+  [@@reflect.attribute "srclang" ["track"]]
+  (** Language of the text track data, for [track] elements. *)
+
+  val a_default : unit -> [> | `Default] attrib
+  (** Indicates that a text track is to be enabled if the user's
+      preferences do not indicate that another track would be more
+      appropriate.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default>
+      default attribute documentation on MDN *)
+
   type image_candidate =
     [ `Url of uri
     | `Url_width of uri * number
@@ -907,18 +925,26 @@ module type T = sig
   val audio :
     ?src:Xml.uri wrap ->
     ?srcs:(([< | source] elt) list_wrap) ->
+    ?tracks:(([< | track] elt) list_wrap) ->
     ([< | audio_attrib], 'a, [> 'a audio ]) star
   [@@reflect.element "audio_video"]
 
   val video :
     ?src:Xml.uri wrap ->
     ?srcs: (([< | source] elt) list_wrap) ->
+    ?tracks:(([< | track] elt) list_wrap) ->
     ([< | video_attrib], 'a, [> 'a video]) star
   [@@reflect.element "audio_video"]
 
   val canvas : ([< | canvas_attrib], 'a, [> | 'a canvas]) star
 
   val source : ([< | source_attrib], [> | source]) nullary
+
+  val track :
+    src: Xml.uri wrap ->
+    ([< | track_attrib], [> | track]) nullary
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track>
+      track element documentation on MDN *)
 
   val area :
     alt: text wrap ->
