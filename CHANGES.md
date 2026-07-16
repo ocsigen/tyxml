@@ -57,6 +57,8 @@
 * Add support for the `track` element and its `kind`, `srclang`
   (as `a_track_srclang`) and `default` attributes; `audio` and `video`
   now accept an optional `?tracks` argument
+* Undeprecate the `scope` attribute: it is valid in the HTML living
+  standard on table header cells
 * Fix typo `whitout` in type definition
 	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute
