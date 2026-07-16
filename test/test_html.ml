@@ -10,6 +10,16 @@ let html_elements = "html elements", tyxml_tests Html.[
   p [s [txt "old price"]],
   "<p><s>old price</s></p>" ;
 
+  "form method dialog",
+  form ~a:[a_method `Dialog] [],
+  "<form method=\"dialog\"></form>" ;
+
+  "iframe sandbox tokens",
+  iframe ~a:[a_sandbox [`Allow_downloads; `Allow_modals;
+                        `Allow_popups_to_escape_sandbox]] [],
+  "<iframe sandbox=\"allow-downloads allow-modals"
+  ^ " allow-popups-to-escape-sandbox\"></iframe>" ;
+
   "bdi",
   p [bdi [txt "user123"]],
   "<p><bdi>user123</bdi></p>" ;

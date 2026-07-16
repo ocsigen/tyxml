@@ -44,6 +44,11 @@
   `a_onslotchange` and `a_ontoggle`
 * Add the window event handler attributes `a_onlanguagechange`,
   `a_onrejectionhandled` and `a_onunhandledrejection` on body
+* Allow the `dialog` value for the `method` and `formmethod` attributes,
+  and add the newer `sandbox` tokens (`allow-downloads`, `allow-modals`,
+  `allow-orientation-lock`, `allow-popups-to-escape-sandbox`,
+  `allow-presentation`, `allow-top-navigation-by-user-activation`,
+  `allow-top-navigation-to-custom-protocols`)
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

@@ -746,10 +746,10 @@ module type T = sig
   val a_minlength : number wrap -> [> | `Minlength] attrib
 
   val a_method :
-    [< | `Get | `Post] wrap -> [> | `Method] attrib
+    [< | `Get | `Post | `Dialog] wrap -> [> | `Method] attrib
 
   val a_formmethod :
-    [< | `Get | `Post] wrap -> [> | `Formmethod] attrib
+    [< | `Get | `Post | `Dialog] wrap -> [> | `Formmethod] attrib
 
   val a_multiple : unit -> [> | `Multiple] attrib
 

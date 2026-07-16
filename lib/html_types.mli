@@ -2518,6 +2518,7 @@ type big_variant =
   | `Selected
   | `Get
   | `Post
+  | `Dialog
   | `Checked
   | `Disabled
   | `ReadOnly
@@ -2640,12 +2641,19 @@ type big_variant =
   ]
 
 type sandbox_token =
-  [ `Allow_forms
+  [ `Allow_downloads
+  | `Allow_forms
+  | `Allow_modals
+  | `Allow_orientation_lock
   | `Allow_pointer_lock
   | `Allow_popups
-  | `Allow_top_navigation
+  | `Allow_popups_to_escape_sandbox
+  | `Allow_presentation
   | `Allow_same_origin
-  | `Allow_script ]
+  | `Allow_script
+  | `Allow_top_navigation
+  | `Allow_top_navigation_by_user_activation
+  | `Allow_top_navigation_to_custom_protocols ]
 
 type blocking_token = [ `Render ]
 

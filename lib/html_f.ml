@@ -1047,12 +1047,21 @@ struct
   module Xml = Xml
 
   let string_of_sandbox_token = function
+    | `Allow_downloads -> "allow-downloads"
     | `Allow_forms -> "allow-forms"
+    | `Allow_modals -> "allow-modals"
+    | `Allow_orientation_lock -> "allow-orientation-lock"
     | `Allow_pointer_lock -> "allow-pointer-lock"
     | `Allow_popups -> "allow-popups"
-    | `Allow_top_navigation -> "allow-top-navigation"
+    | `Allow_popups_to_escape_sandbox -> "allow-popups-to-escape-sandbox"
+    | `Allow_presentation -> "allow-presentation"
     | `Allow_same_origin -> "allow-same-origin"
     | `Allow_script -> "allow-scripts"
+    | `Allow_top_navigation -> "allow-top-navigation"
+    | `Allow_top_navigation_by_user_activation ->
+      "allow-top-navigation-by-user-activation"
+    | `Allow_top_navigation_to_custom_protocols ->
+      "allow-top-navigation-to-custom-protocols"
 
   let string_of_linktype = function
     | `Alternate -> "alternate"
@@ -1137,6 +1146,7 @@ struct
     | `Rtl -> "rtl"
     | `Get -> "GET"
     | `Post -> "POST"
+    | `Dialog -> "dialog"
     | `Formnovalidate -> "formnovalidate"
     | `Hidden -> "hidden"
     | `Ismap -> "ismap"
