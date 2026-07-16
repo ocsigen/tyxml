@@ -2402,13 +2402,14 @@ type style_content = [ | `PCDATA ]
 
 type style_content_fun = [ | `PCDATA ]
 
-type style_attrib = [ | common | `Media | `Mime_type | `Scoped ]
+type style_attrib = [ | common | `Media | `Mime_type | `Scoped | `Blocking ]
 
 type script = [ | `Script ]
 
 type script_attrib =
   [ | common | subresource_integrity
     | `Async | `Charset | `Src | `Defer | `Script_type
+    | `Blocking | `Fetchpriority | `Nomodule | `Referrerpolicy
   ]
 
 type script_content = [ | `PCDATA ]
@@ -2443,6 +2444,8 @@ type link_content_fun = notag
 type link_attrib =
   [ | common | subresource_integrity
     | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
+    | `As | `Imagesrcset | `Imagesizes | `Blocking | `Fetchpriority
+    | `Disabled | `Referrerpolicy
   ]
 
 type picture = [ | `Picture ]
@@ -2557,6 +2560,17 @@ type big_variant =
   | `Sync
   | `High
   | `Low
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker
   | `Defer
   | `Verbatim
   | `Latin
@@ -2581,6 +2595,8 @@ type sandbox_token =
   | `Allow_top_navigation
   | `Allow_same_origin
   | `Allow_script ]
+
+type blocking_token = [ `Render ]
 
 
 type input_type =

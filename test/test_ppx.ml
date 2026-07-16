@@ -209,6 +209,21 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "link preload",
+  [[%html {|<link rel="stylesheet" href="a.css" blocking="render" fetchpriority="low"/>|}]],
+  [link ~rel:[`Stylesheet] ~href:"a.css"
+     ~a:[a_blocking [`Render]; a_fetchpriority `Low] () ];
+
+  "link imagesrcset",
+  [[%html {|<link rel="preload" href="i.png" as="image" imagesrcset="i2.png 2x" imagesizes="50vw"/>|}]],
+  [link ~rel:[`Other "preload"] ~href:"i.png"
+     ~a:[a_as `Image; a_imagesrcset [`Url_pixel ("i2.png", 2.)];
+         a_imagesizes ["50vw"]] () ];
+
+  "script nomodule",
+  [[%html {|<script nomodule src="a.js"></script>|}]],
+  [script ~a:[a_nomodule (); a_src "a.js"] (txt "") ];
+
   "img loading",
   [[%html {|<img src="x.png" alt="x" loading="eager" decoding="auto" fetchpriority="high"/>|}]],
   [img ~src:"x.png" ~alt:"x"

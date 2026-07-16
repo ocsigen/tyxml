@@ -580,6 +580,8 @@ let script_type =
 
 let sandbox = spaces variant
 
+let blocking = spaces variant
+
 let popover = variant_or_empty "Auto"
 
 let command = total_variant Html_types_reflected.command_value

@@ -295,6 +295,9 @@ struct
   let a_autocorrect x =
     user_attrib C.onoff_of_bool "autocorrect" x
 
+  let a_as x =
+    user_attrib C.string_of_big_variant "as" x
+
   let a_async =
     constant_attrib "async"
 
@@ -399,6 +402,9 @@ struct
   let a_inputmode x =
     user_attrib C.string_of_big_variant "inputmode" x
 
+  let a_nomodule =
+    constant_attrib "nomodule"
+
   let a_nonce = string_attrib "nonce"
 
   let a_novalidate =
@@ -446,6 +452,9 @@ struct
   let a_reversed =
     constant_attrib "reversed"
 
+  let a_blocking x =
+    user_attrib C.string_of_blocking "blocking" x
+
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
 
@@ -481,6 +490,10 @@ struct
     constant_attrib "default"
 
   let a_srcset = srcset_attrib "srcset"
+
+  let a_imagesrcset = srcset_attrib "imagesrcset"
+
+  let a_imagesizes = comma_sep_attrib "imagesizes"
 
   let a_img_sizes = comma_sep_attrib "sizes"
 
@@ -1112,6 +1125,17 @@ struct
     | `Sync -> "sync"
     | `High -> "high"
     | `Low -> "low"
+    | `Document -> "document"
+    | `Embed -> "embed"
+    | `Fetch -> "fetch"
+    | `Font -> "font"
+    | `Image -> "image"
+    | `Object -> "object"
+    | `Script -> "script"
+    | `Style -> "style"
+    | `Track -> "track"
+    | `Video -> "video"
+    | `Worker -> "worker"
     | `Show -> "show"
     | `Hide -> "hide"
     | `Toggle -> "toggle"
@@ -1219,6 +1243,12 @@ struct
         (List.map (fun (x, y) -> Printf.sprintf "%dx%d" x y) l)
     | None ->
       "any"
+
+  let string_of_blocking_token = function
+    | `Render -> "render"
+
+  let string_of_blocking l =
+    String.concat " " (List.map string_of_blocking_token l)
 
   let string_of_sandbox l =
     String.concat " " (List.map string_of_sandbox_token l)

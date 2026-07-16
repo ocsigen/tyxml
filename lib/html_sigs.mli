@@ -276,6 +276,15 @@ module type T = sig
   val a_autocorrect : (bool[@onoff]) wrap -> [> | `Autocorrect] attrib
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect> autocorrect documentation. *)
 
+  val a_as :
+    [< | `Audio | `Document | `Embed | `Fetch | `Font | `Image | `Object
+    | `Script | `Style | `Track | `Video | `Worker ] wrap ->
+    [> | `As] attrib
+  (** Destination of a preload link. This covers the destinations
+      listed by MDN; other spec destinations can be produced with
+      {!Unsafe.string_attrib}.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as> as documentation. *)
+
   val a_async : unit -> [> | `Async] attrib
 
   val a_autofocus : unit -> [> | `Autofocus] attrib
@@ -387,6 +396,11 @@ module type T = sig
     [> `Inputmode] attrib
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode> inputmode documentation. *)
 
+  val a_nomodule : unit -> [> | `Nomodule] attrib
+  (** Indicates that a classic script must not run in browsers that
+      support module scripts.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule> nomodule documentation. *)
+
   val a_nonce : text wrap -> [> | `Nonce] attrib
   (** Cryptographic nonce used by Content Security Policy.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce> nonce documentation. *)
@@ -452,6 +466,11 @@ module type T = sig
 
   val a_reversed : unit -> [> | `Reversed] attrib
 
+  val a_blocking : [< | blocking_token ] list wrap -> [> | `Blocking] attrib
+  (** Space-separated list of operations blocked on the fetching of
+      a script, style sheet or style-relevant link.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking> blocking documentation. *)
+
   val a_sandbox : [< | sandbox_token ] list wrap -> [> | `Sandbox] attrib
 
   val a_spellcheck : bool wrap -> [> | `Spellcheck] attrib
@@ -503,6 +522,14 @@ module type T = sig
     | `Url_pixel of uri * float_number ]
 
   val a_srcset : image_candidate list wrap -> [> | `Srcset] attrib
+
+  val a_imagesrcset : image_candidate list wrap -> [> | `Imagesrcset] attrib
+  (** Images to preload, for link elements with [rel=preload] and
+      [as=image].
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset> imagesrcset documentation. *)
+
+  val a_imagesizes : text list wrap -> [> | `Imagesizes] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes> imagesizes documentation. *)
 
   val a_img_sizes : text list wrap -> [> | `Img_sizes] attrib
   [@@reflect.attribute "sizes" ["img"]]
@@ -1395,6 +1422,9 @@ module type Wrapped_functions = sig
     ([< Html_types.referrerpolicy], string) Xml.W.ft
 
   val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
+
+  val string_of_blocking :
+    ([< Html_types.blocking_token] list, string) Xml.W.ft
 
   val string_of_sandbox :
     ([< Html_types.sandbox_token] list, string) Xml.W.ft

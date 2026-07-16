@@ -39,6 +39,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "script nomodule",
+  script ~a:[a_nomodule (); a_blocking [`Render]] (txt ""),
+  "<script nomodule=\"nomodule\" blocking=\"render\"></script>" ;
+
   "img loading",
   img ~src:"x.png" ~alt:"x"
     ~a:[a_loading `Lazy; a_decoding `Async; a_fetchpriority `Low] (),
