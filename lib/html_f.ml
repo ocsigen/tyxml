@@ -307,8 +307,8 @@ struct
 
   let a_challenge = string_attrib "challenge"
 
-  let a_contenteditable ce =
-    bool_attrib "contenteditable" ce
+  let a_contenteditable x =
+    user_attrib C.string_of_big_variant "contenteditable" x
 
   let a_contextmenu = string_attrib "contextmenu"
 
@@ -332,8 +332,8 @@ struct
 
   let a_formtarget = string_attrib "formtarget"
 
-  let a_hidden =
-    constant_attrib "hidden"
+  let a_hidden x =
+    user_attrib C.string_of_big_variant "hidden" x
 
   let a_high = float_attrib "high"
 
@@ -1001,6 +1001,10 @@ struct
     | `One -> "1"
     | `Yes -> "yes"
     | `No -> "no"
+    | `True -> "true"
+    | `False -> "false"
+    | `Plaintext_only -> "plaintext-only"
+    | `Until_found -> "until-found"
     | `Auto -> "auto"
     | `Circle -> "circle"
     | `Poly -> "poly"

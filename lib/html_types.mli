@@ -2403,6 +2403,10 @@ type big_variant =
   | `Auto
   | `No
   | `Yes
+  | `True
+  | `False
+  | `Plaintext_only
+  | `Until_found
   | `Defer
   | `Verbatim
   | `Latin
@@ -2457,3 +2461,7 @@ type input_type =
 type script_type = [ `Javascript | `Module | `Mime of string ]
 
 type autocomplete_option = [ `On | `Off | `Tokens of string list]
+
+type contenteditable_value = [ `True | `False | `Plaintext_only ]
+
+type hidden_value = [ `Hidden | `Until_found ]

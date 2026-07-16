@@ -193,6 +193,12 @@ let rec to_attribute_parser lang name ~loc = function
   | [[%type: referrerpolicy]] ->
     [%expr variant_or_empty "Empty"]
 
+  | [[%type: hidden_value]] ->
+    [%expr variant_or_empty "Hidden"]
+
+  | [[%type: contenteditable_value]] ->
+    [%expr variant_or_empty "True"]
+
   | [[%type: mediadesc]] ->
     [%expr commas (total_variant Html_types_reflected.mediadesc_token)]
 

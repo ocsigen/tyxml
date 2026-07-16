@@ -224,12 +224,28 @@ let basics = "ppx basics", HtmlTests.make Html.[
 let attribs = "ppx attribs", HtmlTests.make Html.[
 
   "unit absent",
-  [[%html "<div hidden></div>"]],
-  [div ~a:[a_hidden ()] []] ;
+  [[%html "<input disabled/>"]],
+  [input ~a:[a_disabled ()] ()] ;
 
   "unit present",
-  [[%html "<div hidden=hidden></div>"]],
-  [div ~a:[a_hidden ()] []] ;
+  [[%html {|<input disabled="disabled"/>|}]],
+  [input ~a:[a_disabled ()] ()] ;
+
+  "hidden bare",
+  [[%html "<div hidden></div>"]],
+  [div ~a:[a_hidden `Hidden] []] ;
+
+  "hidden until-found",
+  [[%html "<div hidden=until-found></div>"]],
+  [div ~a:[a_hidden `Until_found] []] ;
+
+  "contenteditable bare",
+  [[%html "<div contenteditable></div>"]],
+  [div ~a:[a_contenteditable `True] []] ;
+
+  "contenteditable plaintext-only",
+  [[%html "<div contenteditable=plaintext-only></div>"]],
+  [div ~a:[a_contenteditable `Plaintext_only] []] ;
 
   "bool default",
   [[%html "<div draggable></div>"]],
