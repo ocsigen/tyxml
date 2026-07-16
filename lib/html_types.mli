@@ -2200,6 +2200,8 @@ type input_attrib =
     | `Value
     | `Width
     | `Inputmode
+    | `Popovertarget
+    | `Popovertargetaction
   ]
 
 type textarea = [ | `Textarea ]
@@ -2247,6 +2249,10 @@ type button_attrib =
     | `Name
     | `Text_Value
     | `Button_Type
+    | `Popovertarget
+    | `Popovertargetaction
+    | `Command
+    | `Commandfor
   ]
 
 (* NAME: select, KIND: star, TYPE: [= common |`Autofocus | `Multiple | `Name | `Size | `Form | `Disabled ], [ `Optgroup | `Option ],[=`Select], ARG: [ `Optgroup | `Option ], ATTRIB:  OUT: [=`Select] *)
@@ -2530,6 +2536,16 @@ type big_variant =
   | `Sentences
   | `Words
   | `Characters
+  | `Show
+  | `Hide
+  | `Toggle
+  | `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string
   | `Defer
   | `Verbatim
   | `Latin
@@ -2586,3 +2602,14 @@ type script_type = [ `Javascript | `Module | `Mime of string ]
 type autocomplete_option = [ `On | `Off | `Tokens of string list]
 
 type popover_value = [ `Auto | `Manual | `Hint ]
+
+(** Values for the [command] attribute of button elements. Custom
+    commands (starting with [--]) use the [`Other] constructor. *)
+type command_value =
+  [ `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string ] [@@reflect.total_variant]

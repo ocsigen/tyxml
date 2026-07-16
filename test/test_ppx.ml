@@ -209,6 +209,19 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "popovertarget",
+  [[%html {|<button popovertarget="p" popovertargetaction="toggle">x</button>|}]],
+  [button ~a:[a_popovertarget "p"; a_popovertargetaction `Toggle]
+     [txt "x"] ];
+
+  "invoker commands",
+  [[%html {|<button commandfor="d" command="request-close">x</button>|}]],
+  [button ~a:[a_commandfor "d"; a_command `Request_close] [txt "x"] ];
+
+  "custom command",
+  [[%html {|<button commandfor="d" command="--my-cmd">x</button>|}]],
+  [button ~a:[a_commandfor "d"; a_command (`Other "--my-cmd")] [txt "x"] ];
+
   "shadow parts",
   [[%html {|<span part="label value" exportparts="a,b:c"></span>|}]],
   [span ~a:[a_part ["label"; "value"]; a_exportparts ["a"; "b:c"]] [] ];

@@ -39,6 +39,21 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "popovertarget",
+  button ~a:[a_popovertarget "pop"; a_popovertargetaction `Toggle]
+    [txt "Toggle"],
+  "<button popovertarget=\"pop\""
+  ^ " popovertargetaction=\"toggle\">Toggle</button>" ;
+
+  "invoker commands",
+  div [
+    button ~a:[a_commandfor "dlg"; a_command `Show_modal] [txt "Open"] ;
+    button ~a:[a_commandfor "dlg"; a_command (`Other "--my-cmd")]
+      [txt "Custom"]
+  ],
+  "<div><button commandfor=\"dlg\" command=\"show-modal\">Open</button>"
+  ^ "<button commandfor=\"dlg\" command=\"--my-cmd\">Custom</button></div>" ;
+
   "shadow parts",
   div ~a:[a_part ["label"; "value"];
           a_exportparts ["inner-label"; "inner-value:value"]] [],

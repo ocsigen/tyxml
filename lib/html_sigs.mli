@@ -406,6 +406,23 @@ module type T = sig
       [popover="auto"].
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover> popover documentation. *)
 
+  val a_popovertarget : idref wrap -> [> | `Popovertarget] attrib
+  (** Id of the popover element to control with a button.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget> popovertarget documentation. *)
+
+  val a_popovertargetaction :
+    [< | `Show | `Hide | `Toggle ] wrap -> [> | `Popovertargetaction] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction> popovertargetaction documentation. *)
+
+  val a_command : [< | command_value] wrap -> [> | `Command] attrib
+  (** Action to perform on the element targeted by a button
+      (Invoker Commands API).
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command> command documentation. *)
+
+  val a_commandfor : idref wrap -> [> | `Commandfor] attrib
+  (** Id of the element a button command targets.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor> commandfor documentation. *)
+
   val a_poster : Xml.uri wrap -> [> | `Poster] attrib
 
   val a_preload : [< | `None | `Metadata | `Audio] wrap -> [> | `Preload] attrib

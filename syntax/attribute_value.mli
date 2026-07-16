@@ -221,6 +221,7 @@ val script_type : parser
 
 val sandbox : parser
 val popover : parser
+val command : parser
 val in_ : parser
 val in2 : parser
 val xmlns : parser

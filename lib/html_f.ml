@@ -409,6 +409,16 @@ struct
   let a_popover x =
     user_attrib C.string_of_big_variant "popover" x
 
+  let a_popovertarget = string_attrib "popovertarget"
+
+  let a_popovertargetaction x =
+    user_attrib C.string_of_big_variant "popovertargetaction" x
+
+  let a_command x =
+    user_attrib C.string_of_big_variant "command" x
+
+  let a_commandfor = string_attrib "commandfor"
+
   let a_poster = uri_attrib "poster"
 
   let a_preload x =
@@ -1085,6 +1095,15 @@ struct
     | `Sentences -> "sentences"
     | `Words -> "words"
     | `Characters -> "characters"
+    | `Show -> "show"
+    | `Hide -> "hide"
+    | `Toggle -> "toggle"
+    | `Show_modal -> "show-modal"
+    | `Close -> "close"
+    | `Request_close -> "request-close"
+    | `Show_popover -> "show-popover"
+    | `Hide_popover -> "hide-popover"
+    | `Toggle_popover -> "toggle-popover"
     | `Circle -> "circle"
     | `Poly -> "poly"
     | `Alternate -> "alternate"
