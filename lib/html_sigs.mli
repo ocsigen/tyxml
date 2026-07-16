@@ -759,6 +759,11 @@ module type T = sig
   val main :
     ([< | main_attrib], [< | main_content_fun], [> | main]) star
 
+  val search :
+    ([< | search_attrib], [< | search_content_fun], [> | search]) star
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search>
+      search element documentation on MDN *)
+
   (** {3 Grouping content} *)
 
   val p : ([< | p_attrib], [< | p_content_fun], [> | p]) star

@@ -14,6 +14,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   p [bdi [txt "user123"]],
   "<p><bdi>user123</bdi></p>" ;
 
+  "search",
+  search [p [txt "results"]],
+  "<search><p>results</p></search>" ;
+
   "div",
   div [a []],
   "<div><a></a></div>" ;

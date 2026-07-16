@@ -958,6 +958,7 @@ type core_flow5 =
     | `Details
     | `Main
     | `Dialog
+    | `Search
   ]
 
 type core_flow5_without_interactive =
@@ -976,6 +977,7 @@ type core_flow5_without_interactive =
     | `Dl
     | `Main
     | `Dialog
+    | `Search
   ]
 
 type core_flow5_without_noscript =
@@ -995,6 +997,7 @@ type core_flow5_without_noscript =
     | `Details
     | `Main
     | `Dialog
+    | `Search
   ]
 type core_flow5_without_media =
   [
@@ -1013,6 +1016,7 @@ type core_flow5_without_media =
     | `Details
     | `Main
     | `Dialog
+    | `Search
   ]
 
 type flow5_without_interactive =
@@ -1057,6 +1061,7 @@ type flow5_without_table =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1083,6 +1088,7 @@ type flow5_without_interactive_header_footer =
     | `Dl
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_noscript, flow5, flow5_without_media)
         transparent_without_interactive
   ]
@@ -1110,6 +1116,7 @@ type flow5_without_header_footer =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive_header_footer,
        flow5_without_noscript, flow5,
        flow5_without_media) transparent
@@ -1121,7 +1128,7 @@ type +'a between_flow5_and_flow5_without_interactive_header_footer =
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
-       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
+       `Search `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
        `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
 
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
@@ -1137,7 +1144,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
       `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
-      `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
+      `Search `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
       `Table `Template `Textarea `Time `U `Ul `Var `Video `Video_interactive
       `Wbr ] as 'a
 
@@ -1157,6 +1164,7 @@ type flow5_without_form =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1181,6 +1189,7 @@ type flow5_without_sectioning_heading_header_footer_address =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1404,6 +1413,15 @@ type main_content = [ | flow5 ]
 type main_content_fun = [ | flow5 ]
 
 type main_attrib = [ | common ]
+
+(* NAME: search, KIND: star, TYPE: [= common ], [= flow5 ], [=`Search], ARG: [= flow5 ], ATTRIB:  OUT: [=`Search] *)
+type search = [ | `Search ]
+
+type search_content = [ | flow5 ]
+
+type search_content_fun = [ | flow5 ]
+
+type search_attrib = [ | common ]
 
 (* NAME: p, KIND: star, TYPE: [= common ], [=phrasing ], [=`P], ARG: [=phrasing ], ATTRIB:  OUT: [=`P] *)
 type p = [ | `P ]
