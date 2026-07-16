@@ -37,6 +37,11 @@
   and `shadowrootserializable`
 * Add the pointer event handler attributes (`a_onpointerdown`, etc.),
   `a_onwheel` and `a_onauxclick`
+* Add the missing global event handler attributes: `a_onbeforeinput`,
+  `a_onbeforematch`, `a_onbeforetoggle`, `a_oncancel`, `a_oncontextlost`,
+  `a_oncontextrestored`, `a_oncopy`, `a_oncut`, `a_onpaste`,
+  `a_oncuechange`, `a_onscrollend`, `a_onsecuritypolicyviolation`,
+  `a_onslotchange` and `a_ontoggle`
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

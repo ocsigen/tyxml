@@ -176,11 +176,20 @@ module type T = sig
   val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint] attrib
   val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint] attrib
   val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload] attrib
+  val a_onbeforeinput : Xml.event_handler -> [> | `OnBeforeInput] attrib
+  val a_onbeforematch : Xml.event_handler -> [> | `OnBeforeMatch] attrib
+  val a_onbeforetoggle : Xml.event_handler -> [> | `OnBeforeToggle] attrib
   val a_onblur : Xml.event_handler -> [> | `OnBlur] attrib
+  val a_oncancel : Xml.event_handler -> [> | `OnCancel] attrib
   val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay] attrib
   val a_oncanplaythrough : Xml.event_handler -> [> | `OnCanPlayThrough] attrib
   val a_onchange : Xml.event_handler -> [> | `OnChange] attrib
   val a_onclose : Xml.event_handler -> [> | `OnClose] attrib
+  val a_oncontextlost : Xml.event_handler -> [> | `OnContextLost] attrib
+  val a_oncontextrestored : Xml.event_handler -> [> | `OnContextRestored] attrib
+  val a_oncopy : Xml.event_handler -> [> | `OnCopy] attrib
+  val a_oncut : Xml.event_handler -> [> | `OnCut] attrib
+  val a_oncuechange : Xml.event_handler -> [> | `OnCueChange] attrib
   val a_ondurationchange : Xml.event_handler -> [> | `OnDurationChange] attrib
   val a_onemptied : Xml.event_handler -> [> | `OnEmptied] attrib
   val a_onended : Xml.event_handler -> [> | `OnEnded] attrib
@@ -194,6 +203,7 @@ module type T = sig
   val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel] attrib
   val a_onoffline : Xml.event_handler -> [> | `OnOffLine] attrib
   val a_ononline : Xml.event_handler -> [> | `OnOnLine] attrib
+  val a_onpaste : Xml.event_handler -> [> | `OnPaste] attrib
   val a_onpause : Xml.event_handler -> [> | `OnPause] attrib
   val a_onplay : Xml.event_handler -> [> | `OnPlay] attrib
   val a_onplaying : Xml.event_handler -> [> | `OnPlaying] attrib
@@ -206,15 +216,20 @@ module type T = sig
   val a_onredo : Xml.event_handler -> [> | `OnRedo] attrib
   val a_onresize : Xml.event_handler -> [> | `OnResize] attrib
   val a_onscroll : Xml.event_handler -> [> | `OnScroll] attrib
+  val a_onscrollend : Xml.event_handler -> [> | `OnScrollEnd] attrib
+  val a_onsecuritypolicyviolation :
+    Xml.event_handler -> [> | `OnSecurityPolicyViolation] attrib
   val a_onseeked : Xml.event_handler -> [> | `OnSeeked] attrib
   val a_onseeking : Xml.event_handler -> [> | `OnSeeking] attrib
   val a_onselect : Xml.event_handler -> [> | `OnSelect] attrib
   val a_onshow : Xml.event_handler -> [> | `OnShow] attrib
+  val a_onslotchange : Xml.event_handler -> [> | `OnSlotChange] attrib
   val a_onstalled : Xml.event_handler -> [> | `OnStalled] attrib
   val a_onstorage : Xml.event_handler -> [> | `OnStorage] attrib
   val a_onsubmit : Xml.event_handler -> [> | `OnSubmit] attrib
   val a_onsuspend : Xml.event_handler -> [> | `OnSuspend] attrib
   val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate] attrib
+  val a_ontoggle : Xml.event_handler -> [> | `OnToggle] attrib
   val a_onundo : Xml.event_handler -> [> | `OnUndo] attrib
   val a_onunload : Xml.event_handler -> [> | `OnUnload] attrib
   val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange] attrib

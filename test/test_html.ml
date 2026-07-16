@@ -39,6 +39,12 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "global event handlers",
+  div ~a:[a_onbeforetoggle "b()"; a_ontoggle "t()"; a_oncopy "c()";
+          a_onpaste "p()"; a_onscrollend "s()"] [],
+  "<div onbeforetoggle=\"b()\" ontoggle=\"t()\" oncopy=\"c()\""
+  ^ " onpaste=\"p()\" onscrollend=\"s()\"></div>" ;
+
   "pointer events",
   div ~a:[a_onpointerdown "d()"; a_onwheel "w()"; a_onauxclick "a()"] [],
   "<div onpointerdown=\"d()\" onwheel=\"w()\" onauxclick=\"a()\"></div>" ;

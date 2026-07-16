@@ -329,13 +329,22 @@ type events =
   [
     | `OnAbort
     | `OnAuxClick
+    | `OnBeforeInput
+    | `OnBeforeMatch
+    | `OnBeforeToggle
     | `OnBlur
+    | `OnCancel
     | `OnCanPlay
     | `OnCanPlayThrough
     | `OnChange
     | `OnClick
     | `OnClose
     | `OnContextMenu
+    | `OnContextLost
+    | `OnContextRestored
+    | `OnCopy
+    | `OnCut
+    | `OnCueChange
     | `OnDblClick
     | `OnDrag
     | `OnDragEnd
@@ -370,6 +379,7 @@ type events =
     | `OnPointerUp
     | `OnGotPointerCapture
     | `OnLostPointerCapture
+    | `OnPaste
     | `OnPause
     | `OnPlay
     | `OnPlaying
@@ -377,14 +387,18 @@ type events =
     | `OnRateChange
     | `OnReadyStateChange
     | `OnScroll
+    | `OnScrollEnd
+    | `OnSecurityPolicyViolation
     | `OnSeeked
     | `OnSeeking
     | `OnSelect
     | `OnShow
+    | `OnSlotChange
     | `OnStalled
     | `OnSubmit
     | `OnSuspend
     | `OnTimeUpdate
+    | `OnToggle
     | `OnTouchStart
     | `OnTouchEnd
     | `OnTouchMove
