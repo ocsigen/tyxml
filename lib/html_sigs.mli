@@ -264,6 +264,14 @@ module type T = sig
   val a_autocomplete : autocomplete_option wrap -> [> | `Autocomplete] attrib
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete> autocomplete documentation. *)
 
+  val a_autocapitalize :
+    [< | `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+    [> | `Autocapitalize] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize> autocapitalize documentation. *)
+
+  val a_autocorrect : (bool[@onoff]) wrap -> [> | `Autocorrect] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect> autocorrect documentation. *)
+
   val a_async : unit -> [> | `Async] attrib
 
   val a_autofocus : unit -> [> | `Autofocus] attrib
@@ -288,9 +296,14 @@ module type T = sig
 
   val a_controls : unit -> [> | `Controls] attrib
 
-  val a_dir : [< | `Rtl | `Ltr] wrap -> [> | `Dir] attrib
+  val a_dir : [< | `Rtl | `Ltr | `Auto] wrap -> [> | `Dir] attrib
 
   val a_draggable : bool wrap -> [> | `Draggable] attrib
+
+  val a_enterkeyhint :
+    [< | `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+    [> | `Enterkeyhint] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint> enterkeyhint documentation. *)
 
   val a_form : idref wrap -> [> | `Form] attrib
 
@@ -307,6 +320,13 @@ module type T = sig
   val a_high : float_number wrap -> [> | `High] attrib
 
   val a_icon : Xml.uri wrap -> [> | `Icon] attrib
+
+  val a_inert : unit -> [> | `Inert] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert> inert documentation. *)
+
+  val a_is : text wrap -> [> | `Is] attrib
+  (** Name of a customized built-in element.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is> is documentation. *)
 
   val a_ismap : unit -> [> | `Ismap] attrib
 
@@ -333,6 +353,10 @@ module type T = sig
     [> `Inputmode] attrib
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode> inputmode documentation. *)
 
+  val a_nonce : text wrap -> [> | `Nonce] attrib
+  (** Cryptographic nonce used by Content Security Policy.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce> nonce documentation. *)
+
   val a_novalidate : unit -> [> | `Novalidate] attrib
 
   val a_open : unit -> [> | `Open] attrib
@@ -342,6 +366,11 @@ module type T = sig
   val a_pattern : text wrap -> [> | `Pattern] attrib
 
   val a_placeholder : text wrap -> [> | `Placeholder] attrib
+
+  val a_popover : [< | popover_value] wrap -> [> | `Popover] attrib
+  (** In HTML, a bare [popover] attribute is equivalent to
+      [popover="auto"].
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover> popover documentation. *)
 
   val a_poster : Xml.uri wrap -> [> | `Poster] attrib
 
@@ -363,11 +392,18 @@ module type T = sig
 
   val a_spellcheck : bool wrap -> [> | `Spellcheck] attrib
 
+  val a_writingsuggestions : bool wrap -> [> | `Writingsuggestions] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions> writingsuggestions documentation. *)
+
   val a_scoped : unit -> [> | `Scoped] attrib
 
   val a_seamless : unit -> [> | `Seamless] attrib
 
   val a_sizes : (number * number) list option wrap -> [> | `Sizes] attrib
+
+  val a_slot : text wrap -> [> | `Slot] attrib
+  (** Name of the shadow tree slot the element is assigned to.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot> slot documentation. *)
 
   val a_span : number wrap -> [> | `Span] attrib
 
@@ -846,7 +882,7 @@ module type T = sig
   val wbr : ([< | wbr_attrib], [> | wbr]) nullary
 
   val bdo :
-    dir: [< | `Ltr | `Rtl] wrap ->
+    dir: [< | `Ltr | `Rtl | `Auto] wrap ->
     ([< | bdo_attrib], [< | bdo_content_fun], [> | bdo]) star
 
   val bdi : ([< | bdi_attrib], [< | bdi_content_fun], [> | bdi]) star

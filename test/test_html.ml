@@ -39,6 +39,16 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "global attributes",
+  div ~a:[a_popover `Auto; a_inert (); a_dir `Auto;
+          a_autocapitalize `Words; a_autocorrect true;
+          a_writingsuggestions false; a_enterkeyhint `Go;
+          a_nonce "n0nce"; a_slot "myslot"; a_is "word-count"] [],
+  "<div popover=\"auto\" inert=\"inert\" dir=\"auto\""
+  ^ " autocapitalize=\"words\" autocorrect=\"on\""
+  ^ " writingsuggestions=\"false\" enterkeyhint=\"go\""
+  ^ " nonce=\"n0nce\" slot=\"myslot\" is=\"word-count\"></div>" ;
+
   "input",
   input ~a:[a_formaction "post.html"; a_formmethod `Post] (),
   "<input formaction=\"post.html\" formmethod=\"POST\"/>";

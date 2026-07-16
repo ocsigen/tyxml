@@ -580,6 +580,8 @@ let script_type =
 
 let sandbox = spaces variant
 
+let popover = variant_or_empty "Auto"
+
 let in_ = total_variant Svg_types_reflected.in_value
 
 let in2 = in_

@@ -209,6 +209,21 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "popover bare",
+  [[%html {|<div popover></div>|}]],
+  [div ~a:[a_popover `Auto] [] ];
+
+  "popover manual",
+  [[%html {|<div popover="manual"></div>|}]],
+  [div ~a:[a_popover `Manual] [] ];
+
+  "global attributes",
+  [[%html {|<div inert dir="auto" autocapitalize="sentences" autocorrect="off" writingsuggestions="true" enterkeyhint="send" nonce="n" slot="s" is="my-elt"></div>|}]],
+  [div ~a:[a_inert (); a_dir `Auto; a_autocapitalize `Sentences;
+           a_autocorrect false; a_writingsuggestions true;
+           a_enterkeyhint `Send; a_nonce "n"; a_slot "s";
+           a_is "my-elt"] [] ];
+
   "track in video",
   [[%html {|<video><track src="v.vtt" kind="subtitles" srclang="en" default/></video>|}]],
   [video ~tracks:[track ~src:"v.vtt"

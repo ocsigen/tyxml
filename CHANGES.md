@@ -3,6 +3,11 @@
 * Fix the development-profile build with recent compilers: anonymize
   unused functor parameters in printer and functor signatures
   (warning 67)
+* Add the global attributes `popover` (`a_popover`), `inert` (`a_inert`),
+  `enterkeyhint` (`a_enterkeyhint`), `autocapitalize` (`a_autocapitalize`),
+  `autocorrect` (`a_autocorrect`), `writingsuggestions`
+  (`a_writingsuggestions`), `nonce` (`a_nonce`), `slot` (`a_slot`) and
+  `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

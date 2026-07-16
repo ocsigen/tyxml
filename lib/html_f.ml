@@ -287,6 +287,12 @@ struct
   let a_autocomplete x =
     user_attrib C.string_of_autocomplete "autocomplete" x
 
+  let a_autocapitalize x =
+    user_attrib C.string_of_big_variant "autocapitalize" x
+
+  let a_autocorrect x =
+    user_attrib C.onoff_of_bool "autocorrect" x
+
   let a_async =
     constant_attrib "async"
 
@@ -322,6 +328,9 @@ struct
   let a_draggable d =
     bool_attrib "draggable" d
 
+  let a_enterkeyhint x =
+    user_attrib C.string_of_big_variant "enterkeyhint" x
+
   let a_form = string_attrib "form"
 
   let a_formaction = uri_attrib "formaction"
@@ -339,6 +348,11 @@ struct
   let a_high = float_attrib "high"
 
   let a_icon = uri_attrib "icon"
+
+  let a_inert =
+    constant_attrib "inert"
+
+  let a_is = string_attrib "is"
 
   let a_ismap =
     constant_attrib "ismap"
@@ -363,6 +377,8 @@ struct
   let a_inputmode x =
     user_attrib C.string_of_big_variant "inputmode" x
 
+  let a_nonce = string_attrib "nonce"
+
   let a_novalidate =
     constant_attrib "novalidate"
 
@@ -374,6 +390,9 @@ struct
   let a_pattern = string_attrib "pattern"
 
   let a_placeholder = string_attrib "placeholder"
+
+  let a_popover x =
+    user_attrib C.string_of_big_variant "popover" x
 
   let a_poster = uri_attrib "poster"
 
@@ -394,6 +413,9 @@ struct
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
 
+  let a_writingsuggestions =
+    bool_attrib "writingsuggestions"
+
   let a_spellcheck sc =
     bool_attrib "spellcheck" sc
 
@@ -405,6 +427,8 @@ struct
 
   let a_sizes sizes =
     user_attrib C.string_of_sizes "sizes" sizes
+
+  let a_slot = string_attrib "slot"
 
   let a_span = int_attrib "span"
 
@@ -1034,6 +1058,18 @@ struct
     | `Yes -> "yes"
     | `No -> "no"
     | `Auto -> "auto"
+    | `Manual -> "manual"
+    | `Hint -> "hint"
+    | `On -> "on"
+    | `Off -> "off"
+    | `Enter -> "enter"
+    | `Done -> "done"
+    | `Go -> "go"
+    | `Previous -> "previous"
+    | `Send -> "send"
+    | `Sentences -> "sentences"
+    | `Words -> "words"
+    | `Characters -> "characters"
     | `Circle -> "circle"
     | `Poly -> "poly"
     | `Alternate -> "alternate"

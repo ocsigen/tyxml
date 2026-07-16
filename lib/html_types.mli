@@ -289,20 +289,29 @@ type i18n = [ | `XML_lang | `Lang ]
 type core =
   [
     | `Accesskey
+    | `Autocapitalize
+    | `Autocorrect
     | `Class
     | `Contenteditable
     | `Contextmenu
     | `Dir
     | `Draggable
+    | `Enterkeyhint
     | `Hidden
     | `Id
+    | `Inert
     | i18n
+    | `Is
+    | `Nonce
+    | `Popover
+    | `Slot
     | `Spellcheck
     | `Style_Attr
     | `Tabindex
     | `Translate
     | `Title
     | `User_data
+    | `Writingsuggestions
     | `XMLns
   ]
 
@@ -2499,8 +2508,21 @@ type big_variant =
   | `One
   | `Zero
   | `Auto
+  | `Manual
+  | `Hint
   | `No
   | `Yes
+  | `On
+  | `Off
+  | `Enter
+  | `Done
+  | `Go
+  | `Next
+  | `Previous
+  | `Send
+  | `Sentences
+  | `Words
+  | `Characters
   | `Defer
   | `Verbatim
   | `Latin
@@ -2555,3 +2577,5 @@ type input_type =
 type script_type = [ `Javascript | `Module | `Mime of string ]
 
 type autocomplete_option = [ `On | `Off | `Tokens of string list]
+
+type popover_value = [ `Auto | `Manual | `Hint ]

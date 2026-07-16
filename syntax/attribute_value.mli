@@ -220,6 +220,7 @@ val script_type : parser
     These parsers are named after the attribute for which they are used. *)
 
 val sandbox : parser
+val popover : parser
 val in_ : parser
 val in2 : parser
 val xmlns : parser
