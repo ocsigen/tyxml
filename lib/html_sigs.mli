@@ -602,8 +602,9 @@ module type T = sig
 
   val a_scope :
     [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
-  [@@ocaml.deprecated "Not supported in HTML5"]
-  (** @deprecated Not supported in HTML5 *)
+  (** Specifies the cells that a header cell applies to.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#scope>
+      scope attribute documentation on MDN *)
 
   val a_summary : text wrap -> [> | `Summary] attrib
   [@@ocaml.deprecated "Move content elsewhere or to a <caption> child"]

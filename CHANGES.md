@@ -3,6 +3,8 @@
 * Fix the development-profile build with recent compilers: anonymize
   unused functor parameters in printer and functor signatures
   (warning 67)
+* Undeprecate the `scope` attribute: it is valid in the HTML living
+  standard on table header cells
 * Fix typo `whitout` in type definition
 	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute
