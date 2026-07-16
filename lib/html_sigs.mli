@@ -860,6 +860,14 @@ module type T = sig
 
   val time : ([< | time_attrib], [< | time_content_fun], [> | time]) star
 
+  val data :
+    value: text wrap ->
+    ([< | data_attrib], [< | data_content_fun], [> | data]) star
+  (** [data ~value content] represents [content] together with its
+      machine-readable [value] attribute.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data>
+      data element documentation on MDN *)
+
   val var : ([< | var_attrib], [< | var_content_fun], [> | var]) star
 
   (** {3 Hypertext} *)

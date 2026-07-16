@@ -562,6 +562,7 @@ type core_phrasing =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -604,6 +605,7 @@ type core_phrasing_without_noscript =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -643,6 +645,7 @@ type core_phrasing_without_interactive =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -685,6 +688,7 @@ type core_phrasing_without_media =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -730,7 +734,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
                                            phrasing,
                                            phrasing_without_media) transparent
         > `Abbr `B `Bdi `Bdo `Br `Canvas `Cite `Code `Command
-        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
+        `Data `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
         `Noscript `Object `PCDATA `Progress `Q `Ruby `S `Samp `Script
         `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
 
@@ -762,6 +766,7 @@ type phrasing_without_dfn =
     | `I
     | `Em
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -802,6 +807,7 @@ type phrasing_without_label =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -844,6 +850,7 @@ type phrasing_without_progress =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -885,6 +892,7 @@ type phrasing_without_time =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -928,6 +936,7 @@ type phrasing_without_meter =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
@@ -1124,7 +1133,7 @@ type flow5_without_header_footer =
 
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
   [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdi `Bdo `Blockquote `Br
-       `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog `Div `Dl `Em
+       `Button `Canvas `Cite `Code `Command `Data `Datalist `Del `Dfn `Dialog `Div `Dl `Em
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
@@ -1139,7 +1148,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       transparent
       > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B
       `Bdi `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
-      `Datalist `Del `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset
+      `Data `Datalist `Del `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset
       `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
@@ -1765,6 +1774,15 @@ type strong_content = [ | phrasing ]
 type strong_content_fun = [ | phrasing ]
 
 type strong_attrib = [ | common ]
+
+(* NAME: data, KIND: star, TYPE: [= common ], [= phrasing ], [=`Data], ARG: [= phrasing ], ATTRIB:  OUT: [=`Data] *)
+type data = [ | `Data ]
+
+type data_content = [ | phrasing ]
+
+type data_content_fun = [ | phrasing ]
+
+type data_attrib = [ | common ]
 
 (* NAME: time, KIND: star, TYPE: [= common |`Datetime |`Pubdate], [= phrasing_without_time ], [=`Time], ARG: [= phrasing_without_time ], ATTRIB:  OUT: [=`Time] *)
 type time = [ | `Time ]

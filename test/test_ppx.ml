@@ -201,6 +201,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<search><p>foo</p></search>|}]],
   [search [p [txt "foo"]] ];
 
+  "data",
+  [[%html {|<data value="42">foo</data>|}]],
+  [data ~value:"42" [txt "foo"] ];
+
   "picture",
   [[%html {|<div><picture id="idpicture">
     <img src="picture/img.png" alt="test picture/img.png" id="idimg"/>

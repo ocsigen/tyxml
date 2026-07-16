@@ -18,6 +18,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   search [p [txt "results"]],
   "<search><p>results</p></search>" ;
 
+  "data",
+  p [data ~value:"42" [txt "forty-two"]],
+  "<p><data value=\"42\">forty-two</data></p>" ;
+
   "div",
   div [a []],
   "<div><a></a></div>" ;

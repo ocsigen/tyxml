@@ -6,6 +6,7 @@
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element
+* Add support for the `data` element
 * Fix typo `whitout` in type definition
 	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute

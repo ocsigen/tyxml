@@ -605,6 +605,9 @@ struct
 
   let time = star "time"
 
+  let data ~value ?(a = []) elts =
+    Xml.node ~a: ((a_value value) :: a) "data" elts
+
   let var = star "var"
 
   let a = star "a"
