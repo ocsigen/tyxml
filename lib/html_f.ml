@@ -354,6 +354,17 @@ struct
 
   let a_is = string_attrib "is"
 
+  let a_itemscope =
+    constant_attrib "itemscope"
+
+  let a_itemtype = space_sep_attrib "itemtype"
+
+  let a_itemid = uri_attrib "itemid"
+
+  let a_itemprop = space_sep_attrib "itemprop"
+
+  let a_itemref = space_sep_attrib "itemref"
+
   let a_ismap =
     constant_attrib "ismap"
 

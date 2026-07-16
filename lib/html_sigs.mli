@@ -328,6 +328,27 @@ module type T = sig
   (** Name of a customized built-in element.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is> is documentation. *)
 
+  val a_itemscope : unit -> [> | `Itemscope] attrib
+  (** Microdata: creates a new item.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope> itemscope documentation. *)
+
+  val a_itemtype : string list wrap -> [> | `Itemtype] attrib
+  (** Microdata: space-separated list of vocabulary URLs for the item.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype> itemtype documentation. *)
+
+  val a_itemid : Xml.uri wrap -> [> | `Itemid] attrib
+  (** Microdata: global identifier of the item.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid> itemid documentation. *)
+
+  val a_itemprop : string list wrap -> [> | `Itemprop] attrib
+  (** Microdata: space-separated list of names of the property.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop> itemprop documentation. *)
+
+  val a_itemref : idrefs wrap -> [> | `Itemref] attrib
+  (** Microdata: additional elements to crawl to find the
+      name-value pairs of the item.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref> itemref documentation. *)
+
   val a_ismap : unit -> [> | `Ismap] attrib
 
   val a_keytype : text wrap -> [> | `Keytype] attrib

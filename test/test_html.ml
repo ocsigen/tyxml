@@ -39,6 +39,14 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "microdata",
+  div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];
+          a_itemid "urn:isbn:123"; a_itemref ["a"; "b"]]
+    [span ~a:[a_itemprop ["name"]] [txt "X"]],
+  "<div itemscope=\"itemscope\" itemtype=\"https://schema.org/Person\""
+  ^ " itemid=\"urn:isbn:123\" itemref=\"a b\">"
+  ^ "<span itemprop=\"name\">X</span></div>" ;
+
   "global attributes",
   div ~a:[a_popover `Auto; a_inert (); a_dir `Auto;
           a_autocapitalize `Words; a_autocorrect true;

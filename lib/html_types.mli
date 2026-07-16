@@ -302,6 +302,11 @@ type core =
     | `Inert
     | i18n
     | `Is
+    | `Itemid
+    | `Itemprop
+    | `Itemref
+    | `Itemscope
+    | `Itemtype
     | `Nonce
     | `Popover
     | `Slot

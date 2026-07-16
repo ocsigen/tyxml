@@ -8,6 +8,8 @@
   `autocorrect` (`a_autocorrect`), `writingsuggestions`
   (`a_writingsuggestions`), `nonce` (`a_nonce`), `slot` (`a_slot`) and
   `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
+* Add the microdata global attributes `itemscope`, `itemtype`, `itemid`,
+  `itemprop` and `itemref`
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

@@ -209,6 +209,12 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "microdata",
+  [[%html {|<div itemscope itemtype="https://schema.org/Person" itemid="urn:isbn:123" itemref="a b"><span itemprop="name">X</span></div>|}]],
+  [div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];
+           a_itemid "urn:isbn:123"; a_itemref ["a"; "b"]]
+     [span ~a:[a_itemprop ["name"]] [txt "X"]] ];
+
   "popover bare",
   [[%html {|<div popover></div>|}]],
   [div ~a:[a_popover `Auto] [] ];
