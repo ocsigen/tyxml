@@ -1292,6 +1292,7 @@ type body_attrib =
     | `OnBeforePrint
     | `OnBeforeUnload
     | `OnHashChange
+    | `OnLanguageChange
     | `OnMessage
     | `OnOffLine
     | `OnOnLine
@@ -1299,9 +1300,11 @@ type body_attrib =
     | `OnPageShow
     | `OnPopState
     | `OnRedo
+    | `OnRejectionHandled
     | `OnResize
     | `OnStorage
     | `OnUndo
+    | `OnUnhandledRejection
     | `OnUnload
   ]
 

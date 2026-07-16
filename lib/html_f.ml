@@ -136,6 +136,11 @@ struct
   let a_onformchange = Xml.event_handler_attrib "onformchange"
   let a_onforminput = Xml.event_handler_attrib "onforminput"
   let a_onhashchange = Xml.event_handler_attrib "onhashchange"
+  let a_onlanguagechange = Xml.event_handler_attrib "onlanguagechange"
+  let a_onrejectionhandled =
+    Xml.event_handler_attrib "onrejectionhandled"
+  let a_onunhandledrejection =
+    Xml.event_handler_attrib "onunhandledrejection"
   let a_oninput = Xml.event_handler_attrib "oninput"
   let a_oninvalid = Xml.event_handler_attrib "oninvalid"
   let a_onoffline = Xml.event_handler_attrib "onoffline"

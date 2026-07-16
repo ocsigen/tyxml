@@ -209,6 +209,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "body window handlers",
+  [[%html {|<body onlanguagechange="l()" onrejectionhandled="r()" onunhandledrejection="u()"></body>|}]],
+  [body ~a:[a_onlanguagechange "l()"; a_onrejectionhandled "r()";
+            a_onunhandledrejection "u()"] [] ];
+
   "global event handlers",
   [[%html {|<dialog oncancel="c()" ontoggle="t()" oncuechange="q()">x</dialog>|}]],
   [dialog ~a:[a_oncancel "c()"; a_ontoggle "t()"; a_oncuechange "q()"]

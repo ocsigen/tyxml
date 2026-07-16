@@ -42,6 +42,8 @@
   `a_oncontextrestored`, `a_oncopy`, `a_oncut`, `a_onpaste`,
   `a_oncuechange`, `a_onscrollend`, `a_onsecuritypolicyviolation`,
   `a_onslotchange` and `a_ontoggle`
+* Add the window event handler attributes `a_onlanguagechange`,
+  `a_onrejectionhandled` and `a_onunhandledrejection` on body
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

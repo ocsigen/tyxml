@@ -198,6 +198,7 @@ module type T = sig
   val a_onformchange : Xml.event_handler -> [> | `OnFormChange] attrib
   val a_onforminput : Xml.event_handler -> [> | `OnFormInput] attrib
   val a_onhashchange : Xml.event_handler -> [> | `OnHashChange] attrib
+  val a_onlanguagechange : Xml.event_handler -> [> | `OnLanguageChange] attrib
   val a_oninput : Xml.event_handler -> [> | `OnInput] attrib
   val a_oninvalid : Xml.event_handler -> [> | `OnInvalid] attrib
   val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel] attrib
@@ -214,6 +215,10 @@ module type T = sig
   val a_onratechange : Xml.event_handler -> [> | `OnRateChange] attrib
   val a_onreadystatechange : Xml.event_handler -> [> | `OnReadyStateChange] attrib
   val a_onredo : Xml.event_handler -> [> | `OnRedo] attrib
+  val a_onrejectionhandled :
+    Xml.event_handler -> [> | `OnRejectionHandled] attrib
+  val a_onunhandledrejection :
+    Xml.event_handler -> [> | `OnUnhandledRejection] attrib
   val a_onresize : Xml.event_handler -> [> | `OnResize] attrib
   val a_onscroll : Xml.event_handler -> [> | `OnScroll] attrib
   val a_onscrollend : Xml.event_handler -> [> | `OnScrollEnd] attrib
