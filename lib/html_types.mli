@@ -2623,6 +2623,10 @@ type big_variant =
   | `Track
   | `Video
   | `Worker
+  | `True
+  | `False
+  | `Plaintext_only
+  | `Until_found
   | `Defer
   | `Verbatim
   | `Latin
@@ -2704,3 +2708,7 @@ type command_value =
   | `Hide_popover
   | `Toggle_popover
   | `Other of string ] [@@reflect.total_variant]
+
+type contenteditable_value = [ `True | `False | `Plaintext_only ]
+
+type hidden_value = [ `Hidden | `Until_found ]

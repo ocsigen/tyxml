@@ -57,6 +57,11 @@
 * Add support for the `track` element and its `kind`, `srclang`
   (as `a_track_srclang`) and `default` attributes; `audio` and `video`
   now accept an optional `?tracks` argument
+* Breaking: the `hidden` attribute now takes an enumerated argument
+  ([`Hidden | `Until_found]) instead of no argument, and
+  `contenteditable` takes an enumerated argument
+  ([`True | `False | `Plaintext_only]) instead of a boolean, to
+  support the until-found and plaintext-only states
 * Undeprecate the `scope` attribute: it is valid in the HTML living
   standard on table header cells
 * Fix typo `whitout` in type definition
