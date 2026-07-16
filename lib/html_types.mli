@@ -297,6 +297,7 @@ type core =
     | `Dir
     | `Draggable
     | `Enterkeyhint
+    | `Exportparts
     | `Hidden
     | `Id
     | `Inert
@@ -308,6 +309,7 @@ type core =
     | `Itemscope
     | `Itemtype
     | `Nonce
+    | `Part
     | `Popover
     | `Slot
     | `Spellcheck

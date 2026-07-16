@@ -39,6 +39,12 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "shadow parts",
+  div ~a:[a_part ["label"; "value"];
+          a_exportparts ["inner-label"; "inner-value:value"]] [],
+  "<div part=\"label value\""
+  ^ " exportparts=\"inner-label, inner-value:value\"></div>" ;
+
   "microdata",
   div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];
           a_itemid "urn:isbn:123"; a_itemref ["a"; "b"]]

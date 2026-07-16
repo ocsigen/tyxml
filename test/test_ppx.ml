@@ -209,6 +209,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "shadow parts",
+  [[%html {|<span part="label value" exportparts="a,b:c"></span>|}]],
+  [span ~a:[a_part ["label"; "value"]; a_exportparts ["a"; "b:c"]] [] ];
+
   "microdata",
   [[%html {|<div itemscope itemtype="https://schema.org/Person" itemid="urn:isbn:123" itemref="a b"><span itemprop="name">X</span></div>|}]],
   [div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];

@@ -388,6 +388,19 @@ module type T = sig
 
   val a_placeholder : text wrap -> [> | `Placeholder] attrib
 
+  val a_part : string list wrap -> [> | `Part] attrib
+  (** Space-separated list of part names of the element, exposed to
+      shadow-tree styling. Defined by the CSS Shadow Parts
+      specification, not by the HTML standard.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part> part documentation. *)
+
+  val a_exportparts : text list wrap -> [> | `Exportparts] attrib
+  (** Comma-separated list of part mappings ([name] or
+      [name:exposed-name]) forwarded from a nested shadow tree.
+      Defined by the CSS Shadow Parts specification, not by the HTML
+      standard.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts> exportparts documentation. *)
+
   val a_popover : [< | popover_value] wrap -> [> | `Popover] attrib
   (** In HTML, a bare [popover] attribute is equivalent to
       [popover="auto"].

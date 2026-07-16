@@ -402,6 +402,10 @@ struct
 
   let a_placeholder = string_attrib "placeholder"
 
+  let a_part = space_sep_attrib "part"
+
+  let a_exportparts = comma_sep_attrib "exportparts"
+
   let a_popover x =
     user_attrib C.string_of_big_variant "popover" x
 

@@ -10,6 +10,7 @@
   `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
 * Add the microdata global attributes `itemscope`, `itemtype`, `itemid`,
   `itemprop` and `itemref`
+* Add the `part` and `exportparts` global attributes (CSS Shadow Parts)
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element
