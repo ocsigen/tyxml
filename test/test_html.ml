@@ -6,9 +6,160 @@ let html_elements = "html elements", tyxml_tests Html.[
   dialog ~a:[a_open ()] [div []],
   "<dialog open=\"open\"><div></div></dialog>" ;
 
+  "s",
+  p [s [txt "old price"]],
+  "<p><s>old price</s></p>" ;
+
+  "form method dialog",
+  form ~a:[a_method `Dialog] [],
+  "<form method=\"dialog\"></form>" ;
+
+  "iframe sandbox tokens",
+  iframe ~a:[a_sandbox [`Allow_downloads; `Allow_modals;
+                        `Allow_popups_to_escape_sandbox]] [],
+  "<iframe sandbox=\"allow-downloads allow-modals"
+  ^ " allow-popups-to-escape-sandbox\"></iframe>" ;
+
+  "bdi",
+  p [bdi [txt "user123"]],
+  "<p><bdi>user123</bdi></p>" ;
+
+  "search",
+  search [p [txt "results"]],
+  "<search><p>results</p></search>" ;
+
+  "data",
+  p [data ~value:"42" [txt "forty-two"]],
+  "<p><data value=\"42\">forty-two</data></p>" ;
+
+  "slot",
+  div [slot ~a:[a_name "icon"] [txt "fallback"]],
+  "<div><slot name=\"icon\">fallback</slot></div>" ;
+
+  "track",
+  video ~tracks:[
+    track ~src:"video_en.vtt"
+      ~a:[a_kind `Subtitles; a_track_srclang "en";
+          a_label "English"; a_default ()] ()
+  ] [],
+  "<video><track src=\"video_en.vtt\" kind=\"subtitles\" srclang=\"en\""
+  ^ " label=\"English\" default=\"default\"/></video>" ;
+
   "div",
   div [a []],
   "<div><a></a></div>" ;
+
+  "global event handlers",
+  div ~a:[a_onbeforetoggle "b()"; a_ontoggle "t()"; a_oncopy "c()";
+          a_onpaste "p()"; a_onscrollend "s()"] [],
+  "<div onbeforetoggle=\"b()\" ontoggle=\"t()\" oncopy=\"c()\""
+  ^ " onpaste=\"p()\" onscrollend=\"s()\"></div>" ;
+
+  "pointer events",
+  div ~a:[a_onpointerdown "d()"; a_onwheel "w()"; a_onauxclick "a()"] [],
+  "<div onpointerdown=\"d()\" onwheel=\"w()\" onauxclick=\"a()\"></div>" ;
+
+  "declarative shadow DOM",
+  div [template ~a:[a_shadowrootmode `Open; a_shadowrootdelegatesfocus ();
+                    a_shadowrootclonable (); a_shadowrootserializable ()]
+         [p [txt "shadow"]]],
+  "<div><template shadowrootmode=\"open\""
+  ^ " shadowrootdelegatesfocus=\"shadowrootdelegatesfocus\""
+  ^ " shadowrootclonable=\"shadowrootclonable\""
+  ^ " shadowrootserializable=\"shadowrootserializable\">"
+  ^ "<p>shadow</p></template></div>" ;
+
+  "video attributes",
+  video ~a:[a_playsinline (); a_disablepictureinpicture ();
+            a_disableremoteplayback ()] [],
+  "<video playsinline=\"playsinline\""
+  ^ " disablepictureinpicture=\"disablepictureinpicture\""
+  ^ " disableremoteplayback=\"disableremoteplayback\"></video>" ;
+
+  "ol type",
+  ol ~a:[a_ol_type `Upper_roman; a_start 3] [li [txt "x"]],
+  "<ol type=\"I\" start=\"3\"><li>x</li></ol>" ;
+
+  "th abbr",
+  tablex [tbody [tr [th ~a:[a_abbr "Pop."] [txt "Population"]]]],
+  "<table><tbody><tr><th abbr=\"Pop.\">Population</th></tr></tbody></table>" ;
+
+  "dialog closedby",
+  dialog ~a:[a_closedby `Closerequest] [div []],
+  "<dialog closedby=\"closerequest\"><div></div></dialog>" ;
+
+  "form control attributes",
+  div [
+    input ~a:[a_input_type `File; a_capture `Environment] () ;
+    input ~a:[a_input_type `Text; a_name "comment";
+              a_dirname "comment.dir"] () ;
+    textarea ~a:[a_dirname "t.dir"; a_autocomplete `Off] (txt "") ;
+    select ~a:[a_autocomplete `Off] []
+  ],
+  "<div><input type=\"file\" capture=\"environment\"/>"
+  ^ "<input type=\"text\" name=\"comment\" dirname=\"comment.dir\"/>"
+  ^ "<textarea dirname=\"t.dir\" autocomplete=\"off\"></textarea>"
+  ^ "<select autocomplete=\"off\"></select></div>" ;
+
+  "a ping",
+  p [a ~a:[a_href "/x"; a_ping ["https://t.example/ping"];
+           a_referrerpolicy `No_referrer] [txt "x"]],
+  "<p><a href=\"/x\" ping=\"https://t.example/ping\""
+  ^ " referrerpolicy=\"no-referrer\">x</a></p>" ;
+
+  "script nomodule",
+  script ~a:[a_nomodule (); a_blocking [`Render]] (txt ""),
+  "<script nomodule=\"nomodule\" blocking=\"render\"></script>" ;
+
+  "img loading",
+  img ~src:"x.png" ~alt:"x"
+    ~a:[a_loading `Lazy; a_decoding `Async; a_fetchpriority `Low] (),
+  "<img src=\"x.png\" alt=\"x\" loading=\"lazy\" decoding=\"async\""
+  ^ " fetchpriority=\"low\"/>" ;
+
+  "iframe srcdoc",
+  iframe ~a:[a_srcdoc "<p>Hi</p>"; a_allow "fullscreen"; a_loading `Lazy] [],
+  "<iframe srcdoc=\"&lt;p&gt;Hi&lt;/p&gt;\" allow=\"fullscreen\""
+  ^ " loading=\"lazy\"></iframe>" ;
+
+  "popovertarget",
+  button ~a:[a_popovertarget "pop"; a_popovertargetaction `Toggle]
+    [txt "Toggle"],
+  "<button popovertarget=\"pop\""
+  ^ " popovertargetaction=\"toggle\">Toggle</button>" ;
+
+  "invoker commands",
+  div [
+    button ~a:[a_commandfor "dlg"; a_command `Show_modal] [txt "Open"] ;
+    button ~a:[a_commandfor "dlg"; a_command (`Other "--my-cmd")]
+      [txt "Custom"]
+  ],
+  "<div><button commandfor=\"dlg\" command=\"show-modal\">Open</button>"
+  ^ "<button commandfor=\"dlg\" command=\"--my-cmd\">Custom</button></div>" ;
+
+  "shadow parts",
+  div ~a:[a_part ["label"; "value"];
+          a_exportparts ["inner-label"; "inner-value:value"]] [],
+  "<div part=\"label value\""
+  ^ " exportparts=\"inner-label, inner-value:value\"></div>" ;
+
+  "microdata",
+  div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];
+          a_itemid "urn:isbn:123"; a_itemref ["a"; "b"]]
+    [span ~a:[a_itemprop ["name"]] [txt "X"]],
+  "<div itemscope=\"itemscope\" itemtype=\"https://schema.org/Person\""
+  ^ " itemid=\"urn:isbn:123\" itemref=\"a b\">"
+  ^ "<span itemprop=\"name\">X</span></div>" ;
+
+  "global attributes",
+  div ~a:[a_popover `Auto; a_inert (); a_dir `Auto;
+          a_autocapitalize `Words; a_autocorrect true;
+          a_writingsuggestions false; a_enterkeyhint `Go;
+          a_nonce "n0nce"; a_slot "myslot"; a_is "word-count"] [],
+  "<div popover=\"auto\" inert=\"inert\" dir=\"auto\""
+  ^ " autocapitalize=\"words\" autocorrect=\"on\""
+  ^ " writingsuggestions=\"false\" enterkeyhint=\"go\""
+  ^ " nonce=\"n0nce\" slot=\"myslot\" is=\"word-count\"></div>" ;
 
   "input",
   input ~a:[a_formaction "post.html"; a_formmethod `Post] (),

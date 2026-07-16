@@ -1,5 +1,62 @@
 # NEXT
 
+* Fix the development-profile build with recent compilers: anonymize
+  unused functor parameters in printer and functor signatures
+  (warning 67)
+* Add the global attributes `popover` (`a_popover`), `inert` (`a_inert`),
+  `enterkeyhint` (`a_enterkeyhint`), `autocapitalize` (`a_autocapitalize`),
+  `autocorrect` (`a_autocorrect`), `writingsuggestions`
+  (`a_writingsuggestions`), `nonce` (`a_nonce`), `slot` (`a_slot`) and
+  `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
+* Add the microdata global attributes `itemscope`, `itemtype`, `itemid`,
+  `itemprop` and `itemref`
+* Add the `part` and `exportparts` global attributes (CSS Shadow Parts)
+* Add the `popovertarget` and `popovertargetaction` attributes on
+  buttons and inputs, and the `command` and `commandfor` attributes
+  (Invoker Commands) on buttons
+* Add the `loading`, `decoding` and `fetchpriority` attributes on images,
+  and the `srcdoc`, `allow` and `loading` attributes on iframes; also
+  allow `crossorigin`, `usemap` and `referrerpolicy` on images
+* Add the `as` (`a_as`), `imagesrcset` and `imagesizes` attributes on
+  links, the `nomodule` attribute on scripts, and the `blocking`
+  attribute on links, scripts and styles. The `Wrapped_functions`
+  module type has a new `string_of_blocking` function.
+* Add the `ping` attribute on `a` and `area`; also allow
+  `referrerpolicy` there
+* Add the `dirname` attribute on inputs and textareas and the `capture`
+  attribute (W3C HTML Media Capture) on inputs; also allow
+  `autocomplete` on selects and textareas
+* Add the `type` attribute of ordered lists (`a_ol_type`), the `abbr`
+  attribute on th cells, the `closedby` attribute on dialogs, and allow
+  `media` on meta. The `Wrapped_functions` module type has a new
+  `string_of_ol_type` function.
+* Add the `playsinline` and `disablepictureinpicture` attributes on
+  videos and the `disableremoteplayback` attribute on audios and videos
+* Add the declarative shadow DOM attributes on templates:
+  `shadowrootmode`, `shadowrootdelegatesfocus`, `shadowrootclonable`
+  and `shadowrootserializable`
+* Add the pointer event handler attributes (`a_onpointerdown`, etc.),
+  `a_onwheel` and `a_onauxclick`
+* Add the missing global event handler attributes: `a_onbeforeinput`,
+  `a_onbeforematch`, `a_onbeforetoggle`, `a_oncancel`, `a_oncontextlost`,
+  `a_oncontextrestored`, `a_oncopy`, `a_oncut`, `a_onpaste`,
+  `a_oncuechange`, `a_onscrollend`, `a_onsecuritypolicyviolation`,
+  `a_onslotchange` and `a_ontoggle`
+* Add the window event handler attributes `a_onlanguagechange`,
+  `a_onrejectionhandled` and `a_onunhandledrejection` on body
+* Allow the `dialog` value for the `method` and `formmethod` attributes,
+  and add the newer `sandbox` tokens (`allow-downloads`, `allow-modals`,
+  `allow-orientation-lock`, `allow-popups-to-escape-sandbox`,
+  `allow-presentation`, `allow-top-navigation-by-user-activation`,
+  `allow-top-navigation-to-custom-protocols`)
+* Add support for the `s` element
+* Add support for the `bdi` element
+* Add support for the `search` element
+* Add support for the `data` element
+* Add support for the `slot` element
+* Add support for the `track` element and its `kind`, `srclang`
+  (as `a_track_srclang`) and `default` attributes; `audio` and `video`
+  now accept an optional `?tracks` argument
 * Fix typo `whitout` in type definition
 	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute

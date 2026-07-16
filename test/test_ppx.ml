@@ -189,6 +189,147 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<dialog open>foo</dialog>|}]],
   [dialog ~a:[a_open ()] [txt "foo"] ];
 
+  "s",
+  [[%html {|<s>foo</s>|}]],
+  [s [txt "foo"] ];
+
+  "bdi",
+  [[%html {|<bdi>foo</bdi>|}]],
+  [bdi [txt "foo"] ];
+
+  "search",
+  [[%html {|<search><p>foo</p></search>|}]],
+  [search [p [txt "foo"]] ];
+
+  "data",
+  [[%html {|<data value="42">foo</data>|}]],
+  [data ~value:"42" [txt "foo"] ];
+
+  "slot",
+  [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
+  [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
+
+  "body window handlers",
+  [[%html {|<body onlanguagechange="l()" onrejectionhandled="r()" onunhandledrejection="u()"></body>|}]],
+  [body ~a:[a_onlanguagechange "l()"; a_onrejectionhandled "r()";
+            a_onunhandledrejection "u()"] [] ];
+
+  "global event handlers",
+  [[%html {|<dialog oncancel="c()" ontoggle="t()" oncuechange="q()">x</dialog>|}]],
+  [dialog ~a:[a_oncancel "c()"; a_ontoggle "t()"; a_oncuechange "q()"]
+     [txt "x"] ];
+
+  "pointer events",
+  [[%html {|<div onpointerdown="d()" onpointerup="u()" onwheel="w()"></div>|}]],
+  [div ~a:[a_onpointerdown "d()"; a_onpointerup "u()"; a_onwheel "w()"] [] ];
+
+  "declarative shadow DOM",
+  [[%html {|<template shadowrootmode="closed" shadowrootclonable><p>x</p></template>|}]],
+  [template ~a:[a_shadowrootmode `Closed; a_shadowrootclonable ()]
+     [p [txt "x"]] ];
+
+  "video attributes",
+  [[%html {|<video playsinline disablepictureinpicture disableremoteplayback></video>|}]],
+  [video ~a:[a_playsinline (); a_disablepictureinpicture ();
+             a_disableremoteplayback ()] [] ];
+
+  "ol type lower",
+  [[%html {|<ol type="a"><li>x</li></ol>|}]],
+  [ol ~a:[a_ol_type `Lower_alpha] [li [txt "x"]] ];
+
+  "ol type upper",
+  [[%html {|<ol type="A"><li>x</li></ol>|}]],
+  [ol ~a:[a_ol_type `Upper_alpha] [li [txt "x"]] ];
+
+  "th abbr and dialog closedby",
+  [[%html {|<div><table><tr><th abbr="P">x</th></tr></table><dialog closedby="any">y</dialog></div>|}]],
+  [div [tablex [tbody [tr [th ~a:[a_abbr "P"] [txt "x"]]]] ;
+        dialog ~a:[a_closedby `Any] [txt "y"]] ];
+
+  "meta media",
+  [[%html {|<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black"/>|}]],
+  [meta ~a:[a_name "theme-color";
+            a_media [`Raw_mediadesc "(prefers-color-scheme: dark)"];
+            a_content "black"] () ];
+
+  "form control attributes",
+  [[%html {|<div><input dirname="c.dir" capture="user"/><select autocomplete="off"></select><textarea autocomplete="on"></textarea></div>|}]],
+  [div [input ~a:[a_dirname "c.dir"; a_capture `User] () ;
+        select ~a:[a_autocomplete `Off] [] ;
+        textarea ~a:[a_autocomplete `On] (txt "")] ];
+
+  "a ping",
+  [[%html {|<a href="/x" ping="https://a.example https://b.example">x</a>|}]],
+  [a ~a:[a_href "/x"; a_ping ["https://a.example"; "https://b.example"]]
+     [txt "x"] ];
+
+  "link preload",
+  [[%html {|<link rel="stylesheet" href="a.css" blocking="render" fetchpriority="low"/>|}]],
+  [link ~rel:[`Stylesheet] ~href:"a.css"
+     ~a:[a_blocking [`Render]; a_fetchpriority `Low] () ];
+
+  "link imagesrcset",
+  [[%html {|<link rel="preload" href="i.png" as="image" imagesrcset="i2.png 2x" imagesizes="50vw"/>|}]],
+  [link ~rel:[`Other "preload"] ~href:"i.png"
+     ~a:[a_as `Image; a_imagesrcset [`Url_pixel ("i2.png", 2.)];
+         a_imagesizes ["50vw"]] () ];
+
+  "script nomodule",
+  [[%html {|<script nomodule src="a.js"></script>|}]],
+  [script ~a:[a_nomodule (); a_src "a.js"] (txt "") ];
+
+  "img loading",
+  [[%html {|<img src="x.png" alt="x" loading="eager" decoding="auto" fetchpriority="high"/>|}]],
+  [img ~src:"x.png" ~alt:"x"
+     ~a:[a_loading `Eager; a_decoding `Auto; a_fetchpriority `High] () ];
+
+  "iframe srcdoc",
+  [[%html {|<iframe srcdoc="hello" allow="fullscreen" loading="lazy"></iframe>|}]],
+  [iframe ~a:[a_srcdoc "hello"; a_allow "fullscreen"; a_loading `Lazy] [] ];
+
+  "popovertarget",
+  [[%html {|<button popovertarget="p" popovertargetaction="toggle">x</button>|}]],
+  [button ~a:[a_popovertarget "p"; a_popovertargetaction `Toggle]
+     [txt "x"] ];
+
+  "invoker commands",
+  [[%html {|<button commandfor="d" command="request-close">x</button>|}]],
+  [button ~a:[a_commandfor "d"; a_command `Request_close] [txt "x"] ];
+
+  "custom command",
+  [[%html {|<button commandfor="d" command="--my-cmd">x</button>|}]],
+  [button ~a:[a_commandfor "d"; a_command (`Other "--my-cmd")] [txt "x"] ];
+
+  "shadow parts",
+  [[%html {|<span part="label value" exportparts="a,b:c"></span>|}]],
+  [span ~a:[a_part ["label"; "value"]; a_exportparts ["a"; "b:c"]] [] ];
+
+  "microdata",
+  [[%html {|<div itemscope itemtype="https://schema.org/Person" itemid="urn:isbn:123" itemref="a b"><span itemprop="name">X</span></div>|}]],
+  [div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];
+           a_itemid "urn:isbn:123"; a_itemref ["a"; "b"]]
+     [span ~a:[a_itemprop ["name"]] [txt "X"]] ];
+
+  "popover bare",
+  [[%html {|<div popover></div>|}]],
+  [div ~a:[a_popover `Auto] [] ];
+
+  "popover manual",
+  [[%html {|<div popover="manual"></div>|}]],
+  [div ~a:[a_popover `Manual] [] ];
+
+  "global attributes",
+  [[%html {|<div inert dir="auto" autocapitalize="sentences" autocorrect="off" writingsuggestions="true" enterkeyhint="send" nonce="n" slot="s" is="my-elt"></div>|}]],
+  [div ~a:[a_inert (); a_dir `Auto; a_autocapitalize `Sentences;
+           a_autocorrect false; a_writingsuggestions true;
+           a_enterkeyhint `Send; a_nonce "n"; a_slot "s";
+           a_is "my-elt"] [] ];
+
+  "track in video",
+  [[%html {|<video><track src="v.vtt" kind="subtitles" srclang="en" default/></video>|}]],
+  [video ~tracks:[track ~src:"v.vtt"
+      ~a:[a_kind `Subtitles; a_track_srclang "en"; a_default ()] ()] []];
+
   "picture",
   [[%html {|<div><picture id="idpicture">
     <img src="picture/img.png" alt="test picture/img.png" id="idimg"/>

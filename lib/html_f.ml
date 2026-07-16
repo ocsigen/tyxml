@@ -41,7 +41,8 @@ struct
       Xml_print.compose_doctype "html" []
     let emptytags =
       [ "area"; "base"; "br"; "col"; "command"; "embed"; "hr"; "img";
-        "input"; "keygen"; "link"; "meta"; "param"; "source"; "wbr" ]
+        "input"; "keygen"; "link"; "meta"; "param"; "source"; "track";
+        "wbr" ]
   end
 
   type 'a wrap = 'a W.t
@@ -113,11 +114,20 @@ struct
   let a_onafterprint = Xml.event_handler_attrib "onafterprint"
   let a_onbeforeprint = Xml.event_handler_attrib "onbeforeprint"
   let a_onbeforeunload = Xml.event_handler_attrib "onbeforeunload"
+  let a_onbeforeinput = Xml.event_handler_attrib "onbeforeinput"
+  let a_onbeforematch = Xml.event_handler_attrib "onbeforematch"
+  let a_onbeforetoggle = Xml.event_handler_attrib "onbeforetoggle"
   let a_onblur = Xml.event_handler_attrib "onblur"
+  let a_oncancel = Xml.event_handler_attrib "oncancel"
   let a_oncanplay = Xml.event_handler_attrib "oncanplay"
   let a_oncanplaythrough = Xml.event_handler_attrib "oncanplaythrough"
   let a_onchange = Xml.event_handler_attrib "onchange"
   let a_onclose = Xml.event_handler_attrib "onclose"
+  let a_oncontextlost = Xml.event_handler_attrib "oncontextlost"
+  let a_oncontextrestored = Xml.event_handler_attrib "oncontextrestored"
+  let a_oncopy = Xml.event_handler_attrib "oncopy"
+  let a_oncut = Xml.event_handler_attrib "oncut"
+  let a_oncuechange = Xml.event_handler_attrib "oncuechange"
   let a_ondurationchange = Xml.event_handler_attrib "ondurationchange"
   let a_onemptied = Xml.event_handler_attrib "onemptied"
   let a_onended = Xml.event_handler_attrib "onended"
@@ -126,10 +136,16 @@ struct
   let a_onformchange = Xml.event_handler_attrib "onformchange"
   let a_onforminput = Xml.event_handler_attrib "onforminput"
   let a_onhashchange = Xml.event_handler_attrib "onhashchange"
+  let a_onlanguagechange = Xml.event_handler_attrib "onlanguagechange"
+  let a_onrejectionhandled =
+    Xml.event_handler_attrib "onrejectionhandled"
+  let a_onunhandledrejection =
+    Xml.event_handler_attrib "onunhandledrejection"
   let a_oninput = Xml.event_handler_attrib "oninput"
   let a_oninvalid = Xml.event_handler_attrib "oninvalid"
   let a_onoffline = Xml.event_handler_attrib "onoffline"
   let a_ononline = Xml.event_handler_attrib "ononline"
+  let a_onpaste = Xml.event_handler_attrib "onpaste"
   let a_onpause = Xml.event_handler_attrib "onpause"
   let a_onplay = Xml.event_handler_attrib "onplay"
   let a_onplaying = Xml.event_handler_attrib "onplaying"
@@ -142,15 +158,20 @@ struct
   let a_onredo = Xml.event_handler_attrib "onredo"
   let a_onresize = Xml.event_handler_attrib "onresize"
   let a_onscroll = Xml.event_handler_attrib "onscroll"
+  let a_onscrollend = Xml.event_handler_attrib "onscrollend"
+  let a_onsecuritypolicyviolation =
+    Xml.event_handler_attrib "onsecuritypolicyviolation"
   let a_onseeked = Xml.event_handler_attrib "onseeked"
   let a_onseeking = Xml.event_handler_attrib "onseeking"
   let a_onselect = Xml.event_handler_attrib "onselect"
   let a_onshow = Xml.event_handler_attrib "onshow"
+  let a_onslotchange = Xml.event_handler_attrib "onslotchange"
   let a_onstalled = Xml.event_handler_attrib "onstalled"
   let a_onstorage = Xml.event_handler_attrib "onstorage"
   let a_onsubmit = Xml.event_handler_attrib "onsubmit"
   let a_onsuspend = Xml.event_handler_attrib "onsuspend"
   let a_ontimeupdate = Xml.event_handler_attrib "ontimeupdate"
+  let a_ontoggle = Xml.event_handler_attrib "ontoggle"
   let a_onundo = Xml.event_handler_attrib "onundo"
   let a_onunload = Xml.event_handler_attrib "onunload"
   let a_onvolumechange = Xml.event_handler_attrib "onvolumechange"
@@ -163,6 +184,7 @@ struct
   let a_onmousewheel = Xml.event_handler_attrib "onmousewheel"
 
   (** Javascript mouse events *)
+  let a_onauxclick = Xml.mouse_event_handler_attrib "onauxclick"
   let a_onclick = Xml.mouse_event_handler_attrib "onclick"
   let a_oncontextmenu = Xml.mouse_event_handler_attrib "oncontextmenu"
   let a_ondblclick = Xml.mouse_event_handler_attrib "ondblclick"
@@ -178,6 +200,21 @@ struct
   let a_onmouseover = Xml.mouse_event_handler_attrib "onmouseover"
   let a_onmousemove = Xml.mouse_event_handler_attrib "onmousemove"
   let a_onmouseout = Xml.mouse_event_handler_attrib "onmouseout"
+  let a_onwheel = Xml.mouse_event_handler_attrib "onwheel"
+
+  (** Javascript pointer events *)
+  let a_onpointercancel = Xml.mouse_event_handler_attrib "onpointercancel"
+  let a_onpointerdown = Xml.mouse_event_handler_attrib "onpointerdown"
+  let a_onpointerenter = Xml.mouse_event_handler_attrib "onpointerenter"
+  let a_onpointerleave = Xml.mouse_event_handler_attrib "onpointerleave"
+  let a_onpointermove = Xml.mouse_event_handler_attrib "onpointermove"
+  let a_onpointerout = Xml.mouse_event_handler_attrib "onpointerout"
+  let a_onpointerover = Xml.mouse_event_handler_attrib "onpointerover"
+  let a_onpointerup = Xml.mouse_event_handler_attrib "onpointerup"
+  let a_ongotpointercapture =
+    Xml.mouse_event_handler_attrib "ongotpointercapture"
+  let a_onlostpointercapture =
+    Xml.mouse_event_handler_attrib "onlostpointercapture"
 
   (** Javascript touch events *)
   let a_ontouchstart = Xml.touch_event_handler_attrib "ontouchstart"
@@ -274,6 +311,10 @@ struct
 
   let a_name = string_attrib "name"
 
+  let a_abbr = string_attrib "abbr"
+
+  let a_allow = string_attrib "allow"
+
   let a_allowfullscreen =
     constant_attrib "allowfullscreen"
 
@@ -285,6 +326,15 @@ struct
 
   let a_autocomplete x =
     user_attrib C.string_of_autocomplete "autocomplete" x
+
+  let a_autocapitalize x =
+    user_attrib C.string_of_big_variant "autocapitalize" x
+
+  let a_autocorrect x =
+    user_attrib C.onoff_of_bool "autocorrect" x
+
+  let a_as x =
+    user_attrib C.string_of_big_variant "as" x
 
   let a_async =
     constant_attrib "async"
@@ -307,6 +357,12 @@ struct
 
   let a_challenge = string_attrib "challenge"
 
+  let a_closedby x =
+    user_attrib C.string_of_big_variant "closedby" x
+
+  let a_capture x =
+    user_attrib C.string_of_big_variant "capture" x
+
   let a_contenteditable ce =
     bool_attrib "contenteditable" ce
 
@@ -318,8 +374,13 @@ struct
   let a_dir x =
     user_attrib C.string_of_big_variant "dir" x
 
+  let a_dirname = string_attrib "dirname"
+
   let a_draggable d =
     bool_attrib "draggable" d
+
+  let a_enterkeyhint x =
+    user_attrib C.string_of_big_variant "enterkeyhint" x
 
   let a_form = string_attrib "form"
 
@@ -339,12 +400,37 @@ struct
 
   let a_icon = uri_attrib "icon"
 
+  let a_inert =
+    constant_attrib "inert"
+
+  let a_is = string_attrib "is"
+
+  let a_itemscope =
+    constant_attrib "itemscope"
+
+  let a_itemtype = space_sep_attrib "itemtype"
+
+  let a_itemid = uri_attrib "itemid"
+
+  let a_itemprop = space_sep_attrib "itemprop"
+
+  let a_itemref = space_sep_attrib "itemref"
+
   let a_ismap =
     constant_attrib "ismap"
 
   let a_keytype = string_attrib "keytype"
 
   let a_list = string_attrib "list"
+
+  let a_loading x =
+    user_attrib C.string_of_big_variant "loading" x
+
+  let a_decoding x =
+    user_attrib C.string_of_big_variant "decoding" x
+
+  let a_fetchpriority x =
+    user_attrib C.string_of_big_variant "fetchpriority" x
 
   let a_loop =
     constant_attrib "loop"
@@ -362,6 +448,11 @@ struct
   let a_inputmode x =
     user_attrib C.string_of_big_variant "inputmode" x
 
+  let a_nomodule =
+    constant_attrib "nomodule"
+
+  let a_nonce = string_attrib "nonce"
+
   let a_novalidate =
     constant_attrib "novalidate"
 
@@ -372,7 +463,35 @@ struct
 
   let a_pattern = string_attrib "pattern"
 
+  let a_ping = space_sep_attrib "ping"
+
+  let a_playsinline =
+    constant_attrib "playsinline"
+
+  let a_disablepictureinpicture =
+    constant_attrib "disablepictureinpicture"
+
+  let a_disableremoteplayback =
+    constant_attrib "disableremoteplayback"
+
   let a_placeholder = string_attrib "placeholder"
+
+  let a_part = space_sep_attrib "part"
+
+  let a_exportparts = comma_sep_attrib "exportparts"
+
+  let a_popover x =
+    user_attrib C.string_of_big_variant "popover" x
+
+  let a_popovertarget = string_attrib "popovertarget"
+
+  let a_popovertargetaction x =
+    user_attrib C.string_of_big_variant "popovertargetaction" x
+
+  let a_command x =
+    user_attrib C.string_of_big_variant "command" x
+
+  let a_commandfor = string_attrib "commandfor"
 
   let a_poster = uri_attrib "poster"
 
@@ -390,8 +509,14 @@ struct
   let a_reversed =
     constant_attrib "reversed"
 
+  let a_blocking x =
+    user_attrib C.string_of_blocking "blocking" x
+
   let a_sandbox x =
     user_attrib C.string_of_sandbox "sandbox" x
+
+  let a_writingsuggestions =
+    bool_attrib "writingsuggestions"
 
   let a_spellcheck sc =
     bool_attrib "spellcheck" sc
@@ -402,19 +527,49 @@ struct
   let a_seamless =
     constant_attrib "seamless"
 
+  let a_shadowrootmode x =
+    user_attrib C.string_of_big_variant "shadowrootmode" x
+
+  let a_shadowrootdelegatesfocus =
+    constant_attrib "shadowrootdelegatesfocus"
+
+  let a_shadowrootclonable =
+    constant_attrib "shadowrootclonable"
+
+  let a_shadowrootserializable =
+    constant_attrib "shadowrootserializable"
+
   let a_sizes sizes =
     user_attrib C.string_of_sizes "sizes" sizes
 
+  let a_slot = string_attrib "slot"
+
   let a_span = int_attrib "span"
 
-  (*let a_srcdoc*)
+  let a_srcdoc = string_attrib "srcdoc"
+
   let a_srclang = string_attrib "srclang"
 
+  let a_kind x =
+    user_attrib C.string_of_big_variant "kind" x
+
+  let a_track_srclang = string_attrib "srclang"
+
+  let a_default =
+    constant_attrib "default"
+
   let a_srcset = srcset_attrib "srcset"
+
+  let a_imagesrcset = srcset_attrib "imagesrcset"
+
+  let a_imagesizes = comma_sep_attrib "imagesizes"
 
   let a_img_sizes = comma_sep_attrib "sizes"
 
   let a_start = int_attrib "start"
+
+  let a_ol_type x =
+    user_attrib C.string_of_ol_type "type" x
 
   let a_step step =
     user_attrib C.string_of_step "step" step
@@ -605,6 +760,9 @@ struct
 
   let time = star "time"
 
+  let data ~value ?(a = []) elts =
+    Xml.node ~a: ((a_value value) :: a) "data" elts
+
   let var = star "var"
 
   let a = star "a"
@@ -629,6 +787,8 @@ struct
 
   let u = star "u"
 
+  let s = star "s"
+
   let small = star "small"
 
   let sub = star "sub"
@@ -649,6 +809,8 @@ struct
   type shape = [ | `Rect | `Circle | `Poly | `Default ]
 
   let bdo ~dir ?(a = []) elts = Xml.node ~a: ((a_dir dir) :: a) "bdo" elts
+
+  let bdi = star "bdi"
 
   let a_datetime = string_attrib "datetime"
 
@@ -679,17 +841,26 @@ struct
 
   let template = star "template"
 
+  let slot = star "slot"
+
   let article = star "article"
 
   let aside = star "aside"
 
   let main = star "main"
 
-  let video_audio name ?src ?srcs ?(a = []) elts =
+  let search = star "search"
+
+  let video_audio name ?src ?srcs ?tracks ?(a = []) elts =
     let a =
       match src with
       | None -> a
       | Some uri -> (a_src uri) :: a
+    in
+    let elts =
+      match tracks with
+      | None -> elts
+      | Some tracks -> W.append tracks elts
     in
     match srcs with
     | None -> Xml.node name ~a elts
@@ -714,6 +885,9 @@ struct
   let embed = terminal "embed"
 
   let source = terminal "source"
+
+  let track ~src ?(a = []) () =
+    Xml.leaf ~a: ((a_src src) :: a) "track"
 
   let meter = star "meter"
 
@@ -873,12 +1047,21 @@ struct
   module Xml = Xml
 
   let string_of_sandbox_token = function
+    | `Allow_downloads -> "allow-downloads"
     | `Allow_forms -> "allow-forms"
+    | `Allow_modals -> "allow-modals"
+    | `Allow_orientation_lock -> "allow-orientation-lock"
     | `Allow_pointer_lock -> "allow-pointer-lock"
     | `Allow_popups -> "allow-popups"
-    | `Allow_top_navigation -> "allow-top-navigation"
+    | `Allow_popups_to_escape_sandbox -> "allow-popups-to-escape-sandbox"
+    | `Allow_presentation -> "allow-presentation"
     | `Allow_same_origin -> "allow-same-origin"
     | `Allow_script -> "allow-scripts"
+    | `Allow_top_navigation -> "allow-top-navigation"
+    | `Allow_top_navigation_by_user_activation ->
+      "allow-top-navigation-by-user-activation"
+    | `Allow_top_navigation_to_custom_protocols ->
+      "allow-top-navigation-to-custom-protocols"
 
   let string_of_linktype = function
     | `Alternate -> "alternate"
@@ -963,6 +1146,7 @@ struct
     | `Rtl -> "rtl"
     | `Get -> "GET"
     | `Post -> "POST"
+    | `Dialog -> "dialog"
     | `Formnovalidate -> "formnovalidate"
     | `Hidden -> "hidden"
     | `Ismap -> "ismap"
@@ -971,6 +1155,10 @@ struct
     | `Open -> "open"
     | `None -> "none"
     | `Metadata -> "metadata"
+    | `Subtitles -> "subtitles"
+    | `Captions -> "captions"
+    | `Descriptions -> "descriptions"
+    | `Chapters -> "chapters"
     | `Audio -> "audio"
     | `Pubdate -> "pubdate"
     | `Required -> "required"
@@ -1002,6 +1190,47 @@ struct
     | `Yes -> "yes"
     | `No -> "no"
     | `Auto -> "auto"
+    | `Manual -> "manual"
+    | `Hint -> "hint"
+    | `On -> "on"
+    | `Off -> "off"
+    | `Enter -> "enter"
+    | `Done -> "done"
+    | `Go -> "go"
+    | `Previous -> "previous"
+    | `Send -> "send"
+    | `Sentences -> "sentences"
+    | `Words -> "words"
+    | `Characters -> "characters"
+    | `Lazy -> "lazy"
+    | `Eager -> "eager"
+    | `Sync -> "sync"
+    | `High -> "high"
+    | `Low -> "low"
+    | `User -> "user"
+    | `Environment -> "environment"
+    | `Closerequest -> "closerequest"
+    | `Closed -> "closed"
+    | `Document -> "document"
+    | `Embed -> "embed"
+    | `Fetch -> "fetch"
+    | `Font -> "font"
+    | `Image -> "image"
+    | `Object -> "object"
+    | `Script -> "script"
+    | `Style -> "style"
+    | `Track -> "track"
+    | `Video -> "video"
+    | `Worker -> "worker"
+    | `Show -> "show"
+    | `Hide -> "hide"
+    | `Toggle -> "toggle"
+    | `Show_modal -> "show-modal"
+    | `Close -> "close"
+    | `Request_close -> "request-close"
+    | `Show_popover -> "show-popover"
+    | `Hide_popover -> "hide-popover"
+    | `Toggle_popover -> "toggle-popover"
     | `Circle -> "circle"
     | `Poly -> "poly"
     | `Alternate -> "alternate"
@@ -1100,6 +1329,19 @@ struct
         (List.map (fun (x, y) -> Printf.sprintf "%dx%d" x y) l)
     | None ->
       "any"
+
+  let string_of_blocking_token = function
+    | `Render -> "render"
+
+  let string_of_ol_type = function
+    | `Decimal -> "1"
+    | `Lower_alpha -> "a"
+    | `Upper_alpha -> "A"
+    | `Lower_roman -> "i"
+    | `Upper_roman -> "I"
+
+  let string_of_blocking l =
+    String.concat " " (List.map string_of_blocking_token l)
 
   let string_of_sandbox l =
     String.concat " " (List.map string_of_sandbox_token l)

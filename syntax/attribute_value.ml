@@ -580,6 +580,24 @@ let script_type =
 
 let sandbox = spaces variant
 
+let blocking = spaces variant
+
+(* The values of the ol type attribute are case-sensitive ("a" and
+   "A" are distinct), so the generic variant parser cannot be used. *)
+let ol_type ?separated_by:_ ?default:_ loc name s =
+  begin match s with
+  | "1" -> Some [%expr `Decimal]
+  | "a" -> Some [%expr `Lower_alpha]
+  | "A" -> Some [%expr `Upper_alpha]
+  | "i" -> Some [%expr `Lower_roman]
+  | "I" -> Some [%expr `Upper_roman]
+  | _ -> Common.error loc "Invalid value %s in attribute %s" s name
+  end [@metaloc loc]
+
+let popover = variant_or_empty "Auto"
+
+let command = total_variant Html_types_reflected.command_value
+
 let in_ = total_variant Svg_types_reflected.in_value
 
 let in2 = in_
