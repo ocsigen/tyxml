@@ -1930,6 +1930,7 @@ type media_attrib =
     | `Loop
     | `Muted
     | `Controls
+    | `Disableremoteplayback
   ]
 
 type 'a audio = [ | `Audio of 'a ]
@@ -1958,6 +1959,8 @@ type video_attrib =
     | `Poster
     | `Width
     | `Height
+    | `Playsinline
+    | `Disablepictureinpicture
   ]
 
 (* NAME: canvas, KIND: star, TYPE: [= common |`Width |`Height],'a, [=`Canvas of 'a], ARG: 'a, ATTRIB:  OUT: [=`Canvas of 'a] *)

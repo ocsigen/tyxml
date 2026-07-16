@@ -429,6 +429,15 @@ struct
 
   let a_ping = space_sep_attrib "ping"
 
+  let a_playsinline =
+    constant_attrib "playsinline"
+
+  let a_disablepictureinpicture =
+    constant_attrib "disablepictureinpicture"
+
+  let a_disableremoteplayback =
+    constant_attrib "disableremoteplayback"
+
   let a_placeholder = string_attrib "placeholder"
 
   let a_part = space_sep_attrib "part"

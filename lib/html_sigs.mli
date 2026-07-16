@@ -441,6 +441,19 @@ module type T = sig
 
   val a_placeholder : text wrap -> [> | `Placeholder] attrib
 
+  val a_playsinline : unit -> [> | `Playsinline] attrib
+  (** Indicates that a video is to be played inline, within the
+      element's playback area.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline> playsinline documentation. *)
+
+  val a_disablepictureinpicture : unit -> [> | `Disablepictureinpicture] attrib
+  (** Defined by the W3C Picture-in-Picture specification.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture> disablepictureinpicture documentation. *)
+
+  val a_disableremoteplayback : unit -> [> | `Disableremoteplayback] attrib
+  (** Defined by the W3C Remote Playback specification.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback> disableremoteplayback documentation. *)
+
   val a_part : string list wrap -> [> | `Part] attrib
   (** Space-separated list of part names of the element, exposed to
       shadow-tree styling. Defined by the CSS Shadow Parts

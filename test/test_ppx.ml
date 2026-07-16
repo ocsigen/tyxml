@@ -209,6 +209,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "video attributes",
+  [[%html {|<video playsinline disablepictureinpicture disableremoteplayback></video>|}]],
+  [video ~a:[a_playsinline (); a_disablepictureinpicture ();
+             a_disableremoteplayback ()] [] ];
+
   "ol type lower",
   [[%html {|<ol type="a"><li>x</li></ol>|}]],
   [ol ~a:[a_ol_type `Lower_alpha] [li [txt "x"]] ];

@@ -39,6 +39,13 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "video attributes",
+  video ~a:[a_playsinline (); a_disablepictureinpicture ();
+            a_disableremoteplayback ()] [],
+  "<video playsinline=\"playsinline\""
+  ^ " disablepictureinpicture=\"disablepictureinpicture\""
+  ^ " disableremoteplayback=\"disableremoteplayback\"></video>" ;
+
   "ol type",
   ol ~a:[a_ol_type `Upper_roman; a_start 3] [li [txt "x"]],
   "<ol type=\"I\" start=\"3\"><li>x</li></ol>" ;

@@ -30,6 +30,8 @@
   attribute on th cells, the `closedby` attribute on dialogs, and allow
   `media` on meta. The `Wrapped_functions` module type has a new
   `string_of_ol_type` function.
+* Add the `playsinline` and `disablepictureinpicture` attributes on
+  videos and the `disableremoteplayback` attribute on audios and videos
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element
