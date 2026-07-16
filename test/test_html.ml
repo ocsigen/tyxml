@@ -39,6 +39,18 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "ol type",
+  ol ~a:[a_ol_type `Upper_roman; a_start 3] [li [txt "x"]],
+  "<ol type=\"I\" start=\"3\"><li>x</li></ol>" ;
+
+  "th abbr",
+  tablex [tbody [tr [th ~a:[a_abbr "Pop."] [txt "Population"]]]],
+  "<table><tbody><tr><th abbr=\"Pop.\">Population</th></tr></tbody></table>" ;
+
+  "dialog closedby",
+  dialog ~a:[a_closedby `Closerequest] [div []],
+  "<dialog closedby=\"closerequest\"><div></div></dialog>" ;
+
   "form control attributes",
   div [
     input ~a:[a_input_type `File; a_capture `Environment] () ;

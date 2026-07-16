@@ -257,6 +257,11 @@ module type T = sig
 
   (** {3 Other attributes} *)
 
+  val a_abbr : text wrap -> [> | `Abbr] attrib
+  (** Alternative label of a header cell, for reference in other
+      cells.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr> abbr attribute documentation. *)
+
   val a_allow : text wrap -> [> | `Allow] attrib
   (** Permissions policy of an iframe.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow> allow documentation. *)
@@ -302,6 +307,11 @@ module type T = sig
   val a_mediagroup : string wrap -> [> | `Mediagroup ] attrib
 
   val a_challenge : text wrap -> [> | `Challenge] attrib
+
+  val a_closedby :
+    [< | `Any | `Closerequest | `None ] wrap -> [> | `Closedby] attrib
+  (** User actions that can close a dialog.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby> closedby documentation. *)
 
   val a_capture : [< | `User | `Environment ] wrap -> [> | `Capture] attrib
   (** Preferred camera for file inputs capturing media. Defined by
@@ -551,6 +561,11 @@ module type T = sig
   [@@reflect.attribute "sizes" ["img"]]
 
   val a_start : number wrap -> [> | `Start] attrib
+
+  val a_ol_type : [< | ol_type] wrap -> [> | `Ol_Type] attrib
+  [@@reflect.attribute "type" ["ol"]]
+  (** Numbering type of an ordered list.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type> type attribute documentation. *)
 
   val a_step : float_number option wrap -> [> | `Step] attrib
 
@@ -1441,6 +1456,8 @@ module type Wrapped_functions = sig
 
   val string_of_blocking :
     ([< Html_types.blocking_token] list, string) Xml.W.ft
+
+  val string_of_ol_type : ([< Html_types.ol_type], string) Xml.W.ft
 
   val string_of_sandbox :
     ([< Html_types.sandbox_token] list, string) Xml.W.ft

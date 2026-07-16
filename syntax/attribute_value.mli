@@ -221,6 +221,7 @@ val script_type : parser
 
 val sandbox : parser
 val blocking : parser
+val ol_type : parser
 val popover : parser
 val command : parser
 val in_ : parser

@@ -1486,7 +1486,7 @@ type dialog_content = [ | flow5 ]
 
 type dialog_content_fun = [ | flow5 ]
 
-type dialog_attrib = [ | common | `Open ]
+type dialog_attrib = [ | common | `Open | `Closedby ]
 
 (* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]
@@ -1504,7 +1504,7 @@ type ol_content = [ | `Li of [ | common | `Int_Value ] ]
 
 type ol_content_fun = [ | `Li of [ | common | `Int_Value ] ]
 
-type ol_attrib = [ | common | `Reversed | `Start ]
+type ol_attrib = [ | common | `Reversed | `Start | `Ol_Type ]
 
 (* NAME: li, KIND: star, TYPE: [= common | `Int_Value] as 'a, [=flow5 ], [=`Li of 'a], ARG: [=flow5 ], ATTRIB:  OUT: [=`Li of 'a] *)
 type li_content = [ | flow5 ]
@@ -2108,7 +2108,7 @@ type th_content = [ | flow5 ]
 
 type th_content_fun = [ | flow5 ]
 
-type th_attrib = [ | common | `Colspan | `Headers | `Rowspan | `Scope ]
+type th_attrib = [ | common | `Colspan | `Headers | `Rowspan | `Scope | `Abbr ]
 
 (* NAME: tr, KIND: star, TYPE: [= common ],[= `Td | `Th ], [=`Tr], ARG: [= `Td | `Th ], ATTRIB:  OUT: [=`Tr] *)
 type tr = [ | `Tr ]
@@ -2400,7 +2400,8 @@ type meta_content = notag
 
 type meta_content_fun = notag
 
-type meta_attrib = [ | common | `Http_equiv | `Name | `Content | `Charset | `Property ]
+type meta_attrib =
+  [ | common | `Http_equiv | `Name | `Content | `Charset | `Property | `Media ]
 
 (* NAME: style, KIND: star, TYPE: [= common | `Media | `Mime_type | `Scoped ], [= `PCDATA ], [=`Style], ARG: [= `PCDATA ], ATTRIB:  OUT: [=`Style] *)
 type style = [ | `Style ]
@@ -2569,6 +2570,8 @@ type big_variant =
   | `Low
   | `User
   | `Environment
+  | `Any
+  | `Closerequest
   | `Document
   | `Embed
   | `Fetch
@@ -2638,6 +2641,11 @@ type script_type = [ `Javascript | `Module | `Mime of string ]
 type autocomplete_option = [ `On | `Off | `Tokens of string list]
 
 type popover_value = [ `Auto | `Manual | `Hint ]
+
+(** Values of the [type] attribute of ordered lists. The serialized
+    values are case-sensitive ("1", "a", "A", "i", "I"). *)
+type ol_type =
+  [ `Decimal | `Lower_alpha | `Upper_alpha | `Lower_roman | `Upper_roman ]
 
 (** Values for the [command] attribute of button elements. Custom
     commands (starting with [--]) use the [`Other] constructor. *)

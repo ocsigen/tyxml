@@ -275,6 +275,8 @@ struct
 
   let a_name = string_attrib "name"
 
+  let a_abbr = string_attrib "abbr"
+
   let a_allow = string_attrib "allow"
 
   let a_allowfullscreen =
@@ -318,6 +320,9 @@ struct
   let a_mediagroup = string_attrib "mediagroup"
 
   let a_challenge = string_attrib "challenge"
+
+  let a_closedby x =
+    user_attrib C.string_of_big_variant "closedby" x
 
   let a_capture x =
     user_attrib C.string_of_big_variant "capture" x
@@ -505,6 +510,9 @@ struct
   let a_img_sizes = comma_sep_attrib "sizes"
 
   let a_start = int_attrib "start"
+
+  let a_ol_type x =
+    user_attrib C.string_of_ol_type "type" x
 
   let a_step step =
     user_attrib C.string_of_step "step" step
@@ -1134,6 +1142,7 @@ struct
     | `Low -> "low"
     | `User -> "user"
     | `Environment -> "environment"
+    | `Closerequest -> "closerequest"
     | `Document -> "document"
     | `Embed -> "embed"
     | `Fetch -> "fetch"
@@ -1255,6 +1264,13 @@ struct
 
   let string_of_blocking_token = function
     | `Render -> "render"
+
+  let string_of_ol_type = function
+    | `Decimal -> "1"
+    | `Lower_alpha -> "a"
+    | `Upper_alpha -> "A"
+    | `Lower_roman -> "i"
+    | `Upper_roman -> "I"
 
   let string_of_blocking l =
     String.concat " " (List.map string_of_blocking_token l)

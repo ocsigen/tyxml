@@ -209,6 +209,25 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "ol type lower",
+  [[%html {|<ol type="a"><li>x</li></ol>|}]],
+  [ol ~a:[a_ol_type `Lower_alpha] [li [txt "x"]] ];
+
+  "ol type upper",
+  [[%html {|<ol type="A"><li>x</li></ol>|}]],
+  [ol ~a:[a_ol_type `Upper_alpha] [li [txt "x"]] ];
+
+  "th abbr and dialog closedby",
+  [[%html {|<div><table><tr><th abbr="P">x</th></tr></table><dialog closedby="any">y</dialog></div>|}]],
+  [div [tablex [tbody [tr [th ~a:[a_abbr "P"] [txt "x"]]]] ;
+        dialog ~a:[a_closedby `Any] [txt "y"]] ];
+
+  "meta media",
+  [[%html {|<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black"/>|}]],
+  [meta ~a:[a_name "theme-color";
+            a_media [`Raw_mediadesc "(prefers-color-scheme: dark)"];
+            a_content "black"] () ];
+
   "form control attributes",
   [[%html {|<div><input dirname="c.dir" capture="user"/><select autocomplete="off"></select><textarea autocomplete="on"></textarea></div>|}]],
   [div [input ~a:[a_dirname "c.dir"; a_capture `User] () ;

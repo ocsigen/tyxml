@@ -26,6 +26,10 @@
 * Add the `dirname` attribute on inputs and textareas and the `capture`
   attribute (W3C HTML Media Capture) on inputs; also allow
   `autocomplete` on selects and textareas
+* Add the `type` attribute of ordered lists (`a_ol_type`), the `abbr`
+  attribute on th cells, the `closedby` attribute on dialogs, and allow
+  `media` on meta. The `Wrapped_functions` module type has a new
+  `string_of_ol_type` function.
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element
