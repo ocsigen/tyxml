@@ -695,6 +695,8 @@ struct
 
   let template = star "template"
 
+  let slot = star "slot"
+
   let article = star "article"
 
   let aside = star "aside"

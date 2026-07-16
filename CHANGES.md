@@ -7,6 +7,7 @@
 * Add support for the `bdi` element
 * Add support for the `search` element
 * Add support for the `data` element
+* Add support for the `slot` element
 * Add support for the `track` element and its `kind`, `srclang`
   (as `a_track_srclang`) and `default` attributes; `audio` and `video`
   now accept an optional `?tracks` argument

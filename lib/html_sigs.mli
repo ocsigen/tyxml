@@ -1124,6 +1124,10 @@ module type T = sig
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template>
       Template element documentation on MDN *)
 
+  val slot : ([< | slot_attrib], 'a, [> | 'a slot]) star
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot>
+      slot element documentation on MDN *)
+
   val meta : ([< | meta_attrib], [> | meta]) nullary
 
   (** {3 Style Sheets} *)

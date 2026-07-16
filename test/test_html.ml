@@ -22,6 +22,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   p [data ~value:"42" [txt "forty-two"]],
   "<p><data value=\"42\">forty-two</data></p>" ;
 
+  "slot",
+  div [slot ~a:[a_name "icon"] [txt "fallback"]],
+  "<div><slot name=\"icon\">fallback</slot></div>" ;
+
   "track",
   video ~tracks:[
     track ~src:"video_en.vtt"

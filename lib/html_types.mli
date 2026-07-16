@@ -447,6 +447,7 @@ type (+'interactive, +'noscript, +'regular, +'media) transparent =
     | `Del of 'regular
     | `Object of 'regular
     | `Object_interactive of 'regular
+    | `Slot of 'regular
     | `Audio_interactive of 'media
     | `Video_interactive of 'media
     | `Audio of 'media
@@ -461,6 +462,7 @@ type (+'noscript, +'regular, +'media) transparent_without_interactive =
     | `Object of 'regular
     | `Canvas of 'regular
     | `Map of 'regular
+    | `Slot of 'regular
     | `Audio of 'media
     | `Video of 'media
   ]
@@ -474,6 +476,7 @@ type (+'interactive, +'regular, +'media) transparent_without_noscript =
     | `Map of 'regular
     | `Object of 'regular
     | `Object_interactive of 'regular
+    | `Slot of 'regular
     | `Video of 'media
     | `Audio of 'media
     | `Video_interactive of 'media
@@ -490,6 +493,7 @@ type (+'interactive, +'noscript, +'regular) transparent_without_media =
     | `Canvas of 'regular
     | `Object of 'regular
     | `Object_interactive of 'regular
+    | `Slot of 'regular
   ]
 
 (** Metadata without title *)
@@ -736,7 +740,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
         > `Abbr `B `Bdi `Bdo `Br `Canvas `Cite `Code `Command
         `Data `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
         `Noscript `Object `PCDATA `Progress `Q `Ruby `S `Samp `Script
-        `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
+        `Slot `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
 
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
@@ -1137,7 +1141,7 @@ type +'a between_flow5_and_flow5_without_interactive_header_footer =
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
        `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
-       `Search `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
+       `Search `Section `Select `Slot `Small `Span `Strong `Style `Sub `Sup `Svg `Table
        `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
 
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
@@ -1153,7 +1157,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
       `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
-      `Search `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
+      `Search `Section `Select `Slot `Small `Span `Strong `Style `Sub `Sup `Svg
       `Table `Template `Textarea `Time `U `Ul `Var `Video `Video_interactive
       `Wbr ] as 'a
 
@@ -2391,6 +2395,15 @@ type template_attrib = [ | common ]
 type template_content = [ | flow5 ]
 
 type template_content_fun = [ | flow5 ]
+
+(* NAME: slot, KIND: star, TYPE: [= common | `Name ],'a, [=`Slot of 'a], ARG: 'a, ATTRIB:  OUT: [=`Slot of 'a] *)
+type 'a slot = [ | `Slot of 'a ]
+
+type slot_content = flow5
+type slot_ = slot_content slot
+type slot_content_fun = flow5
+
+type slot_attrib = [ | common | `Name ]
 
 (* NAME: link, KIND: nullary, TYPE: [= common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type ], [=`Link], ARG: notag, ATTRIB:  OUT: [=`Link] *)
 type link = [ | `Link ]
