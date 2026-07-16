@@ -209,6 +209,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "declarative shadow DOM",
+  [[%html {|<template shadowrootmode="closed" shadowrootclonable><p>x</p></template>|}]],
+  [template ~a:[a_shadowrootmode `Closed; a_shadowrootclonable ()]
+     [p [txt "x"]] ];
+
   "video attributes",
   [[%html {|<video playsinline disablepictureinpicture disableremoteplayback></video>|}]],
   [video ~a:[a_playsinline (); a_disablepictureinpicture ();

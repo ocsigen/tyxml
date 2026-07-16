@@ -32,6 +32,9 @@
   `string_of_ol_type` function.
 * Add the `playsinline` and `disablepictureinpicture` attributes on
   videos and the `disableremoteplayback` attribute on audios and videos
+* Add the declarative shadow DOM attributes on templates:
+  `shadowrootmode`, `shadowrootdelegatesfocus`, `shadowrootclonable`
+  and `shadowrootserializable`
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

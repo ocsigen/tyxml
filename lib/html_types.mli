@@ -2430,7 +2430,13 @@ type script_content_fun = [ | `PCDATA ]
 (* NAME: template, KIND: star, TYPE: [= common ], [= flow5 ], [=`Template], ARG: [= flow5 ], ATTRIB:  OUT: [=`Template] *)
 type template = [ | `Template ]
 
-type template_attrib = [ | common ]
+type template_attrib =
+  [ | common
+    | `Shadowrootmode
+    | `Shadowrootdelegatesfocus
+    | `Shadowrootclonable
+    | `Shadowrootserializable
+  ]
 
 type template_content = [ | flow5 ]
 
@@ -2575,6 +2581,7 @@ type big_variant =
   | `Environment
   | `Any
   | `Closerequest
+  | `Closed
   | `Document
   | `Embed
   | `Fetch

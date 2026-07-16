@@ -491,6 +491,18 @@ struct
   let a_seamless =
     constant_attrib "seamless"
 
+  let a_shadowrootmode x =
+    user_attrib C.string_of_big_variant "shadowrootmode" x
+
+  let a_shadowrootdelegatesfocus =
+    constant_attrib "shadowrootdelegatesfocus"
+
+  let a_shadowrootclonable =
+    constant_attrib "shadowrootclonable"
+
+  let a_shadowrootserializable =
+    constant_attrib "shadowrootserializable"
+
   let a_sizes sizes =
     user_attrib C.string_of_sizes "sizes" sizes
 
@@ -1152,6 +1164,7 @@ struct
     | `User -> "user"
     | `Environment -> "environment"
     | `Closerequest -> "closerequest"
+    | `Closed -> "closed"
     | `Document -> "document"
     | `Embed -> "embed"
     | `Fetch -> "fetch"

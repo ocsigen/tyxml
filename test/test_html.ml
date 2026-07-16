@@ -39,6 +39,16 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "declarative shadow DOM",
+  div [template ~a:[a_shadowrootmode `Open; a_shadowrootdelegatesfocus ();
+                    a_shadowrootclonable (); a_shadowrootserializable ()]
+         [p [txt "shadow"]]],
+  "<div><template shadowrootmode=\"open\""
+  ^ " shadowrootdelegatesfocus=\"shadowrootdelegatesfocus\""
+  ^ " shadowrootclonable=\"shadowrootclonable\""
+  ^ " shadowrootserializable=\"shadowrootserializable\">"
+  ^ "<p>shadow</p></template></div>" ;
+
   "video attributes",
   video ~a:[a_playsinline (); a_disablepictureinpicture ();
             a_disableremoteplayback ()] [],

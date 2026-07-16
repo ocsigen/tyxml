@@ -521,6 +521,19 @@ module type T = sig
 
   val a_seamless : unit -> [> | `Seamless] attrib
 
+  val a_shadowrootmode : [< | `Open | `Closed ] wrap -> [> | `Shadowrootmode] attrib
+  (** Declarative shadow root mode, for template elements.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode> shadowrootmode documentation. *)
+
+  val a_shadowrootdelegatesfocus : unit -> [> | `Shadowrootdelegatesfocus] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus> shadowrootdelegatesfocus documentation. *)
+
+  val a_shadowrootclonable : unit -> [> | `Shadowrootclonable] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable> shadowrootclonable documentation. *)
+
+  val a_shadowrootserializable : unit -> [> | `Shadowrootserializable] attrib
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable> shadowrootserializable documentation. *)
+
   val a_sizes : (number * number) list option wrap -> [> | `Sizes] attrib
 
   val a_slot : text wrap -> [> | `Slot] attrib
