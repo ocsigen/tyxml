@@ -39,6 +39,19 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "form control attributes",
+  div [
+    input ~a:[a_input_type `File; a_capture `Environment] () ;
+    input ~a:[a_input_type `Text; a_name "comment";
+              a_dirname "comment.dir"] () ;
+    textarea ~a:[a_dirname "t.dir"; a_autocomplete `Off] (txt "") ;
+    select ~a:[a_autocomplete `Off] []
+  ],
+  "<div><input type=\"file\" capture=\"environment\"/>"
+  ^ "<input type=\"text\" name=\"comment\" dirname=\"comment.dir\"/>"
+  ^ "<textarea dirname=\"t.dir\" autocomplete=\"off\"></textarea>"
+  ^ "<select autocomplete=\"off\"></select></div>" ;
+
   "a ping",
   p [a ~a:[a_href "/x"; a_ping ["https://t.example/ping"];
            a_referrerpolicy `No_referrer] [txt "x"]],

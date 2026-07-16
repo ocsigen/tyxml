@@ -2210,6 +2210,8 @@ type input_attrib =
     | `Inputmode
     | `Popovertarget
     | `Popovertargetaction
+    | `Dirname
+    | `Capture
   ]
 
 type textarea = [ | `Textarea ]
@@ -2229,6 +2231,8 @@ type textarea_attrib =
     | `Wrap
     | `Rows
     | `Cols
+    | `Dirname
+    | `Autocomplete
   ]
 
 type textarea_content = [ | `PCDATA ]
@@ -2272,6 +2276,7 @@ type select_content_fun = [ | `Optgroup | `Option ]
 
 type select_attrib =
   [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled | `Required
+    | `Autocomplete
   ]
 
 (* NAME: datalist, KIND: nullary, TYPE: [= common ], [=`Datalist], ARG: notag, ATTRIB:  OUT: [=`Datalist] *)
@@ -2562,6 +2567,8 @@ type big_variant =
   | `Sync
   | `High
   | `Low
+  | `User
+  | `Environment
   | `Document
   | `Embed
   | `Fetch

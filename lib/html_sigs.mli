@@ -303,6 +303,12 @@ module type T = sig
 
   val a_challenge : text wrap -> [> | `Challenge] attrib
 
+  val a_capture : [< | `User | `Environment ] wrap -> [> | `Capture] attrib
+  (** Preferred camera for file inputs capturing media. Defined by
+      the W3C HTML Media Capture specification. The bare form of the
+      attribute is not supported by the PPX; use an explicit value.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture> capture documentation. *)
+
   val a_contenteditable : bool wrap -> [> | `Contenteditable] attrib
 
   val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
@@ -310,6 +316,11 @@ module type T = sig
   val a_controls : unit -> [> | `Controls] attrib
 
   val a_dir : [< | `Rtl | `Ltr | `Auto] wrap -> [> | `Dir] attrib
+
+  val a_dirname : text wrap -> [> | `Dirname] attrib
+  (** Name of the form control field used to submit the element's
+      text directionality.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname> dirname documentation. *)
 
   val a_draggable : bool wrap -> [> | `Draggable] attrib
 

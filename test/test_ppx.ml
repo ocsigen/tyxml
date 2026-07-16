@@ -209,6 +209,12 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "form control attributes",
+  [[%html {|<div><input dirname="c.dir" capture="user"/><select autocomplete="off"></select><textarea autocomplete="on"></textarea></div>|}]],
+  [div [input ~a:[a_dirname "c.dir"; a_capture `User] () ;
+        select ~a:[a_autocomplete `Off] [] ;
+        textarea ~a:[a_autocomplete `On] (txt "")] ];
+
   "a ping",
   [[%html {|<a href="/x" ping="https://a.example https://b.example">x</a>|}]],
   [a ~a:[a_href "/x"; a_ping ["https://a.example"; "https://b.example"]]

@@ -23,6 +23,9 @@
   module type has a new `string_of_blocking` function.
 * Add the `ping` attribute on `a` and `area`; also allow
   `referrerpolicy` there
+* Add the `dirname` attribute on inputs and textareas and the `capture`
+  attribute (W3C HTML Media Capture) on inputs; also allow
+  `autocomplete` on selects and textareas
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

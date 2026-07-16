@@ -319,6 +319,9 @@ struct
 
   let a_challenge = string_attrib "challenge"
 
+  let a_capture x =
+    user_attrib C.string_of_big_variant "capture" x
+
   let a_contenteditable ce =
     bool_attrib "contenteditable" ce
 
@@ -329,6 +332,8 @@ struct
 
   let a_dir x =
     user_attrib C.string_of_big_variant "dir" x
+
+  let a_dirname = string_attrib "dirname"
 
   let a_draggable d =
     bool_attrib "draggable" d
@@ -1127,6 +1132,8 @@ struct
     | `Sync -> "sync"
     | `High -> "high"
     | `Low -> "low"
+    | `User -> "user"
+    | `Environment -> "environment"
     | `Document -> "document"
     | `Embed -> "embed"
     | `Fetch -> "fetch"
