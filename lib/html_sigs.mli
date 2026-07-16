@@ -413,6 +413,11 @@ module type T = sig
 
   val a_pattern : text wrap -> [> | `Pattern] attrib
 
+  val a_ping : string list wrap -> [> | `Ping] attrib
+  (** Space-separated list of URLs to ping when following the
+      hyperlink.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping> ping documentation. *)
+
   val a_placeholder : text wrap -> [> | `Placeholder] attrib
 
   val a_part : string list wrap -> [> | `Part] attrib

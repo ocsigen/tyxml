@@ -21,6 +21,8 @@
   links, the `nomodule` attribute on scripts, and the `blocking`
   attribute on links, scripts and styles. The `Wrapped_functions`
   module type has a new `string_of_blocking` function.
+* Add the `ping` attribute on `a` and `area`; also allow
+  `referrerpolicy` there
 * Add support for the `s` element
 * Add support for the `bdi` element
 * Add support for the `search` element

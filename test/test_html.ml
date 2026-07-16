@@ -39,6 +39,12 @@ let html_elements = "html elements", tyxml_tests Html.[
   div [a []],
   "<div><a></a></div>" ;
 
+  "a ping",
+  p [a ~a:[a_href "/x"; a_ping ["https://t.example/ping"];
+           a_referrerpolicy `No_referrer] [txt "x"]],
+  "<p><a href=\"/x\" ping=\"https://t.example/ping\""
+  ^ " referrerpolicy=\"no-referrer\">x</a></p>" ;
+
   "script nomodule",
   script ~a:[a_nomodule (); a_blocking [`Render]] (txt ""),
   "<script nomodule=\"nomodule\" blocking=\"render\"></script>" ;

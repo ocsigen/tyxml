@@ -417,6 +417,8 @@ struct
 
   let a_pattern = string_attrib "pattern"
 
+  let a_ping = space_sep_attrib "ping"
+
   let a_placeholder = string_attrib "placeholder"
 
   let a_part = space_sep_attrib "part"

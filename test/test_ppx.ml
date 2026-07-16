@@ -209,6 +209,11 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
   [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
 
+  "a ping",
+  [[%html {|<a href="/x" ping="https://a.example https://b.example">x</a>|}]],
+  [a ~a:[a_href "/x"; a_ping ["https://a.example"; "https://b.example"]]
+     [txt "x"] ];
+
   "link preload",
   [[%html {|<link rel="stylesheet" href="a.css" blocking="render" fetchpriority="low"/>|}]],
   [link ~rel:[`Stylesheet] ~href:"a.css"
