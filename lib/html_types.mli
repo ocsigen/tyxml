@@ -567,6 +567,7 @@ type core_phrasing =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `Img | `Img_interactive
@@ -608,6 +609,7 @@ type core_phrasing_without_noscript =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `Img | `Img_interactive
     | `Picture
     | `B
@@ -646,6 +648,7 @@ type core_phrasing_without_interactive =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -687,6 +690,7 @@ type core_phrasing_without_media =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -725,7 +729,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
                                            phrasing_without_noscript,
                                            phrasing,
                                            phrasing_without_media) transparent
-        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
+        > `Abbr `B `Bdi `Bdo `Br `Canvas `Cite `Code `Command
         `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
         `Noscript `Object `PCDATA `Progress `Q `Ruby `S `Samp `Script
         `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
@@ -763,6 +767,7 @@ type phrasing_without_dfn =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -802,6 +807,7 @@ type phrasing_without_label =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -844,6 +850,7 @@ type phrasing_without_progress =
     | `Button
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -883,6 +890,7 @@ type phrasing_without_time =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -925,6 +933,7 @@ type phrasing_without_meter =
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -1107,7 +1116,7 @@ type flow5_without_header_footer =
   ]
 
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
-  [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
+  [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdi `Bdo `Blockquote `Br
        `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog `Div `Dl `Em
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
@@ -1122,7 +1131,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
                                        flow5_without_media)
       transparent
       > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B
-      `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
+      `Bdi `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
       `Datalist `Del `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset
       `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
@@ -1630,6 +1639,15 @@ type bdo_content = [ | phrasing ]
 type bdo_content_fun = [ | phrasing ]
 
 type bdo_attrib = [ | common ]
+
+(* NAME: bdi, KIND: star, TYPE: [= common ],[= phrasing ],[= `Bdi ], ARG: [= phrasing ], ATTRIB:  OUT: [= `Bdi ] *)
+type bdi = [ | `Bdi ]
+
+type bdi_content = [ | phrasing ]
+
+type bdi_content_fun = [ | phrasing ]
+
+type bdi_attrib = [ | common ]
 
 (* NAME: abbr, KIND: star, TYPE: [= common ], [=phrasing ], [=`Abbr], ARG: [=phrasing ], ATTRIB:  OUT: [=`Abbr] *)
 type abbr = [ | `Abbr ]

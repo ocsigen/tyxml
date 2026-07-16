@@ -10,6 +10,10 @@ let html_elements = "html elements", tyxml_tests Html.[
   p [s [txt "old price"]],
   "<p><s>old price</s></p>" ;
 
+  "bdi",
+  p [bdi [txt "user123"]],
+  "<p><bdi>user123</bdi></p>" ;
+
   "div",
   div [a []],
   "<div><a></a></div>" ;

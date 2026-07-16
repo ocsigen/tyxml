@@ -652,6 +652,8 @@ struct
 
   let bdo ~dir ?(a = []) elts = Xml.node ~a: ((a_dir dir) :: a) "bdo" elts
 
+  let bdi = star "bdi"
+
   let a_datetime = string_attrib "datetime"
 
   let a_shape x =

@@ -193,6 +193,10 @@ let basics = "ppx basics", HtmlTests.make Html.[
   [[%html {|<s>foo</s>|}]],
   [s [txt "foo"] ];
 
+  "bdi",
+  [[%html {|<bdi>foo</bdi>|}]],
+  [bdi [txt "foo"] ];
+
   "picture",
   [[%html {|<div><picture id="idpicture">
     <img src="picture/img.png" alt="test picture/img.png" id="idimg"/>

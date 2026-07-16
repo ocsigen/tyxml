@@ -826,6 +826,10 @@ module type T = sig
     dir: [< | `Ltr | `Rtl] wrap ->
     ([< | bdo_attrib], [< | bdo_content_fun], [> | bdo]) star
 
+  val bdi : ([< | bdi_attrib], [< | bdi_content_fun], [> | bdi]) star
+  (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi>
+      bdi element documentation on MDN *)
+
   val abbr : ([< | abbr_attrib], [< | abbr_content_fun], [> | abbr]) star
 
   val br : ([< | br_attrib], [> | br]) nullary
