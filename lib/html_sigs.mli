@@ -1074,7 +1074,7 @@ module type T = sig
   val wbr : ([< | wbr_attrib], [> | wbr]) nullary
 
   val bdo :
-    dir: [< | `Ltr | `Rtl | `Auto] wrap ->
+    dir: [< | `Ltr | `Rtl] wrap ->
     ([< | bdo_attrib], [< | bdo_content_fun], [> | bdo]) star
 
   val bdi : ([< | bdi_attrib], [< | bdi_content_fun], [> | bdi]) star
