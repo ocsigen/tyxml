@@ -112,6 +112,11 @@ let svg_events = "svg events", tyxml_tests Svg.[
            a_onhashchange "h()" ] [],
   {|<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onmessage="m(event)" onstorage="s(event)" onhashchange="h()"></svg>|} ;
 
+  "mouse and load handlers on a non graphics element",
+  linearGradient ~a:[ a_onclick "f()" ; a_onload "g()" ;
+                      a_ontouchstart "h(event)" ] [],
+  {|<linearGradient onclick="f()" onload="g()" ontouchstart="h(event)"></linearGradient>|} ;
+
   "clipboard event handlers",
   text ~a:[ a_oncopy "c()" ; a_oncut "x()" ; a_onpaste "p()" ] [],
   {|<text oncopy="c()" oncut="x()" onpaste="p()"></text>|} ;

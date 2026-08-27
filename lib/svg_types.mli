@@ -257,6 +257,7 @@ type presentation_attr =
 
 type global_event_attr =
   [
+    | `OnAbort
     | `OnAuxClick
     | `OnBeforeInput
     | `OnBeforeMatch
@@ -266,6 +267,7 @@ type global_event_attr =
     | `OnCanPlay
     | `OnCanPlayThrough
     | `OnChange
+    | `OnClick
     | `OnClose
     | `OnContextLost
     | `OnContextMenu
@@ -284,6 +286,7 @@ type global_event_attr =
     | `OnDurationChange
     | `OnEmptied
     | `OnEnded
+    | `OnError
     | `OnFocus
     | `OnGotPointerCapture
     | `OnInput
@@ -291,10 +294,16 @@ type global_event_attr =
     | `OnKeyDown
     | `OnKeyPress
     | `OnKeyUp
+    | `OnLoad
     | `OnLoadedData
     | `OnLoadedMetaData
     | `OnLoadStart
     | `OnLostPointerCapture
+    | `OnMouseDown
+    | `OnMouseMove
+    | `OnMouseOut
+    | `OnMouseOver
+    | `OnMouseUp
     | `OnMouseWheel
     | `OnPaste
     | `OnPause
@@ -310,6 +319,8 @@ type global_event_attr =
     | `OnPointerUp
     | `OnProgress
     | `OnRateChange
+    | `OnResize
+    | `OnScroll
     | `OnScrollEnd
     | `OnSecurityPolicyViolation
     | `OnSeeked
@@ -321,6 +332,10 @@ type global_event_attr =
     | `OnSuspend
     | `OnTimeUpdate
     | `OnToggle
+    | `OnTouchCancel
+    | `OnTouchEnd
+    | `OnTouchMove
+    | `OnTouchStart
     | `OnVolumeChange
     | `OnWaiting
     | `OnWheel

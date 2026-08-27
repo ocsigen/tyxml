@@ -905,9 +905,6 @@ module type T = sig
   val a_onfocusin : Xml.event_handler  -> [> | `OnFocusIn ] attrib
   val a_onfocusout : Xml.event_handler  -> [> | `OnFocusOut ] attrib
   val a_onload : Xml.event_handler  -> [> | `OnLoad ] attrib
-    [@@ocaml.deprecated "Removed in SVG2"]
-  (** @deprecated Removed in SVG2 *)
-
   val a_onrepeat : Xml.event_handler  -> [> | `OnRepeat ] attrib
   val a_onresize : Xml.event_handler  -> [> | `OnResize ] attrib
   val a_onscroll : Xml.event_handler  -> [> | `OnScroll ] attrib
