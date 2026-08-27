@@ -284,6 +284,9 @@ module type T = sig
 
   val a_spacing : [< `Auto | `Exact ] wrap -> [> | `Spacing ] attrib
 
+  val a_side : [< `Left | `Right ] wrap -> [> | `Side ] attrib
+  (** Side of the path a [textPath] is rendered on. New in SVG 2. *)
+
   val a_glyphRef : string wrap -> [> | `GlyphRef ] attrib
 
   val a_format : string wrap -> [> | `Format ] attrib
@@ -323,6 +326,9 @@ module type T = sig
   val a_fx : coord wrap -> [> | `Fx ] attrib
 
   val a_fy : coord wrap -> [> | `Fy ] attrib
+
+  val a_fr : Unit.length wrap -> [> | `Fr ] attrib
+  (** Radius of the focal circle of a radial gradient. New in SVG 2. *)
 
   val a_offset :
     [< `Number of number | `Percentage of percentage ] wrap ->

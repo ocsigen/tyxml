@@ -347,6 +347,8 @@ struct
   let a_spacing x =
     user_attrib C.string_of_big_variant "spacing" x
 
+  let a_side x = user_attrib C.string_of_big_variant "side" x
+
   let a_glyphRef = string_attrib "glyphRef"
 
   let a_format = string_attrib "format"
@@ -382,6 +384,8 @@ struct
   let a_fx = user_attrib string_of_coord "fx"
 
   let a_fy = user_attrib string_of_coord "fy"
+
+  let a_fr = user_attrib string_of_length "fr"
 
   let a_offset x =
     user_attrib C.string_of_offset "offset" x
@@ -1139,6 +1143,7 @@ struct
     | `Inherit -> "inherit"
     | `Initial -> "initial"
     | `Isolated -> "isolated"
+    | `Left -> "left"
     | `Lighten -> "lighten"
     | `Line_through -> "line-through"
     | `Linear -> "linear"
@@ -1190,6 +1195,7 @@ struct
     | `Remove -> "remove"
     | `Repeat -> "repeat"
     | `Replace -> "replace"
+    | `Right -> "right"
     | `Rotate -> "rotate"
     | `Round -> "round"
     | `Rtl -> "rtl"

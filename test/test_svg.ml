@@ -49,6 +49,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   g ~a:[ a_role ["img"] ; a_aria "label" ["a circle"] ] [],
   {|<g role="img" aria-label="a circle"></g>|} ;
 
+  "textPath path and side",
+  textPath ~a:[ a_path "M 0 0 L 10 10" ; a_side `Right ] [],
+  {|<textPath path="M 0 0 L 10 10" side="right"></textPath>|} ;
+
   "image crossorigin, decoding, fetchpriority",
   image ~a:[ a_href "i.png" ; a_crossorigin `Anonymous ; a_decoding `Async ;
              a_fetchpriority `High ] [],
@@ -150,6 +154,10 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
   filter [ feMerge [ feMergeNode ~a:[ a_in (`Ref "a") ] [] ;
                      feMergeNode ~a:[ a_in `SourceGraphic ] [] ] ],
   {|<filter><feMerge><feMergeNode in="a"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>|} ;
+
+  "radial gradient fr",
+  radialGradient ~a:[ a_r (0.5, None) ; a_fr (0.1, None) ] [],
+  {|<radialGradient r="0.5" fr="0.1"></radialGradient>|} ;
 
   "linear gradient",
   linearGradient ~a:[ a_gradientTransform [`Rotate ((10., None), Some (0.5, 0.5))] ]

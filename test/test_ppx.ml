@@ -573,6 +573,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "radialGradient fr, textPath side",
+  [[%svg "<radialGradient fr='0.1'/>"]],
+  [radialGradient ~a:[a_fr (0.1, None)] []] ;
+
   "image crossorigin, decoding",
   [[%svg "<image crossorigin='use-credentials' decoding='async'/>"]],
   [image ~a:[a_crossorigin `Use_credentials; a_decoding `Async] []] ;

@@ -866,6 +866,8 @@ type textpath_attr =
     | `Xlink_href
     | `StartOffset
     | `Method
+    | `Path
+    | `Side
     | `Spacing
   ]
 
@@ -1032,6 +1034,7 @@ type radialgradient_attr =
     | `R
     | `Fx
     | `Fy
+    | `Fr
     | `GradientUnits
     | `GradientTransform
     | `SpreadMethod
@@ -2049,6 +2052,7 @@ type big_variant =
   | `Inherit
   | `Initial
   | `Isolated
+  | `Left
   | `Lighten
   | `Line_through
   | `Linear
@@ -2100,6 +2104,7 @@ type big_variant =
   | `Remove
   | `Repeat
   | `Replace
+  | `Right
   | `Rotate
   | `Round
   | `Rtl
