@@ -90,7 +90,7 @@ A nullary element is an element that doesn't have any children.
 ```ocaml
 type ('a, 'b, 'c) unary = ?a:'a attrib list -> 'b elt wrap -> 'c elt
 ```
-A unary element is an element that have exactly one children.
+A unary element is an element that has exactly one child.
 
 ```ocaml
 type ('a, 'b, 'c) star = ?a:'a attrib list -> 'b elt list_wrap -> 'c elt
