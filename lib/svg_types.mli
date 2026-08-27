@@ -1294,7 +1294,8 @@ type stop = [ | `Stop ]
 type stop_content = [ | `Animate | `AnimateColor | `Script | `Set ]
 
 type stop_attr =
-  [ | core_attr | global_event_attr | presentation_attr | `Class | `Style | `Offset
+  [ | core_attr | global_event_attr | presentation_attr | `Class | `Style
+    | `Offset
   ]
 
 type pattern = [ | `Pattern ]
@@ -1449,7 +1450,8 @@ type fedistantlight = [ | `FeDistantLight ]
 type fedistantlight_content =
   [ | descriptive_element | `Animate | `Script | `Set ]
 
-type fedistantlight_attr = [ | core_attr | global_event_attr | `Azimuth | `Elevation ]
+type fedistantlight_attr =
+  [ | core_attr | global_event_attr | `Azimuth | `Elevation ]
 
 type fepointlight = [ | `FePointLight ]
 
@@ -1689,7 +1691,8 @@ type feflood_content =
     | `Set ]
 
 type feflood_attr =
-  [ | core_attr | global_event_attr | presentation_attr | filter_primitive_attr | `Class | `Style
+  [ | core_attr | global_event_attr | presentation_attr
+    | filter_primitive_attr | `Class | `Style
   ]
 
 type fegaussianblur = [ | `FeGaussianBlur ]
@@ -1740,7 +1743,8 @@ type femerge_content =
   [ | descriptive_element | `Animate | `FeMergeNode | `Script | `Set ]
 
 type femerge_attr =
-  [ | core_attr | global_event_attr | presentation_attr | filter_primitive_attr | `Class | `Style
+  [ | core_attr | global_event_attr | presentation_attr
+    | filter_primitive_attr | `Class | `Style
   ]
 
 type femergenode = [ | `FeMergeNode ]
@@ -2020,7 +2024,8 @@ type mpath = [ | `Mpath ]
 type mpath_content = descriptive_element
 
 type mpath_attr =
-  [ | core_attr | global_event_attr | xlink_attr | `ExternalResourcesRequired | `Xlink_href
+  [ | core_attr | global_event_attr | xlink_attr
+    | `ExternalResourcesRequired | `Xlink_href
   ]
 
 type animatecolor = [ | `AnimateColor ]

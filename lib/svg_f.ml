@@ -797,7 +797,8 @@ struct
   let a_onemptied = Xml.event_handler_attrib "onemptied"
   let a_onended = Xml.event_handler_attrib "onended"
   let a_onfocus = Xml.event_handler_attrib "onfocus"
-  let a_ongotpointercapture = Xml.mouse_event_handler_attrib "ongotpointercapture"
+  let a_ongotpointercapture =
+    Xml.mouse_event_handler_attrib "ongotpointercapture"
   let a_oninput = Xml.event_handler_attrib "oninput"
   let a_oninvalid = Xml.event_handler_attrib "oninvalid"
   let a_onkeydown = Xml.keyboard_event_handler_attrib "onkeydown"
@@ -806,7 +807,8 @@ struct
   let a_onloadeddata = Xml.event_handler_attrib "onloadeddata"
   let a_onloadedmetadata = Xml.event_handler_attrib "onloadedmetadata"
   let a_onloadstart = Xml.event_handler_attrib "onloadstart"
-  let a_onlostpointercapture = Xml.mouse_event_handler_attrib "onlostpointercapture"
+  let a_onlostpointercapture =
+    Xml.mouse_event_handler_attrib "onlostpointercapture"
   let a_onmousewheel = Xml.event_handler_attrib "onmousewheel"
   let a_onpaste = Xml.event_handler_attrib "onpaste"
   let a_onpause = Xml.event_handler_attrib "onpause"
@@ -823,7 +825,8 @@ struct
   let a_onprogress = Xml.event_handler_attrib "onprogress"
   let a_onratechange = Xml.event_handler_attrib "onratechange"
   let a_onscrollend = Xml.event_handler_attrib "onscrollend"
-  let a_onsecuritypolicyviolation = Xml.event_handler_attrib "onsecuritypolicyviolation"
+  let a_onsecuritypolicyviolation =
+    Xml.event_handler_attrib "onsecuritypolicyviolation"
   let a_onseeked = Xml.event_handler_attrib "onseeked"
   let a_onseeking = Xml.event_handler_attrib "onseeking"
   let a_onselect = Xml.event_handler_attrib "onselect"
