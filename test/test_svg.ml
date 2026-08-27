@@ -34,6 +34,11 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
     [ feGaussianBlur ~a:[a_stdDeviation (0.2, None)] [] ],
   "<filter x=\"-0.1\" y=\"-0.1\" width=\"0.2\" height=\"0.2\"><feGaussianBlur stdDeviation=\"0.2\"></feGaussianBlur></filter>" ;
 
+  "feMerge",
+  filter [ feMerge [ feMergeNode ~a:[ a_in (`Ref "a") ] [] ;
+                     feMergeNode ~a:[ a_in `SourceGraphic ] [] ] ],
+  {|<filter><feMerge><feMergeNode in="a"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>|} ;
+
   "linear gradient",
   linearGradient ~a:[ a_gradientTransform [`Rotate ((10., None), Some (0.5, 0.5))] ]
     [

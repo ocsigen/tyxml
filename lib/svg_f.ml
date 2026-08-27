@@ -855,6 +855,8 @@ struct
 
   let feMerge = star "feMerge"
 
+  let feMergeNode = star "feMergeNode"
+
   let feMorphology = star "feMorphology"
 
   let feOffset = star "feOffset"

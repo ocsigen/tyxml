@@ -1425,6 +1425,13 @@ type femerge_attr =
   [ | core_attr | presentation_attr | filter_primitive_attr | `Class | `Style
   ]
 
+type femergenode = [ | `FeMergeNode ]
+
+(* star *)
+type femergenode_content = [ | `Animate | `Set ]
+
+type femergenode_attr = [ | core_attr | `In ]
+
 type femorphology = [ | `FeMorphology ]
 
 (* star *)

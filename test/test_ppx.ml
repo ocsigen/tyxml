@@ -609,6 +609,7 @@ let svg_element_names = "svg element names", SvgTests.make Svg.[
   "feGaussianBlur", [[%svg "<feGaussianBlur/>"]], [feGaussianBlur []] ;
   "feImage", [[%svg "<feImage/>"]], [feImage []] ;
   "feMerge", [[%svg "<feMerge/>"]], [feMerge []] ;
+  "feMergeNode", [[%svg "<feMergeNode/>"]], [feMergeNode []] ;
   "feMorphology", [[%svg "<feMorphology/>"]], [feMorphology []] ;
   "feOffset", [[%svg "<feOffset/>"]], [feOffset []] ;
   "feSpecularLighting",

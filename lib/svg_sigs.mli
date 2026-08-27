@@ -864,6 +864,10 @@ module type T = sig
   val feMerge :
     ([< | femerge_attr], [< | femerge_content], [> | femerge]) star
 
+  val feMergeNode :
+    ([< | femergenode_attr], [< | femergenode_content], [> | femergenode])
+      star
+
   val feMorphology :
     ([< | femorphology_attr], [< | femorphology_content], [> | femorphology
                                                           ]) star

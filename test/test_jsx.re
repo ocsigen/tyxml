@@ -424,6 +424,7 @@ let svg_element_names = (
       ("feGaussianBlur", [<feGaussianBlur />], [feGaussianBlur([])]),
       ("feImage", [<feImage />], [feImage([])]),
       ("feMerge", [<feMerge />], [feMerge([])]),
+      ("feMergeNode", [<feMergeNode />], [feMergeNode([])]),
       ("feMorphology", [<feMorphology />], [feMorphology([])]),
       ("feOffset", [<feOffset />], [feOffset([])]),
       (
