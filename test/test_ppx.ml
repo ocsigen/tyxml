@@ -544,6 +544,24 @@ let svg = "svg", SvgTests.make Svg.[
   [text
     ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
 
+  "whitespace between svg tags",
+  [[%svg "<g> </g>"]],
+  [g []] ;
+
+  "indented svg",
+  [[%svg {|
+     <g>
+       <g>
+         <rect/>
+       </g>
+     </g>
+   |}]],
+  [g [g [rect []]]] ;
+
+  "whitespace is kept in text",
+  [[%svg "<text> spaced </text>"]],
+  [text [txt " spaced "]] ;
+
   "svg data-*",
   [[%svg "<text data-foo='valfoo' />"]],
   [text
