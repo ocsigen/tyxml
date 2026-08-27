@@ -270,10 +270,23 @@ let escaping = "html escaping", tyxml_tests Html.[
 ]
 
 
+let printing = "printing", [
+  "xml declaration", `Quick, (fun () ->
+    Alcotest.(check string) "xml declaration"
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+      (Xml_print.compose_decl ())) ;
+
+  "xml declaration with an encoding", `Quick, (fun () ->
+    Alcotest.(check string) "xml declaration with an encoding"
+      "<?xml version=\"1.1\" encoding=\"US-ASCII\"?>\n"
+      (Xml_print.compose_decl ~version:"1.1" ~encoding:"US-ASCII" ())) ;
+]
+
 let tests = [
   html_elements ;
   html_attributes ;
   escaping ;
+  printing ;
 ]
 
 let () = Alcotest.run "tyxml" tests

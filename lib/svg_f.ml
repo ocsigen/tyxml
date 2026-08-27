@@ -123,7 +123,7 @@ struct
     let standard = "http://www.w3.org/TR/svg11/"
     let namespace = "http://www.w3.org/2000/svg"
     let doctype =
-      Xml_print.compose_doctype"svg"
+      Xml_print.compose_doctype "svg"
         ["-//W3C//DTD SVG 1.1//EN";
          "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
   end

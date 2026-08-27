@@ -1,5 +1,8 @@
 # NEXT
 
+* Fix `Xml_print.compose_decl`, which emitted a literal `\n` instead of a
+  newline, making the XML declaration invalid
+  (#348 by Martin @MBodin Bodin)
 * Fix the development-profile build with recent compilers: anonymize
   unused functor parameters in printer and functor signatures
   (warning 67)

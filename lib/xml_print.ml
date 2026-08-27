@@ -49,8 +49,8 @@ let encode_unsafe_char_and_at s =
 
 let compose_decl ?(version = "1.0") ?(encoding = "UTF-8") () =
   Format.sprintf
-    {|<?xml version="%s" encoding="%s"?>\n|}
-    version encoding
+    {|<?xml version="%s" encoding="%s"?>%c|}
+    version encoding '\n'
 
 let compose_doctype dt args =
   let pp_args fmt = function
