@@ -302,6 +302,20 @@ let svg = (
         [<stop offset="50.1%" />],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
+      ( "transform with arbitrary whitespace",
+        [<g transform="translate   ( 200 ,  200) scale ( -1. , 0 )" />],
+        [
+          g(
+            ~a=[
+              a_transform([
+                `Translate((200., Some(200.))),
+                `Scale((-1., Some(0.))),
+              ]),
+            ],
+            [],
+          ),
+        ],
+      ),
       ( "role, aria-*",
         [<g role="img" ariaLabel="circle" />],
         [g(~a=[a_role(["img"]), a_aria("label", ["circle"])], [])],

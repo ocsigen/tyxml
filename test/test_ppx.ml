@@ -666,6 +666,21 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<path fill-rule='evenodd'/>"]],
   [path ~a:[a_fill_rule `Evenodd] []] ;
 
+  "transform with a comma",
+  [[%svg "<g transform='translate(1,1)'/>"]],
+  [g ~a:[a_transform [`Translate (1., Some 1.)]] []] ;
+
+  "transform with arbitrary whitespace",
+  [[%svg "<g transform='translate   ( 200 ,  200)\tmatrix(-0,1,.1,.0,1e-5,1.E5) \
+                         scale ( -1. , 0 )'/>"]],
+  [g ~a:[a_transform [`Translate (200., Some 200.);
+                      `Matrix (-0., 1., 0.1, 0., 1e-5, 1e5);
+                      `Scale (-1., Some 0.)]] []] ;
+
+  "transform with a rotation centre",
+  [[%svg "<g transform='rotate(10, 0.5, 0.5)'/>"]],
+  [g ~a:[a_transform [`Rotate ((10., None), Some (0.5, 0.5))]] []] ;
+
 ]
 
 let svg_document = "svg document", SvgTests.make Svg.[
