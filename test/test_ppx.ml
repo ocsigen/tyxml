@@ -729,7 +729,6 @@ let svg_element_names = "svg element names", SvgTests.make Svg.[
   "feTile", [[%svg "<feTile/>"]], [feTile []] ;
   "feTurbulence", [[%svg "<feTurbulence/>"]], [feTurbulence []] ;
   "animateMotion", [[%svg "<animateMotion/>"]], [animateMotion []] ;
-  "animateColor", [[%svg "<animateColor/>"]], [animateColor []] ;
   "animateTransform", [[%svg "<animateTransform/>"]], [animateTransform []] ;
 
 ]

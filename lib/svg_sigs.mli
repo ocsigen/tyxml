@@ -144,6 +144,8 @@ module type T = sig
   (** @deprecated Removed in SVG2 *)
 
   val a_zoomAndPan : [< | `Disable | `Magnify ] wrap -> [> | `ZoomAndPan ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_href : iri wrap -> [> | `Xlink_href ] attrib
 
@@ -162,6 +164,8 @@ module type T = sig
 
   val a_externalResourcesRequired :
     bool wrap -> [> | `ExternalResourcesRequired ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_id : string wrap -> [> | `Id ] attrib
 
@@ -382,6 +386,8 @@ module type T = sig
     [> | `PrimitiveUnits ] attrib
 
   val a_filterRes : number_optional_number wrap -> [> | `FilterRes ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a_result : string wrap -> [> | `Result ] attrib
 
@@ -899,17 +905,28 @@ module type T = sig
 
   val a_onabort : Xml.event_handler  -> [> | `OnAbort ] attrib
   val a_onactivate : Xml.event_handler  -> [> | `OnActivate ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
   val a_onbegin : Xml.event_handler  -> [> | `OnBegin ] attrib
   val a_onend : Xml.event_handler  -> [> | `OnEnd ] attrib
   val a_onerror : Xml.event_handler  -> [> | `OnError ] attrib
   val a_onfocusin : Xml.event_handler  -> [> | `OnFocusIn ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
   val a_onfocusout : Xml.event_handler  -> [> | `OnFocusOut ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
   val a_onload : Xml.event_handler  -> [> | `OnLoad ] attrib
   val a_onrepeat : Xml.event_handler  -> [> | `OnRepeat ] attrib
   val a_onresize : Xml.event_handler  -> [> | `OnResize ] attrib
   val a_onscroll : Xml.event_handler  -> [> | `OnScroll ] attrib
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   (** {3 Javascript document events}
 
@@ -1235,6 +1252,8 @@ module type T = sig
                                                           ]) star
 
   val cursor : ([< | cursor_attr], [< | cursor_content], [> | cursor]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val a : ([< | a_attr], [< | a_content], [> | a]) star
 
@@ -1257,6 +1276,8 @@ module type T = sig
   val animateColor :
     ([< | animatecolor_attr], [< | animatecolor_content], [> | animatecolor
                                                           ]) star
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
 
   val animateTransform :
     ([< | animatetransform_attr], [< | animatetransform_content],

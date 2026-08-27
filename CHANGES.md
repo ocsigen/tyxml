@@ -116,6 +116,11 @@
   attribute category, making them unusable on every element
 * SVG: allow the SVG 2 geometry attributes on `symbol` (`x`, `y`,
   `width`, `height`, `refX`, `refY`)
+* SVG: deprecate what SVG 2 removed and was not deprecated yet:
+  `externalResourcesRequired`, `filterRes`, `zoomAndPan`, the `onzoom`,
+  `onactivate`, `onfocusin` and `onfocusout` event handlers, and the
+  `cursor` and `animateColor` elements. Conversely, undeprecate
+  `a_onload`: the load event is still fired on SVG elements.
 * Fix the case of SVG attribute names in the PPX and the JSX syntax: no
   camel case attribute was recognised, so `viewBox`, `maskUnits`,
   `stdDeviation`, `gradientTransform`, `preserveAspectRatio`, `refX`,

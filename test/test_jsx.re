@@ -448,7 +448,6 @@ let svg_element_names = (
       ("feTile", [<feTile />], [feTile([])]),
       ("feTurbulence", [<feTurbulence />], [feTurbulence([])]),
       ("animateMotion", [<animateMotion />], [animateMotion([])]),
-      ("animateColor", [<animateColor />], [animateColor([])]),
       ("animateTransform", [<animateTransform />], [animateTransform([])]),
     ],
   ),
