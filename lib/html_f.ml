@@ -548,7 +548,10 @@ struct
 
   let a_srcdoc = string_attrib "srcdoc"
 
-  let a_srclang = string_attrib "srclang"
+  (* Legacy alias of [a_xml_lang], deprecated: it emits [xml:lang], as its
+     [`XML_lang] type says. The [srclang] attribute of [track] is
+     [a_track_srclang]. *)
+  let a_srclang = string_attrib "xml:lang"
 
   let a_kind x =
     user_attrib C.string_of_big_variant "kind" x

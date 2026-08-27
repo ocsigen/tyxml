@@ -226,6 +226,12 @@ let html_attributes = "html attributes", tyxml_tests Html.[
   "<div><div hidden=\"hidden\"></div>"
   ^ "<div hidden=\"until-found\"></div></div>" ;
 
+  (* [a_srclang] is a deprecated alias of [a_xml_lang]; the [srclang] attribute
+     of [track] is [a_track_srclang], tested above. *)
+  "srclang",
+  div ~a:[(a_srclang [@alert "-deprecated"]) "fr"] [],
+  "<div xml:lang=\"fr\"></div>" ;
+
   "contenteditable",
   div [div ~a:[a_contenteditable `True] [];
        div ~a:[a_contenteditable `False] [];
