@@ -573,6 +573,26 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "svg viewBox",
+  [[%svg "<svg viewBox='0 0 10 10'/>"]],
+  [svg ~a:[a_viewBox (0., 0., 10., 10.)] []] ;
+
+  "mask maskUnits",
+  [[%svg "<mask maskUnits='objectBoundingBox'/>"]],
+  [mask ~a:[a_maskUnits `ObjectBoundingBox] []] ;
+
+  "filter filterUnits",
+  [[%svg "<filter filterUnits='userSpaceOnUse'/>"]],
+  [filter ~a:[a_filterUnits `UserSpaceOnUse] []] ;
+
+  "feGaussianBlur stdDeviation",
+  [[%svg "<feGaussianBlur stdDeviation='0.5'/>"]],
+  [feGaussianBlur ~a:[a_stdDeviation (0.5, None)] []] ;
+
+  "marker markerWidth, refX",
+  [[%svg "<marker markerWidth='3' refX='1'/>"]],
+  [marker ~a:[a_markerWidth (3., None); a_refX (1., None)] []] ;
+
   "fePointLight z",
   [[%svg "<fePointLight z='3'/>"]],
   [fePointLight ~a:[a_z 3.] []] ;
