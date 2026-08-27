@@ -595,8 +595,13 @@ Preferred camera for file inputs capturing media. Defined by the W3C HTML Media 
 
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
 ```ocaml
-val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
+val a_contenteditable : 
+  Html_types.contenteditable_value wrap ->
+  [> `Contenteditable ] attrib
 ```
+A bare `contenteditable` attribute is equivalent to `contenteditable="true"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/contenteditable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable) contenteditable attribute documentation on MDN
 ```ocaml
 val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 ```
@@ -637,8 +642,11 @@ val a_formnovalidate : unit -> [> `Formnovalidate ] attrib
 val a_formtarget : Html_types.text wrap -> [> `Formtarget ] attrib
 ```
 ```ocaml
-val a_hidden : unit -> [> `Hidden ] attrib
+val a_hidden : Html_types.hidden_value wrap -> [> `Hidden ] attrib
 ```
+A bare `hidden` attribute is equivalent to `hidden="hidden"`; use ``Until_found` for the hidden-until-found state.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/hidden](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden) hidden attribute documentation on MDN
 ```ocaml
 val a_high : Html_types.float_number wrap -> [> `High ] attrib
 ```
@@ -1198,7 +1206,9 @@ val a_scope :
   [< `Row | `Col | `Rowgroup | `Colgroup ] wrap ->
   [> `Scope ] attrib
 ```
-deprecated Not supported in HTML5
+Specifies the cells that a header cell applies to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#scope](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#scope) scope attribute documentation on MDN
 ```ocaml
 val a_summary : Html_types.text wrap -> [> `Summary ] attrib
 ```

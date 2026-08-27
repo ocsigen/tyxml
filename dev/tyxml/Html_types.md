@@ -4036,6 +4036,10 @@ type big_variant = [
   | `Track
   | `Video
   | `Worker
+  | `True
+  | `False
+  | `Plaintext_only
+  | `Until_found
   | `Defer
   | `Verbatim
   | `Latin
@@ -4146,3 +4150,17 @@ type command_value = [
  ]
 ```
 Values for the `command` attribute of button elements. Custom commands (starting with `--`) use the ``Other` constructor.
+
+```ocaml
+type contenteditable_value = [ 
+  | `True
+  | `False
+  | `Plaintext_only
+ ]
+```
+```ocaml
+type hidden_value = [ 
+  | `Hidden
+  | `Until_found
+ ]
+```
