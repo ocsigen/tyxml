@@ -1,5 +1,10 @@
 # NEXT
 
+* Fix the parsing of the SVG `transform` attribute in the PPX and the JSX
+  syntax: a transform whose arguments were comma separated, such as
+  `translate(1,1)`, was rejected. Also accept any whitespace, not only the
+  space character, around the separators of list-valued attributes
+  (#328 by Martin @MBodin Bodin, fixes #326)
 * Allow `div` to group `dt` and `dd` elements inside `dl`, and allow the
   script-supporting elements (`script`, `template`) in `dl`
   (#344 by toastal)

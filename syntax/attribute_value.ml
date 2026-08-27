@@ -74,11 +74,17 @@ let list
   |> Common.list loc
   |> fun e -> Some e
 
-let spaces = list (Re_str.regexp " +") "space"
-let commas = list (Re_str.regexp " *, *") "comma"
-let semicolons = list (Re_str.regexp " *; *") "semicolon"
+(* The SVG grammar allows any whitespace, not only the space character, around
+   its separators. *)
+let wsp = "[ \t\r\n\012]"
 
-let spaces_or_commas_regexp = Re_str.regexp "\\( *, *\\)\\| +"
+let spaces = list (Re_str.regexp (wsp ^ "+")) "space"
+let commas = list (Re_str.regexp (wsp ^ "*," ^ wsp ^ "*")) "comma"
+let semicolons = list (Re_str.regexp (wsp ^ "*;" ^ wsp ^ "*")) "semicolon"
+
+let spaces_or_commas_regexp =
+  Re_str.regexp
+    ("\\(" ^ wsp ^ "*," ^ wsp ^ "*\\)\\|" ^ wsp ^ "+")
 let spaces_or_commas_ = exp_list spaces_or_commas_regexp "space- or comma"
 let spaces_or_commas = list spaces_or_commas_regexp "space- or comma"
 
@@ -347,10 +353,12 @@ let offset =
       else Some [%expr `Number [%e n]]
     end [@metaloc loc]
 
-let transform =
-  let regexp = Re_str.regexp "\\([^(]+\\)(\\([^)]*\\))" in
+let transform_item =
+  let regexp =
+    Re_str.regexp ("\\([a-zA-Z]+\\)" ^ wsp ^ "*(\\([^)]*\\))")
+  in
 
-  fun ?separated_by:_ ?default:_ loc name s ->
+  fun loc name s ->
     if not @@ does_match regexp s then
       Common.error loc "Value of %s must be an SVG transform" name;
 
@@ -406,7 +414,30 @@ let transform =
       end [@metaloc loc]
     in
 
-    Some e
+    e
+
+(* A transform attribute is a whitespace or comma separated list of transform
+   functions, whose own arguments may be comma separated, so the list cannot be
+   split with [spaces_or_commas]. *)
+let transform =
+  let only_wsp = Re_str.regexp (wsp ^ "*$") in
+  let first_item =
+    Re_str.regexp
+      (wsp ^ "*\\([a-zA-Z]+" ^ wsp ^ "*([^)]*)\\)" ^ wsp ^ "*,?\\(.*\\)")
+  in
+
+  let rec items loc name s =
+    if does_match only_wsp s then []
+    else if does_match first_item s then
+      let item = Re_str.matched_group 1 s in
+      let rest = Re_str.matched_group 2 s in
+      transform_item loc name item :: items loc name rest
+    else
+      Common.error loc "Value of %s must be a list of SVG transforms" name
+  in
+
+  fun ?separated_by:_ ?default:_ loc name s ->
+    Some (Common.list loc (items loc name s))
 
 
 
