@@ -1883,8 +1883,6 @@ type div = [
 ```ocaml
 type div_content = [ 
   | flow5
-  | `Dt
-  | `Dd
  ]
 ```
 ```ocaml
@@ -2010,8 +2008,6 @@ type dl = [
 ```
 ```ocaml
 type dl_content = [ 
-  | script_supporting
-  | `Div
   | `Dt
   | `Dd
  ]
