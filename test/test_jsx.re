@@ -317,6 +317,21 @@ let svg = (
           ),
         ],
       ),
+      ( "transform on several lines",
+        [<g transform="translate(1,2)\nrotate(45)\nscale(2)" />],
+        [
+          g(
+            ~a=[
+              a_transform([
+                `Translate((1., Some(2.))),
+                `Rotate(((45., None), None)),
+                `Scale((2., None)),
+              ]),
+            ],
+            [],
+          ),
+        ],
+      ),
       ( "role, aria-*",
         [<g role="img" ariaLabel="circle" />],
         [g(~a=[a_role(["img"]), a_aria("label", ["circle"])], [])],
