@@ -592,8 +592,17 @@ let svg = "svg", SvgTests.make Svg.[
   [feMorphology ~a:[a_feMorphology_operator `Erode] []] ;
 
   "animate fill, values",
-  [[%svg "<animate fill='freeze' values='1 2'/>"]],
+  [[%svg "<animate fill='freeze' values='1;2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
+
+  "animate keyTimes, keySplines",
+  [[%svg "<animate keyTimes='0; 0.5; 1' keySplines='0 0 1 1; .5 0 .5 1'/>"]],
+  [animate ~a:[a_keyTimes ["0"; "0.5"; "1"];
+               a_keySplines ["0 0 1 1"; ".5 0 .5 1"]] []] ;
+
+  "a single animation value keeps its spaces",
+  [[%svg "<animate values='1 2'/>"]],
+  [animate ~a:[a_animation_values ["1 2"]] []] ;
 
   "feBlend blend mode",
   [[%svg "<feBlend mode='soft-light'/>"]],

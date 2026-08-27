@@ -1,5 +1,11 @@
 # NEXT
 
+* SVG: separate the values of the `values`, `keyTimes` and `keySplines`
+  animation attributes with semicolons, as SMIL requires, instead of commas,
+  and split them on semicolons in the PPX and the JSX syntax, where they were
+  split on spaces. The `Wrapped_functions` module type has a new
+  `string_of_semicolonstrings` function.
+  (#308 by @rand00)
 * Ignore whitespace between SVG tags in the PPX and the JSX syntax, for the
   elements whose content model does not accept text. Indented SVG, as the
   specification itself writes it, was rejected: `[%svg "<g> </g>"]` failed to

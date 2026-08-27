@@ -25,6 +25,11 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   rect ~a:[ a_ontouchstart "f(event)" ] [],
   "<rect ontouchstart=\"f(event)\"></rect>" ;
 
+  "animation values are semicolon separated",
+  animate ~a:[ a_animation_values ["1"; "2"] ; a_keyTimes ["0"; "1"] ;
+               a_keySplines ["0 0 1 1"] ] [],
+  {|<animate values="1; 2" keyTimes="0; 1" keySplines="0 0 1 1"></animate>|} ;
+
   "animate begin, dur, end",
   animate ~a:[ a_begin "0s" ; a_dur "2s" ; a_end "4s" ] [],
   {|<animate begin="0s" dur="2s" end="4s"></animate>|} ;

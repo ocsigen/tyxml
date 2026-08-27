@@ -593,11 +593,12 @@ struct
   let a_calcMode x =
     user_attrib C.string_of_big_variant "calcMode" x
 
-  let a_animation_values = Xml.comma_sep_attrib "values"
+  let a_animation_values x =
+    user_attrib C.string_of_semicolonstrings "values" x
 
-  let a_keyTimes = Xml.comma_sep_attrib "keyTimes"
+  let a_keyTimes x = user_attrib C.string_of_semicolonstrings "keyTimes" x
 
-  let a_keySplines = Xml.comma_sep_attrib "keySplines"
+  let a_keySplines x = user_attrib C.string_of_semicolonstrings "keySplines" x
 
   let a_from = string_attrib "from"
 
@@ -1355,6 +1356,8 @@ struct
     | `Xor -> "xor"
 
   let string_of_bool = string_of_bool
+
+  let string_of_semicolonstrings = String.concat "; "
 
   let unoption_string = function
     | Some x -> x

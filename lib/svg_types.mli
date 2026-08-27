@@ -427,6 +427,7 @@ type transform =
 
 type spacestrings = string list
 type commastrings = string list
+type semicolonstrings = string list
 type transforms = transform list
 type fourfloats = (float * float * float * float)
 type lengths = length list
