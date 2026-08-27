@@ -235,6 +235,10 @@ type graphical_event_attr =
     | `OnMouseOut
     | `OnMouseOver
     | `OnMouseUp
+    | `OnTouchCancel
+    | `OnTouchEnd
+    | `OnTouchMove
+    | `OnTouchStart
   ]
 
 type xlink_attr =

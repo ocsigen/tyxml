@@ -21,6 +21,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   g ~a:[ a_xml_lang "fr" ] [],
   "<g xml:lang=\"fr\"></g>" ;
 
+  "rect ontouchstart",
+  rect ~a:[ a_ontouchstart "f(event)" ] [],
+  "<rect ontouchstart=\"f(event)\"></rect>" ;
+
 ]
 
 let svg_filters = "svg filters", tyxml_tests Svg.[
