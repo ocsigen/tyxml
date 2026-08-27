@@ -197,6 +197,8 @@ module type T = sig
   val a_title : string wrap -> [> | `Title ] attrib
 
   val a_xlink_title : string wrap -> [> | `Xlink_title ] attrib
+    [@@ocaml.deprecated "Use a child title element"]
+  (** @deprecated Use a child title element *)
 
   val a_xlink_type : string wrap -> [> | `Xlink_type ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
@@ -209,8 +211,6 @@ module type T = sig
   val a_xlink_arcrole : iri wrap -> [> | `Xlink_arcrole ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
-    [@@ocaml.deprecated "Use a child title element"]
-  (** @deprecated Use a child title element *)
 
   val a_class : spacestrings wrap -> [> | `Class ] attrib
 
