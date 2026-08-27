@@ -70,6 +70,24 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
 
 ]
 
+let svg_content_models = "svg content models", tyxml_tests Svg.[
+
+  "gradient and clipPath inside a shape",
+  rect [ linearGradient ~a:[ a_id "g" ] [] ;
+         clipPath ~a:[ a_id "c" ] [] ;
+         style (txt ".a{fill:red}") ] ,
+  {|<rect><linearGradient id="g"></linearGradient><clipPath id="c"></clipPath><style>.a{fill:red}</style></rect>|} ;
+
+  "mask and script inside use",
+  use ~a:[ a_href "#s" ] [ mask ~a:[ a_id "m" ] [] ; script (txt "f()") ],
+  {|<use href="#s"><mask id="m"></mask><script>f()</script></use>|} ;
+
+  "pattern inside text",
+  text [ txt "hello" ; pattern ~a:[ a_id "p" ] [] ],
+  {|<text>hello<pattern id="p"></pattern></text>|} ;
+
+]
+
 let svg_events = "svg events", tyxml_tests Svg.[
 
   "global event handlers",
@@ -235,6 +253,7 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
 let tests = [
   svg_attributes ;
+  svg_content_models ;
   svg_events ;
   svg_links ;
   svg_presentation ;

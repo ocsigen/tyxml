@@ -636,7 +636,15 @@ type symbol_attr =
 type use = [ | `Use ]
 
 (* star *)
-type use_content = [ | animation_element | descriptive_element ]
+type use_content =
+  [
+    | animation_element
+    | descriptive_element
+    | `ClipPath
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type use_attr =
   [
@@ -660,7 +668,15 @@ type use_attr =
 type image = [ | `Image ]
 
 (* star *)
-type image_content = [ | animation_element | descriptive_element ]
+type image_content =
+  [
+    | animation_element
+    | descriptive_element
+    | `ClipPath
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type image_attr =
   [
@@ -726,7 +742,18 @@ type style_attr = [ | core_attr | global_event_attr | `Title | `Media | `Type ]
 type path = [ | `Path ]
 
 (* star *)
-type path_content = [ | animation_element | descriptive_element ]
+type path_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type path_attr =
   [
@@ -746,7 +773,18 @@ type path_attr =
 type rect = [ | `Rect ]
 
 (* star *)
-type rect_content = [ | animation_element | descriptive_element ]
+type rect_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type rect_attr =
   [
@@ -770,7 +808,18 @@ type rect_attr =
 type circle = [ | `Circle ]
 
 (* star *)
-type circle_content = [ | animation_element | descriptive_element ]
+type circle_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type circle_attr =
   [
@@ -791,7 +840,18 @@ type circle_attr =
 type ellipse = [ | `Ellipse ]
 
 (* star *)
-type ellipse_content = [ | animation_element | descriptive_element ]
+type ellipse_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type ellipse_attr =
   [
@@ -813,7 +873,18 @@ type ellipse_attr =
 type line = [ | `Line ]
 
 (* star *)
-type line_content = [ | animation_element | descriptive_element ]
+type line_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type line_attr =
   [
@@ -835,7 +906,18 @@ type line_attr =
 type polyline = [ | `Polyline ]
 
 (* star *)
-type polyline_content = [ | animation_element | descriptive_element ]
+type polyline_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type polyline_attr =
   [
@@ -854,7 +936,18 @@ type polyline_attr =
 type polygon = [ | `Polygon ]
 
 (* star *)
-type polygon_content = [ | animation_element | descriptive_element ]
+type polygon_content =
+  [
+    | animation_element
+    | descriptive_element
+    | gradient_element
+    | `Pattern
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Script
+    | `Style
+  ]
 
 type polygon_attr =
   [
@@ -877,9 +970,16 @@ type text_content =
   [
     | animation_element
     | descriptive_element
+    | gradient_element
     | text_content_child_element
     | `PCDATA
     | `A
+    | `ClipPath
+    | `Marker
+    | `Mask
+    | `Pattern
+    | `Script
+    | `Style
   ]
 
 type text_attr =
@@ -906,12 +1006,16 @@ type tspan = [ | `Tspan ]
 type tspan_content =
   [
     | descriptive_element
+    | gradient_element
     | `PCDATA
     | `A
     | `AltGlyph
     | `Animate
     | `AnimateColor
+    | `Pattern
+    | `Script
     | `Set
+    | `Style
     | `Tref
     | `Tspan
   ]
@@ -961,12 +1065,16 @@ type textpath = [ | `TextPath ]
 type textpath_content =
   [
     | descriptive_element
+    | gradient_element
     | `PCDATA
     | `A
     | `AltGlyph
     | `Animate
     | `AnimateColor
+    | `Pattern
+    | `Script
     | `Set
+    | `Style
     | `Tref
     | `Tspan
   ]
