@@ -268,6 +268,35 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
 ]
 
+let svg_document = "svg document", tyxml_tests Svg.[
+
+  "a realistic document",
+  svg ~a:[ a_viewBox (0., 0., 100., 100.) ; a_role ["img"] ;
+           a_aria "label" ["a"; "shape"] ]
+    [ defs
+        [ linearGradient ~a:[ a_id "grad" ]
+            [ stop ~a:[ a_offset (`Percentage 0.) ; a_stop_color "white" ] [] ;
+              stop ~a:[ a_offset (`Percentage 100.) ; a_stop_color "red" ] [] ] ;
+          filter ~a:[ a_id "shadow" ]
+            [ feDropShadow ~a:[ a_dx 1. ; a_dy 1. ;
+                                a_stdDeviation (2., None) ] [] ] ;
+          mask ~a:[ a_id "m" ]
+            [ rect ~a:[ a_width (100., None) ; a_height (100., None) ;
+                        a_fill (`Color ("white", None)) ] [] ] ;
+          symbol ~a:[ a_id "sym" ; a_viewBox (0., 0., 10., 10.) ]
+            [ circle ~a:[ a_cx (5., None) ; a_cy (5., None) ;
+                          a_r (4., None) ] [] ] ] ;
+      use ~a:[ a_href "#sym" ; a_x (10., None) ; a_y (10., None) ;
+               a_width (20., None) ; a_height (20., None) ;
+               a_mask "url(#m)" ; a_filter "url(#shadow)" ;
+               a_opacity 0.8 ; a_tabindex 0 ] [] ;
+      text ~a:[ a_x_list [ (50., None) ] ; a_y_list [ (90., None) ] ;
+                a_text_anchor `Middle ; a_paint_order "stroke" ]
+        [ txt "hello" ] ]  ,
+  {|<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" role="img" aria-label="a shape"><defs><linearGradient id="grad"><stop offset="0%" stop-color="white"></stop><stop offset="100%" stop-color="red"></stop></linearGradient><filter id="shadow"><feDropShadow dx="1" dy="1" stdDeviation="2"></feDropShadow></filter><mask id="m"><rect width="100" height="100" fill="white"></rect></mask><symbol id="sym" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"></circle></symbol></defs><use href="#sym" x="10" y="10" width="20" height="20" mask="url(#m)" filter="url(#shadow)" opacity="0.8" tabindex="0"></use><text x="50" y="90" text-anchor="middle" paint-order="stroke">hello</text></svg>|} ;
+
+]
+
 let tests = [
   svg_attributes ;
   svg_content_models ;
@@ -276,7 +305,8 @@ let tests = [
   svg_presentation ;
   svg_filters ;
   svg_mask ;
-  svg_clip_path
+  svg_clip_path ;
+  svg_document
 ]
 
 let () = Alcotest.run "tyxml-svg" tests

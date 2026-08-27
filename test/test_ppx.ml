@@ -664,6 +664,36 @@ let svg = "svg", SvgTests.make Svg.[
 
 ]
 
+let svg_document = "svg document", SvgTests.make Svg.[
+
+  "a realistic document",
+  [[%svg "<svg viewBox='0 0 100 100' role='img' aria-label='shape'>\
+            <defs>\
+              <filter id='shadow'>\
+                <feDropShadow dx='1' dy='1' stdDeviation='2'/>\
+              </filter>\
+              <mask id='m'><rect width='100' height='100'/></mask>\
+              <symbol id='sym' viewBox='0 0 10 10'>\
+                <circle cx='5' cy='5' r='4'/>\
+              </symbol>\
+            </defs>\
+            <use href='#sym' mask='url(#m)' filter='url(#shadow)' \
+                 opacity='0.8' tabindex='0'/>\
+          </svg>"]],
+  [svg ~a:[a_viewBox (0., 0., 100., 100.); a_role ["img"];
+           a_aria "label" ["shape"]]
+     [defs
+        [filter ~a:[a_id "shadow"]
+           [feDropShadow ~a:[a_dx 1.; a_dy 1.; a_stdDeviation (2., None)] []] ;
+         mask ~a:[a_id "m"]
+           [rect ~a:[a_width (100., None); a_height (100., None)] []] ;
+         symbol ~a:[a_id "sym"; a_viewBox (0., 0., 10., 10.)]
+           [circle ~a:[a_cx (5., None); a_cy (5., None); a_r (4., None)] []]] ;
+      use ~a:[a_href "#sym"; a_mask "url(#m)"; a_filter "url(#shadow)";
+              a_opacity 0.8; a_tabindex 0] []]] ;
+
+]
+
 let svg_element_names = "svg element names", SvgTests.make Svg.[
 
   "textPath", [[%svg "<textPath/>"]], [textPath []] ;
@@ -800,6 +830,7 @@ let tests = [
   ns_nesting ;
   antiquot ;
   svg ;
+  svg_document ;
   svg_element_names ;
   wrapping ;
 ]
