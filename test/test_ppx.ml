@@ -704,6 +704,14 @@ let svg = "svg", SvgTests.make Svg.[
                       `Matrix (-0., 1., 0.1, 0., 1e-5, 1e5);
                       `Scale (-1., Some 0.)]] []] ;
 
+  "transform on several lines",
+  [[%svg "<g transform='translate(1,2)
+                        rotate(45)
+                        scale(2)'/>"]],
+  [g ~a:[a_transform [`Translate (1., Some 2.);
+                      `Rotate ((45., None), None);
+                      `Scale (2., None)]] []] ;
+
   "transform with a rotation centre",
   [[%svg "<g transform='rotate(10, 0.5, 0.5)'/>"]],
   [g ~a:[a_transform [`Rotate ((10., None), Some (0.5, 0.5))]] []] ;
