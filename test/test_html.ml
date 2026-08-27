@@ -203,6 +203,18 @@ let html_elements = "html elements", tyxml_tests Html.[
   ^ {|</picture></div>|} ;
 ]
 
+let html_content_models = "html content models", tyxml_tests Html.[
+
+  "dl with div groups",
+  dl [ div [ dt [ txt "term" ] ; dd [ txt "definition" ] ] ],
+  {|<dl><div><dt>term</dt><dd>definition</dd></div></dl>|} ;
+
+  "dl with script-supporting elements",
+  dl [ dt [ txt "t" ] ; dd [ txt "d" ] ; script (txt "f()") ],
+  {|<dl><dt>t</dt><dd>d</dd><script>f()</script></dl>|} ;
+
+]
+
 let html_attributes = "html attributes", tyxml_tests Html.[
 
   "translate",
@@ -284,6 +296,7 @@ let printing = "printing", [
 
 let tests = [
   html_elements ;
+  html_content_models ;
   html_attributes ;
   escaping ;
   printing ;

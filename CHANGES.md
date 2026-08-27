@@ -1,5 +1,8 @@
 # NEXT
 
+* Allow `div` to group `dt` and `dd` elements inside `dl`, and allow the
+  script-supporting elements (`script`, `template`) in `dl`
+  (#344 by toastal)
 * Fix `Xml_print.compose_decl`, which emitted a literal `\n` instead of a
   newline, making the XML declaration invalid
   (#348 by Martin @MBodin Bodin)

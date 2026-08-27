@@ -435,6 +435,12 @@ type common = [ | core | i18n | events | aria ]
 
 type heading = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 | `Hgroup ]
 
+type script_supporting = [ | `Script | `Template ]
+(** Script-supporting elements: they do not represent anything themselves, and
+    many content models allow them to be intermixed with their own children.
+    @see <https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements>
+    Script-supporting elements *)
+
 type sectioning = [ | `Section | `Nav | `Aside | `Article ]
 
 type resetable = [ | `Textarea | `Select | `Output | `Keygen | `Input ]
@@ -1520,9 +1526,11 @@ type dialog_attrib = [ | common | `Open | `Closedby ]
 (* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]
 
-type div_content = [ | flow5 ]
+(* A div child of a dl element wraps dt and dd elements; the content model of
+   div cannot depend on its parent here, so both are allowed everywhere. *)
+type div_content = [ | flow5 | `Dt | `Dd ]
 
-type div_content_fun = [ | flow5 ]
+type div_content_fun = [ | flow5 | `Dt | `Dd ]
 
 type div_attrib = [ | common ]
 
@@ -1573,9 +1581,9 @@ type dt_attrib = [ | common ]
 
 type dl = [ | `Dl ]
 
-type dl_content = [ | `Dt | `Dd ]
+type dl_content = [ | script_supporting | `Div | `Dt | `Dd ]
 
-type dl_content_fun = [ | `Dt | `Dd ]
+type dl_content_fun = [ | script_supporting | `Div | `Dt | `Dd ]
 
 type dl_attrib = [ | common ]
 
