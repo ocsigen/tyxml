@@ -261,6 +261,8 @@ struct
 
   let a_media = Xml.comma_sep_attrib "media"
 
+  let a_title = string_attrib "title"
+
   let a_xlink_title = string_attrib "xlink:title"
 
   let a_class = Xml.space_sep_attrib "class"
@@ -391,6 +393,9 @@ struct
   let a_maskContentUnits x =
     user_attrib C.string_of_big_variant "maskContentUnits" x
 
+  let a_filterUnits x =
+    user_attrib C.string_of_big_variant "filterUnits" x
+
   let a_primitiveUnits x =
     user_attrib C.string_of_big_variant "primitiveUnits" x
 
@@ -408,6 +413,8 @@ struct
   let a_azimuth = number_attrib "azimuth"
 
   let a_elevation = number_attrib "elevation"
+
+  let a_z = user_attrib C.string_of_number "z"
 
   let a_pointsAtX = number_attrib "pointsAtX"
 
@@ -526,6 +533,8 @@ struct
 
   let a_dur = string_attrib "dur"
 
+  let a_end = string_attrib "end"
+
   let a_min = string_attrib "min"
 
   let a_max = string_attrib "max"
@@ -566,6 +575,8 @@ struct
     user_attrib C.string_of_big_variant "accumulate" x
 
   let a_keyPoints = user_attrib C.string_of_numbers_semicolon "keyPoints"
+
+  let a_origin = string_attrib "origin"
 
   let a_path = string_attrib "path"
 
@@ -622,6 +633,8 @@ struct
 
   let a_units_per_em = string_attrib "units-per-em"
 
+  let a_panose_1 = string_attrib "panose-1"
+
   let a_stemv = user_attrib C.string_of_number "stemv"
 
   let a_stemh = user_attrib C.string_of_number "stemh"
@@ -635,6 +648,8 @@ struct
   let a_accent_height = user_attrib C.string_of_number "accent-height"
 
   let a_ascent = user_attrib C.string_of_number "ascent"
+
+  let a_descent = user_attrib C.string_of_number "descent"
 
   let a_widths = string_attrib "widths"
 

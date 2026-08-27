@@ -25,6 +25,22 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   rect ~a:[ a_ontouchstart "f(event)" ] [],
   "<rect ontouchstart=\"f(event)\"></rect>" ;
 
+  "animate begin, dur, end",
+  animate ~a:[ a_begin "0s" ; a_dur "2s" ; a_end "4s" ] [],
+  {|<animate begin="0s" dur="2s" end="4s"></animate>|} ;
+
+  "fePointLight x, y, z",
+  fePointLight ~a:[ a_x (1., None) ; a_y (2., None) ; a_z 3. ] [],
+  {|<fePointLight x="1" y="2" z="3"></fePointLight>|} ;
+
+  "filter filterUnits",
+  filter ~a:[ a_filterUnits `ObjectBoundingBox ] [],
+  {|<filter filterUnits="objectBoundingBox"></filter>|} ;
+
+  "style title",
+  style ~a:[ a_title "alternate" ] (txt ""),
+  {|<style title="alternate"></style>|} ;
+
 ]
 
 let svg_filters = "svg filters", tyxml_tests Svg.[

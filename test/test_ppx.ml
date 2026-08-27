@@ -573,6 +573,14 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "fePointLight z",
+  [[%svg "<fePointLight z='3'/>"]],
+  [fePointLight ~a:[a_z 3.] []] ;
+
+  "animate end",
+  [[%svg "<animate end='4s'/>"]],
+  [animate ~a:[a_end "4s"] []] ;
+
   "fill_rule type nonzero",
   [[%svg "<path fill-rule='nonzero'/>"]],
   [path ~a:[a_fill_rule `Nonzero] []] ;

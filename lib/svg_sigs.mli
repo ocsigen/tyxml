@@ -172,6 +172,8 @@ module type T = sig
 
   val a_media : commastrings wrap -> [> | `Media ] attrib
 
+  val a_title : string wrap -> [> | `Title ] attrib
+
   val a_xlink_title : string wrap -> [> | `Xlink_title ] attrib
     [@@ocaml.deprecated "Use a child title element"]
   (** @deprecated Use a child title element *)
@@ -311,6 +313,10 @@ module type T = sig
     [< | `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
     [> | `MaskContentUnits ] attrib
 
+  val a_filterUnits :
+    [< | `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
+    [> | `FilterUnits ] attrib
+
   val a_primitiveUnits :
     [< | `UserSpaceOnUse | `ObjectBoundingBox ] wrap ->
     [> | `PrimitiveUnits ] attrib
@@ -342,6 +348,9 @@ module type T = sig
   val a_azimuth : float wrap -> [> | `Azimuth ] attrib
 
   val a_elevation : float wrap -> [> | `Elevation ] attrib
+
+  val a_z : number wrap -> [> | `Z ] attrib
+  (** The [z] coordinate of a light source. *)
 
   val a_pointsAtX : float wrap -> [> | `PointsAtX ] attrib
 
@@ -474,6 +483,8 @@ module type T = sig
 
   val a_dur : string wrap -> [> | `Dur ] attrib
 
+  val a_end : string wrap -> [> | `End ] attrib
+
   val a_min : string wrap -> [> | `Min ] attrib
 
   val a_max : string wrap -> [> | `Max ] attrib
@@ -513,6 +524,8 @@ module type T = sig
   val a_accumulate : [< | `None | `Sum ] wrap -> [> | `Accumulate ] attrib
 
   val a_keyPoints : numbers_semicolon wrap -> [> | `KeyPoints ] attrib
+
+  val a_origin : string wrap -> [> | `Origin ] attrib
 
   val a_path : string wrap -> [> | `Path ] attrib
 
@@ -571,6 +584,8 @@ module type T = sig
 
   val a_units_per_em : string wrap -> [> | `UnitsPerEm ] attrib
 
+  val a_panose_1 : string wrap -> [> | `Panose1 ] attrib
+
   val a_stemv : number wrap -> [> | `Stemv ] attrib
 
   val a_stemh : number wrap -> [> | `Stemh ] attrib
@@ -584,6 +599,8 @@ module type T = sig
   val a_accent_height : number wrap -> [> | `AccentHeight ] attrib
 
   val a_ascent : number wrap -> [> | `Ascent ] attrib
+
+  val a_descent : number wrap -> [> | `Descent ] attrib
 
   val a_widths : string wrap -> [> | `Widths ] attrib
 
