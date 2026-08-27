@@ -796,6 +796,8 @@ module type T = sig
   val clipPath :
     ([< | clippath_attr], [< | clippath_content], [> | clippath]) star
 
+  val mask : ([< | mask_attr], [< | mask_content], [> | mask]) star
+
   val filter : ([< | filter_attr], [< | filter_content], [> | filter]) star
 
   val feDistantLight :

@@ -393,6 +393,7 @@ let svg_element_names = (
       ("linearGradient", [<linearGradient />], [linearGradient([])]),
       ("radialGradient", [<radialGradient />], [radialGradient([])]),
       ("clipPath", [<clipPath />], [clipPath([])]),
+      ("mask", [<mask />], [mask([])]),
       ("feDistantLight", [<feDistantLight />], [feDistantLight([])]),
       ("fePointLight", [<fePointLight />], [fePointLight([])]),
       ("feSpotLight", [<feSpotLight />], [feSpotLight([])]),

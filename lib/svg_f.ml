@@ -815,6 +815,8 @@ struct
 
   let clipPath = star "clipPath"
 
+  let mask = star "mask"
+
   let filter = star "filter"
 
   let feDistantLight = star "feDistantLight"

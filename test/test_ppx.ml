@@ -589,6 +589,7 @@ let svg_element_names = "svg element names", SvgTests.make Svg.[
   "linearGradient", [[%svg "<linearGradient/>"]], [linearGradient []] ;
   "radialGradient", [[%svg "<radialGradient/>"]], [radialGradient []] ;
   "clipPath", [[%svg "<clipPath/>"]], [clipPath []] ;
+  "mask", [[%svg "<mask/>"]], [mask []] ;
   "feDistantLight", [[%svg "<feDistantLight/>"]], [feDistantLight []] ;
   "fePointLight", [[%svg "<fePointLight/>"]], [fePointLight []] ;
   "feSpotLight", [[%svg "<feSpotLight/>"]], [feSpotLight []] ;

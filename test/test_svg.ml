@@ -44,6 +44,15 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
 
 ]
 
+let svg_mask = "svg mask", tyxml_tests Svg.[
+
+  "mask",
+  mask ~a:[ a_id "m" ; a_maskUnits `UserSpaceOnUse ]
+    [ rect ~a:[ a_width (10., None) ; a_height (10., None) ] [] ],
+  {|<mask id="m" maskUnits="userSpaceOnUse"><rect width="10" height="10"></rect></mask>|} ;
+
+]
+
 let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
   "use with clip-path",
@@ -55,6 +64,7 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 let tests = [
   svg_attributes ;
   svg_filters ;
+  svg_mask ;
   svg_clip_path
 ]
 
