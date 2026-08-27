@@ -222,6 +222,12 @@ struct
   let a_preserveAspectRatio =
     string_attrib "preserveAspectRatio"
 
+  let a_crossorigin x = user_attrib C.string_of_big_variant "crossorigin" x
+
+  let a_decoding x = user_attrib C.string_of_big_variant "decoding" x
+
+  let a_fetchpriority x = user_attrib C.string_of_big_variant "fetchpriority" x
+
   let a_contentScriptType =
     string_attrib "contentScriptType"
 
@@ -1089,7 +1095,9 @@ struct
     | `Align -> "align"
     | `All -> "all"
     | `Always -> "always"
+    | `Anonymous -> "anonymous"
     | `Arithmetic -> "arithmetic"
+    | `Async -> "async"
     | `Atop -> "atop"
     | `Auto -> "auto"
     | `B -> "b"
@@ -1123,6 +1131,7 @@ struct
     | `GeometricPrecision -> "geometricPrecision"
     | `H -> "h"
     | `Hidden -> "hidden"
+    | `High -> "high"
     | `Horizontal_tb -> "horizontal-tb"
     | `HueRotate -> "hueRotate"
     | `Identity -> "identity"
@@ -1134,6 +1143,7 @@ struct
     | `Line_through -> "line-through"
     | `Linear -> "linear"
     | `LinearRGB -> "linearRGB"
+    | `Low -> "low"
     | `Ltr -> "ltr"
     | `LuminanceToAlpha -> "luminanceToAlpha"
     | `Magnify -> "magnify"
@@ -1204,12 +1214,14 @@ struct
     | `Stroke -> "stroke"
     | `StrokeWidth -> "stroke-width"
     | `Sum -> "sum"
+    | `Sync -> "sync"
     | `Table -> "table"
     | `Terminal -> "terminal"
     | `Translate -> "translate"
     | `Turbulence -> "turbulence"
     | `Underline -> "underline"
     | `Unsafe_url -> "unsafe-url"
+    | `Use_credentials -> "use-credentials"
     | `UserSpaceOnUse -> "userSpaceOnUse"
     | `V -> "v"
     | `Vertical_lr -> "vertical-lr"

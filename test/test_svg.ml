@@ -49,6 +49,11 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   g ~a:[ a_role ["img"] ; a_aria "label" ["a circle"] ] [],
   {|<g role="img" aria-label="a circle"></g>|} ;
 
+  "image crossorigin, decoding, fetchpriority",
+  image ~a:[ a_href "i.png" ; a_crossorigin `Anonymous ; a_decoding `Async ;
+             a_fetchpriority `High ] [],
+  {|<image href="i.png" crossorigin="anonymous" decoding="async" fetchpriority="high"></image>|} ;
+
 ]
 
 let svg_links = "svg links", tyxml_tests Svg.[

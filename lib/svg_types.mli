@@ -571,6 +571,9 @@ type image_attr =
     | `Width
     | `Height
     | `Xlink_href
+    | `Crossorigin
+    | `Decoding
+    | `Fetchpriority
   ]
 
 type switch = [ | `Switch ]
@@ -1421,6 +1424,7 @@ type feimage_attr =
     | `Style
     | `ExternalResourcesRequired
     | `PreserveAspectRatio
+    | `Crossorigin
   ]
 
 type femerge = [ | `FeMerge ]
@@ -1625,6 +1629,7 @@ type script_attr =
     | `ExternalResourcesRequired
     | `Type
     | `Xlink_href
+    | `Crossorigin
   ]
 
 type animate = [ | `Animate ]
@@ -2000,7 +2005,9 @@ type big_variant =
   | `Align
   | `All
   | `Always
+  | `Anonymous
   | `Arithmetic
+  | `Async
   | `Atop
   | `Auto
   | `B
@@ -2034,6 +2041,7 @@ type big_variant =
   | `GeometricPrecision
   | `H
   | `Hidden
+  | `High
   | `Horizontal_tb
   | `HueRotate
   | `Identity
@@ -2045,6 +2053,7 @@ type big_variant =
   | `Line_through
   | `Linear
   | `LinearRGB
+  | `Low
   | `Ltr
   | `LuminanceToAlpha
   | `Magnify
@@ -2115,12 +2124,14 @@ type big_variant =
   | `Stroke
   | `StrokeWidth
   | `Sum
+  | `Sync
   | `Table
   | `Terminal
   | `Translate
   | `Turbulence
   | `Underline
   | `Unsafe_url
+  | `Use_credentials
   | `UserSpaceOnUse
   | `V
   | `Vertical_lr

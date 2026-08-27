@@ -126,6 +126,15 @@ module type T = sig
 
   val a_preserveAspectRatio : string wrap -> [> | `PreserveAspectRatio ] attrib
 
+  val a_crossorigin :
+    [< | `Anonymous | `Use_credentials ] wrap -> [> | `Crossorigin ] attrib
+
+  val a_decoding :
+    [< | `Sync | `Async | `Auto ] wrap -> [> | `Decoding ] attrib
+
+  val a_fetchpriority :
+    [< | `High | `Low | `Auto ] wrap -> [> | `Fetchpriority ] attrib
+
   val a_contentScriptType : string wrap -> [> | `ContentScriptType ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)

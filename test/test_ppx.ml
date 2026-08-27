@@ -573,6 +573,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "image crossorigin, decoding",
+  [[%svg "<image crossorigin='use-credentials' decoding='async'/>"]],
+  [image ~a:[a_crossorigin `Use_credentials; a_decoding `Async] []] ;
+
   "a link attributes",
   [[%svg "<a href='p.html' rel='noopener' referrerpolicy='no-referrer' \
              download='p.html'/>"]],
