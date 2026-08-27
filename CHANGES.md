@@ -18,7 +18,9 @@
   space character, around the separators of list-valued attributes
   (#328 by Martin @MBodin Bodin, fixes #326)
 * Allow `div` to group `dt` and `dd` elements inside `dl`, and allow the
-  script-supporting elements (`script`, `template`) in `dl`
+  script-supporting elements (`script`, `template`) in `dl`. The `div_content`
+  and `dl_content` types keep their previous value; only the types the element
+  functions use are widened
   (#344 by toastal)
 * Fix `Xml_print.compose_decl`, which emitted a literal `\n` instead of a
   newline, making the XML declaration invalid

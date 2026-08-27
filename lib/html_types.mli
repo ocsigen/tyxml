@@ -1526,9 +1526,15 @@ type dialog_attrib = [ | common | `Open | `Closedby ]
 (* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]
 
-(* A div child of a dl element wraps dt and dd elements; the content model of
-   div cannot depend on its parent here, so both are allowed everywhere. *)
-type div_content = [ | flow5 | `Dt | `Dd ]
+(* The content model of div depends on its parent: a div child of a dl element
+   wraps dt and dd elements. That cannot be expressed here, so the div
+   function accepts dt and dd anywhere, through div_content_fun.
+
+   div_content itself keeps its previous value on purpose. Unlike the _fun
+   types, which only appear in the signature of the element functions, it is a
+   closed type that reverse dependencies name in their own signatures --
+   widening it breaks them, odoc included. *)
+type div_content = [ | flow5 ]
 
 type div_content_fun = [ | flow5 | `Dt | `Dd ]
 
@@ -1581,7 +1587,7 @@ type dt_attrib = [ | common ]
 
 type dl = [ | `Dl ]
 
-type dl_content = [ | script_supporting | `Div | `Dt | `Dd ]
+type dl_content = [ | `Dt | `Dd ]
 
 type dl_content_fun = [ | script_supporting | `Div | `Dt | `Dd ]
 
