@@ -158,6 +158,15 @@ module type T = sig
 
   val a_user_data : string -> string wrap -> [> | `User_data] attrib
 
+  val a_tabindex : int wrap -> [> | `Tabindex ] attrib
+  (** Position of the element in the tabbing order.
+      @see <https://www.w3.org/TR/SVG2/interact.html#TabindexAttribute>
+      tabindex *)
+
+  val a_lang : string wrap -> [> | `Lang ] attrib
+  (** Language of the element content. It is a global attribute in SVG 2,
+      whereas SVG 1.1 only allowed it on the [glyph] element. *)
+
   val a_xml_base : iri wrap -> [> | `Xml_base ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
@@ -555,8 +564,6 @@ module type T = sig
   val a_arabic_form :
     [< | `Initial | `Medial | `Terminal | `Isolated ] wrap ->
     [> | `ArabicForm ] attrib
-
-  val a_lang : string wrap -> [> | `Lang ] attrib
 
   val a_u1 : string wrap -> [> | `U1 ] attrib
 

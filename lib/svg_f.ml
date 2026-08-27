@@ -250,6 +250,10 @@ struct
 
   let a_user_data name = string_attrib ("data-" ^ name)
 
+  let a_tabindex = user_attrib C.string_of_int "tabindex"
+
+  let a_lang = string_attrib "lang"
+
   let a_xml_base = string_attrib "xml:base"
 
   let a_xml_lang = string_attrib "xml:lang"
@@ -604,8 +608,6 @@ struct
 
   let a_arabic_form x =
     user_attrib C.string_of_big_variant "arabic-form" x
-
-  let a_lang = string_attrib "lang"
 
   let a_u1 = string_attrib "u1"
 

@@ -41,6 +41,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   style ~a:[ a_title "alternate" ] (txt ""),
   {|<style title="alternate"></style>|} ;
 
+  "tabindex and lang",
+  circle ~a:[ a_tabindex 0 ; a_lang "fr" ] [],
+  {|<circle tabindex="0" lang="fr"></circle>|} ;
+
 ]
 
 let svg_presentation = "svg presentation attributes", tyxml_tests Svg.[

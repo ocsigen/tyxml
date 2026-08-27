@@ -573,6 +573,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "tabindex, lang",
+  [[%svg "<circle tabindex='0' lang='fr'/>"]],
+  [circle ~a:[a_tabindex 0; a_lang "fr"] []] ;
+
   "svg viewBox",
   [[%svg "<svg viewBox='0 0 10 10'/>"]],
   [svg ~a:[a_viewBox (0., 0., 10., 10.)] []] ;
