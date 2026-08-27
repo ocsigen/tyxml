@@ -905,7 +905,6 @@ type tspan = [ | `Tspan ]
 type tspan_content =
   [
     | descriptive_element
-    | core_attr
     | `PCDATA
     | `A
     | `AltGlyph
