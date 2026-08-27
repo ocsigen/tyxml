@@ -17,6 +17,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   symbol ~a:[ a_id "sym" ] [],
   "<symbol id=\"sym\"></symbol>" ;
 
+  "g xml:lang",
+  g ~a:[ a_xml_lang "fr" ] [],
+  "<g xml:lang=\"fr\"></g>" ;
+
 ]
 
 let svg_filters = "svg filters", tyxml_tests Svg.[

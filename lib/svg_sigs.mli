@@ -158,13 +158,13 @@ module type T = sig
 
   val a_user_data : string -> string wrap -> [> | `User_data] attrib
 
-  val a_xml_base : iri wrap -> [> | `Xml_Base ] attrib
+  val a_xml_base : iri wrap -> [> | `Xml_base ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
-  val a_xml_lang : iri wrap -> [> | `Xml_Lang ] attrib
+  val a_xml_lang : string wrap -> [> | `Xml_lang ] attrib
 
-  val a_xml_space : [< `Default | `Preserve ] wrap -> [> | `Xml_Space ] attrib
+  val a_xml_space : [< `Default | `Preserve ] wrap -> [> | `Xml_space ] attrib
     [@@ocaml.deprecated "Use CSS white-space"]
   (** @deprecated Use CSS white-space *)
 
