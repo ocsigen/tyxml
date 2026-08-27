@@ -302,6 +302,7 @@ let svg = (
         [<stop offset="50.1%" />],
         [stop(~a=[a_offset(`Percentage(50.1))], [])],
       ),
+      ( "whitespace between svg tags", [<g> </g>], [g([])]),
       ( "transform with arbitrary whitespace",
         [<g transform="translate   ( 200 ,  200) scale ( -1. , 0 )" />],
         [

@@ -1,5 +1,11 @@
 # NEXT
 
+* Ignore whitespace between SVG tags in the PPX and the JSX syntax, for the
+  elements whose content model does not accept text. Indented SVG, as the
+  specification itself writes it, was rejected: `[%svg "<g> </g>"]` failed to
+  typecheck. Whitespace is still significant in `text`, `tspan`, `textPath`,
+  `desc`, `title`, `style` and `script`
+  (#331 by Martin @MBodin Bodin, fixes #330)
 * Fix the parsing of the SVG `transform` attribute in the PPX and the JSX
   syntax: a transform whose arguments were comma separated, such as
   `translate(1,1)`, was rejected. Also accept any whitespace, not only the
