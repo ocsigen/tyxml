@@ -409,8 +409,12 @@ module type T = sig
   val a_limitingConeAngle : float wrap -> [> | `LimitingConeAngle ] attrib
 
   val a_mode :
-    [< | `Normal | `Multiply | `Screen | `Darken | `Lighten ] wrap ->
+    [< | `Normal | `Multiply | `Screen | `Overlay | `Darken | `Lighten
+       | `Color_dodge | `Color_burn | `Hard_light | `Soft_light | `Difference
+       | `Exclusion | `Hue | `Saturation | `Color | `Luminosity ] wrap ->
     [> | `Mode ] attrib
+  (** The blend mode of [feBlend]. SVG 2 allows every CSS compositing blend
+      mode, not only the five modes of SVG 1.1. *)
 
   val a_feColorMatrix_type :
     [< | `Matrix | `Saturate | `HueRotate | `LuminanceToAlpha ] wrap ->
@@ -707,13 +711,15 @@ module type T = sig
   val a_alignment_baseline :
     [< | `Auto | `Baseline | `Before_edge | `Text_before_edge | `Middle
        | `Central | `After_edge | `Text_after_edge | `Ideographic
-       | `Alphabetic | `Hanging | `Mathematical | `Inherit ] wrap ->
+       | `Alphabetic | `Hanging | `Mathematical | `Text_bottom | `Text_top
+       | `Inherit ] wrap ->
     [> | `Alignment_Baseline ] attrib
 
   val a_dominant_baseline :
     [< | `Auto | `Use_script | `No_change | `Reset_size | `Ideographic
        | `Alphabetic | `Hanging | `Mathematical | `Central | `Middle
-       | `Text_after_edge | `Text_before_edge | `Inherit ] wrap ->
+       | `Text_after_edge | `Text_before_edge | `Text_bottom | `Text_top
+       | `Inherit ] wrap ->
     [> | `Dominant_Baseline ] attrib
 
   val a_stop_color : color wrap -> [> | `Stop_Color ] attrib
@@ -728,7 +734,8 @@ module type T = sig
     [< `Butt | `Round | `Square ] wrap -> [> | `Stroke_Linecap ] attrib
 
   val a_stroke_linejoin :
-    [< `Miter | `Round | `Bevel ] wrap -> [> `Stroke_Linejoin ] attrib
+    [< `Miter | `Miter_clip | `Round | `Bevel | `Arcs ] wrap ->
+    [> `Stroke_Linejoin ] attrib
 
   val a_stroke_miterlimit : float wrap -> [> `Stroke_Miterlimit ] attrib
 

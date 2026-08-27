@@ -131,6 +131,16 @@ let svg_presentation = "svg presentation attributes", tyxml_tests Svg.[
   g ~a:[ a_color_interpolation `SRGB ] [],
   {|<g color-interpolation="sRGB"></g>|} ;
 
+  "SVG 2 values of existing attributes",
+  path ~a:[ a_stroke_linejoin `Miter_clip ;
+            a_alignment_baseline `Text_top ;
+            a_dominant_baseline `Text_bottom ] [],
+  {|<path stroke-linejoin="miter-clip" alignment-baseline="text-top" dominant-baseline="text-bottom"></path>|} ;
+
+  "feBlend CSS blend mode",
+  feBlend ~a:[ a_mode `Color_dodge ] [],
+  {|<feBlend mode="color-dodge"></feBlend>|} ;
+
   "paint-order, vector-effect, transform-origin",
   path ~a:[ a_paint_order "stroke fill" ;
             a_vector_effect `Non_scaling_stroke ;

@@ -1970,7 +1970,9 @@ type alignment_baseline =
   | `Mathematical
   | `Middle
   | `Text_after_edge
-  | `Text_before_edge ]
+  | `Text_before_edge
+  | `Text_bottom
+  | `Text_top ]
 
 type dominant_baseline =
   [ `Auto
@@ -1985,6 +1987,8 @@ type dominant_baseline =
   | `Middle
   | `Text_after_edge
   | `Text_before_edge
+  | `Text_bottom
+  | `Text_top
   | `Inherit
   ]
 
@@ -2009,6 +2013,7 @@ type big_variant =
   | `All
   | `Always
   | `Anonymous
+  | `Arcs
   | `Arithmetic
   | `Async
   | `Atop
@@ -2021,10 +2026,14 @@ type big_variant =
   | `Butt
   | `Clip
   | `Collapse
+  | `Color
+  | `Color_burn
+  | `Color_dodge
   | `CrispEdges
   | `CSS
   | `Darken
   | `Default
+  | `Difference
   | `Dilate
   | `Disable
   | `Discrete
@@ -2035,6 +2044,7 @@ type big_variant =
   | `Erode
   | `Evenodd
   | `Exact
+  | `Exclusion
   | `Fill
   | `Fixed_position
   | `FractalNoise
@@ -2043,9 +2053,11 @@ type big_variant =
   | `Gamma
   | `GeometricPrecision
   | `H
+  | `Hard_light
   | `Hidden
   | `High
   | `Horizontal_tb
+  | `Hue
   | `HueRotate
   | `Identity
   | `In
@@ -2060,11 +2072,13 @@ type big_variant =
   | `Low
   | `Ltr
   | `LuminanceToAlpha
+  | `Luminosity
   | `Magnify
   | `Matrix
   | `Medial
   | `Middle
   | `Miter
+  | `Miter_clip
   | `Multiply
   | `Never
   | `New
@@ -2089,6 +2103,7 @@ type big_variant =
   | `Other
   | `Out
   | `Over
+  | `Overlay
   | `Overline
   | `Paced
   | `Pad
@@ -2116,6 +2131,7 @@ type big_variant =
   | `Scroll
   | `SkewX
   | `SkewY
+  | `Soft_light
   | `Spacing
   | `SpacingAndGlyphs
   | `Spline
