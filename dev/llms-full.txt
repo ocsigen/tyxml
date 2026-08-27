@@ -887,6 +887,18 @@ val script_type : parser
 val sandbox : parser
 ```
 ```ocaml
+val blocking : parser
+```
+```ocaml
+val ol_type : parser
+```
+```ocaml
+val popover : parser
+```
+```ocaml
+val command : parser
+```
+```ocaml
 val in_ : parser
 ```
 ```ocaml
@@ -1185,6 +1197,9 @@ val renamed_elements : (string * string) list
 
 # Module `Tyxml_syntax.Html_types_reflected`
 
+```ocaml
+val command_value : string * string list
+```
 ```ocaml
 val mediadesc_token : string * string list
 ```
@@ -3586,7 +3601,19 @@ val a_onbeforeprint : Xml.event_handler -> [> `OnBeforePrint ] attrib
 val a_onbeforeunload : Xml.event_handler -> [> `OnBeforeUnload ] attrib
 ```
 ```ocaml
+val a_onbeforeinput : Xml.event_handler -> [> `OnBeforeInput ] attrib
+```
+```ocaml
+val a_onbeforematch : Xml.event_handler -> [> `OnBeforeMatch ] attrib
+```
+```ocaml
+val a_onbeforetoggle : Xml.event_handler -> [> `OnBeforeToggle ] attrib
+```
+```ocaml
 val a_onblur : Xml.event_handler -> [> `OnBlur ] attrib
+```
+```ocaml
+val a_oncancel : Xml.event_handler -> [> `OnCancel ] attrib
 ```
 ```ocaml
 val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
@@ -3599,6 +3626,21 @@ val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
 ```
 ```ocaml
 val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
+```
+```ocaml
+val a_oncontextlost : Xml.event_handler -> [> `OnContextLost ] attrib
+```
+```ocaml
+val a_oncontextrestored : Xml.event_handler -> [> `OnContextRestored ] attrib
+```
+```ocaml
+val a_oncopy : Xml.event_handler -> [> `OnCopy ] attrib
+```
+```ocaml
+val a_oncut : Xml.event_handler -> [> `OnCut ] attrib
+```
+```ocaml
+val a_oncuechange : Xml.event_handler -> [> `OnCueChange ] attrib
 ```
 ```ocaml
 val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
@@ -3625,6 +3667,9 @@ val a_onforminput : Xml.event_handler -> [> `OnFormInput ] attrib
 val a_onhashchange : Xml.event_handler -> [> `OnHashChange ] attrib
 ```
 ```ocaml
+val a_onlanguagechange : Xml.event_handler -> [> `OnLanguageChange ] attrib
+```
+```ocaml
 val a_oninput : Xml.event_handler -> [> `OnInput ] attrib
 ```
 ```ocaml
@@ -3638,6 +3683,9 @@ val a_onoffline : Xml.event_handler -> [> `OnOffLine ] attrib
 ```
 ```ocaml
 val a_ononline : Xml.event_handler -> [> `OnOnLine ] attrib
+```
+```ocaml
+val a_onpaste : Xml.event_handler -> [> `OnPaste ] attrib
 ```
 ```ocaml
 val a_onpause : Xml.event_handler -> [> `OnPause ] attrib
@@ -3670,10 +3718,26 @@ val a_onreadystatechange : Xml.event_handler -> [> `OnReadyStateChange ] attrib
 val a_onredo : Xml.event_handler -> [> `OnRedo ] attrib
 ```
 ```ocaml
+val a_onrejectionhandled : Xml.event_handler -> [> `OnRejectionHandled ] attrib
+```
+```ocaml
+val a_onunhandledrejection : 
+  Xml.event_handler ->
+  [> `OnUnhandledRejection ] attrib
+```
+```ocaml
 val a_onresize : Xml.event_handler -> [> `OnResize ] attrib
 ```
 ```ocaml
 val a_onscroll : Xml.event_handler -> [> `OnScroll ] attrib
+```
+```ocaml
+val a_onscrollend : Xml.event_handler -> [> `OnScrollEnd ] attrib
+```
+```ocaml
+val a_onsecuritypolicyviolation : 
+  Xml.event_handler ->
+  [> `OnSecurityPolicyViolation ] attrib
 ```
 ```ocaml
 val a_onseeked : Xml.event_handler -> [> `OnSeeked ] attrib
@@ -3686,6 +3750,9 @@ val a_onselect : Xml.event_handler -> [> `OnSelect ] attrib
 ```
 ```ocaml
 val a_onshow : Xml.event_handler -> [> `OnShow ] attrib
+```
+```ocaml
+val a_onslotchange : Xml.event_handler -> [> `OnSlotChange ] attrib
 ```
 ```ocaml
 val a_onstalled : Xml.event_handler -> [> `OnStalled ] attrib
@@ -3701,6 +3768,9 @@ val a_onsuspend : Xml.event_handler -> [> `OnSuspend ] attrib
 ```
 ```ocaml
 val a_ontimeupdate : Xml.event_handler -> [> `OnTimeUpdate ] attrib
+```
+```ocaml
+val a_ontoggle : Xml.event_handler -> [> `OnToggle ] attrib
 ```
 ```ocaml
 val a_onundo : Xml.event_handler -> [> `OnUndo ] attrib
@@ -3732,6 +3802,9 @@ val a_onmessage : Xml.event_handler -> [> `OnMessage ] attrib
 
 ##### Mouse events
 
+```ocaml
+val a_onauxclick : Xml.mouse_event_handler -> [> `OnAuxClick ] attrib
+```
 ```ocaml
 val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] attrib
 ```
@@ -3778,6 +3851,48 @@ val a_onmousemove : Xml.mouse_event_handler -> [> `OnMouseMove ] attrib
 val a_onmouseout : Xml.mouse_event_handler -> [> `OnMouseOut ] attrib
 ```
 ```ocaml
+val a_onwheel : Xml.mouse_event_handler -> [> `OnWheel ] attrib
+```
+
+##### Pointer events
+
+In the DOM, pointer events inherit from mouse events, so the handlers use [`Xml.mouse_event_handler`](./Html_f-Make-Xml.md#type-mouse_event_handler).
+
+```ocaml
+val a_onpointercancel : Xml.mouse_event_handler -> [> `OnPointerCancel ] attrib
+```
+```ocaml
+val a_onpointerdown : Xml.mouse_event_handler -> [> `OnPointerDown ] attrib
+```
+```ocaml
+val a_onpointerenter : Xml.mouse_event_handler -> [> `OnPointerEnter ] attrib
+```
+```ocaml
+val a_onpointerleave : Xml.mouse_event_handler -> [> `OnPointerLeave ] attrib
+```
+```ocaml
+val a_onpointermove : Xml.mouse_event_handler -> [> `OnPointerMove ] attrib
+```
+```ocaml
+val a_onpointerout : Xml.mouse_event_handler -> [> `OnPointerOut ] attrib
+```
+```ocaml
+val a_onpointerover : Xml.mouse_event_handler -> [> `OnPointerOver ] attrib
+```
+```ocaml
+val a_onpointerup : Xml.mouse_event_handler -> [> `OnPointerUp ] attrib
+```
+```ocaml
+val a_ongotpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnGotPointerCapture ] attrib
+```
+```ocaml
+val a_onlostpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnLostPointerCapture ] attrib
+```
+```ocaml
 val a_ontouchstart : Xml.touch_event_handler -> [> `OnTouchStart ] attrib
 ```
 Touch events
@@ -3807,6 +3922,18 @@ val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
 #### Other attributes
 
 ```ocaml
+val a_abbr : Html_types.text wrap -> [> `Abbr ] attrib
+```
+Alternative label of a header cell, for reference in other cells.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#abbr](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr) abbr attribute documentation.
+```ocaml
+val a_allow : Html_types.text wrap -> [> `Allow ] attrib
+```
+Permissions policy of an iframe.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#allow](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow) allow documentation.
+```ocaml
 val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
 ```
 ```ocaml
@@ -3818,6 +3945,36 @@ val a_autocomplete :
   [> `Autocomplete ] attrib
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) autocomplete documentation.
+```ocaml
+val a_autocapitalize : 
+  [< `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+  [> `Autocapitalize ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize) autocapitalize documentation.
+```ocaml
+val a_autocorrect : bool wrap -> [> `Autocorrect ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocorrect](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect) autocorrect documentation.
+```ocaml
+val a_as : 
+  [< `Audio
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker ]
+    wrap ->
+  [> `As ] attrib
+```
+Destination of a preload link. This covers the destinations listed by MDN; other spec destinations can be produced with [`Unsafe.string_attrib`](./Html_f-Make-Unsafe.md#val-string_attrib).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#as](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) as documentation.
 ```ocaml
 val a_async : unit -> [> `Async ] attrib
 ```
@@ -3845,6 +4002,20 @@ val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
 val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
 ```
 ```ocaml
+val a_closedby : 
+  [< `Any | `Closerequest | `None ] wrap ->
+  [> `Closedby ] attrib
+```
+User actions that can close a dialog.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog\#closedby](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby) closedby documentation.
+```ocaml
+val a_capture : [< `User | `Environment ] wrap -> [> `Capture ] attrib
+```
+Preferred camera for file inputs capturing media. Defined by the W3C HTML Media Capture specification. The bare form of the attribute is not supported by the PPX; use an explicit value.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
+```ocaml
 val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
 ```
 ```ocaml
@@ -3854,11 +4025,23 @@ val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 val a_controls : unit -> [> `Controls ] attrib
 ```
 ```ocaml
-val a_dir : [< `Rtl | `Ltr ] wrap -> [> `Dir ] attrib
+val a_dir : [< `Rtl | `Ltr | `Auto ] wrap -> [> `Dir ] attrib
 ```
+```ocaml
+val a_dirname : Html_types.text wrap -> [> `Dirname ] attrib
+```
+Name of the form control field used to submit the element's text directionality.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname) dirname documentation.
 ```ocaml
 val a_draggable : bool wrap -> [> `Draggable ] attrib
 ```
+```ocaml
+val a_enterkeyhint : 
+  [< `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+  [> `Enterkeyhint ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/enterkeyhint](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint) enterkeyhint documentation.
 ```ocaml
 val a_form : Html_types.idref wrap -> [> `Form ] attrib
 ```
@@ -3884,6 +4067,46 @@ val a_high : Html_types.float_number wrap -> [> `High ] attrib
 val a_icon : Xml.uri wrap -> [> `Icon ] attrib
 ```
 ```ocaml
+val a_inert : unit -> [> `Inert ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) inert documentation.
+```ocaml
+val a_is : Html_types.text wrap -> [> `Is ] attrib
+```
+Name of a customized built-in element.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) is documentation.
+```ocaml
+val a_itemscope : unit -> [> `Itemscope ] attrib
+```
+Microdata: creates a new item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
+```ocaml
+val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+```
+Microdata: space-separated list of vocabulary URLs for the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemtype](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype) itemtype documentation.
+```ocaml
+val a_itemid : Xml.uri wrap -> [> `Itemid ] attrib
+```
+Microdata: global identifier of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemid](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid) itemid documentation.
+```ocaml
+val a_itemprop : string list wrap -> [> `Itemprop ] attrib
+```
+Microdata: space-separated list of names of the property.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemprop](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) itemprop documentation.
+```ocaml
+val a_itemref : Html_types.idrefs wrap -> [> `Itemref ] attrib
+```
+Microdata: additional elements to crawl to find the name-value pairs of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemref](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref) itemref documentation.
+```ocaml
 val a_ismap : unit -> [> `Ismap ] attrib
 ```
 ```ocaml
@@ -3892,6 +4115,20 @@ val a_keytype : Html_types.text wrap -> [> `Keytype ] attrib
 ```ocaml
 val a_list : Html_types.idref wrap -> [> `List ] attrib
 ```
+```ocaml
+val a_loading : [< `Lazy | `Eager ] wrap -> [> `Loading ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#loading](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading) loading documentation.
+```ocaml
+val a_decoding : [< `Sync | `Async | `Auto ] wrap -> [> `Decoding ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#decoding](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding) decoding documentation.
+```ocaml
+val a_fetchpriority : 
+  [< `High | `Low | `Auto ] wrap ->
+  [> `Fetchpriority ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority) fetchpriority documentation.
 ```ocaml
 val a_loop : unit -> [> `Loop ] attrib
 ```
@@ -3918,6 +4155,18 @@ val a_inputmode :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) inputmode documentation.
 ```ocaml
+val a_nomodule : unit -> [> `Nomodule ] attrib
+```
+Indicates that a classic script must not run in browsers that support module scripts.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#nomodule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule) nomodule documentation.
+```ocaml
+val a_nonce : Html_types.text wrap -> [> `Nonce ] attrib
+```
+Cryptographic nonce used by Content Security Policy.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) nonce documentation.
+```ocaml
 val a_novalidate : unit -> [> `Novalidate ] attrib
 ```
 ```ocaml
@@ -3930,8 +4179,74 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
+val a_ping : string list wrap -> [> `Ping ] attrib
+```
+Space-separated list of URLs to ping when following the hyperlink.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a\#ping](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping) ping documentation.
+```ocaml
 val a_placeholder : Html_types.text wrap -> [> `Placeholder ] attrib
 ```
+```ocaml
+val a_playsinline : unit -> [> `Playsinline ] attrib
+```
+Indicates that a video is to be played inline, within the element's playback area.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline) playsinline documentation.
+```ocaml
+val a_disablepictureinpicture : unit -> [> `Disablepictureinpicture ] attrib
+```
+Defined by the W3C Picture-in-Picture specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disablepictureinpicture](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture) disablepictureinpicture documentation.
+```ocaml
+val a_disableremoteplayback : unit -> [> `Disableremoteplayback ] attrib
+```
+Defined by the W3C Remote Playback specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disableremoteplayback](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback) disableremoteplayback documentation.
+```ocaml
+val a_part : string list wrap -> [> `Part ] attrib
+```
+Space-separated list of part names of the element, exposed to shadow-tree styling. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/part](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part) part documentation.
+```ocaml
+val a_exportparts : Html_types.text list wrap -> [> `Exportparts ] attrib
+```
+Comma-separated list of part mappings (`name` or `name:exposed-name`) forwarded from a nested shadow tree. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/exportparts](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts) exportparts documentation.
+```ocaml
+val a_popover : [< Html_types.popover_value ] wrap -> [> `Popover ] attrib
+```
+In HTML, a bare `popover` attribute is equivalent to `popover="auto"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) popover documentation.
+```ocaml
+val a_popovertarget : Html_types.idref wrap -> [> `Popovertarget ] attrib
+```
+Id of the popover element to control with a button.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertarget](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget) popovertarget documentation.
+```ocaml
+val a_popovertargetaction : 
+  [< `Show | `Hide | `Toggle ] wrap ->
+  [> `Popovertargetaction ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertargetaction](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction) popovertargetaction documentation.
+```ocaml
+val a_command : [< Html_types.command_value ] wrap -> [> `Command ] attrib
+```
+Action to perform on the element targeted by a button (Invoker Commands API).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#command](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command) command documentation.
+```ocaml
+val a_commandfor : Html_types.idref wrap -> [> `Commandfor ] attrib
+```
+Id of the element a button command targets.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#commandfor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor) commandfor documentation.
 ```ocaml
 val a_poster : Xml.uri wrap -> [> `Poster ] attrib
 ```
@@ -3957,11 +4272,23 @@ val a_required : unit -> [> `Required ] attrib
 val a_reversed : unit -> [> `Reversed ] attrib
 ```
 ```ocaml
+val a_blocking : 
+  [< Html_types.blocking_token ] list wrap ->
+  [> `Blocking ] attrib
+```
+Space-separated list of operations blocked on the fetching of a script, style sheet or style-relevant link.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#blocking](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking) blocking documentation.
+```ocaml
 val a_sandbox : [< Html_types.sandbox_token ] list wrap -> [> `Sandbox ] attrib
 ```
 ```ocaml
 val a_spellcheck : bool wrap -> [> `Spellcheck ] attrib
 ```
+```ocaml
+val a_writingsuggestions : bool wrap -> [> `Writingsuggestions ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/writingsuggestions](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions) writingsuggestions documentation.
 ```ocaml
 val a_scoped : unit -> [> `Scoped ] attrib
 ```
@@ -3969,17 +4296,66 @@ val a_scoped : unit -> [> `Scoped ] attrib
 val a_seamless : unit -> [> `Seamless ] attrib
 ```
 ```ocaml
+val a_shadowrootmode : [< `Open | `Closed ] wrap -> [> `Shadowrootmode ] attrib
+```
+Declarative shadow root mode, for template elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode) shadowrootmode documentation.
+```ocaml
+val a_shadowrootdelegatesfocus : unit -> [> `Shadowrootdelegatesfocus ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootdelegatesfocus](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus) shadowrootdelegatesfocus documentation.
+```ocaml
+val a_shadowrootclonable : unit -> [> `Shadowrootclonable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootclonable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable) shadowrootclonable documentation.
+```ocaml
+val a_shadowrootserializable : unit -> [> `Shadowrootserializable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootserializable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable) shadowrootserializable documentation.
+```ocaml
 val a_sizes : 
   (Html_types.number * Html_types.number) list option wrap ->
   [> `Sizes ] attrib
 ```
 ```ocaml
+val a_slot : Html_types.text wrap -> [> `Slot ] attrib
+```
+Name of the shadow tree slot the element is assigned to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) slot documentation.
+```ocaml
 val a_span : Html_types.number wrap -> [> `Span ] attrib
 ```
+```ocaml
+val a_srcdoc : Html_types.text wrap -> [> `Srcdoc ] attrib
+```
+Inline HTML document of an iframe, given as escaped text.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#srcdoc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc) srcdoc documentation.
 ```ocaml
 val a_srclang : Html_types.nmtoken wrap -> [> `XML_lang ] attrib
 ```
 deprecated Use a\_xml\_lang instead.
+```ocaml
+val a_kind : 
+  [< `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata ] wrap ->
+  [> `Kind ] attrib
+```
+How a text track is meant to be used, for `track` elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#kind](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind) kind attribute documentation on MDN
+```ocaml
+val a_track_srclang : Html_types.languagecode wrap -> [> `Srclang ] attrib
+```
+Language of the text track data, for `track` elements.
+
+```ocaml
+val a_default : unit -> [> `Default ] attrib
+```
+Indicates that a text track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#default](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default) default attribute documentation on MDN
 ```ocaml
 type image_candidate = [ 
   | `Url of uri
@@ -3991,11 +4367,27 @@ type image_candidate = [
 val a_srcset : image_candidate list wrap -> [> `Srcset ] attrib
 ```
 ```ocaml
+val a_imagesrcset : image_candidate list wrap -> [> `Imagesrcset ] attrib
+```
+Images to preload, for link elements with `rel=preload` and `as=image`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesrcset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset) imagesrcset documentation.
+```ocaml
+val a_imagesizes : Html_types.text list wrap -> [> `Imagesizes ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes) imagesizes documentation.
+```ocaml
 val a_img_sizes : Html_types.text list wrap -> [> `Img_sizes ] attrib
 ```
 ```ocaml
 val a_start : Html_types.number wrap -> [> `Start ] attrib
 ```
+```ocaml
+val a_ol_type : [< Html_types.ol_type ] wrap -> [> `Ol_Type ] attrib
+```
+Numbering type of an ordered list.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol\#type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type) type attribute documentation.
 ```ocaml
 val a_step : Html_types.float_number option wrap -> [> `Step ] attrib
 ```
@@ -4109,10 +4501,10 @@ val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
 val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
 ```
 ```ocaml
-val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
+val a_method : [< `Get | `Post | `Dialog ] wrap -> [> `Method ] attrib
 ```
 ```ocaml
-val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
+val a_formmethod : [< `Get | `Post | `Dialog ] wrap -> [> `Formmethod ] attrib
 ```
 ```ocaml
 val a_multiple : unit -> [> `Multiple ] attrib
@@ -4484,6 +4876,14 @@ val main :
     [> Html_types.main ])
     star
 ```
+```ocaml
+val search : 
+  ([< Html_types.search_attrib ],
+    [< Html_types.search_content_fun ],
+    [> Html_types.search ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search) search element documentation on MDN
 
 #### Grouping content
 
@@ -4602,6 +5002,12 @@ val u :
     star
 ```
 ```ocaml
+val s : 
+  ([< Html_types.s_attrib ], [< Html_types.s_content_fun ], [> Html_types.s ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s) s element documentation on MDN
+```ocaml
 val small : 
   ([< Html_types.small_attrib ],
     [< Html_types.small_content_fun ],
@@ -4640,6 +5046,14 @@ val bdo :
     [> Html_types.bdo ])
     star
 ```
+```ocaml
+val bdi : 
+  ([< Html_types.bdi_attrib ],
+    [< Html_types.bdi_content_fun ],
+    [> Html_types.bdi ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi) bdi element documentation on MDN
 ```ocaml
 val abbr : 
   ([< Html_types.abbr_attrib ],
@@ -4719,6 +5133,17 @@ val time :
     star
 ```
 ```ocaml
+val data : 
+  value:Html_types.text wrap ->
+  ([< Html_types.data_attrib ],
+    [< Html_types.data_content_fun ],
+    [> Html_types.data ])
+    star
+```
+`data ~value content` represents `content` together with its machine-readable `value` attribute.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data) data element documentation on MDN
+```ocaml
 val var : 
   ([< Html_types.var_attrib ],
     [< Html_types.var_content_fun ],
@@ -4780,12 +5205,14 @@ val embed : ([< Html_types.embed_attrib ], [> Html_types.embed ]) nullary
 val audio : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.audio_attrib ], 'a, [> 'a Html_types.audio ]) star
 ```
 ```ocaml
 val video : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.video_attrib ], 'a, [> 'a Html_types.video ]) star
 ```
 ```ocaml
@@ -4795,6 +5222,12 @@ val canvas :
 ```ocaml
 val source : ([< Html_types.source_attrib ], [> Html_types.source ]) nullary
 ```
+```ocaml
+val track : 
+  src:Xml.uri wrap ->
+  ([< Html_types.track_attrib ], [> Html_types.track ]) nullary
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) track element documentation on MDN
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
@@ -5078,6 +5511,10 @@ val template :
     star
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) Template element documentation on MDN
+```ocaml
+val slot : ([< Html_types.slot_attrib ], 'a, [> 'a Html_types.slot ]) star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) slot element documentation on MDN
 ```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
@@ -5562,7 +5999,7 @@ val cdata_style : string -> elt
 
 ---
 
-# Parameter `Make_with_wrapped_functions.C`
+# Parameter `Make_with_wrapped_functions._`
 
 ```ocaml
 module Xml = Xml
@@ -5602,6 +6039,12 @@ val string_of_referrerpolicy :
 ```
 ```ocaml
 val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
+```
+```ocaml
+val string_of_blocking : ([< Html_types.blocking_token ] list, string) Xml.W.ft
+```
+```ocaml
+val string_of_ol_type : ([< Html_types.ol_type ], string) Xml.W.ft
 ```
 ```ocaml
 val string_of_sandbox : ([< Html_types.sandbox_token ] list, string) Xml.W.ft
@@ -7284,7 +7727,7 @@ Similar to [`Make`](./Html_f-Make.md) but with a custom set of wrapped functions
 module Xml : Xml_sigs.T
 ```
 ```ocaml
-module C : Html_sigs.Wrapped_functions with module Xml = Xml
+module _ : Html_sigs.Wrapped_functions with module Xml = Xml
 ```
 ```ocaml
 module Svg : Svg_sigs.T with module Xml := Xml
@@ -7454,7 +7897,19 @@ val a_onbeforeprint : Xml.event_handler -> [> `OnBeforePrint ] attrib
 val a_onbeforeunload : Xml.event_handler -> [> `OnBeforeUnload ] attrib
 ```
 ```ocaml
+val a_onbeforeinput : Xml.event_handler -> [> `OnBeforeInput ] attrib
+```
+```ocaml
+val a_onbeforematch : Xml.event_handler -> [> `OnBeforeMatch ] attrib
+```
+```ocaml
+val a_onbeforetoggle : Xml.event_handler -> [> `OnBeforeToggle ] attrib
+```
+```ocaml
 val a_onblur : Xml.event_handler -> [> `OnBlur ] attrib
+```
+```ocaml
+val a_oncancel : Xml.event_handler -> [> `OnCancel ] attrib
 ```
 ```ocaml
 val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
@@ -7467,6 +7922,21 @@ val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
 ```
 ```ocaml
 val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
+```
+```ocaml
+val a_oncontextlost : Xml.event_handler -> [> `OnContextLost ] attrib
+```
+```ocaml
+val a_oncontextrestored : Xml.event_handler -> [> `OnContextRestored ] attrib
+```
+```ocaml
+val a_oncopy : Xml.event_handler -> [> `OnCopy ] attrib
+```
+```ocaml
+val a_oncut : Xml.event_handler -> [> `OnCut ] attrib
+```
+```ocaml
+val a_oncuechange : Xml.event_handler -> [> `OnCueChange ] attrib
 ```
 ```ocaml
 val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
@@ -7493,6 +7963,9 @@ val a_onforminput : Xml.event_handler -> [> `OnFormInput ] attrib
 val a_onhashchange : Xml.event_handler -> [> `OnHashChange ] attrib
 ```
 ```ocaml
+val a_onlanguagechange : Xml.event_handler -> [> `OnLanguageChange ] attrib
+```
+```ocaml
 val a_oninput : Xml.event_handler -> [> `OnInput ] attrib
 ```
 ```ocaml
@@ -7506,6 +7979,9 @@ val a_onoffline : Xml.event_handler -> [> `OnOffLine ] attrib
 ```
 ```ocaml
 val a_ononline : Xml.event_handler -> [> `OnOnLine ] attrib
+```
+```ocaml
+val a_onpaste : Xml.event_handler -> [> `OnPaste ] attrib
 ```
 ```ocaml
 val a_onpause : Xml.event_handler -> [> `OnPause ] attrib
@@ -7538,10 +8014,26 @@ val a_onreadystatechange : Xml.event_handler -> [> `OnReadyStateChange ] attrib
 val a_onredo : Xml.event_handler -> [> `OnRedo ] attrib
 ```
 ```ocaml
+val a_onrejectionhandled : Xml.event_handler -> [> `OnRejectionHandled ] attrib
+```
+```ocaml
+val a_onunhandledrejection : 
+  Xml.event_handler ->
+  [> `OnUnhandledRejection ] attrib
+```
+```ocaml
 val a_onresize : Xml.event_handler -> [> `OnResize ] attrib
 ```
 ```ocaml
 val a_onscroll : Xml.event_handler -> [> `OnScroll ] attrib
+```
+```ocaml
+val a_onscrollend : Xml.event_handler -> [> `OnScrollEnd ] attrib
+```
+```ocaml
+val a_onsecuritypolicyviolation : 
+  Xml.event_handler ->
+  [> `OnSecurityPolicyViolation ] attrib
 ```
 ```ocaml
 val a_onseeked : Xml.event_handler -> [> `OnSeeked ] attrib
@@ -7554,6 +8046,9 @@ val a_onselect : Xml.event_handler -> [> `OnSelect ] attrib
 ```
 ```ocaml
 val a_onshow : Xml.event_handler -> [> `OnShow ] attrib
+```
+```ocaml
+val a_onslotchange : Xml.event_handler -> [> `OnSlotChange ] attrib
 ```
 ```ocaml
 val a_onstalled : Xml.event_handler -> [> `OnStalled ] attrib
@@ -7569,6 +8064,9 @@ val a_onsuspend : Xml.event_handler -> [> `OnSuspend ] attrib
 ```
 ```ocaml
 val a_ontimeupdate : Xml.event_handler -> [> `OnTimeUpdate ] attrib
+```
+```ocaml
+val a_ontoggle : Xml.event_handler -> [> `OnToggle ] attrib
 ```
 ```ocaml
 val a_onundo : Xml.event_handler -> [> `OnUndo ] attrib
@@ -7600,6 +8098,9 @@ val a_onmessage : Xml.event_handler -> [> `OnMessage ] attrib
 
 ##### Mouse events
 
+```ocaml
+val a_onauxclick : Xml.mouse_event_handler -> [> `OnAuxClick ] attrib
+```
 ```ocaml
 val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] attrib
 ```
@@ -7646,6 +8147,48 @@ val a_onmousemove : Xml.mouse_event_handler -> [> `OnMouseMove ] attrib
 val a_onmouseout : Xml.mouse_event_handler -> [> `OnMouseOut ] attrib
 ```
 ```ocaml
+val a_onwheel : Xml.mouse_event_handler -> [> `OnWheel ] attrib
+```
+
+##### Pointer events
+
+In the DOM, pointer events inherit from mouse events, so the handlers use [`Xml.mouse_event_handler`](./Html_f-Make_with_wrapped_functions-Xml.md#type-mouse_event_handler).
+
+```ocaml
+val a_onpointercancel : Xml.mouse_event_handler -> [> `OnPointerCancel ] attrib
+```
+```ocaml
+val a_onpointerdown : Xml.mouse_event_handler -> [> `OnPointerDown ] attrib
+```
+```ocaml
+val a_onpointerenter : Xml.mouse_event_handler -> [> `OnPointerEnter ] attrib
+```
+```ocaml
+val a_onpointerleave : Xml.mouse_event_handler -> [> `OnPointerLeave ] attrib
+```
+```ocaml
+val a_onpointermove : Xml.mouse_event_handler -> [> `OnPointerMove ] attrib
+```
+```ocaml
+val a_onpointerout : Xml.mouse_event_handler -> [> `OnPointerOut ] attrib
+```
+```ocaml
+val a_onpointerover : Xml.mouse_event_handler -> [> `OnPointerOver ] attrib
+```
+```ocaml
+val a_onpointerup : Xml.mouse_event_handler -> [> `OnPointerUp ] attrib
+```
+```ocaml
+val a_ongotpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnGotPointerCapture ] attrib
+```
+```ocaml
+val a_onlostpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnLostPointerCapture ] attrib
+```
+```ocaml
 val a_ontouchstart : Xml.touch_event_handler -> [> `OnTouchStart ] attrib
 ```
 Touch events
@@ -7675,6 +8218,18 @@ val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
 #### Other attributes
 
 ```ocaml
+val a_abbr : Html_types.text wrap -> [> `Abbr ] attrib
+```
+Alternative label of a header cell, for reference in other cells.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#abbr](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr) abbr attribute documentation.
+```ocaml
+val a_allow : Html_types.text wrap -> [> `Allow ] attrib
+```
+Permissions policy of an iframe.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#allow](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow) allow documentation.
+```ocaml
 val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
 ```
 ```ocaml
@@ -7686,6 +8241,36 @@ val a_autocomplete :
   [> `Autocomplete ] attrib
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) autocomplete documentation.
+```ocaml
+val a_autocapitalize : 
+  [< `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+  [> `Autocapitalize ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize) autocapitalize documentation.
+```ocaml
+val a_autocorrect : bool wrap -> [> `Autocorrect ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocorrect](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect) autocorrect documentation.
+```ocaml
+val a_as : 
+  [< `Audio
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker ]
+    wrap ->
+  [> `As ] attrib
+```
+Destination of a preload link. This covers the destinations listed by MDN; other spec destinations can be produced with [`Unsafe.string_attrib`](./Html_f-Make_with_wrapped_functions-Unsafe.md#val-string_attrib).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#as](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) as documentation.
 ```ocaml
 val a_async : unit -> [> `Async ] attrib
 ```
@@ -7713,6 +8298,20 @@ val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
 val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
 ```
 ```ocaml
+val a_closedby : 
+  [< `Any | `Closerequest | `None ] wrap ->
+  [> `Closedby ] attrib
+```
+User actions that can close a dialog.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog\#closedby](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby) closedby documentation.
+```ocaml
+val a_capture : [< `User | `Environment ] wrap -> [> `Capture ] attrib
+```
+Preferred camera for file inputs capturing media. Defined by the W3C HTML Media Capture specification. The bare form of the attribute is not supported by the PPX; use an explicit value.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
+```ocaml
 val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
 ```
 ```ocaml
@@ -7722,11 +8321,23 @@ val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 val a_controls : unit -> [> `Controls ] attrib
 ```
 ```ocaml
-val a_dir : [< `Rtl | `Ltr ] wrap -> [> `Dir ] attrib
+val a_dir : [< `Rtl | `Ltr | `Auto ] wrap -> [> `Dir ] attrib
 ```
+```ocaml
+val a_dirname : Html_types.text wrap -> [> `Dirname ] attrib
+```
+Name of the form control field used to submit the element's text directionality.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname) dirname documentation.
 ```ocaml
 val a_draggable : bool wrap -> [> `Draggable ] attrib
 ```
+```ocaml
+val a_enterkeyhint : 
+  [< `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+  [> `Enterkeyhint ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/enterkeyhint](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint) enterkeyhint documentation.
 ```ocaml
 val a_form : Html_types.idref wrap -> [> `Form ] attrib
 ```
@@ -7752,6 +8363,46 @@ val a_high : Html_types.float_number wrap -> [> `High ] attrib
 val a_icon : Xml.uri wrap -> [> `Icon ] attrib
 ```
 ```ocaml
+val a_inert : unit -> [> `Inert ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) inert documentation.
+```ocaml
+val a_is : Html_types.text wrap -> [> `Is ] attrib
+```
+Name of a customized built-in element.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) is documentation.
+```ocaml
+val a_itemscope : unit -> [> `Itemscope ] attrib
+```
+Microdata: creates a new item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
+```ocaml
+val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+```
+Microdata: space-separated list of vocabulary URLs for the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemtype](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype) itemtype documentation.
+```ocaml
+val a_itemid : Xml.uri wrap -> [> `Itemid ] attrib
+```
+Microdata: global identifier of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemid](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid) itemid documentation.
+```ocaml
+val a_itemprop : string list wrap -> [> `Itemprop ] attrib
+```
+Microdata: space-separated list of names of the property.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemprop](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) itemprop documentation.
+```ocaml
+val a_itemref : Html_types.idrefs wrap -> [> `Itemref ] attrib
+```
+Microdata: additional elements to crawl to find the name-value pairs of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemref](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref) itemref documentation.
+```ocaml
 val a_ismap : unit -> [> `Ismap ] attrib
 ```
 ```ocaml
@@ -7760,6 +8411,20 @@ val a_keytype : Html_types.text wrap -> [> `Keytype ] attrib
 ```ocaml
 val a_list : Html_types.idref wrap -> [> `List ] attrib
 ```
+```ocaml
+val a_loading : [< `Lazy | `Eager ] wrap -> [> `Loading ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#loading](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading) loading documentation.
+```ocaml
+val a_decoding : [< `Sync | `Async | `Auto ] wrap -> [> `Decoding ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#decoding](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding) decoding documentation.
+```ocaml
+val a_fetchpriority : 
+  [< `High | `Low | `Auto ] wrap ->
+  [> `Fetchpriority ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority) fetchpriority documentation.
 ```ocaml
 val a_loop : unit -> [> `Loop ] attrib
 ```
@@ -7786,6 +8451,18 @@ val a_inputmode :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) inputmode documentation.
 ```ocaml
+val a_nomodule : unit -> [> `Nomodule ] attrib
+```
+Indicates that a classic script must not run in browsers that support module scripts.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#nomodule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule) nomodule documentation.
+```ocaml
+val a_nonce : Html_types.text wrap -> [> `Nonce ] attrib
+```
+Cryptographic nonce used by Content Security Policy.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) nonce documentation.
+```ocaml
 val a_novalidate : unit -> [> `Novalidate ] attrib
 ```
 ```ocaml
@@ -7798,8 +8475,74 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
+val a_ping : string list wrap -> [> `Ping ] attrib
+```
+Space-separated list of URLs to ping when following the hyperlink.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a\#ping](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping) ping documentation.
+```ocaml
 val a_placeholder : Html_types.text wrap -> [> `Placeholder ] attrib
 ```
+```ocaml
+val a_playsinline : unit -> [> `Playsinline ] attrib
+```
+Indicates that a video is to be played inline, within the element's playback area.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline) playsinline documentation.
+```ocaml
+val a_disablepictureinpicture : unit -> [> `Disablepictureinpicture ] attrib
+```
+Defined by the W3C Picture-in-Picture specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disablepictureinpicture](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture) disablepictureinpicture documentation.
+```ocaml
+val a_disableremoteplayback : unit -> [> `Disableremoteplayback ] attrib
+```
+Defined by the W3C Remote Playback specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disableremoteplayback](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback) disableremoteplayback documentation.
+```ocaml
+val a_part : string list wrap -> [> `Part ] attrib
+```
+Space-separated list of part names of the element, exposed to shadow-tree styling. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/part](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part) part documentation.
+```ocaml
+val a_exportparts : Html_types.text list wrap -> [> `Exportparts ] attrib
+```
+Comma-separated list of part mappings (`name` or `name:exposed-name`) forwarded from a nested shadow tree. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/exportparts](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts) exportparts documentation.
+```ocaml
+val a_popover : [< Html_types.popover_value ] wrap -> [> `Popover ] attrib
+```
+In HTML, a bare `popover` attribute is equivalent to `popover="auto"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) popover documentation.
+```ocaml
+val a_popovertarget : Html_types.idref wrap -> [> `Popovertarget ] attrib
+```
+Id of the popover element to control with a button.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertarget](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget) popovertarget documentation.
+```ocaml
+val a_popovertargetaction : 
+  [< `Show | `Hide | `Toggle ] wrap ->
+  [> `Popovertargetaction ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertargetaction](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction) popovertargetaction documentation.
+```ocaml
+val a_command : [< Html_types.command_value ] wrap -> [> `Command ] attrib
+```
+Action to perform on the element targeted by a button (Invoker Commands API).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#command](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command) command documentation.
+```ocaml
+val a_commandfor : Html_types.idref wrap -> [> `Commandfor ] attrib
+```
+Id of the element a button command targets.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#commandfor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor) commandfor documentation.
 ```ocaml
 val a_poster : Xml.uri wrap -> [> `Poster ] attrib
 ```
@@ -7825,11 +8568,23 @@ val a_required : unit -> [> `Required ] attrib
 val a_reversed : unit -> [> `Reversed ] attrib
 ```
 ```ocaml
+val a_blocking : 
+  [< Html_types.blocking_token ] list wrap ->
+  [> `Blocking ] attrib
+```
+Space-separated list of operations blocked on the fetching of a script, style sheet or style-relevant link.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#blocking](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking) blocking documentation.
+```ocaml
 val a_sandbox : [< Html_types.sandbox_token ] list wrap -> [> `Sandbox ] attrib
 ```
 ```ocaml
 val a_spellcheck : bool wrap -> [> `Spellcheck ] attrib
 ```
+```ocaml
+val a_writingsuggestions : bool wrap -> [> `Writingsuggestions ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/writingsuggestions](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions) writingsuggestions documentation.
 ```ocaml
 val a_scoped : unit -> [> `Scoped ] attrib
 ```
@@ -7837,17 +8592,66 @@ val a_scoped : unit -> [> `Scoped ] attrib
 val a_seamless : unit -> [> `Seamless ] attrib
 ```
 ```ocaml
+val a_shadowrootmode : [< `Open | `Closed ] wrap -> [> `Shadowrootmode ] attrib
+```
+Declarative shadow root mode, for template elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode) shadowrootmode documentation.
+```ocaml
+val a_shadowrootdelegatesfocus : unit -> [> `Shadowrootdelegatesfocus ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootdelegatesfocus](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus) shadowrootdelegatesfocus documentation.
+```ocaml
+val a_shadowrootclonable : unit -> [> `Shadowrootclonable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootclonable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable) shadowrootclonable documentation.
+```ocaml
+val a_shadowrootserializable : unit -> [> `Shadowrootserializable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootserializable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable) shadowrootserializable documentation.
+```ocaml
 val a_sizes : 
   (Html_types.number * Html_types.number) list option wrap ->
   [> `Sizes ] attrib
 ```
 ```ocaml
+val a_slot : Html_types.text wrap -> [> `Slot ] attrib
+```
+Name of the shadow tree slot the element is assigned to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) slot documentation.
+```ocaml
 val a_span : Html_types.number wrap -> [> `Span ] attrib
 ```
+```ocaml
+val a_srcdoc : Html_types.text wrap -> [> `Srcdoc ] attrib
+```
+Inline HTML document of an iframe, given as escaped text.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#srcdoc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc) srcdoc documentation.
 ```ocaml
 val a_srclang : Html_types.nmtoken wrap -> [> `XML_lang ] attrib
 ```
 deprecated Use a\_xml\_lang instead.
+```ocaml
+val a_kind : 
+  [< `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata ] wrap ->
+  [> `Kind ] attrib
+```
+How a text track is meant to be used, for `track` elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#kind](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind) kind attribute documentation on MDN
+```ocaml
+val a_track_srclang : Html_types.languagecode wrap -> [> `Srclang ] attrib
+```
+Language of the text track data, for `track` elements.
+
+```ocaml
+val a_default : unit -> [> `Default ] attrib
+```
+Indicates that a text track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#default](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default) default attribute documentation on MDN
 ```ocaml
 type image_candidate = [ 
   | `Url of uri
@@ -7859,11 +8663,27 @@ type image_candidate = [
 val a_srcset : image_candidate list wrap -> [> `Srcset ] attrib
 ```
 ```ocaml
+val a_imagesrcset : image_candidate list wrap -> [> `Imagesrcset ] attrib
+```
+Images to preload, for link elements with `rel=preload` and `as=image`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesrcset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset) imagesrcset documentation.
+```ocaml
+val a_imagesizes : Html_types.text list wrap -> [> `Imagesizes ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes) imagesizes documentation.
+```ocaml
 val a_img_sizes : Html_types.text list wrap -> [> `Img_sizes ] attrib
 ```
 ```ocaml
 val a_start : Html_types.number wrap -> [> `Start ] attrib
 ```
+```ocaml
+val a_ol_type : [< Html_types.ol_type ] wrap -> [> `Ol_Type ] attrib
+```
+Numbering type of an ordered list.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol\#type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type) type attribute documentation.
 ```ocaml
 val a_step : Html_types.float_number option wrap -> [> `Step ] attrib
 ```
@@ -7977,10 +8797,10 @@ val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
 val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
 ```
 ```ocaml
-val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
+val a_method : [< `Get | `Post | `Dialog ] wrap -> [> `Method ] attrib
 ```
 ```ocaml
-val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
+val a_formmethod : [< `Get | `Post | `Dialog ] wrap -> [> `Formmethod ] attrib
 ```
 ```ocaml
 val a_multiple : unit -> [> `Multiple ] attrib
@@ -8352,6 +9172,14 @@ val main :
     [> Html_types.main ])
     star
 ```
+```ocaml
+val search : 
+  ([< Html_types.search_attrib ],
+    [< Html_types.search_content_fun ],
+    [> Html_types.search ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search) search element documentation on MDN
 
 #### Grouping content
 
@@ -8470,6 +9298,12 @@ val u :
     star
 ```
 ```ocaml
+val s : 
+  ([< Html_types.s_attrib ], [< Html_types.s_content_fun ], [> Html_types.s ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s) s element documentation on MDN
+```ocaml
 val small : 
   ([< Html_types.small_attrib ],
     [< Html_types.small_content_fun ],
@@ -8508,6 +9342,14 @@ val bdo :
     [> Html_types.bdo ])
     star
 ```
+```ocaml
+val bdi : 
+  ([< Html_types.bdi_attrib ],
+    [< Html_types.bdi_content_fun ],
+    [> Html_types.bdi ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi) bdi element documentation on MDN
 ```ocaml
 val abbr : 
   ([< Html_types.abbr_attrib ],
@@ -8587,6 +9429,17 @@ val time :
     star
 ```
 ```ocaml
+val data : 
+  value:Html_types.text wrap ->
+  ([< Html_types.data_attrib ],
+    [< Html_types.data_content_fun ],
+    [> Html_types.data ])
+    star
+```
+`data ~value content` represents `content` together with its machine-readable `value` attribute.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data) data element documentation on MDN
+```ocaml
 val var : 
   ([< Html_types.var_attrib ],
     [< Html_types.var_content_fun ],
@@ -8648,12 +9501,14 @@ val embed : ([< Html_types.embed_attrib ], [> Html_types.embed ]) nullary
 val audio : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.audio_attrib ], 'a, [> 'a Html_types.audio ]) star
 ```
 ```ocaml
 val video : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.video_attrib ], 'a, [> 'a Html_types.video ]) star
 ```
 ```ocaml
@@ -8663,6 +9518,12 @@ val canvas :
 ```ocaml
 val source : ([< Html_types.source_attrib ], [> Html_types.source ]) nullary
 ```
+```ocaml
+val track : 
+  src:Xml.uri wrap ->
+  ([< Html_types.track_attrib ], [> Html_types.track ]) nullary
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) track element documentation on MDN
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
@@ -8946,6 +9807,10 @@ val template :
     star
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) Template element documentation on MDN
+```ocaml
+val slot : ([< Html_types.slot_attrib ], 'a, [> 'a Html_types.slot ]) star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) slot element documentation on MDN
 ```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
@@ -9236,6 +10101,12 @@ val string_of_referrerpolicy :
 val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
 ```
 ```ocaml
+val string_of_blocking : ([< Html_types.blocking_token ] list, string) Xml.W.ft
+```
+```ocaml
+val string_of_ol_type : ([< Html_types.ol_type ], string) Xml.W.ft
+```
+```ocaml
 val string_of_sandbox : ([< Html_types.sandbox_token ] list, string) Xml.W.ft
 ```
 ```ocaml
@@ -9291,7 +10162,7 @@ The standard set of wrapped functions, when `W.ft` is the regular function.
 ```ocaml
 module Make_with_wrapped_functions
   (Xml : Xml_sigs.T)
-  (C : Html_sigs.Wrapped_functions with module Xml = Xml)
+  (_ : Html_sigs.Wrapped_functions with module Xml = Xml)
   (Svg : Svg_sigs.T with module Xml := Xml) : 
   Html_sigs.Make(Xml)(Svg).T
     with type +'a elt = Xml.elt
@@ -11502,7 +12373,19 @@ val a_onbeforeprint : Xml.event_handler -> [> `OnBeforePrint ] attrib
 val a_onbeforeunload : Xml.event_handler -> [> `OnBeforeUnload ] attrib
 ```
 ```ocaml
+val a_onbeforeinput : Xml.event_handler -> [> `OnBeforeInput ] attrib
+```
+```ocaml
+val a_onbeforematch : Xml.event_handler -> [> `OnBeforeMatch ] attrib
+```
+```ocaml
+val a_onbeforetoggle : Xml.event_handler -> [> `OnBeforeToggle ] attrib
+```
+```ocaml
 val a_onblur : Xml.event_handler -> [> `OnBlur ] attrib
+```
+```ocaml
+val a_oncancel : Xml.event_handler -> [> `OnCancel ] attrib
 ```
 ```ocaml
 val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
@@ -11515,6 +12398,21 @@ val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
 ```
 ```ocaml
 val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
+```
+```ocaml
+val a_oncontextlost : Xml.event_handler -> [> `OnContextLost ] attrib
+```
+```ocaml
+val a_oncontextrestored : Xml.event_handler -> [> `OnContextRestored ] attrib
+```
+```ocaml
+val a_oncopy : Xml.event_handler -> [> `OnCopy ] attrib
+```
+```ocaml
+val a_oncut : Xml.event_handler -> [> `OnCut ] attrib
+```
+```ocaml
+val a_oncuechange : Xml.event_handler -> [> `OnCueChange ] attrib
 ```
 ```ocaml
 val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
@@ -11541,6 +12439,9 @@ val a_onforminput : Xml.event_handler -> [> `OnFormInput ] attrib
 val a_onhashchange : Xml.event_handler -> [> `OnHashChange ] attrib
 ```
 ```ocaml
+val a_onlanguagechange : Xml.event_handler -> [> `OnLanguageChange ] attrib
+```
+```ocaml
 val a_oninput : Xml.event_handler -> [> `OnInput ] attrib
 ```
 ```ocaml
@@ -11554,6 +12455,9 @@ val a_onoffline : Xml.event_handler -> [> `OnOffLine ] attrib
 ```
 ```ocaml
 val a_ononline : Xml.event_handler -> [> `OnOnLine ] attrib
+```
+```ocaml
+val a_onpaste : Xml.event_handler -> [> `OnPaste ] attrib
 ```
 ```ocaml
 val a_onpause : Xml.event_handler -> [> `OnPause ] attrib
@@ -11586,10 +12490,26 @@ val a_onreadystatechange : Xml.event_handler -> [> `OnReadyStateChange ] attrib
 val a_onredo : Xml.event_handler -> [> `OnRedo ] attrib
 ```
 ```ocaml
+val a_onrejectionhandled : Xml.event_handler -> [> `OnRejectionHandled ] attrib
+```
+```ocaml
+val a_onunhandledrejection : 
+  Xml.event_handler ->
+  [> `OnUnhandledRejection ] attrib
+```
+```ocaml
 val a_onresize : Xml.event_handler -> [> `OnResize ] attrib
 ```
 ```ocaml
 val a_onscroll : Xml.event_handler -> [> `OnScroll ] attrib
+```
+```ocaml
+val a_onscrollend : Xml.event_handler -> [> `OnScrollEnd ] attrib
+```
+```ocaml
+val a_onsecuritypolicyviolation : 
+  Xml.event_handler ->
+  [> `OnSecurityPolicyViolation ] attrib
 ```
 ```ocaml
 val a_onseeked : Xml.event_handler -> [> `OnSeeked ] attrib
@@ -11602,6 +12522,9 @@ val a_onselect : Xml.event_handler -> [> `OnSelect ] attrib
 ```
 ```ocaml
 val a_onshow : Xml.event_handler -> [> `OnShow ] attrib
+```
+```ocaml
+val a_onslotchange : Xml.event_handler -> [> `OnSlotChange ] attrib
 ```
 ```ocaml
 val a_onstalled : Xml.event_handler -> [> `OnStalled ] attrib
@@ -11617,6 +12540,9 @@ val a_onsuspend : Xml.event_handler -> [> `OnSuspend ] attrib
 ```
 ```ocaml
 val a_ontimeupdate : Xml.event_handler -> [> `OnTimeUpdate ] attrib
+```
+```ocaml
+val a_ontoggle : Xml.event_handler -> [> `OnToggle ] attrib
 ```
 ```ocaml
 val a_onundo : Xml.event_handler -> [> `OnUndo ] attrib
@@ -11648,6 +12574,9 @@ val a_onmessage : Xml.event_handler -> [> `OnMessage ] attrib
 
 ##### Mouse events
 
+```ocaml
+val a_onauxclick : Xml.mouse_event_handler -> [> `OnAuxClick ] attrib
+```
 ```ocaml
 val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] attrib
 ```
@@ -11694,6 +12623,48 @@ val a_onmousemove : Xml.mouse_event_handler -> [> `OnMouseMove ] attrib
 val a_onmouseout : Xml.mouse_event_handler -> [> `OnMouseOut ] attrib
 ```
 ```ocaml
+val a_onwheel : Xml.mouse_event_handler -> [> `OnWheel ] attrib
+```
+
+##### Pointer events
+
+In the DOM, pointer events inherit from mouse events, so the handlers use [`Xml.mouse_event_handler`](./Html_sigs-Make-module-type-T-Xml.md#type-mouse_event_handler).
+
+```ocaml
+val a_onpointercancel : Xml.mouse_event_handler -> [> `OnPointerCancel ] attrib
+```
+```ocaml
+val a_onpointerdown : Xml.mouse_event_handler -> [> `OnPointerDown ] attrib
+```
+```ocaml
+val a_onpointerenter : Xml.mouse_event_handler -> [> `OnPointerEnter ] attrib
+```
+```ocaml
+val a_onpointerleave : Xml.mouse_event_handler -> [> `OnPointerLeave ] attrib
+```
+```ocaml
+val a_onpointermove : Xml.mouse_event_handler -> [> `OnPointerMove ] attrib
+```
+```ocaml
+val a_onpointerout : Xml.mouse_event_handler -> [> `OnPointerOut ] attrib
+```
+```ocaml
+val a_onpointerover : Xml.mouse_event_handler -> [> `OnPointerOver ] attrib
+```
+```ocaml
+val a_onpointerup : Xml.mouse_event_handler -> [> `OnPointerUp ] attrib
+```
+```ocaml
+val a_ongotpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnGotPointerCapture ] attrib
+```
+```ocaml
+val a_onlostpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnLostPointerCapture ] attrib
+```
+```ocaml
 val a_ontouchstart : Xml.touch_event_handler -> [> `OnTouchStart ] attrib
 ```
 Touch events
@@ -11723,6 +12694,18 @@ val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
 #### Other attributes
 
 ```ocaml
+val a_abbr : Html_types.text wrap -> [> `Abbr ] attrib
+```
+Alternative label of a header cell, for reference in other cells.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#abbr](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr) abbr attribute documentation.
+```ocaml
+val a_allow : Html_types.text wrap -> [> `Allow ] attrib
+```
+Permissions policy of an iframe.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#allow](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow) allow documentation.
+```ocaml
 val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
 ```
 ```ocaml
@@ -11734,6 +12717,36 @@ val a_autocomplete :
   [> `Autocomplete ] attrib
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) autocomplete documentation.
+```ocaml
+val a_autocapitalize : 
+  [< `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+  [> `Autocapitalize ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize) autocapitalize documentation.
+```ocaml
+val a_autocorrect : bool wrap -> [> `Autocorrect ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocorrect](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect) autocorrect documentation.
+```ocaml
+val a_as : 
+  [< `Audio
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker ]
+    wrap ->
+  [> `As ] attrib
+```
+Destination of a preload link. This covers the destinations listed by MDN; other spec destinations can be produced with [`Unsafe.string_attrib`](./Html_sigs-Make-module-type-T-Unsafe.md#val-string_attrib).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#as](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) as documentation.
 ```ocaml
 val a_async : unit -> [> `Async ] attrib
 ```
@@ -11761,6 +12774,20 @@ val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
 val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
 ```
 ```ocaml
+val a_closedby : 
+  [< `Any | `Closerequest | `None ] wrap ->
+  [> `Closedby ] attrib
+```
+User actions that can close a dialog.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog\#closedby](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby) closedby documentation.
+```ocaml
+val a_capture : [< `User | `Environment ] wrap -> [> `Capture ] attrib
+```
+Preferred camera for file inputs capturing media. Defined by the W3C HTML Media Capture specification. The bare form of the attribute is not supported by the PPX; use an explicit value.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
+```ocaml
 val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
 ```
 ```ocaml
@@ -11770,11 +12797,23 @@ val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 val a_controls : unit -> [> `Controls ] attrib
 ```
 ```ocaml
-val a_dir : [< `Rtl | `Ltr ] wrap -> [> `Dir ] attrib
+val a_dir : [< `Rtl | `Ltr | `Auto ] wrap -> [> `Dir ] attrib
 ```
+```ocaml
+val a_dirname : Html_types.text wrap -> [> `Dirname ] attrib
+```
+Name of the form control field used to submit the element's text directionality.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname) dirname documentation.
 ```ocaml
 val a_draggable : bool wrap -> [> `Draggable ] attrib
 ```
+```ocaml
+val a_enterkeyhint : 
+  [< `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+  [> `Enterkeyhint ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/enterkeyhint](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint) enterkeyhint documentation.
 ```ocaml
 val a_form : Html_types.idref wrap -> [> `Form ] attrib
 ```
@@ -11800,6 +12839,46 @@ val a_high : Html_types.float_number wrap -> [> `High ] attrib
 val a_icon : Xml.uri wrap -> [> `Icon ] attrib
 ```
 ```ocaml
+val a_inert : unit -> [> `Inert ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) inert documentation.
+```ocaml
+val a_is : Html_types.text wrap -> [> `Is ] attrib
+```
+Name of a customized built-in element.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) is documentation.
+```ocaml
+val a_itemscope : unit -> [> `Itemscope ] attrib
+```
+Microdata: creates a new item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
+```ocaml
+val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+```
+Microdata: space-separated list of vocabulary URLs for the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemtype](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype) itemtype documentation.
+```ocaml
+val a_itemid : Xml.uri wrap -> [> `Itemid ] attrib
+```
+Microdata: global identifier of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemid](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid) itemid documentation.
+```ocaml
+val a_itemprop : string list wrap -> [> `Itemprop ] attrib
+```
+Microdata: space-separated list of names of the property.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemprop](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) itemprop documentation.
+```ocaml
+val a_itemref : Html_types.idrefs wrap -> [> `Itemref ] attrib
+```
+Microdata: additional elements to crawl to find the name-value pairs of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemref](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref) itemref documentation.
+```ocaml
 val a_ismap : unit -> [> `Ismap ] attrib
 ```
 ```ocaml
@@ -11808,6 +12887,20 @@ val a_keytype : Html_types.text wrap -> [> `Keytype ] attrib
 ```ocaml
 val a_list : Html_types.idref wrap -> [> `List ] attrib
 ```
+```ocaml
+val a_loading : [< `Lazy | `Eager ] wrap -> [> `Loading ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#loading](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading) loading documentation.
+```ocaml
+val a_decoding : [< `Sync | `Async | `Auto ] wrap -> [> `Decoding ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#decoding](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding) decoding documentation.
+```ocaml
+val a_fetchpriority : 
+  [< `High | `Low | `Auto ] wrap ->
+  [> `Fetchpriority ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority) fetchpriority documentation.
 ```ocaml
 val a_loop : unit -> [> `Loop ] attrib
 ```
@@ -11834,6 +12927,18 @@ val a_inputmode :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) inputmode documentation.
 ```ocaml
+val a_nomodule : unit -> [> `Nomodule ] attrib
+```
+Indicates that a classic script must not run in browsers that support module scripts.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#nomodule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule) nomodule documentation.
+```ocaml
+val a_nonce : Html_types.text wrap -> [> `Nonce ] attrib
+```
+Cryptographic nonce used by Content Security Policy.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) nonce documentation.
+```ocaml
 val a_novalidate : unit -> [> `Novalidate ] attrib
 ```
 ```ocaml
@@ -11846,8 +12951,74 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
+val a_ping : string list wrap -> [> `Ping ] attrib
+```
+Space-separated list of URLs to ping when following the hyperlink.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a\#ping](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping) ping documentation.
+```ocaml
 val a_placeholder : Html_types.text wrap -> [> `Placeholder ] attrib
 ```
+```ocaml
+val a_playsinline : unit -> [> `Playsinline ] attrib
+```
+Indicates that a video is to be played inline, within the element's playback area.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline) playsinline documentation.
+```ocaml
+val a_disablepictureinpicture : unit -> [> `Disablepictureinpicture ] attrib
+```
+Defined by the W3C Picture-in-Picture specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disablepictureinpicture](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture) disablepictureinpicture documentation.
+```ocaml
+val a_disableremoteplayback : unit -> [> `Disableremoteplayback ] attrib
+```
+Defined by the W3C Remote Playback specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disableremoteplayback](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback) disableremoteplayback documentation.
+```ocaml
+val a_part : string list wrap -> [> `Part ] attrib
+```
+Space-separated list of part names of the element, exposed to shadow-tree styling. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/part](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part) part documentation.
+```ocaml
+val a_exportparts : Html_types.text list wrap -> [> `Exportparts ] attrib
+```
+Comma-separated list of part mappings (`name` or `name:exposed-name`) forwarded from a nested shadow tree. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/exportparts](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts) exportparts documentation.
+```ocaml
+val a_popover : [< Html_types.popover_value ] wrap -> [> `Popover ] attrib
+```
+In HTML, a bare `popover` attribute is equivalent to `popover="auto"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) popover documentation.
+```ocaml
+val a_popovertarget : Html_types.idref wrap -> [> `Popovertarget ] attrib
+```
+Id of the popover element to control with a button.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertarget](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget) popovertarget documentation.
+```ocaml
+val a_popovertargetaction : 
+  [< `Show | `Hide | `Toggle ] wrap ->
+  [> `Popovertargetaction ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertargetaction](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction) popovertargetaction documentation.
+```ocaml
+val a_command : [< Html_types.command_value ] wrap -> [> `Command ] attrib
+```
+Action to perform on the element targeted by a button (Invoker Commands API).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#command](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command) command documentation.
+```ocaml
+val a_commandfor : Html_types.idref wrap -> [> `Commandfor ] attrib
+```
+Id of the element a button command targets.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#commandfor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor) commandfor documentation.
 ```ocaml
 val a_poster : Xml.uri wrap -> [> `Poster ] attrib
 ```
@@ -11873,11 +13044,23 @@ val a_required : unit -> [> `Required ] attrib
 val a_reversed : unit -> [> `Reversed ] attrib
 ```
 ```ocaml
+val a_blocking : 
+  [< Html_types.blocking_token ] list wrap ->
+  [> `Blocking ] attrib
+```
+Space-separated list of operations blocked on the fetching of a script, style sheet or style-relevant link.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#blocking](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking) blocking documentation.
+```ocaml
 val a_sandbox : [< Html_types.sandbox_token ] list wrap -> [> `Sandbox ] attrib
 ```
 ```ocaml
 val a_spellcheck : bool wrap -> [> `Spellcheck ] attrib
 ```
+```ocaml
+val a_writingsuggestions : bool wrap -> [> `Writingsuggestions ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/writingsuggestions](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions) writingsuggestions documentation.
 ```ocaml
 val a_scoped : unit -> [> `Scoped ] attrib
 ```
@@ -11885,17 +13068,66 @@ val a_scoped : unit -> [> `Scoped ] attrib
 val a_seamless : unit -> [> `Seamless ] attrib
 ```
 ```ocaml
+val a_shadowrootmode : [< `Open | `Closed ] wrap -> [> `Shadowrootmode ] attrib
+```
+Declarative shadow root mode, for template elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode) shadowrootmode documentation.
+```ocaml
+val a_shadowrootdelegatesfocus : unit -> [> `Shadowrootdelegatesfocus ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootdelegatesfocus](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus) shadowrootdelegatesfocus documentation.
+```ocaml
+val a_shadowrootclonable : unit -> [> `Shadowrootclonable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootclonable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable) shadowrootclonable documentation.
+```ocaml
+val a_shadowrootserializable : unit -> [> `Shadowrootserializable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootserializable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable) shadowrootserializable documentation.
+```ocaml
 val a_sizes : 
   (Html_types.number * Html_types.number) list option wrap ->
   [> `Sizes ] attrib
 ```
 ```ocaml
+val a_slot : Html_types.text wrap -> [> `Slot ] attrib
+```
+Name of the shadow tree slot the element is assigned to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) slot documentation.
+```ocaml
 val a_span : Html_types.number wrap -> [> `Span ] attrib
 ```
+```ocaml
+val a_srcdoc : Html_types.text wrap -> [> `Srcdoc ] attrib
+```
+Inline HTML document of an iframe, given as escaped text.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#srcdoc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc) srcdoc documentation.
 ```ocaml
 val a_srclang : Html_types.nmtoken wrap -> [> `XML_lang ] attrib
 ```
 deprecated Use a\_xml\_lang instead.
+```ocaml
+val a_kind : 
+  [< `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata ] wrap ->
+  [> `Kind ] attrib
+```
+How a text track is meant to be used, for `track` elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#kind](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind) kind attribute documentation on MDN
+```ocaml
+val a_track_srclang : Html_types.languagecode wrap -> [> `Srclang ] attrib
+```
+Language of the text track data, for `track` elements.
+
+```ocaml
+val a_default : unit -> [> `Default ] attrib
+```
+Indicates that a text track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#default](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default) default attribute documentation on MDN
 ```ocaml
 type image_candidate = [ 
   | `Url of uri
@@ -11907,11 +13139,27 @@ type image_candidate = [
 val a_srcset : image_candidate list wrap -> [> `Srcset ] attrib
 ```
 ```ocaml
+val a_imagesrcset : image_candidate list wrap -> [> `Imagesrcset ] attrib
+```
+Images to preload, for link elements with `rel=preload` and `as=image`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesrcset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset) imagesrcset documentation.
+```ocaml
+val a_imagesizes : Html_types.text list wrap -> [> `Imagesizes ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes) imagesizes documentation.
+```ocaml
 val a_img_sizes : Html_types.text list wrap -> [> `Img_sizes ] attrib
 ```
 ```ocaml
 val a_start : Html_types.number wrap -> [> `Start ] attrib
 ```
+```ocaml
+val a_ol_type : [< Html_types.ol_type ] wrap -> [> `Ol_Type ] attrib
+```
+Numbering type of an ordered list.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol\#type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type) type attribute documentation.
 ```ocaml
 val a_step : Html_types.float_number option wrap -> [> `Step ] attrib
 ```
@@ -12025,10 +13273,10 @@ val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
 val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
 ```
 ```ocaml
-val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
+val a_method : [< `Get | `Post | `Dialog ] wrap -> [> `Method ] attrib
 ```
 ```ocaml
-val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
+val a_formmethod : [< `Get | `Post | `Dialog ] wrap -> [> `Formmethod ] attrib
 ```
 ```ocaml
 val a_multiple : unit -> [> `Multiple ] attrib
@@ -12400,6 +13648,14 @@ val main :
     [> Html_types.main ])
     star
 ```
+```ocaml
+val search : 
+  ([< Html_types.search_attrib ],
+    [< Html_types.search_content_fun ],
+    [> Html_types.search ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search) search element documentation on MDN
 
 #### Grouping content
 
@@ -12518,6 +13774,12 @@ val u :
     star
 ```
 ```ocaml
+val s : 
+  ([< Html_types.s_attrib ], [< Html_types.s_content_fun ], [> Html_types.s ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s) s element documentation on MDN
+```ocaml
 val small : 
   ([< Html_types.small_attrib ],
     [< Html_types.small_content_fun ],
@@ -12556,6 +13818,14 @@ val bdo :
     [> Html_types.bdo ])
     star
 ```
+```ocaml
+val bdi : 
+  ([< Html_types.bdi_attrib ],
+    [< Html_types.bdi_content_fun ],
+    [> Html_types.bdi ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi) bdi element documentation on MDN
 ```ocaml
 val abbr : 
   ([< Html_types.abbr_attrib ],
@@ -12635,6 +13905,17 @@ val time :
     star
 ```
 ```ocaml
+val data : 
+  value:Html_types.text wrap ->
+  ([< Html_types.data_attrib ],
+    [< Html_types.data_content_fun ],
+    [> Html_types.data ])
+    star
+```
+`data ~value content` represents `content` together with its machine-readable `value` attribute.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data) data element documentation on MDN
+```ocaml
 val var : 
   ([< Html_types.var_attrib ],
     [< Html_types.var_content_fun ],
@@ -12696,12 +13977,14 @@ val embed : ([< Html_types.embed_attrib ], [> Html_types.embed ]) nullary
 val audio : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.audio_attrib ], 'a, [> 'a Html_types.audio ]) star
 ```
 ```ocaml
 val video : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.video_attrib ], 'a, [> 'a Html_types.video ]) star
 ```
 ```ocaml
@@ -12711,6 +13994,12 @@ val canvas :
 ```ocaml
 val source : ([< Html_types.source_attrib ], [> Html_types.source ]) nullary
 ```
+```ocaml
+val track : 
+  src:Xml.uri wrap ->
+  ([< Html_types.track_attrib ], [> Html_types.track ]) nullary
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) track element documentation on MDN
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
@@ -12994,6 +14283,10 @@ val template :
     star
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) Template element documentation on MDN
+```ocaml
+val slot : ([< Html_types.slot_attrib ], 'a, [> 'a Html_types.slot ]) star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) slot element documentation on MDN
 ```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
@@ -15129,7 +16422,19 @@ val a_onbeforeprint : Xml.event_handler -> [> `OnBeforePrint ] attrib
 val a_onbeforeunload : Xml.event_handler -> [> `OnBeforeUnload ] attrib
 ```
 ```ocaml
+val a_onbeforeinput : Xml.event_handler -> [> `OnBeforeInput ] attrib
+```
+```ocaml
+val a_onbeforematch : Xml.event_handler -> [> `OnBeforeMatch ] attrib
+```
+```ocaml
+val a_onbeforetoggle : Xml.event_handler -> [> `OnBeforeToggle ] attrib
+```
+```ocaml
 val a_onblur : Xml.event_handler -> [> `OnBlur ] attrib
+```
+```ocaml
+val a_oncancel : Xml.event_handler -> [> `OnCancel ] attrib
 ```
 ```ocaml
 val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
@@ -15142,6 +16447,21 @@ val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
 ```
 ```ocaml
 val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
+```
+```ocaml
+val a_oncontextlost : Xml.event_handler -> [> `OnContextLost ] attrib
+```
+```ocaml
+val a_oncontextrestored : Xml.event_handler -> [> `OnContextRestored ] attrib
+```
+```ocaml
+val a_oncopy : Xml.event_handler -> [> `OnCopy ] attrib
+```
+```ocaml
+val a_oncut : Xml.event_handler -> [> `OnCut ] attrib
+```
+```ocaml
+val a_oncuechange : Xml.event_handler -> [> `OnCueChange ] attrib
 ```
 ```ocaml
 val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
@@ -15168,6 +16488,9 @@ val a_onforminput : Xml.event_handler -> [> `OnFormInput ] attrib
 val a_onhashchange : Xml.event_handler -> [> `OnHashChange ] attrib
 ```
 ```ocaml
+val a_onlanguagechange : Xml.event_handler -> [> `OnLanguageChange ] attrib
+```
+```ocaml
 val a_oninput : Xml.event_handler -> [> `OnInput ] attrib
 ```
 ```ocaml
@@ -15181,6 +16504,9 @@ val a_onoffline : Xml.event_handler -> [> `OnOffLine ] attrib
 ```
 ```ocaml
 val a_ononline : Xml.event_handler -> [> `OnOnLine ] attrib
+```
+```ocaml
+val a_onpaste : Xml.event_handler -> [> `OnPaste ] attrib
 ```
 ```ocaml
 val a_onpause : Xml.event_handler -> [> `OnPause ] attrib
@@ -15213,10 +16539,26 @@ val a_onreadystatechange : Xml.event_handler -> [> `OnReadyStateChange ] attrib
 val a_onredo : Xml.event_handler -> [> `OnRedo ] attrib
 ```
 ```ocaml
+val a_onrejectionhandled : Xml.event_handler -> [> `OnRejectionHandled ] attrib
+```
+```ocaml
+val a_onunhandledrejection : 
+  Xml.event_handler ->
+  [> `OnUnhandledRejection ] attrib
+```
+```ocaml
 val a_onresize : Xml.event_handler -> [> `OnResize ] attrib
 ```
 ```ocaml
 val a_onscroll : Xml.event_handler -> [> `OnScroll ] attrib
+```
+```ocaml
+val a_onscrollend : Xml.event_handler -> [> `OnScrollEnd ] attrib
+```
+```ocaml
+val a_onsecuritypolicyviolation : 
+  Xml.event_handler ->
+  [> `OnSecurityPolicyViolation ] attrib
 ```
 ```ocaml
 val a_onseeked : Xml.event_handler -> [> `OnSeeked ] attrib
@@ -15229,6 +16571,9 @@ val a_onselect : Xml.event_handler -> [> `OnSelect ] attrib
 ```
 ```ocaml
 val a_onshow : Xml.event_handler -> [> `OnShow ] attrib
+```
+```ocaml
+val a_onslotchange : Xml.event_handler -> [> `OnSlotChange ] attrib
 ```
 ```ocaml
 val a_onstalled : Xml.event_handler -> [> `OnStalled ] attrib
@@ -15244,6 +16589,9 @@ val a_onsuspend : Xml.event_handler -> [> `OnSuspend ] attrib
 ```
 ```ocaml
 val a_ontimeupdate : Xml.event_handler -> [> `OnTimeUpdate ] attrib
+```
+```ocaml
+val a_ontoggle : Xml.event_handler -> [> `OnToggle ] attrib
 ```
 ```ocaml
 val a_onundo : Xml.event_handler -> [> `OnUndo ] attrib
@@ -15275,6 +16623,9 @@ val a_onmessage : Xml.event_handler -> [> `OnMessage ] attrib
 
 ##### Mouse events
 
+```ocaml
+val a_onauxclick : Xml.mouse_event_handler -> [> `OnAuxClick ] attrib
+```
 ```ocaml
 val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] attrib
 ```
@@ -15321,6 +16672,48 @@ val a_onmousemove : Xml.mouse_event_handler -> [> `OnMouseMove ] attrib
 val a_onmouseout : Xml.mouse_event_handler -> [> `OnMouseOut ] attrib
 ```
 ```ocaml
+val a_onwheel : Xml.mouse_event_handler -> [> `OnWheel ] attrib
+```
+
+##### Pointer events
+
+In the DOM, pointer events inherit from mouse events, so the handlers use [`Xml.mouse_event_handler`](./Html_sigs-module-type-NoWrap-Xml.md#type-mouse_event_handler).
+
+```ocaml
+val a_onpointercancel : Xml.mouse_event_handler -> [> `OnPointerCancel ] attrib
+```
+```ocaml
+val a_onpointerdown : Xml.mouse_event_handler -> [> `OnPointerDown ] attrib
+```
+```ocaml
+val a_onpointerenter : Xml.mouse_event_handler -> [> `OnPointerEnter ] attrib
+```
+```ocaml
+val a_onpointerleave : Xml.mouse_event_handler -> [> `OnPointerLeave ] attrib
+```
+```ocaml
+val a_onpointermove : Xml.mouse_event_handler -> [> `OnPointerMove ] attrib
+```
+```ocaml
+val a_onpointerout : Xml.mouse_event_handler -> [> `OnPointerOut ] attrib
+```
+```ocaml
+val a_onpointerover : Xml.mouse_event_handler -> [> `OnPointerOver ] attrib
+```
+```ocaml
+val a_onpointerup : Xml.mouse_event_handler -> [> `OnPointerUp ] attrib
+```
+```ocaml
+val a_ongotpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnGotPointerCapture ] attrib
+```
+```ocaml
+val a_onlostpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnLostPointerCapture ] attrib
+```
+```ocaml
 val a_ontouchstart : Xml.touch_event_handler -> [> `OnTouchStart ] attrib
 ```
 Touch events
@@ -15350,6 +16743,18 @@ val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
 #### Other attributes
 
 ```ocaml
+val a_abbr : Html_types.text wrap -> [> `Abbr ] attrib
+```
+Alternative label of a header cell, for reference in other cells.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#abbr](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr) abbr attribute documentation.
+```ocaml
+val a_allow : Html_types.text wrap -> [> `Allow ] attrib
+```
+Permissions policy of an iframe.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#allow](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow) allow documentation.
+```ocaml
 val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
 ```
 ```ocaml
@@ -15361,6 +16766,36 @@ val a_autocomplete :
   [> `Autocomplete ] attrib
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) autocomplete documentation.
+```ocaml
+val a_autocapitalize : 
+  [< `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+  [> `Autocapitalize ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize) autocapitalize documentation.
+```ocaml
+val a_autocorrect : bool wrap -> [> `Autocorrect ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocorrect](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect) autocorrect documentation.
+```ocaml
+val a_as : 
+  [< `Audio
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker ]
+    wrap ->
+  [> `As ] attrib
+```
+Destination of a preload link. This covers the destinations listed by MDN; other spec destinations can be produced with [`Unsafe.string_attrib`](./Html_sigs-module-type-NoWrap-Unsafe.md#val-string_attrib).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#as](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) as documentation.
 ```ocaml
 val a_async : unit -> [> `Async ] attrib
 ```
@@ -15388,6 +16823,20 @@ val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
 val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
 ```
 ```ocaml
+val a_closedby : 
+  [< `Any | `Closerequest | `None ] wrap ->
+  [> `Closedby ] attrib
+```
+User actions that can close a dialog.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog\#closedby](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby) closedby documentation.
+```ocaml
+val a_capture : [< `User | `Environment ] wrap -> [> `Capture ] attrib
+```
+Preferred camera for file inputs capturing media. Defined by the W3C HTML Media Capture specification. The bare form of the attribute is not supported by the PPX; use an explicit value.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
+```ocaml
 val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
 ```
 ```ocaml
@@ -15397,11 +16846,23 @@ val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 val a_controls : unit -> [> `Controls ] attrib
 ```
 ```ocaml
-val a_dir : [< `Rtl | `Ltr ] wrap -> [> `Dir ] attrib
+val a_dir : [< `Rtl | `Ltr | `Auto ] wrap -> [> `Dir ] attrib
 ```
+```ocaml
+val a_dirname : Html_types.text wrap -> [> `Dirname ] attrib
+```
+Name of the form control field used to submit the element's text directionality.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname) dirname documentation.
 ```ocaml
 val a_draggable : bool wrap -> [> `Draggable ] attrib
 ```
+```ocaml
+val a_enterkeyhint : 
+  [< `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+  [> `Enterkeyhint ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/enterkeyhint](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint) enterkeyhint documentation.
 ```ocaml
 val a_form : Html_types.idref wrap -> [> `Form ] attrib
 ```
@@ -15427,6 +16888,46 @@ val a_high : Html_types.float_number wrap -> [> `High ] attrib
 val a_icon : Xml.uri wrap -> [> `Icon ] attrib
 ```
 ```ocaml
+val a_inert : unit -> [> `Inert ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) inert documentation.
+```ocaml
+val a_is : Html_types.text wrap -> [> `Is ] attrib
+```
+Name of a customized built-in element.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) is documentation.
+```ocaml
+val a_itemscope : unit -> [> `Itemscope ] attrib
+```
+Microdata: creates a new item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
+```ocaml
+val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+```
+Microdata: space-separated list of vocabulary URLs for the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemtype](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype) itemtype documentation.
+```ocaml
+val a_itemid : Xml.uri wrap -> [> `Itemid ] attrib
+```
+Microdata: global identifier of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemid](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid) itemid documentation.
+```ocaml
+val a_itemprop : string list wrap -> [> `Itemprop ] attrib
+```
+Microdata: space-separated list of names of the property.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemprop](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) itemprop documentation.
+```ocaml
+val a_itemref : Html_types.idrefs wrap -> [> `Itemref ] attrib
+```
+Microdata: additional elements to crawl to find the name-value pairs of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemref](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref) itemref documentation.
+```ocaml
 val a_ismap : unit -> [> `Ismap ] attrib
 ```
 ```ocaml
@@ -15435,6 +16936,20 @@ val a_keytype : Html_types.text wrap -> [> `Keytype ] attrib
 ```ocaml
 val a_list : Html_types.idref wrap -> [> `List ] attrib
 ```
+```ocaml
+val a_loading : [< `Lazy | `Eager ] wrap -> [> `Loading ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#loading](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading) loading documentation.
+```ocaml
+val a_decoding : [< `Sync | `Async | `Auto ] wrap -> [> `Decoding ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#decoding](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding) decoding documentation.
+```ocaml
+val a_fetchpriority : 
+  [< `High | `Low | `Auto ] wrap ->
+  [> `Fetchpriority ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority) fetchpriority documentation.
 ```ocaml
 val a_loop : unit -> [> `Loop ] attrib
 ```
@@ -15461,6 +16976,18 @@ val a_inputmode :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) inputmode documentation.
 ```ocaml
+val a_nomodule : unit -> [> `Nomodule ] attrib
+```
+Indicates that a classic script must not run in browsers that support module scripts.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#nomodule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule) nomodule documentation.
+```ocaml
+val a_nonce : Html_types.text wrap -> [> `Nonce ] attrib
+```
+Cryptographic nonce used by Content Security Policy.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) nonce documentation.
+```ocaml
 val a_novalidate : unit -> [> `Novalidate ] attrib
 ```
 ```ocaml
@@ -15473,8 +17000,74 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
+val a_ping : string list wrap -> [> `Ping ] attrib
+```
+Space-separated list of URLs to ping when following the hyperlink.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a\#ping](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping) ping documentation.
+```ocaml
 val a_placeholder : Html_types.text wrap -> [> `Placeholder ] attrib
 ```
+```ocaml
+val a_playsinline : unit -> [> `Playsinline ] attrib
+```
+Indicates that a video is to be played inline, within the element's playback area.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline) playsinline documentation.
+```ocaml
+val a_disablepictureinpicture : unit -> [> `Disablepictureinpicture ] attrib
+```
+Defined by the W3C Picture-in-Picture specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disablepictureinpicture](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture) disablepictureinpicture documentation.
+```ocaml
+val a_disableremoteplayback : unit -> [> `Disableremoteplayback ] attrib
+```
+Defined by the W3C Remote Playback specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disableremoteplayback](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback) disableremoteplayback documentation.
+```ocaml
+val a_part : string list wrap -> [> `Part ] attrib
+```
+Space-separated list of part names of the element, exposed to shadow-tree styling. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/part](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part) part documentation.
+```ocaml
+val a_exportparts : Html_types.text list wrap -> [> `Exportparts ] attrib
+```
+Comma-separated list of part mappings (`name` or `name:exposed-name`) forwarded from a nested shadow tree. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/exportparts](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts) exportparts documentation.
+```ocaml
+val a_popover : [< Html_types.popover_value ] wrap -> [> `Popover ] attrib
+```
+In HTML, a bare `popover` attribute is equivalent to `popover="auto"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) popover documentation.
+```ocaml
+val a_popovertarget : Html_types.idref wrap -> [> `Popovertarget ] attrib
+```
+Id of the popover element to control with a button.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertarget](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget) popovertarget documentation.
+```ocaml
+val a_popovertargetaction : 
+  [< `Show | `Hide | `Toggle ] wrap ->
+  [> `Popovertargetaction ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertargetaction](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction) popovertargetaction documentation.
+```ocaml
+val a_command : [< Html_types.command_value ] wrap -> [> `Command ] attrib
+```
+Action to perform on the element targeted by a button (Invoker Commands API).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#command](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command) command documentation.
+```ocaml
+val a_commandfor : Html_types.idref wrap -> [> `Commandfor ] attrib
+```
+Id of the element a button command targets.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#commandfor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor) commandfor documentation.
 ```ocaml
 val a_poster : Xml.uri wrap -> [> `Poster ] attrib
 ```
@@ -15500,11 +17093,23 @@ val a_required : unit -> [> `Required ] attrib
 val a_reversed : unit -> [> `Reversed ] attrib
 ```
 ```ocaml
+val a_blocking : 
+  [< Html_types.blocking_token ] list wrap ->
+  [> `Blocking ] attrib
+```
+Space-separated list of operations blocked on the fetching of a script, style sheet or style-relevant link.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#blocking](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking) blocking documentation.
+```ocaml
 val a_sandbox : [< Html_types.sandbox_token ] list wrap -> [> `Sandbox ] attrib
 ```
 ```ocaml
 val a_spellcheck : bool wrap -> [> `Spellcheck ] attrib
 ```
+```ocaml
+val a_writingsuggestions : bool wrap -> [> `Writingsuggestions ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/writingsuggestions](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions) writingsuggestions documentation.
 ```ocaml
 val a_scoped : unit -> [> `Scoped ] attrib
 ```
@@ -15512,17 +17117,66 @@ val a_scoped : unit -> [> `Scoped ] attrib
 val a_seamless : unit -> [> `Seamless ] attrib
 ```
 ```ocaml
+val a_shadowrootmode : [< `Open | `Closed ] wrap -> [> `Shadowrootmode ] attrib
+```
+Declarative shadow root mode, for template elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode) shadowrootmode documentation.
+```ocaml
+val a_shadowrootdelegatesfocus : unit -> [> `Shadowrootdelegatesfocus ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootdelegatesfocus](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus) shadowrootdelegatesfocus documentation.
+```ocaml
+val a_shadowrootclonable : unit -> [> `Shadowrootclonable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootclonable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable) shadowrootclonable documentation.
+```ocaml
+val a_shadowrootserializable : unit -> [> `Shadowrootserializable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootserializable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable) shadowrootserializable documentation.
+```ocaml
 val a_sizes : 
   (Html_types.number * Html_types.number) list option wrap ->
   [> `Sizes ] attrib
 ```
 ```ocaml
+val a_slot : Html_types.text wrap -> [> `Slot ] attrib
+```
+Name of the shadow tree slot the element is assigned to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) slot documentation.
+```ocaml
 val a_span : Html_types.number wrap -> [> `Span ] attrib
 ```
+```ocaml
+val a_srcdoc : Html_types.text wrap -> [> `Srcdoc ] attrib
+```
+Inline HTML document of an iframe, given as escaped text.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#srcdoc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc) srcdoc documentation.
 ```ocaml
 val a_srclang : Html_types.nmtoken wrap -> [> `XML_lang ] attrib
 ```
 deprecated Use a\_xml\_lang instead.
+```ocaml
+val a_kind : 
+  [< `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata ] wrap ->
+  [> `Kind ] attrib
+```
+How a text track is meant to be used, for `track` elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#kind](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind) kind attribute documentation on MDN
+```ocaml
+val a_track_srclang : Html_types.languagecode wrap -> [> `Srclang ] attrib
+```
+Language of the text track data, for `track` elements.
+
+```ocaml
+val a_default : unit -> [> `Default ] attrib
+```
+Indicates that a text track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#default](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default) default attribute documentation on MDN
 ```ocaml
 type image_candidate = [ 
   | `Url of uri
@@ -15534,11 +17188,27 @@ type image_candidate = [
 val a_srcset : image_candidate list wrap -> [> `Srcset ] attrib
 ```
 ```ocaml
+val a_imagesrcset : image_candidate list wrap -> [> `Imagesrcset ] attrib
+```
+Images to preload, for link elements with `rel=preload` and `as=image`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesrcset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset) imagesrcset documentation.
+```ocaml
+val a_imagesizes : Html_types.text list wrap -> [> `Imagesizes ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes) imagesizes documentation.
+```ocaml
 val a_img_sizes : Html_types.text list wrap -> [> `Img_sizes ] attrib
 ```
 ```ocaml
 val a_start : Html_types.number wrap -> [> `Start ] attrib
 ```
+```ocaml
+val a_ol_type : [< Html_types.ol_type ] wrap -> [> `Ol_Type ] attrib
+```
+Numbering type of an ordered list.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol\#type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type) type attribute documentation.
 ```ocaml
 val a_step : Html_types.float_number option wrap -> [> `Step ] attrib
 ```
@@ -15652,10 +17322,10 @@ val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
 val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
 ```
 ```ocaml
-val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
+val a_method : [< `Get | `Post | `Dialog ] wrap -> [> `Method ] attrib
 ```
 ```ocaml
-val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
+val a_formmethod : [< `Get | `Post | `Dialog ] wrap -> [> `Formmethod ] attrib
 ```
 ```ocaml
 val a_multiple : unit -> [> `Multiple ] attrib
@@ -16027,6 +17697,14 @@ val main :
     [> Html_types.main ])
     star
 ```
+```ocaml
+val search : 
+  ([< Html_types.search_attrib ],
+    [< Html_types.search_content_fun ],
+    [> Html_types.search ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search) search element documentation on MDN
 
 #### Grouping content
 
@@ -16145,6 +17823,12 @@ val u :
     star
 ```
 ```ocaml
+val s : 
+  ([< Html_types.s_attrib ], [< Html_types.s_content_fun ], [> Html_types.s ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s) s element documentation on MDN
+```ocaml
 val small : 
   ([< Html_types.small_attrib ],
     [< Html_types.small_content_fun ],
@@ -16183,6 +17867,14 @@ val bdo :
     [> Html_types.bdo ])
     star
 ```
+```ocaml
+val bdi : 
+  ([< Html_types.bdi_attrib ],
+    [< Html_types.bdi_content_fun ],
+    [> Html_types.bdi ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi) bdi element documentation on MDN
 ```ocaml
 val abbr : 
   ([< Html_types.abbr_attrib ],
@@ -16262,6 +17954,17 @@ val time :
     star
 ```
 ```ocaml
+val data : 
+  value:Html_types.text wrap ->
+  ([< Html_types.data_attrib ],
+    [< Html_types.data_content_fun ],
+    [> Html_types.data ])
+    star
+```
+`data ~value content` represents `content` together with its machine-readable `value` attribute.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data) data element documentation on MDN
+```ocaml
 val var : 
   ([< Html_types.var_attrib ],
     [< Html_types.var_content_fun ],
@@ -16323,12 +18026,14 @@ val embed : ([< Html_types.embed_attrib ], [> Html_types.embed ]) nullary
 val audio : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.audio_attrib ], 'a, [> 'a Html_types.audio ]) star
 ```
 ```ocaml
 val video : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.video_attrib ], 'a, [> 'a Html_types.video ]) star
 ```
 ```ocaml
@@ -16338,6 +18043,12 @@ val canvas :
 ```ocaml
 val source : ([< Html_types.source_attrib ], [> Html_types.source ]) nullary
 ```
+```ocaml
+val track : 
+  src:Xml.uri wrap ->
+  ([< Html_types.track_attrib ], [> Html_types.track ]) nullary
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) track element documentation on MDN
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
@@ -16621,6 +18332,10 @@ val template :
     star
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) Template element documentation on MDN
+```ocaml
+val slot : ([< Html_types.slot_attrib ], 'a, [> 'a Html_types.slot ]) star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) slot element documentation on MDN
 ```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
@@ -18756,7 +20471,19 @@ val a_onbeforeprint : Xml.event_handler -> [> `OnBeforePrint ] attrib
 val a_onbeforeunload : Xml.event_handler -> [> `OnBeforeUnload ] attrib
 ```
 ```ocaml
+val a_onbeforeinput : Xml.event_handler -> [> `OnBeforeInput ] attrib
+```
+```ocaml
+val a_onbeforematch : Xml.event_handler -> [> `OnBeforeMatch ] attrib
+```
+```ocaml
+val a_onbeforetoggle : Xml.event_handler -> [> `OnBeforeToggle ] attrib
+```
+```ocaml
 val a_onblur : Xml.event_handler -> [> `OnBlur ] attrib
+```
+```ocaml
+val a_oncancel : Xml.event_handler -> [> `OnCancel ] attrib
 ```
 ```ocaml
 val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
@@ -18769,6 +20496,21 @@ val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
 ```
 ```ocaml
 val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
+```
+```ocaml
+val a_oncontextlost : Xml.event_handler -> [> `OnContextLost ] attrib
+```
+```ocaml
+val a_oncontextrestored : Xml.event_handler -> [> `OnContextRestored ] attrib
+```
+```ocaml
+val a_oncopy : Xml.event_handler -> [> `OnCopy ] attrib
+```
+```ocaml
+val a_oncut : Xml.event_handler -> [> `OnCut ] attrib
+```
+```ocaml
+val a_oncuechange : Xml.event_handler -> [> `OnCueChange ] attrib
 ```
 ```ocaml
 val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
@@ -18795,6 +20537,9 @@ val a_onforminput : Xml.event_handler -> [> `OnFormInput ] attrib
 val a_onhashchange : Xml.event_handler -> [> `OnHashChange ] attrib
 ```
 ```ocaml
+val a_onlanguagechange : Xml.event_handler -> [> `OnLanguageChange ] attrib
+```
+```ocaml
 val a_oninput : Xml.event_handler -> [> `OnInput ] attrib
 ```
 ```ocaml
@@ -18808,6 +20553,9 @@ val a_onoffline : Xml.event_handler -> [> `OnOffLine ] attrib
 ```
 ```ocaml
 val a_ononline : Xml.event_handler -> [> `OnOnLine ] attrib
+```
+```ocaml
+val a_onpaste : Xml.event_handler -> [> `OnPaste ] attrib
 ```
 ```ocaml
 val a_onpause : Xml.event_handler -> [> `OnPause ] attrib
@@ -18840,10 +20588,26 @@ val a_onreadystatechange : Xml.event_handler -> [> `OnReadyStateChange ] attrib
 val a_onredo : Xml.event_handler -> [> `OnRedo ] attrib
 ```
 ```ocaml
+val a_onrejectionhandled : Xml.event_handler -> [> `OnRejectionHandled ] attrib
+```
+```ocaml
+val a_onunhandledrejection : 
+  Xml.event_handler ->
+  [> `OnUnhandledRejection ] attrib
+```
+```ocaml
 val a_onresize : Xml.event_handler -> [> `OnResize ] attrib
 ```
 ```ocaml
 val a_onscroll : Xml.event_handler -> [> `OnScroll ] attrib
+```
+```ocaml
+val a_onscrollend : Xml.event_handler -> [> `OnScrollEnd ] attrib
+```
+```ocaml
+val a_onsecuritypolicyviolation : 
+  Xml.event_handler ->
+  [> `OnSecurityPolicyViolation ] attrib
 ```
 ```ocaml
 val a_onseeked : Xml.event_handler -> [> `OnSeeked ] attrib
@@ -18856,6 +20620,9 @@ val a_onselect : Xml.event_handler -> [> `OnSelect ] attrib
 ```
 ```ocaml
 val a_onshow : Xml.event_handler -> [> `OnShow ] attrib
+```
+```ocaml
+val a_onslotchange : Xml.event_handler -> [> `OnSlotChange ] attrib
 ```
 ```ocaml
 val a_onstalled : Xml.event_handler -> [> `OnStalled ] attrib
@@ -18871,6 +20638,9 @@ val a_onsuspend : Xml.event_handler -> [> `OnSuspend ] attrib
 ```
 ```ocaml
 val a_ontimeupdate : Xml.event_handler -> [> `OnTimeUpdate ] attrib
+```
+```ocaml
+val a_ontoggle : Xml.event_handler -> [> `OnToggle ] attrib
 ```
 ```ocaml
 val a_onundo : Xml.event_handler -> [> `OnUndo ] attrib
@@ -18902,6 +20672,9 @@ val a_onmessage : Xml.event_handler -> [> `OnMessage ] attrib
 
 ##### Mouse events
 
+```ocaml
+val a_onauxclick : Xml.mouse_event_handler -> [> `OnAuxClick ] attrib
+```
 ```ocaml
 val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] attrib
 ```
@@ -18948,6 +20721,48 @@ val a_onmousemove : Xml.mouse_event_handler -> [> `OnMouseMove ] attrib
 val a_onmouseout : Xml.mouse_event_handler -> [> `OnMouseOut ] attrib
 ```
 ```ocaml
+val a_onwheel : Xml.mouse_event_handler -> [> `OnWheel ] attrib
+```
+
+##### Pointer events
+
+In the DOM, pointer events inherit from mouse events, so the handlers use [`Xml.mouse_event_handler`](./Html_sigs-module-type-T-Xml.md#type-mouse_event_handler).
+
+```ocaml
+val a_onpointercancel : Xml.mouse_event_handler -> [> `OnPointerCancel ] attrib
+```
+```ocaml
+val a_onpointerdown : Xml.mouse_event_handler -> [> `OnPointerDown ] attrib
+```
+```ocaml
+val a_onpointerenter : Xml.mouse_event_handler -> [> `OnPointerEnter ] attrib
+```
+```ocaml
+val a_onpointerleave : Xml.mouse_event_handler -> [> `OnPointerLeave ] attrib
+```
+```ocaml
+val a_onpointermove : Xml.mouse_event_handler -> [> `OnPointerMove ] attrib
+```
+```ocaml
+val a_onpointerout : Xml.mouse_event_handler -> [> `OnPointerOut ] attrib
+```
+```ocaml
+val a_onpointerover : Xml.mouse_event_handler -> [> `OnPointerOver ] attrib
+```
+```ocaml
+val a_onpointerup : Xml.mouse_event_handler -> [> `OnPointerUp ] attrib
+```
+```ocaml
+val a_ongotpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnGotPointerCapture ] attrib
+```
+```ocaml
+val a_onlostpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnLostPointerCapture ] attrib
+```
+```ocaml
 val a_ontouchstart : Xml.touch_event_handler -> [> `OnTouchStart ] attrib
 ```
 Touch events
@@ -18977,6 +20792,18 @@ val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
 #### Other attributes
 
 ```ocaml
+val a_abbr : Html_types.text wrap -> [> `Abbr ] attrib
+```
+Alternative label of a header cell, for reference in other cells.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#abbr](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr) abbr attribute documentation.
+```ocaml
+val a_allow : Html_types.text wrap -> [> `Allow ] attrib
+```
+Permissions policy of an iframe.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#allow](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow) allow documentation.
+```ocaml
 val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
 ```
 ```ocaml
@@ -18988,6 +20815,36 @@ val a_autocomplete :
   [> `Autocomplete ] attrib
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) autocomplete documentation.
+```ocaml
+val a_autocapitalize : 
+  [< `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+  [> `Autocapitalize ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize) autocapitalize documentation.
+```ocaml
+val a_autocorrect : bool wrap -> [> `Autocorrect ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocorrect](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect) autocorrect documentation.
+```ocaml
+val a_as : 
+  [< `Audio
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker ]
+    wrap ->
+  [> `As ] attrib
+```
+Destination of a preload link. This covers the destinations listed by MDN; other spec destinations can be produced with [`Unsafe.string_attrib`](./Html_sigs-module-type-T-Unsafe.md#val-string_attrib).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#as](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) as documentation.
 ```ocaml
 val a_async : unit -> [> `Async ] attrib
 ```
@@ -19015,6 +20872,20 @@ val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
 val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
 ```
 ```ocaml
+val a_closedby : 
+  [< `Any | `Closerequest | `None ] wrap ->
+  [> `Closedby ] attrib
+```
+User actions that can close a dialog.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog\#closedby](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby) closedby documentation.
+```ocaml
+val a_capture : [< `User | `Environment ] wrap -> [> `Capture ] attrib
+```
+Preferred camera for file inputs capturing media. Defined by the W3C HTML Media Capture specification. The bare form of the attribute is not supported by the PPX; use an explicit value.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
+```ocaml
 val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
 ```
 ```ocaml
@@ -19024,11 +20895,23 @@ val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 val a_controls : unit -> [> `Controls ] attrib
 ```
 ```ocaml
-val a_dir : [< `Rtl | `Ltr ] wrap -> [> `Dir ] attrib
+val a_dir : [< `Rtl | `Ltr | `Auto ] wrap -> [> `Dir ] attrib
 ```
+```ocaml
+val a_dirname : Html_types.text wrap -> [> `Dirname ] attrib
+```
+Name of the form control field used to submit the element's text directionality.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname) dirname documentation.
 ```ocaml
 val a_draggable : bool wrap -> [> `Draggable ] attrib
 ```
+```ocaml
+val a_enterkeyhint : 
+  [< `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+  [> `Enterkeyhint ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/enterkeyhint](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint) enterkeyhint documentation.
 ```ocaml
 val a_form : Html_types.idref wrap -> [> `Form ] attrib
 ```
@@ -19054,6 +20937,46 @@ val a_high : Html_types.float_number wrap -> [> `High ] attrib
 val a_icon : Xml.uri wrap -> [> `Icon ] attrib
 ```
 ```ocaml
+val a_inert : unit -> [> `Inert ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) inert documentation.
+```ocaml
+val a_is : Html_types.text wrap -> [> `Is ] attrib
+```
+Name of a customized built-in element.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) is documentation.
+```ocaml
+val a_itemscope : unit -> [> `Itemscope ] attrib
+```
+Microdata: creates a new item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
+```ocaml
+val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+```
+Microdata: space-separated list of vocabulary URLs for the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemtype](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype) itemtype documentation.
+```ocaml
+val a_itemid : Xml.uri wrap -> [> `Itemid ] attrib
+```
+Microdata: global identifier of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemid](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid) itemid documentation.
+```ocaml
+val a_itemprop : string list wrap -> [> `Itemprop ] attrib
+```
+Microdata: space-separated list of names of the property.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemprop](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) itemprop documentation.
+```ocaml
+val a_itemref : Html_types.idrefs wrap -> [> `Itemref ] attrib
+```
+Microdata: additional elements to crawl to find the name-value pairs of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemref](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref) itemref documentation.
+```ocaml
 val a_ismap : unit -> [> `Ismap ] attrib
 ```
 ```ocaml
@@ -19062,6 +20985,20 @@ val a_keytype : Html_types.text wrap -> [> `Keytype ] attrib
 ```ocaml
 val a_list : Html_types.idref wrap -> [> `List ] attrib
 ```
+```ocaml
+val a_loading : [< `Lazy | `Eager ] wrap -> [> `Loading ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#loading](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading) loading documentation.
+```ocaml
+val a_decoding : [< `Sync | `Async | `Auto ] wrap -> [> `Decoding ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#decoding](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding) decoding documentation.
+```ocaml
+val a_fetchpriority : 
+  [< `High | `Low | `Auto ] wrap ->
+  [> `Fetchpriority ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority) fetchpriority documentation.
 ```ocaml
 val a_loop : unit -> [> `Loop ] attrib
 ```
@@ -19088,6 +21025,18 @@ val a_inputmode :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) inputmode documentation.
 ```ocaml
+val a_nomodule : unit -> [> `Nomodule ] attrib
+```
+Indicates that a classic script must not run in browsers that support module scripts.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#nomodule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule) nomodule documentation.
+```ocaml
+val a_nonce : Html_types.text wrap -> [> `Nonce ] attrib
+```
+Cryptographic nonce used by Content Security Policy.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) nonce documentation.
+```ocaml
 val a_novalidate : unit -> [> `Novalidate ] attrib
 ```
 ```ocaml
@@ -19100,8 +21049,74 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
+val a_ping : string list wrap -> [> `Ping ] attrib
+```
+Space-separated list of URLs to ping when following the hyperlink.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a\#ping](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping) ping documentation.
+```ocaml
 val a_placeholder : Html_types.text wrap -> [> `Placeholder ] attrib
 ```
+```ocaml
+val a_playsinline : unit -> [> `Playsinline ] attrib
+```
+Indicates that a video is to be played inline, within the element's playback area.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline) playsinline documentation.
+```ocaml
+val a_disablepictureinpicture : unit -> [> `Disablepictureinpicture ] attrib
+```
+Defined by the W3C Picture-in-Picture specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disablepictureinpicture](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture) disablepictureinpicture documentation.
+```ocaml
+val a_disableremoteplayback : unit -> [> `Disableremoteplayback ] attrib
+```
+Defined by the W3C Remote Playback specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disableremoteplayback](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback) disableremoteplayback documentation.
+```ocaml
+val a_part : string list wrap -> [> `Part ] attrib
+```
+Space-separated list of part names of the element, exposed to shadow-tree styling. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/part](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part) part documentation.
+```ocaml
+val a_exportparts : Html_types.text list wrap -> [> `Exportparts ] attrib
+```
+Comma-separated list of part mappings (`name` or `name:exposed-name`) forwarded from a nested shadow tree. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/exportparts](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts) exportparts documentation.
+```ocaml
+val a_popover : [< Html_types.popover_value ] wrap -> [> `Popover ] attrib
+```
+In HTML, a bare `popover` attribute is equivalent to `popover="auto"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) popover documentation.
+```ocaml
+val a_popovertarget : Html_types.idref wrap -> [> `Popovertarget ] attrib
+```
+Id of the popover element to control with a button.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertarget](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget) popovertarget documentation.
+```ocaml
+val a_popovertargetaction : 
+  [< `Show | `Hide | `Toggle ] wrap ->
+  [> `Popovertargetaction ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertargetaction](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction) popovertargetaction documentation.
+```ocaml
+val a_command : [< Html_types.command_value ] wrap -> [> `Command ] attrib
+```
+Action to perform on the element targeted by a button (Invoker Commands API).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#command](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command) command documentation.
+```ocaml
+val a_commandfor : Html_types.idref wrap -> [> `Commandfor ] attrib
+```
+Id of the element a button command targets.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#commandfor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor) commandfor documentation.
 ```ocaml
 val a_poster : Xml.uri wrap -> [> `Poster ] attrib
 ```
@@ -19127,11 +21142,23 @@ val a_required : unit -> [> `Required ] attrib
 val a_reversed : unit -> [> `Reversed ] attrib
 ```
 ```ocaml
+val a_blocking : 
+  [< Html_types.blocking_token ] list wrap ->
+  [> `Blocking ] attrib
+```
+Space-separated list of operations blocked on the fetching of a script, style sheet or style-relevant link.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#blocking](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking) blocking documentation.
+```ocaml
 val a_sandbox : [< Html_types.sandbox_token ] list wrap -> [> `Sandbox ] attrib
 ```
 ```ocaml
 val a_spellcheck : bool wrap -> [> `Spellcheck ] attrib
 ```
+```ocaml
+val a_writingsuggestions : bool wrap -> [> `Writingsuggestions ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/writingsuggestions](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions) writingsuggestions documentation.
 ```ocaml
 val a_scoped : unit -> [> `Scoped ] attrib
 ```
@@ -19139,17 +21166,66 @@ val a_scoped : unit -> [> `Scoped ] attrib
 val a_seamless : unit -> [> `Seamless ] attrib
 ```
 ```ocaml
+val a_shadowrootmode : [< `Open | `Closed ] wrap -> [> `Shadowrootmode ] attrib
+```
+Declarative shadow root mode, for template elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode) shadowrootmode documentation.
+```ocaml
+val a_shadowrootdelegatesfocus : unit -> [> `Shadowrootdelegatesfocus ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootdelegatesfocus](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus) shadowrootdelegatesfocus documentation.
+```ocaml
+val a_shadowrootclonable : unit -> [> `Shadowrootclonable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootclonable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable) shadowrootclonable documentation.
+```ocaml
+val a_shadowrootserializable : unit -> [> `Shadowrootserializable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootserializable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable) shadowrootserializable documentation.
+```ocaml
 val a_sizes : 
   (Html_types.number * Html_types.number) list option wrap ->
   [> `Sizes ] attrib
 ```
 ```ocaml
+val a_slot : Html_types.text wrap -> [> `Slot ] attrib
+```
+Name of the shadow tree slot the element is assigned to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) slot documentation.
+```ocaml
 val a_span : Html_types.number wrap -> [> `Span ] attrib
 ```
+```ocaml
+val a_srcdoc : Html_types.text wrap -> [> `Srcdoc ] attrib
+```
+Inline HTML document of an iframe, given as escaped text.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#srcdoc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc) srcdoc documentation.
 ```ocaml
 val a_srclang : Html_types.nmtoken wrap -> [> `XML_lang ] attrib
 ```
 deprecated Use a\_xml\_lang instead.
+```ocaml
+val a_kind : 
+  [< `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata ] wrap ->
+  [> `Kind ] attrib
+```
+How a text track is meant to be used, for `track` elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#kind](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind) kind attribute documentation on MDN
+```ocaml
+val a_track_srclang : Html_types.languagecode wrap -> [> `Srclang ] attrib
+```
+Language of the text track data, for `track` elements.
+
+```ocaml
+val a_default : unit -> [> `Default ] attrib
+```
+Indicates that a text track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#default](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default) default attribute documentation on MDN
 ```ocaml
 type image_candidate = [ 
   | `Url of uri
@@ -19161,11 +21237,27 @@ type image_candidate = [
 val a_srcset : image_candidate list wrap -> [> `Srcset ] attrib
 ```
 ```ocaml
+val a_imagesrcset : image_candidate list wrap -> [> `Imagesrcset ] attrib
+```
+Images to preload, for link elements with `rel=preload` and `as=image`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesrcset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset) imagesrcset documentation.
+```ocaml
+val a_imagesizes : Html_types.text list wrap -> [> `Imagesizes ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes) imagesizes documentation.
+```ocaml
 val a_img_sizes : Html_types.text list wrap -> [> `Img_sizes ] attrib
 ```
 ```ocaml
 val a_start : Html_types.number wrap -> [> `Start ] attrib
 ```
+```ocaml
+val a_ol_type : [< Html_types.ol_type ] wrap -> [> `Ol_Type ] attrib
+```
+Numbering type of an ordered list.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol\#type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type) type attribute documentation.
 ```ocaml
 val a_step : Html_types.float_number option wrap -> [> `Step ] attrib
 ```
@@ -19279,10 +21371,10 @@ val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
 val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
 ```
 ```ocaml
-val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
+val a_method : [< `Get | `Post | `Dialog ] wrap -> [> `Method ] attrib
 ```
 ```ocaml
-val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
+val a_formmethod : [< `Get | `Post | `Dialog ] wrap -> [> `Formmethod ] attrib
 ```
 ```ocaml
 val a_multiple : unit -> [> `Multiple ] attrib
@@ -19654,6 +21746,14 @@ val main :
     [> Html_types.main ])
     star
 ```
+```ocaml
+val search : 
+  ([< Html_types.search_attrib ],
+    [< Html_types.search_content_fun ],
+    [> Html_types.search ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search) search element documentation on MDN
 
 #### Grouping content
 
@@ -19772,6 +21872,12 @@ val u :
     star
 ```
 ```ocaml
+val s : 
+  ([< Html_types.s_attrib ], [< Html_types.s_content_fun ], [> Html_types.s ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s) s element documentation on MDN
+```ocaml
 val small : 
   ([< Html_types.small_attrib ],
     [< Html_types.small_content_fun ],
@@ -19810,6 +21916,14 @@ val bdo :
     [> Html_types.bdo ])
     star
 ```
+```ocaml
+val bdi : 
+  ([< Html_types.bdi_attrib ],
+    [< Html_types.bdi_content_fun ],
+    [> Html_types.bdi ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi) bdi element documentation on MDN
 ```ocaml
 val abbr : 
   ([< Html_types.abbr_attrib ],
@@ -19889,6 +22003,17 @@ val time :
     star
 ```
 ```ocaml
+val data : 
+  value:Html_types.text wrap ->
+  ([< Html_types.data_attrib ],
+    [< Html_types.data_content_fun ],
+    [> Html_types.data ])
+    star
+```
+`data ~value content` represents `content` together with its machine-readable `value` attribute.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data) data element documentation on MDN
+```ocaml
 val var : 
   ([< Html_types.var_attrib ],
     [< Html_types.var_content_fun ],
@@ -19950,12 +22075,14 @@ val embed : ([< Html_types.embed_attrib ], [> Html_types.embed ]) nullary
 val audio : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.audio_attrib ], 'a, [> 'a Html_types.audio ]) star
 ```
 ```ocaml
 val video : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.video_attrib ], 'a, [> 'a Html_types.video ]) star
 ```
 ```ocaml
@@ -19965,6 +22092,12 @@ val canvas :
 ```ocaml
 val source : ([< Html_types.source_attrib ], [> Html_types.source ]) nullary
 ```
+```ocaml
+val track : 
+  src:Xml.uri wrap ->
+  ([< Html_types.track_attrib ], [> Html_types.track ]) nullary
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) track element documentation on MDN
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
@@ -20249,6 +22382,10 @@ val template :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) Template element documentation on MDN
 ```ocaml
+val slot : ([< Html_types.slot_attrib ], 'a, [> 'a Html_types.slot ]) star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) slot element documentation on MDN
+```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
 
@@ -20527,6 +22664,12 @@ val string_of_referrerpolicy :
 ```
 ```ocaml
 val string_of_numbers : (Html_types.numbers, string) Xml.W.ft
+```
+```ocaml
+val string_of_blocking : ([< Html_types.blocking_token ] list, string) Xml.W.ft
+```
+```ocaml
+val string_of_ol_type : ([< Html_types.ol_type ], string) Xml.W.ft
 ```
 ```ocaml
 val string_of_sandbox : ([< Html_types.sandbox_token ] list, string) Xml.W.ft
@@ -20851,20 +22994,36 @@ type i18n = [
 ```ocaml
 type core = [ 
   | `Accesskey
+  | `Autocapitalize
+  | `Autocorrect
   | `Class
   | `Contenteditable
   | `Contextmenu
   | `Dir
   | `Draggable
+  | `Enterkeyhint
+  | `Exportparts
   | `Hidden
   | `Id
+  | `Inert
   | i18n
+  | `Is
+  | `Itemid
+  | `Itemprop
+  | `Itemref
+  | `Itemscope
+  | `Itemtype
+  | `Nonce
+  | `Part
+  | `Popover
+  | `Slot
   | `Spellcheck
   | `Style_Attr
   | `Tabindex
   | `Translate
   | `Title
   | `User_data
+  | `Writingsuggestions
   | `XMLns
  ]
 ```
@@ -20874,13 +23033,23 @@ type core = [
 ```ocaml
 type events = [ 
   | `OnAbort
+  | `OnAuxClick
+  | `OnBeforeInput
+  | `OnBeforeMatch
+  | `OnBeforeToggle
   | `OnBlur
+  | `OnCancel
   | `OnCanPlay
   | `OnCanPlayThrough
   | `OnChange
   | `OnClick
   | `OnClose
   | `OnContextMenu
+  | `OnContextLost
+  | `OnContextRestored
+  | `OnCopy
+  | `OnCut
+  | `OnCueChange
   | `OnDblClick
   | `OnDrag
   | `OnDragEnd
@@ -20904,6 +23073,18 @@ type events = [
   | `OnMouseMove
   | `OnMouseOut
   | `OnMouseWheel
+  | `OnWheel
+  | `OnPointerCancel
+  | `OnPointerDown
+  | `OnPointerEnter
+  | `OnPointerLeave
+  | `OnPointerMove
+  | `OnPointerOut
+  | `OnPointerOver
+  | `OnPointerUp
+  | `OnGotPointerCapture
+  | `OnLostPointerCapture
+  | `OnPaste
   | `OnPause
   | `OnPlay
   | `OnPlaying
@@ -20911,14 +23092,18 @@ type events = [
   | `OnRateChange
   | `OnReadyStateChange
   | `OnScroll
+  | `OnScrollEnd
+  | `OnSecurityPolicyViolation
   | `OnSeeked
   | `OnSeeking
   | `OnSelect
   | `OnShow
+  | `OnSlotChange
   | `OnStalled
   | `OnSubmit
   | `OnSuspend
   | `OnTimeUpdate
+  | `OnToggle
   | `OnTouchStart
   | `OnTouchEnd
   | `OnTouchMove
@@ -21070,6 +23255,7 @@ type (+'interactive, +'noscript, +'regular, +'media) transparent = [
   | `Del of 'regular
   | `Object of 'regular
   | `Object_interactive of 'regular
+  | `Slot of 'regular
   | `Audio_interactive of 'media
   | `Video_interactive of 'media
   | `Audio of 'media
@@ -21086,6 +23272,7 @@ type (+'noscript, +'regular, +'media) transparent_without_interactive = [
   | `Object of 'regular
   | `Canvas of 'regular
   | `Map of 'regular
+  | `Slot of 'regular
   | `Audio of 'media
   | `Video of 'media
  ]
@@ -21099,6 +23286,7 @@ type (+'interactive, +'regular, +'media) transparent_without_noscript = [
   | `Map of 'regular
   | `Object of 'regular
   | `Object_interactive of 'regular
+  | `Slot of 'regular
   | `Video of 'media
   | `Audio of 'media
   | `Video_interactive of 'media
@@ -21115,6 +23303,7 @@ type (+'interactive, +'noscript, +'regular) transparent_without_media = [
   | `Canvas of 'regular
   | `Object of 'regular
   | `Object_interactive of 'regular
+  | `Slot of 'regular
  ]
 ```
 ```ocaml
@@ -21181,6 +23370,7 @@ type core_phrasing = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21192,11 +23382,13 @@ type core_phrasing = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `Img
@@ -21224,6 +23416,7 @@ type core_phrasing_without_noscript = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21235,11 +23428,13 @@ type core_phrasing_without_noscript = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `Img
   | `Img_interactive
   | `Picture
@@ -21264,6 +23459,7 @@ type core_phrasing_without_interactive = [
   | `Script
   | `Svg
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21274,11 +23470,13 @@ type core_phrasing_without_interactive = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21301,6 +23499,7 @@ type core_phrasing_without_media = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21315,11 +23514,13 @@ type core_phrasing_without_media = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21361,7 +23562,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
       phrasing_without_noscript,
       phrasing,
       phrasing_without_media)
-      transparent Abbr B Bdo Br Canvas Cite Code Command Datalist Del Dfn Em I Img Picture Ins Kbd Map Mark Meter Noscript Object PCDATA Progress Q Ruby Samp Script Small Span Strong Sub Sup Svg Template Time U Var Wbr ] as 'a
+      transparent Abbr B Bdi Bdo Br Canvas Cite Code Command Data Datalist Del Dfn Em I Img Picture Ins Kbd Map Mark Meter Noscript Object PCDATA Progress Q Ruby S Samp Script Slot Small Span Strong Sub Sup Svg Template Time U Var Wbr ] as 'a
 ```
 ```ocaml
 type phrasing_without_dfn = [ 
@@ -21379,6 +23580,7 @@ type phrasing_without_dfn = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21390,11 +23592,13 @@ type phrasing_without_dfn = [
   | `I
   | `Em
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21426,6 +23630,7 @@ type phrasing_without_label = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21434,11 +23639,13 @@ type phrasing_without_label = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21465,6 +23672,7 @@ type phrasing_without_progress = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Img
   | `Img_interactive
   | `Picture
@@ -21478,12 +23686,14 @@ type phrasing_without_progress = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Button
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21512,6 +23722,7 @@ type phrasing_without_time = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21521,11 +23732,13 @@ type phrasing_without_time = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21557,6 +23770,7 @@ type phrasing_without_meter = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -21566,11 +23780,13 @@ type phrasing_without_meter = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -21598,6 +23814,7 @@ type core_flow5 = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -21616,6 +23833,7 @@ type core_flow5_without_interactive = [
   | `Dl
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -21635,6 +23853,7 @@ type core_flow5_without_noscript = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -21654,6 +23873,7 @@ type core_flow5_without_media = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -21700,6 +23920,7 @@ type flow5_without_table = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive, flow5_without_noscript, flow5, flow5_without_media)
     transparent
  ]
@@ -21726,6 +23947,7 @@ type flow5_without_interactive_header_footer = [
   | `Dl
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_noscript, flow5, flow5_without_media)
     transparent_without_interactive
  ]
@@ -21753,6 +23975,7 @@ type flow5_without_header_footer = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive_header_footer,
     flow5_without_noscript,
     flow5,
@@ -21762,7 +23985,7 @@ type flow5_without_header_footer = [
 ```
 ```ocaml
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
-  [< flow5 Abbr Address Article Aside Audio B Bdo Blockquote Br Button Canvas Cite Code Command Datalist Del Dfn Dialog Div Dl Em Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Img Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Ol Output P PCDATA Pre Progress Q Ruby Samp Script Section Select Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Wbr ] as 'a
+  [< flow5 Abbr Address Article Aside Audio B Bdi Bdo Blockquote Br Button Canvas Cite Code Command Data Datalist Del Dfn Dialog Div Dl Em Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Img Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Ol Output P PCDATA Pre Progress Q Ruby S Samp Script Search Section Select Slot Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Wbr ] as 'a
 ```
 ```ocaml
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
@@ -21771,7 +23994,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       flow5_without_noscript,
       'a,
       flow5_without_media)
-      transparent A Abbr Address Article Aside Audio Audio_interactive B Bdo Blockquote Br Button Canvas Cite Code Command Datalist Del Details Dfn Dialog Div Dl Em Embed Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Iframe Img Img_interactive Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Object_interactive Ol Output P PCDATA Pre Progress Q Ruby Samp Script Section Select Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Video_interactive Wbr ] as 'a
+      transparent A Abbr Address Article Aside Audio Audio_interactive B Bdi Bdo Blockquote Br Button Canvas Cite Code Command Data Datalist Del Details Dfn Dialog Div Dl Em Embed Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Iframe Img Img_interactive Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Object_interactive Ol Output P PCDATA Pre Progress Q Ruby S Samp Script Search Section Select Slot Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Video_interactive Wbr ] as 'a
 ```
 ```ocaml
 type flow5_without_form = [ 
@@ -21789,6 +24012,7 @@ type flow5_without_form = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive, flow5_without_noscript, flow5, flow5_without_media)
     transparent
  ]
@@ -21813,6 +24037,7 @@ type flow5_without_sectioning_heading_header_footer_address = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive, flow5_without_noscript, flow5, flow5_without_media)
     transparent
  ]
@@ -21896,6 +24121,7 @@ type body_attrib = [
   | `OnBeforePrint
   | `OnBeforeUnload
   | `OnHashChange
+  | `OnLanguageChange
   | `OnMessage
   | `OnOffLine
   | `OnOnLine
@@ -21903,9 +24129,11 @@ type body_attrib = [
   | `OnPageShow
   | `OnPopState
   | `OnRedo
+  | `OnRejectionHandled
   | `OnResize
   | `OnStorage
   | `OnUndo
+  | `OnUnhandledRejection
   | `OnUnload
  ]
 ```
@@ -22273,6 +24501,26 @@ type main_attrib = [
  ]
 ```
 ```ocaml
+type search = [ 
+  | `Search
+ ]
+```
+```ocaml
+type search_content = [ 
+  | flow5
+ ]
+```
+```ocaml
+type search_content_fun = [ 
+  | flow5
+ ]
+```
+```ocaml
+type search_attrib = [ 
+  | common
+ ]
+```
+```ocaml
 type p = [ 
   | `P
  ]
@@ -22352,6 +24600,7 @@ type dialog_content_fun = [
 type dialog_attrib = [ 
   | common
   | `Open
+  | `Closedby
  ]
 ```
 ```ocaml
@@ -22394,6 +24643,7 @@ type ol_attrib = [
   | common
   | `Reversed
   | `Start
+  | `Ol_Type
  ]
 ```
 ```ocaml
@@ -22680,6 +24930,26 @@ type u_attrib = [
  ]
 ```
 ```ocaml
+type s = [ 
+  | `S
+ ]
+```
+```ocaml
+type s_content = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type s_content_fun = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type s_attrib = [ 
+  | common
+ ]
+```
+```ocaml
 type small = [ 
   | `Small
  ]
@@ -22792,6 +25062,26 @@ type bdo_content_fun = [
 ```
 ```ocaml
 type bdo_attrib = [ 
+  | common
+ ]
+```
+```ocaml
+type bdi = [ 
+  | `Bdi
+ ]
+```
+```ocaml
+type bdi_content = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type bdi_content_fun = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type bdi_attrib = [ 
   | common
  ]
 ```
@@ -23013,6 +25303,26 @@ type strong_attrib = [
  ]
 ```
 ```ocaml
+type data = [ 
+  | `Data
+ ]
+```
+```ocaml
+type data_content = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type data_content_fun = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type data_attrib = [ 
+  | common
+ ]
+```
+```ocaml
 type time = [ 
   | `Time
  ]
@@ -23080,6 +25390,8 @@ type a_attrib = [
   | `Target
   | `Mime_type
   | `Download
+  | `Ping
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -23142,15 +25454,18 @@ type iframe_content_fun = [
 ```ocaml
 type iframe_attrib = [ 
   | common
+  | `Allow
   | `Allowfullscreen
   | `Allowpaymentrequest
   | `Src
+  | `Srcdoc
   | `Name
   | `Sandbox
   | `Seamless
   | `Width
   | `Height
   | `Referrerpolicy
+  | `Loading
  ]
 ```
 ```ocaml
@@ -23246,6 +25561,12 @@ type img_attrib = [
   | `Width
   | `Srcset
   | `Img_sizes
+  | `Crossorigin
+  | `Usemap
+  | `Referrerpolicy
+  | `Loading
+  | `Decoding
+  | `Fetchpriority
  ]
 ```
 ```ocaml
@@ -23257,6 +25578,7 @@ type media_attrib = [
   | `Loop
   | `Muted
   | `Controls
+  | `Disableremoteplayback
  ]
 ```
 ```ocaml
@@ -23312,6 +25634,8 @@ type video_attrib = [
   | `Poster
   | `Width
   | `Height
+  | `Playsinline
+  | `Disablepictureinpicture
  ]
 ```
 ```ocaml
@@ -23356,6 +25680,26 @@ type source_attrib = [
  ]
 ```
 ```ocaml
+type track = [ 
+  | `Track
+ ]
+```
+```ocaml
+type track_content = notag
+```
+```ocaml
+type track_content_fun = notag
+```
+```ocaml
+type track_attrib = [ 
+  | common
+  | `Kind
+  | `Srclang
+  | `Label
+  | `Default
+ ]
+```
+```ocaml
 type area = [ 
   | `Area
  ]
@@ -23378,6 +25722,8 @@ type area_attrib = [
   | `Hreflang
   | `Mime_type
   | `Download
+  | `Ping
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -23605,6 +25951,7 @@ type th_attrib = [
   | `Headers
   | `Rowspan
   | `Scope
+  | `Abbr
  ]
 ```
 ```ocaml
@@ -23768,6 +26115,10 @@ type input_attrib = [
   | `Value
   | `Width
   | `Inputmode
+  | `Popovertarget
+  | `Popovertargetaction
+  | `Dirname
+  | `Capture
  ]
 ```
 ```ocaml
@@ -23790,6 +26141,8 @@ type textarea_attrib = [
   | `Wrap
   | `Rows
   | `Cols
+  | `Dirname
+  | `Autocomplete
  ]
 ```
 ```ocaml
@@ -23830,6 +26183,10 @@ type button_attrib = [
   | `Name
   | `Text_Value
   | `Button_Type
+  | `Popovertarget
+  | `Popovertargetaction
+  | `Command
+  | `Commandfor
  ]
 ```
 ```ocaml
@@ -23859,6 +26216,7 @@ type select_attrib = [
   | `Form
   | `Disabled
   | `Required
+  | `Autocomplete
  ]
 ```
 ```ocaml
@@ -24134,6 +26492,7 @@ type meta_attrib = [
   | `Content
   | `Charset
   | `Property
+  | `Media
  ]
 ```
 ```ocaml
@@ -24157,6 +26516,7 @@ type style_attrib = [
   | `Media
   | `Mime_type
   | `Scoped
+  | `Blocking
  ]
 ```
 ```ocaml
@@ -24173,6 +26533,10 @@ type script_attrib = [
   | `Src
   | `Defer
   | `Script_type
+  | `Blocking
+  | `Fetchpriority
+  | `Nomodule
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -24193,6 +26557,10 @@ type template = [
 ```ocaml
 type template_attrib = [ 
   | common
+  | `Shadowrootmode
+  | `Shadowrootdelegatesfocus
+  | `Shadowrootclonable
+  | `Shadowrootserializable
  ]
 ```
 ```ocaml
@@ -24203,6 +26571,26 @@ type template_content = [
 ```ocaml
 type template_content_fun = [ 
   | flow5
+ ]
+```
+```ocaml
+type 'a slot = [ 
+  | `Slot of 'a
+ ]
+```
+```ocaml
+type slot_content = flow5
+```
+```ocaml
+type slot_ = slot_content slot
+```
+```ocaml
+type slot_content_fun = flow5
+```
+```ocaml
+type slot_attrib = [ 
+  | common
+  | `Name
  ]
 ```
 ```ocaml
@@ -24226,6 +26614,13 @@ type link_attrib = [
   | `Href
   | `Sizes
   | `Mime_type
+  | `As
+  | `Imagesrcset
+  | `Imagesizes
+  | `Blocking
+  | `Fetchpriority
+  | `Disabled
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -24273,6 +26668,7 @@ type big_variant = [
   | `Selected
   | `Get
   | `Post
+  | `Dialog
   | `Checked
   | `Disabled
   | `ReadOnly
@@ -24293,6 +26689,10 @@ type big_variant = [
   | `Open
   | `Audio
   | `Metadata
+  | `Subtitles
+  | `Captions
+  | `Descriptions
+  | `Chapters
   | `None
   | `Pubdate
   | `Required
@@ -24327,8 +26727,52 @@ type big_variant = [
   | `One
   | `Zero
   | `Auto
+  | `Manual
+  | `Hint
   | `No
   | `Yes
+  | `On
+  | `Off
+  | `Enter
+  | `Done
+  | `Go
+  | `Next
+  | `Previous
+  | `Send
+  | `Sentences
+  | `Words
+  | `Characters
+  | `Show
+  | `Hide
+  | `Toggle
+  | `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string
+  | `Lazy
+  | `Eager
+  | `Sync
+  | `High
+  | `Low
+  | `User
+  | `Environment
+  | `Any
+  | `Closerequest
+  | `Closed
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker
   | `Defer
   | `Verbatim
   | `Latin
@@ -24348,12 +26792,24 @@ type big_variant = [
 ```
 ```ocaml
 type sandbox_token = [ 
+  | `Allow_downloads
   | `Allow_forms
+  | `Allow_modals
+  | `Allow_orientation_lock
   | `Allow_pointer_lock
   | `Allow_popups
-  | `Allow_top_navigation
+  | `Allow_popups_to_escape_sandbox
+  | `Allow_presentation
   | `Allow_same_origin
   | `Allow_script
+  | `Allow_top_navigation
+  | `Allow_top_navigation_by_user_activation
+  | `Allow_top_navigation_to_custom_protocols
+ ]
+```
+```ocaml
+type blocking_token = [ 
+  | `Render
  ]
 ```
 ```ocaml
@@ -24397,6 +26853,36 @@ type autocomplete_option = [
   | `Tokens of string list
  ]
 ```
+```ocaml
+type popover_value = [ 
+  | `Auto
+  | `Manual
+  | `Hint
+ ]
+```
+```ocaml
+type ol_type = [ 
+  | `Decimal
+  | `Lower_alpha
+  | `Upper_alpha
+  | `Lower_roman
+  | `Upper_roman
+ ]
+```
+Values of the `type` attribute of ordered lists. The serialized values are case-sensitive ("1", "a", "A", "i", "I").
+
+```ocaml
+type command_value = [ 
+  | `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string
+ ]
+```
+Values for the `command` attribute of button elements. Custom commands (starting with `--`) use the ``Other` constructor.
 
 
 ---
@@ -26770,7 +29256,7 @@ val cdata_style : string -> elt
 
 ---
 
-# Parameter `Make_with_wrapped_functions.C`
+# Parameter `Make_with_wrapped_functions._`
 
 ```ocaml
 module Xml = Xml
@@ -26855,7 +29341,7 @@ Similar to [`Make`](./Svg_f-Make.md) but with a custom set of wrapped functions.
 module Xml : Xml_sigs.T
 ```
 ```ocaml
-module C : Svg_sigs.Wrapped_functions with module Xml = Xml
+module _ : Svg_sigs.Wrapped_functions with module Xml = Xml
 ```
 
 ## Signature
@@ -28685,7 +31171,7 @@ The standard set of wrapped functions, when `W.ft` is the regular function.
 ```ocaml
 module Make_with_wrapped_functions
   (Xml : Xml_sigs.T)
-  (C : Svg_sigs.Wrapped_functions with module Xml = Xml) : 
+  (_ : Svg_sigs.Wrapped_functions with module Xml = Xml) : 
   Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib
@@ -37648,7 +40134,19 @@ val a_onbeforeprint : Xml.event_handler -> [> `OnBeforePrint ] attrib
 val a_onbeforeunload : Xml.event_handler -> [> `OnBeforeUnload ] attrib
 ```
 ```ocaml
+val a_onbeforeinput : Xml.event_handler -> [> `OnBeforeInput ] attrib
+```
+```ocaml
+val a_onbeforematch : Xml.event_handler -> [> `OnBeforeMatch ] attrib
+```
+```ocaml
+val a_onbeforetoggle : Xml.event_handler -> [> `OnBeforeToggle ] attrib
+```
+```ocaml
 val a_onblur : Xml.event_handler -> [> `OnBlur ] attrib
+```
+```ocaml
+val a_oncancel : Xml.event_handler -> [> `OnCancel ] attrib
 ```
 ```ocaml
 val a_oncanplay : Xml.event_handler -> [> `OnCanPlay ] attrib
@@ -37661,6 +40159,21 @@ val a_onchange : Xml.event_handler -> [> `OnChange ] attrib
 ```
 ```ocaml
 val a_onclose : Xml.event_handler -> [> `OnClose ] attrib
+```
+```ocaml
+val a_oncontextlost : Xml.event_handler -> [> `OnContextLost ] attrib
+```
+```ocaml
+val a_oncontextrestored : Xml.event_handler -> [> `OnContextRestored ] attrib
+```
+```ocaml
+val a_oncopy : Xml.event_handler -> [> `OnCopy ] attrib
+```
+```ocaml
+val a_oncut : Xml.event_handler -> [> `OnCut ] attrib
+```
+```ocaml
+val a_oncuechange : Xml.event_handler -> [> `OnCueChange ] attrib
 ```
 ```ocaml
 val a_ondurationchange : Xml.event_handler -> [> `OnDurationChange ] attrib
@@ -37687,6 +40200,9 @@ val a_onforminput : Xml.event_handler -> [> `OnFormInput ] attrib
 val a_onhashchange : Xml.event_handler -> [> `OnHashChange ] attrib
 ```
 ```ocaml
+val a_onlanguagechange : Xml.event_handler -> [> `OnLanguageChange ] attrib
+```
+```ocaml
 val a_oninput : Xml.event_handler -> [> `OnInput ] attrib
 ```
 ```ocaml
@@ -37700,6 +40216,9 @@ val a_onoffline : Xml.event_handler -> [> `OnOffLine ] attrib
 ```
 ```ocaml
 val a_ononline : Xml.event_handler -> [> `OnOnLine ] attrib
+```
+```ocaml
+val a_onpaste : Xml.event_handler -> [> `OnPaste ] attrib
 ```
 ```ocaml
 val a_onpause : Xml.event_handler -> [> `OnPause ] attrib
@@ -37732,10 +40251,26 @@ val a_onreadystatechange : Xml.event_handler -> [> `OnReadyStateChange ] attrib
 val a_onredo : Xml.event_handler -> [> `OnRedo ] attrib
 ```
 ```ocaml
+val a_onrejectionhandled : Xml.event_handler -> [> `OnRejectionHandled ] attrib
+```
+```ocaml
+val a_onunhandledrejection : 
+  Xml.event_handler ->
+  [> `OnUnhandledRejection ] attrib
+```
+```ocaml
 val a_onresize : Xml.event_handler -> [> `OnResize ] attrib
 ```
 ```ocaml
 val a_onscroll : Xml.event_handler -> [> `OnScroll ] attrib
+```
+```ocaml
+val a_onscrollend : Xml.event_handler -> [> `OnScrollEnd ] attrib
+```
+```ocaml
+val a_onsecuritypolicyviolation : 
+  Xml.event_handler ->
+  [> `OnSecurityPolicyViolation ] attrib
 ```
 ```ocaml
 val a_onseeked : Xml.event_handler -> [> `OnSeeked ] attrib
@@ -37748,6 +40283,9 @@ val a_onselect : Xml.event_handler -> [> `OnSelect ] attrib
 ```
 ```ocaml
 val a_onshow : Xml.event_handler -> [> `OnShow ] attrib
+```
+```ocaml
+val a_onslotchange : Xml.event_handler -> [> `OnSlotChange ] attrib
 ```
 ```ocaml
 val a_onstalled : Xml.event_handler -> [> `OnStalled ] attrib
@@ -37763,6 +40301,9 @@ val a_onsuspend : Xml.event_handler -> [> `OnSuspend ] attrib
 ```
 ```ocaml
 val a_ontimeupdate : Xml.event_handler -> [> `OnTimeUpdate ] attrib
+```
+```ocaml
+val a_ontoggle : Xml.event_handler -> [> `OnToggle ] attrib
 ```
 ```ocaml
 val a_onundo : Xml.event_handler -> [> `OnUndo ] attrib
@@ -37794,6 +40335,9 @@ val a_onmessage : Xml.event_handler -> [> `OnMessage ] attrib
 
 ##### Mouse events
 
+```ocaml
+val a_onauxclick : Xml.mouse_event_handler -> [> `OnAuxClick ] attrib
+```
 ```ocaml
 val a_onclick : Xml.mouse_event_handler -> [> `OnClick ] attrib
 ```
@@ -37840,6 +40384,48 @@ val a_onmousemove : Xml.mouse_event_handler -> [> `OnMouseMove ] attrib
 val a_onmouseout : Xml.mouse_event_handler -> [> `OnMouseOut ] attrib
 ```
 ```ocaml
+val a_onwheel : Xml.mouse_event_handler -> [> `OnWheel ] attrib
+```
+
+##### Pointer events
+
+In the DOM, pointer events inherit from mouse events, so the handlers use [`Xml.mouse_event_handler`](./Tyxml_html-Xml.md#type-mouse_event_handler).
+
+```ocaml
+val a_onpointercancel : Xml.mouse_event_handler -> [> `OnPointerCancel ] attrib
+```
+```ocaml
+val a_onpointerdown : Xml.mouse_event_handler -> [> `OnPointerDown ] attrib
+```
+```ocaml
+val a_onpointerenter : Xml.mouse_event_handler -> [> `OnPointerEnter ] attrib
+```
+```ocaml
+val a_onpointerleave : Xml.mouse_event_handler -> [> `OnPointerLeave ] attrib
+```
+```ocaml
+val a_onpointermove : Xml.mouse_event_handler -> [> `OnPointerMove ] attrib
+```
+```ocaml
+val a_onpointerout : Xml.mouse_event_handler -> [> `OnPointerOut ] attrib
+```
+```ocaml
+val a_onpointerover : Xml.mouse_event_handler -> [> `OnPointerOver ] attrib
+```
+```ocaml
+val a_onpointerup : Xml.mouse_event_handler -> [> `OnPointerUp ] attrib
+```
+```ocaml
+val a_ongotpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnGotPointerCapture ] attrib
+```
+```ocaml
+val a_onlostpointercapture : 
+  Xml.mouse_event_handler ->
+  [> `OnLostPointerCapture ] attrib
+```
+```ocaml
 val a_ontouchstart : Xml.touch_event_handler -> [> `OnTouchStart ] attrib
 ```
 Touch events
@@ -37869,6 +40455,18 @@ val a_onkeyup : Xml.keyboard_event_handler -> [> `OnKeyUp ] attrib
 #### Other attributes
 
 ```ocaml
+val a_abbr : Html_types.text wrap -> [> `Abbr ] attrib
+```
+Alternative label of a header cell, for reference in other cells.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th\#abbr](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#abbr) abbr attribute documentation.
+```ocaml
+val a_allow : Html_types.text wrap -> [> `Allow ] attrib
+```
+Permissions policy of an iframe.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#allow](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allow) allow documentation.
+```ocaml
 val a_allowfullscreen : unit -> [> `Allowfullscreen ] attrib
 ```
 ```ocaml
@@ -37880,6 +40478,36 @@ val a_autocomplete :
   [> `Autocomplete ] attrib
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) autocomplete documentation.
+```ocaml
+val a_autocapitalize : 
+  [< `Off | `None | `On | `Sentences | `Words | `Characters ] wrap ->
+  [> `Autocapitalize ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocapitalize](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize) autocapitalize documentation.
+```ocaml
+val a_autocorrect : bool wrap -> [> `Autocorrect ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/autocorrect](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocorrect) autocorrect documentation.
+```ocaml
+val a_as : 
+  [< `Audio
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker ]
+    wrap ->
+  [> `As ] attrib
+```
+Destination of a preload link. This covers the destinations listed by MDN; other spec destinations can be produced with [`Unsafe.string_attrib`](./Tyxml_html-Unsafe.md#val-string_attrib).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#as](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) as documentation.
 ```ocaml
 val a_async : unit -> [> `Async ] attrib
 ```
@@ -37907,6 +40535,20 @@ val a_mediagroup : string wrap -> [> `Mediagroup ] attrib
 val a_challenge : Html_types.text wrap -> [> `Challenge ] attrib
 ```
 ```ocaml
+val a_closedby : 
+  [< `Any | `Closerequest | `None ] wrap ->
+  [> `Closedby ] attrib
+```
+User actions that can close a dialog.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog\#closedby](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#closedby) closedby documentation.
+```ocaml
+val a_capture : [< `User | `Environment ] wrap -> [> `Capture ] attrib
+```
+Preferred camera for file inputs capturing media. Defined by the W3C HTML Media Capture specification. The bare form of the attribute is not supported by the PPX; use an explicit value.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture) capture documentation.
+```ocaml
 val a_contenteditable : bool wrap -> [> `Contenteditable ] attrib
 ```
 ```ocaml
@@ -37916,11 +40558,23 @@ val a_contextmenu : Html_types.idref wrap -> [> `Contextmenu ] attrib
 val a_controls : unit -> [> `Controls ] attrib
 ```
 ```ocaml
-val a_dir : [< `Rtl | `Ltr ] wrap -> [> `Dir ] attrib
+val a_dir : [< `Rtl | `Ltr | `Auto ] wrap -> [> `Dir ] attrib
 ```
+```ocaml
+val a_dirname : Html_types.text wrap -> [> `Dirname ] attrib
+```
+Name of the form control field used to submit the element's text directionality.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/dirname) dirname documentation.
 ```ocaml
 val a_draggable : bool wrap -> [> `Draggable ] attrib
 ```
+```ocaml
+val a_enterkeyhint : 
+  [< `Enter | `Done | `Go | `Next | `Previous | `Search | `Send ] wrap ->
+  [> `Enterkeyhint ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/enterkeyhint](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint) enterkeyhint documentation.
 ```ocaml
 val a_form : Html_types.idref wrap -> [> `Form ] attrib
 ```
@@ -37946,6 +40600,46 @@ val a_high : Html_types.float_number wrap -> [> `High ] attrib
 val a_icon : Xml.uri wrap -> [> `Icon ] attrib
 ```
 ```ocaml
+val a_inert : unit -> [> `Inert ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inert](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert) inert documentation.
+```ocaml
+val a_is : Html_types.text wrap -> [> `Is ] attrib
+```
+Name of a customized built-in element.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) is documentation.
+```ocaml
+val a_itemscope : unit -> [> `Itemscope ] attrib
+```
+Microdata: creates a new item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
+```ocaml
+val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+```
+Microdata: space-separated list of vocabulary URLs for the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemtype](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype) itemtype documentation.
+```ocaml
+val a_itemid : Xml.uri wrap -> [> `Itemid ] attrib
+```
+Microdata: global identifier of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemid](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid) itemid documentation.
+```ocaml
+val a_itemprop : string list wrap -> [> `Itemprop ] attrib
+```
+Microdata: space-separated list of names of the property.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemprop](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) itemprop documentation.
+```ocaml
+val a_itemref : Html_types.idrefs wrap -> [> `Itemref ] attrib
+```
+Microdata: additional elements to crawl to find the name-value pairs of the item.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemref](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref) itemref documentation.
+```ocaml
 val a_ismap : unit -> [> `Ismap ] attrib
 ```
 ```ocaml
@@ -37954,6 +40648,20 @@ val a_keytype : Html_types.text wrap -> [> `Keytype ] attrib
 ```ocaml
 val a_list : Html_types.idref wrap -> [> `List ] attrib
 ```
+```ocaml
+val a_loading : [< `Lazy | `Eager ] wrap -> [> `Loading ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#loading](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading) loading documentation.
+```ocaml
+val a_decoding : [< `Sync | `Async | `Auto ] wrap -> [> `Decoding ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img\#decoding](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#decoding) decoding documentation.
+```ocaml
+val a_fetchpriority : 
+  [< `High | `Low | `Auto ] wrap ->
+  [> `Fetchpriority ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/fetchpriority) fetchpriority documentation.
 ```ocaml
 val a_loop : unit -> [> `Loop ] attrib
 ```
@@ -37980,6 +40688,18 @@ val a_inputmode :
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) inputmode documentation.
 ```ocaml
+val a_nomodule : unit -> [> `Nomodule ] attrib
+```
+Indicates that a classic script must not run in browsers that support module scripts.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#nomodule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nomodule) nomodule documentation.
+```ocaml
+val a_nonce : Html_types.text wrap -> [> `Nonce ] attrib
+```
+Cryptographic nonce used by Content Security Policy.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) nonce documentation.
+```ocaml
 val a_novalidate : unit -> [> `Novalidate ] attrib
 ```
 ```ocaml
@@ -37992,8 +40712,74 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
+val a_ping : string list wrap -> [> `Ping ] attrib
+```
+Space-separated list of URLs to ping when following the hyperlink.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a\#ping](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping) ping documentation.
+```ocaml
 val a_placeholder : Html_types.text wrap -> [> `Placeholder ] attrib
 ```
+```ocaml
+val a_playsinline : unit -> [> `Playsinline ] attrib
+```
+Indicates that a video is to be played inline, within the element's playback area.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline) playsinline documentation.
+```ocaml
+val a_disablepictureinpicture : unit -> [> `Disablepictureinpicture ] attrib
+```
+Defined by the W3C Picture-in-Picture specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disablepictureinpicture](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disablepictureinpicture) disablepictureinpicture documentation.
+```ocaml
+val a_disableremoteplayback : unit -> [> `Disableremoteplayback ] attrib
+```
+Defined by the W3C Remote Playback specification.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video\#disableremoteplayback](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#disableremoteplayback) disableremoteplayback documentation.
+```ocaml
+val a_part : string list wrap -> [> `Part ] attrib
+```
+Space-separated list of part names of the element, exposed to shadow-tree styling. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/part](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/part) part documentation.
+```ocaml
+val a_exportparts : Html_types.text list wrap -> [> `Exportparts ] attrib
+```
+Comma-separated list of part mappings (`name` or `name:exposed-name`) forwarded from a nested shadow tree. Defined by the CSS Shadow Parts specification, not by the HTML standard.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/exportparts](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/exportparts) exportparts documentation.
+```ocaml
+val a_popover : [< Html_types.popover_value ] wrap -> [> `Popover ] attrib
+```
+In HTML, a bare `popover` attribute is equivalent to `popover="auto"`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) popover documentation.
+```ocaml
+val a_popovertarget : Html_types.idref wrap -> [> `Popovertarget ] attrib
+```
+Id of the popover element to control with a button.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertarget](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget) popovertarget documentation.
+```ocaml
+val a_popovertargetaction : 
+  [< `Show | `Hide | `Toggle ] wrap ->
+  [> `Popovertargetaction ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#popovertargetaction](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction) popovertargetaction documentation.
+```ocaml
+val a_command : [< Html_types.command_value ] wrap -> [> `Command ] attrib
+```
+Action to perform on the element targeted by a button (Invoker Commands API).
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#command](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#command) command documentation.
+```ocaml
+val a_commandfor : Html_types.idref wrap -> [> `Commandfor ] attrib
+```
+Id of the element a button command targets.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button\#commandfor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#commandfor) commandfor documentation.
 ```ocaml
 val a_poster : Xml.uri wrap -> [> `Poster ] attrib
 ```
@@ -38019,11 +40805,23 @@ val a_required : unit -> [> `Required ] attrib
 val a_reversed : unit -> [> `Reversed ] attrib
 ```
 ```ocaml
+val a_blocking : 
+  [< Html_types.blocking_token ] list wrap ->
+  [> `Blocking ] attrib
+```
+Space-separated list of operations blocked on the fetching of a script, style sheet or style-relevant link.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script\#blocking](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking) blocking documentation.
+```ocaml
 val a_sandbox : [< Html_types.sandbox_token ] list wrap -> [> `Sandbox ] attrib
 ```
 ```ocaml
 val a_spellcheck : bool wrap -> [> `Spellcheck ] attrib
 ```
+```ocaml
+val a_writingsuggestions : bool wrap -> [> `Writingsuggestions ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/writingsuggestions](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/writingsuggestions) writingsuggestions documentation.
 ```ocaml
 val a_scoped : unit -> [> `Scoped ] attrib
 ```
@@ -38031,17 +40829,66 @@ val a_scoped : unit -> [> `Scoped ] attrib
 val a_seamless : unit -> [> `Seamless ] attrib
 ```
 ```ocaml
+val a_shadowrootmode : [< `Open | `Closed ] wrap -> [> `Shadowrootmode ] attrib
+```
+Declarative shadow root mode, for template elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode) shadowrootmode documentation.
+```ocaml
+val a_shadowrootdelegatesfocus : unit -> [> `Shadowrootdelegatesfocus ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootdelegatesfocus](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus) shadowrootdelegatesfocus documentation.
+```ocaml
+val a_shadowrootclonable : unit -> [> `Shadowrootclonable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootclonable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable) shadowrootclonable documentation.
+```ocaml
+val a_shadowrootserializable : unit -> [> `Shadowrootserializable ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template\#shadowrootserializable](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable) shadowrootserializable documentation.
+```ocaml
 val a_sizes : 
   (Html_types.number * Html_types.number) list option wrap ->
   [> `Sizes ] attrib
 ```
 ```ocaml
+val a_slot : Html_types.text wrap -> [> `Slot ] attrib
+```
+Name of the shadow tree slot the element is assigned to.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/slot) slot documentation.
+```ocaml
 val a_span : Html_types.number wrap -> [> `Span ] attrib
 ```
+```ocaml
+val a_srcdoc : Html_types.text wrap -> [> `Srcdoc ] attrib
+```
+Inline HTML document of an iframe, given as escaped text.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#srcdoc](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#srcdoc) srcdoc documentation.
 ```ocaml
 val a_srclang : Html_types.nmtoken wrap -> [> `XML_lang ] attrib
 ```
 deprecated Use a\_xml\_lang instead.
+```ocaml
+val a_kind : 
+  [< `Subtitles | `Captions | `Descriptions | `Chapters | `Metadata ] wrap ->
+  [> `Kind ] attrib
+```
+How a text track is meant to be used, for `track` elements.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#kind](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#kind) kind attribute documentation on MDN
+```ocaml
+val a_track_srclang : Html_types.languagecode wrap -> [> `Srclang ] attrib
+```
+Language of the text track data, for `track` elements.
+
+```ocaml
+val a_default : unit -> [> `Default ] attrib
+```
+Indicates that a text track is to be enabled if the user's preferences do not indicate that another track would be more appropriate.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track\#default](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default) default attribute documentation on MDN
 ```ocaml
 type image_candidate = [ 
   | `Url of uri
@@ -38053,11 +40900,27 @@ type image_candidate = [
 val a_srcset : image_candidate list wrap -> [> `Srcset ] attrib
 ```
 ```ocaml
+val a_imagesrcset : image_candidate list wrap -> [> `Imagesrcset ] attrib
+```
+Images to preload, for link elements with `rel=preload` and `as=image`.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesrcset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesrcset) imagesrcset documentation.
+```ocaml
+val a_imagesizes : Html_types.text list wrap -> [> `Imagesizes ] attrib
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link\#imagesizes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#imagesizes) imagesizes documentation.
+```ocaml
 val a_img_sizes : Html_types.text list wrap -> [> `Img_sizes ] attrib
 ```
 ```ocaml
 val a_start : Html_types.number wrap -> [> `Start ] attrib
 ```
+```ocaml
+val a_ol_type : [< Html_types.ol_type ] wrap -> [> `Ol_Type ] attrib
+```
+Numbering type of an ordered list.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol\#type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type) type attribute documentation.
 ```ocaml
 val a_step : Html_types.float_number option wrap -> [> `Step ] attrib
 ```
@@ -38171,10 +41034,10 @@ val a_maxlength : Html_types.number wrap -> [> `Maxlength ] attrib
 val a_minlength : Html_types.number wrap -> [> `Minlength ] attrib
 ```
 ```ocaml
-val a_method : [< `Get | `Post ] wrap -> [> `Method ] attrib
+val a_method : [< `Get | `Post | `Dialog ] wrap -> [> `Method ] attrib
 ```
 ```ocaml
-val a_formmethod : [< `Get | `Post ] wrap -> [> `Formmethod ] attrib
+val a_formmethod : [< `Get | `Post | `Dialog ] wrap -> [> `Formmethod ] attrib
 ```
 ```ocaml
 val a_multiple : unit -> [> `Multiple ] attrib
@@ -38546,6 +41409,14 @@ val main :
     [> Html_types.main ])
     star
 ```
+```ocaml
+val search : 
+  ([< Html_types.search_attrib ],
+    [< Html_types.search_content_fun ],
+    [> Html_types.search ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search) search element documentation on MDN
 
 #### Grouping content
 
@@ -38664,6 +41535,12 @@ val u :
     star
 ```
 ```ocaml
+val s : 
+  ([< Html_types.s_attrib ], [< Html_types.s_content_fun ], [> Html_types.s ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s) s element documentation on MDN
+```ocaml
 val small : 
   ([< Html_types.small_attrib ],
     [< Html_types.small_content_fun ],
@@ -38702,6 +41579,14 @@ val bdo :
     [> Html_types.bdo ])
     star
 ```
+```ocaml
+val bdi : 
+  ([< Html_types.bdi_attrib ],
+    [< Html_types.bdi_content_fun ],
+    [> Html_types.bdi ])
+    star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/bdi) bdi element documentation on MDN
 ```ocaml
 val abbr : 
   ([< Html_types.abbr_attrib ],
@@ -38781,6 +41666,17 @@ val time :
     star
 ```
 ```ocaml
+val data : 
+  value:Html_types.text wrap ->
+  ([< Html_types.data_attrib ],
+    [< Html_types.data_content_fun ],
+    [> Html_types.data ])
+    star
+```
+`data ~value content` represents `content` together with its machine-readable `value` attribute.
+
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data) data element documentation on MDN
+```ocaml
 val var : 
   ([< Html_types.var_attrib ],
     [< Html_types.var_content_fun ],
@@ -38842,12 +41738,14 @@ val embed : ([< Html_types.embed_attrib ], [> Html_types.embed ]) nullary
 val audio : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.audio_attrib ], 'a, [> 'a Html_types.audio ]) star
 ```
 ```ocaml
 val video : 
   ?src:Xml.uri wrap ->
   ?srcs:[< Html_types.source ] elt list_wrap ->
+  ?tracks:[< Html_types.track ] elt list_wrap ->
   ([< Html_types.video_attrib ], 'a, [> 'a Html_types.video ]) star
 ```
 ```ocaml
@@ -38857,6 +41755,12 @@ val canvas :
 ```ocaml
 val source : ([< Html_types.source_attrib ], [> Html_types.source ]) nullary
 ```
+```ocaml
+val track : 
+  src:Xml.uri wrap ->
+  ([< Html_types.track_attrib ], [> Html_types.track ]) nullary
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) track element documentation on MDN
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
@@ -39140,6 +42044,10 @@ val template :
     star
 ```
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template) Template element documentation on MDN
+```ocaml
+val slot : ([< Html_types.slot_attrib ], 'a, [> 'a Html_types.slot ]) star
+```
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) slot element documentation on MDN
 ```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
@@ -41853,7 +44761,7 @@ val content : elt -> econtent
 
 ---
 
-# Parameter `Make.I`
+# Parameter `Make._`
 
 ```ocaml
 val emptytags : string list
@@ -41896,7 +44804,7 @@ deprecated Use Xml\_print.Make\_fmt instead.
 module Xml : Xml_sigs.Iterable
 ```
 ```ocaml
-module I : TagList
+module _ : TagList
 ```
 ```ocaml
 module O : Xml_sigs.Output
@@ -42053,7 +44961,7 @@ val content : elt -> econtent
 
 ---
 
-# Parameter `Make_fmt.I`
+# Parameter `Make_fmt._`
 
 ```ocaml
 val emptytags : string list
@@ -42073,7 +44981,7 @@ Printers for raw XML modules.
 module Xml : Xml_sigs.Iterable
 ```
 ```ocaml
-module I : TagList
+module _ : TagList
 ```
 
 ## Signature
@@ -42241,7 +45149,7 @@ val content : elt -> econtent
 
 ---
 
-# Parameter `Make_simple.I`
+# Parameter `Make_simple._`
 
 ```ocaml
 val emptytags : string list
@@ -42260,7 +45168,7 @@ deprecated Use Xml\_print.Make\_fmt instead.
 module Xml : Xml_sigs.Iterable
 ```
 ```ocaml
-module I : TagList
+module _ : TagList
 ```
 
 ## Signature
@@ -43098,7 +46006,7 @@ List of tags that can be printed as empty tags: `<foo />`.
 ```ocaml
 module Make_fmt
   (Xml : Xml_sigs.Iterable)
-  (I : TagList) : 
+  (_ : TagList) : 
   Xml_sigs.Pp with type elt := Xml.elt
 ```
 Printers for raw XML modules.
@@ -43111,7 +46019,7 @@ Use [`Make_fmt`](./Xml_print-Make_fmt.md) and [`Make_typed_fmt`](./Xml_print-Mak
 ```ocaml
 module Make
   (Xml : Xml_sigs.Iterable)
-  (I : TagList)
+  (_ : TagList)
   (O : Xml_sigs.Output) : 
   Xml_sigs.Printer with type out := O.out and type xml_elt := Xml.elt
 ```
@@ -43128,7 +46036,7 @@ module Make_typed
 ```ocaml
 module Make_simple
   (Xml : Xml_sigs.Iterable)
-  (I : TagList) : 
+  (_ : TagList) : 
   Xml_sigs.Simple_printer with type xml_elt := Xml.elt
 ```
 ```ocaml

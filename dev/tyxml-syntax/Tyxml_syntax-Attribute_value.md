@@ -217,6 +217,18 @@ val script_type : parser
 val sandbox : parser
 ```
 ```ocaml
+val blocking : parser
+```
+```ocaml
+val ol_type : parser
+```
+```ocaml
+val popover : parser
+```
+```ocaml
+val command : parser
+```
+```ocaml
 val in_ : parser
 ```
 ```ocaml

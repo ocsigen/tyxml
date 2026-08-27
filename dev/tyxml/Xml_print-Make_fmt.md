@@ -10,7 +10,7 @@ Printers for raw XML modules.
 module Xml : Xml_sigs.Iterable
 ```
 ```ocaml
-module I : TagList
+module _ : TagList
 ```
 
 ## Signature

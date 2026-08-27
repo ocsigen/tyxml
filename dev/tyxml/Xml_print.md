@@ -73,7 +73,7 @@ List of tags that can be printed as empty tags: `<foo />`.
 ```ocaml
 module Make_fmt
   (Xml : Xml_sigs.Iterable)
-  (I : TagList) : 
+  (_ : TagList) : 
   Xml_sigs.Pp with type elt := Xml.elt
 ```
 Printers for raw XML modules.
@@ -86,7 +86,7 @@ Use [`Make_fmt`](./Xml_print-Make_fmt.md) and [`Make_typed_fmt`](./Xml_print-Mak
 ```ocaml
 module Make
   (Xml : Xml_sigs.Iterable)
-  (I : TagList)
+  (_ : TagList)
   (O : Xml_sigs.Output) : 
   Xml_sigs.Printer with type out := O.out and type xml_elt := Xml.elt
 ```
@@ -103,7 +103,7 @@ module Make_typed
 ```ocaml
 module Make_simple
   (Xml : Xml_sigs.Iterable)
-  (I : TagList) : 
+  (_ : TagList) : 
   Xml_sigs.Simple_printer with type xml_elt := Xml.elt
 ```
 ```ocaml

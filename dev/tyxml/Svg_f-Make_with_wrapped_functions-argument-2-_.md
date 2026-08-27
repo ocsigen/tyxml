@@ -1,5 +1,5 @@
 
-# Parameter `Make_with_wrapped_functions.C`
+# Parameter `Make_with_wrapped_functions._`
 
 ```ocaml
 module Xml = Xml

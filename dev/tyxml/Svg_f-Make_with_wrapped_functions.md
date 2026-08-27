@@ -10,7 +10,7 @@ Similar to [`Make`](./Svg_f-Make.md) but with a custom set of wrapped functions.
 module Xml : Xml_sigs.T
 ```
 ```ocaml
-module C : Svg_sigs.Wrapped_functions with module Xml = Xml
+module _ : Svg_sigs.Wrapped_functions with module Xml = Xml
 ```
 
 ## Signature

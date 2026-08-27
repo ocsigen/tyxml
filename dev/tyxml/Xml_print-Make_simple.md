@@ -9,7 +9,7 @@ deprecated Use Xml\_print.Make\_fmt instead.
 module Xml : Xml_sigs.Iterable
 ```
 ```ocaml
-module I : TagList
+module _ : TagList
 ```
 
 ## Signature

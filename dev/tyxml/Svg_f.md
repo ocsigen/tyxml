@@ -26,7 +26,7 @@ The standard set of wrapped functions, when `W.ft` is the regular function.
 ```ocaml
 module Make_with_wrapped_functions
   (Xml : Xml_sigs.T)
-  (C : Svg_sigs.Wrapped_functions with module Xml = Xml) : 
+  (_ : Svg_sigs.Wrapped_functions with module Xml = Xml) : 
   Svg_sigs.Make(Xml).T
     with type +'a elt = Xml.elt
      and type +'a attrib = Xml.attrib

@@ -257,20 +257,36 @@ type i18n = [
 ```ocaml
 type core = [ 
   | `Accesskey
+  | `Autocapitalize
+  | `Autocorrect
   | `Class
   | `Contenteditable
   | `Contextmenu
   | `Dir
   | `Draggable
+  | `Enterkeyhint
+  | `Exportparts
   | `Hidden
   | `Id
+  | `Inert
   | i18n
+  | `Is
+  | `Itemid
+  | `Itemprop
+  | `Itemref
+  | `Itemscope
+  | `Itemtype
+  | `Nonce
+  | `Part
+  | `Popover
+  | `Slot
   | `Spellcheck
   | `Style_Attr
   | `Tabindex
   | `Translate
   | `Title
   | `User_data
+  | `Writingsuggestions
   | `XMLns
  ]
 ```
@@ -280,13 +296,23 @@ type core = [
 ```ocaml
 type events = [ 
   | `OnAbort
+  | `OnAuxClick
+  | `OnBeforeInput
+  | `OnBeforeMatch
+  | `OnBeforeToggle
   | `OnBlur
+  | `OnCancel
   | `OnCanPlay
   | `OnCanPlayThrough
   | `OnChange
   | `OnClick
   | `OnClose
   | `OnContextMenu
+  | `OnContextLost
+  | `OnContextRestored
+  | `OnCopy
+  | `OnCut
+  | `OnCueChange
   | `OnDblClick
   | `OnDrag
   | `OnDragEnd
@@ -310,6 +336,18 @@ type events = [
   | `OnMouseMove
   | `OnMouseOut
   | `OnMouseWheel
+  | `OnWheel
+  | `OnPointerCancel
+  | `OnPointerDown
+  | `OnPointerEnter
+  | `OnPointerLeave
+  | `OnPointerMove
+  | `OnPointerOut
+  | `OnPointerOver
+  | `OnPointerUp
+  | `OnGotPointerCapture
+  | `OnLostPointerCapture
+  | `OnPaste
   | `OnPause
   | `OnPlay
   | `OnPlaying
@@ -317,14 +355,18 @@ type events = [
   | `OnRateChange
   | `OnReadyStateChange
   | `OnScroll
+  | `OnScrollEnd
+  | `OnSecurityPolicyViolation
   | `OnSeeked
   | `OnSeeking
   | `OnSelect
   | `OnShow
+  | `OnSlotChange
   | `OnStalled
   | `OnSubmit
   | `OnSuspend
   | `OnTimeUpdate
+  | `OnToggle
   | `OnTouchStart
   | `OnTouchEnd
   | `OnTouchMove
@@ -476,6 +518,7 @@ type (+'interactive, +'noscript, +'regular, +'media) transparent = [
   | `Del of 'regular
   | `Object of 'regular
   | `Object_interactive of 'regular
+  | `Slot of 'regular
   | `Audio_interactive of 'media
   | `Video_interactive of 'media
   | `Audio of 'media
@@ -492,6 +535,7 @@ type (+'noscript, +'regular, +'media) transparent_without_interactive = [
   | `Object of 'regular
   | `Canvas of 'regular
   | `Map of 'regular
+  | `Slot of 'regular
   | `Audio of 'media
   | `Video of 'media
  ]
@@ -505,6 +549,7 @@ type (+'interactive, +'regular, +'media) transparent_without_noscript = [
   | `Map of 'regular
   | `Object of 'regular
   | `Object_interactive of 'regular
+  | `Slot of 'regular
   | `Video of 'media
   | `Audio of 'media
   | `Video_interactive of 'media
@@ -521,6 +566,7 @@ type (+'interactive, +'noscript, +'regular) transparent_without_media = [
   | `Canvas of 'regular
   | `Object of 'regular
   | `Object_interactive of 'regular
+  | `Slot of 'regular
  ]
 ```
 ```ocaml
@@ -587,6 +633,7 @@ type core_phrasing = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -598,11 +645,13 @@ type core_phrasing = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `Img
@@ -630,6 +679,7 @@ type core_phrasing_without_noscript = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -641,11 +691,13 @@ type core_phrasing_without_noscript = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `Img
   | `Img_interactive
   | `Picture
@@ -670,6 +722,7 @@ type core_phrasing_without_interactive = [
   | `Script
   | `Svg
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -680,11 +733,13 @@ type core_phrasing_without_interactive = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -707,6 +762,7 @@ type core_phrasing_without_media = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -721,11 +777,13 @@ type core_phrasing_without_media = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -767,7 +825,7 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
       phrasing_without_noscript,
       phrasing,
       phrasing_without_media)
-      transparent Abbr B Bdo Br Canvas Cite Code Command Datalist Del Dfn Em I Img Picture Ins Kbd Map Mark Meter Noscript Object PCDATA Progress Q Ruby Samp Script Small Span Strong Sub Sup Svg Template Time U Var Wbr ] as 'a
+      transparent Abbr B Bdi Bdo Br Canvas Cite Code Command Data Datalist Del Dfn Em I Img Picture Ins Kbd Map Mark Meter Noscript Object PCDATA Progress Q Ruby S Samp Script Slot Small Span Strong Sub Sup Svg Template Time U Var Wbr ] as 'a
 ```
 ```ocaml
 type phrasing_without_dfn = [ 
@@ -785,6 +843,7 @@ type phrasing_without_dfn = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -796,11 +855,13 @@ type phrasing_without_dfn = [
   | `I
   | `Em
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -832,6 +893,7 @@ type phrasing_without_label = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -840,11 +902,13 @@ type phrasing_without_label = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -871,6 +935,7 @@ type phrasing_without_progress = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Img
   | `Img_interactive
   | `Picture
@@ -884,12 +949,14 @@ type phrasing_without_progress = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Button
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -918,6 +985,7 @@ type phrasing_without_time = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -927,11 +995,13 @@ type phrasing_without_time = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -963,6 +1033,7 @@ type phrasing_without_meter = [
   | `Small
   | `Script
   | `Samp
+  | `S
   | `Ruby
   | `Q
   | `Mark
@@ -972,11 +1043,13 @@ type phrasing_without_meter = [
   | `Em
   | `Dfn
   | `Datalist
+  | `Data
   | `Command
   | `Code
   | `Cite
   | `Br
   | `Bdo
+  | `Bdi
   | `B
   | `Abbr
   | `PCDATA
@@ -1004,6 +1077,7 @@ type core_flow5 = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -1022,6 +1096,7 @@ type core_flow5_without_interactive = [
   | `Dl
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -1041,6 +1116,7 @@ type core_flow5_without_noscript = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -1060,6 +1136,7 @@ type core_flow5_without_media = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
  ]
 ```
 ```ocaml
@@ -1106,6 +1183,7 @@ type flow5_without_table = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive, flow5_without_noscript, flow5, flow5_without_media)
     transparent
  ]
@@ -1132,6 +1210,7 @@ type flow5_without_interactive_header_footer = [
   | `Dl
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_noscript, flow5, flow5_without_media)
     transparent_without_interactive
  ]
@@ -1159,6 +1238,7 @@ type flow5_without_header_footer = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive_header_footer,
     flow5_without_noscript,
     flow5,
@@ -1168,7 +1248,7 @@ type flow5_without_header_footer = [
 ```
 ```ocaml
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
-  [< flow5 Abbr Address Article Aside Audio B Bdo Blockquote Br Button Canvas Cite Code Command Datalist Del Dfn Dialog Div Dl Em Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Img Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Ol Output P PCDATA Pre Progress Q Ruby Samp Script Section Select Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Wbr ] as 'a
+  [< flow5 Abbr Address Article Aside Audio B Bdi Bdo Blockquote Br Button Canvas Cite Code Command Data Datalist Del Dfn Dialog Div Dl Em Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Img Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Ol Output P PCDATA Pre Progress Q Ruby S Samp Script Search Section Select Slot Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Wbr ] as 'a
 ```
 ```ocaml
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
@@ -1177,7 +1257,7 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
       flow5_without_noscript,
       'a,
       flow5_without_media)
-      transparent A Abbr Address Article Aside Audio Audio_interactive B Bdo Blockquote Br Button Canvas Cite Code Command Datalist Del Details Dfn Dialog Div Dl Em Embed Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Iframe Img Img_interactive Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Object_interactive Ol Output P PCDATA Pre Progress Q Ruby Samp Script Section Select Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Video_interactive Wbr ] as 'a
+      transparent A Abbr Address Article Aside Audio Audio_interactive B Bdi Bdo Blockquote Br Button Canvas Cite Code Command Data Datalist Del Details Dfn Dialog Div Dl Em Embed Fieldset Figure Form H1 H2 H3 H4 H5 H6 Hgroup Hr I Iframe Img Img_interactive Picture Input Ins Kbd Keygen Label Map Mark Menu Meter Nav Noscript Object Object_interactive Ol Output P PCDATA Pre Progress Q Ruby S Samp Script Search Section Select Slot Small Span Strong Style Sub Sup Svg Table Template Textarea Time U Ul Var Video Video_interactive Wbr ] as 'a
 ```
 ```ocaml
 type flow5_without_form = [ 
@@ -1195,6 +1275,7 @@ type flow5_without_form = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive, flow5_without_noscript, flow5, flow5_without_media)
     transparent
  ]
@@ -1219,6 +1300,7 @@ type flow5_without_sectioning_heading_header_footer_address = [
   | `Details
   | `Main
   | `Dialog
+  | `Search
   | (flow5_without_interactive, flow5_without_noscript, flow5, flow5_without_media)
     transparent
  ]
@@ -1302,6 +1384,7 @@ type body_attrib = [
   | `OnBeforePrint
   | `OnBeforeUnload
   | `OnHashChange
+  | `OnLanguageChange
   | `OnMessage
   | `OnOffLine
   | `OnOnLine
@@ -1309,9 +1392,11 @@ type body_attrib = [
   | `OnPageShow
   | `OnPopState
   | `OnRedo
+  | `OnRejectionHandled
   | `OnResize
   | `OnStorage
   | `OnUndo
+  | `OnUnhandledRejection
   | `OnUnload
  ]
 ```
@@ -1679,6 +1764,26 @@ type main_attrib = [
  ]
 ```
 ```ocaml
+type search = [ 
+  | `Search
+ ]
+```
+```ocaml
+type search_content = [ 
+  | flow5
+ ]
+```
+```ocaml
+type search_content_fun = [ 
+  | flow5
+ ]
+```
+```ocaml
+type search_attrib = [ 
+  | common
+ ]
+```
+```ocaml
 type p = [ 
   | `P
  ]
@@ -1758,6 +1863,7 @@ type dialog_content_fun = [
 type dialog_attrib = [ 
   | common
   | `Open
+  | `Closedby
  ]
 ```
 ```ocaml
@@ -1800,6 +1906,7 @@ type ol_attrib = [
   | common
   | `Reversed
   | `Start
+  | `Ol_Type
  ]
 ```
 ```ocaml
@@ -2086,6 +2193,26 @@ type u_attrib = [
  ]
 ```
 ```ocaml
+type s = [ 
+  | `S
+ ]
+```
+```ocaml
+type s_content = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type s_content_fun = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type s_attrib = [ 
+  | common
+ ]
+```
+```ocaml
 type small = [ 
   | `Small
  ]
@@ -2198,6 +2325,26 @@ type bdo_content_fun = [
 ```
 ```ocaml
 type bdo_attrib = [ 
+  | common
+ ]
+```
+```ocaml
+type bdi = [ 
+  | `Bdi
+ ]
+```
+```ocaml
+type bdi_content = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type bdi_content_fun = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type bdi_attrib = [ 
   | common
  ]
 ```
@@ -2419,6 +2566,26 @@ type strong_attrib = [
  ]
 ```
 ```ocaml
+type data = [ 
+  | `Data
+ ]
+```
+```ocaml
+type data_content = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type data_content_fun = [ 
+  | phrasing
+ ]
+```
+```ocaml
+type data_attrib = [ 
+  | common
+ ]
+```
+```ocaml
 type time = [ 
   | `Time
  ]
@@ -2486,6 +2653,8 @@ type a_attrib = [
   | `Target
   | `Mime_type
   | `Download
+  | `Ping
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -2548,15 +2717,18 @@ type iframe_content_fun = [
 ```ocaml
 type iframe_attrib = [ 
   | common
+  | `Allow
   | `Allowfullscreen
   | `Allowpaymentrequest
   | `Src
+  | `Srcdoc
   | `Name
   | `Sandbox
   | `Seamless
   | `Width
   | `Height
   | `Referrerpolicy
+  | `Loading
  ]
 ```
 ```ocaml
@@ -2652,6 +2824,12 @@ type img_attrib = [
   | `Width
   | `Srcset
   | `Img_sizes
+  | `Crossorigin
+  | `Usemap
+  | `Referrerpolicy
+  | `Loading
+  | `Decoding
+  | `Fetchpriority
  ]
 ```
 ```ocaml
@@ -2663,6 +2841,7 @@ type media_attrib = [
   | `Loop
   | `Muted
   | `Controls
+  | `Disableremoteplayback
  ]
 ```
 ```ocaml
@@ -2718,6 +2897,8 @@ type video_attrib = [
   | `Poster
   | `Width
   | `Height
+  | `Playsinline
+  | `Disablepictureinpicture
  ]
 ```
 ```ocaml
@@ -2762,6 +2943,26 @@ type source_attrib = [
  ]
 ```
 ```ocaml
+type track = [ 
+  | `Track
+ ]
+```
+```ocaml
+type track_content = notag
+```
+```ocaml
+type track_content_fun = notag
+```
+```ocaml
+type track_attrib = [ 
+  | common
+  | `Kind
+  | `Srclang
+  | `Label
+  | `Default
+ ]
+```
+```ocaml
 type area = [ 
   | `Area
  ]
@@ -2784,6 +2985,8 @@ type area_attrib = [
   | `Hreflang
   | `Mime_type
   | `Download
+  | `Ping
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -3011,6 +3214,7 @@ type th_attrib = [
   | `Headers
   | `Rowspan
   | `Scope
+  | `Abbr
  ]
 ```
 ```ocaml
@@ -3174,6 +3378,10 @@ type input_attrib = [
   | `Value
   | `Width
   | `Inputmode
+  | `Popovertarget
+  | `Popovertargetaction
+  | `Dirname
+  | `Capture
  ]
 ```
 ```ocaml
@@ -3196,6 +3404,8 @@ type textarea_attrib = [
   | `Wrap
   | `Rows
   | `Cols
+  | `Dirname
+  | `Autocomplete
  ]
 ```
 ```ocaml
@@ -3236,6 +3446,10 @@ type button_attrib = [
   | `Name
   | `Text_Value
   | `Button_Type
+  | `Popovertarget
+  | `Popovertargetaction
+  | `Command
+  | `Commandfor
  ]
 ```
 ```ocaml
@@ -3265,6 +3479,7 @@ type select_attrib = [
   | `Form
   | `Disabled
   | `Required
+  | `Autocomplete
  ]
 ```
 ```ocaml
@@ -3540,6 +3755,7 @@ type meta_attrib = [
   | `Content
   | `Charset
   | `Property
+  | `Media
  ]
 ```
 ```ocaml
@@ -3563,6 +3779,7 @@ type style_attrib = [
   | `Media
   | `Mime_type
   | `Scoped
+  | `Blocking
  ]
 ```
 ```ocaml
@@ -3579,6 +3796,10 @@ type script_attrib = [
   | `Src
   | `Defer
   | `Script_type
+  | `Blocking
+  | `Fetchpriority
+  | `Nomodule
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -3599,6 +3820,10 @@ type template = [
 ```ocaml
 type template_attrib = [ 
   | common
+  | `Shadowrootmode
+  | `Shadowrootdelegatesfocus
+  | `Shadowrootclonable
+  | `Shadowrootserializable
  ]
 ```
 ```ocaml
@@ -3609,6 +3834,26 @@ type template_content = [
 ```ocaml
 type template_content_fun = [ 
   | flow5
+ ]
+```
+```ocaml
+type 'a slot = [ 
+  | `Slot of 'a
+ ]
+```
+```ocaml
+type slot_content = flow5
+```
+```ocaml
+type slot_ = slot_content slot
+```
+```ocaml
+type slot_content_fun = flow5
+```
+```ocaml
+type slot_attrib = [ 
+  | common
+  | `Name
  ]
 ```
 ```ocaml
@@ -3632,6 +3877,13 @@ type link_attrib = [
   | `Href
   | `Sizes
   | `Mime_type
+  | `As
+  | `Imagesrcset
+  | `Imagesizes
+  | `Blocking
+  | `Fetchpriority
+  | `Disabled
+  | `Referrerpolicy
  ]
 ```
 ```ocaml
@@ -3679,6 +3931,7 @@ type big_variant = [
   | `Selected
   | `Get
   | `Post
+  | `Dialog
   | `Checked
   | `Disabled
   | `ReadOnly
@@ -3699,6 +3952,10 @@ type big_variant = [
   | `Open
   | `Audio
   | `Metadata
+  | `Subtitles
+  | `Captions
+  | `Descriptions
+  | `Chapters
   | `None
   | `Pubdate
   | `Required
@@ -3733,8 +3990,52 @@ type big_variant = [
   | `One
   | `Zero
   | `Auto
+  | `Manual
+  | `Hint
   | `No
   | `Yes
+  | `On
+  | `Off
+  | `Enter
+  | `Done
+  | `Go
+  | `Next
+  | `Previous
+  | `Send
+  | `Sentences
+  | `Words
+  | `Characters
+  | `Show
+  | `Hide
+  | `Toggle
+  | `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string
+  | `Lazy
+  | `Eager
+  | `Sync
+  | `High
+  | `Low
+  | `User
+  | `Environment
+  | `Any
+  | `Closerequest
+  | `Closed
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker
   | `Defer
   | `Verbatim
   | `Latin
@@ -3754,12 +4055,24 @@ type big_variant = [
 ```
 ```ocaml
 type sandbox_token = [ 
+  | `Allow_downloads
   | `Allow_forms
+  | `Allow_modals
+  | `Allow_orientation_lock
   | `Allow_pointer_lock
   | `Allow_popups
-  | `Allow_top_navigation
+  | `Allow_popups_to_escape_sandbox
+  | `Allow_presentation
   | `Allow_same_origin
   | `Allow_script
+  | `Allow_top_navigation
+  | `Allow_top_navigation_by_user_activation
+  | `Allow_top_navigation_to_custom_protocols
+ ]
+```
+```ocaml
+type blocking_token = [ 
+  | `Render
  ]
 ```
 ```ocaml
@@ -3803,3 +4116,33 @@ type autocomplete_option = [
   | `Tokens of string list
  ]
 ```
+```ocaml
+type popover_value = [ 
+  | `Auto
+  | `Manual
+  | `Hint
+ ]
+```
+```ocaml
+type ol_type = [ 
+  | `Decimal
+  | `Lower_alpha
+  | `Upper_alpha
+  | `Lower_roman
+  | `Upper_roman
+ ]
+```
+Values of the `type` attribute of ordered lists. The serialized values are case-sensitive ("1", "a", "A", "i", "I").
+
+```ocaml
+type command_value = [ 
+  | `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string
+ ]
+```
+Values for the `command` attribute of button elements. Custom commands (starting with `--`) use the ``Other` constructor.
