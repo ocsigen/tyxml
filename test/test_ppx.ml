@@ -601,6 +601,20 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate end='4s'/>"]],
   [animate ~a:[a_end "4s"] []] ;
 
+  "presentation attributes",
+  [[%svg "<rect opacity='0.5' pointer-events='visiblePainted' \
+                visibility='collapse' mask='url(#m)'/>"]],
+  [rect ~a:[a_opacity 0.5; a_pointer_events `VisiblePainted;
+            a_visibility `Collapse; a_mask "url(#m)"] []] ;
+
+  "writing-mode, unicode-bidi",
+  [[%svg "<text writing-mode='vertical-rl' unicode-bidi='bidi-override'/>"]],
+  [text ~a:[a_writing_mode `Vertical_rl; a_unicode_bidi `Bidi_override] []] ;
+
+  "color-interpolation-filters",
+  [[%svg "<filter color-interpolation-filters='linearRGB'/>"]],
+  [filter ~a:[a_color_interpolation_filters `LinearRGB] []] ;
+
   "fill_rule type nonzero",
   [[%svg "<path fill-rule='nonzero'/>"]],
   [path ~a:[a_fill_rule `Nonzero] []] ;

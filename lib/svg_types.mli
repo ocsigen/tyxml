@@ -1983,15 +1983,20 @@ type offset =
 type big_variant =
   [ `A
   | `Absolute_colorimetric
+  | `Accumulate
   | `Align
+  | `All
   | `Always
-  | `Atop
   | `Arithmetic
+  | `Atop
   | `Auto
   | `B
   | `Bevel
+  | `Bidi_override
   | `Blink
   | `Butt
+  | `Collapse
+  | `CrispEdges
   | `CSS
   | `Darken
   | `Default
@@ -1999,16 +2004,21 @@ type big_variant =
   | `Disable
   | `Discrete
   | `Duplicate
+  | `Embed
   | `End
   | `Erode
+  | `Evenodd
   | `Exact
+  | `Fill
   | `FractalNoise
   | `Freeze
-  | `HueRotate
   | `G
   | `Gamma
   | `GeometricPrecision
   | `H
+  | `Hidden
+  | `Horizontal_tb
+  | `HueRotate
   | `Identity
   | `In
   | `Inherit
@@ -2017,6 +2027,8 @@ type big_variant =
   | `Lighten
   | `Line_through
   | `Linear
+  | `LinearRGB
+  | `Ltr
   | `LuminanceToAlpha
   | `Magnify
   | `Matrix
@@ -2027,12 +2039,14 @@ type big_variant =
   | `Never
   | `New
   | `None
+  | `Nonzero
   | `Normal
   | `NoStitch
   | `ObjectBoundingBox
   | `OnLoad
   | `OnRequest
   | `OptimizeLegibility
+  | `OptimizeQuality
   | `OptimizeSpeed
   | `Other
   | `Out
@@ -2040,29 +2054,34 @@ type big_variant =
   | `Overline
   | `Paced
   | `Pad
+  | `Painted
   | `Perceptual
   | `Preserve
   | `R
   | `Reflect
+  | `Relative_colorimetric
   | `Remove
   | `Repeat
   | `Replace
-  | `Relative_colorimetric
   | `Rotate
   | `Round
+  | `Rtl
   | `Saturate
   | `Saturation
   | `Scale
   | `Screen
+  | `Scroll
   | `SkewX
   | `SkewY
   | `Spacing
   | `SpacingAndGlyphs
   | `Spline
   | `Square
+  | `SRGB
   | `Start
   | `Stitch
   | `Stretch
+  | `Stroke
   | `StrokeWidth
   | `Sum
   | `Table
@@ -2072,6 +2091,12 @@ type big_variant =
   | `Underline
   | `UserSpaceOnUse
   | `V
+  | `Vertical_lr
+  | `Vertical_rl
+  | `Visible
+  | `VisibleFill
+  | `VisiblePainted
+  | `VisibleStroke
   | `WhenNotActive
   | `Wrap
   | `XML

@@ -755,6 +755,84 @@ struct
   let a_stroke_opacity =
     user_attrib C.string_of_number "stroke-opacity"
 
+  let a_baseline_shift = string_attrib "baseline-shift"
+
+  let a_clip = string_attrib "clip"
+
+  let a_clip_rule x = user_attrib C.string_of_big_variant "clip-rule" x
+
+  let a_color = color_attrib "color"
+
+  let a_color_interpolation x =
+    user_attrib C.string_of_big_variant "color-interpolation" x
+
+  let a_color_interpolation_filters x =
+    user_attrib C.string_of_big_variant "color-interpolation-filters" x
+
+  let a_color_profile = string_attrib "color-profile"
+
+  let a_color_rendering x =
+    user_attrib C.string_of_big_variant "color-rendering" x
+
+  let a_cursor = string_attrib "cursor"
+
+  let a_direction x = user_attrib C.string_of_big_variant "direction" x
+
+  let a_display = string_attrib "display"
+
+  let a_enable_background x =
+    user_attrib C.string_of_big_variant "enable-background" x
+
+  let a_fill_opacity = user_attrib C.string_of_number "fill-opacity"
+
+  let a_filter = string_attrib "filter"
+
+  let a_flood_color = color_attrib "flood-color"
+
+  let a_flood_opacity = user_attrib C.string_of_number "flood-opacity"
+
+  let a_font_size_adjust = string_attrib "font-size-adjust"
+
+  let a_glyph_orientation_horizontal =
+    string_attrib "glyph-orientation-horizontal"
+
+  let a_glyph_orientation_vertical = string_attrib "glyph-orientation-vertical"
+
+  let a_image_rendering x =
+    user_attrib C.string_of_big_variant "image-rendering" x
+
+  let a_kerning = string_attrib "kerning"
+
+  let a_letter_spacing = string_attrib "letter-spacing"
+
+  let a_lighting_color = color_attrib "lighting-color"
+
+  let a_marker_end = string_attrib "marker-end"
+
+  let a_marker_mid = string_attrib "marker-mid"
+
+  let a_marker_start = string_attrib "marker-start"
+
+  let a_mask = string_attrib "mask"
+
+  let a_opacity = user_attrib C.string_of_number "opacity"
+
+  let a_overflow x = user_attrib C.string_of_big_variant "overflow" x
+
+  let a_pointer_events x =
+    user_attrib C.string_of_big_variant "pointer-events" x
+
+  let a_shape_rendering x =
+    user_attrib C.string_of_big_variant "shape-rendering" x
+
+  let a_unicode_bidi x = user_attrib C.string_of_big_variant "unicode-bidi" x
+
+  let a_visibility x = user_attrib C.string_of_big_variant "visibility" x
+
+  let a_word_spacing = string_attrib "word-spacing"
+
+  let a_writing_mode x = user_attrib C.string_of_big_variant "writing-mode" x
+
   (* xlink namespace given a nickname since some attributes mandated by
      the svg standard such as xlink:href live in that namespace, and we
      refer to them as "xlink:whatever" (see a_xlink_href or a_xlinkshow)
@@ -980,15 +1058,20 @@ struct
   let string_of_big_variant = function
     | `A -> "a"
     | `Absolute_colorimetric -> "absolute-colorimetric"
+    | `Accumulate -> "accumulate"
     | `Align -> "align"
+    | `All -> "all"
     | `Always -> "always"
-    | `Atop -> "atop"
     | `Arithmetic -> "arithmetic"
+    | `Atop -> "atop"
     | `Auto -> "auto"
     | `B -> "b"
     | `Bevel -> "bevel"
+    | `Bidi_override -> "bidi-override"
     | `Blink -> "blink"
     | `Butt -> "butt"
+    | `Collapse -> "collapse"
+    | `CrispEdges -> "crispEdges"
     | `CSS -> "CSS"
     | `Darken -> "darken"
     | `Default -> "default"
@@ -996,16 +1079,21 @@ struct
     | `Disable -> "disable"
     | `Discrete -> "discrete"
     | `Duplicate -> "duplicate"
+    | `Embed -> "embed"
     | `End -> "end"
     | `Erode -> "erode"
+    | `Evenodd -> "evenodd"
     | `Exact -> "exact"
+    | `Fill -> "fill"
     | `FractalNoise -> "fractalNoise"
     | `Freeze -> "freeze"
-    | `HueRotate -> "hueRotate"
     | `G -> "g"
     | `Gamma -> "gamma"
     | `GeometricPrecision -> "geometricPrecision"
     | `H -> "h"
+    | `Hidden -> "hidden"
+    | `Horizontal_tb -> "horizontal-tb"
+    | `HueRotate -> "hueRotate"
     | `Identity -> "identity"
     | `In -> "in"
     | `Inherit -> "inherit"
@@ -1014,6 +1102,8 @@ struct
     | `Lighten -> "lighten"
     | `Line_through -> "line-through"
     | `Linear -> "linear"
+    | `LinearRGB -> "linearRGB"
+    | `Ltr -> "ltr"
     | `LuminanceToAlpha -> "luminanceToAlpha"
     | `Magnify -> "magnify"
     | `Matrix -> "matrix"
@@ -1024,12 +1114,14 @@ struct
     | `Never -> "never"
     | `New -> "new"
     | `None -> "none"
+    | `Nonzero -> "nonzero"
     | `Normal -> "normal"
     | `NoStitch -> "noStitch"
     | `ObjectBoundingBox -> "objectBoundingBox"
     | `OnLoad -> "onLoad"
     | `OnRequest -> "onRequest"
     | `OptimizeLegibility -> "optimizeLegibility"
+    | `OptimizeQuality -> "optimizeQuality"
     | `OptimizeSpeed -> "optimizeSpeed"
     | `Other -> "other"
     | `Out -> "out"
@@ -1037,29 +1129,34 @@ struct
     | `Overline -> "overline"
     | `Paced -> "paced"
     | `Pad -> "pad"
+    | `Painted -> "painted"
     | `Perceptual -> "perceptual"
     | `Preserve -> "preserve"
     | `R -> "r"
     | `Reflect -> "reflect"
+    | `Relative_colorimetric -> "relative-colorimetric"
     | `Remove -> "remove"
     | `Repeat -> "repeat"
     | `Replace -> "replace"
-    | `Relative_colorimetric -> "relative-colorimetric"
     | `Rotate -> "rotate"
     | `Round -> "round"
+    | `Rtl -> "rtl"
     | `Saturate -> "saturate"
     | `Saturation -> "saturation"
     | `Scale -> "scale"
     | `Screen -> "screen"
+    | `Scroll -> "scroll"
     | `SkewX -> "skewX"
     | `SkewY -> "skewY"
     | `Spacing -> "spacing"
     | `SpacingAndGlyphs -> "spacingAndGlyphs"
     | `Spline -> "spline"
     | `Square -> "square"
+    | `SRGB -> "sRGB"
     | `Start -> "start"
     | `Stitch -> "stitch"
     | `Stretch -> "stretch"
+    | `Stroke -> "stroke"
     | `StrokeWidth -> "stroke-width"
     | `Sum -> "sum"
     | `Table -> "table"
@@ -1069,6 +1166,12 @@ struct
     | `Underline -> "underline"
     | `UserSpaceOnUse -> "userSpaceOnUse"
     | `V -> "v"
+    | `Vertical_lr -> "vertical-lr"
+    | `Vertical_rl -> "vertical-rl"
+    | `Visible -> "visible"
+    | `VisibleFill -> "visibleFill"
+    | `VisiblePainted -> "visiblePainted"
+    | `VisibleStroke -> "visibleStroke"
     | `WhenNotActive -> "whenNotActive"
     | `Wrap -> "wrap"
     | `XML -> "XML"

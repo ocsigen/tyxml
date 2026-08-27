@@ -43,6 +43,64 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
 
 ]
 
+let svg_presentation = "svg presentation attributes", tyxml_tests Svg.[
+
+  "opacity, fill-opacity, stroke-opacity",
+  rect ~a:[ a_opacity 0.5 ; a_fill_opacity 0.25 ; a_stroke_opacity 1. ] [],
+  {|<rect opacity="0.5" fill-opacity="0.25" stroke-opacity="1"></rect>|} ;
+
+  "display, visibility, overflow",
+  g ~a:[ a_display "none" ; a_visibility `Collapse ; a_overflow `Hidden ] [],
+  {|<g display="none" visibility="collapse" overflow="hidden"></g>|} ;
+
+  "pointer-events",
+  circle ~a:[ a_pointer_events `VisiblePainted ] [],
+  {|<circle pointer-events="visiblePainted"></circle>|} ;
+
+  "clip-rule, shape-rendering",
+  path ~a:[ a_clip_rule `Evenodd ; a_shape_rendering `CrispEdges ] [],
+  {|<path clip-rule="evenodd" shape-rendering="crispEdges"></path>|} ;
+
+  "color-interpolation-filters",
+  filter ~a:[ a_color_interpolation_filters `LinearRGB ] [],
+  {|<filter color-interpolation-filters="linearRGB"></filter>|} ;
+
+  "markers",
+  path ~a:[ a_marker_start "url(#m1)" ; a_marker_mid "url(#m2)" ;
+            a_marker_end "url(#m3)" ] [],
+  {|<path marker-start="url(#m1)" marker-mid="url(#m2)" marker-end="url(#m3)"></path>|} ;
+
+  "mask and filter references",
+  g ~a:[ a_mask "url(#m)" ; a_filter "url(#f)" ] [],
+  {|<g mask="url(#m)" filter="url(#f)"></g>|} ;
+
+  "flood-color, flood-opacity, lighting-color",
+  feFlood ~a:[ a_flood_color "red" ; a_flood_opacity 0.5 ;
+               a_lighting_color "white" ] [],
+  {|<feFlood flood-color="red" flood-opacity="0.5" lighting-color="white"></feFlood>|} ;
+
+  "text presentation",
+  text ~a:[ a_letter_spacing "0.1em" ; a_word_spacing "normal" ;
+            a_direction `Rtl ; a_unicode_bidi `Bidi_override ;
+            a_writing_mode `Vertical_rl ] [],
+  {|<text letter-spacing="0.1em" word-spacing="normal" direction="rtl" unicode-bidi="bidi-override" writing-mode="vertical-rl"></text>|} ;
+
+  "color, baseline-shift, font-size-adjust",
+  text ~a:[ a_color "blue" ; a_baseline_shift "super" ;
+            a_font_size_adjust "0.5" ] [],
+  {|<text color="blue" baseline-shift="super" font-size-adjust="0.5"></text>|} ;
+
+  "cursor, image-rendering, color-rendering",
+  image ~a:[ a_cursor "pointer" ; a_image_rendering `OptimizeQuality ;
+             a_color_rendering `OptimizeSpeed ] [],
+  {|<image cursor="pointer" image-rendering="optimizeQuality" color-rendering="optimizeSpeed"></image>|} ;
+
+  "color-interpolation",
+  g ~a:[ a_color_interpolation `SRGB ] [],
+  {|<g color-interpolation="sRGB"></g>|} ;
+
+]
+
 let svg_filters = "svg filters", tyxml_tests Svg.[
 
   "filter gaussian blur",
@@ -84,6 +142,7 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
 let tests = [
   svg_attributes ;
+  svg_presentation ;
   svg_filters ;
   svg_mask ;
   svg_clip_path

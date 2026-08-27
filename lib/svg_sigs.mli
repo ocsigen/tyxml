@@ -675,6 +675,115 @@ module type T = sig
 
   val a_stroke_opacity : float wrap -> [> `Stroke_Opacity ] attrib
 
+  val a_baseline_shift : string wrap -> [> | `Baseline_Shift ] attrib
+
+  val a_clip : string wrap -> [> | `Clip ] attrib
+    [@@ocaml.deprecated "Deprecated in SVG2, use a_clip_path"]
+  (** @deprecated Deprecated in SVG2, use {!a_clip_path} *)
+
+  val a_clip_rule :
+    [< | `Nonzero | `Evenodd | `Inherit ] wrap -> [> | `Clip_Rule ] attrib
+
+  val a_color : color wrap -> [> | `Color ] attrib
+
+  val a_color_interpolation :
+    [< | `Auto | `SRGB | `LinearRGB | `Inherit ] wrap ->
+    [> | `Color_Interpolation ] attrib
+
+  val a_color_interpolation_filters :
+    [< | `Auto | `SRGB | `LinearRGB | `Inherit ] wrap ->
+    [> | `Color_interpolation_filters ] attrib
+
+  val a_color_profile : string wrap -> [> | `Color_profile ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
+  val a_color_rendering :
+    [< | `Auto | `OptimizeSpeed | `OptimizeQuality | `Inherit ] wrap ->
+    [> | `Color_rendering ] attrib
+
+  val a_cursor : string wrap -> [> | `Cursor ] attrib
+
+  val a_direction :
+    [< | `Ltr | `Rtl | `Inherit ] wrap -> [> | `Direction ] attrib
+
+  val a_display : string wrap -> [> | `Display ] attrib
+
+  val a_enable_background :
+    [< | `Accumulate | `New | `Inherit ] wrap ->
+    [> | `Enable_background ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
+  val a_fill_opacity : number wrap -> [> | `Fill_opacity ] attrib
+
+  val a_filter : string wrap -> [> | `Filter ] attrib
+
+  val a_flood_color : color wrap -> [> | `Flood_Color ] attrib
+
+  val a_flood_opacity : number wrap -> [> | `Flood_Opacity ] attrib
+
+  val a_font_size_adjust : string wrap -> [> | `Font_Size_Adjust ] attrib
+
+  val a_glyph_orientation_horizontal :
+    string wrap -> [> | `Glyph_Orientation_Horizontal ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
+  val a_glyph_orientation_vertical :
+    string wrap -> [> | `Glyph_Orientation_Vertical ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
+  val a_image_rendering :
+    [< | `Auto | `OptimizeSpeed | `OptimizeQuality | `Inherit ] wrap ->
+    [> | `Image_Rendering ] attrib
+
+  val a_kerning : string wrap -> [> | `Kerning ] attrib
+    [@@ocaml.deprecated "Removed in SVG2, use CSS font-kerning"]
+  (** @deprecated Removed in SVG2, use CSS font-kerning *)
+
+  val a_letter_spacing : string wrap -> [> | `Letter_Spacing ] attrib
+
+  val a_lighting_color : color wrap -> [> | `Lighting_Color ] attrib
+
+  val a_marker_end : iri wrap -> [> | `Marker_End ] attrib
+
+  val a_marker_mid : iri wrap -> [> | `Marker_Mid ] attrib
+
+  val a_marker_start : iri wrap -> [> | `Marker_Start ] attrib
+
+  val a_mask : iri wrap -> [> | `Mask ] attrib
+
+  val a_opacity : number wrap -> [> | `Opacity ] attrib
+
+  val a_overflow :
+    [< | `Visible | `Hidden | `Scroll | `Auto | `Inherit ] wrap ->
+    [> | `Overflow ] attrib
+
+  val a_pointer_events :
+    [< | `VisiblePainted | `VisibleFill | `VisibleStroke | `Visible
+       | `Painted | `Fill | `Stroke | `All | `None | `Inherit ] wrap ->
+    [> | `Pointer_Events ] attrib
+
+  val a_shape_rendering :
+    [< | `Auto | `OptimizeSpeed | `CrispEdges | `GeometricPrecision
+       | `Inherit ] wrap -> [> | `Shape_Rendering ] attrib
+
+  val a_unicode_bidi :
+    [< | `Normal | `Embed | `Bidi_override | `Inherit ] wrap ->
+    [> | `Unicode_Bidi ] attrib
+
+  val a_visibility :
+    [< | `Visible | `Hidden | `Collapse | `Inherit ] wrap ->
+    [> | `Visibility ] attrib
+
+  val a_word_spacing : string wrap -> [> | `Word_Spacing ] attrib
+
+  val a_writing_mode :
+    [< | `Horizontal_tb | `Vertical_rl | `Vertical_lr | `Inherit ] wrap ->
+    [> | `Writing_Mode ] attrib
+
   (** {2 Events}
 
       {3 Javascript events} *)
