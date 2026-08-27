@@ -289,20 +289,36 @@ type i18n = [ | `XML_lang | `Lang ]
 type core =
   [
     | `Accesskey
+    | `Autocapitalize
+    | `Autocorrect
     | `Class
     | `Contenteditable
     | `Contextmenu
     | `Dir
     | `Draggable
+    | `Enterkeyhint
+    | `Exportparts
     | `Hidden
     | `Id
+    | `Inert
     | i18n
+    | `Is
+    | `Itemid
+    | `Itemprop
+    | `Itemref
+    | `Itemscope
+    | `Itemtype
+    | `Nonce
+    | `Part
+    | `Popover
+    | `Slot
     | `Spellcheck
     | `Style_Attr
     | `Tabindex
     | `Translate
     | `Title
     | `User_data
+    | `Writingsuggestions
     | `XMLns
   ]
 
@@ -312,13 +328,23 @@ type core =
 type events =
   [
     | `OnAbort
+    | `OnAuxClick
+    | `OnBeforeInput
+    | `OnBeforeMatch
+    | `OnBeforeToggle
     | `OnBlur
+    | `OnCancel
     | `OnCanPlay
     | `OnCanPlayThrough
     | `OnChange
     | `OnClick
     | `OnClose
     | `OnContextMenu
+    | `OnContextLost
+    | `OnContextRestored
+    | `OnCopy
+    | `OnCut
+    | `OnCueChange
     | `OnDblClick
     | `OnDrag
     | `OnDragEnd
@@ -342,6 +368,18 @@ type events =
     | `OnMouseMove
     | `OnMouseOut
     | `OnMouseWheel
+    | `OnWheel
+    | `OnPointerCancel
+    | `OnPointerDown
+    | `OnPointerEnter
+    | `OnPointerLeave
+    | `OnPointerMove
+    | `OnPointerOut
+    | `OnPointerOver
+    | `OnPointerUp
+    | `OnGotPointerCapture
+    | `OnLostPointerCapture
+    | `OnPaste
     | `OnPause
     | `OnPlay
     | `OnPlaying
@@ -349,14 +387,18 @@ type events =
     | `OnRateChange
     | `OnReadyStateChange
     | `OnScroll
+    | `OnScrollEnd
+    | `OnSecurityPolicyViolation
     | `OnSeeked
     | `OnSeeking
     | `OnSelect
     | `OnShow
+    | `OnSlotChange
     | `OnStalled
     | `OnSubmit
     | `OnSuspend
     | `OnTimeUpdate
+    | `OnToggle
     | `OnTouchStart
     | `OnTouchEnd
     | `OnTouchMove
@@ -447,6 +489,7 @@ type (+'interactive, +'noscript, +'regular, +'media) transparent =
     | `Del of 'regular
     | `Object of 'regular
     | `Object_interactive of 'regular
+    | `Slot of 'regular
     | `Audio_interactive of 'media
     | `Video_interactive of 'media
     | `Audio of 'media
@@ -461,6 +504,7 @@ type (+'noscript, +'regular, +'media) transparent_without_interactive =
     | `Object of 'regular
     | `Canvas of 'regular
     | `Map of 'regular
+    | `Slot of 'regular
     | `Audio of 'media
     | `Video of 'media
   ]
@@ -474,6 +518,7 @@ type (+'interactive, +'regular, +'media) transparent_without_noscript =
     | `Map of 'regular
     | `Object of 'regular
     | `Object_interactive of 'regular
+    | `Slot of 'regular
     | `Video of 'media
     | `Audio of 'media
     | `Video_interactive of 'media
@@ -490,6 +535,7 @@ type (+'interactive, +'noscript, +'regular) transparent_without_media =
     | `Canvas of 'regular
     | `Object of 'regular
     | `Object_interactive of 'regular
+    | `Slot of 'regular
   ]
 
 (** Metadata without title *)
@@ -550,6 +596,7 @@ type core_phrasing =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -561,11 +608,13 @@ type core_phrasing =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `Img | `Img_interactive
@@ -590,6 +639,7 @@ type core_phrasing_without_noscript =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -601,11 +651,13 @@ type core_phrasing_without_noscript =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `Img | `Img_interactive
     | `Picture
     | `B
@@ -628,6 +680,7 @@ type core_phrasing_without_interactive =
     | `Script
     | `Svg
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -638,11 +691,13 @@ type core_phrasing_without_interactive =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -665,6 +720,7 @@ type core_phrasing_without_media =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -678,11 +734,13 @@ type core_phrasing_without_media =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -721,10 +779,10 @@ type (+'a, +'b) between_phrasing_and_phrasing_without_interactive =
                                            phrasing_without_noscript,
                                            phrasing,
                                            phrasing_without_media) transparent
-        > `Abbr `B `Bdo `Br `Canvas `Cite `Code `Command
-        `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
-        `Noscript `Object `PCDATA `Progress `Q `Ruby `Samp `Script
-        `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
+        > `Abbr `B `Bdi `Bdo `Br `Canvas `Cite `Code `Command
+        `Data `Datalist `Del `Dfn `Em `I `Img `Picture `Ins `Kbd `Map `Mark `Meter
+        `Noscript `Object `PCDATA `Progress `Q `Ruby `S `Samp `Script
+        `Slot `Small `Span `Strong `Sub `Sup `Svg `Template `Time `U `Var `Wbr ] as 'a)
 
 (** Phrasing without the interactive markups *)
 type phrasing_without_dfn =
@@ -743,6 +801,7 @@ type phrasing_without_dfn =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -753,11 +812,13 @@ type phrasing_without_dfn =
     | `I
     | `Em
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -783,6 +844,7 @@ type phrasing_without_label =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -791,11 +853,13 @@ type phrasing_without_label =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -819,6 +883,7 @@ type phrasing_without_progress =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Img | `Img_interactive
     | `Picture
     | `Ruby
@@ -831,12 +896,14 @@ type phrasing_without_progress =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Button
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -861,6 +928,7 @@ type phrasing_without_time =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -870,11 +938,13 @@ type phrasing_without_time =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -902,6 +972,7 @@ type phrasing_without_meter =
     | `Small
     | `Script
     | `Samp
+    | `S
     | `Ruby
     | `Q
     | `Mark
@@ -911,11 +982,13 @@ type phrasing_without_meter =
     | `Em
     | `Dfn
     | `Datalist
+    | `Data
     | `Command
     | `Code
     | `Cite
     | `Br
     | `Bdo
+    | `Bdi
     | `B
     | `Abbr
     | `PCDATA
@@ -940,6 +1013,7 @@ type core_flow5 =
     | `Details
     | `Main
     | `Dialog
+    | `Search
   ]
 
 type core_flow5_without_interactive =
@@ -958,6 +1032,7 @@ type core_flow5_without_interactive =
     | `Dl
     | `Main
     | `Dialog
+    | `Search
   ]
 
 type core_flow5_without_noscript =
@@ -977,6 +1052,7 @@ type core_flow5_without_noscript =
     | `Details
     | `Main
     | `Dialog
+    | `Search
   ]
 type core_flow5_without_media =
   [
@@ -995,6 +1071,7 @@ type core_flow5_without_media =
     | `Details
     | `Main
     | `Dialog
+    | `Search
   ]
 
 type flow5_without_interactive =
@@ -1039,6 +1116,7 @@ type flow5_without_table =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1065,6 +1143,7 @@ type flow5_without_interactive_header_footer =
     | `Dl
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_noscript, flow5, flow5_without_media)
         transparent_without_interactive
   ]
@@ -1092,18 +1171,19 @@ type flow5_without_header_footer =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive_header_footer,
        flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
 
 type +'a between_flow5_and_flow5_without_interactive_header_footer =
-  [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdo `Blockquote `Br
-       `Button `Canvas `Cite `Code `Command `Datalist `Del `Dfn `Dialog `Div `Dl `Em
+  [< flow5  > `Abbr `Address `Article `Aside `Audio `B `Bdi `Bdo `Blockquote `Br
+       `Button `Canvas `Cite `Code `Command `Data `Datalist `Del `Dfn `Dialog `Div `Dl `Em
        `Fieldset `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Img `Picture
        `Input `Ins `Kbd `Keygen `Label `Map `Mark `Menu `Meter `Nav `Noscript
-       `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
-       `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg `Table
+       `Object `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
+       `Search `Section `Select `Slot `Small `Span `Strong `Style `Sub `Sup `Svg `Table
        `Template `Textarea `Time `U `Ul `Var `Video `Wbr] as 'a
 
 type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
@@ -1113,13 +1193,13 @@ type (+'a, +'b) between_flow5_and_flow5_without_header_footer =
                                        flow5_without_media)
       transparent
       > `A `Abbr `Address `Article `Aside `Audio `Audio_interactive `B
-      `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
-      `Datalist `Del `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset
+      `Bdi `Bdo `Blockquote `Br `Button `Canvas `Cite `Code `Command
+      `Data `Datalist `Del `Details `Dfn `Dialog `Div `Dl `Em `Embed `Fieldset
       `Figure `Form `H1 `H2 `H3 `H4 `H5 `H6 `Hgroup `Hr `I `Iframe
       `Img `Img_interactive `Picture `Input `Ins `Kbd `Keygen `Label `Map
       `Mark `Menu `Meter `Nav `Noscript `Object `Object_interactive
-      `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `Samp `Script
-      `Section `Select `Small `Span `Strong `Style `Sub `Sup `Svg
+      `Ol `Output `P `PCDATA `Pre `Progress `Q `Ruby `S `Samp `Script
+      `Search `Section `Select `Slot `Small `Span `Strong `Style `Sub `Sup `Svg
       `Table `Template `Textarea `Time `U `Ul `Var `Video `Video_interactive
       `Wbr ] as 'a
 
@@ -1139,6 +1219,7 @@ type flow5_without_form =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1163,6 +1244,7 @@ type flow5_without_sectioning_heading_header_footer_address =
     | `Details
     | `Main
     | `Dialog
+    | `Search
     | (flow5_without_interactive, flow5_without_noscript, flow5,
        flow5_without_media) transparent
   ]
@@ -1210,6 +1292,7 @@ type body_attrib =
     | `OnBeforePrint
     | `OnBeforeUnload
     | `OnHashChange
+    | `OnLanguageChange
     | `OnMessage
     | `OnOffLine
     | `OnOnLine
@@ -1217,9 +1300,11 @@ type body_attrib =
     | `OnPageShow
     | `OnPopState
     | `OnRedo
+    | `OnRejectionHandled
     | `OnResize
     | `OnStorage
     | `OnUndo
+    | `OnUnhandledRejection
     | `OnUnload
   ]
 
@@ -1387,6 +1472,15 @@ type main_content_fun = [ | flow5 ]
 
 type main_attrib = [ | common ]
 
+(* NAME: search, KIND: star, TYPE: [= common ], [= flow5 ], [=`Search], ARG: [= flow5 ], ATTRIB:  OUT: [=`Search] *)
+type search = [ | `Search ]
+
+type search_content = [ | flow5 ]
+
+type search_content_fun = [ | flow5 ]
+
+type search_attrib = [ | common ]
+
 (* NAME: p, KIND: star, TYPE: [= common ], [=phrasing ], [=`P], ARG: [=phrasing ], ATTRIB:  OUT: [=`P] *)
 type p = [ | `P ]
 
@@ -1421,7 +1515,7 @@ type dialog_content = [ | flow5 ]
 
 type dialog_content_fun = [ | flow5 ]
 
-type dialog_attrib = [ | common | `Open ]
+type dialog_attrib = [ | common | `Open | `Closedby ]
 
 (* NAME: div, KIND: star, TYPE: [= common ], [= flow5 ], [=`Div], ARG: [= flow5 ], ATTRIB:  OUT: [=`Div] *)
 type div = [ | `Div ]
@@ -1439,7 +1533,7 @@ type ol_content = [ | `Li of [ | common | `Int_Value ] ]
 
 type ol_content_fun = [ | `Li of [ | common | `Int_Value ] ]
 
-type ol_attrib = [ | common | `Reversed | `Start ]
+type ol_attrib = [ | common | `Reversed | `Start | `Ol_Type ]
 
 (* NAME: li, KIND: star, TYPE: [= common | `Int_Value] as 'a, [=flow5 ], [=`Li of 'a], ARG: [=flow5 ], ATTRIB:  OUT: [=`Li of 'a] *)
 type li_content = [ | flow5 ]
@@ -1559,6 +1653,15 @@ type u_content_fun = [ | phrasing ]
 
 type u_attrib = [ | common ]
 
+(* NAME: s, KIND: star, TYPE: [= common ], [= phrasing ], [=`S], ARG: [= phrasing ], ATTRIB:  OUT: [=`S] *)
+type s = [ | `S ]
+
+type s_content = [ | phrasing ]
+
+type s_content_fun = [ | phrasing ]
+
+type s_attrib = [ | common ]
+
 (* NAME: small, KIND: star, TYPE: [= common ], [= phrasing ], [=`Small], ARG: [= phrasing ], ATTRIB:  OUT: [=`Small] *)
 type small = [ | `Small ]
 
@@ -1612,6 +1715,15 @@ type bdo_content = [ | phrasing ]
 type bdo_content_fun = [ | phrasing ]
 
 type bdo_attrib = [ | common ]
+
+(* NAME: bdi, KIND: star, TYPE: [= common ],[= phrasing ],[= `Bdi ], ARG: [= phrasing ], ATTRIB:  OUT: [= `Bdi ] *)
+type bdi = [ | `Bdi ]
+
+type bdi_content = [ | phrasing ]
+
+type bdi_content_fun = [ | phrasing ]
+
+type bdi_attrib = [ | common ]
 
 (* NAME: abbr, KIND: star, TYPE: [= common ], [=phrasing ], [=`Abbr], ARG: [=phrasing ], ATTRIB:  OUT: [=`Abbr] *)
 type abbr = [ | `Abbr ]
@@ -1712,6 +1824,15 @@ type strong_content_fun = [ | phrasing ]
 
 type strong_attrib = [ | common ]
 
+(* NAME: data, KIND: star, TYPE: [= common ], [= phrasing ], [=`Data], ARG: [= phrasing ], ATTRIB:  OUT: [=`Data] *)
+type data = [ | `Data ]
+
+type data_content = [ | phrasing ]
+
+type data_content_fun = [ | phrasing ]
+
+type data_attrib = [ | common ]
+
 (* NAME: time, KIND: star, TYPE: [= common |`Datetime |`Pubdate], [= phrasing_without_time ], [=`Time], ARG: [= phrasing_without_time ], ATTRIB:  OUT: [=`Time] *)
 type time = [ | `Time ]
 
@@ -1739,7 +1860,7 @@ type 'a a = [ | `A of 'a ]
 type a_ = [ `A of a_content ] (* should not be used as it may break *)
 type a_attrib =
   [ | common | `Href | `Hreflang | `Media | `Rel | `Target | `Mime_type
-    | `Download
+    | `Download | `Ping | `Referrerpolicy
   ]
 
 (* NAME: del, KIND: star, TYPE: [= common | `Cite | `Datetime ], 'a,[=`Del of 'a], ARG: 'a, ATTRIB:  OUT: [=`Del of 'a] *)
@@ -1769,16 +1890,18 @@ type iframe_content_fun = [ | `PCDATA ]
 type iframe_attrib =
   [
     | common
+    | `Allow
     | `Allowfullscreen
     | `Allowpaymentrequest
     | `Src
-    | (*| `Srcdoc*)
-      `Name
+    | `Srcdoc
+    | `Name
     | `Sandbox
     | `Seamless
     | `Width
     | `Height
     | `Referrerpolicy
+    | `Loading
   ]
 
 type object__content = [ | flow5 | `Param ]
@@ -1821,7 +1944,11 @@ type img = [ `Img ]
 type img_interactive = [ `Img | `Img_interactive ]
 type img_content = notag
 type img_content_fun = notag
-type img_attrib = [ | common | `Height | `Ismap | `Width | `Srcset | `Img_sizes]
+type img_attrib =
+  [ | common | `Height | `Ismap | `Width | `Srcset | `Img_sizes
+    | `Crossorigin | `Usemap | `Referrerpolicy
+    | `Loading | `Decoding | `Fetchpriority
+  ]
 
 (* Attributes used by audio and video. *)
 type media_attrib =
@@ -1832,6 +1959,7 @@ type media_attrib =
     | `Loop
     | `Muted
     | `Controls
+    | `Disableremoteplayback
   ]
 
 type 'a audio = [ | `Audio of 'a ]
@@ -1860,6 +1988,8 @@ type video_attrib =
     | `Poster
     | `Width
     | `Height
+    | `Playsinline
+    | `Disablepictureinpicture
   ]
 
 (* NAME: canvas, KIND: star, TYPE: [= common |`Width |`Height],'a, [=`Canvas of 'a], ARG: 'a, ATTRIB:  OUT: [=`Canvas of 'a] *)
@@ -1880,6 +2010,15 @@ type source_content_fun = notag
 
 type source_attrib = [ | common | `Src | `Srcset | `Mime_type | `Media ]
 
+(* NAME: track, KIND: nullary, TYPE: [= common |`Kind |`Srclang |`Label |`Default ], [=`Track], ARG: notag, ATTRIB:  OUT: [=`Track] *)
+type track = [ | `Track ]
+
+type track_content = notag
+
+type track_content_fun = notag
+
+type track_attrib = [ | common | `Kind | `Srclang | `Label | `Default ]
+
 (* NAME: area, KIND: nullary, TYPE: [= common | `Alt | `Coords | `Shape| `Target | `Rel | `Media| `Hreflang | `Mime_type],[=`Area], ARG: notag, ATTRIB:  OUT: [=`Area] *)
 type area = [ | `Area ]
 
@@ -1899,6 +2038,8 @@ type area_attrib =
     | `Hreflang
     | `Mime_type
     | `Download
+    | `Ping
+    | `Referrerpolicy
   ]
 
 (* NAME: map, KIND: plus, TYPE: [=common | `Name ],'a, [=`Map of 'a], ARG: 'a, ATTRIB:  OUT: [=`Map of 'a] *)
@@ -1999,7 +2140,7 @@ type th_content = [ | flow5 ]
 
 type th_content_fun = [ | flow5 ]
 
-type th_attrib = [ | common | `Colspan | `Headers | `Rowspan | `Scope ]
+type th_attrib = [ | common | `Colspan | `Headers | `Rowspan | `Scope | `Abbr ]
 
 (* NAME: tr, KIND: star, TYPE: [= common ],[= `Td | `Th ], [=`Tr], ARG: [= `Td | `Th ], ATTRIB:  OUT: [=`Tr] *)
 type tr = [ | `Tr ]
@@ -2099,6 +2240,10 @@ type input_attrib =
     | `Value
     | `Width
     | `Inputmode
+    | `Popovertarget
+    | `Popovertargetaction
+    | `Dirname
+    | `Capture
   ]
 
 type textarea = [ | `Textarea ]
@@ -2118,6 +2263,8 @@ type textarea_attrib =
     | `Wrap
     | `Rows
     | `Cols
+    | `Dirname
+    | `Autocomplete
   ]
 
 type textarea_content = [ | `PCDATA ]
@@ -2146,6 +2293,10 @@ type button_attrib =
     | `Name
     | `Text_Value
     | `Button_Type
+    | `Popovertarget
+    | `Popovertargetaction
+    | `Command
+    | `Commandfor
   ]
 
 (* NAME: select, KIND: star, TYPE: [= common |`Autofocus | `Multiple | `Name | `Size | `Form | `Disabled ], [ `Optgroup | `Option ],[=`Select], ARG: [ `Optgroup | `Option ], ATTRIB:  OUT: [=`Select] *)
@@ -2157,6 +2308,7 @@ type select_content_fun = [ | `Optgroup | `Option ]
 
 type select_attrib =
   [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled | `Required
+    | `Autocomplete
   ]
 
 (* NAME: datalist, KIND: nullary, TYPE: [= common ], [=`Datalist], ARG: notag, ATTRIB:  OUT: [=`Datalist] *)
@@ -2280,7 +2432,8 @@ type meta_content = notag
 
 type meta_content_fun = notag
 
-type meta_attrib = [ | common | `Http_equiv | `Name | `Content | `Charset | `Property ]
+type meta_attrib =
+  [ | common | `Http_equiv | `Name | `Content | `Charset | `Property | `Media ]
 
 (* NAME: style, KIND: star, TYPE: [= common | `Media | `Mime_type | `Scoped ], [= `PCDATA ], [=`Style], ARG: [= `PCDATA ], ATTRIB:  OUT: [=`Style] *)
 type style = [ | `Style ]
@@ -2289,13 +2442,14 @@ type style_content = [ | `PCDATA ]
 
 type style_content_fun = [ | `PCDATA ]
 
-type style_attrib = [ | common | `Media | `Mime_type | `Scoped ]
+type style_attrib = [ | common | `Media | `Mime_type | `Scoped | `Blocking ]
 
 type script = [ | `Script ]
 
 type script_attrib =
   [ | common | subresource_integrity
     | `Async | `Charset | `Src | `Defer | `Script_type
+    | `Blocking | `Fetchpriority | `Nomodule | `Referrerpolicy
   ]
 
 type script_content = [ | `PCDATA ]
@@ -2305,11 +2459,26 @@ type script_content_fun = [ | `PCDATA ]
 (* NAME: template, KIND: star, TYPE: [= common ], [= flow5 ], [=`Template], ARG: [= flow5 ], ATTRIB:  OUT: [=`Template] *)
 type template = [ | `Template ]
 
-type template_attrib = [ | common ]
+type template_attrib =
+  [ | common
+    | `Shadowrootmode
+    | `Shadowrootdelegatesfocus
+    | `Shadowrootclonable
+    | `Shadowrootserializable
+  ]
 
 type template_content = [ | flow5 ]
 
 type template_content_fun = [ | flow5 ]
+
+(* NAME: slot, KIND: star, TYPE: [= common | `Name ],'a, [=`Slot of 'a], ARG: 'a, ATTRIB:  OUT: [=`Slot of 'a] *)
+type 'a slot = [ | `Slot of 'a ]
+
+type slot_content = flow5
+type slot_ = slot_content slot
+type slot_content_fun = flow5
+
+type slot_attrib = [ | common | `Name ]
 
 (* NAME: link, KIND: nullary, TYPE: [= common | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type ], [=`Link], ARG: notag, ATTRIB:  OUT: [=`Link] *)
 type link = [ | `Link ]
@@ -2321,6 +2490,8 @@ type link_content_fun = notag
 type link_attrib =
   [ | common | subresource_integrity
     | `Hreflang | `Media | `Rel | `Href | `Sizes | `Mime_type
+    | `As | `Imagesrcset | `Imagesizes | `Blocking | `Fetchpriority
+    | `Disabled | `Referrerpolicy
   ]
 
 type picture = [ | `Picture ]
@@ -2347,6 +2518,7 @@ type big_variant =
   | `Selected
   | `Get
   | `Post
+  | `Dialog
   | `Checked
   | `Disabled
   | `ReadOnly
@@ -2367,6 +2539,10 @@ type big_variant =
   | `Open
   | `Audio
   | `Metadata
+  | `Subtitles
+  | `Captions
+  | `Descriptions
+  | `Chapters
   | `None
   | `Pubdate
   | `Required
@@ -2401,8 +2577,52 @@ type big_variant =
   | `One
   | `Zero
   | `Auto
+  | `Manual
+  | `Hint
   | `No
   | `Yes
+  | `On
+  | `Off
+  | `Enter
+  | `Done
+  | `Go
+  | `Next
+  | `Previous
+  | `Send
+  | `Sentences
+  | `Words
+  | `Characters
+  | `Show
+  | `Hide
+  | `Toggle
+  | `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string
+  | `Lazy
+  | `Eager
+  | `Sync
+  | `High
+  | `Low
+  | `User
+  | `Environment
+  | `Any
+  | `Closerequest
+  | `Closed
+  | `Document
+  | `Embed
+  | `Fetch
+  | `Font
+  | `Image
+  | `Object
+  | `Script
+  | `Style
+  | `Track
+  | `Video
+  | `Worker
   | `Defer
   | `Verbatim
   | `Latin
@@ -2421,12 +2641,21 @@ type big_variant =
   ]
 
 type sandbox_token =
-  [ `Allow_forms
+  [ `Allow_downloads
+  | `Allow_forms
+  | `Allow_modals
+  | `Allow_orientation_lock
   | `Allow_pointer_lock
   | `Allow_popups
-  | `Allow_top_navigation
+  | `Allow_popups_to_escape_sandbox
+  | `Allow_presentation
   | `Allow_same_origin
-  | `Allow_script ]
+  | `Allow_script
+  | `Allow_top_navigation
+  | `Allow_top_navigation_by_user_activation
+  | `Allow_top_navigation_to_custom_protocols ]
+
+type blocking_token = [ `Render ]
 
 
 type input_type =
@@ -2457,3 +2686,21 @@ type input_type =
 type script_type = [ `Javascript | `Module | `Mime of string ]
 
 type autocomplete_option = [ `On | `Off | `Tokens of string list]
+
+type popover_value = [ `Auto | `Manual | `Hint ]
+
+(** Values of the [type] attribute of ordered lists. The serialized
+    values are case-sensitive ("1", "a", "A", "i", "I"). *)
+type ol_type =
+  [ `Decimal | `Lower_alpha | `Upper_alpha | `Lower_roman | `Upper_roman ]
+
+(** Values for the [command] attribute of button elements. Custom
+    commands (starting with [--]) use the [`Other] constructor. *)
+type command_value =
+  [ `Show_modal
+  | `Close
+  | `Request_close
+  | `Show_popover
+  | `Hide_popover
+  | `Toggle_popover
+  | `Other of string ] [@@reflect.total_variant]

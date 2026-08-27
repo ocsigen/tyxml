@@ -160,12 +160,17 @@ let object_ ~lang ~loc ~name children =
 
 let audio_video ~lang ~loc ~name children =
   let sources, others = partition (html "source") children in
+  let tracks, others = partition (html "track") others in
 
-  if sources <> [] then
-    (Labelled "srcs", Common.list_wrap_value lang loc sources) ::
-    star ~lang ~loc ~name others
-  else
-    star ~lang ~loc ~name others
+  let sources =
+    if sources = [] then []
+    else [Labelled "srcs", Common.list_wrap_value lang loc sources]
+  in
+  let tracks =
+    if tracks = [] then []
+    else [Labelled "tracks", Common.list_wrap_value lang loc tracks]
+  in
+  sources @ tracks @ star ~lang ~loc ~name others
 
 let table ~lang ~loc ~name children =
   let caption, others = partition (html "caption") children in
