@@ -25,9 +25,6 @@ jobs:
         ocaml-compiler:
           - 5
           - 4
-        include:
-          - os: ubuntu-latest
-            ocaml-compiler: "4.08"
 
     runs-on: ${{ matrix.os }}
 
