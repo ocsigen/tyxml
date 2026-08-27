@@ -504,6 +504,10 @@ type symbol_content =
 
 type symbol_attr =
   [
+    | conditional_processing_attr
+    | core_attr
+    | graphical_event_attr
+    | presentation_attr
     | `Class
     | `Style
     | `ExternalResourcesRequired

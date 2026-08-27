@@ -13,6 +13,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   text ~a:[ a_user_data "foo" "valfoo" ] [],
   "<text data-foo=\"valfoo\"></text>" ;
 
+  "symbol id",
+  symbol ~a:[ a_id "sym" ] [],
+  "<symbol id=\"sym\"></symbol>" ;
+
 ]
 
 let svg_filters = "svg filters", tyxml_tests Svg.[
