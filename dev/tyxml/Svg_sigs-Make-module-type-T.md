@@ -785,13 +785,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib

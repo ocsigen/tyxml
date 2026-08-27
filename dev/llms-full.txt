@@ -2637,13 +2637,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -7570,13 +7572,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -12452,13 +12456,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -17214,13 +17220,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -21865,13 +21873,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -26350,6 +26360,15 @@ type heading = [
  ]
 ```
 ```ocaml
+type script_supporting = [ 
+  | `Script
+  | `Template
+ ]
+```
+Script-supporting elements: they do not represent anything themselves, and many content models allow them to be intermixed with their own children.
+
+see [https://html.spec.whatwg.org/multipage/dom.html\#script-supporting-elements](https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements) Script-supporting elements
+```ocaml
 type sectioning = [ 
   | `Section
   | `Nav
@@ -27801,11 +27820,15 @@ type div = [
 ```ocaml
 type div_content = [ 
   | flow5
+  | `Dt
+  | `Dd
  ]
 ```
 ```ocaml
 type div_content_fun = [ 
   | flow5
+  | `Dt
+  | `Dd
  ]
 ```
 ```ocaml
@@ -27924,12 +27947,16 @@ type dl = [
 ```
 ```ocaml
 type dl_content = [ 
+  | script_supporting
+  | `Div
   | `Dt
   | `Dd
  ]
 ```
 ```ocaml
 type dl_content_fun = [ 
+  | script_supporting
+  | `Div
   | `Dt
   | `Dd
  ]
@@ -31286,13 +31313,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -33105,6 +33134,9 @@ val string_of_alignment_baseline :
 val string_of_bool : (bool, string) Xml.W.ft
 ```
 ```ocaml
+val string_of_semicolonstrings : (Svg_types.semicolonstrings, string) Xml.W.ft
+```
+```ocaml
 val unoption_string : (string option, string) Xml.W.ft
 ```
 ```ocaml
@@ -33967,13 +33999,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -35550,6 +35584,9 @@ val string_of_alignment_baseline :
 val string_of_bool : (bool, string) Xml.W.ft
 ```
 ```ocaml
+val string_of_semicolonstrings : (Svg_types.semicolonstrings, string) Xml.W.ft
+```
+```ocaml
 val unoption_string : (string option, string) Xml.W.ft
 ```
 ```ocaml
@@ -36831,13 +36868,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -39257,13 +39296,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -41687,13 +41728,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib
@@ -43261,6 +43304,9 @@ val string_of_alignment_baseline :
 val string_of_bool : (bool, string) Xml.W.ft
 ```
 ```ocaml
+val string_of_semicolonstrings : (Svg_types.semicolonstrings, string) Xml.W.ft
+```
+```ocaml
 val unoption_string : (string option, string) Xml.W.ft
 ```
 ```ocaml
@@ -43898,6 +43944,9 @@ type spacestrings = string list
 ```
 ```ocaml
 type commastrings = string list
+```
+```ocaml
+type semicolonstrings = string list
 ```
 ```ocaml
 type transforms = transform list
@@ -50048,13 +50097,15 @@ val a_calcMode :
   [> `CalcMode ] attrib
 ```
 ```ocaml
-val a_animation_values : Svg_types.strings wrap -> [> `Valuesanim ] attrib
+val a_animation_values : 
+  Svg_types.semicolonstrings wrap ->
+  [> `Valuesanim ] attrib
 ```
 ```ocaml
-val a_keyTimes : Svg_types.strings wrap -> [> `KeyTimes ] attrib
+val a_keyTimes : Svg_types.semicolonstrings wrap -> [> `KeyTimes ] attrib
 ```
 ```ocaml
-val a_keySplines : Svg_types.strings wrap -> [> `KeySplines ] attrib
+val a_keySplines : Svg_types.semicolonstrings wrap -> [> `KeySplines ] attrib
 ```
 ```ocaml
 val a_from : string wrap -> [> `From ] attrib

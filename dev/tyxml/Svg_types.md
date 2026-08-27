@@ -518,6 +518,9 @@ type spacestrings = string list
 type commastrings = string list
 ```
 ```ocaml
+type semicolonstrings = string list
+```
+```ocaml
 type transforms = transform list
 ```
 ```ocaml

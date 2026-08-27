@@ -423,6 +423,15 @@ type heading = [
  ]
 ```
 ```ocaml
+type script_supporting = [ 
+  | `Script
+  | `Template
+ ]
+```
+Script-supporting elements: they do not represent anything themselves, and many content models allow them to be intermixed with their own children.
+
+see [https://html.spec.whatwg.org/multipage/dom.html\#script-supporting-elements](https://html.spec.whatwg.org/multipage/dom.html#script-supporting-elements) Script-supporting elements
+```ocaml
 type sectioning = [ 
   | `Section
   | `Nav
@@ -1874,11 +1883,15 @@ type div = [
 ```ocaml
 type div_content = [ 
   | flow5
+  | `Dt
+  | `Dd
  ]
 ```
 ```ocaml
 type div_content_fun = [ 
   | flow5
+  | `Dt
+  | `Dd
  ]
 ```
 ```ocaml
@@ -1997,12 +2010,16 @@ type dl = [
 ```
 ```ocaml
 type dl_content = [ 
+  | script_supporting
+  | `Div
   | `Dt
   | `Dd
  ]
 ```
 ```ocaml
 type dl_content_fun = [ 
+  | script_supporting
+  | `Div
   | `Dt
   | `Dd
  ]
