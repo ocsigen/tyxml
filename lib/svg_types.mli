@@ -524,6 +524,12 @@ type symbol_attr =
     | `ExternalResourcesRequired
     | `PreserveAspectRatio
     | `ViewBox
+    | `X
+    | `Y
+    | `Width
+    | `Height
+    | `RefX
+    | `RefY
   ]
 
 type use = [ | `Use ]

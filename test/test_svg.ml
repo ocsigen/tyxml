@@ -41,6 +41,12 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   style ~a:[ a_title "alternate" ] (txt ""),
   {|<style title="alternate"></style>|} ;
 
+  "symbol geometry",
+  symbol ~a:[ a_x (0., None) ; a_y (0., None) ; a_width (10., None) ;
+              a_height (10., None) ; a_refX (5., None) ; a_refY (5., None) ]
+    [],
+  {|<symbol x="0" y="0" width="10" height="10" refX="5" refY="5"></symbol>|} ;
+
   "tabindex and lang",
   circle ~a:[ a_tabindex 0 ; a_lang "fr" ] [],
   {|<circle tabindex="0" lang="fr"></circle>|} ;
