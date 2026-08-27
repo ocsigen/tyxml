@@ -191,6 +191,26 @@ module type T = sig
 
   val a_style : string wrap -> [> | `Style ] attrib
 
+  (** {3 ARIA support} *)
+
+  (** {{: https://www.w3.org/TR/wai-aria-1.1/} WAI-ARIA} attributes are part of
+      SVG 2, and provide additional semantics to improve accessibility.
+
+      @see <https://www.w3.org/TR/SVG2/struct.html#implicit-aria-semantics>
+      Implicit ARIA semantics of SVG elements *)
+
+  val a_role : string list wrap -> [> | `Role ] attrib
+  (** @see <https://www.w3.org/TR/role-attribute> Role attribute specification
+      @see <https://www.w3.org/TR/wai-aria-1.1/#role_definitions> List of
+      WAI-ARIA roles *)
+
+  val a_aria : string -> string list wrap -> [> | `Aria ] attrib
+  (** Basic support for WAI-ARIA attributes: [a_aria "foo"] corresponds to an
+      "aria-foo" attribute.
+
+      @see <https://www.w3.org/TR/wai-aria-1.1/#state_prop_def> List of
+      WAI-ARIA attributes *)
+
   val a_transform : transforms wrap -> [> | `Transform ] attrib
 
   val a_viewBox : fourfloats wrap -> [> | `ViewBox ] attrib

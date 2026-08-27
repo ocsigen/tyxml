@@ -573,6 +573,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "role, aria-*",
+  [[%svg "<g role='img' aria-label='circle'/>"]],
+  [g ~a:[a_role ["img"]; a_aria "label" ["circle"]] []] ;
+
   "tabindex, lang",
   [[%svg "<circle tabindex='0' lang='fr'/>"]],
   [circle ~a:[a_tabindex 0; a_lang "fr"] []] ;

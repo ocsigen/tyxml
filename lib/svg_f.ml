@@ -273,6 +273,10 @@ struct
 
   let a_style = string_attrib "style"
 
+  let a_role = Xml.space_sep_attrib "role"
+
+  let a_aria name = Xml.space_sep_attrib ("aria-" ^ name)
+
   let a_transform = user_attrib C.string_of_transforms "transform"
 
   let a_viewBox = user_attrib C.string_of_fourfloats "viewBox"
