@@ -530,6 +530,17 @@ struct
 
   let a_target = string_attrib "target"
 
+  let a_download file = user_attrib C.unoption_string "download" file
+
+  let a_hreflang = string_attrib "hreflang"
+
+  let a_ping = Xml.space_sep_attrib "ping"
+
+  let a_referrerpolicy x =
+    user_attrib C.string_of_big_variant "referrerpolicy" x
+
+  let a_rel = Xml.space_sep_attrib "rel"
+
   let a_viewTarget = string_attrib "viewTarget"
 
   let a_attributeName = string_attrib "attributeName"
@@ -1133,6 +1144,8 @@ struct
     | `Multiply -> "multiply"
     | `Never -> "never"
     | `New -> "new"
+    | `No_referrer -> "no-referrer"
+    | `No_referrer_when_downgrade -> "no-referrer-when-downgrade"
     | `Non_rotation -> "non-rotation"
     | `Non_scaling_size -> "non-scaling-size"
     | `Non_scaling_stroke -> "non-scaling-stroke"
@@ -1147,6 +1160,8 @@ struct
     | `OptimizeLegibility -> "optimizeLegibility"
     | `OptimizeQuality -> "optimizeQuality"
     | `OptimizeSpeed -> "optimizeSpeed"
+    | `Origin -> "origin"
+    | `Origin_when_cross_origin -> "origin-when-cross-origin"
     | `Other -> "other"
     | `Out -> "out"
     | `Over -> "over"
@@ -1168,6 +1183,7 @@ struct
     | `Rotate -> "rotate"
     | `Round -> "round"
     | `Rtl -> "rtl"
+    | `Same_origin -> "same-origin"
     | `Saturate -> "saturate"
     | `Saturation -> "saturation"
     | `Scale -> "scale"
@@ -1183,6 +1199,8 @@ struct
     | `Start -> "start"
     | `Stitch -> "stitch"
     | `Stretch -> "stretch"
+    | `Strict_origin -> "strict-origin"
+    | `Strict_origin_when_cross_origin -> "strict-origin-when-cross-origin"
     | `Stroke -> "stroke"
     | `StrokeWidth -> "stroke-width"
     | `Sum -> "sum"
@@ -1191,6 +1209,7 @@ struct
     | `Translate -> "translate"
     | `Turbulence -> "turbulence"
     | `Underline -> "underline"
+    | `Unsafe_url -> "unsafe-url"
     | `UserSpaceOnUse -> "userSpaceOnUse"
     | `V -> "v"
     | `Vertical_lr -> "vertical-lr"
@@ -1205,6 +1224,10 @@ struct
     | `Xor -> "xor"
 
   let string_of_bool = string_of_bool
+
+  let unoption_string = function
+    | Some x -> x
+    | None -> ""
 
   let string_of_coords =
     list (fun (a, b) -> Printf.sprintf "%g, %g" a b)

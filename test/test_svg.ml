@@ -51,6 +51,21 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
 
 ]
 
+let svg_links = "svg links", tyxml_tests Svg.[
+
+  "a with SVG 2 link attributes",
+  a ~a:[ a_href "page.html" ; a_target "_blank" ; a_rel ["noopener"] ;
+         a_hreflang "fr" ; a_type "text/html" ; a_ping ["/p1"; "/p2"] ;
+         a_referrerpolicy `No_referrer ; a_download (Some "page.html") ]
+    [],
+  {|<a href="page.html" target="_blank" rel="noopener" hreflang="fr" type="text/html" ping="/p1 /p2" referrerpolicy="no-referrer" download="page.html"></a>|} ;
+
+  "a with a nameless download",
+  a ~a:[ a_href "f.png" ; a_download None ] [],
+  {|<a href="f.png" download=""></a>|} ;
+
+]
+
 let svg_presentation = "svg presentation attributes", tyxml_tests Svg.[
 
   "opacity, fill-opacity, stroke-opacity",
@@ -160,6 +175,7 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
 let tests = [
   svg_attributes ;
+  svg_links ;
   svg_presentation ;
   svg_filters ;
   svg_mask ;

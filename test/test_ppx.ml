@@ -573,6 +573,12 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<animate fill='freeze' values='1 2'/>"]],
   [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
 
+  "a link attributes",
+  [[%svg "<a href='p.html' rel='noopener' referrerpolicy='no-referrer' \
+             download='p.html'/>"]],
+  [a ~a:[a_href "p.html"; a_rel ["noopener"];
+         a_referrerpolicy `No_referrer; a_download (Some "p.html")] []] ;
+
   "role, aria-*",
   [[%svg "<g role='img' aria-label='circle'/>"]],
   [g ~a:[a_role ["img"]; a_aria "label" ["circle"]] []] ;

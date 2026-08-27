@@ -499,6 +499,28 @@ module type T = sig
 
   val a_target : string wrap -> [> | `Target ] attrib
 
+  (** {3 Link attributes}
+
+      These attributes apply to the [a] element, as in HTML. *)
+
+  val a_download : string option wrap -> [> | `Download ] attrib
+  (** [None] downloads the resource under its default name. *)
+
+  val a_hreflang : string wrap -> [> | `Hreflang ] attrib
+
+  val a_ping : spacestrings wrap -> [> | `Ping ] attrib
+  (** Space separated list of URLs to ping when the link is followed. *)
+
+  val a_referrerpolicy :
+    [< | `No_referrer | `No_referrer_when_downgrade | `Origin
+       | `Origin_when_cross_origin | `Same_origin | `Strict_origin
+       | `Strict_origin_when_cross_origin | `Unsafe_url ] wrap ->
+    [> | `Referrerpolicy ] attrib
+
+  val a_rel : spacestrings wrap -> [> | `Rel ] attrib
+  (** Space separated list of link types describing the relationship between
+      the current document and the linked resource. *)
+
   val a_viewTarget : string wrap -> [> | `ViewTarget ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
@@ -1263,6 +1285,8 @@ module type Wrapped_functions = sig
     ([< Svg_types.alignment_baseline], string) Xml.W.ft
 
   val string_of_bool : (bool, string) Xml.W.ft
+
+  val unoption_string : (string option, string) Xml.W.ft
 
   val string_of_big_variant : ([< Svg_types.big_variant], string) Xml.W.ft
 

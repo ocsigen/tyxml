@@ -1589,7 +1589,13 @@ type a_attr =
     | `Xlink_href
     | `Xlink_show
     | `Xlink_actuate
+    | `Download
+    | `Hreflang
+    | `Ping
+    | `Referrerpolicy
+    | `Rel
     | `Target
+    | `Type
   ]
 
 type view = [ | `View ]
@@ -2049,6 +2055,8 @@ type big_variant =
   | `Multiply
   | `Never
   | `New
+  | `No_referrer
+  | `No_referrer_when_downgrade
   | `Non_rotation
   | `Non_scaling_size
   | `Non_scaling_stroke
@@ -2063,6 +2071,8 @@ type big_variant =
   | `OptimizeLegibility
   | `OptimizeQuality
   | `OptimizeSpeed
+  | `Origin
+  | `Origin_when_cross_origin
   | `Other
   | `Out
   | `Over
@@ -2084,6 +2094,7 @@ type big_variant =
   | `Rotate
   | `Round
   | `Rtl
+  | `Same_origin
   | `Saturate
   | `Saturation
   | `Scale
@@ -2099,6 +2110,8 @@ type big_variant =
   | `Start
   | `Stitch
   | `Stretch
+  | `Strict_origin
+  | `Strict_origin_when_cross_origin
   | `Stroke
   | `StrokeWidth
   | `Sum
@@ -2107,6 +2120,7 @@ type big_variant =
   | `Translate
   | `Turbulence
   | `Underline
+  | `Unsafe_url
   | `UserSpaceOnUse
   | `V
   | `Vertical_lr
