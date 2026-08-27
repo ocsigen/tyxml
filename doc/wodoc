@@ -26,11 +26,12 @@
 ;; listed (not only the ones this doc currently links to) so that adding a link
 ;; later never silently breaks. (pkg deploy-dir layout wrapper-module)
 (hosted
-  (eliom           eliom           true  Eliom)
-  (ocsigen-toolkit ocsigen-toolkit true  Ot)
-  (ocsigen-start   ocsigen-start   true  Os)
-  (ocsigenserver   ocsigenserver   false Ocsigen)
-  (js_of_ocaml     js_of_ocaml     subdir)
-  (tyxml           tyxml           subdir)
-  (lwt             lwt             subdir)
-  (reactiveData    reactiveData    root))
+  (eliom             eliom           true  Eliom)
+  (ocsigen-toolkit   ocsigen-toolkit true  Ot)
+  (ocsigen-start     ocsigen-start   true  Os)
+  (ocsigenserver     ocsigenserver   false Ocsigen)
+  (js_of_ocaml       js_of_ocaml     subdir)
+  (js_of_ocaml-tyxml js_of_ocaml     subdir)  ; Tyxml_js, referenced by the manual
+  (tyxml             tyxml           subdir)
+  (lwt               lwt             subdir)
+  (reactiveData      reactiveData    root))
