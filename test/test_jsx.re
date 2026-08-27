@@ -390,7 +390,7 @@ let svg = (
       ),
       (
         "animate fill, values",
-        [<animate fill="freeze" values="1 2" />],
+        [<animate fill="freeze" values="1;2" />],
         [
           animate(
             ~a=[a_animation_fill(`Freeze), a_animation_values(["1", "2"])],

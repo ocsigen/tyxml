@@ -598,12 +598,12 @@ module type T = sig
   val a_calcMode :
     [< | `Discrete | `Linear | `Paced | `Spline ] wrap -> [> | `CalcMode ] attrib
 
-  val a_animation_values : strings wrap -> [> | `Valuesanim ] attrib
+  val a_animation_values : semicolonstrings wrap -> [> | `Valuesanim ] attrib
     [@@reflect.attribute "values" ["animate"]]
 
-  val a_keyTimes : strings wrap -> [> | `KeyTimes ] attrib
+  val a_keyTimes : semicolonstrings wrap -> [> | `KeyTimes ] attrib
 
-  val a_keySplines : strings wrap -> [> | `KeySplines ] attrib
+  val a_keySplines : semicolonstrings wrap -> [> | `KeySplines ] attrib
 
   val a_from : string wrap -> [> | `From ] attrib
 
@@ -1530,6 +1530,9 @@ module type Wrapped_functions = sig
     ([< Svg_types.alignment_baseline], string) Xml.W.ft
 
   val string_of_bool : (bool, string) Xml.W.ft
+
+  val string_of_semicolonstrings :
+    (Svg_types.semicolonstrings, string) Xml.W.ft
 
   val unoption_string : (string option, string) Xml.W.ft
 

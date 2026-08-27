@@ -117,6 +117,9 @@ let rec to_attribute_parser lang name ~loc = function
   | [[%type: numbers_semicolon]] ->
     [%expr semicolons float]
 
+  | [[%type: semicolonstrings]] ->
+    [%expr semicolons string]
+
   | [[%type: numbers]] when lang = `Svg ->
     [%expr spaces_or_commas float]
 
