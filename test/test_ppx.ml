@@ -456,6 +456,10 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<input min='2002-10-02T15:00:00Z'>"]],
   [input ~a:[a_input_min (`Datetime "2002-10-02T15:00:00Z")] ()] ;
 
+  "dl with div groups",
+  [[%html "<dl><div><dt>term</dt><dd>definition</dd></div></dl>"]],
+  [dl [div [dt [txt "term"]; dd [txt "definition"]]]] ;
+
   "aria attributes",
   [[%html "<div aria-hidden=true></div>"]],
   [div ~a:[a_aria "hidden" ["true"]] []] ;
