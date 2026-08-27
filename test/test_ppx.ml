@@ -600,6 +600,10 @@ let svg = "svg", SvgTests.make Svg.[
   [[%svg "<g role='img' aria-label='circle'/>"]],
   [g ~a:[a_role ["img"]; a_aria "label" ["circle"]] []] ;
 
+  "autofocus",
+  [[%svg "<a autofocus=''/>"]],
+  [a ~a:[a_autofocus ()] []] ;
+
   "tabindex, lang",
   [[%svg "<circle tabindex='0' lang='fr'/>"]],
   [circle ~a:[a_tabindex 0; a_lang "fr"] []] ;

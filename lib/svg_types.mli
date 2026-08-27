@@ -121,8 +121,8 @@ type conditional_processing_attr =
   [ | `RequiredExtensions | `RequiredFeatures | `SystemLanguage ]
 
 type core_attr =
-  [ | `Aria | `Id | `Lang | `Role | `Tabindex | `Xml_base | `Xml_lang
-    | `Xml_space | `User_data ]
+  [ | `Aria | `Autofocus | `Id | `Lang | `Role | `Tabindex | `Xml_base
+    | `Xml_lang | `Xml_space | `User_data ]
 
 type transfer_attr =
   [

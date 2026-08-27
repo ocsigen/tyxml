@@ -167,6 +167,10 @@ module type T = sig
 
   val a_user_data : string -> string wrap -> [> | `User_data] attrib
 
+  val a_autofocus : unit -> [> | `Autofocus ] attrib
+  (** Requests that the element be focused as soon as the document is
+      loaded. *)
+
   val a_tabindex : int wrap -> [> | `Tabindex ] attrib
   (** Position of the element in the tabbing order.
       @see <https://www.w3.org/TR/SVG2/interact.html#TabindexAttribute>
@@ -193,6 +197,18 @@ module type T = sig
   val a_title : string wrap -> [> | `Title ] attrib
 
   val a_xlink_title : string wrap -> [> | `Xlink_title ] attrib
+
+  val a_xlink_type : string wrap -> [> | `Xlink_type ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
+  val a_xlink_role : iri wrap -> [> | `Xlink_role ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
+
+  val a_xlink_arcrole : iri wrap -> [> | `Xlink_arcrole ] attrib
+    [@@ocaml.deprecated "Removed in SVG2"]
+  (** @deprecated Removed in SVG2 *)
     [@@ocaml.deprecated "Use a child title element"]
   (** @deprecated Use a child title element *)
 

@@ -55,6 +55,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   circle ~a:[ a_tabindex 0 ; a_lang "fr" ] [],
   {|<circle tabindex="0" lang="fr"></circle>|} ;
 
+  "autofocus",
+  a ~a:[ a_href "#x" ; a_autofocus () ] [],
+  {|<a href="#x" autofocus="autofocus"></a>|} ;
+
   "role and aria-*",
   g ~a:[ a_role ["img"] ; a_aria "label" ["a circle"] ] [],
   {|<g role="img" aria-label="a circle"></g>|} ;

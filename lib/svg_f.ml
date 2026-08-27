@@ -256,6 +256,8 @@ struct
 
   let a_user_data name = string_attrib ("data-" ^ name)
 
+  let a_autofocus () = string_attrib "autofocus" (W.return "autofocus")
+
   let a_tabindex = user_attrib C.string_of_int "tabindex"
 
   let a_lang = string_attrib "lang"
@@ -274,6 +276,12 @@ struct
   let a_title = string_attrib "title"
 
   let a_xlink_title = string_attrib "xlink:title"
+
+  let a_xlink_type = string_attrib "xlink:type"
+
+  let a_xlink_role = string_attrib "xlink:role"
+
+  let a_xlink_arcrole = string_attrib "xlink:arcrole"
 
   let a_class = Xml.space_sep_attrib "class"
 
