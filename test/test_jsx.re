@@ -91,8 +91,20 @@ let attribs = (
   HtmlTests.make(
     Html.[
       ( "unit",
+        [<input disabled="" />],
+        [input(~a=[a_disabled()], ())]
+      ),
+      ( "hidden bare",
         [<div hidden="" />],
-        [div(~a=[a_hidden()], [])]
+        [div(~a=[a_hidden(`Hidden)], [])]
+      ),
+      ( "hidden until-found",
+        [<div hidden="until-found" />],
+        [div(~a=[a_hidden(`Until_found)], [])]
+      ),
+      ( "contenteditable plaintext-only",
+        [<div contenteditable="plaintext-only" />],
+        [div(~a=[a_contenteditable(`Plaintext_only)], [])]
       ),
       ( "bool default",
         [<div draggable="true" />],

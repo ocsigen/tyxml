@@ -209,6 +209,19 @@ let html_attributes = "html attributes", tyxml_tests Html.[
   div ~a:[a_translate `No] [p ~a:[a_translate `Yes] []],
   "<div translate=\"no\"><p translate=\"yes\"></p></div>" ;
 
+  "hidden",
+  div [div ~a:[a_hidden `Hidden] []; div ~a:[a_hidden `Until_found] []],
+  "<div><div hidden=\"hidden\"></div>"
+  ^ "<div hidden=\"until-found\"></div></div>" ;
+
+  "contenteditable",
+  div [div ~a:[a_contenteditable `True] [];
+       div ~a:[a_contenteditable `False] [];
+       div ~a:[a_contenteditable `Plaintext_only] []],
+  "<div><div contenteditable=\"true\"></div>"
+  ^ "<div contenteditable=\"false\"></div>"
+  ^ "<div contenteditable=\"plaintext-only\"></div></div>" ;
+
 ]
 
 let escaping = "html escaping", tyxml_tests Html.[

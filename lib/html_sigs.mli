@@ -359,7 +359,12 @@ module type T = sig
       attribute is not supported by the PPX; use an explicit value.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/capture> capture documentation. *)
 
-  val a_contenteditable : bool wrap -> [> | `Contenteditable] attrib
+  val a_contenteditable :
+    contenteditable_value wrap -> [> | `Contenteditable] attrib
+  (** A bare [contenteditable] attribute is equivalent to
+      [contenteditable="true"].
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable>
+      contenteditable attribute documentation on MDN *)
 
   val a_contextmenu : idref wrap -> [> | `Contextmenu] attrib
 
@@ -389,7 +394,11 @@ module type T = sig
 
   val a_formtarget : text wrap -> [> | `Formtarget] attrib
 
-  val a_hidden : unit -> [> | `Hidden] attrib
+  val a_hidden : hidden_value wrap -> [> | `Hidden] attrib
+  (** A bare [hidden] attribute is equivalent to [hidden="hidden"];
+      use [`Until_found] for the hidden-until-found state.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden>
+      hidden attribute documentation on MDN *)
 
   val a_high : float_number wrap -> [> | `High] attrib
 
@@ -848,8 +857,9 @@ module type T = sig
 
   val a_scope :
     [< | `Row | `Col | `Rowgroup | `Colgroup] wrap -> [> | `Scope] attrib
-  [@@ocaml.deprecated "Not supported in HTML5"]
-  (** @deprecated Not supported in HTML5 *)
+  (** Specifies the cells that a header cell applies to.
+      @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#scope>
+      scope attribute documentation on MDN *)
 
   val a_summary : text wrap -> [> | `Summary] attrib
   [@@ocaml.deprecated "Move content elsewhere or to a <caption> child"]
