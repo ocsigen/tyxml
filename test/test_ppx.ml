@@ -677,6 +677,7 @@ let svg_element_names = "svg element names", SvgTests.make Svg.[
   "feConvolveMatrix", [[%svg "<feConvolveMatrix/>"]], [feConvolveMatrix []] ;
   "feDiffuseLighting", [[%svg "<feDiffuseLighting/>"]], [feDiffuseLighting []] ;
   "feDisplacementMap", [[%svg "<feDisplacementMap/>"]], [feDisplacementMap []] ;
+  "feDropShadow", [[%svg "<feDropShadow/>"]], [feDropShadow []] ;
   "feFlood", [[%svg "<feFlood/>"]], [feFlood []] ;
   "feGaussianBlur", [[%svg "<feGaussianBlur/>"]], [feGaussianBlur []] ;
   "feImage", [[%svg "<feImage/>"]], [feImage []] ;

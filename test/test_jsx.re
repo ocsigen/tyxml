@@ -432,6 +432,7 @@ let svg_element_names = (
         [<feDisplacementMap />],
         [feDisplacementMap([])],
       ),
+      ("feDropShadow", [<feDropShadow />], [feDropShadow([])]),
       ("feFlood", [<feFlood />], [feFlood([])]),
       ("feGaussianBlur", [<feGaussianBlur />], [feGaussianBlur([])]),
       ("feImage", [<feImage />], [feImage([])]),

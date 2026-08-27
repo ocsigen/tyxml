@@ -977,6 +977,8 @@ struct
 
   let feDisplacementMap = star "feDisplacementMap"
 
+  let feDropShadow = star "feDropShadow"
+
   let feFlood = star "feFlood"
 
   let feGaussianBlur = star "feGaussianBlur"

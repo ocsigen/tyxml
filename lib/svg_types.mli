@@ -68,6 +68,7 @@ type filter_primitive_element =
     | `FeConvolveMatrix
     | `FeDiffuseLighting
     | `FeDisplacementMap
+    | `FeDropShadow
     | `FeFlood
     | `FeGaussianBlur
     | `FeImage
@@ -1390,6 +1391,24 @@ type fedisplacementmap_attr =
     | `Scale
     | `XChannelSelector
     | `YChannelSelector
+  ]
+
+type fedropshadow = [ | `FeDropShadow ]
+
+(* star *)
+type fedropshadow_content = [ | `Animate | `Set ]
+
+type fedropshadow_attr =
+  [
+    | core_attr
+    | presentation_attr
+    | filter_primitive_attr
+    | `Class
+    | `Style
+    | `In
+    | `Dx
+    | `Dy
+    | `StdDeviation
   ]
 
 type feflood = [ | `FeFlood ]

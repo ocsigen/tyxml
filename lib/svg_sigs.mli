@@ -1070,6 +1070,10 @@ module type T = sig
     ([< | fedisplacementmap_attr], [< | fedisplacementmap_content],
      [> | fedisplacementmap]) star
 
+  val feDropShadow :
+    ([< | fedropshadow_attr], [< | fedropshadow_content],
+     [> | fedropshadow]) star
+
   val feFlood :
     ([< | feflood_attr], [< | feflood_content], [> | feflood]) star
 

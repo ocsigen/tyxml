@@ -166,6 +166,11 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
     [ feGaussianBlur ~a:[a_stdDeviation (0.2, None)] [] ],
   "<filter x=\"-0.1\" y=\"-0.1\" width=\"0.2\" height=\"0.2\"><feGaussianBlur stdDeviation=\"0.2\"></feGaussianBlur></filter>" ;
 
+  "feDropShadow",
+  filter [ feDropShadow ~a:[ a_dx 2. ; a_dy 2. ; a_stdDeviation (1., None) ;
+                             a_flood_color "black" ; a_flood_opacity 0.5 ] [] ],
+  {|<filter><feDropShadow dx="2" dy="2" stdDeviation="1" flood-color="black" flood-opacity="0.5"></feDropShadow></filter>|} ;
+
   "feMerge",
   filter [ feMerge [ feMergeNode ~a:[ a_in (`Ref "a") ] [] ;
                      feMergeNode ~a:[ a_in `SourceGraphic ] [] ] ],
