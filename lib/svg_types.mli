@@ -1221,7 +1221,8 @@ type lineargradient = [ | `Lineargradient ]
 
 (* star *)
 type lineargradient_content =
-  [ | descriptive_element | `Animate | `AnimateTransform | `Set | `Stop
+  [ | descriptive_element | `Animate | `AnimateTransform | `Script
+    | `Set | `Stop
   ]
 
 type lineargradient_attr =
@@ -1247,7 +1248,8 @@ type radialgradient = [ | `Radialgradient ]
 
 (* star *)
 type radialgradient_content =
-  [ | descriptive_element | `Animate | `AnimateTransform | `Set | `Stop
+  [ | descriptive_element | `Animate | `AnimateTransform | `Script
+    | `Set | `Stop
   ]
 
 type radialgradient_attr =
@@ -1274,7 +1276,7 @@ type radialgradient_attr =
 type stop = [ | `Stop ]
 
 (* star *)
-type stop_content = [ | `Animate | `AnimateColor | `Set ]
+type stop_content = [ | `Animate | `AnimateColor | `Script | `Set ]
 
 type stop_attr =
   [ | core_attr | global_event_attr | presentation_attr | `Class | `Style | `Offset
@@ -1349,7 +1351,8 @@ type clippath_attr =
   ]
 
 type clippath_content =
-  [ | descriptive_element | animation_element | shape_element | `Text | `Use
+  [ | descriptive_element | animation_element | shape_element | `Script
+    | `Text | `Use
   ]
 
 type mask = [ | `Mask ]
@@ -1402,7 +1405,8 @@ type filter = [ | `Filter ]
 
 (* star *)
 type filter_content =
-  [ | descriptive_element | filter_primitive_element | `Animate | `Set
+  [ | descriptive_element | filter_primitive_element | `Animate | `Script
+    | `Set
   ]
 
 type filter_attr =
@@ -1427,21 +1431,24 @@ type filter_attr =
 type fedistantlight = [ | `FeDistantLight ]
 
 (* star *)
-type fedistantlight_content = [ | `Animate | `Set ]
+type fedistantlight_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fedistantlight_attr = [ | core_attr | global_event_attr | `Azimuth | `Elevation ]
 
 type fepointlight = [ | `FePointLight ]
 
 (* star *)
-type fepointlight_content = [ | `Animate | `Set ]
+type fepointlight_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fepointlight_attr = [ | core_attr | global_event_attr | `X | `Y | `Z ]
 
 type fespotlight = [ | `FeSpotLight ]
 
 (* star *)
-type fespotlight_content = [ | `Animate | `Set ]
+type fespotlight_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fespotlight_attr =
   [
@@ -1460,7 +1467,8 @@ type fespotlight_attr =
 type feblend = [ | `FeBlend ]
 
 (* star *)
-type feblend_content = [ | `Animate | `Set ]
+type feblend_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type feblend_attr =
   [
@@ -1478,7 +1486,8 @@ type feblend_attr =
 type fecolormatrix = [ | `FeColorMatrix ]
 
 (* star *)
-type fecolormatrix_content = [ | `Animate | `Set ]
+type fecolormatrix_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fecolormatrix_attr =
   [
@@ -1497,7 +1506,8 @@ type fecomponenttransfer = [ | `FeComponentTransfer ]
 
 (* star *)
 type fecomponenttransfer_content =
-  [ | `FeFuncA | `FeFuncB | `FeFuncG | `FeFuncR
+  [ | descriptive_element | `Animate | `FeFuncA | `FeFuncB | `FeFuncG
+    | `FeFuncR | `Script | `Set
   ]
 
 type fecomponenttransfer_attr =
@@ -1514,35 +1524,40 @@ type fecomponenttransfer_attr =
 type fefunca = [ | `FeFuncA ]
 
 (* star *)
-type fefunca_content = [ | `Animate | `Set ]
+type fefunca_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fefunca_attr = [ | core_attr | global_event_attr | transfer_attr ]
 
 type fefuncg = [ | `FeFuncG ]
 
 (* star *)
-type fefuncg_content = [ | `Animate | `Set ]
+type fefuncg_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fefuncg_attr = [ | core_attr | global_event_attr | transfer_attr ]
 
 type fefuncb = [ | `FeFuncB ]
 
 (* star *)
-type fefuncb_content = [ | `Animate | `Set ]
+type fefuncb_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fefuncb_attr = [ | core_attr | global_event_attr | transfer_attr ]
 
 type fefuncr = [ | `FeFuncR ]
 
 (* star *)
-type fefuncr_content = [ | `Animate | `Set ]
+type fefuncr_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fefuncr_attr = [ | core_attr | global_event_attr | transfer_attr ]
 
 type fecomposite = [ | `FeComposite ]
 
 (* star *)
-type fecomposite_content = [ | `Animate | `Set ]
+type fecomposite_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fecomposite_attr =
   [
@@ -1564,7 +1579,8 @@ type fecomposite_attr =
 type feconvolvematrix = [ | `FeConvolveMatrix ]
 
 (* star *)
-type feconvolvematrix_content = [ | `Animate | `Set ]
+type feconvolvematrix_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type feconvolvematrix_attr =
   [
@@ -1590,7 +1606,8 @@ type fediffuselighting = [ | `FeDiffuseLighting ]
 
 (* star *)
 type fediffuselighting_content =
-  [ | descriptive_element | light_source_element
+  [ | descriptive_element | light_source_element | `Animate
+    | `Script | `Set
   ]
 
 (* XXX *)
@@ -1611,7 +1628,8 @@ type fediffuselighting_attr =
 type fedisplacementmap = [ | `FeDisplacementMap ]
 
 (* star *)
-type fedisplacementmap_content = [ | `Animate | `Set ]
+type fedisplacementmap_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fedisplacementmap_attr =
   [
@@ -1631,7 +1649,8 @@ type fedisplacementmap_attr =
 type fedropshadow = [ | `FeDropShadow ]
 
 (* star *)
-type fedropshadow_content = [ | `Animate | `Set ]
+type fedropshadow_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fedropshadow_attr =
   [
@@ -1650,7 +1669,9 @@ type fedropshadow_attr =
 type feflood = [ | `FeFlood ]
 
 (* star *)
-type feflood_content = [ | `Animate | `AnimateColor | `Set ]
+type feflood_content =
+  [ | descriptive_element | `Animate | `AnimateColor | `Script
+    | `Set ]
 
 type feflood_attr =
   [ | core_attr | global_event_attr | presentation_attr | filter_primitive_attr | `Class | `Style
@@ -1659,7 +1680,9 @@ type feflood_attr =
 type fegaussianblur = [ | `FeGaussianBlur ]
 
 (* star *)
-type fegaussianblur_content = [ | `Animate | `AnimateColor | `Set ]
+type fegaussianblur_content =
+  [ | descriptive_element | `Animate | `AnimateColor | `Script
+    | `Set ]
 
 type fegaussianblur_attr =
   [
@@ -1676,7 +1699,9 @@ type fegaussianblur_attr =
 type feimage = [ | `FeImage ]
 
 (* star *)
-type feimage_content = [ | `Animate | `AnimateColor | `Set ]
+type feimage_content =
+  [ | descriptive_element | `Animate | `AnimateColor | `Script
+    | `Set ]
 
 type feimage_attr =
   [
@@ -1696,7 +1721,8 @@ type feimage_attr =
 type femerge = [ | `FeMerge ]
 
 (* star *)
-type femerge_content = [ | `FeMergeNode ]
+type femerge_content =
+  [ | descriptive_element | `Animate | `FeMergeNode | `Script | `Set ]
 
 type femerge_attr =
   [ | core_attr | global_event_attr | presentation_attr | filter_primitive_attr | `Class | `Style
@@ -1705,14 +1731,16 @@ type femerge_attr =
 type femergenode = [ | `FeMergeNode ]
 
 (* star *)
-type femergenode_content = [ | `Animate | `Set ]
+type femergenode_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type femergenode_attr = [ | core_attr | global_event_attr | `In ]
 
 type femorphology = [ | `FeMorphology ]
 
 (* star *)
-type femorphology_content = [ | `Animate | `Set ]
+type femorphology_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type femorphology_attr =
   [
@@ -1730,7 +1758,8 @@ type femorphology_attr =
 type feoffset = [ | `FeOffset ]
 
 (* star *)
-type feoffset_content = [ | `Animate | `Set ]
+type feoffset_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type feoffset_attr =
   [
@@ -1749,7 +1778,8 @@ type fespecularlighting = [ | `FeSpecularLighting ]
 
 (* star *)
 type fespecularlighting_content =
-  [ | descriptive_element | light_source_element
+  [ | descriptive_element | light_source_element | `Animate
+    | `Script | `Set
   ]
 
 (* XXX *)
@@ -1771,7 +1801,8 @@ type fespecularlighting_attr =
 type fetile = [ | `FeTile ]
 
 (* star *)
-type fetile_content = [ | `Animate | `Set ]
+type fetile_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type fetile_attr =
   [
@@ -1787,7 +1818,8 @@ type fetile_attr =
 type feturbulence = [ | `FeTurbulence ]
 
 (* star *)
-type feturbulence_content = [ | `Animate | `Set ]
+type feturbulence_content =
+  [ | descriptive_element | `Animate | `Script | `Set ]
 
 type feturbulence_attr =
   [

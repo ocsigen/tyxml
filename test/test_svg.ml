@@ -82,6 +82,14 @@ let svg_content_models = "svg content models", tyxml_tests Svg.[
   use ~a:[ a_href "#s" ] [ mask ~a:[ a_id "m" ] [] ; script (txt "f()") ],
   {|<use href="#s"><mask id="m"></mask><script>f()</script></use>|} ;
 
+  "descriptive elements inside a filter primitive",
+  feGaussianBlur [ title (txt "blur") ; desc (txt "a blur") ],
+  {|<feGaussianBlur><title>blur</title><desc>a blur</desc></feGaussianBlur>|} ;
+
+  "script inside a gradient",
+  linearGradient [ stop ~a:[ a_offset (`Number 0.) ] [] ; script (txt "f()") ],
+  {|<linearGradient><stop offset="0"></stop><script>f()</script></linearGradient>|} ;
+
   "pattern inside text",
   text [ txt "hello" ; pattern ~a:[ a_id "p" ] [] ],
   {|<text>hello<pattern id="p"></pattern></text>|} ;
