@@ -136,7 +136,31 @@ type transfer_attr =
   ]
 
 type document_event_attr =
-  [ | `OnAbort | `OnError | `OnResize | `OnScroll | `OnUnload | `OnZoom ]
+  [
+    | `OnAbort
+    | `OnAfterPrint
+    | `OnBeforePrint
+    | `OnBeforeUnload
+    | `OnError
+    | `OnHashChange
+    | `OnLanguageChange
+    | `OnMessage
+    | `OnOffLine
+    | `OnOnLine
+    | `OnPageHide
+    | `OnPageShow
+    | `OnPopState
+    | `OnReadyStateChange
+    | `OnRedo
+    | `OnRejectionHandled
+    | `OnResize
+    | `OnScroll
+    | `OnStorage
+    | `OnUndo
+    | `OnUnhandledRejection
+    | `OnUnload
+    | `OnZoom
+  ]
 
 type filter_primitive_attr = [ | `Height | `Result | `Width | `X | `Y ]
 

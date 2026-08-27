@@ -898,6 +898,32 @@ module type T = sig
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
 
+  (** {3 Javascript document events}
+
+      These apply to the outermost [svg] element only. *)
+
+  val a_onafterprint : Xml.event_handler -> [> | `OnAfterPrint ] attrib
+  val a_onbeforeprint : Xml.event_handler -> [> | `OnBeforePrint ] attrib
+  val a_onbeforeunload : Xml.event_handler -> [> | `OnBeforeUnload ] attrib
+  val a_onhashchange : Xml.event_handler -> [> | `OnHashChange ] attrib
+  val a_onlanguagechange :
+    Xml.event_handler -> [> | `OnLanguageChange ] attrib
+  val a_onmessage : Xml.event_handler -> [> | `OnMessage ] attrib
+  val a_onoffline : Xml.event_handler -> [> | `OnOffLine ] attrib
+  val a_ononline : Xml.event_handler -> [> | `OnOnLine ] attrib
+  val a_onpagehide : Xml.event_handler -> [> | `OnPageHide ] attrib
+  val a_onpageshow : Xml.event_handler -> [> | `OnPageShow ] attrib
+  val a_onpopstate : Xml.event_handler -> [> | `OnPopState ] attrib
+  val a_onreadystatechange :
+    Xml.event_handler -> [> | `OnReadyStateChange ] attrib
+  val a_onredo : Xml.event_handler -> [> | `OnRedo ] attrib
+  val a_onrejectionhandled :
+    Xml.event_handler -> [> | `OnRejectionHandled ] attrib
+  val a_onstorage : Xml.event_handler -> [> | `OnStorage ] attrib
+  val a_onundo : Xml.event_handler -> [> | `OnUndo ] attrib
+  val a_onunhandledrejection :
+    Xml.event_handler -> [> | `OnUnhandledRejection ] attrib
+
   (** {3 Javascript global events}
 
       SVG 2 reuses the event handler content attributes of HTML;

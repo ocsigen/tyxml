@@ -73,6 +73,11 @@ let svg_events = "svg events", tyxml_tests Svg.[
               a_onwheel "i(event)" ; a_onpointerdown "j(event)" ] [],
   {|<circle onfocus="f()" onblur="g()" onkeydown="h(event)" onwheel="i(event)" onpointerdown="j(event)"></circle>|} ;
 
+  "document event handlers on the svg element",
+  svg ~a:[ a_onmessage "m(event)" ; a_onstorage "s(event)" ;
+           a_onhashchange "h()" ] [],
+  {|<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onmessage="m(event)" onstorage="s(event)" onhashchange="h()"></svg>|} ;
+
   "clipboard event handlers",
   text ~a:[ a_oncopy "c()" ; a_oncut "x()" ; a_onpaste "p()" ] [],
   {|<text oncopy="c()" oncut="x()" onpaste="p()"></text>|} ;

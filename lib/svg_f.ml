@@ -741,6 +741,24 @@ struct
   let a_onunload = Xml.event_handler_attrib "onunload"
   let a_onzoom = Xml.event_handler_attrib "onzoom"
 
+  let a_onafterprint = Xml.event_handler_attrib "onafterprint"
+  let a_onbeforeprint = Xml.event_handler_attrib "onbeforeprint"
+  let a_onbeforeunload = Xml.event_handler_attrib "onbeforeunload"
+  let a_onhashchange = Xml.event_handler_attrib "onhashchange"
+  let a_onlanguagechange = Xml.event_handler_attrib "onlanguagechange"
+  let a_onmessage = Xml.event_handler_attrib "onmessage"
+  let a_onoffline = Xml.event_handler_attrib "onoffline"
+  let a_ononline = Xml.event_handler_attrib "ononline"
+  let a_onpagehide = Xml.event_handler_attrib "onpagehide"
+  let a_onpageshow = Xml.event_handler_attrib "onpageshow"
+  let a_onpopstate = Xml.event_handler_attrib "onpopstate"
+  let a_onreadystatechange = Xml.event_handler_attrib "onreadystatechange"
+  let a_onredo = Xml.event_handler_attrib "onredo"
+  let a_onrejectionhandled = Xml.event_handler_attrib "onrejectionhandled"
+  let a_onstorage = Xml.event_handler_attrib "onstorage"
+  let a_onundo = Xml.event_handler_attrib "onundo"
+  let a_onunhandledrejection = Xml.event_handler_attrib "onunhandledrejection"
+
   (** Javascript mouse events *)
 
   let a_onauxclick = Xml.mouse_event_handler_attrib "onauxclick"
