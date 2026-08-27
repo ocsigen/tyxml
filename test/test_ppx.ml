@@ -607,6 +607,10 @@ let svg = "svg", SvgTests.make Svg.[
   [rect ~a:[a_opacity 0.5; a_pointer_events `VisiblePainted;
             a_visibility `Collapse; a_mask "url(#m)"] []] ;
 
+  "vector-effect, white-space",
+  [[%svg "<path vector-effect='non-scaling-stroke' white-space='pre-line'/>"]],
+  [path ~a:[a_vector_effect `Non_scaling_stroke; a_white_space `Pre_line] []] ;
+
   "writing-mode, unicode-bidi",
   [[%svg "<text writing-mode='vertical-rl' unicode-bidi='bidi-override'/>"]],
   [text ~a:[a_writing_mode `Vertical_rl; a_unicode_bidi `Bidi_override] []] ;

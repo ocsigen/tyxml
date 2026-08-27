@@ -833,6 +833,16 @@ struct
 
   let a_writing_mode x = user_attrib C.string_of_big_variant "writing-mode" x
 
+  let a_paint_order = string_attrib "paint-order"
+
+  let a_text_overflow x = user_attrib C.string_of_big_variant "text-overflow" x
+
+  let a_transform_origin = string_attrib "transform-origin"
+
+  let a_vector_effect x = user_attrib C.string_of_big_variant "vector-effect" x
+
+  let a_white_space x = user_attrib C.string_of_big_variant "white-space" x
+
   (* xlink namespace given a nickname since some attributes mandated by
      the svg standard such as xlink:href live in that namespace, and we
      refer to them as "xlink:whatever" (see a_xlink_href or a_xlinkshow)
@@ -1069,7 +1079,9 @@ struct
     | `Bevel -> "bevel"
     | `Bidi_override -> "bidi-override"
     | `Blink -> "blink"
+    | `Break_spaces -> "break-spaces"
     | `Butt -> "butt"
+    | `Clip -> "clip"
     | `Collapse -> "collapse"
     | `CrispEdges -> "crispEdges"
     | `CSS -> "CSS"
@@ -1079,12 +1091,14 @@ struct
     | `Disable -> "disable"
     | `Discrete -> "discrete"
     | `Duplicate -> "duplicate"
+    | `Ellipsis -> "ellipsis"
     | `Embed -> "embed"
     | `End -> "end"
     | `Erode -> "erode"
     | `Evenodd -> "evenodd"
     | `Exact -> "exact"
     | `Fill -> "fill"
+    | `Fixed_position -> "fixed-position"
     | `FractalNoise -> "fractalNoise"
     | `Freeze -> "freeze"
     | `G -> "g"
@@ -1113,10 +1127,14 @@ struct
     | `Multiply -> "multiply"
     | `Never -> "never"
     | `New -> "new"
+    | `Non_rotation -> "non-rotation"
+    | `Non_scaling_size -> "non-scaling-size"
+    | `Non_scaling_stroke -> "non-scaling-stroke"
     | `None -> "none"
     | `Nonzero -> "nonzero"
     | `Normal -> "normal"
     | `NoStitch -> "noStitch"
+    | `Nowrap -> "nowrap"
     | `ObjectBoundingBox -> "objectBoundingBox"
     | `OnLoad -> "onLoad"
     | `OnRequest -> "onRequest"
@@ -1131,6 +1149,9 @@ struct
     | `Pad -> "pad"
     | `Painted -> "painted"
     | `Perceptual -> "perceptual"
+    | `Pre -> "pre"
+    | `Pre_line -> "pre-line"
+    | `Pre_wrap -> "pre-wrap"
     | `Preserve -> "preserve"
     | `R -> "r"
     | `Reflect -> "reflect"

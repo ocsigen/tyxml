@@ -202,6 +202,7 @@ type presentation_attr =
     | `Mask
     | `Opacity
     | `Overflow
+    | `Paint_Order
     | `Pointer_Events
     | `Shape_Rendering
     | `Stop_Color
@@ -216,9 +217,13 @@ type presentation_attr =
     | `Stroke_Width
     | `Text_Anchor
     | `Text_Decoration
+    | `Text_Overflow
     | `Text_Rendering
+    | `Transform_Origin
     | `Unicode_Bidi
+    | `Vector_Effect
     | `Visibility
+    | `White_Space
     | `Word_Spacing
     | `Writing_Mode
   ]
@@ -1994,7 +1999,9 @@ type big_variant =
   | `Bevel
   | `Bidi_override
   | `Blink
+  | `Break_spaces
   | `Butt
+  | `Clip
   | `Collapse
   | `CrispEdges
   | `CSS
@@ -2004,12 +2011,14 @@ type big_variant =
   | `Disable
   | `Discrete
   | `Duplicate
+  | `Ellipsis
   | `Embed
   | `End
   | `Erode
   | `Evenodd
   | `Exact
   | `Fill
+  | `Fixed_position
   | `FractalNoise
   | `Freeze
   | `G
@@ -2038,10 +2047,14 @@ type big_variant =
   | `Multiply
   | `Never
   | `New
+  | `Non_rotation
+  | `Non_scaling_size
+  | `Non_scaling_stroke
   | `None
   | `Nonzero
   | `Normal
   | `NoStitch
+  | `Nowrap
   | `ObjectBoundingBox
   | `OnLoad
   | `OnRequest
@@ -2056,6 +2069,9 @@ type big_variant =
   | `Pad
   | `Painted
   | `Perceptual
+  | `Pre
+  | `Pre_line
+  | `Pre_wrap
   | `Preserve
   | `R
   | `Reflect

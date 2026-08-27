@@ -99,6 +99,16 @@ let svg_presentation = "svg presentation attributes", tyxml_tests Svg.[
   g ~a:[ a_color_interpolation `SRGB ] [],
   {|<g color-interpolation="sRGB"></g>|} ;
 
+  "paint-order, vector-effect, transform-origin",
+  path ~a:[ a_paint_order "stroke fill" ;
+            a_vector_effect `Non_scaling_stroke ;
+            a_transform_origin "center" ] [],
+  {|<path paint-order="stroke fill" vector-effect="non-scaling-stroke" transform-origin="center"></path>|} ;
+
+  "white-space, text-overflow",
+  text ~a:[ a_white_space `Pre_wrap ; a_text_overflow `Ellipsis ] [],
+  {|<text white-space="pre-wrap" text-overflow="ellipsis"></text>|} ;
+
 ]
 
 let svg_filters = "svg filters", tyxml_tests Svg.[

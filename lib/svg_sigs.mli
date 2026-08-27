@@ -784,6 +784,28 @@ module type T = sig
     [< | `Horizontal_tb | `Vertical_rl | `Vertical_lr | `Inherit ] wrap ->
     [> | `Writing_Mode ] attrib
 
+  (** {3 Presentation attributes new in SVG 2} *)
+
+  val a_paint_order : string wrap -> [> | `Paint_Order ] attrib
+  (** Order in which the fill, stroke and markers of a shape are painted.
+      @see <https://www.w3.org/TR/SVG2/painting.html#PaintOrder> paint-order *)
+
+  val a_text_overflow :
+    [< | `Clip | `Ellipsis ] wrap -> [> | `Text_Overflow ] attrib
+
+  val a_transform_origin : string wrap -> [> | `Transform_Origin ] attrib
+
+  val a_vector_effect :
+    [< | `None | `Non_scaling_stroke | `Non_scaling_size | `Non_rotation
+       | `Fixed_position ] wrap -> [> | `Vector_Effect ] attrib
+  (** @see <https://www.w3.org/TR/SVG2/coords.html#VectorEffects>
+      vector-effect *)
+
+  val a_white_space :
+    [< | `Normal | `Pre | `Nowrap | `Pre_wrap | `Break_spaces | `Pre_line ]
+      wrap -> [> | `White_Space ] attrib
+  (** Replaces the deprecated [xml:space] attribute. *)
+
   (** {2 Events}
 
       {3 Javascript events} *)
