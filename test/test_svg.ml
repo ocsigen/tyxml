@@ -13,6 +13,211 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   text ~a:[ a_user_data "foo" "valfoo" ] [],
   "<text data-foo=\"valfoo\"></text>" ;
 
+  "symbol id",
+  symbol ~a:[ a_id "sym" ] [],
+  "<symbol id=\"sym\"></symbol>" ;
+
+  "g xml:lang",
+  g ~a:[ a_xml_lang "fr" ] [],
+  "<g xml:lang=\"fr\"></g>" ;
+
+  "rect ontouchstart",
+  rect ~a:[ a_ontouchstart "f(event)" ] [],
+  "<rect ontouchstart=\"f(event)\"></rect>" ;
+
+  "animate begin, dur, end",
+  animate ~a:[ a_begin "0s" ; a_dur "2s" ; a_end "4s" ] [],
+  {|<animate begin="0s" dur="2s" end="4s"></animate>|} ;
+
+  "fePointLight x, y, z",
+  fePointLight ~a:[ a_x (1., None) ; a_y (2., None) ; a_z 3. ] [],
+  {|<fePointLight x="1" y="2" z="3"></fePointLight>|} ;
+
+  "filter filterUnits",
+  filter ~a:[ a_filterUnits `ObjectBoundingBox ] [],
+  {|<filter filterUnits="objectBoundingBox"></filter>|} ;
+
+  "style title",
+  style ~a:[ a_title "alternate" ] (txt ""),
+  {|<style title="alternate"></style>|} ;
+
+  "symbol with a shape child",
+  symbol ~a:[ a_id "s" ] [ circle ~a:[ a_r (1., None) ] [] ],
+  {|<symbol id="s"><circle r="1"></circle></symbol>|} ;
+
+  "symbol geometry",
+  symbol ~a:[ a_x (0., None) ; a_y (0., None) ; a_width (10., None) ;
+              a_height (10., None) ; a_refX (5., None) ; a_refY (5., None) ]
+    [],
+  {|<symbol x="0" y="0" width="10" height="10" refX="5" refY="5"></symbol>|} ;
+
+  "tabindex and lang",
+  circle ~a:[ a_tabindex 0 ; a_lang "fr" ] [],
+  {|<circle tabindex="0" lang="fr"></circle>|} ;
+
+  "autofocus",
+  a ~a:[ a_href "#x" ; a_autofocus () ] [],
+  {|<a href="#x" autofocus="autofocus"></a>|} ;
+
+  "role and aria-*",
+  g ~a:[ a_role ["img"] ; a_aria "label" ["a circle"] ] [],
+  {|<g role="img" aria-label="a circle"></g>|} ;
+
+  "textPath path and side",
+  textPath ~a:[ a_path "M 0 0 L 10 10" ; a_side `Right ] [],
+  {|<textPath path="M 0 0 L 10 10" side="right"></textPath>|} ;
+
+  "image crossorigin, decoding, fetchpriority",
+  image ~a:[ a_href "i.png" ; a_crossorigin `Anonymous ; a_decoding `Async ;
+             a_fetchpriority `High ] [],
+  {|<image href="i.png" crossorigin="anonymous" decoding="async" fetchpriority="high"></image>|} ;
+
+]
+
+let svg_content_models = "svg content models", tyxml_tests Svg.[
+
+  "gradient and clipPath inside a shape",
+  rect [ linearGradient ~a:[ a_id "g" ] [] ;
+         clipPath ~a:[ a_id "c" ] [] ;
+         style (txt ".a{fill:red}") ] ,
+  {|<rect><linearGradient id="g"></linearGradient><clipPath id="c"></clipPath><style>.a{fill:red}</style></rect>|} ;
+
+  "mask and script inside use",
+  use ~a:[ a_href "#s" ] [ mask ~a:[ a_id "m" ] [] ; script (txt "f()") ],
+  {|<use href="#s"><mask id="m"></mask><script>f()</script></use>|} ;
+
+  "descriptive elements inside a filter primitive",
+  feGaussianBlur [ title (txt "blur") ; desc (txt "a blur") ],
+  {|<feGaussianBlur><title>blur</title><desc>a blur</desc></feGaussianBlur>|} ;
+
+  "script inside a gradient",
+  linearGradient [ stop ~a:[ a_offset (`Number 0.) ] [] ; script (txt "f()") ],
+  {|<linearGradient><stop offset="0"></stop><script>f()</script></linearGradient>|} ;
+
+  "pattern inside text",
+  text [ txt "hello" ; pattern ~a:[ a_id "p" ] [] ],
+  {|<text>hello<pattern id="p"></pattern></text>|} ;
+
+]
+
+let svg_events = "svg events", tyxml_tests Svg.[
+
+  "global event handlers",
+  circle ~a:[ a_onfocus "f()" ; a_onblur "g()" ; a_onkeydown "h(event)" ;
+              a_onwheel "i(event)" ; a_onpointerdown "j(event)" ] [],
+  {|<circle onfocus="f()" onblur="g()" onkeydown="h(event)" onwheel="i(event)" onpointerdown="j(event)"></circle>|} ;
+
+  "document event handlers on the svg element",
+  svg ~a:[ a_onmessage "m(event)" ; a_onstorage "s(event)" ;
+           a_onhashchange "h()" ] [],
+  {|<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onmessage="m(event)" onstorage="s(event)" onhashchange="h()"></svg>|} ;
+
+  "mouse and load handlers on a non graphics element",
+  linearGradient ~a:[ a_onclick "f()" ; a_onload "g()" ;
+                      a_ontouchstart "h(event)" ] [],
+  {|<linearGradient onclick="f()" onload="g()" ontouchstart="h(event)"></linearGradient>|} ;
+
+  "clipboard event handlers",
+  text ~a:[ a_oncopy "c()" ; a_oncut "x()" ; a_onpaste "p()" ] [],
+  {|<text oncopy="c()" oncut="x()" onpaste="p()"></text>|} ;
+
+  "animation event handlers",
+  animate ~a:[ a_onbegin "b()" ; a_onrepeat "r()" ] [],
+  {|<animate onbegin="b()" onrepeat="r()"></animate>|} ;
+
+]
+
+let svg_links = "svg links", tyxml_tests Svg.[
+
+  "a with SVG 2 link attributes",
+  a ~a:[ a_href "page.html" ; a_target "_blank" ; a_rel ["noopener"] ;
+         a_hreflang "fr" ; a_type "text/html" ; a_ping ["/p1"; "/p2"] ;
+         a_referrerpolicy `No_referrer ; a_download (Some "page.html") ]
+    [],
+  {|<a href="page.html" target="_blank" rel="noopener" hreflang="fr" type="text/html" ping="/p1 /p2" referrerpolicy="no-referrer" download="page.html"></a>|} ;
+
+  "a with a nameless download",
+  a ~a:[ a_href "f.png" ; a_download None ] [],
+  {|<a href="f.png" download=""></a>|} ;
+
+]
+
+let svg_presentation = "svg presentation attributes", tyxml_tests Svg.[
+
+  "opacity, fill-opacity, stroke-opacity",
+  rect ~a:[ a_opacity 0.5 ; a_fill_opacity 0.25 ; a_stroke_opacity 1. ] [],
+  {|<rect opacity="0.5" fill-opacity="0.25" stroke-opacity="1"></rect>|} ;
+
+  "display, visibility, overflow",
+  g ~a:[ a_display "none" ; a_visibility `Collapse ; a_overflow `Hidden ] [],
+  {|<g display="none" visibility="collapse" overflow="hidden"></g>|} ;
+
+  "pointer-events",
+  circle ~a:[ a_pointer_events `VisiblePainted ] [],
+  {|<circle pointer-events="visiblePainted"></circle>|} ;
+
+  "clip-rule, shape-rendering",
+  path ~a:[ a_clip_rule `Evenodd ; a_shape_rendering `CrispEdges ] [],
+  {|<path clip-rule="evenodd" shape-rendering="crispEdges"></path>|} ;
+
+  "color-interpolation-filters",
+  filter ~a:[ a_color_interpolation_filters `LinearRGB ] [],
+  {|<filter color-interpolation-filters="linearRGB"></filter>|} ;
+
+  "markers",
+  path ~a:[ a_marker_start "url(#m1)" ; a_marker_mid "url(#m2)" ;
+            a_marker_end "url(#m3)" ] [],
+  {|<path marker-start="url(#m1)" marker-mid="url(#m2)" marker-end="url(#m3)"></path>|} ;
+
+  "mask and filter references",
+  g ~a:[ a_mask "url(#m)" ; a_filter "url(#f)" ] [],
+  {|<g mask="url(#m)" filter="url(#f)"></g>|} ;
+
+  "flood-color, flood-opacity, lighting-color",
+  feFlood ~a:[ a_flood_color "red" ; a_flood_opacity 0.5 ;
+               a_lighting_color "white" ] [],
+  {|<feFlood flood-color="red" flood-opacity="0.5" lighting-color="white"></feFlood>|} ;
+
+  "text presentation",
+  text ~a:[ a_letter_spacing "0.1em" ; a_word_spacing "normal" ;
+            a_direction `Rtl ; a_unicode_bidi `Bidi_override ;
+            a_writing_mode `Vertical_rl ] [],
+  {|<text letter-spacing="0.1em" word-spacing="normal" direction="rtl" unicode-bidi="bidi-override" writing-mode="vertical-rl"></text>|} ;
+
+  "color, baseline-shift, font-size-adjust",
+  text ~a:[ a_color "blue" ; a_baseline_shift "super" ;
+            a_font_size_adjust "0.5" ] [],
+  {|<text color="blue" baseline-shift="super" font-size-adjust="0.5"></text>|} ;
+
+  "cursor, image-rendering, color-rendering",
+  image ~a:[ a_cursor "pointer" ; a_image_rendering `OptimizeQuality ;
+             a_color_rendering `OptimizeSpeed ] [],
+  {|<image cursor="pointer" image-rendering="optimizeQuality" color-rendering="optimizeSpeed"></image>|} ;
+
+  "color-interpolation",
+  g ~a:[ a_color_interpolation `SRGB ] [],
+  {|<g color-interpolation="sRGB"></g>|} ;
+
+  "SVG 2 values of existing attributes",
+  path ~a:[ a_stroke_linejoin `Miter_clip ;
+            a_alignment_baseline `Text_top ;
+            a_dominant_baseline `Text_bottom ] [],
+  {|<path stroke-linejoin="miter-clip" alignment-baseline="text-top" dominant-baseline="text-bottom"></path>|} ;
+
+  "feBlend CSS blend mode",
+  feBlend ~a:[ a_mode `Color_dodge ] [],
+  {|<feBlend mode="color-dodge"></feBlend>|} ;
+
+  "paint-order, vector-effect, transform-origin",
+  path ~a:[ a_paint_order "stroke fill" ;
+            a_vector_effect `Non_scaling_stroke ;
+            a_transform_origin "center" ] [],
+  {|<path paint-order="stroke fill" vector-effect="non-scaling-stroke" transform-origin="center"></path>|} ;
+
+  "white-space, text-overflow",
+  text ~a:[ a_white_space `Pre_wrap ; a_text_overflow `Ellipsis ] [],
+  {|<text white-space="pre-wrap" text-overflow="ellipsis"></text>|} ;
+
 ]
 
 let svg_filters = "svg filters", tyxml_tests Svg.[
@@ -21,6 +226,20 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
   filter ~a:[ a_x (-0.1, None) ; a_y (-0.1, None) ; a_width (0.2, None) ; a_height (0.2, None) ]
     [ feGaussianBlur ~a:[a_stdDeviation (0.2, None)] [] ],
   "<filter x=\"-0.1\" y=\"-0.1\" width=\"0.2\" height=\"0.2\"><feGaussianBlur stdDeviation=\"0.2\"></feGaussianBlur></filter>" ;
+
+  "feDropShadow",
+  filter [ feDropShadow ~a:[ a_dx 2. ; a_dy 2. ; a_stdDeviation (1., None) ;
+                             a_flood_color "black" ; a_flood_opacity 0.5 ] [] ],
+  {|<filter><feDropShadow dx="2" dy="2" stdDeviation="1" flood-color="black" flood-opacity="0.5"></feDropShadow></filter>|} ;
+
+  "feMerge",
+  filter [ feMerge [ feMergeNode ~a:[ a_in (`Ref "a") ] [] ;
+                     feMergeNode ~a:[ a_in `SourceGraphic ] [] ] ],
+  {|<filter><feMerge><feMergeNode in="a"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>|} ;
+
+  "radial gradient fr",
+  radialGradient ~a:[ a_r (0.5, None) ; a_fr (0.1, None) ] [],
+  {|<radialGradient r="0.5" fr="0.1"></radialGradient>|} ;
 
   "linear gradient",
   linearGradient ~a:[ a_gradientTransform [`Rotate ((10., None), Some (0.5, 0.5))] ]
@@ -32,6 +251,15 @@ let svg_filters = "svg filters", tyxml_tests Svg.[
 
 ]
 
+let svg_mask = "svg mask", tyxml_tests Svg.[
+
+  "mask",
+  mask ~a:[ a_id "m" ; a_maskUnits `UserSpaceOnUse ]
+    [ rect ~a:[ a_width (10., None) ; a_height (10., None) ] [] ],
+  {|<mask id="m" maskUnits="userSpaceOnUse"><rect width="10" height="10"></rect></mask>|} ;
+
+]
+
 let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
   "use with clip-path",
@@ -40,10 +268,45 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
 ]
 
+let svg_document = "svg document", tyxml_tests Svg.[
+
+  "a realistic document",
+  svg ~a:[ a_viewBox (0., 0., 100., 100.) ; a_role ["img"] ;
+           a_aria "label" ["a"; "shape"] ]
+    [ defs
+        [ linearGradient ~a:[ a_id "grad" ]
+            [ stop ~a:[ a_offset (`Percentage 0.) ; a_stop_color "white" ] [] ;
+              stop ~a:[ a_offset (`Percentage 100.) ; a_stop_color "red" ] [] ] ;
+          filter ~a:[ a_id "shadow" ]
+            [ feDropShadow ~a:[ a_dx 1. ; a_dy 1. ;
+                                a_stdDeviation (2., None) ] [] ] ;
+          mask ~a:[ a_id "m" ]
+            [ rect ~a:[ a_width (100., None) ; a_height (100., None) ;
+                        a_fill (`Color ("white", None)) ] [] ] ;
+          symbol ~a:[ a_id "sym" ; a_viewBox (0., 0., 10., 10.) ]
+            [ circle ~a:[ a_cx (5., None) ; a_cy (5., None) ;
+                          a_r (4., None) ] [] ] ] ;
+      use ~a:[ a_href "#sym" ; a_x (10., None) ; a_y (10., None) ;
+               a_width (20., None) ; a_height (20., None) ;
+               a_mask "url(#m)" ; a_filter "url(#shadow)" ;
+               a_opacity 0.8 ; a_tabindex 0 ] [] ;
+      text ~a:[ a_x_list [ (50., None) ] ; a_y_list [ (90., None) ] ;
+                a_text_anchor `Middle ; a_paint_order "stroke" ]
+        [ txt "hello" ] ]  ,
+  {|<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" role="img" aria-label="a shape"><defs><linearGradient id="grad"><stop offset="0%" stop-color="white"></stop><stop offset="100%" stop-color="red"></stop></linearGradient><filter id="shadow"><feDropShadow dx="1" dy="1" stdDeviation="2"></feDropShadow></filter><mask id="m"><rect width="100" height="100" fill="white"></rect></mask><symbol id="sym" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"></circle></symbol></defs><use href="#sym" x="10" y="10" width="20" height="20" mask="url(#m)" filter="url(#shadow)" opacity="0.8" tabindex="0"></use><text x="50" y="90" text-anchor="middle" paint-order="stroke">hello</text></svg>|} ;
+
+]
+
 let tests = [
   svg_attributes ;
+  svg_content_models ;
+  svg_events ;
+  svg_links ;
+  svg_presentation ;
   svg_filters ;
-  svg_clip_path
+  svg_mask ;
+  svg_clip_path ;
+  svg_document
 ]
 
 let () = Alcotest.run "tyxml-svg" tests

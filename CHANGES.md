@@ -64,6 +64,67 @@
   support the until-found and plaintext-only states
 * Undeprecate the `scope` attribute: it is valid in the HTML living
   standard on table header cells
+* SVG: add the `mask`, `feMergeNode` and `feDropShadow` elements. `mask`
+  was declared in `Svg_types` but the element was missing, and `feMerge`
+  could not be given any child since `feMergeNode` did not exist.
+* SVG: add the missing presentation attributes, whose tags were already
+  declared: `baseline-shift`, `clip-rule`, `color`,
+  `color-interpolation`, `color-interpolation-filters`,
+  `color-rendering`, `cursor`, `direction`, `display`, `fill-opacity`,
+  `filter`, `flood-color`, `flood-opacity`, `font-size-adjust`,
+  `image-rendering`, `letter-spacing`, `lighting-color`, `marker-end`,
+  `marker-mid`, `marker-start`, `mask`, `opacity`, `overflow`,
+  `pointer-events`, `shape-rendering`, `unicode-bidi`, `visibility`,
+  `word-spacing` and `writing-mode`, plus the ones removed in SVG 2,
+  which are deprecated: `clip`, `color-profile`, `enable-background`,
+  `glyph-orientation-horizontal`, `glyph-orientation-vertical` and
+  `kerning`
+* SVG: add the presentation attributes new in SVG 2: `paint-order`,
+  `text-overflow`, `transform-origin`, `vector-effect` and `white-space`
+* SVG: add the `tabindex` and `autofocus` global attributes, make `lang`
+  global, and add ARIA support (`a_role` and `a_aria`)
+* SVG: add the SVG 2 link attributes on the `a` element (`download`,
+  `hreflang`, `ping`, `referrerpolicy`, `rel`, and `type`, which was not
+  listed in `a_attr`). The `Wrapped_functions` module type has a new
+  `unoption_string` function.
+* SVG: add the `crossorigin`, `decoding` and `fetchpriority` attributes,
+  the `fr` attribute on radial gradients, and the `side` and `path`
+  attributes on `textPath`
+* SVG: add the attribute functions missing for already declared tags:
+  `a_end` (SMIL timing), `a_z` (light sources), `a_filterUnits`,
+  `a_title` (on `style`), `a_origin`, `a_panose_1`, `a_descent` and the
+  deprecated `a_xlink_type`, `a_xlink_role` and `a_xlink_arcrole`
+* SVG: allow the SVG 2 values of existing attributes: `miter-clip` and
+  `arcs` for `stroke-linejoin`, all the CSS blend modes for the `mode`
+  attribute of `feBlend`, and `text-top` and `text-bottom` for
+  `alignment-baseline` and `dominant-baseline`
+* SVG: add the event handler attributes of HTML, which SVG 2 reuses on
+  every element (focus, keyboard, pointer, wheel, clipboard, drag and
+  media events), and the window event handler attributes on the `svg`
+  element
+* SVG: widen the content models to SVG 2. Shapes accept paint servers,
+  `clipPath`, `marker`, `mask`, `script` and `style`; `use` and `image`
+  accept `clipPath`, `mask`, `script` and `style`; text elements accept
+  paint servers, `script` and `style`; filter primitives accept
+  descriptive elements, `animate`, `script` and `set`; gradients, `stop`
+  and `clipPath` accept `script`
+* SVG: fix the `symbol` element, which accepted neither the core
+  attributes (so no `id`, making it impossible to reference), nor the
+  presentation and event attributes, nor shape children
+* SVG: fix the `xml:base`, `xml:lang` and `xml:space` attributes and the
+  touch event handler attributes, whose type tags were listed in no
+  attribute category, making them unusable on every element
+* SVG: allow the SVG 2 geometry attributes on `symbol` (`x`, `y`,
+  `width`, `height`, `refX`, `refY`)
+* SVG: deprecate what SVG 2 removed and was not deprecated yet:
+  `externalResourcesRequired`, `filterRes`, `zoomAndPan`, the `onzoom`,
+  `onactivate`, `onfocusin` and `onfocusout` event handlers, and the
+  `cursor` and `animateColor` elements. Conversely, undeprecate
+  `a_onload`: the load event is still fired on SVG elements.
+* Fix the case of SVG attribute names in the PPX and the JSX syntax: no
+  camel case attribute was recognised, so `viewBox`, `maskUnits`,
+  `stdDeviation`, `gradientTransform`, `preserveAspectRatio`, `refX`,
+  `markerWidth` and many others were rejected
 * Fix typo `whitout` in type definition
 	(#324 by Martin @MBodin Bodin)
 * Add support for the clip-path presentation attribute

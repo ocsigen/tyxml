@@ -39,13 +39,34 @@ let parse loc (language, element_name) attributes =
     else Some (String.sub name length (String.length name - length))
   in
 
+  (* Markup.ml lowercases attribute names and does not apply the SVG attribute
+     case adjustments of the HTML standard in the ["svg"] fragment context we
+     parse SVG with. Many SVG attributes are camel case ("viewBox",
+     "maskUnits", ...), so recover the original case by looking the name up
+     among the reflected attribute names. There is no case collision among
+     them. *)
+  let restore_case tyxml_name =
+    match language with
+    | Common.Html -> tyxml_name
+    | Svg ->
+      if List.mem_assoc tyxml_name Reflected.attribute_parsers then tyxml_name
+      else
+        let lowercase = String.lowercase_ascii tyxml_name in
+        let same_name (name, _) =
+          String.lowercase_ascii name = lowercase
+        in
+        match Common.find same_name Reflected.attribute_parsers with
+        | Some (name, _) -> name
+        | None -> tyxml_name
+  in
+
   (* Applied to each attribute. Accumulates individually labeled attributes,
      such as img/src, in "labeled," and attributes passed in ~a in "regular." *)
   let parse_attribute (labeled, regular) ((_, local_name), value) =
     (* Convert the markup name of the attribute to a TyXML name without regard
        to renamed attributes such as "a_input_max." Renaming will be accounted
        for later. *)
-    let tyxml_name = Name_convention.attrib local_name in
+    let tyxml_name = restore_case (Name_convention.attrib local_name) in
 
     let test_labeled (e, a, _) = e = element_name && a = local_name in
     let test_blacklisted (a, _, _) = a = tyxml_name in
