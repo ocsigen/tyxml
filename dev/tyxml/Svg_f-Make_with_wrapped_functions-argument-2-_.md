@@ -12,6 +12,9 @@ val string_of_alignment_baseline :
 val string_of_bool : (bool, string) Xml.W.ft
 ```
 ```ocaml
+val unoption_string : (string option, string) Xml.W.ft
+```
+```ocaml
 val string_of_big_variant : ([< Svg_types.big_variant ], string) Xml.W.ft
 ```
 ```ocaml

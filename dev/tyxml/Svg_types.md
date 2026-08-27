@@ -65,6 +65,7 @@ type filter_primitive_element = [
   | `FeConvolveMatrix
   | `FeDiffuseLighting
   | `FeDisplacementMap
+  | `FeDropShadow
   | `FeFlood
   | `FeGaussianBlur
   | `FeImage
@@ -158,7 +159,12 @@ type conditional_processing_attr = [
 ```
 ```ocaml
 type core_attr = [ 
+  | `Aria
+  | `Autofocus
   | `Id
+  | `Lang
+  | `Role
+  | `Tabindex
   | `Xml_base
   | `Xml_lang
   | `Xml_space
@@ -179,9 +185,26 @@ type transfer_attr = [
 ```ocaml
 type document_event_attr = [ 
   | `OnAbort
+  | `OnAfterPrint
+  | `OnBeforePrint
+  | `OnBeforeUnload
   | `OnError
+  | `OnHashChange
+  | `OnLanguageChange
+  | `OnMessage
+  | `OnOffLine
+  | `OnOnLine
+  | `OnPageHide
+  | `OnPageShow
+  | `OnPopState
+  | `OnReadyStateChange
+  | `OnRedo
+  | `OnRejectionHandled
   | `OnResize
   | `OnScroll
+  | `OnStorage
+  | `OnUndo
+  | `OnUnhandledRejection
   | `OnUnload
   | `OnZoom
  ]
@@ -281,6 +304,7 @@ type presentation_attr = [
   | `Mask
   | `Opacity
   | `Overflow
+  | `Paint_Order
   | `Pointer_Events
   | `Shape_Rendering
   | `Stop_Color
@@ -295,11 +319,101 @@ type presentation_attr = [
   | `Stroke_Width
   | `Text_Anchor
   | `Text_Decoration
+  | `Text_Overflow
   | `Text_Rendering
+  | `Transform_Origin
   | `Unicode_Bidi
+  | `Vector_Effect
   | `Visibility
+  | `White_Space
   | `Word_Spacing
   | `Writing_Mode
+ ]
+```
+```ocaml
+type global_event_attr = [ 
+  | `OnAbort
+  | `OnAuxClick
+  | `OnBeforeInput
+  | `OnBeforeMatch
+  | `OnBeforeToggle
+  | `OnBlur
+  | `OnCancel
+  | `OnCanPlay
+  | `OnCanPlayThrough
+  | `OnChange
+  | `OnClick
+  | `OnClose
+  | `OnContextLost
+  | `OnContextMenu
+  | `OnContextRestored
+  | `OnCopy
+  | `OnCueChange
+  | `OnCut
+  | `OnDblClick
+  | `OnDrag
+  | `OnDragEnd
+  | `OnDragEnter
+  | `OnDragLeave
+  | `OnDragOver
+  | `OnDragStart
+  | `OnDrop
+  | `OnDurationChange
+  | `OnEmptied
+  | `OnEnded
+  | `OnError
+  | `OnFocus
+  | `OnGotPointerCapture
+  | `OnInput
+  | `OnInvalid
+  | `OnKeyDown
+  | `OnKeyPress
+  | `OnKeyUp
+  | `OnLoad
+  | `OnLoadedData
+  | `OnLoadedMetaData
+  | `OnLoadStart
+  | `OnLostPointerCapture
+  | `OnMouseDown
+  | `OnMouseMove
+  | `OnMouseOut
+  | `OnMouseOver
+  | `OnMouseUp
+  | `OnMouseWheel
+  | `OnPaste
+  | `OnPause
+  | `OnPlay
+  | `OnPlaying
+  | `OnPointerCancel
+  | `OnPointerDown
+  | `OnPointerEnter
+  | `OnPointerLeave
+  | `OnPointerMove
+  | `OnPointerOut
+  | `OnPointerOver
+  | `OnPointerUp
+  | `OnProgress
+  | `OnRateChange
+  | `OnResize
+  | `OnScroll
+  | `OnScrollEnd
+  | `OnSecurityPolicyViolation
+  | `OnSeeked
+  | `OnSeeking
+  | `OnSelect
+  | `OnShow
+  | `OnStalled
+  | `OnSubmit
+  | `OnSuspend
+  | `OnTimeUpdate
+  | `OnToggle
+  | `OnTouchCancel
+  | `OnTouchEnd
+  | `OnTouchMove
+  | `OnTouchStart
+  | `OnVolumeChange
+  | `OnWaiting
+  | `OnWheel
  ]
 ```
 ```ocaml
@@ -314,6 +428,10 @@ type graphical_event_attr = [
   | `OnMouseOut
   | `OnMouseOver
   | `OnMouseUp
+  | `OnTouchCancel
+  | `OnTouchEnd
+  | `OnTouchMove
+  | `OnTouchStart
  ]
 ```
 ```ocaml
@@ -469,6 +587,7 @@ type svg_content = [
 type svg_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | document_event_attr
   | graphical_event_attr
   | presentation_attr
@@ -526,6 +645,7 @@ type g_content = [
 type g_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -570,6 +690,7 @@ type defs_content = [
 type defs_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -591,6 +712,7 @@ type desc_content = [
 ```ocaml
 type desc_attr = [ 
   | core_attr
+  | global_event_attr
   | `Class
   | `Style
  ]
@@ -617,6 +739,7 @@ type symbol = [
 type symbol_content = [ 
   | animation_element
   | descriptive_element
+  | shape_element
   | structural_element
   | gradient_element
   | `A
@@ -641,11 +764,22 @@ type symbol_content = [
 ```
 ```ocaml
 type symbol_attr = [ 
+  | conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
   | `Class
   | `Style
   | `ExternalResourcesRequired
   | `PreserveAspectRatio
   | `ViewBox
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `RefX
+  | `RefY
  ]
 ```
 ```ocaml
@@ -657,11 +791,16 @@ type use = [
 type use_content = [ 
   | animation_element
   | descriptive_element
+  | `ClipPath
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type use_attr = [ 
   | core_attr
+  | global_event_attr
   | conditional_processing_attr
   | graphical_event_attr
   | presentation_attr
@@ -686,11 +825,16 @@ type image = [
 type image_content = [ 
   | animation_element
   | descriptive_element
+  | `ClipPath
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type image_attr = [ 
   | core_attr
+  | global_event_attr
   | conditional_processing_attr
   | graphical_event_attr
   | xlink_attr
@@ -705,6 +849,9 @@ type image_attr = [
   | `Width
   | `Height
   | `Xlink_href
+  | `Crossorigin
+  | `Decoding
+  | `Fetchpriority
  ]
 ```
 ```ocaml
@@ -731,6 +878,7 @@ type switch_content = [
 type switch_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -752,6 +900,7 @@ type style_content = [
 ```ocaml
 type style_attr = [ 
   | core_attr
+  | global_event_attr
   | `Title
   | `Media
   | `Type
@@ -766,12 +915,20 @@ type path = [
 type path_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type path_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -791,12 +948,20 @@ type rect = [
 type rect_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type rect_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -820,12 +985,20 @@ type circle = [
 type circle_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type circle_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -846,12 +1019,20 @@ type ellipse = [
 type ellipse_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type ellipse_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -873,12 +1054,20 @@ type line = [
 type line_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type line_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -900,12 +1089,20 @@ type polyline = [
 type polyline_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type polyline_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -924,12 +1121,20 @@ type polygon = [
 type polygon_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type polygon_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -948,15 +1153,23 @@ type text = [
 type text_content = [ 
   | animation_element
   | descriptive_element
+  | gradient_element
   | text_content_child_element
   | `PCDATA
   | `A
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
  ]
 ```
 ```ocaml
 type text_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | `Class
@@ -978,13 +1191,16 @@ type tspan = [
 ```ocaml
 type tspan_content = [ 
   | descriptive_element
-  | core_attr
+  | gradient_element
   | `PCDATA
   | `A
   | `AltGlyph
   | `Animate
   | `AnimateColor
+  | `Pattern
+  | `Script
   | `Set
+  | `Style
   | `Tref
   | `Tspan
  ]
@@ -992,6 +1208,7 @@ type tspan_content = [
 ```ocaml
 type tspan_attr = [ 
   | core_attr
+  | global_event_attr
   | conditional_processing_attr
   | graphical_event_attr
   | presentation_attr
@@ -1041,12 +1258,16 @@ type textpath = [
 ```ocaml
 type textpath_content = [ 
   | descriptive_element
+  | gradient_element
   | `PCDATA
   | `A
   | `AltGlyph
   | `Animate
   | `AnimateColor
+  | `Pattern
+  | `Script
   | `Set
+  | `Style
   | `Tref
   | `Tspan
  ]
@@ -1055,6 +1276,7 @@ type textpath_content = [
 type textpath_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | graphical_event_attr
   | presentation_attr
   | xlink_attr
@@ -1064,6 +1286,8 @@ type textpath_attr = [
   | `Xlink_href
   | `StartOffset
   | `Method
+  | `Path
+  | `Side
   | `Spacing
  ]
 ```
@@ -1178,6 +1402,7 @@ type marker_content = [
 ```ocaml
 type marker_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | `Class
   | `Style
@@ -1222,6 +1447,7 @@ type lineargradient_content = [
   | descriptive_element
   | `Animate
   | `AnimateTransform
+  | `Script
   | `Set
   | `Stop
  ]
@@ -1229,6 +1455,7 @@ type lineargradient_content = [
 ```ocaml
 type lineargradient_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | xlink_attr
   | `Class
@@ -1254,6 +1481,7 @@ type radialgradient_content = [
   | descriptive_element
   | `Animate
   | `AnimateTransform
+  | `Script
   | `Set
   | `Stop
  ]
@@ -1261,6 +1489,7 @@ type radialgradient_content = [
 ```ocaml
 type radialgradient_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | xlink_attr
   | `Class
@@ -1271,6 +1500,7 @@ type radialgradient_attr = [
   | `R
   | `Fx
   | `Fy
+  | `Fr
   | `GradientUnits
   | `GradientTransform
   | `SpreadMethod
@@ -1286,12 +1516,14 @@ type stop = [
 type stop_content = [ 
   | `Animate
   | `AnimateColor
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type stop_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | `Class
   | `Style
@@ -1334,6 +1566,7 @@ type pattern_content = [
 type pattern_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | presentation_attr
   | xlink_attr
   | `Class
@@ -1360,6 +1593,7 @@ type clippath = [
 type clippath_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | presentation_attr
   | `Class
   | `Style
@@ -1373,6 +1607,7 @@ type clippath_content = [
   | descriptive_element
   | animation_element
   | shape_element
+  | `Script
   | `Text
   | `Use
  ]
@@ -1413,6 +1648,7 @@ type mask_content = [
 type mask_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | presentation_attr
   | `Class
   | `Style
@@ -1435,12 +1671,14 @@ type filter_content = [
   | descriptive_element
   | filter_primitive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type filter_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | xlink_attr
   | `Class
@@ -1463,13 +1701,16 @@ type fedistantlight = [
 ```
 ```ocaml
 type fedistantlight_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fedistantlight_attr = [ 
   | core_attr
+  | global_event_attr
   | `Azimuth
   | `Elevation
  ]
@@ -1481,13 +1722,16 @@ type fepointlight = [
 ```
 ```ocaml
 type fepointlight_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fepointlight_attr = [ 
   | core_attr
+  | global_event_attr
   | `X
   | `Y
   | `Z
@@ -1500,13 +1744,16 @@ type fespotlight = [
 ```
 ```ocaml
 type fespotlight_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fespotlight_attr = [ 
   | core_attr
+  | global_event_attr
   | `X
   | `Y
   | `Z
@@ -1524,13 +1771,16 @@ type feblend = [
 ```
 ```ocaml
 type feblend_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type feblend_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1547,13 +1797,16 @@ type fecolormatrix = [
 ```
 ```ocaml
 type fecolormatrix_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fecolormatrix_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1570,15 +1823,20 @@ type fecomponenttransfer = [
 ```
 ```ocaml
 type fecomponenttransfer_content = [ 
+  | descriptive_element
+  | `Animate
   | `FeFuncA
   | `FeFuncB
   | `FeFuncG
   | `FeFuncR
+  | `Script
+  | `Set
  ]
 ```
 ```ocaml
 type fecomponenttransfer_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1593,13 +1851,16 @@ type fefunca = [
 ```
 ```ocaml
 type fefunca_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fefunca_attr = [ 
   | core_attr
+  | global_event_attr
   | transfer_attr
  ]
 ```
@@ -1610,13 +1871,16 @@ type fefuncg = [
 ```
 ```ocaml
 type fefuncg_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fefuncg_attr = [ 
   | core_attr
+  | global_event_attr
   | transfer_attr
  ]
 ```
@@ -1627,13 +1891,16 @@ type fefuncb = [
 ```
 ```ocaml
 type fefuncb_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fefuncb_attr = [ 
   | core_attr
+  | global_event_attr
   | transfer_attr
  ]
 ```
@@ -1644,13 +1911,16 @@ type fefuncr = [
 ```
 ```ocaml
 type fefuncr_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fefuncr_attr = [ 
   | core_attr
+  | global_event_attr
   | transfer_attr
  ]
 ```
@@ -1661,13 +1931,16 @@ type fecomposite = [
 ```
 ```ocaml
 type fecomposite_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fecomposite_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1688,13 +1961,16 @@ type feconvolvematrix = [
 ```
 ```ocaml
 type feconvolvematrix_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type feconvolvematrix_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1720,11 +1996,15 @@ type fediffuselighting = [
 type fediffuselighting_content = [ 
   | descriptive_element
   | light_source_element
+  | `Animate
+  | `Script
+  | `Set
  ]
 ```
 ```ocaml
 type fediffuselighting_attr = [ 
   | core_attr
+  | global_event_attr
   | filter_primitive_attr
   | presentation_attr
   | `Class
@@ -1742,13 +2022,16 @@ type fedisplacementmap = [
 ```
 ```ocaml
 type fedisplacementmap_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fedisplacementmap_attr = [ 
   | core_attr
+  | global_event_attr
   | filter_primitive_attr
   | presentation_attr
   | `Class
@@ -1761,20 +2044,50 @@ type fedisplacementmap_attr = [
  ]
 ```
 ```ocaml
+type fedropshadow = [ 
+  | `FeDropShadow
+ ]
+```
+```ocaml
+type fedropshadow_content = [ 
+  | descriptive_element
+  | `Animate
+  | `Script
+  | `Set
+ ]
+```
+```ocaml
+type fedropshadow_attr = [ 
+  | core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `Dx
+  | `Dy
+  | `StdDeviation
+ ]
+```
+```ocaml
 type feflood = [ 
   | `FeFlood
  ]
 ```
 ```ocaml
 type feflood_content = [ 
+  | descriptive_element
   | `Animate
   | `AnimateColor
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type feflood_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1788,14 +2101,17 @@ type fegaussianblur = [
 ```
 ```ocaml
 type fegaussianblur_content = [ 
+  | descriptive_element
   | `Animate
   | `AnimateColor
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fegaussianblur_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1811,14 +2127,17 @@ type feimage = [
 ```
 ```ocaml
 type feimage_content = [ 
+  | descriptive_element
   | `Animate
   | `AnimateColor
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type feimage_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | xlink_attr
@@ -1827,6 +2146,7 @@ type feimage_attr = [
   | `Style
   | `ExternalResourcesRequired
   | `PreserveAspectRatio
+  | `Crossorigin
  ]
 ```
 ```ocaml
@@ -1836,16 +2156,41 @@ type femerge = [
 ```
 ```ocaml
 type femerge_content = [ 
+  | descriptive_element
+  | `Animate
   | `FeMergeNode
+  | `Script
+  | `Set
  ]
 ```
 ```ocaml
 type femerge_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
   | `Style
+ ]
+```
+```ocaml
+type femergenode = [ 
+  | `FeMergeNode
+ ]
+```
+```ocaml
+type femergenode_content = [ 
+  | descriptive_element
+  | `Animate
+  | `Script
+  | `Set
+ ]
+```
+```ocaml
+type femergenode_attr = [ 
+  | core_attr
+  | global_event_attr
+  | `In
  ]
 ```
 ```ocaml
@@ -1855,13 +2200,16 @@ type femorphology = [
 ```
 ```ocaml
 type femorphology_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type femorphology_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `OperatorMorphology
@@ -1878,13 +2226,16 @@ type feoffset = [
 ```
 ```ocaml
 type feoffset_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type feoffset_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1903,11 +2254,15 @@ type fespecularlighting = [
 type fespecularlighting_content = [ 
   | descriptive_element
   | light_source_element
+  | `Animate
+  | `Script
+  | `Set
  ]
 ```
 ```ocaml
 type fespecularlighting_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1926,13 +2281,16 @@ type fetile = [
 ```
 ```ocaml
 type fetile_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type fetile_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -1947,13 +2305,16 @@ type feturbulence = [
 ```
 ```ocaml
 type feturbulence_content = [ 
+  | descriptive_element
   | `Animate
+  | `Script
   | `Set
  ]
 ```
 ```ocaml
 type feturbulence_attr = [ 
   | core_attr
+  | global_event_attr
   | presentation_attr
   | filter_primitive_attr
   | `Class
@@ -2019,6 +2380,7 @@ type a_content = [
 ```ocaml
 type a_attr = [ 
   | core_attr
+  | global_event_attr
   | conditional_processing_attr
   | xlink_attr
   | graphical_event_attr
@@ -2030,7 +2392,13 @@ type a_attr = [
   | `Xlink_href
   | `Xlink_show
   | `Xlink_actuate
+  | `Download
+  | `Hreflang
+  | `Ping
+  | `Referrerpolicy
+  | `Rel
   | `Target
+  | `Type
  ]
 ```
 ```ocaml
@@ -2044,6 +2412,7 @@ type view_content = descriptive_element
 ```ocaml
 type view_attr = [ 
   | core_attr
+  | global_event_attr
   | `ExternalResourcesRequired
   | `ViewBox
   | `PreserveAspectRatio
@@ -2064,10 +2433,12 @@ type script_content = [
 ```ocaml
 type script_attr = [ 
   | core_attr
+  | global_event_attr
   | xlink_attr
   | `ExternalResourcesRequired
   | `Type
   | `Xlink_href
+  | `Crossorigin
  ]
 ```
 ```ocaml
@@ -2082,6 +2453,7 @@ type animate_content = descriptive_element
 type animate_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | animation_event_attr
   | xlink_attr
   | animation_attr_target_attr
@@ -2102,6 +2474,7 @@ type set_content = descriptive_element
 ```ocaml
 type set_attr = [ 
   | core_attr
+  | global_event_attr
   | conditional_processing_attr
   | xlink_attr
   | animation_event_attr
@@ -2126,6 +2499,7 @@ type animatemotion_content = [
 type animatemotion_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | animation_event_attr
   | xlink_attr
   | animation_timing_attr
@@ -2149,6 +2523,7 @@ type mpath_content = descriptive_element
 ```ocaml
 type mpath_attr = [ 
   | core_attr
+  | global_event_attr
   | xlink_attr
   | `ExternalResourcesRequired
   | `Xlink_href
@@ -2187,6 +2562,7 @@ type animatetransform_content = descriptive_element
 type animatetransform_attr = [ 
   | conditional_processing_attr
   | core_attr
+  | global_event_attr
   | animation_event_attr
   | xlink_attr
   | animation_attr_target_attr
@@ -2462,6 +2838,7 @@ type metadata = [
 ```ocaml
 type metadata_attr = [ 
   | core_attr
+  | global_event_attr
  ]
 ```
 ```ocaml
@@ -2472,6 +2849,7 @@ type foreignobject = [
 ```ocaml
 type foreignobject_attr = [ 
   | core_attr
+  | global_event_attr
   | conditional_processing_attr
   | graphical_event_attr
   | presentation_attr
@@ -2500,6 +2878,8 @@ type alignment_baseline = [
   | `Middle
   | `Text_after_edge
   | `Text_before_edge
+  | `Text_bottom
+  | `Text_top
  ]
 ```
 ```ocaml
@@ -2516,6 +2896,8 @@ type dominant_baseline = [
   | `Middle
   | `Text_after_edge
   | `Text_before_edge
+  | `Text_bottom
+  | `Text_top
   | `Inherit
  ]
 ```
@@ -2540,95 +2922,159 @@ type offset = [
 type big_variant = [ 
   | `A
   | `Absolute_colorimetric
+  | `Accumulate
   | `Align
+  | `All
   | `Always
-  | `Atop
+  | `Anonymous
+  | `Arcs
   | `Arithmetic
+  | `Async
+  | `Atop
   | `Auto
   | `B
   | `Bevel
+  | `Bidi_override
   | `Blink
+  | `Break_spaces
   | `Butt
+  | `Clip
+  | `Collapse
+  | `Color
+  | `Color_burn
+  | `Color_dodge
+  | `CrispEdges
   | `CSS
   | `Darken
   | `Default
+  | `Difference
   | `Dilate
   | `Disable
   | `Discrete
   | `Duplicate
+  | `Ellipsis
+  | `Embed
   | `End
   | `Erode
+  | `Evenodd
   | `Exact
+  | `Exclusion
+  | `Fill
+  | `Fixed_position
   | `FractalNoise
   | `Freeze
-  | `HueRotate
   | `G
   | `Gamma
   | `GeometricPrecision
   | `H
+  | `Hard_light
+  | `Hidden
+  | `High
+  | `Horizontal_tb
+  | `Hue
+  | `HueRotate
   | `Identity
   | `In
   | `Inherit
   | `Initial
   | `Isolated
+  | `Left
   | `Lighten
   | `Line_through
   | `Linear
+  | `LinearRGB
+  | `Low
+  | `Ltr
   | `LuminanceToAlpha
+  | `Luminosity
   | `Magnify
   | `Matrix
   | `Medial
   | `Middle
   | `Miter
+  | `Miter_clip
   | `Multiply
   | `Never
   | `New
+  | `No_referrer
+  | `No_referrer_when_downgrade
+  | `Non_rotation
+  | `Non_scaling_size
+  | `Non_scaling_stroke
   | `None
+  | `Nonzero
   | `Normal
   | `NoStitch
+  | `Nowrap
   | `ObjectBoundingBox
   | `OnLoad
   | `OnRequest
   | `OptimizeLegibility
+  | `OptimizeQuality
   | `OptimizeSpeed
+  | `Origin
+  | `Origin_when_cross_origin
   | `Other
   | `Out
   | `Over
+  | `Overlay
   | `Overline
   | `Paced
   | `Pad
+  | `Painted
   | `Perceptual
+  | `Pre
+  | `Pre_line
+  | `Pre_wrap
   | `Preserve
   | `R
   | `Reflect
+  | `Relative_colorimetric
   | `Remove
   | `Repeat
   | `Replace
-  | `Relative_colorimetric
+  | `Right
   | `Rotate
   | `Round
+  | `Rtl
+  | `Same_origin
   | `Saturate
   | `Saturation
   | `Scale
   | `Screen
+  | `Scroll
   | `SkewX
   | `SkewY
+  | `Soft_light
   | `Spacing
   | `SpacingAndGlyphs
   | `Spline
   | `Square
+  | `SRGB
   | `Start
   | `Stitch
   | `Stretch
+  | `Strict_origin
+  | `Strict_origin_when_cross_origin
+  | `Stroke
   | `StrokeWidth
   | `Sum
+  | `Sync
   | `Table
   | `Terminal
   | `Translate
   | `Turbulence
   | `Underline
+  | `Unsafe_url
+  | `Use_credentials
   | `UserSpaceOnUse
   | `V
+  | `Vertical_lr
+  | `Vertical_rl
+  | `Visible
+  | `VisibleFill
+  | `VisiblePainted
+  | `VisibleStroke
   | `WhenNotActive
   | `Wrap
   | `XML
