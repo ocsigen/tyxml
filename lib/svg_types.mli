@@ -590,6 +590,7 @@ type symbol_content =
   [
     | animation_element
     | descriptive_element
+    | shape_element
     | structural_element
     | gradient_element
     | `A

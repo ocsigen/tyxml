@@ -41,6 +41,10 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
   style ~a:[ a_title "alternate" ] (txt ""),
   {|<style title="alternate"></style>|} ;
 
+  "symbol with a shape child",
+  symbol ~a:[ a_id "s" ] [ circle ~a:[ a_r (1., None) ] [] ],
+  {|<symbol id="s"><circle r="1"></circle></symbol>|} ;
+
   "symbol geometry",
   symbol ~a:[ a_x (0., None) ; a_y (0., None) ; a_width (10., None) ;
               a_height (10., None) ; a_refX (5., None) ; a_refY (5., None) ]
