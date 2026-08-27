@@ -2,8 +2,8 @@
 
     This is the natural implementation of the TyXML combinators
     based on an XML data-structure.
-    {%
-    Other implementations are available, see {{!page-"intro"}the manual} for details. %}
+    Other implementations are available, see {{!page-"index"}the manual} for
+    details.
 *)
 
 (** Typesafe constructors and printers for HTML documents.
