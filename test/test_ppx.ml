@@ -591,6 +591,11 @@ let svg = "svg", SvgTests.make Svg.[
   [a ~a:[a_href "p.html"; a_rel ["noopener"];
          a_referrerpolicy `No_referrer; a_download (Some "p.html")] []] ;
 
+  "global event handlers",
+  [[%svg "<circle onblur='f()' onkeydown='g(event)' onwheel='h(event)'/>"]],
+  [circle ~a:[a_onblur "f()"; a_onkeydown "g(event)";
+              a_onwheel "h(event)"] []] ;
+
   "role, aria-*",
   [[%svg "<g role='img' aria-label='circle'/>"]],
   [g ~a:[a_role ["img"]; a_aria "label" ["circle"]] []] ;

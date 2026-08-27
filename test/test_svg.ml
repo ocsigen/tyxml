@@ -66,6 +66,23 @@ let svg_attributes = "svg attributes", tyxml_tests Svg.[
 
 ]
 
+let svg_events = "svg events", tyxml_tests Svg.[
+
+  "global event handlers",
+  circle ~a:[ a_onfocus "f()" ; a_onblur "g()" ; a_onkeydown "h(event)" ;
+              a_onwheel "i(event)" ; a_onpointerdown "j(event)" ] [],
+  {|<circle onfocus="f()" onblur="g()" onkeydown="h(event)" onwheel="i(event)" onpointerdown="j(event)"></circle>|} ;
+
+  "clipboard event handlers",
+  text ~a:[ a_oncopy "c()" ; a_oncut "x()" ; a_onpaste "p()" ] [],
+  {|<text oncopy="c()" oncut="x()" onpaste="p()"></text>|} ;
+
+  "animation event handlers",
+  animate ~a:[ a_onbegin "b()" ; a_onrepeat "r()" ] [],
+  {|<animate onbegin="b()" onrepeat="r()"></animate>|} ;
+
+]
+
 let svg_links = "svg links", tyxml_tests Svg.[
 
   "a with SVG 2 link attributes",
@@ -209,6 +226,7 @@ let svg_clip_path = "svg clip-path", tyxml_tests Svg.[
 
 let tests = [
   svg_attributes ;
+  svg_events ;
   svg_links ;
   svg_presentation ;
   svg_filters ;

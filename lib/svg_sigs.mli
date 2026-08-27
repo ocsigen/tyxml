@@ -898,6 +898,93 @@ module type T = sig
   val a_onunload : Xml.event_handler  -> [> | `OnUnload ] attrib
   val a_onzoom : Xml.event_handler  -> [> | `OnZoom ] attrib
 
+  (** {3 Javascript global events}
+
+      SVG 2 reuses the event handler content attributes of HTML;
+      these apply to every SVG element. *)
+
+  val a_onauxclick : Xml.mouse_event_handler -> [> | `OnAuxClick ] attrib
+  val a_onbeforeinput : Xml.event_handler -> [> | `OnBeforeInput ] attrib
+  val a_onbeforematch : Xml.event_handler -> [> | `OnBeforeMatch ] attrib
+  val a_onbeforetoggle : Xml.event_handler -> [> | `OnBeforeToggle ] attrib
+  val a_onblur : Xml.event_handler -> [> | `OnBlur ] attrib
+  val a_oncancel : Xml.event_handler -> [> | `OnCancel ] attrib
+  val a_oncanplay : Xml.event_handler -> [> | `OnCanPlay ] attrib
+  val a_oncanplaythrough :
+    Xml.event_handler -> [> | `OnCanPlayThrough ] attrib
+  val a_onchange : Xml.event_handler -> [> | `OnChange ] attrib
+  val a_onclose : Xml.event_handler -> [> | `OnClose ] attrib
+  val a_oncontextlost : Xml.event_handler -> [> | `OnContextLost ] attrib
+  val a_oncontextmenu :
+    Xml.mouse_event_handler -> [> | `OnContextMenu ] attrib
+  val a_oncontextrestored :
+    Xml.event_handler -> [> | `OnContextRestored ] attrib
+  val a_oncopy : Xml.event_handler -> [> | `OnCopy ] attrib
+  val a_oncuechange : Xml.event_handler -> [> | `OnCueChange ] attrib
+  val a_oncut : Xml.event_handler -> [> | `OnCut ] attrib
+  val a_ondblclick : Xml.mouse_event_handler -> [> | `OnDblClick ] attrib
+  val a_ondrag : Xml.mouse_event_handler -> [> | `OnDrag ] attrib
+  val a_ondragend : Xml.mouse_event_handler -> [> | `OnDragEnd ] attrib
+  val a_ondragenter : Xml.mouse_event_handler -> [> | `OnDragEnter ] attrib
+  val a_ondragleave : Xml.mouse_event_handler -> [> | `OnDragLeave ] attrib
+  val a_ondragover : Xml.mouse_event_handler -> [> | `OnDragOver ] attrib
+  val a_ondragstart : Xml.mouse_event_handler -> [> | `OnDragStart ] attrib
+  val a_ondrop : Xml.mouse_event_handler -> [> | `OnDrop ] attrib
+  val a_ondurationchange :
+    Xml.event_handler -> [> | `OnDurationChange ] attrib
+  val a_onemptied : Xml.event_handler -> [> | `OnEmptied ] attrib
+  val a_onended : Xml.event_handler -> [> | `OnEnded ] attrib
+  val a_onfocus : Xml.event_handler -> [> | `OnFocus ] attrib
+  val a_ongotpointercapture :
+    Xml.mouse_event_handler -> [> | `OnGotPointerCapture ] attrib
+  val a_oninput : Xml.event_handler -> [> | `OnInput ] attrib
+  val a_oninvalid : Xml.event_handler -> [> | `OnInvalid ] attrib
+  val a_onkeydown : Xml.keyboard_event_handler -> [> | `OnKeyDown ] attrib
+  val a_onkeypress : Xml.keyboard_event_handler -> [> | `OnKeyPress ] attrib
+  val a_onkeyup : Xml.keyboard_event_handler -> [> | `OnKeyUp ] attrib
+  val a_onloadeddata : Xml.event_handler -> [> | `OnLoadedData ] attrib
+  val a_onloadedmetadata :
+    Xml.event_handler -> [> | `OnLoadedMetaData ] attrib
+  val a_onloadstart : Xml.event_handler -> [> | `OnLoadStart ] attrib
+  val a_onlostpointercapture :
+    Xml.mouse_event_handler -> [> | `OnLostPointerCapture ] attrib
+  val a_onmousewheel : Xml.event_handler -> [> | `OnMouseWheel ] attrib
+  val a_onpaste : Xml.event_handler -> [> | `OnPaste ] attrib
+  val a_onpause : Xml.event_handler -> [> | `OnPause ] attrib
+  val a_onplay : Xml.event_handler -> [> | `OnPlay ] attrib
+  val a_onplaying : Xml.event_handler -> [> | `OnPlaying ] attrib
+  val a_onpointercancel :
+    Xml.mouse_event_handler -> [> | `OnPointerCancel ] attrib
+  val a_onpointerdown :
+    Xml.mouse_event_handler -> [> | `OnPointerDown ] attrib
+  val a_onpointerenter :
+    Xml.mouse_event_handler -> [> | `OnPointerEnter ] attrib
+  val a_onpointerleave :
+    Xml.mouse_event_handler -> [> | `OnPointerLeave ] attrib
+  val a_onpointermove :
+    Xml.mouse_event_handler -> [> | `OnPointerMove ] attrib
+  val a_onpointerout : Xml.mouse_event_handler -> [> | `OnPointerOut ] attrib
+  val a_onpointerover :
+    Xml.mouse_event_handler -> [> | `OnPointerOver ] attrib
+  val a_onpointerup : Xml.mouse_event_handler -> [> | `OnPointerUp ] attrib
+  val a_onprogress : Xml.event_handler -> [> | `OnProgress ] attrib
+  val a_onratechange : Xml.event_handler -> [> | `OnRateChange ] attrib
+  val a_onscrollend : Xml.event_handler -> [> | `OnScrollEnd ] attrib
+  val a_onsecuritypolicyviolation :
+    Xml.event_handler -> [> | `OnSecurityPolicyViolation ] attrib
+  val a_onseeked : Xml.event_handler -> [> | `OnSeeked ] attrib
+  val a_onseeking : Xml.event_handler -> [> | `OnSeeking ] attrib
+  val a_onselect : Xml.event_handler -> [> | `OnSelect ] attrib
+  val a_onshow : Xml.event_handler -> [> | `OnShow ] attrib
+  val a_onstalled : Xml.event_handler -> [> | `OnStalled ] attrib
+  val a_onsubmit : Xml.event_handler -> [> | `OnSubmit ] attrib
+  val a_onsuspend : Xml.event_handler -> [> | `OnSuspend ] attrib
+  val a_ontimeupdate : Xml.event_handler -> [> | `OnTimeUpdate ] attrib
+  val a_ontoggle : Xml.event_handler -> [> | `OnToggle ] attrib
+  val a_onvolumechange : Xml.event_handler -> [> | `OnVolumeChange ] attrib
+  val a_onwaiting : Xml.event_handler -> [> | `OnWaiting ] attrib
+  val a_onwheel : Xml.mouse_event_handler -> [> | `OnWheel ] attrib
+
   (** {3 Javascript mouse events} *)
 
   val a_onclick : Xml.mouse_event_handler  -> [> | `OnClick ] attrib
