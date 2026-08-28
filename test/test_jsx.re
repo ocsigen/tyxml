@@ -246,6 +246,10 @@ let attribs = (
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces
         [div(~a=[Unsafe.string_attrib("some-attr", "value")], Xml.W.nil ())],
       ),
+      ( "script-supporting elements in lists",
+        [<ol> <li> "1" </li> <script> "f()" </script> </ol>],
+        [ol([li([txt("1")]), script(txt("f()"))])],
+      ),
       ( "arbitrary (unchecked) attributes via an escape hatch, with antiquotation",
         [<div _some_attr={"val" ++ "ue"}/>],
         // the Xml.W.nil is here to satisfy the internal structure of what the jsx ppx produces

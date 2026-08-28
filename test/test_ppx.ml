@@ -456,6 +456,14 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<input min='2002-10-02T15:00:00Z'>"]],
   [input ~a:[a_input_min (`Datetime "2002-10-02T15:00:00Z")] ()] ;
 
+  "script-supporting elements in lists and tables",
+  [[%html "<ol><li>1</li><script>f()</script></ol>"]],
+  [ol [li [txt "1"]; script (txt "f()")]] ;
+
+  "script-supporting elements in select",
+  [[%html "<select><option>o</option><script>f()</script></select>"]],
+  [select [option (txt "o"); script (txt "f()")]] ;
+
   "dl with div groups",
   [[%html "<dl><div><dt>term</dt><dd>definition</dd></div></dl>"]],
   [dl [div [dt [txt "term"]; dd [txt "definition"]]]] ;
