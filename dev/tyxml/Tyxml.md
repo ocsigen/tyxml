@@ -3,8 +3,7 @@
 
 Typed implementation for HTML, SVG and XML
 
-This is the natural implementation of the TyXML combinators based on an XML data-structure. `
-    Other implementations are available, see {{!page-"intro"}the manual} for details. `
+This is the natural implementation of the TyXML combinators based on an XML data-structure. Other implementations are available, see [the manual](./index.md) for details.
 
 ```ocaml
 module Html = Tyxml_html
