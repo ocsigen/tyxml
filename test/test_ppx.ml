@@ -464,6 +464,10 @@ let attribs = "ppx attribs", HtmlTests.make Html.[
   [[%html "<select><option>o</option><script>f()</script></select>"]],
   [select [option (txt "o"); script (txt "f()")]] ;
 
+  "empty option in a datalist",
+  [[%html "<datalist><option value='foo'></option></datalist>"]],
+  [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "")]) ()] ;
+
   "dl with div groups",
   [[%html "<dl><div><dt>term</dt><dd>definition</dd></div></dl>"]],
   [dl [div [dt [txt "term"]; dd [txt "definition"]]]] ;

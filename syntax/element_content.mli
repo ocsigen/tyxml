@@ -80,6 +80,7 @@ val menu : assembler
 val picture : assembler
 val script : assembler
 val textarea : assembler
+val selectoption : assembler
 
 (** {1 Misc utilities} *)
 

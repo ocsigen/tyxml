@@ -627,6 +627,7 @@ type core_phrasing =
     | `Picture
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 
 type core_phrasing_without_noscript =
@@ -671,6 +672,7 @@ type core_phrasing_without_noscript =
     | `Abbr
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 type core_phrasing_without_interactive =
   [
@@ -710,6 +712,7 @@ type core_phrasing_without_interactive =
     | `Abbr
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 
 type core_phrasing_without_media =
@@ -754,6 +757,7 @@ type core_phrasing_without_media =
     | `Abbr
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 
 type phrasing_without_noscript =
@@ -1438,7 +1442,8 @@ type hgroup = [ | `Hgroup ]
 
 type hgroup_content = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
 
-type hgroup_content_fun = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+type hgroup_content_fun =
+  [ | script_supporting | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 | `P ]
 
 type hgroup_attrib = [ | common ]
 
@@ -2048,6 +2053,7 @@ type area_attrib =
   [
     | common
     | `Alt
+    | `Href
     | `Coords
     | `Shape
     | `Target
@@ -2322,7 +2328,7 @@ type select = [ | `Select ]
 
 type select_content = [ | `Optgroup | `Option ]
 
-type select_content_fun = [ | script_supporting | `Optgroup | `Option ]
+type select_content_fun = [ | script_supporting | `Optgroup | `Option | `Hr ]
 
 type select_attrib =
   [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled | `Required

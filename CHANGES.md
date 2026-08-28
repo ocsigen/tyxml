@@ -25,6 +25,21 @@
 * Allow the script-supporting elements (`script`, `template`) in `ol`, `ul`,
   `table` and its row groups, `tr`, `select` and `optgroup`, as the
   specification does
+* Allow `p` and the script-supporting elements in `hgroup`, which only
+  accepted the heading elements
+  (fixes #342)
+* Allow `hr` in `select`, where it separates groups of options
+  (fixes #321)
+* Fix the `area` element, which could not be used at all: it had no `href`
+  attribute, and its type tag was in no content model, so a `map` containing
+  areas fitted nowhere. Also let it take the attributes its type already
+  declared, `download`, `ping` and `referrerpolicy`, which its signature
+  repeated a shorter list and left out
+  (fixes part of #184)
+* Accept an empty `option` in the PPX and the JSX syntax, as for `script` and
+  `textarea`: an option carrying a `label` and a `value` attribute has no
+  content, which is the usual form inside a `datalist`
+  (fixes #228)
 * Fix the `li` children of `menu`, which no `li` element could satisfy: the
   `` `Lis `` branch required an `li` whose attributes were a subset of the
   common ones, excluding the `value` attribute that `li` always allows. Also

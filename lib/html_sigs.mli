@@ -1184,19 +1184,7 @@ module type T = sig
   (** @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track>
       track element documentation on MDN *)
 
-  val area :
-    alt: text wrap ->
-    ([<
-      | common
-      | `Alt
-      | `Coords
-      | `Shape
-      | `Target
-      | `Rel
-      | `Media
-      | `Hreflang
-      | `Mime_type
-    ], [> | area]) nullary
+  val area : alt: text wrap -> ([< | area_attrib], [> | area]) nullary
 
   val map : ([< | map_attrib], 'a, [> | 'a map]) star
 
@@ -1292,6 +1280,7 @@ module type T = sig
 
   val option :
     ([< | option_attrib], [< | option_content_fun], [> | selectoption]) unary
+  [@@reflect.element "selectoption"]
 
   val textarea :
     ([< | textarea_attrib], [< | textarea_content_fun], [> | textarea]) unary
