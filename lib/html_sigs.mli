@@ -415,7 +415,7 @@ module type T = sig
   (** Microdata: creates a new item.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope> itemscope documentation. *)
 
-  val a_itemtype : string list wrap -> [> | `Itemtype] attrib
+  val a_itemtype : Xml.uri list wrap -> [> | `Itemtype] attrib
   (** Microdata: space-separated list of vocabulary URLs for the item.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype> itemtype documentation. *)
 
@@ -483,7 +483,7 @@ module type T = sig
 
   val a_pattern : text wrap -> [> | `Pattern] attrib
 
-  val a_ping : string list wrap -> [> | `Ping] attrib
+  val a_ping : Xml.uri list wrap -> [> | `Ping] attrib
   (** Space-separated list of URLs to ping when following the
       hyperlink.
       @see <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#ping> ping documentation. *)

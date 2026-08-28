@@ -62,6 +62,11 @@
   attribute, which the specification allows wherever phrasing content is
   expected and not only in the head
   (#343 by toastal)
+* Breaking: `a_itemtype` and `a_ping` take a list of `Xml.uri` instead of a
+  list of `string`, and go through `Xml.uris_attrib`. Both attributes hold
+  URLs, so they now carry the URI type like every other URL-valued attribute.
+  `Tyxml.Html` is unaffected, its `Xml.uri` is `string`; implementations with
+  an abstract URI type gain the URI treatment on these two attributes
 * Add the microdata global attributes `itemscope`, `itemtype`, `itemid`,
   `itemprop` and `itemref`
 * Add the `part` and `exportparts` global attributes (CSS Shadow Parts)

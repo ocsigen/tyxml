@@ -71,6 +71,8 @@ struct
 
   let uri_attrib a s = Xml.uri_attrib a s
 
+  let uris_attrib a s = Xml.uris_attrib a s
+
   let space_sep_attrib = Xml.space_sep_attrib
 
   let comma_sep_attrib = Xml.comma_sep_attrib
@@ -408,7 +410,7 @@ struct
   let a_itemscope =
     constant_attrib "itemscope"
 
-  let a_itemtype = space_sep_attrib "itemtype"
+  let a_itemtype = uris_attrib "itemtype"
 
   let a_itemid = uri_attrib "itemid"
 
@@ -463,7 +465,7 @@ struct
 
   let a_pattern = string_attrib "pattern"
 
-  let a_ping = space_sep_attrib "ping"
+  let a_ping = uris_attrib "ping"
 
   let a_playsinline =
     constant_attrib "playsinline"
