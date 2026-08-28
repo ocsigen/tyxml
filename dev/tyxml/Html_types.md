@@ -667,6 +667,7 @@ type core_phrasing = [
   | `Img_interactive
   | `Picture
   | `PCDATA
+  | `Meta_with_itemprop
  ]
 ```
 Phrasing contents is inline contents : bold text, span, and so on.
@@ -713,6 +714,7 @@ type core_phrasing_without_noscript = [
   | `B
   | `Abbr
   | `PCDATA
+  | `Meta_with_itemprop
  ]
 ```
 ```ocaml
@@ -752,6 +754,7 @@ type core_phrasing_without_interactive = [
   | `B
   | `Abbr
   | `PCDATA
+  | `Meta_with_itemprop
  ]
 ```
 ```ocaml
@@ -796,6 +799,7 @@ type core_phrasing_without_media = [
   | `B
   | `Abbr
   | `PCDATA
+  | `Meta_with_itemprop
  ]
 ```
 ```ocaml
@@ -1909,6 +1913,7 @@ type ol_content = [
 ```
 ```ocaml
 type ol_content_fun = [ 
+  | script_supporting
   | `Li of [ common | `Int_Value ]
  ]
 ```
@@ -1953,6 +1958,7 @@ type ul_content = [
 ```
 ```ocaml
 type ul_content_fun = [ 
+  | script_supporting
   | `Li of [ li_attrib ]
  ]
 ```
@@ -3054,6 +3060,7 @@ type table_content = [
 ```
 ```ocaml
 type table_content_fun = [ 
+  | script_supporting
   | `Tr
  ]
 ```
@@ -3134,6 +3141,7 @@ type thead_content = [
 ```
 ```ocaml
 type thead_content_fun = [ 
+  | script_supporting
   | `Tr
  ]
 ```
@@ -3154,6 +3162,7 @@ type tbody_content = [
 ```
 ```ocaml
 type tbody_content_fun = [ 
+  | script_supporting
   | `Tr
  ]
 ```
@@ -3174,6 +3183,7 @@ type tfoot_content = [
 ```
 ```ocaml
 type tfoot_content_fun = [ 
+  | script_supporting
   | `Tr
  ]
 ```
@@ -3243,6 +3253,7 @@ type tr_content = [
 ```
 ```ocaml
 type tr_content_fun = [ 
+  | script_supporting
   | `Td
   | `Th
  ]
@@ -3478,6 +3489,7 @@ type select_content = [
 ```
 ```ocaml
 type select_content_fun = [ 
+  | script_supporting
   | `Optgroup
   | `Option
  ]
@@ -3523,6 +3535,7 @@ type optgroup_content = [
 ```
 ```ocaml
 type optgroup_content_fun = [ 
+  | script_supporting
   | `Option
  ]
 ```
@@ -3672,6 +3685,7 @@ type details_content_fun = [
 type details_attrib = [ 
   | common
   | `Open
+  | `Name
  ]
 ```
 ```ocaml
@@ -3752,6 +3766,11 @@ type noscript_attrib = [
 ```ocaml
 type meta = [ 
   | `Meta
+ ]
+```
+```ocaml
+type meta_with_itemprop = [ 
+  | `Meta_with_itemprop
  ]
 ```
 ```ocaml

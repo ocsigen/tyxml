@@ -2056,7 +2056,10 @@ val command :
 ```ocaml
 val menu : 
   ?children:
-    [< `Lis of [< `Li of [< Html_types.common ] ] elt list_wrap
+    [< `Lis of
+         [< Html_types.script_supporting | `Li of [< Html_types.li_attrib ] ]
+           elt
+           list_wrap
     | `Flows of [< Html_types.flow5 ] elt list_wrap ] ->
   ([< Html_types.menu_attrib ], [> Html_types.menu ]) nullary
 ```
@@ -2092,6 +2095,14 @@ see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot](https://dev
 ```ocaml
 val meta : ([< Html_types.meta_attrib ], [> Html_types.meta ]) nullary
 ```
+```ocaml
+val meta_itemprop : 
+  itemprop:string list wrap ->
+  ([< Html_types.meta_attrib ], [> Html_types.meta_with_itemprop ]) nullary
+```
+`meta_itemprop ~itemprop ()` is a `meta` element annotating the surrounding microdata item. Unlike [`meta`](./#val-meta), it is phrasing content, so it is allowed in the body and not only in the head.
+
+see [https://html.spec.whatwg.org/multipage/semantics.html\#the-meta-element](https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element) meta element specification
 
 #### Style Sheets
 
