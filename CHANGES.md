@@ -28,6 +28,8 @@
 * Allow `p` and the script-supporting elements in `hgroup`, which only
   accepted the heading elements
   (fixes #342)
+* Allow `hr` in `select`, where it separates groups of options
+  (fixes #321)
 * Fix the `li` children of `menu`, which no `li` element could satisfy: the
   `` `Lis `` branch required an `li` whose attributes were a subset of the
   common ones, excluding the `value` attribute that `li` always allows. Also

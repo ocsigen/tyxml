@@ -2323,7 +2323,7 @@ type select = [ | `Select ]
 
 type select_content = [ | `Optgroup | `Option ]
 
-type select_content_fun = [ | script_supporting | `Optgroup | `Option ]
+type select_content_fun = [ | script_supporting | `Optgroup | `Option | `Hr ]
 
 type select_attrib =
   [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled | `Required
