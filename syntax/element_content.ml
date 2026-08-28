@@ -238,6 +238,10 @@ let script = at_most_one_child
 (* https://html.spec.whatwg.org/#the-textarea-element *)
 let textarea = at_most_one_child
 
+(* An option is empty when it carries a label and a value attribute, and in a
+   datalist it usually is. https://html.spec.whatwg.org/#the-option-element *)
+let selectoption = at_most_one_child
+
 let details ~lang ~loc ~name children =
   let summary, others = partition (html "summary") children in
 

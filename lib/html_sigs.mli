@@ -1280,6 +1280,7 @@ module type T = sig
 
   val option :
     ([< | option_attrib], [< | option_content_fun], [> | selectoption]) unary
+  [@@reflect.element "selectoption"]
 
   val textarea :
     ([< | textarea_attrib], [< | textarea_content_fun], [> | textarea]) unary

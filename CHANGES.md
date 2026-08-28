@@ -36,6 +36,10 @@
   declared, `download`, `ping` and `referrerpolicy`, which its signature
   repeated a shorter list and left out
   (fixes part of #184)
+* Accept an empty `option` in the PPX and the JSX syntax, as for `script` and
+  `textarea`: an option carrying a `label` and a `value` attribute has no
+  content, which is the usual form inside a `datalist`
+  (fixes #228)
 * Fix the `li` children of `menu`, which no `li` element could satisfy: the
   `` `Lis `` branch required an `li` whose attributes were a subset of the
   common ones, excluding the `value` attribute that `li` always allows. Also
