@@ -2403,7 +2403,7 @@ type details_content = [ | flow5 ]
 
 type details_content_fun = [ | flow5 ]
 
-type details_attrib = [ | common | `Open ]
+type details_attrib = [ | common | `Open | `Name ]
 
 (* NAME: summary, KIND: star, TYPE: [= common ],[= phrasing ], [=`Summary], ARG: [= phrasing ], ATTRIB:  OUT: [=`Summary] *)
 type summary = [ | `Summary ]

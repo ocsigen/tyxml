@@ -213,6 +213,12 @@ let html_content_models = "html content models", tyxml_tests Html.[
   p [meta_itemprop ~itemprop:["name"] ~a:[a_content "Ada"] ()],
   "<p><meta itemprop=\"name\" content=\"Ada\"/></p>" ;
 
+  "details name",
+  details ~a:[a_name "accordion"; a_open ()]
+    (summary [txt "s"]) [txt "d"],
+  "<details name=\"accordion\" open=\"open\">"
+  ^ "<summary>s</summary>d</details>" ;
+
   "dl with script-supporting elements",
   dl [ dt [ txt "t" ] ; dd [ txt "d" ] ; script (txt "f()") ],
   {|<dl><dt>t</dt><dd>d</dd><script>f()</script></dl>|} ;

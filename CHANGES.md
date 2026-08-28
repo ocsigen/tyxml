@@ -33,6 +33,9 @@
   `autocorrect` (`a_autocorrect`), `writingsuggestions`
   (`a_writingsuggestions`), `nonce` (`a_nonce`), `slot` (`a_slot`) and
   `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
+* Allow the `name` attribute on `details`, which groups several disclosure
+  widgets into an exclusive accordion
+  (#341 by @SylvainBoilard)
 * Add `meta_itemprop`, the form of `meta` that carries an `itemprop`
   attribute, which the specification allows wherever phrasing content is
   expected and not only in the head
