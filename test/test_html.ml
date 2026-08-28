@@ -209,6 +209,24 @@ let html_content_models = "html content models", tyxml_tests Html.[
   dl [ div [ dt [ txt "term" ] ; dd [ txt "definition" ] ] ],
   {|<dl><div><dt>term</dt><dd>definition</dd></div></dl>|} ;
 
+  "lists with script-supporting elements",
+  div [ ol [ li [ txt "1" ] ; script (txt "f()") ] ;
+        ul [ li [ txt "a" ] ; template [ p [ txt "b" ] ] ] ],
+  {|<div><ol><li>1</li><script>f()</script></ol>|}
+  ^ {|<ul><li>a</li><template><p>b</p></template></ul></div>|} ;
+
+  "tables with script-supporting elements",
+  tablex ~thead:(thead [ tr [ th [ txt "h" ] ; script (txt "f()") ] ])
+    [ tbody [ tr [ td [ txt "c" ] ] ; script (txt "g()") ] ],
+  {|<table><thead><tr><th>h</th><script>f()</script></tr></thead>|}
+  ^ {|<tbody><tr><td>c</td></tr><script>g()</script></tbody></table>|} ;
+
+  "select with script-supporting elements",
+  select [ optgroup ~label:"g" [ option (txt "o") ; script (txt "f()") ] ;
+           script (txt "g()") ],
+  {|<select><optgroup label="g"><option>o</option><script>f()</script>|}
+  ^ {|</optgroup><script>g()</script></select>|} ;
+
   "meta itemprop in flow content",
   p [meta_itemprop ~itemprop:["name"] ~a:[a_content "Ada"] ()],
   "<p><meta itemprop=\"name\" content=\"Ada\"/></p>" ;

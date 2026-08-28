@@ -22,6 +22,9 @@
   and `dl_content` types keep their previous value; only the types the element
   functions use are widened
   (#344 by toastal)
+* Allow the script-supporting elements (`script`, `template`) in `ol`, `ul`,
+  `table` and its row groups, `tr`, `select` and `optgroup`, as the
+  specification does
 * Fix `Xml_print.compose_decl`, which emitted a literal `\n` instead of a
   newline, making the XML declaration invalid
   (#348 by Martin @MBodin Bodin)
