@@ -655,7 +655,7 @@ Microdata: creates a new item.
 
 see [https://developer.mozilla.org/en-US/docs/Web/HTML/Global\_attributes/itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) itemscope documentation.
 ```ocaml
-val a_itemtype : string list wrap -> [> `Itemtype ] attrib
+val a_itemtype : Xml.uri list wrap -> [> `Itemtype ] attrib
 ```
 Microdata: space-separated list of vocabulary URLs for the item.
 
@@ -751,7 +751,7 @@ val a_optimum : Html_types.float_number wrap -> [> `Optimum ] attrib
 val a_pattern : Html_types.text wrap -> [> `Pattern ] attrib
 ```
 ```ocaml
-val a_ping : string list wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space-separated list of URLs to ping when following the hyperlink.
 
