@@ -43,6 +43,27 @@ jobs:
 
       - run: opam exec -- make test
 
+  # TyXML is upstream of odoc, which names content types such as
+  # Html_types.div_content in its own signatures. Widening one of those types
+  # is invisible to callers of the element functions but breaks code that names
+  # it, so build the most sensitive reverse dependency against this revision.
+  reverse-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tree
+        uses: actions/checkout@v7
+
+      - name: Set-up OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 5
+
+      - name: Pin this revision of TyXML
+        run: opam pin add --no-action --yes tyxml .
+
+      - name: Build odoc against it
+        run: opam install --yes odoc
+
   lint-opam:
     runs-on: ubuntu-latest
     steps:
