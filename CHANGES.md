@@ -146,6 +146,24 @@
   `onactivate`, `onfocusin` and `onfocusout` event handlers, and the
   `cursor` and `animateColor` elements. Conversely, undeprecate
   `a_onload`: the load event is still fired on SVG elements.
+* Fix the misspelled attribute names, which were emitted as written:
+  `reversed` (emitted `reserved`), the `allow-scripts` sandbox token
+  (`allow-script`) and, in SVG, `zoomAndPan`, `requiredExtensions`,
+  `externalResourcesRequired`, `edgeMode` (emitted `targetY`), `filterRes`,
+  `target` (emitted `xlink:target`), `glyph-name` and the `font-face-format`
+  element (emitted `font-face-uri`)
+* Fix the misspelled SVG attribute values: the hyphens missing from the
+  `rendering-intent` and `dominant-baseline` values, the case of the `in` and
+  `in2` keywords (`SourceGraphic` and the other built-in inputs), and
+  `` `Align ``, which was emitted as the empty string
+* Fix the type tags that did not match their attribute, making `a_edgeMode`,
+  `a_preserveAlpha`, `a_filterRes`, `a_target`, `a_glyph_name`,
+  `a_arabic_form`, `a_requiredExtensions`, `a_xlink_title` and `a_low`
+  unusable, and the element type tags that were misspelled or duplicated
+  (`feFuncR`, `feFuncG` and `feFuncB` were all defined as `` `FeFuncA ``)
+* Breaking: rename `a_baseFrenquency` to `a_baseFrequency` and the
+  `stroke-linejoin` value `` `Bever `` to `` `Bevel ``
+  (attribute name fixes by Hugo @hhugo Heuzard)
 * Fix the case of SVG attribute names in the PPX and the JSX syntax: no
   camel case attribute was recognised, so `viewBox`, `maskUnits`,
   `stdDeviation`, `gradientTransform`, `preserveAspectRatio`, `refX`,
