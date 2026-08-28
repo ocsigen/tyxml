@@ -227,6 +227,10 @@ let html_content_models = "html content models", tyxml_tests Html.[
   {|<select><optgroup label="g"><option>o</option><script>f()</script>|}
   ^ {|</optgroup><script>g()</script></select>|} ;
 
+  "menu with li and script-supporting elements",
+  menu ~children:(`Lis [ li [ txt "1" ] ; script (txt "f()") ]) (),
+  {|<menu><li>1</li><script>f()</script></menu>|} ;
+
   "meta itemprop in flow content",
   p [meta_itemprop ~itemprop:["name"] ~a:[a_content "Ada"] ()],
   "<p><meta itemprop=\"name\" content=\"Ada\"/></p>" ;

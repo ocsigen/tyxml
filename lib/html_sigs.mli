@@ -1342,7 +1342,7 @@ module type T = sig
   val menu :
     ?children:(
       [<
-        | `Lis of ([< | `Li of [< | common]] elt) list_wrap
+        | `Lis of ([< | script_supporting | `Li of [< | li_attrib]] elt) list_wrap
         | `Flows of ([< | flow5] elt) list_wrap
       ]) ->
     ([< | menu_attrib], [> | menu]) nullary

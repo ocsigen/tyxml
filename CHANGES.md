@@ -25,6 +25,10 @@
 * Allow the script-supporting elements (`script`, `template`) in `ol`, `ul`,
   `table` and its row groups, `tr`, `select` and `optgroup`, as the
   specification does
+* Fix the `li` children of `menu`, which no `li` element could satisfy: the
+  `` `Lis `` branch required an `li` whose attributes were a subset of the
+  common ones, excluding the `value` attribute that `li` always allows. Also
+  allow the script-supporting elements there
 * Fix `Xml_print.compose_decl`, which emitted a literal `\n` instead of a
   newline, making the XML declaration invalid
   (#348 by Martin @MBodin Bodin)
