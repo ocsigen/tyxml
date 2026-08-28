@@ -87,6 +87,9 @@ val script : assembler
 ```ocaml
 val textarea : assembler
 ```
+```ocaml
+val selectoption : assembler
+```
 
 ## Misc utilities
 

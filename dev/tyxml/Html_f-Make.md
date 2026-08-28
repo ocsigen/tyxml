@@ -1819,17 +1819,7 @@ see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track](https://de
 ```ocaml
 val area : 
   alt:Html_types.text wrap ->
-  ([< Html_types.common
-   | `Alt
-   | `Coords
-   | `Shape
-   | `Target
-   | `Rel
-   | `Media
-   | `Hreflang
-   | `Mime_type ],
-    [> Html_types.area ])
-    nullary
+  ([< Html_types.area_attrib ], [> Html_types.area ]) nullary
 ```
 ```ocaml
 val map : ([< Html_types.map_attrib ], 'a, [> 'a Html_types.map ]) star

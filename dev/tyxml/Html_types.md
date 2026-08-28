@@ -668,6 +668,7 @@ type core_phrasing = [
   | `Picture
   | `PCDATA
   | `Meta_with_itemprop
+  | `Area
  ]
 ```
 Phrasing contents is inline contents : bold text, span, and so on.
@@ -715,6 +716,7 @@ type core_phrasing_without_noscript = [
   | `Abbr
   | `PCDATA
   | `Meta_with_itemprop
+  | `Area
  ]
 ```
 ```ocaml
@@ -755,6 +757,7 @@ type core_phrasing_without_interactive = [
   | `Abbr
   | `PCDATA
   | `Meta_with_itemprop
+  | `Area
  ]
 ```
 ```ocaml
@@ -800,6 +803,7 @@ type core_phrasing_without_media = [
   | `Abbr
   | `PCDATA
   | `Meta_with_itemprop
+  | `Area
  ]
 ```
 ```ocaml
@@ -1683,12 +1687,14 @@ type hgroup_content = [
 ```
 ```ocaml
 type hgroup_content_fun = [ 
+  | script_supporting
   | `H1
   | `H2
   | `H3
   | `H4
   | `H5
   | `H6
+  | `P
  ]
 ```
 ```ocaml
@@ -2996,6 +3002,7 @@ type area_content_fun = notag
 type area_attrib = [ 
   | common
   | `Alt
+  | `Href
   | `Coords
   | `Shape
   | `Target
@@ -3492,6 +3499,7 @@ type select_content_fun = [
   | script_supporting
   | `Optgroup
   | `Option
+  | `Hr
  ]
 ```
 ```ocaml
