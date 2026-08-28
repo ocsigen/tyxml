@@ -1438,7 +1438,8 @@ type hgroup = [ | `Hgroup ]
 
 type hgroup_content = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
 
-type hgroup_content_fun = [ | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 ]
+type hgroup_content_fun =
+  [ | script_supporting | `H1 | `H2 | `H3 | `H4 | `H5 | `H6 | `P ]
 
 type hgroup_attrib = [ | common ]
 

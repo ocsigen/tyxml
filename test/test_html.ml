@@ -241,6 +241,10 @@ let html_content_models = "html content models", tyxml_tests Html.[
   "<details name=\"accordion\" open=\"open\">"
   ^ "<summary>s</summary>d</details>" ;
 
+  "hgroup with p elements",
+  hgroup [ h1 [ txt "Standard" ] ; p [ txt "Last updated" ] ],
+  {|<hgroup><h1>Standard</h1><p>Last updated</p></hgroup>|} ;
+
   "dl with script-supporting elements",
   dl [ dt [ txt "t" ] ; dd [ txt "d" ] ; script (txt "f()") ],
   {|<dl><dt>t</dt><dd>d</dd><script>f()</script></dl>|} ;
