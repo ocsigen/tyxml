@@ -994,6 +994,9 @@ struct
 
   let meta = terminal "meta"
 
+  let meta_itemprop ~itemprop ?(a = []) () =
+    Xml.leaf ~a: ((a_itemprop itemprop) :: a) "meta"
+
   let style ?(a = []) elts = Xml.node ~a "style" elts
 
   let link ~rel ~href ?(a = []) () =

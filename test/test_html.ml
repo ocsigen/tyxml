@@ -209,6 +209,10 @@ let html_content_models = "html content models", tyxml_tests Html.[
   dl [ div [ dt [ txt "term" ] ; dd [ txt "definition" ] ] ],
   {|<dl><div><dt>term</dt><dd>definition</dd></div></dl>|} ;
 
+  "meta itemprop in flow content",
+  p [meta_itemprop ~itemprop:["name"] ~a:[a_content "Ada"] ()],
+  "<p><meta itemprop=\"name\" content=\"Ada\"/></p>" ;
+
   "dl with script-supporting elements",
   dl [ dt [ txt "t" ] ; dd [ txt "d" ] ; script (txt "f()") ],
   {|<dl><dt>t</dt><dd>d</dd><script>f()</script></dl>|} ;

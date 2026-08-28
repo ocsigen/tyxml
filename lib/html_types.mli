@@ -626,6 +626,7 @@ type core_phrasing =
     | `Img | `Img_interactive
     | `Picture
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 
 type core_phrasing_without_noscript =
@@ -669,6 +670,7 @@ type core_phrasing_without_noscript =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 type core_phrasing_without_interactive =
   [
@@ -707,6 +709,7 @@ type core_phrasing_without_interactive =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 
 type core_phrasing_without_media =
@@ -750,6 +753,7 @@ type core_phrasing_without_media =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 
 type phrasing_without_noscript =
@@ -2441,6 +2445,11 @@ type noscript_attrib = [ | common ]
 
 (* NAME: meta, KIND: nullary, TYPE: [= common | `Http_equiv | `Name | `Content | `Charset ], [=`Meta], ARG: notag, ATTRIB:  OUT: [=`Meta] *)
 type meta = [ | `Meta ]
+
+(* A meta element carrying an itemprop attribute is phrasing content, not only
+   metadata content; it has its own type tag so that only that form is accepted
+   where phrasing content is expected. *)
+type meta_with_itemprop = [ | `Meta_with_itemprop ]
 
 type meta_content = notag
 

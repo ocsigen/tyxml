@@ -33,6 +33,10 @@
   `autocorrect` (`a_autocorrect`), `writingsuggestions`
   (`a_writingsuggestions`), `nonce` (`a_nonce`), `slot` (`a_slot`) and
   `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
+* Add `meta_itemprop`, the form of `meta` that carries an `itemprop`
+  attribute, which the specification allows wherever phrasing content is
+  expected and not only in the head
+  (#343 by toastal)
 * Add the microdata global attributes `itemscope`, `itemtype`, `itemid`,
   `itemprop` and `itemref`
 * Add the `part` and `exportparts` global attributes (CSS Shadow Parts)
