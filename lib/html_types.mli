@@ -627,6 +627,7 @@ type core_phrasing =
     | `Picture
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 
 type core_phrasing_without_noscript =
@@ -671,6 +672,7 @@ type core_phrasing_without_noscript =
     | `Abbr
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 type core_phrasing_without_interactive =
   [
@@ -710,6 +712,7 @@ type core_phrasing_without_interactive =
     | `Abbr
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 
 type core_phrasing_without_media =
@@ -754,6 +757,7 @@ type core_phrasing_without_media =
     | `Abbr
     | `PCDATA
     | `Meta_with_itemprop
+    | `Area
   ]
 
 type phrasing_without_noscript =
@@ -2049,6 +2053,7 @@ type area_attrib =
   [
     | common
     | `Alt
+    | `Href
     | `Coords
     | `Shape
     | `Target

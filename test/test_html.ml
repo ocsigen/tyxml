@@ -241,6 +241,14 @@ let html_content_models = "html content models", tyxml_tests Html.[
   "<details name=\"accordion\" open=\"open\">"
   ^ "<summary>s</summary>d</details>" ;
 
+  "image map with areas",
+  p [ map ~a:[a_name "m"]
+        [ area ~alt:"home" ~a:[a_href (uri_of_string "/");
+                               a_shape `Rect; a_coords [0; 0; 10; 10];
+                               a_referrerpolicy `No_referrer] () ] ],
+  {|<p><map name="m"><area alt="home" href="/" shape="rect"|}
+  ^ {| coords="0,0,10,10" referrerpolicy="no-referrer"/></map></p>|} ;
+
   "hr separators in select",
   select [ option (txt "a") ; hr () ; option (txt "b") ],
   {|<select><option>a</option><hr/><option>b</option></select>|} ;

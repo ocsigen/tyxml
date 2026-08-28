@@ -30,6 +30,12 @@
   (fixes #342)
 * Allow `hr` in `select`, where it separates groups of options
   (fixes #321)
+* Fix the `area` element, which could not be used at all: it had no `href`
+  attribute, and its type tag was in no content model, so a `map` containing
+  areas fitted nowhere. Also let it take the attributes its type already
+  declared, `download`, `ping` and `referrerpolicy`, which its signature
+  repeated a shorter list and left out
+  (fixes part of #184)
 * Fix the `li` children of `menu`, which no `li` element could satisfy: the
   `` `Lis `` branch required an `li` whose attributes were a subset of the
   common ones, excluding the `value` attribute that `li` always allows. Also
