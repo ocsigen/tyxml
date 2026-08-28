@@ -22,6 +22,13 @@
   and `dl_content` types keep their previous value; only the types the element
   functions use are widened
   (#344 by toastal)
+* Allow the script-supporting elements (`script`, `template`) in `ol`, `ul`,
+  `table` and its row groups, `tr`, `select` and `optgroup`, as the
+  specification does
+* Fix the `li` children of `menu`, which no `li` element could satisfy: the
+  `` `Lis `` branch required an `li` whose attributes were a subset of the
+  common ones, excluding the `value` attribute that `li` always allows. Also
+  allow the script-supporting elements there
 * Fix `Xml_print.compose_decl`, which emitted a literal `\n` instead of a
   newline, making the XML declaration invalid
   (#348 by Martin @MBodin Bodin)
@@ -33,6 +40,13 @@
   `autocorrect` (`a_autocorrect`), `writingsuggestions`
   (`a_writingsuggestions`), `nonce` (`a_nonce`), `slot` (`a_slot`) and
   `is` (`a_is`); allow `` `Auto`` for the `dir` attribute
+* Allow the `name` attribute on `details`, which groups several disclosure
+  widgets into an exclusive accordion
+  (#341 by @SylvainBoilard)
+* Add `meta_itemprop`, the form of `meta` that carries an `itemprop`
+  attribute, which the specification allows wherever phrasing content is
+  expected and not only in the head
+  (#343 by toastal)
 * Add the microdata global attributes `itemscope`, `itemtype`, `itemid`,
   `itemprop` and `itemref`
 * Add the `part` and `exportparts` global attributes (CSS Shadow Parts)

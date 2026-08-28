@@ -1342,7 +1342,7 @@ module type T = sig
   val menu :
     ?children:(
       [<
-        | `Lis of ([< | `Li of [< | common]] elt) list_wrap
+        | `Lis of ([< | script_supporting | `Li of [< | li_attrib]] elt) list_wrap
         | `Flows of ([< | flow5] elt) list_wrap
       ]) ->
     ([< | menu_attrib], [> | menu]) nullary
@@ -1367,6 +1367,15 @@ module type T = sig
       slot element documentation on MDN *)
 
   val meta : ([< | meta_attrib], [> | meta]) nullary
+
+  val meta_itemprop :
+    itemprop: string list wrap ->
+    ([< | meta_attrib], [> | meta_with_itemprop]) nullary
+  (** [meta_itemprop ~itemprop ()] is a [meta] element annotating the
+      surrounding microdata item. Unlike {!meta}, it is phrasing content, so it
+      is allowed in the body and not only in the head.
+      @see <https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element>
+      meta element specification *)
 
   (** {3 Style Sheets} *)
 

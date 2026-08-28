@@ -626,6 +626,7 @@ type core_phrasing =
     | `Img | `Img_interactive
     | `Picture
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 
 type core_phrasing_without_noscript =
@@ -669,6 +670,7 @@ type core_phrasing_without_noscript =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 type core_phrasing_without_interactive =
   [
@@ -707,6 +709,7 @@ type core_phrasing_without_interactive =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 
 type core_phrasing_without_media =
@@ -750,6 +753,7 @@ type core_phrasing_without_media =
     | `B
     | `Abbr
     | `PCDATA
+    | `Meta_with_itemprop
   ]
 
 type phrasing_without_noscript =
@@ -1545,7 +1549,7 @@ type ol = [ | `Ol ]
 
 type ol_content = [ | `Li of [ | common | `Int_Value ] ]
 
-type ol_content_fun = [ | `Li of [ | common | `Int_Value ] ]
+type ol_content_fun = [ | script_supporting | `Li of [ | common | `Int_Value ] ]
 
 type ol_attrib = [ | common | `Reversed | `Start | `Ol_Type ]
 
@@ -1562,7 +1566,7 @@ type ul = [ | `Ul ]
 
 type ul_content = [ | `Li of [ | li_attrib ] ]
 
-type ul_content_fun = [ | `Li of [ | li_attrib ] ]
+type ul_content_fun = [ | script_supporting | `Li of [ | li_attrib ] ]
 
 type ul_attrib = [ | common ]
 
@@ -2080,7 +2084,7 @@ type table = [ | `Table ]
 
 type table_content = [ | `Tr ]
 
-type table_content_fun = [ | `Tr ]
+type table_content_fun = [ | script_supporting | `Tr ]
 
 type table_attrib = [ | common | `Summary ]
 
@@ -2116,7 +2120,7 @@ type thead = [ | `Thead ]
 
 type thead_content = [ | `Tr ]
 
-type thead_content_fun = [ | `Tr ]
+type thead_content_fun = [ | script_supporting | `Tr ]
 
 type thead_attrib = [ | common ]
 
@@ -2125,7 +2129,7 @@ type tbody = [ | `Tbody ]
 
 type tbody_content = [ | `Tr ]
 
-type tbody_content_fun = [ | `Tr ]
+type tbody_content_fun = [ | script_supporting | `Tr ]
 
 type tbody_attrib = [ | common ]
 
@@ -2134,7 +2138,7 @@ type tfoot = [ | `Tfoot ]
 
 type tfoot_content = [ | `Tr ]
 
-type tfoot_content_fun = [ | `Tr ]
+type tfoot_content_fun = [ | script_supporting | `Tr ]
 
 type tfoot_attrib = [ | common ]
 
@@ -2161,7 +2165,7 @@ type tr = [ | `Tr ]
 
 type tr_content = [ | `Td | `Th ]
 
-type tr_content_fun = [ | `Td | `Th ]
+type tr_content_fun = [ | script_supporting | `Td | `Th ]
 
 type tr_attrib = [ | common ]
 
@@ -2318,7 +2322,7 @@ type select = [ | `Select ]
 
 type select_content = [ | `Optgroup | `Option ]
 
-type select_content_fun = [ | `Optgroup | `Option ]
+type select_content_fun = [ | script_supporting | `Optgroup | `Option ]
 
 type select_attrib =
   [ | common | `Autofocus | `Multiple | `Name | `Size | `Form | `Disabled | `Required
@@ -2339,7 +2343,7 @@ type optgroup = [ | `Optgroup ]
 
 type optgroup_content = [ | `Option ]
 
-type optgroup_content_fun = [ | `Option ]
+type optgroup_content_fun = [ | script_supporting | `Option ]
 
 type optgroup_attrib = [ | common | `Disabled | `Label ]
 
@@ -2399,7 +2403,7 @@ type details_content = [ | flow5 ]
 
 type details_content_fun = [ | flow5 ]
 
-type details_attrib = [ | common | `Open ]
+type details_attrib = [ | common | `Open | `Name ]
 
 (* NAME: summary, KIND: star, TYPE: [= common ],[= phrasing ], [=`Summary], ARG: [= phrasing ], ATTRIB:  OUT: [=`Summary] *)
 type summary = [ | `Summary ]
@@ -2441,6 +2445,11 @@ type noscript_attrib = [ | common ]
 
 (* NAME: meta, KIND: nullary, TYPE: [= common | `Http_equiv | `Name | `Content | `Charset ], [=`Meta], ARG: notag, ATTRIB:  OUT: [=`Meta] *)
 type meta = [ | `Meta ]
+
+(* A meta element carrying an itemprop attribute is phrasing content, not only
+   metadata content; it has its own type tag so that only that form is accepted
+   where phrasing content is expected. *)
+type meta_with_itemprop = [ | `Meta_with_itemprop ]
 
 type meta_content = notag
 
