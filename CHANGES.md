@@ -1,4 +1,4 @@
-# NEXT
+# 5.0.0
 
 TyXML now follows the current specifications: the WHATWG living standard for
 HTML, and SVG 2 with the Filter Effects module for SVG, whose support had not
@@ -43,6 +43,8 @@ moved since SVG 1.1.
   and `string_of_semicolonstrings` for SVG
 * The build now requires OCaml 4.08, dune 3.18 and ppxlib 0.36
   (Sora Morimoto, and #340 by Patrick Ferris for the OCaml 5.2 AST)
+* The test matrix covers OCaml 4.14 and the 5.x series. The lower bound stays
+  at 4.08, but the versions from 4.08 to 4.13 are no longer tested
 
 ## HTML
 
