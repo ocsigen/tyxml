@@ -43,6 +43,14 @@ val pp_elt :
   ?encode:(string -> string) -> ?indent:bool -> unit ->
   Format.formatter -> 'a elt -> unit
 
+(** {2 Export} *)
+
+(** [export l] converts the Tyxml elements [l] into a signal.
+    This signal is roughtly compatible with libraries to manipulate HTML
+    and SVG such as Markup and Lambdasoup.
+*)
+val export : 'a elt list -> Xml_stream.output Seq.t
+
 (** Parametrized stream printer for Svg documents.
     @deprecated Use {!pp} instead.
 *)

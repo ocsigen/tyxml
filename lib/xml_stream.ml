@@ -65,3 +65,59 @@ module Import
     | _ -> raise Malformed_stream
 
 end
+
+(** Output *)
+
+type output = [ signal | `Raw of string list ]
+
+module Export
+    (Xml : Xml_sigs.Iterable)
+= struct
+
+  let mk ~ns name = (ns, name)
+
+  let convert_attributes ~ns attributes =
+    attributes |> List.map @@ fun attribute ->
+    let value =
+      match Xml.acontent attribute with
+      | AFloat n -> Xml_print.string_of_number n
+      | AInt n -> string_of_int n
+      | AStr s -> s
+      | AStrL (Space, ss) -> String.concat " " ss
+      | AStrL (Comma, ss) -> String.concat ", " ss
+    in
+    (mk ~ns (Xml.aname attribute), value)
+
+  let (++) x l = Seq.Cons (x, l)
+  let rec mk_elt ~ns x q () : output Seq.node =
+    match Xml.content x with
+    | Empty -> q ()
+    | Comment s -> `Comment s ++ q
+    | EncodedPCDATA s ->  `Raw [s] ++ q
+    | PCDATA s -> `Text [s] ++ q
+    | Entity s -> `Raw ["&"^s^";"] ++ q
+    | Leaf (name, attributes) ->
+      `Start_element (mk ~ns name, convert_attributes ~ns attributes) ++
+      fun () -> `End_element ++ q
+    | Node (name, attributes, children) ->
+      `Start_element (mk ~ns name, convert_attributes ~ns attributes) ++
+      mk_list ~ns children q
+  and mk_list ~ns l q () : output Seq.node =
+    match l with
+    | [] -> Seq.Nil
+    | h :: t -> mk_elt ~ns h (mk_list ~ns t q) ()
+
+  let to_seq ?(namespace="") xml : output Seq.t =
+    mk_elt ~ns:namespace xml Seq.empty
+  let to_seql ?(namespace="") l : output Seq.t =
+    mk_list ~ns:namespace l Seq.empty
+end
+
+module Typed_export
+    (Xml : Xml_sigs.Iterable)
+    (Typed_xml : Xml_sigs.Typed_xml with module Xml := Xml)
+= struct
+  module E = Export(Xml)
+  let export l =
+    E.to_seql ~namespace:Typed_xml.Info.namespace @@ Typed_xml.toeltl l
+end
