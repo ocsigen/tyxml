@@ -423,14 +423,21 @@ let transform =
   let only_wsp = Re_str.regexp (wsp ^ "*$") in
   let first_item =
     Re_str.regexp
-      (wsp ^ "*\\([a-zA-Z]+" ^ wsp ^ "*([^)]*)\\)" ^ wsp ^ "*,?" ^ wsp ^ "*")
+      (wsp ^ "*\\([a-zA-Z]+" ^ wsp ^ "*([^)]*)\\)"
+       ^ "\\(" ^ wsp ^ "*,?" ^ wsp ^ "*\\)")
   in
 
   let rec items loc name s =
     if does_match only_wsp s then []
     else if Re_str.string_match first_item s 0 then
       let item = Re_str.matched_group 1 s in
+      let separator = Re_str.matched_group 2 s in
       let rest = Re_str.string_after s (Re_str.match_end ()) in
+      (* The grammar requires a comma-wsp between two transforms. *)
+      if rest <> "" && separator = "" then
+        Common.error loc
+          "In %s, two transforms must be separated by whitespace or a comma"
+          name;
       transform_item loc name item :: items loc name rest
     else
       Common.error loc "Value of %s must be a list of SVG transforms" name

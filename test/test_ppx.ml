@@ -724,6 +724,13 @@ let svg = "svg", SvgTests.make Svg.[
                       `Rotate ((45., None), None);
                       `Scale (2., None)]] []] ;
 
+  (* A value that starts with a newline, as indented SVG has it. *)
+  "transform after a line break",
+  [[%svg "<g transform='
+translate(1,2)  rotate(45)'/>"]],
+  [g ~a:[a_transform [`Translate (1., Some 2.);
+                      `Rotate ((45., None), None)]] []] ;
+
   "transform with a rotation centre",
   [[%svg "<g transform='rotate(10, 0.5, 0.5)'/>"]],
   [g ~a:[a_transform [`Rotate ((10., None), Some (0.5, 0.5))]] []] ;
