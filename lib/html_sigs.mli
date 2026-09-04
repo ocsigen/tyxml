@@ -650,6 +650,9 @@ module type T = sig
   val a_wrap : [< | `Soft | `Hard] wrap -> [> | `Wrap] attrib
 
   val a_version : cdata wrap -> [> | `Version] attrib
+  [@@ocaml.deprecated "Removed in HTML5, and no element accepts it"]
+  (** @deprecated Removed in HTML5, and no element accepts it: the
+      [`Version] tag is in no attribute category. *)
 
   val a_xmlns : [< | `W3_org_1999_xhtml] wrap -> [> | `XMLns] attrib
 
@@ -658,6 +661,9 @@ module type T = sig
   val a_cite : Xml.uri wrap -> [> | `Cite] attrib
 
   val a_xml_space : [< | `Default | `Preserve] wrap -> [> | `XML_space] attrib
+  [@@ocaml.deprecated "XHTML only, and no element accepts it"]
+  (** @deprecated XHTML only, and no element accepts it: the
+      [`XML_space] tag is in no attribute category. *)
 
   val a_accesskey : character wrap -> [> | `Accesskey] attrib
   (** This attribute assigns an access key to an element. An access key
@@ -911,6 +917,9 @@ module type T = sig
   (** @deprecated Use CSS *)
 
   val a_scrolling : [< | `Yes | `No | `Auto] wrap -> [> | `Scrolling] attrib
+  [@@ocaml.deprecated "Use CSS overflow, and no element accepts it"]
+  (** @deprecated Removed in HTML5, use CSS overflow. No element
+      accepts it: the [`Scrolling] tag is in no attribute category. *)
 
   val a_target : frametarget wrap -> [> | `Target] attrib
 
