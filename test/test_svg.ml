@@ -103,6 +103,13 @@ let svg_content_models = "svg content models", tyxml_tests Svg.[
   text [ txt "hello" ; pattern ~a:[ a_id "p" ] [] ],
   {|<text>hello<pattern id="p"></pattern></text>|} ;
 
+  (* [animateColor] is deprecated, SVG 2 removed it, but it is still
+     accepted as a child of the elements that took it. *)
+  "animateColor inside a stop",
+  stop ~a:[ a_offset (`Number 0.) ]
+    [ (animateColor [@alert "-deprecated"]) [] ],
+  {|<stop offset="0"><animateColor></animateColor></stop>|} ;
+
 ]
 
 let svg_events = "svg events", tyxml_tests Svg.[
