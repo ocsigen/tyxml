@@ -1165,6 +1165,7 @@ struct
     let string_attrib = Xml.string_attrib
 
     let uri_attrib a s = Xml.uri_attrib a s
+    let uris_attrib a s = Xml.uris_attrib a s
 
     let space_sep_attrib = Xml.space_sep_attrib
 

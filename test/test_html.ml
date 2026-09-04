@@ -288,6 +288,11 @@ let html_attributes = "html attributes", tyxml_tests Html.[
   ^ "<div contenteditable=\"false\"></div>"
   ^ "<div contenteditable=\"plaintext-only\"></div></div>" ;
 
+  (* The escape hatches of Unsafe cover the URI list attributes too. *)
+  "unsafe uris",
+  div ~a:[Unsafe.uris_attrib "data-urls" ["/a"; "/b"]] [],
+  {|<div data-urls="/a /b"></div>|} ;
+
 ]
 
 let escaping = "html escaping", tyxml_tests Html.[
