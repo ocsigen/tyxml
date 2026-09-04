@@ -1,6 +1,4 @@
-
 # Module `Xml_iter.Make`
-
 
 ## Parameters
 

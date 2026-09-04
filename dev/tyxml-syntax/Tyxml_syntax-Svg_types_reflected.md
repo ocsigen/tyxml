@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Svg_types_reflected`
 
 ```ocaml

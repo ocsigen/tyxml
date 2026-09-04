@@ -1,4 +1,3 @@
-
 # Module `Tyxml_xml`
 
 Basic functions for construction and manipulation of XML tree.
@@ -156,7 +155,6 @@ It can be used in combination with `"%a"`. For example, to get a string:
 let s = Format.asprintf "%a" (pp ()) my_xml
 ```
 A custom encoding function can be provided with the `~encode` argument. Various implementations of `encode` are available in [`Xml_print`](./Xml_print.md).
-
 
 ### Import/Export
 

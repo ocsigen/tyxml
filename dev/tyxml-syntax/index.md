@@ -1,6 +1,4 @@
-
 # tyxml-syntax index
-
 
 ## Library tyxml-syntax
 

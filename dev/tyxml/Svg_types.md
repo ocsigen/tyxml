@@ -1,4 +1,3 @@
-
 # Module `Svg_types`
 
 SVG types with variants, goes with [`Svg_sigs.T`](./Svg_sigs-module-type-T.md).
@@ -7,11 +6,9 @@ This module defines basic data types for data, attributes and element occurring 
 
 This module is experimental, it may lack of some attributes, and the interface is very low level and do not take deeply into account the needs of SVG elements.
 
-
 ## Categories of elements and attributes
 
 This part defines the categories of elements and attributes
-
 
 ### Elements
 
@@ -451,8 +448,9 @@ type xlink_attr = [
 ```ocaml
 type iri = string
 ```
-An IRI reference is an Internationalized Resource Identifier with an optional fragment identifier, as defined in Internationalized Resource Identifiers `RFC3987`. An IRI reference serves as a reference to a resource or (with a fragment identifier) to a secondary resource. See References and the ‘defs’ element..
+An IRI reference is an Internationalized Resource Identifier with an optional fragment identifier, as defined in Internationalized Resource Identifiers `RFC3987`. An IRI reference serves as a reference to a resource or (with a fragment identifier) to a secondary resource. See References and the ‘defs’ element.
 
+The attributes whose value is a bare URL, such as `href`, use `Xml.uri`. This type is left for the presentation attributes that accept a funciri such as `url(#id)` or a keyword such as `none`, which are not URLs.
 
 ### Units
 

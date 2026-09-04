@@ -1,4 +1,3 @@
-
 # Module `Xml_stream`
 
 Streaming IO to/from XML trees

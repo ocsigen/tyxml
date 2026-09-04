@@ -1,8 +1,6 @@
-
 # The functorial interface
 
 TyXML provides a functorial interface to implement HTML and SVG on top of any XML implementation. This is used heavily by Eliom to implement the `F` and `D` modules, providing respectively a functional and a DOM version of the HTML implementation.
-
 
 ## The `Make` functors
 
@@ -17,7 +15,6 @@ and
  type 'a list_wrap = 'a W.tlist 
 ```
 . The purpose of the `Wrap` module is explained in the next section.
-
 
 ## Wrapping up the nodes
 
@@ -34,7 +31,6 @@ The `W` module needs to implement operations over the type of nodes, and provide
  (-'a, 'b) ft = 'a -> 'b
 ```
 An identity wrapper, [`Xml_wrap.NoWrap`](./Xml_wrap-module-type-NoWrap.md), is provided. [`Xml_wrap.NoWrap`](./Xml_wrap-module-type-NoWrap.md) can be used to apply the functor without wrapping the elements.
-
 
 ## The `Make_with_wrapped_functions` functors
 
@@ -56,7 +52,6 @@ The `Make` functors simply apply the `Make_with_wrapped_functions` functors with
 ```
 .
 
-
 ## Exporting the correct signature
 
 In order to help export the correct signature after a functor application, two signature functors are provided: [`Svg_sigs.Make`](./Svg_sigs-Make.md) and [`Html_sigs.Make`](./Html_sigs-Make.md).
@@ -66,7 +61,7 @@ As an example of use, let us look at the module [`Tyxml.Svg`](./Tyxml_svg.md). H
 ```ocaml
 module M = Svg_f.Make(Tyxml_xml)
 ```
-In this case, the declaration in the interface file should look like this: 
+In this case, the declaration in the interface file should look like this:
 
 ```ocaml
 module M : Svg_sigs.Make(Tyxml_xml).T

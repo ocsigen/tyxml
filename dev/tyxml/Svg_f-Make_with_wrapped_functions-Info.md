@@ -1,4 +1,3 @@
-
 # Module `Make_with_wrapped_functions.Info`
 
 Various information about SVG, such as the doctype, ...

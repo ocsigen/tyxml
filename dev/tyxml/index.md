@@ -1,4 +1,3 @@
-
 # TyXML
 
 Tyxml is a library for building statically correct HTML and SVG documents.
@@ -10,16 +9,13 @@ let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [txt "OCaml!"])
 
 ## Using TyXML
 
-
 ### Standalone Use
 
 To use TyXML in standalone manner, simply install the `tyxml` OPAM package, link the `tyxml` ocamlfind library and open [`Tyxml`](./Tyxml.md).
 
-
 ### Use with another library
 
 TyXML combinators can be used in conjunction with other libraries. Please consult the relevant document. For example, `Eliom` and `Js_of_ocaml`.
-
 
 ### Use with the PPX
 
@@ -31,11 +27,9 @@ let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 ```
 This syntax is available both while using TyXML standalone, or with another library. In order to do so, install the `tyxml-ppx` OPAM package and link the `tyxml.ppx` `ocamlfind` library.
 
-
 ## Examples and documentation
 
 For standalone use, examples are available in the [examples](https://github.com/ocsigen/tyxml/tree/master/examples) directory. The entry point of the documentation is in the [`Tyxml`](./Tyxml.md) module.
-
 
 ## Creating documents with TyXML
 
@@ -103,7 +97,6 @@ It tells us that the given expression has type `[> b] elt` (indeed, it is produc
 
 In order to get reasonable type errors with TyXML, The `-short-paths` option should always be used when invoking OCaml.
 
-
 #### Finishing up the webpage
 
 To finish our webpage, we use [body](./Html_sigs-module-type-T.md#val-body), [head](./Html_sigs-module-type-T.md#val-head) and [html](./Html_sigs-module-type-T.md#val-html). The last two combinators have special types due to their specific constraints: [head](./Html_sigs-module-type-T.md#val-head) requires only one `title` child, and [html](./Html_sigs-module-type-T.md#val-html) requires exactly two children: `head` and `body`.
@@ -131,7 +124,6 @@ let s = Format.asprintf "%a" (Html.pp ()) mypage
 Well done, you know have a very minimal (but fabulous) website\! Once again, the implementation can be found [here](https://github.com/ocsigen/tyxml/tree/master/examples/mini_website).
 
 Other examples are available in the [examples](https://github.com/ocsigen/tyxml/tree/master/examples/) directory.
-
 
 ## Using your own underlying implementation
 

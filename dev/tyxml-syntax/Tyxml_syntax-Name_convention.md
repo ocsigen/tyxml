@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Name_convention`
 
 Gives the tyxml names for HTML elements and attributes.

@@ -1,4 +1,3 @@
-
 # Module type `Xml_sigs.Typed_xml`
 
 ```ocaml

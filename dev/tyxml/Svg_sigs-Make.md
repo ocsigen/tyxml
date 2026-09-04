@@ -1,8 +1,6 @@
-
 # Module `Svg_sigs.Make`
 
 Signature functor for [`Svg_f.Make`](./Svg_f-Make.md).
-
 
 ## Parameters
 

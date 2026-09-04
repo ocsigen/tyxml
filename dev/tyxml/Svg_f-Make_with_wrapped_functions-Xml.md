@@ -1,4 +1,3 @@
-
 # Module `Make_with_wrapped_functions.Xml`
 
 Underlying XML data-structure

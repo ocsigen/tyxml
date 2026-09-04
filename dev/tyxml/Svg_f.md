@@ -1,4 +1,3 @@
-
 # Module `Svg_f`
 
 Typesafe constructors for SVG documents (Functorial interface)

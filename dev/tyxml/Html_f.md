@@ -1,4 +1,3 @@
-
 # Module `Html_f`
 
 Typesafe constructors for HTML documents (Functorial interface)

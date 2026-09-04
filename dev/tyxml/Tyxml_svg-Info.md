@@ -1,4 +1,3 @@
-
 # Module `Tyxml_svg.Info`
 
 Various information about SVG, such as the doctype, ...

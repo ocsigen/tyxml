@@ -1,4 +1,3 @@
-
 # Module `Make_with_wrapped_functions.Unsafe`
 
 Unsafe features.
@@ -44,6 +43,11 @@ Same, for int attribute
 val uri_attrib : string -> uri wrap -> 'a attrib
 ```
 Same, for URI attribute
+
+```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
 
 ```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib

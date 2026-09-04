@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Svg_sigs_reflected`
 
 ```ocaml

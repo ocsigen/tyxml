@@ -1,8 +1,6 @@
-
 # Module `Svg_f.Wrapped_functions`
 
 The standard set of wrapped functions, when `W.ft` is the regular function.
-
 
 ## Parameters
 

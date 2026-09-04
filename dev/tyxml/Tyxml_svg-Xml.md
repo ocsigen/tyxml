@@ -1,4 +1,3 @@
-
 # Module `Tyxml_svg.Xml`
 
 Underlying XML data-structure

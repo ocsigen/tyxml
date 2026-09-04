@@ -1,4 +1,3 @@
-
 # Module type `Html_sigs.Wrapped_functions`
 
 Wrapped functions, to be used with [`Html_f.Make_with_wrapped_functions`](./Html_f-Make_with_wrapped_functions.md).

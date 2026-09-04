@@ -1,8 +1,6 @@
-
 # Module `Html_sigs.Make`
 
 Signature functor for [`Html_f.Make`](./Html_f-Make.md).
-
 
 ## Parameters
 

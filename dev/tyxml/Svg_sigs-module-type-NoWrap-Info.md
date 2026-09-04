@@ -1,4 +1,3 @@
-
 # Module `NoWrap.Info`
 
 Various information about SVG, such as the doctype, ...

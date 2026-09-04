@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Element_content`
 
 Element child argument assemblers. These are almost parsers, except they only tell how to pass already-parsed children to element functions.
@@ -32,7 +31,6 @@ This satisfies the child arguments in the signature of `Html_sigs.T.tablex`. The
 The argument `implementation` is the name of the module providing the run-time implementation of the element function that will be applied to the children. It is either `Html` or `Svg`, and is based on the element's namespace. It is used for wrapping child elements, and for scoping child `txt` elements.
 
 The `name` argument is used for error reporting.
-
 
 ### Generic
 

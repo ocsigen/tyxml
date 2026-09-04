@@ -1,4 +1,3 @@
-
 # Module `Tyxml_html.Xml`
 
 Underlying XML data-structure

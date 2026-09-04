@@ -1,4 +1,3 @@
-
 # Module type `Svg_sigs.Wrapped_functions`
 
 Wrapped functions, to be used with [`Svg_f.Make_with_wrapped_functions`](./Svg_f-Make_with_wrapped_functions.md).

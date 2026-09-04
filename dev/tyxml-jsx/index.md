@@ -1,6 +1,4 @@
-
 # tyxml-jsx index
-
 
 ## Library tyxml-jsx
 

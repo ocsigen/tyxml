@@ -1,4 +1,3 @@
-
 # Module `Wrapped_functions.Xml`
 
 ```ocaml

@@ -1,4 +1,3 @@
-
 # Module `Tyxml_ppx`
 
 TyXML ppx library.

@@ -1,4 +1,3 @@
-
 # Module `Xml_print.Make_typed_simple`
 
 deprecated Use Xml\_print.Make\_typed\_fmt instead.

@@ -1,8 +1,6 @@
-
 # Module `Svg_f.Make_with_wrapped_functions`
 
 Similar to [`Make`](./Svg_f-Make.md) but with a custom set of wrapped functions.
-
 
 ## Parameters
 
@@ -92,7 +90,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -156,10 +153,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -207,7 +204,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -235,11 +232,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -720,7 +717,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -1261,9 +1258,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 

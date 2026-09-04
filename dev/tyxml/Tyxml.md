@@ -1,4 +1,3 @@
-
 # Module `Tyxml`
 
 Typed implementation for HTML, SVG and XML

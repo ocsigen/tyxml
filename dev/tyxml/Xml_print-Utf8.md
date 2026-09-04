@@ -1,4 +1,3 @@
-
 # Module `Xml_print.Utf8`
 
 Utf8 normalizer and encoder for HTML.

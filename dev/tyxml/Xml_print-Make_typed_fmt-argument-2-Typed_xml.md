@@ -1,4 +1,3 @@
-
 # Parameter `Make_typed_fmt.Typed_xml`
 
 ```ocaml

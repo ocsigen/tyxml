@@ -1,4 +1,3 @@
-
 # Module `Tyxml_html`
 
 Typesafe constructors and printers for Html documents.
@@ -92,7 +91,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -141,7 +139,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -152,7 +149,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -840,7 +836,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -977,6 +973,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -989,6 +986,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -1264,6 +1262,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -1491,7 +1490,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -2180,7 +2179,6 @@ val to_attrib : Xml.attrib -> 'a attrib
 module Unsafe : sig ... end
 ```
 Unsafe features.
-
 
 ### Printers
 

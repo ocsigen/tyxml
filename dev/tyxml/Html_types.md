@@ -1,4 +1,3 @@
-
 # Module `Html_types`
 
 HTML types with variants, goes with [`Html_sigs.T`](./Html_sigs-module-type-T.md).
@@ -42,7 +41,6 @@ see [http://www.w3.org/TR/2000/REC-xml-20001006](http://www.w3.org/TR/2000/REC-x
 type nmtokens = nmtoken list
 ```
 One or more whitespace-separated NMTOKEN values
-
 
 ### Data Types
 
@@ -245,7 +243,6 @@ type text = string
 ```
 Arbitrary textual data, likely meant to be human-readable.
 
-
 ### Core
 
 ```ocaml
@@ -384,7 +381,6 @@ type events = [
 ```
 Javascript events
 
-
 ### ARIA
 
 ```ocaml
@@ -402,7 +398,6 @@ type common = [
  ]
 ```
 Common attributes
-
 
 ## Categories of HTML elements
 
@@ -516,7 +511,7 @@ type subresource_integrity = [
   | `Integrity
  ]
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/Security/Subresource\_Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) 
+see [https://developer.mozilla.org/en-US/docs/Web/Security/Subresource\_Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)
 ```ocaml
 type (+'interactive, +'noscript, +'regular, +'media) transparent = [ 
   | `A of 'interactive

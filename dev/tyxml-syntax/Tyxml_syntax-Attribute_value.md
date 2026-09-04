@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Attribute_value`
 
 Attribute value parsers and parser combinators.
@@ -30,7 +29,6 @@ The parse tree is assigned the location `loc`. This *should* be the location of 
 
 `~separated_by` and `~default` are used internally by combinators to modify the error message (for example, to make nouns plural if an error occurs in a list).
 
-
 ### Combinators
 
 ```ocaml
@@ -60,7 +58,6 @@ val spaces_or_commas : parser -> parser
 ```
 Similar to `spaces`, but splits on both spaces and commas.
 
-
 #### Top combinators
 
 Exported parsers should always use one of those combinators last.
@@ -74,7 +71,6 @@ val wrap : parser -> Common.lang -> vparser
 val nowrap : parser -> Common.lang -> vparser
 ```
 `nowrap parser _ _ _ s` evaluates to `parser _ _ s`. The purpose of this combinator is to provide a signature similar to `wrap` in situations where wrapping is not wanted.
-
 
 ### Numeric
 
@@ -130,7 +126,6 @@ val icon_size : parser
 ```
 `icon_size _ _ s` produces a parse tree for the pair `(width, height)` when `s` has the form `(string_of_int width) ^ x ^ (string_of_int height)` and `x` is either `"x"` or `"X"`.
 
-
 ### Dimensional
 
 ```ocaml
@@ -155,7 +150,7 @@ val transform : parser
 ```
 Parses an SVG transform attribute value.
 
-see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) 
+see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform)
 ```ocaml
 val string : parser
 ```
@@ -194,7 +189,7 @@ val fill_rule : parser
 ```
 Parses an SVG fill-rule value.
 
-see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule) 
+see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule)
 ```ocaml
 val srcset_element : parser
 ```

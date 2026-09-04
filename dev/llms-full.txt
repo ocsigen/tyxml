@@ -16,16 +16,13 @@ let to_ocaml = Html.(a ~a:[a_href "ocaml.org"] [txt "OCaml!"])
 
 ## Using TyXML
 
-
 ### Standalone Use
 
 To use TyXML in standalone manner, simply install the `tyxml` OPAM package, link the `tyxml` ocamlfind library and open [`Tyxml`](./Tyxml.md).
 
-
 ### Use with another library
 
 TyXML combinators can be used in conjunction with other libraries. Please consult the relevant document. For example, `Eliom` and `Js_of_ocaml`.
-
 
 ### Use with the PPX
 
@@ -37,11 +34,9 @@ let%html to_ocaml = "<a href='ocaml.org'>OCaml!</a>"
 ```
 This syntax is available both while using TyXML standalone, or with another library. In order to do so, install the `tyxml-ppx` OPAM package and link the `tyxml.ppx` `ocamlfind` library.
 
-
 ## Examples and documentation
 
 For standalone use, examples are available in the [examples](https://github.com/ocsigen/tyxml/tree/master/examples) directory. The entry point of the documentation is in the [`Tyxml`](./Tyxml.md) module.
-
 
 ## Creating documents with TyXML
 
@@ -109,7 +104,6 @@ It tells us that the given expression has type `[> b] elt` (indeed, it is produc
 
 In order to get reasonable type errors with TyXML, The `-short-paths` option should always be used when invoking OCaml.
 
-
 #### Finishing up the webpage
 
 To finish our webpage, we use [body](./Html_sigs-module-type-T.md#val-body), [head](./Html_sigs-module-type-T.md#val-head) and [html](./Html_sigs-module-type-T.md#val-html). The last two combinators have special types due to their specific constraints: [head](./Html_sigs-module-type-T.md#val-head) requires only one `title` child, and [html](./Html_sigs-module-type-T.md#val-html) requires exactly two children: `head` and `body`.
@@ -138,7 +132,6 @@ Well done, you know have a very minimal (but fabulous) website\! Once again, the
 
 Other examples are available in the [examples](https://github.com/ocsigen/tyxml/tree/master/examples/) directory.
 
-
 ## Using your own underlying implementation
 
 You can use TyXML with any underlying implementation. In order to do so, TyXML provides a set of functors. Please consult [the relevant manual](./functors.md).
@@ -149,7 +142,6 @@ You can use TyXML with any underlying implementation. In order to do so, TyXML p
 # The functorial interface
 
 TyXML provides a functorial interface to implement HTML and SVG on top of any XML implementation. This is used heavily by Eliom to implement the `F` and `D` modules, providing respectively a functional and a DOM version of the HTML implementation.
-
 
 ## The `Make` functors
 
@@ -164,7 +156,6 @@ and
  type 'a list_wrap = 'a W.tlist 
 ```
 . The purpose of the `Wrap` module is explained in the next section.
-
 
 ## Wrapping up the nodes
 
@@ -181,7 +172,6 @@ The `W` module needs to implement operations over the type of nodes, and provide
  (-'a, 'b) ft = 'a -> 'b
 ```
 An identity wrapper, [`Xml_wrap.NoWrap`](./Xml_wrap-module-type-NoWrap.md), is provided. [`Xml_wrap.NoWrap`](./Xml_wrap-module-type-NoWrap.md) can be used to apply the functor without wrapping the elements.
-
 
 ## The `Make_with_wrapped_functions` functors
 
@@ -203,7 +193,6 @@ The `Make` functors simply apply the `Make_with_wrapped_functions` functors with
 ```
 .
 
-
 ## Exporting the correct signature
 
 In order to help export the correct signature after a functor application, two signature functors are provided: [`Svg_sigs.Make`](./Svg_sigs-Make.md) and [`Html_sigs.Make`](./Html_sigs-Make.md).
@@ -213,7 +202,7 @@ As an example of use, let us look at the module [`Tyxml.Svg`](./Tyxml_svg.md). H
 ```ocaml
 module M = Svg_f.Make(Tyxml_xml)
 ```
-In this case, the declaration in the interface file should look like this: 
+In this case, the declaration in the interface file should look like this:
 
 ```ocaml
 module M : Svg_sigs.Make(Tyxml_xml).T
@@ -303,7 +292,6 @@ This will not:
 ```
 Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g. [Unsafe.string\_attrib](./Html_sigs-module-type-T-Unsafe.md#val-string_attrib).
 
-
 ## Let notation
 
 It is also possible to use the ppx with the `let` notation:
@@ -321,11 +309,9 @@ val make_content : string -> [> Html_types.div ] Html.elt
 
 ## Notes
 
-
 ### Locations
 
 Due to the code transformations done by the ppx, proper locations are difficult to provide. Please report examples of badly located code on [the bug tracker](https://github.com/ocsigen/tyxml/issues).
-
 
 ### Composability
 
@@ -421,7 +407,6 @@ In the previous examples, we used the textual implementation of tyxml (module `T
 - The `virtual_dom` library with the module `Virtual_dom.Tyxml`.
 In each case, simply open the module and the JSX syntax will use it.
 
-
 ## "Unsafe" attributes
 
 Some Javascript libraries and frameworks depend upon HTML markup that includes non-standard attributes, which tyxml would usually reject. When constructing elements using tyxml's API directly, the available workaround is to use the [Unsafe](./Html_sigs-module-type-T-Unsafe.md) constructors. The same relaxed semantics can be had when using JSX by prefixing non-standard attribute names with a leading underscore.
@@ -438,7 +423,6 @@ let button = <button _hx_post="/clicked" _hx_swap="outerHTML">Click Me</button>
 ```
 Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g. [Unsafe.string\_attrib](./Html_sigs-module-type-T-Unsafe.md#val-string_attrib).
 
-
 ## Tips
 
 It can sometime be necessary to disable the JSX syntax. For that purpose, simply use the toogle \``@tyxml.jsx false`\` to turn the JSX on and off.
@@ -447,7 +431,6 @@ It can sometime be necessary to disable the JSX syntax. For that purpose, simply
 ---
 
 # API reference
-
 
 ### Main modules
 
@@ -467,7 +450,7 @@ It can sometime be necessary to disable the JSX syntax. For that purpose, simply
 [`Html_f`](./Html_f.md) Typesafe constructors for HTML documents (Functorial interface)
 [`Svg_f`](./Svg_f.md) Typesafe constructors for SVG documents (Functorial interface)
 [`Xml_sigs`](./Xml_sigs.md) XML Signatures.
-[`Xml_wrap`](./Xml_wrap.md) 
+[`Xml_wrap`](./Xml_wrap.md)
 [`Xml_iter`](./Xml_iter.md) Basic iterators over XML tree (functorial interface).
 [`Xml_print`](./Xml_print.md) Printing utilities.
 [`Xml_stream`](./Xml_stream.md) Streaming IO to/from XML trees
@@ -487,7 +470,6 @@ It can sometime be necessary to disable the JSX syntax. For that purpose, simply
 
 # tyxml-jsx index
 
-
 ## Library tyxml-jsx
 
 The entry point of this library is the module: [`Tyxml_jsx`](./Tyxml_jsx.md).
@@ -497,11 +479,9 @@ The entry point of this library is the module: [`Tyxml_jsx`](./Tyxml_jsx.md).
 
 # tyxml-ppx index
 
-
 ## Library tyxml-ppx
 
 The entry point of this library is the module: [`Tyxml_ppx_register`](./Tyxml_ppx_register.md).
-
 
 ## Library tyxml-ppx.internal
 
@@ -511,7 +491,6 @@ The entry point of this library is the module: [`Tyxml_ppx`](./Tyxml_ppx.md).
 ---
 
 # tyxml-syntax index
-
 
 ## Library tyxml-syntax
 
@@ -700,7 +679,6 @@ The parse tree is assigned the location `loc`. This *should* be the location of 
 
 `~separated_by` and `~default` are used internally by combinators to modify the error message (for example, to make nouns plural if an error occurs in a list).
 
-
 ### Combinators
 
 ```ocaml
@@ -730,7 +708,6 @@ val spaces_or_commas : parser -> parser
 ```
 Similar to `spaces`, but splits on both spaces and commas.
 
-
 #### Top combinators
 
 Exported parsers should always use one of those combinators last.
@@ -744,7 +721,6 @@ val wrap : parser -> Common.lang -> vparser
 val nowrap : parser -> Common.lang -> vparser
 ```
 `nowrap parser _ _ _ s` evaluates to `parser _ _ s`. The purpose of this combinator is to provide a signature similar to `wrap` in situations where wrapping is not wanted.
-
 
 ### Numeric
 
@@ -800,7 +776,6 @@ val icon_size : parser
 ```
 `icon_size _ _ s` produces a parse tree for the pair `(width, height)` when `s` has the form `(string_of_int width) ^ x ^ (string_of_int height)` and `x` is either `"x"` or `"X"`.
 
-
 ### Dimensional
 
 ```ocaml
@@ -825,7 +800,7 @@ val transform : parser
 ```
 Parses an SVG transform attribute value.
 
-see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform) 
+see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform)
 ```ocaml
 val string : parser
 ```
@@ -864,7 +839,7 @@ val fill_rule : parser
 ```
 Parses an SVG fill-rule value.
 
-see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule) 
+see [https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill-rule)
 ```ocaml
 val srcset_element : parser
 ```
@@ -1099,7 +1074,6 @@ This satisfies the child arguments in the signature of `Html_sigs.T.tablex`. The
 The argument `implementation` is the name of the module providing the run-time implementation of the element function that will be applied to the children. It is either `Html` or `Svg`, and is based on the element's namespace. It is used for wrapping child elements, and for scoping child `txt` elements.
 
 The `name` argument is used for error reporting.
-
 
 ### Generic
 
@@ -1464,6 +1438,11 @@ Same, for int attribute
 val uri_attrib : string -> uri wrap -> 'a attrib
 ```
 Same, for URI attribute
+
+```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
 
 ```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
@@ -1860,6 +1839,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -1935,7 +1919,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -1999,10 +1982,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -2050,7 +2033,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -2078,11 +2061,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -2563,7 +2546,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -3104,9 +3087,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -4060,7 +4041,6 @@ Create a new implementation of `HTML`, using the given underlying `Xml` and `Svg
 
 If your `Xml` implementation uses a special function wrapping, use [`Make_with_wrapped_functions`](./Html_f-Make_with_wrapped_functions.md).
 
-
 ## Parameters
 
 ```ocaml
@@ -4157,7 +4137,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -4206,7 +4185,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -4217,7 +4195,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -4905,7 +4882,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -5042,6 +5019,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -5054,6 +5032,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -5329,6 +5308,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -5556,7 +5536,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -6325,6 +6305,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -6796,6 +6781,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -6871,7 +6861,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -6935,10 +6924,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -6986,7 +6975,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -7014,11 +7003,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -7499,7 +7488,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -8040,9 +8029,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -8994,7 +8981,6 @@ Unsafe features.
 
 Similar to [`Make`](./Html_f-Make.md) but with a custom set of wrapped functions.
 
-
 ## Parameters
 
 ```ocaml
@@ -9094,7 +9080,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -9143,7 +9128,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -9154,7 +9138,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -9842,7 +9825,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -9979,6 +9962,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -9991,6 +9975,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -10266,6 +10251,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -10493,7 +10479,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -11337,7 +11323,6 @@ val cdata_style : string -> elt
 
 The standard set of wrapped functions, when `W.ft` is the regular function.
 
-
 ## Parameters
 
 ```ocaml
@@ -11681,6 +11666,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -11756,7 +11746,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -11820,10 +11809,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -11871,7 +11860,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -11899,11 +11888,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -12384,7 +12373,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -12925,9 +12914,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -13951,6 +13938,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -14211,7 +14203,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -14260,7 +14251,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -14271,7 +14261,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -14959,7 +14948,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -15096,6 +15085,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -15108,6 +15098,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -15383,6 +15374,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -15610,7 +15602,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -16307,7 +16299,6 @@ Unsafe features.
 
 Signature functor for [`Html_f.Make`](./Html_f-Make.md).
 
-
 ## Parameters
 
 ```ocaml
@@ -16444,6 +16435,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -16521,7 +16517,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -16585,10 +16580,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -16636,7 +16631,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -16664,11 +16659,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -17149,7 +17144,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -17690,9 +17685,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -18687,6 +18680,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -18901,7 +18899,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -18950,7 +18947,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -18961,7 +18957,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -19649,7 +19644,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -19786,6 +19781,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -19798,6 +19794,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -20073,6 +20070,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -20300,7 +20298,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -21098,6 +21096,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -21175,7 +21178,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -21239,10 +21241,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -21290,7 +21292,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -21318,11 +21320,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -21803,7 +21805,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -22344,9 +22346,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -23341,6 +23341,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -23591,7 +23596,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -23640,7 +23644,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -23651,7 +23654,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -24339,7 +24341,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -24476,6 +24478,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -24488,6 +24491,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -24763,6 +24767,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -24990,7 +24995,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -25923,7 +25928,6 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 ```
 Equivalent to [`T`](./Html_sigs-module-type-T.md), but without wrapping.
 
-
 ### Signature functors
 
 See [the manual of the functorial interface](./functors.md).
@@ -25987,7 +25991,6 @@ see [http://www.w3.org/TR/2000/REC-xml-20001006](http://www.w3.org/TR/2000/REC-x
 type nmtokens = nmtoken list
 ```
 One or more whitespace-separated NMTOKEN values
-
 
 ### Data Types
 
@@ -26190,7 +26193,6 @@ type text = string
 ```
 Arbitrary textual data, likely meant to be human-readable.
 
-
 ### Core
 
 ```ocaml
@@ -26329,7 +26331,6 @@ type events = [
 ```
 Javascript events
 
-
 ### ARIA
 
 ```ocaml
@@ -26347,7 +26348,6 @@ type common = [
  ]
 ```
 Common attributes
-
 
 ## Categories of HTML elements
 
@@ -26461,7 +26461,7 @@ type subresource_integrity = [
   | `Integrity
  ]
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/Security/Subresource\_Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) 
+see [https://developer.mozilla.org/en-US/docs/Web/Security/Subresource\_Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)
 ```ocaml
 type (+'interactive, +'noscript, +'regular, +'media) transparent = [ 
   | `A of 'interactive
@@ -30229,6 +30229,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -30553,7 +30558,6 @@ Create a new implementation of `Svg`, using the given underlying `Xml` implement
 
 If your `Xml` implementation uses a special function wrapping, use [`Make_with_wrapped_functions`](./Svg_f-Make_with_wrapped_functions.md).
 
-
 ## Parameters
 
 ```ocaml
@@ -30639,7 +30643,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -30703,10 +30706,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -30754,7 +30757,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -30782,11 +30785,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -31267,7 +31270,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -31808,9 +31811,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -32834,6 +32835,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -33236,7 +33242,6 @@ val string_of_transforms : (Svg_types.transforms, string) Xml.W.ft
 
 Similar to [`Make`](./Svg_f-Make.md) but with a custom set of wrapped functions.
 
-
 ## Parameters
 
 ```ocaml
@@ -33325,7 +33330,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -33389,10 +33393,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -33440,7 +33444,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -33468,11 +33472,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -33953,7 +33957,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -34494,9 +34498,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -35595,7 +35597,6 @@ val cdata_style : string -> elt
 
 The standard set of wrapped functions, when `W.ft` is the regular function.
 
-
 ## Parameters
 
 ```ocaml
@@ -35942,6 +35943,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -36194,7 +36200,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -36258,10 +36263,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -36309,7 +36314,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -36337,11 +36342,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -36822,7 +36827,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -37363,9 +37368,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -38317,7 +38320,6 @@ Unsafe features.
 
 Signature functor for [`Svg_f.Make`](./Svg_f-Make.md).
 
-
 ## Parameters
 
 ```ocaml
@@ -38419,6 +38421,11 @@ Same, for int attribute
 val uri_attrib : string -> uri wrap -> 'a attrib
 ```
 Same, for URI attribute
+
+```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
 
 ```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
@@ -38622,7 +38629,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -38686,10 +38692,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -38737,7 +38743,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -38765,11 +38771,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -39250,7 +39256,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -39791,9 +39797,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -40817,6 +40821,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -41054,7 +41063,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -41118,10 +41126,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -41169,7 +41177,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -41197,11 +41205,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -41682,7 +41690,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -42223,9 +42231,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -43416,7 +43422,6 @@ module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 ```
 Equivalent to [`T`](./Svg_sigs-module-type-T.md), but without wrapping.
 
-
 ### Signature functors
 
 See [the manual of the functorial interface](./functors.md).
@@ -43466,11 +43471,9 @@ This module defines basic data types for data, attributes and element occurring 
 
 This module is experimental, it may lack of some attributes, and the interface is very low level and do not take deeply into account the needs of SVG elements.
 
-
 ## Categories of elements and attributes
 
 This part defines the categories of elements and attributes
-
 
 ### Elements
 
@@ -43910,8 +43913,9 @@ type xlink_attr = [
 ```ocaml
 type iri = string
 ```
-An IRI reference is an Internationalized Resource Identifier with an optional fragment identifier, as defined in Internationalized Resource Identifiers `RFC3987`. An IRI reference serves as a reference to a resource or (with a fragment identifier) to a secondary resource. See References and the ‘defs’ element..
+An IRI reference is an Internationalized Resource Identifier with an optional fragment identifier, as defined in Internationalized Resource Identifiers `RFC3987`. An IRI reference serves as a reference to a resource or (with a fragment identifier) to a secondary resource. See References and the ‘defs’ element.
 
+The attributes whose value is a bare URL, such as `href`, use `Xml.uri`. This type is left for the presentation attributes that accept a funciri such as `url(#id)` or a keyword such as `none`, which are not URLs.
 
 ### Units
 
@@ -46715,6 +46719,11 @@ val uri_attrib : string -> uri wrap -> 'a attrib
 Same, for URI attribute
 
 ```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
+
+```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
 ```
 Same, for a space-separated list of values
@@ -46939,7 +46948,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about HTML, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -46988,7 +46996,6 @@ Values of the title attribute may be rendered by user agents in a variety of way
 
 The title attribute has an additional role when used with the `link` element to designate an external style sheet. Please consult the section on links and style sheets for details.
 
-
 #### I18N
 
 ```ocaml
@@ -46999,7 +47006,6 @@ val a_lang : Html_types.languagecode wrap -> [> `Lang ] attrib
 ```
 
 #### Events
-
 
 ##### Javascript events
 
@@ -47687,7 +47693,7 @@ val a_referrerpolicy :
   Html_types.referrerpolicy wrap ->
   [> `Referrerpolicy ] attrib
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe\#Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#Attributes)
 ```ocaml
 val a_required : unit -> [> `Required ] attrib
 ```
@@ -47824,6 +47830,7 @@ val a_wrap : [< `Soft | `Hard ] wrap -> [> `Wrap ] attrib
 ```ocaml
 val a_version : Html_types.cdata wrap -> [> `Version ] attrib
 ```
+deprecated Removed in HTML5, and no element accepts it: the \`Version tag is in no attribute category.
 ```ocaml
 val a_xmlns : [< `W3_org_1999_xhtml ] wrap -> [> `XMLns ] attrib
 ```
@@ -47836,6 +47843,7 @@ val a_cite : Xml.uri wrap -> [> `Cite ] attrib
 ```ocaml
 val a_xml_space : [< `Default | `Preserve ] wrap -> [> `XML_space ] attrib
 ```
+deprecated XHTML only, and no element accepts it: the \`XML\_space tag is in no attribute category.
 ```ocaml
 val a_accesskey : Html_types.character wrap -> [> `Accesskey ] attrib
 ```
@@ -48111,6 +48119,7 @@ deprecated Use CSS
 ```ocaml
 val a_scrolling : [< `Yes | `No | `Auto ] wrap -> [> `Scrolling ] attrib
 ```
+deprecated Removed in HTML5, use CSS overflow. No element accepts it: the \`Scrolling tag is in no attribute category.
 ```ocaml
 val a_target : Html_types.frametarget wrap -> [> `Target ] attrib
 ```
@@ -48338,7 +48347,7 @@ val dialog :
     [> Html_types.dialog ])
     star
 ```
-see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) 
+see [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 ```ocaml
 val div : 
   ([< Html_types.div_attrib ],
@@ -49028,7 +49037,6 @@ module Unsafe : sig ... end
 ```
 Unsafe features.
 
-
 ### Printers
 
 ```ocaml
@@ -49205,6 +49213,11 @@ Same, for int attribute
 val uri_attrib : string -> uri wrap -> 'a attrib
 ```
 Same, for URI attribute
+
+```ocaml
+val uris_attrib : string -> uri list wrap -> 'a attrib
+```
+Same, for a space-separated list of URIs
 
 ```ocaml
 val space_sep_attrib : string -> string list wrap -> 'a attrib
@@ -49423,7 +49436,6 @@ module Info : Xml_sigs.Info
 ```
 Various information about SVG, such as the doctype, ...
 
-
 #### Uri
 
 ```ocaml
@@ -49487,10 +49499,10 @@ val a_zoomAndPan : [< `Disable | `Magnify ] wrap -> [> `ZoomAndPan ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 ```ocaml
-val a_xlink_href : Svg_types.iri wrap -> [> `Xlink_href ] attrib
+val a_xlink_href : Xml.uri wrap -> [> `Xlink_href ] attrib
 ```
 deprecated Use a\_href
 ```ocaml
@@ -49538,7 +49550,7 @@ val a_lang : string wrap -> [> `Lang ] attrib
 Language of the element content. It is a global attribute in SVG 2, whereas SVG 1\.1 only allowed it on the `glyph` element.
 
 ```ocaml
-val a_xml_base : Svg_types.iri wrap -> [> `Xml_base ] attrib
+val a_xml_base : Xml.uri wrap -> [> `Xml_base ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -49566,11 +49578,11 @@ val a_xlink_type : string wrap -> [> `Xlink_type ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_role : Svg_types.iri wrap -> [> `Xlink_role ] attrib
+val a_xlink_role : Xml.uri wrap -> [> `Xlink_role ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
-val a_xlink_arcrole : Svg_types.iri wrap -> [> `Xlink_arcrole ] attrib
+val a_xlink_arcrole : Xml.uri wrap -> [> `Xlink_arcrole ] attrib
 ```
 deprecated Removed in SVG2
 ```ocaml
@@ -50051,7 +50063,7 @@ val a_download : string option wrap -> [> `Download ] attrib
 val a_hreflang : string wrap -> [> `Hreflang ] attrib
 ```
 ```ocaml
-val a_ping : Svg_types.spacestrings wrap -> [> `Ping ] attrib
+val a_ping : Xml.uri list wrap -> [> `Ping ] attrib
 ```
 Space separated list of URLs to ping when the link is followed.
 
@@ -50592,9 +50604,7 @@ val a_white_space :
 ```
 Replaces the deprecated `xml:space` attribute.
 
-
 ### Events
-
 
 #### Javascript events
 
@@ -51539,7 +51549,6 @@ module Unsafe : sig ... end
 ```
 Unsafe features.
 
-
 ### Printers
 
 ```ocaml
@@ -51751,7 +51760,6 @@ It can be used in combination with `"%a"`. For example, to get a string:
 let s = Format.asprintf "%a" (pp ()) my_xml
 ```
 A custom encoding function can be provided with the `~encode` argument. Various implementations of `encode` are available in [`Xml_print`](./Xml_print.md).
-
 
 ### Import/Export
 
@@ -52006,7 +52014,6 @@ val content : elt -> econtent
 ---
 
 # Module `Xml_iter.Make`
-
 
 ## Parameters
 
@@ -52496,7 +52503,6 @@ val emptytags : string list
 # Module `Xml_print.Make_fmt`
 
 Printers for raw XML modules.
-
 
 ## Parameters
 
@@ -53147,7 +53153,6 @@ val doc_toelt : doc -> Xml.elt
 
 Printers for typed XML modules such as the one produced by [`Svg_f`](./Svg_f.md) and [`Html_f`](./Html_f.md).
 
-
 ## Parameters
 
 ```ocaml
@@ -53463,7 +53468,6 @@ This module contains various encoding functions that can be used with [`Tyxml.Ht
 
 It also contains functors to create printers for your own XML data structure.
 
-
 ### Encoding functions
 
 ```ocaml
@@ -53487,7 +53491,6 @@ module Utf8 : sig ... end
 ```
 Utf8 normalizer and encoder for HTML.
 
-
 ### Utilities
 
 ```ocaml
@@ -53507,7 +53510,6 @@ Convert a float to a string using a compact representation compatible with the J
 val pp_number : Stdlib.Format.formatter -> float -> unit
 ```
 See [`string_of_number`](./#val-string_of_number).
-
 
 ### Formatter functors
 
@@ -53533,7 +53535,6 @@ module Make_fmt
   Xml_sigs.Pp with type elt := Xml.elt
 ```
 Printers for raw XML modules.
-
 
 ### Deprecated functors
 
@@ -54527,7 +54528,6 @@ val cdata_style : string -> elt
 ---
 
 # Module `Xml_stream.Import`
-
 
 ## Parameters
 

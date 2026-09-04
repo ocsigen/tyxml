@@ -1,4 +1,3 @@
-
 # Module `Typed_xml.Xml`
 
 ```ocaml

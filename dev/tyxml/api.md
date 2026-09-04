@@ -1,6 +1,4 @@
-
 # API reference
-
 
 ### Main modules
 
@@ -20,7 +18,7 @@
 [`Html_f`](./Html_f.md) Typesafe constructors for HTML documents (Functorial interface)
 [`Svg_f`](./Svg_f.md) Typesafe constructors for SVG documents (Functorial interface)
 [`Xml_sigs`](./Xml_sigs.md) XML Signatures.
-[`Xml_wrap`](./Xml_wrap.md) 
+[`Xml_wrap`](./Xml_wrap.md)
 [`Xml_iter`](./Xml_iter.md) Basic iterators over XML tree (functorial interface).
 [`Xml_print`](./Xml_print.md) Printing utilities.
 [`Xml_stream`](./Xml_stream.md) Streaming IO to/from XML trees

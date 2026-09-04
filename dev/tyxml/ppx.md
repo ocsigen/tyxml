@@ -1,4 +1,3 @@
-
 # TyXML Ppx syntax extension
 
 TyXML provides a ppx to allow writing HTML and SVG documents in the standard syntax while still enjoying the benefits and type-safety of TyXML. It is available as the `tyxml-ppx` package:
@@ -72,7 +71,6 @@ This will not:
 ```
 Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g. [Unsafe.string\_attrib](./Html_sigs-module-type-T-Unsafe.md#val-string_attrib).
 
-
 ## Let notation
 
 It is also possible to use the ppx with the `let` notation:
@@ -90,11 +88,9 @@ val make_content : string -> [> Html_types.div ] Html.elt
 
 ## Notes
 
-
 ### Locations
 
 Due to the code transformations done by the ppx, proper locations are difficult to provide. Please report examples of badly located code on [the bug tracker](https://github.com/ocsigen/tyxml/issues).
-
 
 ### Composability
 

@@ -1,4 +1,3 @@
-
 # Module `Xml_iter`
 
 Basic iterators over XML tree (functorial interface).

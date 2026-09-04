@@ -1,4 +1,3 @@
-
 # Module `Tyxml_svg.Make_printer`
 
 Parametrized stream printer for Svg documents.

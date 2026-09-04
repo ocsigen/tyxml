@@ -1,4 +1,3 @@
-
 # Module `Xml_print`
 
 Printing utilities.
@@ -6,7 +5,6 @@ Printing utilities.
 This module contains various encoding functions that can be used with [`Tyxml.Html.pp`](./Tyxml_html.md#val-pp) and [`Tyxml.Svg.pp`](./Tyxml_svg.md#val-pp).
 
 It also contains functors to create printers for your own XML data structure.
-
 
 ### Encoding functions
 
@@ -31,7 +29,6 @@ module Utf8 : sig ... end
 ```
 Utf8 normalizer and encoder for HTML.
 
-
 ### Utilities
 
 ```ocaml
@@ -51,7 +48,6 @@ Convert a float to a string using a compact representation compatible with the J
 val pp_number : Stdlib.Format.formatter -> float -> unit
 ```
 See [`string_of_number`](./#val-string_of_number).
-
 
 ### Formatter functors
 
@@ -77,7 +73,6 @@ module Make_fmt
   Xml_sigs.Pp with type elt := Xml.elt
 ```
 Printers for raw XML modules.
-
 
 ### Deprecated functors
 

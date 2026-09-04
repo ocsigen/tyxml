@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Attributes`
 
 Attribute parsing.

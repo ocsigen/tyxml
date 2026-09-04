@@ -1,4 +1,3 @@
-
 # Module `Xml_print.Make`
 
 deprecated Use Xml\_print.Make\_fmt instead.

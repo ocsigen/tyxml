@@ -1,4 +1,3 @@
-
 # Module `Svg_sigs`
 
 SVG signatures for the functorial interface.
@@ -12,7 +11,6 @@ Signature of typesafe constructors for SVG documents.
 module type NoWrap = T with module Xml.W = Xml_wrap.NoWrap
 ```
 Equivalent to [`T`](./Svg_sigs-module-type-T.md), but without wrapping.
-
 
 ### Signature functors
 

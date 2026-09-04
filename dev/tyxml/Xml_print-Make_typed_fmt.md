@@ -1,8 +1,6 @@
-
 # Module `Xml_print.Make_typed_fmt`
 
 Printers for typed XML modules such as the one produced by [`Svg_f`](./Svg_f.md) and [`Html_f`](./Html_f.md).
-
 
 ## Parameters
 

@@ -1,4 +1,3 @@
-
 # TyXML JSX syntax
 
 TyXML provides a ppx which allows use Reason's convenient JSX syntax while still enjoying the benefits and type-safety of TyXML. It is available as the `tyxml-jsx` package:
@@ -75,7 +74,6 @@ In the previous examples, we used the textual implementation of tyxml (module `T
 - The `virtual_dom` library with the module `Virtual_dom.Tyxml`.
 In each case, simply open the module and the JSX syntax will use it.
 
-
 ## "Unsafe" attributes
 
 Some Javascript libraries and frameworks depend upon HTML markup that includes non-standard attributes, which tyxml would usually reject. When constructing elements using tyxml's API directly, the available workaround is to use the [Unsafe](./Html_sigs-module-type-T-Unsafe.md) constructors. The same relaxed semantics can be had when using JSX by prefixing non-standard attribute names with a leading underscore.
@@ -91,7 +89,6 @@ This will not:
 let button = <button _hx_post="/clicked" _hx_swap="outerHTML">Click Me</button>
 ```
 Such underscore-prefixed attributes are presumed to be strings, and are constructed using e.g. [Unsafe.string\_attrib](./Html_sigs-module-type-T-Unsafe.md#val-string_attrib).
-
 
 ## Tips
 

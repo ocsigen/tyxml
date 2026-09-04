@@ -1,4 +1,3 @@
-
 # Parameter `Make_typed_simple.Typed_xml`
 
 ```ocaml

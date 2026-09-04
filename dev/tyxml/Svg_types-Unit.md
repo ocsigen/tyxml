@@ -1,4 +1,3 @@
-
 # Module `Svg_types.Unit`
 
 SVG defines several units to measure time, length, angles.

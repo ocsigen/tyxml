@@ -1,4 +1,3 @@
-
 # Module `Tyxml_syntax.Html_types_reflected`
 
 ```ocaml

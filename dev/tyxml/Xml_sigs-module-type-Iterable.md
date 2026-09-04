@@ -1,4 +1,3 @@
-
 # Module type `Xml_sigs.Iterable`
 
 ```ocaml

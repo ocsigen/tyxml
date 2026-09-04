@@ -1,4 +1,3 @@
-
 # Module `Tyxml_ppx_register`
 
 ```ocaml

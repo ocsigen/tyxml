@@ -1,4 +1,3 @@
-
 # Parameter `Make_printer.O`
 
 ```ocaml

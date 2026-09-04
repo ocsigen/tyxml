@@ -1,8 +1,6 @@
-
 # Module `Xml_print.Make_fmt`
 
 Printers for raw XML modules.
-
 
 ## Parameters
 

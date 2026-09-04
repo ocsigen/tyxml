@@ -1,4 +1,3 @@
-
 # Module `Tyxml_html.Make_printer`
 
 Parametrized stream printer for Html documents.
