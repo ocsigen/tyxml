@@ -177,6 +177,10 @@ struct
 
   let string_attrib = Xml.string_attrib
 
+  let uri_attrib a s = Xml.uri_attrib a s
+
+  let uris_attrib a s = Xml.uris_attrib a s
+
   (* wrap C module functions *)
 
   let string_of_coord = C.string_of_length
@@ -235,9 +239,9 @@ struct
   let a_zoomAndPan x =
     user_attrib C.string_of_big_variant "zoomAndPan" x
 
-  let a_href = string_attrib "href"
+  let a_href = uri_attrib "href"
 
-  let a_xlink_href = string_attrib "xlink:href"
+  let a_xlink_href = uri_attrib "xlink:href"
 
   let a_requiredFeatures =
     Xml.space_sep_attrib "requiredFeatures"
@@ -261,7 +265,7 @@ struct
 
   let a_lang = string_attrib "lang"
 
-  let a_xml_base = string_attrib "xml:base"
+  let a_xml_base = uri_attrib "xml:base"
 
   let a_xml_lang = string_attrib "xml:lang"
 
@@ -278,9 +282,9 @@ struct
 
   let a_xlink_type = string_attrib "xlink:type"
 
-  let a_xlink_role = string_attrib "xlink:role"
+  let a_xlink_role = uri_attrib "xlink:role"
 
-  let a_xlink_arcrole = string_attrib "xlink:arcrole"
+  let a_xlink_arcrole = uri_attrib "xlink:arcrole"
 
   let a_class = Xml.space_sep_attrib "class"
 
@@ -551,7 +555,7 @@ struct
 
   let a_hreflang = string_attrib "hreflang"
 
-  let a_ping = Xml.space_sep_attrib "ping"
+  let a_ping = uris_attrib "ping"
 
   let a_referrerpolicy x =
     user_attrib C.string_of_big_variant "referrerpolicy" x
