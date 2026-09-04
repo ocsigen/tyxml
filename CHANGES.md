@@ -14,9 +14,29 @@ moved since SVG 1.1.
 * `a_itemtype` and `a_ping` take an `Xml.uri list` instead of a `string list`
   and go through `Xml.uris_attrib`, like every other URL-valued attribute.
   `Tyxml.Html` is unaffected, its `Xml.uri` is `string`
-* Two misspelled names are corrected: `a_baseFrenquency` becomes
-  `a_baseFrequency` and the `stroke-linejoin` value `` `Bever `` becomes
-  `` `Bevel ``
+* The SVG attributes whose value is a URL follow the same rule: `a_href`,
+  `a_xlink_href`, `a_xml_base`, `a_xlink_role`, `a_xlink_arcrole` and the
+  `a_ping` this release adds to the SVG `a` element take an `Xml.uri`, where
+  they used to take the `iri` type, which is `string`. The presentation
+  attributes that accept a funciri such as `url(#id)` or a keyword such as
+  `none`, that is `clip-path`, `mask` and the `marker-*` ones, keep `iri`
+* SVG documents are printed without a doctype. `Svg.Info` declared SVG 1.1 and
+  every printed document carried the SVG 1.1 DTD, which forbids the SVG 2
+  elements and attributes TyXML now emits, and SVG 2 defines no DTD.
+  `Info.version` and `Info.standard` name SVG 2
+* Unlike their HTML counterparts, the `Svg_types.*_content` types are widened
+  along with the content models they describe: the SVG element functions use
+  them directly, there is no `_content_fun` on that side. Code that names one
+  of them and constrains it with `=` has to be updated
+* Misspelled names are corrected: `a_baseFrenquency` becomes `a_baseFrequency`,
+  `a_externalRessourcesRequired` becomes `a_externalResourcesRequired`, the
+  `stroke-linejoin` value `` `Bever `` becomes `` `Bevel ``, and the types
+  `Html_types.subressource_integrity` and `Svg_types.paint_whitout_icc` become
+  `subresource_integrity` and `paint_without_icc`
+* The newly deprecated elements and attributes are an error, and not a warning,
+  for the users of the PPX and the JSX syntax who build in dune's dev profile,
+  where alerts are fatal. The alert is reported on the markup literal, so it
+  has to be silenced on the enclosing definition
 * The `Wrapped_functions` module type has four new functions, which the
   implementations of the functorial interface must provide:
   `string_of_blocking` and `string_of_ol_type` for HTML, `unoption_string`
@@ -76,6 +96,8 @@ moved since SVG 1.1.
   (#344 by toastal, fixes #342 and #321)
 * Undeprecate the `scope` attribute, which is valid on table header cells in
   the living standard
+* Deprecate `a_version`, `a_xml_space` and `a_scrolling`, which produce a type
+  tag that is in no attribute category, so no element ever accepted them
 
 ## SVG
 
@@ -172,6 +194,8 @@ moved since SVG 1.1.
   (#324 by Martin @MBodin Bodin)
 * Fix the typo `subresource` and various English orthographic mistakes
   (#345 by toastal)
+* `Unsafe` gains `uris_attrib`, the escape hatch that was missing for an
+  attribute holding a space-separated list of URLs, next to `uri_attrib`
 
 ## PPX and JSX syntax
 
@@ -188,6 +212,9 @@ moved since SVG 1.1.
   `translate(1,1)`, was rejected. Any whitespace, and not only the space
   character, is now accepted around the separators of list-valued attributes
   (#328 by Martin @MBodin Bodin, fixes #326)
+* Two transforms must now be separated by whitespace or a comma, as the
+  grammar of the attribute requires. `transform="translate(1,2)rotate(45)"`
+  used to be accepted and silently turned into valid output
 * The `values`, `keyTimes` and `keySplines` animation attributes are split on
   semicolons, where they used to be split on spaces
   (#308 by @rand00)
