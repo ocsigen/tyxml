@@ -302,6 +302,16 @@ let svg_document = "svg document", tyxml_tests Svg.[
 
 ]
 
+(* SVG 2 defines no DTD and recommends against a doctype declaration, so
+   nothing precedes the root element. *)
+let svg_printing = "svg printing", [
+  "no doctype", `Quick, (fun () ->
+    Alcotest.(check string) "no doctype"
+      {|<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10"></svg>|}
+      (Format.asprintf "%a" (Svg.pp ())
+         Svg.(svg ~a:[ a_width (10., None) ] []))) ;
+]
+
 let tests = [
   svg_attributes ;
   svg_content_models ;
@@ -311,7 +321,8 @@ let tests = [
   svg_filters ;
   svg_mask ;
   svg_clip_path ;
-  svg_document
+  svg_document ;
+  svg_printing
 ]
 
 let () = Alcotest.run "tyxml-svg" tests

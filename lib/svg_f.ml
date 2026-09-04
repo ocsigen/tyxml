@@ -119,13 +119,12 @@ struct
     let content_type = "image/svg+xml"
     let alternative_content_types = []
     let emptytags = []
-    let version = "SVG 1.1"
-    let standard = "http://www.w3.org/TR/svg11/"
+    let version = "SVG 2"
+    let standard = "https://www.w3.org/TR/SVG2/"
     let namespace = "http://www.w3.org/2000/svg"
-    let doctype =
-      Xml_print.compose_doctype "svg"
-        ["-//W3C//DTD SVG 1.1//EN";
-         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
+    (* SVG 2 defines no DTD, and the specification recommends against a
+       doctype declaration. The printers skip an empty doctype. *)
+    let doctype = ""
   end
 
   type uri = Xml.uri
