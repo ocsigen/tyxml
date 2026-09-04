@@ -119,13 +119,12 @@ struct
     let content_type = "image/svg+xml"
     let alternative_content_types = []
     let emptytags = []
-    let version = "SVG 1.1"
-    let standard = "http://www.w3.org/TR/svg11/"
+    let version = "SVG 2"
+    let standard = "https://www.w3.org/TR/SVG2/"
     let namespace = "http://www.w3.org/2000/svg"
-    let doctype =
-      Xml_print.compose_doctype "svg"
-        ["-//W3C//DTD SVG 1.1//EN";
-         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"]
+    (* SVG 2 defines no DTD, and the specification recommends against a
+       doctype declaration. The printers skip an empty doctype. *)
+    let doctype = ""
   end
 
   type uri = Xml.uri
@@ -177,6 +176,10 @@ struct
   let float_attrib = Xml.float_attrib
 
   let string_attrib = Xml.string_attrib
+
+  let uri_attrib a s = Xml.uri_attrib a s
+
+  let uris_attrib a s = Xml.uris_attrib a s
 
   (* wrap C module functions *)
 
@@ -236,9 +239,9 @@ struct
   let a_zoomAndPan x =
     user_attrib C.string_of_big_variant "zoomAndPan" x
 
-  let a_href = string_attrib "href"
+  let a_href = uri_attrib "href"
 
-  let a_xlink_href = string_attrib "xlink:href"
+  let a_xlink_href = uri_attrib "xlink:href"
 
   let a_requiredFeatures =
     Xml.space_sep_attrib "requiredFeatures"
@@ -262,7 +265,7 @@ struct
 
   let a_lang = string_attrib "lang"
 
-  let a_xml_base = string_attrib "xml:base"
+  let a_xml_base = uri_attrib "xml:base"
 
   let a_xml_lang = string_attrib "xml:lang"
 
@@ -279,9 +282,9 @@ struct
 
   let a_xlink_type = string_attrib "xlink:type"
 
-  let a_xlink_role = string_attrib "xlink:role"
+  let a_xlink_role = uri_attrib "xlink:role"
 
-  let a_xlink_arcrole = string_attrib "xlink:arcrole"
+  let a_xlink_arcrole = uri_attrib "xlink:arcrole"
 
   let a_class = Xml.space_sep_attrib "class"
 
@@ -552,7 +555,7 @@ struct
 
   let a_hreflang = string_attrib "hreflang"
 
-  let a_ping = Xml.space_sep_attrib "ping"
+  let a_ping = uris_attrib "ping"
 
   let a_referrerpolicy x =
     user_attrib C.string_of_big_variant "referrerpolicy" x
@@ -1162,6 +1165,7 @@ struct
     let string_attrib = Xml.string_attrib
 
     let uri_attrib a s = Xml.uri_attrib a s
+    let uris_attrib a s = Xml.uris_attrib a s
 
     let space_sep_attrib = Xml.space_sep_attrib
 

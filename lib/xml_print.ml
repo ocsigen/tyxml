@@ -338,7 +338,8 @@ struct
 
   let pp ?(encode = encode_unsafe_char) ?(indent=false) ?advert () fmt doc =
     Format.pp_open_vbox fmt 0 ;
-    Format.fprintf fmt "%s@," Typed_xml.Info.doctype ;
+    if Typed_xml.Info.doctype <> "" then
+      Format.fprintf fmt "%s@," Typed_xml.Info.doctype ;
 
     begin match advert with
       | Some s -> Format.fprintf fmt "<!-- %s -->@," s

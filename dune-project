@@ -7,7 +7,7 @@
 (authors "Ocsigen team <dev@ocsigen.org>")
 (license "LGPL-2.1-only with OCaml-LGPL-linking-exception")
 (source (github ocsigen/tyxml))
-(documentation "https://ocsigen.org/tyxml/latest/manual/intro")
+(documentation "https://ocsigen.org/tyxml/latest/")
 
 (package
  (name tyxml-jsx)

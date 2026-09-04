@@ -9,7 +9,7 @@ sources are also what ocaml.org renders.
 
 | What | Where | Format |
 |---|---|---|
-| Manual | [`docs/*.mld`](../docs) (intro, functors, ppx, jsx) | odoc pages |
+| Manual | [`docs/*.mld`](../docs) (index, functors, ppx, jsx) | odoc pages |
 | API overview | [`docs/api.mld`](../docs/api.mld) | odoc page |
 | API | the `.mli` of the `tyxml` package | odoc comments |
 | Site configuration (nav, …) | [`doc/wodoc`](wodoc) | wodoc config (S-expression) |

@@ -288,6 +288,11 @@ let html_attributes = "html attributes", tyxml_tests Html.[
   ^ "<div contenteditable=\"false\"></div>"
   ^ "<div contenteditable=\"plaintext-only\"></div></div>" ;
 
+  (* The escape hatches of Unsafe cover the URI list attributes too. *)
+  "unsafe uris",
+  div ~a:[Unsafe.uris_attrib "data-urls" ["/a"; "/b"]] [],
+  {|<div data-urls="/a /b"></div>|} ;
+
 ]
 
 let escaping = "html escaping", tyxml_tests Html.[
@@ -346,6 +351,14 @@ let printing = "printing", [
     Alcotest.(check string) "xml declaration with an encoding"
       "<?xml version=\"1.1\" encoding=\"US-ASCII\"?>\n"
       (Xml_print.compose_decl ~version:"1.1" ~encoding:"US-ASCII" ())) ;
+
+  (* The document printer emits the doctype of the language. *)
+  "doctype", `Quick, (fun () ->
+    Alcotest.(check string) "doctype"
+      "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\
+       <head><title>t</title></head><body></body></html>"
+      (Format.asprintf "%a" (Html.pp ())
+         Html.(html (head (title (txt "t")) []) (body [])))) ;
 ]
 
 let tests = [

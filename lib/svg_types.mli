@@ -377,7 +377,12 @@ type iri = string
     an optional fragment identifier, as defined in Internationalized
     Resource Identifiers [RFC3987]. An IRI reference serves as a reference
     to a resource or (with a fragment identifier) to a secondary
-    resource. See References and the ‘defs’ element.. *)
+    resource. See References and the ‘defs’ element.
+
+    The attributes whose value is a bare URL, such as [href], use
+    [Xml.uri]. This type is left for the presentation attributes that
+    accept a funciri such as [url(#id)] or a keyword such as [none],
+    which are not URLs. *)
 
 (** {2 Units} *)
 

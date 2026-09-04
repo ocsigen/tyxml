@@ -147,9 +147,9 @@ module type T = sig
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
-  val a_href : iri wrap -> [> | `Xlink_href ] attrib
+  val a_href : Xml.uri wrap -> [> | `Xlink_href ] attrib
 
-  val a_xlink_href : iri wrap -> [> | `Xlink_href ] attrib
+  val a_xlink_href : Xml.uri wrap -> [> | `Xlink_href ] attrib
     [@@ocaml.deprecated "Use a_href"]
   (** @deprecated Use a_href *)
 
@@ -184,7 +184,7 @@ module type T = sig
   (** Language of the element content. It is a global attribute in SVG 2,
       whereas SVG 1.1 only allowed it on the [glyph] element. *)
 
-  val a_xml_base : iri wrap -> [> | `Xml_base ] attrib
+  val a_xml_base : Xml.uri wrap -> [> | `Xml_base ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
@@ -208,11 +208,11 @@ module type T = sig
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
-  val a_xlink_role : iri wrap -> [> | `Xlink_role ] attrib
+  val a_xlink_role : Xml.uri wrap -> [> | `Xlink_role ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
-  val a_xlink_arcrole : iri wrap -> [> | `Xlink_arcrole ] attrib
+  val a_xlink_arcrole : Xml.uri wrap -> [> | `Xlink_arcrole ] attrib
     [@@ocaml.deprecated "Removed in SVG2"]
   (** @deprecated Removed in SVG2 *)
 
@@ -549,7 +549,7 @@ module type T = sig
 
   val a_hreflang : string wrap -> [> | `Hreflang ] attrib
 
-  val a_ping : spacestrings wrap -> [> | `Ping ] attrib
+  val a_ping : Xml.uri list wrap -> [> | `Ping ] attrib
   (** Space separated list of URLs to ping when the link is followed. *)
 
   val a_referrerpolicy :
@@ -1485,6 +1485,9 @@ module type T = sig
 
     (** Same, for URI attribute *)
     val uri_attrib : string -> uri wrap -> 'a attrib
+
+    (** Same, for a space-separated list of URIs *)
+    val uris_attrib : string -> uri list wrap -> 'a attrib
 
     (** Same, for a space-separated list of values *)
     val space_sep_attrib : string -> string list wrap -> 'a attrib
