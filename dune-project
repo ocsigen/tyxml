@@ -59,7 +59,7 @@ It works with textual trees, virtual DOM trees, or any TyXML module.
  (depends
   (ocaml (>= 4.08))
   (ppxlib (>= 0.36))
-  (re (>= 1.5.0))
+  (re (>= 1.7.2))
   (uutf (>= 1.0.0))
   (alcotest :with-test)))
 
