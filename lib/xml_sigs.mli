@@ -119,12 +119,13 @@ end
 
 module type Typed_xml = sig
 
-  module Xml : NoWrap
+  module Xml : T
   module Info : Info
 
   type 'a elt
   type doc
   val toelt : 'a elt -> Xml.elt
+  val toeltl : ('a elt) Xml.list_wrap -> Xml.elt Xml.list_wrap
   val doc_toelt : doc -> Xml.elt
 
 end
