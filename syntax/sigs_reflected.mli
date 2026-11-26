@@ -15,13 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Signature of [Html_sigs_reflected] and [Svg_sigs_reflected] (but not
     [Html_types_reflected]). *)
 
-module type S =
-sig
+module type S = sig
   val attribute_parsers :
     (string * (Common.lang -> Attribute_value.vparser)) list
   (** Pairs [tyxml_attribute_name, wrapped_attribute_value_parser]. *)

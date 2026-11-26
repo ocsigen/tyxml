@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 let find_assembler (lang, name) =
   let (module Reflected) = Namespace.get lang in
@@ -26,29 +26,25 @@ let find_assembler (lang, name) =
   try Some (name, List.assoc name Reflected.element_assemblers)
   with Not_found -> None
 
-let parse
-    ~loc ~parent_lang
-    ~name:((lang, name) as element_name) ~attributes children =
-
+let parse ~loc ~parent_lang ~name:((lang, name) as element_name) ~attributes
+    children =
   let attributes = Attributes.parse loc element_name attributes in
   let (module Reflected) = Namespace.get lang in
-
-  let lang = match parent_lang, lang with
+  let lang =
+    match (parent_lang, lang) with
     | Common.Html, Svg -> Common.Html
     | Html, Html | Svg, Svg -> lang
     | Svg, Html ->
-      Common.error loc
-        "Nesting of Html element inside svg element is not supported"
+        Common.error loc
+          "Nesting of Html element inside svg element is not supported"
   in
-
-  let name, assembler = match find_assembler element_name with
+  let name, assembler =
+    match find_assembler element_name with
     | Some e -> e
     | None -> Common.error loc "Unknown %s element %s" (Common.lang lang) name
   in
   let element_function = Common.make ~loc lang name in
-
   let children = assembler ~lang ~loc ~name children in
-
   Ast_helper.Exp.apply ~loc element_function (attributes @ children)
 
 let comment ~loc ~lang s =
@@ -56,4 +52,4 @@ let comment ~loc ~lang s =
   let comment = Common.make ~loc lang "Xml.comment" in
   let s = Common.string loc s in
   (* Using metaquot here avoids fiddling with labels. *)
-  [%expr [%e tot] ([%e comment] [%e s])][@metaloc loc]
+  ([%expr [%e tot] ([%e comment] [%e s])] [@metaloc loc])
