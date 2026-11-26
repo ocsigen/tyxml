@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Namespace-specific values. *)
 
 val get : Common.lang -> (module Sigs_reflected.S)
-(** Returns the preprocessing-time module
-    containing reflection information associated to the given language. *)
+(** Returns the preprocessing-time module containing reflection information
+    associated to the given language. *)

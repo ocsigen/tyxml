@@ -15,14 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Attribute value parsers and parser combinators. *)
 
 type 'a gparser =
-  ?separated_by:string -> ?default:string -> Location.t -> string -> 'a ->
-    expression option
+  ?separated_by:string ->
+  ?default:string ->
+  Location.t ->
+  string ->
+  'a ->
+  expression option
+
 type parser = string gparser
+
 type vparser = string Common.value gparser
 (** Attribute value parsers are assigned to each attribute depending on the type
     of the attribute's argument, though some attributes have special parsers
@@ -46,8 +52,6 @@ type vparser = string Common.value gparser
     [~separated_by] and [~default] are used internally by combinators to modify
     the error message (for example, to make nouns plural if an error occurs in a
     list). *)
-
-
 
 (** {2 Combinators} *)
 
@@ -84,8 +88,6 @@ val nowrap : parser -> Common.lang -> vparser
     combinator is to provide a signature similar to [wrap] in situations where
     wrapping is not wanted. *)
 
-
-
 (** {2 Numeric} *)
 
 val char : parser
@@ -94,12 +96,12 @@ val char : parser
     is restricted to the first 256 code points. *)
 
 val bool : parser
-(** [bool _ _ s] produces a parse tree for the boolean [true]
-    if [s = "true"] or [""] and [false] if [s = "false"]. *)
+(** [bool _ _ s] produces a parse tree for the boolean [true] if [s = "true"] or
+    [""] and [false] if [s = "false"]. *)
 
 val onoff : parser
-(** [onoff _ _ s] produces a parse tree for the boolean [true]
-    if [s = "on"] or [""] and [false] if [s = "off"]. *)
+(** [onoff _ _ s] produces a parse tree for the boolean [true] if [s = "on"] or
+    [""] and [false] if [s = "off"]. *)
 
 val unit : parser
 (** [unit _ name s] produces a parse tree for [()]. It fails if [name <> s]. *)
@@ -130,8 +132,6 @@ val icon_size : parser
     [s] has the form [(string_of_int width) ^ x ^ (string_of_int height)] and
     [x] is either ["x"] or ["X"]. *)
 
-
-
 (** {2 Dimensional} *)
 
 val svg_length : parser
@@ -150,12 +150,10 @@ val offset : parser
     - [`Percentage n] if [s] has form [(string_of_float n) ^ "%"]. *)
 
 val transform : parser
-(** Parses an SVG transform attribute value. 
+(** Parses an SVG transform attribute value.
 
     @see <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform>
 *)
-
-
 
 (* {2 String-like} *)
 
@@ -168,24 +166,23 @@ val variant : parser
     [Tyxml_name.polyvar s]. This is intended for attributes whose argument type
     is a polymorphic variant, none of whose constructors take arguments. *)
 
-val total_variant : (string * string list) -> parser
+val total_variant : string * string list -> parser
 (** [total_variant] is used for parsing arguments whose type is a variant with
     the following pattern:
 
-{[
-| `A | `B | `C | `EverythingElse of string
-]}
+    {[
+    | `A | `B | `C | `EverythingElse of string
+    ]}
 
     It behaves like [variant] for strings matching the no-argument constructors.
-    Any other string [s] is mapped to the parse trees for
-    [`EverythingElse s]. *)
+    Any other string [s] is mapped to the parse trees for [`EverythingElse s].
+*)
 
 val variant_or_empty : string -> parser
-(** [variant_or_empty empty] is used for parsing arguments whose type
-   is a variant, possibly the empty string. It behaves like [variant]
-   for every string but the empty one, which will be parsed as if it
-   was the [empty] parameter. *)
-
+(** [variant_or_empty empty] is used for parsing arguments whose type is a
+    variant, possibly the empty string. It behaves like [variant] for every
+    string but the empty one, which will be parsed as if it was the [empty]
+    parameter. *)
 
 (* {2 Miscellaneous} *)
 

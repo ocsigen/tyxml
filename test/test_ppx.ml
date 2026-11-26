@@ -1,910 +1,1170 @@
+open Tyxml_test
 (** Ppx Tests
 
     This file is here to torture the ppx. Tests that are directly related to
-    html or svg should go to the other files.
-*)
-open Tyxml_test
+    html or svg should go to the other files. *)
 
 module Dummy_html = struct
   include Html
+
   let p ?a elt = Html.p ?a (Html.txt "hello " :: elt)
 end
 
-let basics = "ppx basics", HtmlTests.make Html.[
-
-  "elems",
-  [[%html "<p></p>"]],
-  [p []] ;
-
-  "name space",
-  [[%tyxml.html "<p></p>"]],
-  [p []] ;
-
-  "module",
-  [[%html.Dummy_html "<p>world</p>"]],
-  [p [Html.txt "hello "; Html.txt "world"]] ;
-
-  "child",
-  [[%html "<p><span>foo</span></p>"]],
-  [p [span [txt "foo"]]] ;
-
-  "list",
-  [%html "<p></p><span>foo</span>"],
-  [p [] ; span [txt "foo"]] ;
-
-  "attrib",
-  [[%html "<p id=foo></p>"]],
-  [p ~a:[a_id "foo"] []] ;
-
-  "attribs",
-  [[%html "<p id=foo class=bar></p>"]],
-  [p ~a:[a_id "foo"; a_class ["bar"] ] []] ;
-
-  "comment",
-  [[%html "<!--foo-->"]],
-  [tot @@ Xml.comment "foo"] ;
-
-  "txt",
-  [[%html "foo"]],
-  [txt "foo"] ;
-
-  "document",
-  [[%html "<html><head><title>foo</title></head></html>"]],
-  [html (head (title (txt "foo")) []) (body [])] ;
-
-  "let",
-  [let%html x = "<p></p>" in x],
-  [p []] ;
-
-  "nested let",
-  [let%html _ = "<p></p>" in
-   let%html y = "<p></p>" in
-   y],
-  [p []] ;
-
-  "let and",
-  (let%html x = "<p></p>" and y = "<a></a>" in [x;y]),
-  [p []; a []] ;
-
-  "let fun",
-  [let%html f x = "<p>"x"</p>" in f [a []]],
-  [p [a []]] ;
-
-  "whitespace in html element",
-  [[%html "<html><head><title>foo</title></head> </html>"]],
-  [html (head (title (txt "foo")) []) (body [])] ;
-
-  (* "whitespace around html element",
-   * [[%html "  <html><head><title>foo</title></head></html>  "]],
-   * [html (head (title (txt "foo")) []) (body [])] ; *)
-
-  "whitespace around element",
-  [[%html "   <p></p>   "]],
-  [p []] ;
-
-  "whitespace in element",
-  [[%html "   <p>  </p>   "]],
-  [p [txt "  "]] ;
-
-  "whitespace around lists",
-  [%html "   <p></p><span></span>   "],
-  [p [] ; span []] ;
-
-  "whitespace around txt",
-  [%html "   bar<p></p>foo   "],
-  [txt "   bar" ; p [] ; txt "foo   " ] ;
-
-  "whitespace in ul",
-  [[%html "<ul>   <li>foo</li>  <li>bar</li>   </ul>"]],
-  [ul [li [txt "foo"] ; li [txt "bar"]]] ;
-
-  "whitespace in ol",
-  [[%html "<ol>   <li>foo</li>  <li>bar</li>   </ol>"]],
-  [ol [li [txt "foo"] ; li [txt "bar"]]] ;
-
-  "whitespace in tr",
-  [[%html "<tr>   <td>foo</td>    <td>bar</td>   </tr>"]],
-  [tr [td [txt "foo"] ; td [txt "bar"]]] ;
-
-  "whitespace in table",
-  [[%html "<table>    <tr><td>foo</td></tr>   <tr><td>bar</td></tr>   </table>"]],
-  [tablex [tbody [tr [td [txt "foo"]] ; tr [td [txt "bar"]]]]] ;
-
-  "whitespace in table, full example",
-  [[%html "<table>
-  <caption>txt</caption>
-  <colgroup>
-    <col span=\"2\">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>h1</th>
-      <th>h2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>b1</td>
-      <td>b2</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td>f1</td>
-      <td>f2</td>
-    </tr>
-  </tfoot>
-</table>"]],
-  [tablex ~caption:(caption [txt "txt"])
-    ~columns:[colgroup [col ~a:[a_span 2] ()]]
-    ~thead:(thead [tr [th [txt "h1"] ; th [txt "h2"]]])
-    ~tfoot:(tfoot [tr [td [txt "f1"] ; td [txt "f2"]]])
-    [tbody [tr [td [txt "b1"] ; td [txt "b2"]]]]] ;
-
-  "whitespace in select",
-  [[%html {|<select>  <option value="bar">bar</option>  </select>|}]],
-  [select [option ~a:[a_value "bar"] @@ txt "bar"]] ;
-
-  "datalist",
-  [[%html {|<datalist>
+let basics =
+  ( "ppx basics",
+    HtmlTests.make
+      Html.
+        [
+          ("elems", [ [%html "<p></p>"] ], [ p [] ]);
+          ("name space", [ [%tyxml.html "<p></p>"] ], [ p [] ]);
+          ( "module",
+            [ [%html.Dummy_html "<p>world</p>"] ],
+            [ p [ Html.txt "hello "; Html.txt "world" ] ] );
+          ( "child",
+            [ [%html "<p><span>foo</span></p>"] ],
+            [ p [ span [ txt "foo" ] ] ] );
+          ( "list",
+            [%html "<p></p><span>foo</span>"],
+            [ p []; span [ txt "foo" ] ] );
+          ("attrib", [ [%html "<p id=foo></p>"] ], [ p ~a:[ a_id "foo" ] [] ]);
+          ( "attribs",
+            [ [%html "<p id=foo class=bar></p>"] ],
+            [ p ~a:[ a_id "foo"; a_class [ "bar" ] ] [] ] );
+          ("comment", [ [%html "<!--foo-->"] ], [ tot @@ Xml.comment "foo" ]);
+          ("txt", [ [%html "foo"] ], [ txt "foo" ]);
+          ( "document",
+            [ [%html "<html><head><title>foo</title></head></html>"] ],
+            [ html (head (title (txt "foo")) []) (body []) ] );
+          ( "let",
+            [
+              (let%html x = "<p></p>" in
+               x);
+            ],
+            [ p [] ] );
+          ( "nested let",
+            [
+              (let%html _ = "<p></p>" in
+               let%html y = "<p></p>" in
+               y);
+            ],
+            [ p [] ] );
+          ( "let and",
+            (let%html x = "<p></p>" and y = "<a></a>" in
+             [ x; y ]),
+            [ p []; a [] ] );
+          ( "let fun",
+            [
+              (let%html f x = "<p>" x "</p>" in
+               f [ a [] ]);
+            ],
+            [ p [ a [] ] ] );
+          ( "whitespace in html element",
+            [ [%html "<html><head><title>foo</title></head> </html>"] ],
+            [ html (head (title (txt "foo")) []) (body []) ] );
+          (* "whitespace around html element",
+           * [[%html "  <html><head><title>foo</title></head></html>  "]],
+           * [html (head (title (txt "foo")) []) (body [])] ; *)
+          ("whitespace around element", [ [%html "   <p></p>   "] ], [ p [] ]);
+          ( "whitespace in element",
+            [ [%html "   <p>  </p>   "] ],
+            [ p [ txt "  " ] ] );
+          ( "whitespace around lists",
+            [%html "   <p></p><span></span>   "],
+            [ p []; span [] ] );
+          ( "whitespace around txt",
+            [%html "   bar<p></p>foo   "],
+            [ txt "   bar"; p []; txt "foo   " ] );
+          ( "whitespace in ul",
+            [ [%html "<ul>   <li>foo</li>  <li>bar</li>   </ul>"] ],
+            [ ul [ li [ txt "foo" ]; li [ txt "bar" ] ] ] );
+          ( "whitespace in ol",
+            [ [%html "<ol>   <li>foo</li>  <li>bar</li>   </ol>"] ],
+            [ ol [ li [ txt "foo" ]; li [ txt "bar" ] ] ] );
+          ( "whitespace in tr",
+            [ [%html "<tr>   <td>foo</td>    <td>bar</td>   </tr>"] ],
+            [ tr [ td [ txt "foo" ]; td [ txt "bar" ] ] ] );
+          ( "whitespace in table",
+            [
+              [%html
+                "<table>    <tr><td>foo</td></tr>   <tr><td>bar</td></tr>   \
+                 </table>"];
+            ],
+            [
+              tablex
+                [ tbody [ tr [ td [ txt "foo" ] ]; tr [ td [ txt "bar" ] ] ] ];
+            ] );
+          ( "whitespace in table, full example",
+            [
+              [%html
+                "<table>\n\
+                \  <caption>txt</caption>\n\
+                \  <colgroup>\n\
+                \    <col span=\"2\">\n\
+                \  </colgroup>\n\
+                \  <thead>\n\
+                \    <tr>\n\
+                \      <th>h1</th>\n\
+                \      <th>h2</th>\n\
+                \    </tr>\n\
+                \  </thead>\n\
+                \  <tbody>\n\
+                \    <tr>\n\
+                \      <td>b1</td>\n\
+                \      <td>b2</td>\n\
+                \    </tr>\n\
+                \  </tbody>\n\
+                \  <tfoot>\n\
+                \    <tr>\n\
+                \      <td>f1</td>\n\
+                \      <td>f2</td>\n\
+                \    </tr>\n\
+                \  </tfoot>\n\
+                 </table>"];
+            ],
+            [
+              tablex
+                ~caption:(caption [ txt "txt" ])
+                ~columns:[ colgroup [ col ~a:[ a_span 2 ] () ] ]
+                ~thead:(thead [ tr [ th [ txt "h1" ]; th [ txt "h2" ] ] ])
+                ~tfoot:(tfoot [ tr [ td [ txt "f1" ]; td [ txt "f2" ] ] ])
+                [ tbody [ tr [ td [ txt "b1" ]; td [ txt "b2" ] ] ] ];
+            ] );
+          ( "whitespace in select",
+            [
+              [%html {|<select>  <option value="bar">bar</option>  </select>|}];
+            ],
+            [ select [ option ~a:[ a_value "bar" ] @@ txt "bar" ] ] );
+          ( "datalist",
+            [
+              [%html
+                {|<datalist>
         <option value="foo">foo</option>
-</datalist>|}]],
-  [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "foo")]) ()];
-
-  "comments",
-  [[%html {|<div><p>a</p><!-- b --><hr/></div>|}]],
-  [div [p [txt "a"]; tot (Xml.comment " b "); hr ()]] ;
-
-  "figcaption first",
-  [[%html {|<figure> <figcaption> hello </figcaption> <img src="foo.jpg" alt="a" /> </figure>|}]],
-  [figure ~figcaption:(`Top (figcaption [txt " hello "]))
-     [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
-
-  "figcaption last",
-  [[%html {|<figure> <img src="foo.jpg" alt="a" /> <figcaption> hello </figcaption> </figure>|}]],
-  [figure ~figcaption:(`Bottom (figcaption [txt " hello "]))
-     [txt " "; img ~src:"foo.jpg" ~alt:"a" () ; txt " " ]];
-
-  "type in source",
-  [[%html {|<source src="foo.mp3" type="audio/mpeg"/>|}]],
-  [source ~a:[a_src "foo.mp3"; a_mime_type "audio/mpeg"] ()];
-
-  "table with body",
-  [[%html "<table><tbody></tbody></table>"]],
-  [tablex [tbody []]];
-
-  "table with antiquot body",
-  [[%html "<table>"[tbody []]"</table>"]],
-  [tablex [tbody []]];
-
-  "table with tr",
-  [[%html "<table><tr></tr></table>"]],
-  [tablex [tbody [tr[]]]];
-
-  "table with antiquot tr",
-  [[%html "<table><tbody>"[tr []]"</tbody></table>"]],
-  [tablex [tbody [tr[]]]];
-
-  "dialog",
-  [[%html {|<dialog open>foo</dialog>|}]],
-  [dialog ~a:[a_open ()] [txt "foo"] ];
-
-  "s",
-  [[%html {|<s>foo</s>|}]],
-  [s [txt "foo"] ];
-
-  "bdi",
-  [[%html {|<bdi>foo</bdi>|}]],
-  [bdi [txt "foo"] ];
-
-  "search",
-  [[%html {|<search><p>foo</p></search>|}]],
-  [search [p [txt "foo"]] ];
-
-  "data",
-  [[%html {|<data value="42">foo</data>|}]],
-  [data ~value:"42" [txt "foo"] ];
-
-  "slot",
-  [[%html {|<div><slot name="s1">fallback</slot></div>|}]],
-  [div [slot ~a:[a_name "s1"] [txt "fallback"]] ];
-
-  "body window handlers",
-  [[%html {|<body onlanguagechange="l()" onrejectionhandled="r()" onunhandledrejection="u()"></body>|}]],
-  [body ~a:[a_onlanguagechange "l()"; a_onrejectionhandled "r()";
-            a_onunhandledrejection "u()"] [] ];
-
-  "global event handlers",
-  [[%html {|<dialog oncancel="c()" ontoggle="t()" oncuechange="q()">x</dialog>|}]],
-  [dialog ~a:[a_oncancel "c()"; a_ontoggle "t()"; a_oncuechange "q()"]
-     [txt "x"] ];
-
-  "pointer events",
-  [[%html {|<div onpointerdown="d()" onpointerup="u()" onwheel="w()"></div>|}]],
-  [div ~a:[a_onpointerdown "d()"; a_onpointerup "u()"; a_onwheel "w()"] [] ];
-
-  "declarative shadow DOM",
-  [[%html {|<template shadowrootmode="closed" shadowrootclonable><p>x</p></template>|}]],
-  [template ~a:[a_shadowrootmode `Closed; a_shadowrootclonable ()]
-     [p [txt "x"]] ];
-
-  "video attributes",
-  [[%html {|<video playsinline disablepictureinpicture disableremoteplayback></video>|}]],
-  [video ~a:[a_playsinline (); a_disablepictureinpicture ();
-             a_disableremoteplayback ()] [] ];
-
-  "ol type lower",
-  [[%html {|<ol type="a"><li>x</li></ol>|}]],
-  [ol ~a:[a_ol_type `Lower_alpha] [li [txt "x"]] ];
-
-  "ol type upper",
-  [[%html {|<ol type="A"><li>x</li></ol>|}]],
-  [ol ~a:[a_ol_type `Upper_alpha] [li [txt "x"]] ];
-
-  "th abbr and dialog closedby",
-  [[%html {|<div><table><tr><th abbr="P">x</th></tr></table><dialog closedby="any">y</dialog></div>|}]],
-  [div [tablex [tbody [tr [th ~a:[a_abbr "P"] [txt "x"]]]] ;
-        dialog ~a:[a_closedby `Any] [txt "y"]] ];
-
-  "meta media",
-  [[%html {|<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black"/>|}]],
-  [meta ~a:[a_name "theme-color";
-            a_media [`Raw_mediadesc "(prefers-color-scheme: dark)"];
-            a_content "black"] () ];
-
-  "form control attributes",
-  [[%html {|<div><input dirname="c.dir" capture="user"/><select autocomplete="off"></select><textarea autocomplete="on"></textarea></div>|}]],
-  [div [input ~a:[a_dirname "c.dir"; a_capture `User] () ;
-        select ~a:[a_autocomplete `Off] [] ;
-        textarea ~a:[a_autocomplete `On] (txt "")] ];
-
-  "a ping",
-  [[%html {|<a href="/x" ping="https://a.example https://b.example">x</a>|}]],
-  [a ~a:[a_href "/x"; a_ping ["https://a.example"; "https://b.example"]]
-     [txt "x"] ];
-
-  "link preload",
-  [[%html {|<link rel="stylesheet" href="a.css" blocking="render" fetchpriority="low"/>|}]],
-  [link ~rel:[`Stylesheet] ~href:"a.css"
-     ~a:[a_blocking [`Render]; a_fetchpriority `Low] () ];
-
-  "link imagesrcset",
-  [[%html {|<link rel="preload" href="i.png" as="image" imagesrcset="i2.png 2x" imagesizes="50vw"/>|}]],
-  [link ~rel:[`Other "preload"] ~href:"i.png"
-     ~a:[a_as `Image; a_imagesrcset [`Url_pixel ("i2.png", 2.)];
-         a_imagesizes ["50vw"]] () ];
-
-  "script nomodule",
-  [[%html {|<script nomodule src="a.js"></script>|}]],
-  [script ~a:[a_nomodule (); a_src "a.js"] (txt "") ];
-
-  "img loading",
-  [[%html {|<img src="x.png" alt="x" loading="eager" decoding="auto" fetchpriority="high"/>|}]],
-  [img ~src:"x.png" ~alt:"x"
-     ~a:[a_loading `Eager; a_decoding `Auto; a_fetchpriority `High] () ];
-
-  "iframe srcdoc",
-  [[%html {|<iframe srcdoc="hello" allow="fullscreen" loading="lazy"></iframe>|}]],
-  [iframe ~a:[a_srcdoc "hello"; a_allow "fullscreen"; a_loading `Lazy] [] ];
-
-  "popovertarget",
-  [[%html {|<button popovertarget="p" popovertargetaction="toggle">x</button>|}]],
-  [button ~a:[a_popovertarget "p"; a_popovertargetaction `Toggle]
-     [txt "x"] ];
-
-  "invoker commands",
-  [[%html {|<button commandfor="d" command="request-close">x</button>|}]],
-  [button ~a:[a_commandfor "d"; a_command `Request_close] [txt "x"] ];
-
-  "custom command",
-  [[%html {|<button commandfor="d" command="--my-cmd">x</button>|}]],
-  [button ~a:[a_commandfor "d"; a_command (`Other "--my-cmd")] [txt "x"] ];
-
-  "shadow parts",
-  [[%html {|<span part="label value" exportparts="a,b:c"></span>|}]],
-  [span ~a:[a_part ["label"; "value"]; a_exportparts ["a"; "b:c"]] [] ];
-
-  "microdata",
-  [[%html {|<div itemscope itemtype="https://schema.org/Person" itemid="urn:isbn:123" itemref="a b"><span itemprop="name">X</span></div>|}]],
-  [div ~a:[a_itemscope (); a_itemtype ["https://schema.org/Person"];
-           a_itemid "urn:isbn:123"; a_itemref ["a"; "b"]]
-     [span ~a:[a_itemprop ["name"]] [txt "X"]] ];
-
-  "popover bare",
-  [[%html {|<div popover></div>|}]],
-  [div ~a:[a_popover `Auto] [] ];
-
-  "popover manual",
-  [[%html {|<div popover="manual"></div>|}]],
-  [div ~a:[a_popover `Manual] [] ];
-
-  "global attributes",
-  [[%html {|<div inert dir="auto" autocapitalize="sentences" autocorrect="off" writingsuggestions="true" enterkeyhint="send" nonce="n" slot="s" is="my-elt"></div>|}]],
-  [div ~a:[a_inert (); a_dir `Auto; a_autocapitalize `Sentences;
-           a_autocorrect false; a_writingsuggestions true;
-           a_enterkeyhint `Send; a_nonce "n"; a_slot "s";
-           a_is "my-elt"] [] ];
-
-  "track in video",
-  [[%html {|<video><track src="v.vtt" kind="subtitles" srclang="en" default/></video>|}]],
-  [video ~tracks:[track ~src:"v.vtt"
-      ~a:[a_kind `Subtitles; a_track_srclang "en"; a_default ()] ()] []];
-
-  "picture",
-  [[%html {|<div><picture id="idpicture">
+</datalist>|}];
+            ],
+            [
+              datalist
+                ~children:(`Options [ option ~a:[ a_value "foo" ] (txt "foo") ])
+                ();
+            ] );
+          ( "comments",
+            [ [%html {|<div><p>a</p><!-- b --><hr/></div>|}] ],
+            [ div [ p [ txt "a" ]; tot (Xml.comment " b "); hr () ] ] );
+          ( "figcaption first",
+            [
+              [%html
+                {|<figure> <figcaption> hello </figcaption> <img src="foo.jpg" alt="a" /> </figure>|}];
+            ],
+            [
+              figure
+                ~figcaption:(`Top (figcaption [ txt " hello " ]))
+                [ txt " "; img ~src:"foo.jpg" ~alt:"a" (); txt " " ];
+            ] );
+          ( "figcaption last",
+            [
+              [%html
+                {|<figure> <img src="foo.jpg" alt="a" /> <figcaption> hello </figcaption> </figure>|}];
+            ],
+            [
+              figure
+                ~figcaption:(`Bottom (figcaption [ txt " hello " ]))
+                [ txt " "; img ~src:"foo.jpg" ~alt:"a" (); txt " " ];
+            ] );
+          ( "type in source",
+            [ [%html {|<source src="foo.mp3" type="audio/mpeg"/>|}] ],
+            [ source ~a:[ a_src "foo.mp3"; a_mime_type "audio/mpeg" ] () ] );
+          ( "table with body",
+            [ [%html "<table><tbody></tbody></table>"] ],
+            [ tablex [ tbody [] ] ] );
+          ( "table with antiquot body",
+            [ [%html "<table>" [ tbody [] ] "</table>"] ],
+            [ tablex [ tbody [] ] ] );
+          ( "table with tr",
+            [ [%html "<table><tr></tr></table>"] ],
+            [ tablex [ tbody [ tr [] ] ] ] );
+          ( "table with antiquot tr",
+            [ [%html "<table><tbody>" [ tr [] ] "</tbody></table>"] ],
+            [ tablex [ tbody [ tr [] ] ] ] );
+          ( "dialog",
+            [ [%html {|<dialog open>foo</dialog>|}] ],
+            [ dialog ~a:[ a_open () ] [ txt "foo" ] ] );
+          ("s", [ [%html {|<s>foo</s>|}] ], [ s [ txt "foo" ] ]);
+          ("bdi", [ [%html {|<bdi>foo</bdi>|}] ], [ bdi [ txt "foo" ] ]);
+          ( "search",
+            [ [%html {|<search><p>foo</p></search>|}] ],
+            [ search [ p [ txt "foo" ] ] ] );
+          ( "data",
+            [ [%html {|<data value="42">foo</data>|}] ],
+            [ data ~value:"42" [ txt "foo" ] ] );
+          ( "slot",
+            [ [%html {|<div><slot name="s1">fallback</slot></div>|}] ],
+            [ div [ slot ~a:[ a_name "s1" ] [ txt "fallback" ] ] ] );
+          ( "body window handlers",
+            [
+              [%html
+                {|<body onlanguagechange="l()" onrejectionhandled="r()" onunhandledrejection="u()"></body>|}];
+            ],
+            [
+              body
+                ~a:
+                  [
+                    a_onlanguagechange "l()";
+                    a_onrejectionhandled "r()";
+                    a_onunhandledrejection "u()";
+                  ]
+                [];
+            ] );
+          ( "global event handlers",
+            [
+              [%html
+                {|<dialog oncancel="c()" ontoggle="t()" oncuechange="q()">x</dialog>|}];
+            ],
+            [
+              dialog
+                ~a:[ a_oncancel "c()"; a_ontoggle "t()"; a_oncuechange "q()" ]
+                [ txt "x" ];
+            ] );
+          ( "pointer events",
+            [
+              [%html
+                {|<div onpointerdown="d()" onpointerup="u()" onwheel="w()"></div>|}];
+            ],
+            [
+              div
+                ~a:
+                  [
+                    a_onpointerdown "d()"; a_onpointerup "u()"; a_onwheel "w()";
+                  ]
+                [];
+            ] );
+          ( "declarative shadow DOM",
+            [
+              [%html
+                {|<template shadowrootmode="closed" shadowrootclonable><p>x</p></template>|}];
+            ],
+            [
+              template
+                ~a:[ a_shadowrootmode `Closed; a_shadowrootclonable () ]
+                [ p [ txt "x" ] ];
+            ] );
+          ( "video attributes",
+            [
+              [%html
+                {|<video playsinline disablepictureinpicture disableremoteplayback></video>|}];
+            ],
+            [
+              video
+                ~a:
+                  [
+                    a_playsinline ();
+                    a_disablepictureinpicture ();
+                    a_disableremoteplayback ();
+                  ]
+                [];
+            ] );
+          ( "ol type lower",
+            [ [%html {|<ol type="a"><li>x</li></ol>|}] ],
+            [ ol ~a:[ a_ol_type `Lower_alpha ] [ li [ txt "x" ] ] ] );
+          ( "ol type upper",
+            [ [%html {|<ol type="A"><li>x</li></ol>|}] ],
+            [ ol ~a:[ a_ol_type `Upper_alpha ] [ li [ txt "x" ] ] ] );
+          ( "th abbr and dialog closedby",
+            [
+              [%html
+                {|<div><table><tr><th abbr="P">x</th></tr></table><dialog closedby="any">y</dialog></div>|}];
+            ],
+            [
+              div
+                [
+                  tablex [ tbody [ tr [ th ~a:[ a_abbr "P" ] [ txt "x" ] ] ] ];
+                  dialog ~a:[ a_closedby `Any ] [ txt "y" ];
+                ];
+            ] );
+          ( "meta media",
+            [
+              [%html
+                {|<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black"/>|}];
+            ],
+            [
+              meta
+                ~a:
+                  [
+                    a_name "theme-color";
+                    a_media [ `Raw_mediadesc "(prefers-color-scheme: dark)" ];
+                    a_content "black";
+                  ]
+                ();
+            ] );
+          ( "form control attributes",
+            [
+              [%html
+                {|<div><input dirname="c.dir" capture="user"/><select autocomplete="off"></select><textarea autocomplete="on"></textarea></div>|}];
+            ],
+            [
+              div
+                [
+                  input ~a:[ a_dirname "c.dir"; a_capture `User ] ();
+                  select ~a:[ a_autocomplete `Off ] [];
+                  textarea ~a:[ a_autocomplete `On ] (txt "");
+                ];
+            ] );
+          ( "a ping",
+            [
+              [%html
+                {|<a href="/x" ping="https://a.example https://b.example">x</a>|}];
+            ],
+            [
+              a
+                ~a:
+                  [
+                    a_href "/x";
+                    a_ping [ "https://a.example"; "https://b.example" ];
+                  ]
+                [ txt "x" ];
+            ] );
+          ( "link preload",
+            [
+              [%html
+                {|<link rel="stylesheet" href="a.css" blocking="render" fetchpriority="low"/>|}];
+            ],
+            [
+              link ~rel:[ `Stylesheet ] ~href:"a.css"
+                ~a:[ a_blocking [ `Render ]; a_fetchpriority `Low ]
+                ();
+            ] );
+          ( "link imagesrcset",
+            [
+              [%html
+                {|<link rel="preload" href="i.png" as="image" imagesrcset="i2.png 2x" imagesizes="50vw"/>|}];
+            ],
+            [
+              link
+                ~rel:[ `Other "preload" ]
+                ~href:"i.png"
+                ~a:
+                  [
+                    a_as `Image;
+                    a_imagesrcset [ `Url_pixel ("i2.png", 2.) ];
+                    a_imagesizes [ "50vw" ];
+                  ]
+                ();
+            ] );
+          ( "script nomodule",
+            [ [%html {|<script nomodule src="a.js"></script>|}] ],
+            [ script ~a:[ a_nomodule (); a_src "a.js" ] (txt "") ] );
+          ( "img loading",
+            [
+              [%html
+                {|<img src="x.png" alt="x" loading="eager" decoding="auto" fetchpriority="high"/>|}];
+            ],
+            [
+              img ~src:"x.png" ~alt:"x"
+                ~a:[ a_loading `Eager; a_decoding `Auto; a_fetchpriority `High ]
+                ();
+            ] );
+          ( "iframe srcdoc",
+            [
+              [%html
+                {|<iframe srcdoc="hello" allow="fullscreen" loading="lazy"></iframe>|}];
+            ],
+            [
+              iframe
+                ~a:[ a_srcdoc "hello"; a_allow "fullscreen"; a_loading `Lazy ]
+                [];
+            ] );
+          ( "popovertarget",
+            [
+              [%html
+                {|<button popovertarget="p" popovertargetaction="toggle">x</button>|}];
+            ],
+            [
+              button
+                ~a:[ a_popovertarget "p"; a_popovertargetaction `Toggle ]
+                [ txt "x" ];
+            ] );
+          ( "invoker commands",
+            [
+              [%html
+                {|<button commandfor="d" command="request-close">x</button>|}];
+            ],
+            [
+              button
+                ~a:[ a_commandfor "d"; a_command `Request_close ]
+                [ txt "x" ];
+            ] );
+          ( "custom command",
+            [ [%html {|<button commandfor="d" command="--my-cmd">x</button>|}] ],
+            [
+              button
+                ~a:[ a_commandfor "d"; a_command (`Other "--my-cmd") ]
+                [ txt "x" ];
+            ] );
+          ( "shadow parts",
+            [ [%html {|<span part="label value" exportparts="a,b:c"></span>|}] ],
+            [
+              span
+                ~a:[ a_part [ "label"; "value" ]; a_exportparts [ "a"; "b:c" ] ]
+                [];
+            ] );
+          ( "microdata",
+            [
+              [%html
+                {|<div itemscope itemtype="https://schema.org/Person" itemid="urn:isbn:123" itemref="a b"><span itemprop="name">X</span></div>|}];
+            ],
+            [
+              div
+                ~a:
+                  [
+                    a_itemscope ();
+                    a_itemtype [ "https://schema.org/Person" ];
+                    a_itemid "urn:isbn:123";
+                    a_itemref [ "a"; "b" ];
+                  ]
+                [ span ~a:[ a_itemprop [ "name" ] ] [ txt "X" ] ];
+            ] );
+          ( "popover bare",
+            [ [%html {|<div popover></div>|}] ],
+            [ div ~a:[ a_popover `Auto ] [] ] );
+          ( "popover manual",
+            [ [%html {|<div popover="manual"></div>|}] ],
+            [ div ~a:[ a_popover `Manual ] [] ] );
+          ( "global attributes",
+            [
+              [%html
+                {|<div inert dir="auto" autocapitalize="sentences" autocorrect="off" writingsuggestions="true" enterkeyhint="send" nonce="n" slot="s" is="my-elt"></div>|}];
+            ],
+            [
+              div
+                ~a:
+                  [
+                    a_inert ();
+                    a_dir `Auto;
+                    a_autocapitalize `Sentences;
+                    a_autocorrect false;
+                    a_writingsuggestions true;
+                    a_enterkeyhint `Send;
+                    a_nonce "n";
+                    a_slot "s";
+                    a_is "my-elt";
+                  ]
+                [];
+            ] );
+          ( "track in video",
+            [
+              [%html
+                {|<video><track src="v.vtt" kind="subtitles" srclang="en" default/></video>|}];
+            ],
+            [
+              video
+                ~tracks:
+                  [
+                    track ~src:"v.vtt"
+                      ~a:
+                        [
+                          a_kind `Subtitles; a_track_srclang "en"; a_default ();
+                        ]
+                      ();
+                  ]
+                [];
+            ] );
+          ( "picture",
+            [
+              [%html
+                {|<div><picture id="idpicture">
     <img src="picture/img.png" alt="test picture/img.png" id="idimg"/>
     <source type="image/webp" src="picture/img1.webp"/>
     <source type="image/jpeg" src="picture/img2.jpg"/>
-  </picture></div>|}]],
-  [div [
-    picture ~a:[a_id "idpicture"]
-      ~img:(img ~a:[a_id "idimg"] ~src:"picture/img.png" ~alt:"test picture/img.png" ()) [
-        source ~a:[a_mime_type "image/webp"; a_src "picture/img1.webp"] ()
-      ; source ~a:[a_mime_type "image/jpeg"; a_src "picture/img2.jpg"] ()
-    ]
-  ]];
+  </picture></div>|}];
+            ],
+            [
+              div
+                [
+                  picture
+                    ~a:[ a_id "idpicture" ]
+                    ~img:
+                      (img
+                         ~a:[ a_id "idimg" ]
+                         ~src:"picture/img.png" ~alt:"test picture/img.png" ())
+                    [
+                      source
+                        ~a:
+                          [
+                            a_mime_type "image/webp"; a_src "picture/img1.webp";
+                          ]
+                        ();
+                      source
+                        ~a:
+                          [ a_mime_type "image/jpeg"; a_src "picture/img2.jpg" ]
+                        ();
+                    ];
+                ];
+            ] );
+          ( "script type=module",
+            [ [%html {|<script type="module"></script>|}] ],
+            [ script ~a:[ a_script_type `Module ] @@ txt "" ] );
+          ( "script type=mime",
+            [ [%html {|<script type="text/javascript"></script>|}] ],
+            [ script ~a:[ a_script_type (`Mime "text/javascript") ] @@ txt "" ]
+          );
+          ( "script empty",
+            [ [%html {|<script></script>|}] ],
+            [ script @@ txt "" ] );
+          ( "textarea empty",
+            [ [%html {|<textarea></textarea>|}] ],
+            [ textarea @@ txt "" ] );
+        ] )
 
-  "script type=module",
-  [[%html {|<script type="module"></script>|}]],
-  [script ~a:[a_script_type `Module] @@ txt ""];
+let attribs =
+  ( "ppx attribs",
+    HtmlTests.make
+      Html.
+        [
+          ( "unit absent",
+            [ [%html "<input disabled/>"] ],
+            [ input ~a:[ a_disabled () ] () ] );
+          ( "unit present",
+            [ [%html {|<input disabled="disabled"/>|}] ],
+            [ input ~a:[ a_disabled () ] () ] );
+          ( "hidden bare",
+            [ [%html "<div hidden></div>"] ],
+            [ div ~a:[ a_hidden `Hidden ] [] ] );
+          ( "hidden until-found",
+            [ [%html "<div hidden=until-found></div>"] ],
+            [ div ~a:[ a_hidden `Until_found ] [] ] );
+          ( "contenteditable bare",
+            [ [%html "<div contenteditable></div>"] ],
+            [ div ~a:[ a_contenteditable `True ] [] ] );
+          ( "contenteditable plaintext-only",
+            [ [%html "<div contenteditable=plaintext-only></div>"] ],
+            [ div ~a:[ a_contenteditable `Plaintext_only ] [] ] );
+          ( "bool default",
+            [ [%html "<div draggable></div>"] ],
+            [ div ~a:[ a_draggable true ] [] ] );
+          ( "bool true",
+            [ [%html "<div draggable=true></div>"] ],
+            [ div ~a:[ a_draggable true ] [] ] );
+          ( "bool false",
+            [ [%html "<div draggable=false></div>"] ],
+            [ div ~a:[ a_draggable false ] [] ] );
+          ( "form autocomplete default is on",
+            [ [%html "<form autocomplete></form>"] ],
+            [ form ~a:[ a_autocomplete `On ] [] ] );
+          ( "form autocomplete on",
+            [ [%html "<form autocomplete=on></form>"] ],
+            [ form ~a:[ a_autocomplete `On ] [] ] );
+          ( "form autocomplete off",
+            [ [%html "<form autocomplete=off></form>"] ],
+            [ form ~a:[ a_autocomplete `Off ] [] ] );
+          ( "form autocomplete tokenlist",
+            [
+              [%html
+                "<form autocomplete='section-blue shipping \
+                 street-address'></form>"];
+            ],
+            [
+              form
+                ~a:
+                  [
+                    a_autocomplete
+                      (`Tokens [ "section-blue"; "shipping"; "street-address" ]);
+                  ]
+                [];
+            ] );
+          ( "form autocomplete tokenlist empty",
+            [ [%html "<form autocomplete=on></form>"] ],
+            [ form ~a:[ a_autocomplete (`Tokens []) ] [] ] );
+          ( "input autocomplete default is on",
+            [ [%html "<input autocomplete/>"] ],
+            [ input ~a:[ a_autocomplete `On ] () ] );
+          ( "input autocomplete on",
+            [ [%html "<input autocomplete='on'/>"] ],
+            [ input ~a:[ a_autocomplete `On ] () ] );
+          ( "input autocomplete off",
+            [ [%html "<input autocomplete='off'/>"] ],
+            [ input ~a:[ a_autocomplete `Off ] () ] );
+          ( "input autocomplete tokenlist",
+            [
+              [%html
+                "<input autocomplete='section-blue shipping street-address'/>"];
+            ],
+            [
+              input
+                ~a:
+                  [
+                    a_autocomplete
+                      (`Tokens [ "section-blue"; "shipping"; "street-address" ]);
+                  ]
+                ();
+            ] );
+          ( "input autocomplete tokenlist empty",
+            [ [%html "<input autocomplete='on'/>"] ],
+            [ input ~a:[ a_autocomplete (`Tokens []) ] () ] );
+          ( "link rel=canonical",
+            [ [%html "<link rel=canonical href='/'>"] ],
+            [ link ~rel:[ `Canonical ] ~href:"/" () ] );
+          ( "embed type",
+            [ [%html "<embed type='text/plain'>"] ],
+            [ embed ~a:[ a_mime_type "text/plain" ] () ] );
+          ( "output for",
+            [ [%html "<output for=foo></output>"] ],
+            [ output_elt ~a:[ a_output_for [ "foo" ] ] [] ] );
+          ( "input min time",
+            [ [%html "<input min='2002-10-02T15:00:00Z'>"] ],
+            [ input ~a:[ a_input_min (`Datetime "2002-10-02T15:00:00Z") ] () ]
+          );
+          ( "script-supporting elements in lists and tables",
+            [ [%html "<ol><li>1</li><script>f()</script></ol>"] ],
+            [ ol [ li [ txt "1" ]; script (txt "f()") ] ] );
+          ( "script-supporting elements in select",
+            [
+              [%html "<select><option>o</option><script>f()</script></select>"];
+            ],
+            [ select [ option (txt "o"); script (txt "f()") ] ] );
+          ( "empty option in a datalist",
+            [ [%html "<datalist><option value='foo'></option></datalist>"] ],
+            [
+              datalist
+                ~children:(`Options [ option ~a:[ a_value "foo" ] (txt "") ])
+                ();
+            ] );
+          ( "dl with div groups",
+            [ [%html "<dl><div><dt>term</dt><dd>definition</dd></div></dl>"] ],
+            [ dl [ div [ dt [ txt "term" ]; dd [ txt "definition" ] ] ] ] );
+          ( "aria attributes",
+            [ [%html "<div aria-hidden=true></div>"] ],
+            [ div ~a:[ a_aria "hidden" [ "true" ] ] [] ] );
+          ( "touch events",
+            [ [%html "<div ontouchstart='alert()'></div>"] ],
+            [ div ~a:[ a_ontouchstart "alert()" ] [] ] );
+          ( "empty string as referrer policy",
+            [ [%html "<iframe referrerpolicy=''></iframe>"] ],
+            [ iframe ~a:[ a_referrerpolicy `Empty ] [] ] );
+          ( "dashes in referrer policy",
+            [
+              [%html
+                "<iframe referrerpolicy='no-referrer-when-downgrade'></iframe>"];
+            ],
+            [ iframe ~a:[ a_referrerpolicy `No_referrer_when_downgrade ] [] ] );
+          ( "html data-*",
+            [ [%html "<div data-foo='valfoo'></div>"] ],
+            [ div ~a:[ a_user_data "foo" "valfoo" ] [] ] );
+          ( "arbitrary (unchecked) attributes via an escape hatch",
+            [ [%html "<div _some-attr='value'></div>"] ],
+            [ div ~a:[ Unsafe.string_attrib "some-attr" "value" ] [] ] );
+        ] )
 
-  "script type=mime",
-  [[%html {|<script type="text/javascript"></script>|}]],
-  [script ~a:[a_script_type (`Mime "text/javascript")] @@ txt ""];
-
-  "script empty",
-  [[%html {|<script></script>|}]],
-  [script @@ txt ""];
-
-  "textarea empty",
-  [[%html {|<textarea></textarea>|}]],
-  [textarea @@ txt ""];
-
-]
-
-let attribs = "ppx attribs", HtmlTests.make Html.[
-
-  "unit absent",
-  [[%html "<input disabled/>"]],
-  [input ~a:[a_disabled ()] ()] ;
-
-  "unit present",
-  [[%html {|<input disabled="disabled"/>|}]],
-  [input ~a:[a_disabled ()] ()] ;
-
-  "hidden bare",
-  [[%html "<div hidden></div>"]],
-  [div ~a:[a_hidden `Hidden] []] ;
-
-  "hidden until-found",
-  [[%html "<div hidden=until-found></div>"]],
-  [div ~a:[a_hidden `Until_found] []] ;
-
-  "contenteditable bare",
-  [[%html "<div contenteditable></div>"]],
-  [div ~a:[a_contenteditable `True] []] ;
-
-  "contenteditable plaintext-only",
-  [[%html "<div contenteditable=plaintext-only></div>"]],
-  [div ~a:[a_contenteditable `Plaintext_only] []] ;
-
-  "bool default",
-  [[%html "<div draggable></div>"]],
-  [div ~a:[a_draggable true] []] ;
-
-  "bool true",
-  [[%html "<div draggable=true></div>"]],
-  [div ~a:[a_draggable true] []] ;
-
-  "bool false",
-  [[%html "<div draggable=false></div>"]],
-  [div ~a:[a_draggable false] []] ;
-
-  "form autocomplete default is on",
-  [[%html "<form autocomplete></form>"]],
-  [form ~a:[a_autocomplete `On] []] ;
-
-  "form autocomplete on",
-  [[%html "<form autocomplete=on></form>"]],
-  [form ~a:[a_autocomplete `On] []] ;
-
-  "form autocomplete off",
-  [[%html "<form autocomplete=off></form>"]],
-  [form ~a:[a_autocomplete `Off] []] ;
-
-  "form autocomplete tokenlist",
-  [[%html "<form autocomplete='section-blue shipping street-address'></form>"]],
-  [form ~a:[a_autocomplete (`Tokens ["section-blue"; "shipping"; "street-address"] )] []] ;
-
-  "form autocomplete tokenlist empty",
-  [[%html "<form autocomplete=on></form>"]],
-  [form ~a:[a_autocomplete (`Tokens [] )] []] ;
-
-  "input autocomplete default is on",
-  [[%html "<input autocomplete/>"]],
-  [input ~a:[a_autocomplete `On] ()] ;
-  
-  "input autocomplete on",
-  [[%html "<input autocomplete='on'/>"]],
-  [input ~a:[a_autocomplete `On] ()] ;
-  
-  "input autocomplete off",
-  [[%html "<input autocomplete='off'/>"]],
-  [input~a:[a_autocomplete `Off] ()] ;
-  
-  "input autocomplete tokenlist",
-  [[%html "<input autocomplete='section-blue shipping street-address'/>"]],
-  [input ~a:[a_autocomplete (`Tokens ["section-blue"; "shipping"; "street-address"] )] ()] ;
-  
-  "input autocomplete tokenlist empty",
-  [[%html "<input autocomplete='on'/>"]],
-  [input ~a:[a_autocomplete (`Tokens [] )] ()] ;
-
-  "link rel=canonical",
-  [[%html "<link rel=canonical href='/'>"]],
-  [link ~rel:[`Canonical] ~href:"/" ()] ;
-
-  "embed type",
-  [[%html "<embed type='text/plain'>"]],
-  [embed ~a:[a_mime_type "text/plain"] ()] ;
-
-  "output for",
-  [[%html "<output for=foo></output>"]],
-  [output_elt ~a:[a_output_for ["foo"]] []] ;
-
-  "input min time",
-  [[%html "<input min='2002-10-02T15:00:00Z'>"]],
-  [input ~a:[a_input_min (`Datetime "2002-10-02T15:00:00Z")] ()] ;
-
-  "script-supporting elements in lists and tables",
-  [[%html "<ol><li>1</li><script>f()</script></ol>"]],
-  [ol [li [txt "1"]; script (txt "f()")]] ;
-
-  "script-supporting elements in select",
-  [[%html "<select><option>o</option><script>f()</script></select>"]],
-  [select [option (txt "o"); script (txt "f()")]] ;
-
-  "empty option in a datalist",
-  [[%html "<datalist><option value='foo'></option></datalist>"]],
-  [datalist ~children:(`Options [option ~a:[a_value "foo"] (txt "")]) ()] ;
-
-  "dl with div groups",
-  [[%html "<dl><div><dt>term</dt><dd>definition</dd></div></dl>"]],
-  [dl [div [dt [txt "term"]; dd [txt "definition"]]]] ;
-
-  "aria attributes",
-  [[%html "<div aria-hidden=true></div>"]],
-  [div ~a:[a_aria "hidden" ["true"]] []] ;
-
-  "touch events",
-  [[%html "<div ontouchstart='alert()'></div>"]],
-  [div ~a:[a_ontouchstart "alert()"] []] ;
-
-  "empty string as referrer policy",
-  [[%html "<iframe referrerpolicy=''></iframe>"]],
-  [iframe ~a:[a_referrerpolicy `Empty] []];
-
-  "dashes in referrer policy",
-  [[%html "<iframe referrerpolicy='no-referrer-when-downgrade'></iframe>"]],
-  [iframe ~a:[a_referrerpolicy `No_referrer_when_downgrade] []];
-
-  "html data-*",
-  [[%html "<div data-foo='valfoo'></div>"]],
-  [div
-    ~a:[a_user_data "foo" "valfoo"] []] ;
-  
-  "arbitrary (unchecked) attributes via an escape hatch",
-  [[%html "<div _some-attr='value'></div>"]],
-  [div
-    ~a:[Unsafe.string_attrib "some-attr" "value"] []]
-      
-]
-
-let ns_nesting = "namespace nesting" , HtmlTests.make Html.[
-
-  "html/svg",
-  [[%html "<svg><g></g></svg>"]],
-  [svg [Svg.g []]] ;
-
-  "nested svg",
-  [[%html "<div><svg><g></g></svg></div>"]],
-  [div [svg [Svg.g []]]] ;
-
-  "with_neighbour",
-  [[%html "<div><span></span><svg><g></g></svg>foo</div>"]],
-  [div [span [] ; svg [Svg.g []] ; txt "foo" ]] ;
-
-  "ambiguous tag",
-  [[%html "<svg><a></a></svg>"]],
-  [svg [Svg.a []]] ;
-
-]
+let ns_nesting =
+  ( "namespace nesting",
+    HtmlTests.make
+      Html.
+        [
+          ("html/svg", [ [%html "<svg><g></g></svg>"] ], [ svg [ Svg.g [] ] ]);
+          ( "nested svg",
+            [ [%html "<div><svg><g></g></svg></div>"] ],
+            [ div [ svg [ Svg.g [] ] ] ] );
+          ( "with_neighbour",
+            [ [%html "<div><span></span><svg><g></g></svg>foo</div>"] ],
+            [ div [ span []; svg [ Svg.g [] ]; txt "foo" ] ] );
+          ( "ambiguous tag",
+            [ [%html "<svg><a></a></svg>"] ],
+            [ svg [ Svg.a [] ] ] );
+        ] )
 
 module Dummy_svg = struct
   include Svg
+
   let text ?a elt = Svg.text ?a (Svg.txt "hello " :: elt)
 end
 
-let svg = "svg", SvgTests.make Svg.[
-
-  "basic",
-  [[%svg "<svg/>"]],
-  [svg []] ;
-
-  "name space",
-  [[%tyxml.svg "<svg/>"]],
-  [svg []] ;
-
-  "module",
-  [[%svg.Dummy_svg "<text>world</text>"]],
-  [text [txt "hello "; txt "world"]] ;
-
-  "transform",
-  [[%svg "<line transform='translate(1) translate(2)'/>"]],
-  [line ~a:[a_transform [`Translate (1., None); `Translate (2., None)]] []] ;
-
-  "offset percentage",
-  [[%svg "<stop offset='50.1%'/>"]],
-  [stop ~a:[a_offset (`Percentage 50.1)] []] ;
-
-  "text x, y",
-  [[%svg "<text x='1 2' y='3 4'/>"]],
-  [text ~a:[a_x_list [1., None; 2., None]; a_y_list [3., None; 4., None]] []] ;
-
-  "text dx, dy",
-  [[%svg "<text dx='1 2' dy='3 4'/>"]],
-  [text
-    ~a:[a_dx_list [1., None; 2., None]; a_dy_list [3., None; 4., None]] []] ;
-
-  "whitespace between svg tags",
-  [[%svg "<g> </g>"]],
-  [g []] ;
-
-  "indented svg",
-  [[%svg {|
+let svg =
+  ( "svg",
+    SvgTests.make
+      Svg.
+        [
+          ("basic", [ [%svg "<svg/>"] ], [ svg [] ]);
+          ("name space", [ [%tyxml.svg "<svg/>"] ], [ svg [] ]);
+          ( "module",
+            [ [%svg.Dummy_svg "<text>world</text>"] ],
+            [ text [ txt "hello "; txt "world" ] ] );
+          ( "transform",
+            [ [%svg "<line transform='translate(1) translate(2)'/>"] ],
+            [
+              line
+                ~a:
+                  [
+                    a_transform [ `Translate (1., None); `Translate (2., None) ];
+                  ]
+                [];
+            ] );
+          ( "offset percentage",
+            [ [%svg "<stop offset='50.1%'/>"] ],
+            [ stop ~a:[ a_offset (`Percentage 50.1) ] [] ] );
+          ( "text x, y",
+            [ [%svg "<text x='1 2' y='3 4'/>"] ],
+            [
+              text
+                ~a:
+                  [
+                    a_x_list [ (1., None); (2., None) ];
+                    a_y_list [ (3., None); (4., None) ];
+                  ]
+                [];
+            ] );
+          ( "text dx, dy",
+            [ [%svg "<text dx='1 2' dy='3 4'/>"] ],
+            [
+              text
+                ~a:
+                  [
+                    a_dx_list [ (1., None); (2., None) ];
+                    a_dy_list [ (3., None); (4., None) ];
+                  ]
+                [];
+            ] );
+          ("whitespace between svg tags", [ [%svg "<g> </g>"] ], [ g [] ]);
+          ( "indented svg",
+            [
+              [%svg
+                {|
      <g>
        <g>
          <rect/>
        </g>
      </g>
-   |}]],
-  [g [g [rect []]]] ;
+   |}];
+            ],
+            [ g [ g [ rect [] ] ] ] );
+          ( "whitespace is kept in text",
+            [ [%svg "<text> spaced </text>"] ],
+            [ text [ txt " spaced " ] ] );
+          ( "svg data-*",
+            [ [%svg "<text data-foo='valfoo' />"] ],
+            [ text ~a:[ a_user_data "foo" "valfoo" ] [] ] );
+          ( "feColorMatrix type",
+            [ [%svg "<feColorMatrix type='matrix'/>"] ],
+            [ feColorMatrix ~a:[ a_feColorMatrix_type `Matrix ] [] ] );
+          ( "feTurbulence type",
+            [ [%svg "<feTurbulence type='fractalNoise'/>"] ],
+            [ feTurbulence ~a:[ a_feTurbulence_type `FractalNoise ] [] ] );
+          ( "animateTransform type",
+            [ [%svg "<animateTransform type='translate'/>"] ],
+            [ animateTransform ~a:[ a_animateTransform_type `Translate ] [] ] );
+          ( "feFuncR type, offset",
+            [ [%svg "<feFuncR type='identity' offset='0'/>"] ],
+            [
+              feFuncR ~a:[ a_transfer_type `Identity; a_transfer_offset 0. ] [];
+            ] );
+          ( "feComposite operator",
+            [ [%svg "<feComposite operator='xor'/>"] ],
+            [ feComposite ~a:[ a_feComposite_operator `Xor ] [] ] );
+          ( "feMorphology operator",
+            [ [%svg "<feMorphology operator='erode'/>"] ],
+            [ feMorphology ~a:[ a_feMorphology_operator `Erode ] [] ] );
+          ( "animate fill, values",
+            [ [%svg "<animate fill='freeze' values='1;2'/>"] ],
+            [
+              animate
+                ~a:[ a_animation_fill `Freeze; a_animation_values [ "1"; "2" ] ]
+                [];
+            ] );
+          ( "animate keyTimes, keySplines",
+            [
+              [%svg
+                "<animate keyTimes='0; 0.5; 1' keySplines='0 0 1 1; .5 0 .5 \
+                 1'/>"];
+            ],
+            [
+              animate
+                ~a:
+                  [
+                    a_keyTimes [ "0"; "0.5"; "1" ];
+                    a_keySplines [ "0 0 1 1"; ".5 0 .5 1" ];
+                  ]
+                [];
+            ] );
+          ( "a single animation value keeps its spaces",
+            [ [%svg "<animate values='1 2'/>"] ],
+            [ animate ~a:[ a_animation_values [ "1 2" ] ] [] ] );
+          ( "feBlend blend mode",
+            [ [%svg "<feBlend mode='soft-light'/>"] ],
+            [ feBlend ~a:[ a_mode `Soft_light ] [] ] );
+          ( "radialGradient fr, textPath side",
+            [ [%svg "<radialGradient fr='0.1'/>"] ],
+            [ radialGradient ~a:[ a_fr (0.1, None) ] [] ] );
+          ( "image crossorigin, decoding",
+            [ [%svg "<image crossorigin='use-credentials' decoding='async'/>"] ],
+            [
+              image ~a:[ a_crossorigin `Use_credentials; a_decoding `Async ] [];
+            ] );
+          ( "a link attributes",
+            [
+              [%svg
+                "<a href='p.html' rel='noopener' referrerpolicy='no-referrer' \
+                 download='p.html'/>"];
+            ],
+            [
+              a
+                ~a:
+                  [
+                    a_href "p.html";
+                    a_rel [ "noopener" ];
+                    a_referrerpolicy `No_referrer;
+                    a_download (Some "p.html");
+                  ]
+                [];
+            ] );
+          ( "global event handlers",
+            [
+              [%svg
+                "<circle onblur='f()' onkeydown='g(event)' onwheel='h(event)'/>"];
+            ],
+            [
+              circle
+                ~a:
+                  [
+                    a_onblur "f()"; a_onkeydown "g(event)"; a_onwheel "h(event)";
+                  ]
+                [];
+            ] );
+          ( "role, aria-*",
+            [ [%svg "<g role='img' aria-label='circle'/>"] ],
+            [ g ~a:[ a_role [ "img" ]; a_aria "label" [ "circle" ] ] [] ] );
+          ( "autofocus",
+            [ [%svg "<a autofocus=''/>"] ],
+            [ a ~a:[ a_autofocus () ] [] ] );
+          ( "tabindex, lang",
+            [ [%svg "<circle tabindex='0' lang='fr'/>"] ],
+            [ circle ~a:[ a_tabindex 0; a_lang "fr" ] [] ] );
+          ( "svg viewBox",
+            [ [%svg "<svg viewBox='0 0 10 10'/>"] ],
+            [ svg ~a:[ a_viewBox (0., 0., 10., 10.) ] [] ] );
+          ( "mask maskUnits",
+            [ [%svg "<mask maskUnits='objectBoundingBox'/>"] ],
+            [ mask ~a:[ a_maskUnits `ObjectBoundingBox ] [] ] );
+          ( "filter filterUnits",
+            [ [%svg "<filter filterUnits='userSpaceOnUse'/>"] ],
+            [ filter ~a:[ a_filterUnits `UserSpaceOnUse ] [] ] );
+          ( "feGaussianBlur stdDeviation",
+            [ [%svg "<feGaussianBlur stdDeviation='0.5'/>"] ],
+            [ feGaussianBlur ~a:[ a_stdDeviation (0.5, None) ] [] ] );
+          ( "marker markerWidth, refX",
+            [ [%svg "<marker markerWidth='3' refX='1'/>"] ],
+            [ marker ~a:[ a_markerWidth (3., None); a_refX (1., None) ] [] ] );
+          ( "fePointLight z",
+            [ [%svg "<fePointLight z='3'/>"] ],
+            [ fePointLight ~a:[ a_z 3. ] [] ] );
+          ( "animate end",
+            [ [%svg "<animate end='4s'/>"] ],
+            [ animate ~a:[ a_end "4s" ] [] ] );
+          ( "presentation attributes",
+            [
+              [%svg
+                "<rect opacity='0.5' pointer-events='visiblePainted' \
+                 visibility='collapse' mask='url(#m)'/>"];
+            ],
+            [
+              rect
+                ~a:
+                  [
+                    a_opacity 0.5;
+                    a_pointer_events `VisiblePainted;
+                    a_visibility `Collapse;
+                    a_mask "url(#m)";
+                  ]
+                [];
+            ] );
+          ( "vector-effect, white-space",
+            [
+              [%svg
+                "<path vector-effect='non-scaling-stroke' \
+                 white-space='pre-line'/>"];
+            ],
+            [
+              path
+                ~a:
+                  [
+                    a_vector_effect `Non_scaling_stroke; a_white_space `Pre_line;
+                  ]
+                [];
+            ] );
+          ( "writing-mode, unicode-bidi",
+            [
+              [%svg
+                "<text writing-mode='vertical-rl' \
+                 unicode-bidi='bidi-override'/>"];
+            ],
+            [
+              text
+                ~a:
+                  [ a_writing_mode `Vertical_rl; a_unicode_bidi `Bidi_override ]
+                [];
+            ] );
+          ( "color-interpolation-filters",
+            [ [%svg "<filter color-interpolation-filters='linearRGB'/>"] ],
+            [ filter ~a:[ a_color_interpolation_filters `LinearRGB ] [] ] );
+          ( "fill_rule type nonzero",
+            [ [%svg "<path fill-rule='nonzero'/>"] ],
+            [ path ~a:[ a_fill_rule `Nonzero ] [] ] );
+          ( "fill_rule type evenodd",
+            [ [%svg "<path fill-rule='evenodd'/>"] ],
+            [ path ~a:[ a_fill_rule `Evenodd ] [] ] );
+          ( "transform with a comma",
+            [ [%svg "<g transform='translate(1,1)'/>"] ],
+            [ g ~a:[ a_transform [ `Translate (1., Some 1.) ] ] [] ] );
+          ( "transform with arbitrary whitespace",
+            [
+              [%svg
+                "<g transform='translate   ( 200 ,  \
+                 200)\tmatrix(-0,1,.1,.0,1e-5,1.E5) scale ( -1. , 0 )'/>"];
+            ],
+            [
+              g
+                ~a:
+                  [
+                    a_transform
+                      [
+                        `Translate (200., Some 200.);
+                        `Matrix (-0., 1., 0.1, 0., 1e-5, 1e5);
+                        `Scale (-1., Some 0.);
+                      ];
+                  ]
+                [];
+            ] );
+          ( "transform on several lines",
+            [
+              [%svg
+                "<g transform='translate(1,2)\n\
+                \                        rotate(45)\n\
+                \                        scale(2)'/>"];
+            ],
+            [
+              g
+                ~a:
+                  [
+                    a_transform
+                      [
+                        `Translate (1., Some 2.);
+                        `Rotate ((45., None), None);
+                        `Scale (2., None);
+                      ];
+                  ]
+                [];
+            ] );
+          (* A value that starts with a newline, as indented SVG has it. *)
+          ( "transform after a line break",
+            [ [%svg "<g transform='\ntranslate(1,2)  rotate(45)'/>"] ],
+            [
+              g
+                ~a:
+                  [
+                    a_transform
+                      [ `Translate (1., Some 2.); `Rotate ((45., None), None) ];
+                  ]
+                [];
+            ] );
+          ( "transform with a rotation centre",
+            [ [%svg "<g transform='rotate(10, 0.5, 0.5)'/>"] ],
+            [
+              g ~a:[ a_transform [ `Rotate ((10., None), Some (0.5, 0.5)) ] ] [];
+            ] );
+        ] )
 
-  "whitespace is kept in text",
-  [[%svg "<text> spaced </text>"]],
-  [text [txt " spaced "]] ;
+let svg_document =
+  ( "svg document",
+    SvgTests.make
+      Svg.
+        [
+          ( "a realistic document",
+            [
+              [%svg
+                "<svg viewBox='0 0 100 100' role='img' \
+                 aria-label='shape'><defs><filter id='shadow'><feDropShadow \
+                 dx='1' dy='1' stdDeviation='2'/></filter><mask id='m'><rect \
+                 width='100' height='100'/></mask><symbol id='sym' viewBox='0 \
+                 0 10 10'><circle cx='5' cy='5' r='4'/></symbol></defs><use \
+                 href='#sym' mask='url(#m)' filter='url(#shadow)' \
+                 opacity='0.8' tabindex='0'/></svg>"];
+            ],
+            [
+              svg
+                ~a:
+                  [
+                    a_viewBox (0., 0., 100., 100.);
+                    a_role [ "img" ];
+                    a_aria "label" [ "shape" ];
+                  ]
+                [
+                  defs
+                    [
+                      filter
+                        ~a:[ a_id "shadow" ]
+                        [
+                          feDropShadow
+                            ~a:[ a_dx 1.; a_dy 1.; a_stdDeviation (2., None) ]
+                            [];
+                        ];
+                      mask
+                        ~a:[ a_id "m" ]
+                        [
+                          rect
+                            ~a:[ a_width (100., None); a_height (100., None) ]
+                            [];
+                        ];
+                      symbol
+                        ~a:[ a_id "sym"; a_viewBox (0., 0., 10., 10.) ]
+                        [
+                          circle
+                            ~a:
+                              [
+                                a_cx (5., None); a_cy (5., None); a_r (4., None);
+                              ]
+                            [];
+                        ];
+                    ];
+                  use
+                    ~a:
+                      [
+                        a_href "#sym";
+                        a_mask "url(#m)";
+                        a_filter "url(#shadow)";
+                        a_opacity 0.8;
+                        a_tabindex 0;
+                      ]
+                    [];
+                ];
+            ] );
+        ] )
 
-  "svg data-*",
-  [[%svg "<text data-foo='valfoo' />"]],
-  [text
-    ~a:[a_user_data "foo" "valfoo"] []] ;
-
-  "feColorMatrix type",
-  [[%svg "<feColorMatrix type='matrix'/>"]],
-  [feColorMatrix ~a:[a_feColorMatrix_type `Matrix] []] ;
-
-  "feTurbulence type",
-  [[%svg "<feTurbulence type='fractalNoise'/>"]],
-  [feTurbulence ~a:[a_feTurbulence_type `FractalNoise] []] ;
-
-  "animateTransform type",
-  [[%svg "<animateTransform type='translate'/>"]],
-  [animateTransform ~a:[a_animateTransform_type `Translate] []] ;
-
-  "feFuncR type, offset",
-  [[%svg "<feFuncR type='identity' offset='0'/>"]],
-  [feFuncR ~a:[a_transfer_type `Identity; a_transfer_offset 0.] []] ;
-
-  "feComposite operator",
-  [[%svg "<feComposite operator='xor'/>"]],
-  [feComposite ~a:[a_feComposite_operator `Xor] []] ;
-
-  "feMorphology operator",
-  [[%svg "<feMorphology operator='erode'/>"]],
-  [feMorphology ~a:[a_feMorphology_operator `Erode] []] ;
-
-  "animate fill, values",
-  [[%svg "<animate fill='freeze' values='1;2'/>"]],
-  [animate ~a:[a_animation_fill `Freeze; a_animation_values ["1"; "2"]] []] ;
-
-  "animate keyTimes, keySplines",
-  [[%svg "<animate keyTimes='0; 0.5; 1' keySplines='0 0 1 1; .5 0 .5 1'/>"]],
-  [animate ~a:[a_keyTimes ["0"; "0.5"; "1"];
-               a_keySplines ["0 0 1 1"; ".5 0 .5 1"]] []] ;
-
-  "a single animation value keeps its spaces",
-  [[%svg "<animate values='1 2'/>"]],
-  [animate ~a:[a_animation_values ["1 2"]] []] ;
-
-  "feBlend blend mode",
-  [[%svg "<feBlend mode='soft-light'/>"]],
-  [feBlend ~a:[a_mode `Soft_light] []] ;
-
-  "radialGradient fr, textPath side",
-  [[%svg "<radialGradient fr='0.1'/>"]],
-  [radialGradient ~a:[a_fr (0.1, None)] []] ;
-
-  "image crossorigin, decoding",
-  [[%svg "<image crossorigin='use-credentials' decoding='async'/>"]],
-  [image ~a:[a_crossorigin `Use_credentials; a_decoding `Async] []] ;
-
-  "a link attributes",
-  [[%svg "<a href='p.html' rel='noopener' referrerpolicy='no-referrer' \
-             download='p.html'/>"]],
-  [a ~a:[a_href "p.html"; a_rel ["noopener"];
-         a_referrerpolicy `No_referrer; a_download (Some "p.html")] []] ;
-
-  "global event handlers",
-  [[%svg "<circle onblur='f()' onkeydown='g(event)' onwheel='h(event)'/>"]],
-  [circle ~a:[a_onblur "f()"; a_onkeydown "g(event)";
-              a_onwheel "h(event)"] []] ;
-
-  "role, aria-*",
-  [[%svg "<g role='img' aria-label='circle'/>"]],
-  [g ~a:[a_role ["img"]; a_aria "label" ["circle"]] []] ;
-
-  "autofocus",
-  [[%svg "<a autofocus=''/>"]],
-  [a ~a:[a_autofocus ()] []] ;
-
-  "tabindex, lang",
-  [[%svg "<circle tabindex='0' lang='fr'/>"]],
-  [circle ~a:[a_tabindex 0; a_lang "fr"] []] ;
-
-  "svg viewBox",
-  [[%svg "<svg viewBox='0 0 10 10'/>"]],
-  [svg ~a:[a_viewBox (0., 0., 10., 10.)] []] ;
-
-  "mask maskUnits",
-  [[%svg "<mask maskUnits='objectBoundingBox'/>"]],
-  [mask ~a:[a_maskUnits `ObjectBoundingBox] []] ;
-
-  "filter filterUnits",
-  [[%svg "<filter filterUnits='userSpaceOnUse'/>"]],
-  [filter ~a:[a_filterUnits `UserSpaceOnUse] []] ;
-
-  "feGaussianBlur stdDeviation",
-  [[%svg "<feGaussianBlur stdDeviation='0.5'/>"]],
-  [feGaussianBlur ~a:[a_stdDeviation (0.5, None)] []] ;
-
-  "marker markerWidth, refX",
-  [[%svg "<marker markerWidth='3' refX='1'/>"]],
-  [marker ~a:[a_markerWidth (3., None); a_refX (1., None)] []] ;
-
-  "fePointLight z",
-  [[%svg "<fePointLight z='3'/>"]],
-  [fePointLight ~a:[a_z 3.] []] ;
-
-  "animate end",
-  [[%svg "<animate end='4s'/>"]],
-  [animate ~a:[a_end "4s"] []] ;
-
-  "presentation attributes",
-  [[%svg "<rect opacity='0.5' pointer-events='visiblePainted' \
-                visibility='collapse' mask='url(#m)'/>"]],
-  [rect ~a:[a_opacity 0.5; a_pointer_events `VisiblePainted;
-            a_visibility `Collapse; a_mask "url(#m)"] []] ;
-
-  "vector-effect, white-space",
-  [[%svg "<path vector-effect='non-scaling-stroke' white-space='pre-line'/>"]],
-  [path ~a:[a_vector_effect `Non_scaling_stroke; a_white_space `Pre_line] []] ;
-
-  "writing-mode, unicode-bidi",
-  [[%svg "<text writing-mode='vertical-rl' unicode-bidi='bidi-override'/>"]],
-  [text ~a:[a_writing_mode `Vertical_rl; a_unicode_bidi `Bidi_override] []] ;
-
-  "color-interpolation-filters",
-  [[%svg "<filter color-interpolation-filters='linearRGB'/>"]],
-  [filter ~a:[a_color_interpolation_filters `LinearRGB] []] ;
-
-  "fill_rule type nonzero",
-  [[%svg "<path fill-rule='nonzero'/>"]],
-  [path ~a:[a_fill_rule `Nonzero] []] ;
-
-  "fill_rule type evenodd",
-  [[%svg "<path fill-rule='evenodd'/>"]],
-  [path ~a:[a_fill_rule `Evenodd] []] ;
-
-  "transform with a comma",
-  [[%svg "<g transform='translate(1,1)'/>"]],
-  [g ~a:[a_transform [`Translate (1., Some 1.)]] []] ;
-
-  "transform with arbitrary whitespace",
-  [[%svg "<g transform='translate   ( 200 ,  200)\tmatrix(-0,1,.1,.0,1e-5,1.E5) \
-                         scale ( -1. , 0 )'/>"]],
-  [g ~a:[a_transform [`Translate (200., Some 200.);
-                      `Matrix (-0., 1., 0.1, 0., 1e-5, 1e5);
-                      `Scale (-1., Some 0.)]] []] ;
-
-  "transform on several lines",
-  [[%svg "<g transform='translate(1,2)
-                        rotate(45)
-                        scale(2)'/>"]],
-  [g ~a:[a_transform [`Translate (1., Some 2.);
-                      `Rotate ((45., None), None);
-                      `Scale (2., None)]] []] ;
-
-  (* A value that starts with a newline, as indented SVG has it. *)
-  "transform after a line break",
-  [[%svg "<g transform='
-translate(1,2)  rotate(45)'/>"]],
-  [g ~a:[a_transform [`Translate (1., Some 2.);
-                      `Rotate ((45., None), None)]] []] ;
-
-  "transform with a rotation centre",
-  [[%svg "<g transform='rotate(10, 0.5, 0.5)'/>"]],
-  [g ~a:[a_transform [`Rotate ((10., None), Some (0.5, 0.5))]] []] ;
-
-]
-
-let svg_document = "svg document", SvgTests.make Svg.[
-
-  "a realistic document",
-  [[%svg "<svg viewBox='0 0 100 100' role='img' aria-label='shape'>\
-            <defs>\
-              <filter id='shadow'>\
-                <feDropShadow dx='1' dy='1' stdDeviation='2'/>\
-              </filter>\
-              <mask id='m'><rect width='100' height='100'/></mask>\
-              <symbol id='sym' viewBox='0 0 10 10'>\
-                <circle cx='5' cy='5' r='4'/>\
-              </symbol>\
-            </defs>\
-            <use href='#sym' mask='url(#m)' filter='url(#shadow)' \
-                 opacity='0.8' tabindex='0'/>\
-          </svg>"]],
-  [svg ~a:[a_viewBox (0., 0., 100., 100.); a_role ["img"];
-           a_aria "label" ["shape"]]
-     [defs
-        [filter ~a:[a_id "shadow"]
-           [feDropShadow ~a:[a_dx 1.; a_dy 1.; a_stdDeviation (2., None)] []] ;
-         mask ~a:[a_id "m"]
-           [rect ~a:[a_width (100., None); a_height (100., None)] []] ;
-         symbol ~a:[a_id "sym"; a_viewBox (0., 0., 10., 10.)]
-           [circle ~a:[a_cx (5., None); a_cy (5., None); a_r (4., None)] []]] ;
-      use ~a:[a_href "#sym"; a_mask "url(#m)"; a_filter "url(#shadow)";
-              a_opacity 0.8; a_tabindex 0] []]] ;
-
-]
-
-let svg_element_names = "svg element names", SvgTests.make Svg.[
-
-  "textPath", [[%svg "<textPath/>"]], [textPath []] ;
-  "linearGradient", [[%svg "<linearGradient/>"]], [linearGradient []] ;
-  "radialGradient", [[%svg "<radialGradient/>"]], [radialGradient []] ;
-  "clipPath", [[%svg "<clipPath/>"]], [clipPath []] ;
-  "mask", [[%svg "<mask/>"]], [mask []] ;
-  "feDistantLight", [[%svg "<feDistantLight/>"]], [feDistantLight []] ;
-  "fePointLight", [[%svg "<fePointLight/>"]], [fePointLight []] ;
-  "feSpotLight", [[%svg "<feSpotLight/>"]], [feSpotLight []] ;
-  "feBlend", [[%svg "<feBlend/>"]], [feBlend []] ;
-  "feColorMatrix", [[%svg "<feColorMatrix/>"]], [feColorMatrix []] ;
-  "feComponentTransfer",
-  [[%svg "<feComponentTransfer/>"]], [feComponentTransfer []] ;
-  "feFuncA", [[%svg "<feFuncA/>"]], [feFuncA []] ;
-  "feFuncG", [[%svg "<feFuncG/>"]], [feFuncG []] ;
-  "feFuncB", [[%svg "<feFuncB/>"]], [feFuncB []] ;
-  "feFuncR", [[%svg "<feFuncR/>"]], [feFuncR []] ;
-  "feComposite", [[%svg "<feComposite/>"]], [feComposite []] ;
-  "feConvolveMatrix", [[%svg "<feConvolveMatrix/>"]], [feConvolveMatrix []] ;
-  "feDiffuseLighting", [[%svg "<feDiffuseLighting/>"]], [feDiffuseLighting []] ;
-  "feDisplacementMap", [[%svg "<feDisplacementMap/>"]], [feDisplacementMap []] ;
-  "feDropShadow", [[%svg "<feDropShadow/>"]], [feDropShadow []] ;
-  "feFlood", [[%svg "<feFlood/>"]], [feFlood []] ;
-  "feGaussianBlur", [[%svg "<feGaussianBlur/>"]], [feGaussianBlur []] ;
-  "feImage", [[%svg "<feImage/>"]], [feImage []] ;
-  "feMerge", [[%svg "<feMerge/>"]], [feMerge []] ;
-  "feMergeNode", [[%svg "<feMergeNode/>"]], [feMergeNode []] ;
-  "feMorphology", [[%svg "<feMorphology/>"]], [feMorphology []] ;
-  "feOffset", [[%svg "<feOffset/>"]], [feOffset []] ;
-  "feSpecularLighting",
-  [[%svg "<feSpecularLighting/>"]], [feSpecularLighting []] ;
-  "feTile", [[%svg "<feTile/>"]], [feTile []] ;
-  "feTurbulence", [[%svg "<feTurbulence/>"]], [feTurbulence []] ;
-  "animateMotion", [[%svg "<animateMotion/>"]], [animateMotion []] ;
-  "animateTransform", [[%svg "<animateTransform/>"]], [animateTransform []] ;
-
-]
-
+let svg_element_names =
+  ( "svg element names",
+    SvgTests.make
+      Svg.
+        [
+          ("textPath", [ [%svg "<textPath/>"] ], [ textPath [] ]);
+          ( "linearGradient",
+            [ [%svg "<linearGradient/>"] ],
+            [ linearGradient [] ] );
+          ( "radialGradient",
+            [ [%svg "<radialGradient/>"] ],
+            [ radialGradient [] ] );
+          ("clipPath", [ [%svg "<clipPath/>"] ], [ clipPath [] ]);
+          ("mask", [ [%svg "<mask/>"] ], [ mask [] ]);
+          ( "feDistantLight",
+            [ [%svg "<feDistantLight/>"] ],
+            [ feDistantLight [] ] );
+          ("fePointLight", [ [%svg "<fePointLight/>"] ], [ fePointLight [] ]);
+          ("feSpotLight", [ [%svg "<feSpotLight/>"] ], [ feSpotLight [] ]);
+          ("feBlend", [ [%svg "<feBlend/>"] ], [ feBlend [] ]);
+          ("feColorMatrix", [ [%svg "<feColorMatrix/>"] ], [ feColorMatrix [] ]);
+          ( "feComponentTransfer",
+            [ [%svg "<feComponentTransfer/>"] ],
+            [ feComponentTransfer [] ] );
+          ("feFuncA", [ [%svg "<feFuncA/>"] ], [ feFuncA [] ]);
+          ("feFuncG", [ [%svg "<feFuncG/>"] ], [ feFuncG [] ]);
+          ("feFuncB", [ [%svg "<feFuncB/>"] ], [ feFuncB [] ]);
+          ("feFuncR", [ [%svg "<feFuncR/>"] ], [ feFuncR [] ]);
+          ("feComposite", [ [%svg "<feComposite/>"] ], [ feComposite [] ]);
+          ( "feConvolveMatrix",
+            [ [%svg "<feConvolveMatrix/>"] ],
+            [ feConvolveMatrix [] ] );
+          ( "feDiffuseLighting",
+            [ [%svg "<feDiffuseLighting/>"] ],
+            [ feDiffuseLighting [] ] );
+          ( "feDisplacementMap",
+            [ [%svg "<feDisplacementMap/>"] ],
+            [ feDisplacementMap [] ] );
+          ("feDropShadow", [ [%svg "<feDropShadow/>"] ], [ feDropShadow [] ]);
+          ("feFlood", [ [%svg "<feFlood/>"] ], [ feFlood [] ]);
+          ( "feGaussianBlur",
+            [ [%svg "<feGaussianBlur/>"] ],
+            [ feGaussianBlur [] ] );
+          ("feImage", [ [%svg "<feImage/>"] ], [ feImage [] ]);
+          ("feMerge", [ [%svg "<feMerge/>"] ], [ feMerge [] ]);
+          ("feMergeNode", [ [%svg "<feMergeNode/>"] ], [ feMergeNode [] ]);
+          ("feMorphology", [ [%svg "<feMorphology/>"] ], [ feMorphology [] ]);
+          ("feOffset", [ [%svg "<feOffset/>"] ], [ feOffset [] ]);
+          ( "feSpecularLighting",
+            [ [%svg "<feSpecularLighting/>"] ],
+            [ feSpecularLighting [] ] );
+          ("feTile", [ [%svg "<feTile/>"] ], [ feTile [] ]);
+          ("feTurbulence", [ [%svg "<feTurbulence/>"] ], [ feTurbulence [] ]);
+          ("animateMotion", [ [%svg "<animateMotion/>"] ], [ animateMotion [] ]);
+          ( "animateTransform",
+            [ [%svg "<animateTransform/>"] ],
+            [ animateTransform [] ] );
+        ] )
 
 let wrapping =
   let module Html = HtmlWrapped in
-  "wrapping", HtmlWrappedTests.make Html.[
+  ( "wrapping",
+    HtmlWrappedTests.make
+      Html.
+        [
+          ("elem", !:[%html "<p></p>"], !:(p (nil ())));
+          ( "child",
+            !:[%html "<p><span></span></p>"],
+            !:(p (span (nil ()) @: nil ())) );
+          ( "list",
+            [%html "<p></p><span>foo</span>"],
+            p (nil ()) @: span (txt !"foo" @: nil ()) @: nil () );
+          ( "attrib",
+            !:[%html "<p id=foo></p>"],
+            !:(p ~a:[ a_id !"foo" ] (nil ())) );
+          ( "attribs",
+            !:[%html "<p id=foo class=bar></p>"],
+            !:(p ~a:[ a_id !"foo"; a_class ![ "bar" ] ] (nil ())) );
+          ("comment", !:[%html "<!--foo-->"], !:(tot @@ Xml.comment "foo"));
+          ("txt", !:[%html "<p>foo</p>"], !:(p (txt !"foo" @: nil ())));
+          ( "wrapped functions",
+            !:[%html "<input method=get />"],
+            !:(input ~a:[ a_method !`Get ] ()) );
+        ] )
 
-  "elem",
-  !:[%html "<p></p>"],
-  !:(p (nil ())) ;
-
-  "child",
-  !:[%html "<p><span></span></p>"],
-  !:(p (span (nil ()) @: nil ())) ;
-
-  "list",
-  [%html "<p></p><span>foo</span>"],
-  (p (nil()) @: span (txt !"foo" @: nil ()) @: nil()) ;
-
-  "attrib",
-  !:[%html "<p id=foo></p>"],
-  !:(p ~a:[a_id !"foo"] (nil())) ;
-
-  "attribs",
-  !:[%html "<p id=foo class=bar></p>"],
-  !:(p ~a:[a_id !"foo"; a_class !["bar"] ] (nil())) ;
-
-  "comment",
-  !:[%html "<!--foo-->"],
-  !:(tot @@ Xml.comment "foo") ;
-
-  "txt",
-  !:[%html "<p>foo</p>"],
-  !:(p (txt !"foo" @: nil ())) ;
-
-  "wrapped functions",
-  !:[%html "<input method=get />"],
-  !:(input ~a:[a_method !`Get] ())
-
-]
-
-
-let elt1() = !: HtmlWrapped.(span !: (txt !"one"))
-let elt2() = !: HtmlWrapped.(b !: (txt !"two"))
+let elt1 () = !:HtmlWrapped.(span !:(txt !"one"))
+let elt2 () = !:HtmlWrapped.(b !:(txt !"two"))
 let id = !"pata"
 
 let antiquot =
   let module Html = HtmlWrapped in
-  "ppx antiquot", HtmlWrappedTests.make Html.[
+  ( "ppx antiquot",
+    HtmlWrappedTests.make
+      Html.
+        [
+          ("child", !:[%html "<p>" (elt1 ()) "</p>"], !:(p (elt1 ())));
+          ("list child", !:[%html "<p>" (elt2 ()) "</p>"], !:(p (elt2 ())));
+          ( "children",
+            !:[%html "<p>bar" (elt1 ()) "foo" (elt2 ()) "baz</p>"],
+            !:(p
+                 (txt !"bar" @: elt1 () @- txt !"foo" @: elt2 () @- txt !"baz"
+                @: nil ())) );
+          ( "insertion",
+            !:[%html "<p><em>" (elt1 ()) "</em></p>"],
+            !:(p !:(em (elt1 ()))) );
+          ( "attrib",
+            !:[%html "<p id=" id ">bla</p>"],
+            !:(p ~a:[ a_id id ] !:(txt !"bla")) );
+          ( "first child",
+            [%html (elt1 ()) "<p></p>"],
+            elt1 () @- p (nil ()) @: nil () );
+          ("last child", [%html "<p></p>" (elt1 ())], p (nil ()) @: elt1 ());
+          ( "wrapped functions",
+            !:[%html "<input method=" !`Get " />"],
+            !:(input ~a:[ a_method !`Get ] ()) )
+          (* should succeed *)
+          (* "escape", *)
+          (* [%tyxml "<p>(tyxml4)</p>"], *)
+          (* [p [txt "(tyxml4)"]]; *);
+        ] )
 
-  "child",
-  !:[%html "<p>" (elt1()) "</p>"],
-  !:(p (elt1()));
-
-  "list child",
-  !:[%html "<p>" (elt2()) "</p>"],
-  !:(p (elt2()));
-
-  "children",
-  !:[%html "<p>bar"(elt1())"foo"(elt2())"baz</p>"],
-  !:(p (txt !"bar" @: elt1() @-
-        txt !"foo" @: elt2() @-
-        txt !"baz" @: nil ()));
-
-  "insertion",
-  !:[%html "<p><em>" (elt1()) "</em></p>"],
-  !:(p !:(em (elt1())));
-
-  "attrib",
-  !:[%html "<p id="id">bla</p>"],
-  !:(p ~a:[a_id id] !:(txt !"bla"));
-
-  "first child",
-  [%html (elt1()) "<p></p>"],
-  ((elt1()) @-  p (nil()) @: nil ());
-
-  "last child",
-  [%html "<p></p>" (elt1()) ],
-  (p (nil()) @: (elt1()));
-
-  "wrapped functions",
-  !:[%html "<input method="!`Get" />"],
-  !:(input ~a:[a_method !`Get] ())
-
-  (* should succeed *)
-  (* "escape", *)
-  (* [%tyxml "<p>(tyxml4)</p>"], *)
-  (* [p [txt "(tyxml4)"]]; *)
-
-
-]
-
-let tests = [
-  basics ;
-  attribs ;
-  ns_nesting ;
-  antiquot ;
-  svg ;
-  svg_document ;
-  svg_element_names ;
-  wrapping ;
-]
+let tests =
+  [
+    basics;
+    attribs;
+    ns_nesting;
+    antiquot;
+    svg;
+    svg_document;
+    svg_element_names;
+    wrapping;
+  ]
 
 let () = Alcotest.run "tyxml-ppx" tests

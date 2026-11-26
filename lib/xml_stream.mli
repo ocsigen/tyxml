@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** Streaming IO to/from XML trees *)
 
@@ -23,15 +23,14 @@ type name = string * string
 
 (** {2 Input} *)
 
-type signal = [
-  | `Comment of string
+type signal =
+  [ `Comment of string
   | `End_element
   | `Start_element of name * (name * string) list
-  | `Text of string list
-]
+  | `Text of string list ]
 
 exception Malformed_stream
-  
+
 module Import (Xml : Xml_sigs.T) : sig
   val of_seq : signal Seq.t -> Xml.elt Xml.list_wrap
 end

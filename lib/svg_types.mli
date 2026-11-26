@@ -17,17 +17,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 (** SVG types with variants, goes with {!Svg_sigs.T}. *)
 
-(** This module defines basic data types for data, attributes
-    and element occurring in SVG documents.
-    It is based on the specification available at http://www.w3.org/TR/SVG/.
+(** This module defines basic data types for data, attributes and element
+    occurring in SVG documents. It is based on the specification available at
+    http://www.w3.org/TR/SVG/.
 
-    This module is experimental, it may lack of some attributes,
-    and the interface is very low level and do not take deeply into account
-    the needs of SVG elements. *)
+    This module is experimental, it may lack of some attributes, and the
+    interface is very low level and do not take deeply into account the needs of
+    SVG elements. *)
 
 (* Some attribute and elements are tagged with XXX: they
    may be improved and do not match completely the SVG spec *)
@@ -39,358 +39,338 @@
 (** {2 Elements} *)
 
 type animation_element =
-  [ | `AnimateColor | `AnimateMotion | `AnimateTransform | `Animate | `Set ]
-type descriptive_element = [ | `Desc | `Metadata | `Title ]
+  [ `AnimateColor | `AnimateMotion | `AnimateTransform | `Animate | `Set ]
+
+type descriptive_element = [ `Desc | `Metadata | `Title ]
+
 type basic_shape_element =
-  [ | `Circle | `Ellipse | `Line | `Polygon | `Polyline | `Rect ]
+  [ `Circle | `Ellipse | `Line | `Polygon | `Polyline | `Rect ]
 
 type container_element =
-  [
-    | `A
-    | `Defs
-    | `Glyph
-    | `G
-    | `Marker
-    | `Mask
-    | `MissingGlyph
-    | `Pattern
-    | `Svg
-    | `Switch
-    | `Symbol
-  ]
+  [ `A
+  | `Defs
+  | `Glyph
+  | `G
+  | `Marker
+  | `Mask
+  | `MissingGlyph
+  | `Pattern
+  | `Svg
+  | `Switch
+  | `Symbol ]
 
 type filter_primitive_element =
-  [
-    | `FeBlend
-    | `FeColorMatrix
-    | `FeComponentTransfer
-    | `FeComposite
-    | `FeConvolveMatrix
-    | `FeDiffuseLighting
-    | `FeDisplacementMap
-    | `FeDropShadow
-    | `FeFlood
-    | `FeGaussianBlur
-    | `FeImage
-    | `FeMerge
-    | `FeMorphology
-    | `FeOffset
-    | `FeSpecularLighting
-    | `FeTile
-    | `FeTurbulence
-  ]
+  [ `FeBlend
+  | `FeColorMatrix
+  | `FeComponentTransfer
+  | `FeComposite
+  | `FeConvolveMatrix
+  | `FeDiffuseLighting
+  | `FeDisplacementMap
+  | `FeDropShadow
+  | `FeFlood
+  | `FeGaussianBlur
+  | `FeImage
+  | `FeMerge
+  | `FeMorphology
+  | `FeOffset
+  | `FeSpecularLighting
+  | `FeTile
+  | `FeTurbulence ]
 
-type light_source_element =
-  [
-    | `FeDistantLight
-    | `FePointLight
-    | `FeSpotLight
-  ]
+type light_source_element = [ `FeDistantLight | `FePointLight | `FeSpotLight ]
 
-type shape_element = [ | `Circle | `Ellipse | `Line | `Path | `Polyline | `Polygon | `Rect]
+type shape_element =
+  [ `Circle | `Ellipse | `Line | `Path | `Polyline | `Polygon | `Rect ]
 
-type structural_element = [ | `Defs | `G | `Svg | `Symbol | `Use ]
-
-type text_content_element =
-  [ | `AltGlyph | `TextPath | `Text | `Tref | `Tspan ]
-
-type text_content_child_element =
-  [ | `AltGlyph | `TextPath | `Tref | `Tspan ]
-
-type gradient_element = [ | `Lineargradient | `Radialgradient ]
+type structural_element = [ `Defs | `G | `Svg | `Symbol | `Use ]
+type text_content_element = [ `AltGlyph | `TextPath | `Text | `Tref | `Tspan ]
+type text_content_child_element = [ `AltGlyph | `TextPath | `Tref | `Tspan ]
+type gradient_element = [ `Lineargradient | `Radialgradient ]
 
 type graphics_element =
-  [
-    | `Circle
-    | `Ellipse
-    | `Image
-    | `Line
-    | `Path
-    | `Polygon
-    | `Polyline
-    | `Rect
-    | `Text
-    | `Use
-  ]
+  [ `Circle
+  | `Ellipse
+  | `Image
+  | `Line
+  | `Path
+  | `Polygon
+  | `Polyline
+  | `Rect
+  | `Text
+  | `Use ]
 
-type graphics_ref_element = [ | `Image | `Use ]
+type graphics_ref_element = [ `Image | `Use ]
 
-(** {2 Attributes } *)
+(** {2 Attributes} *)
 
 type conditional_processing_attr =
-  [ | `RequiredExtensions | `RequiredFeatures | `SystemLanguage ]
+  [ `RequiredExtensions | `RequiredFeatures | `SystemLanguage ]
 
 type core_attr =
-  [ | `Aria | `Autofocus | `Id | `Lang | `Role | `Tabindex | `Xml_base
-    | `Xml_lang | `Xml_space | `User_data ]
+  [ `Aria
+  | `Autofocus
+  | `Id
+  | `Lang
+  | `Role
+  | `Tabindex
+  | `Xml_base
+  | `Xml_lang
+  | `Xml_space
+  | `User_data ]
 
 type transfer_attr =
-  [
-    | `Type_transfert
-    | `TableValues
-    | `Slope
-    | `Intercept
-    | `Amplitude
-    | `Exponent
-    | `Offset_transfer
-  ]
+  [ `Type_transfert
+  | `TableValues
+  | `Slope
+  | `Intercept
+  | `Amplitude
+  | `Exponent
+  | `Offset_transfer ]
 
 type document_event_attr =
-  [
-    | `OnAbort
-    | `OnAfterPrint
-    | `OnBeforePrint
-    | `OnBeforeUnload
-    | `OnError
-    | `OnHashChange
-    | `OnLanguageChange
-    | `OnMessage
-    | `OnOffLine
-    | `OnOnLine
-    | `OnPageHide
-    | `OnPageShow
-    | `OnPopState
-    | `OnReadyStateChange
-    | `OnRedo
-    | `OnRejectionHandled
-    | `OnResize
-    | `OnScroll
-    | `OnStorage
-    | `OnUndo
-    | `OnUnhandledRejection
-    | `OnUnload
-    | `OnZoom
-  ]
+  [ `OnAbort
+  | `OnAfterPrint
+  | `OnBeforePrint
+  | `OnBeforeUnload
+  | `OnError
+  | `OnHashChange
+  | `OnLanguageChange
+  | `OnMessage
+  | `OnOffLine
+  | `OnOnLine
+  | `OnPageHide
+  | `OnPageShow
+  | `OnPopState
+  | `OnReadyStateChange
+  | `OnRedo
+  | `OnRejectionHandled
+  | `OnResize
+  | `OnScroll
+  | `OnStorage
+  | `OnUndo
+  | `OnUnhandledRejection
+  | `OnUnload
+  | `OnZoom ]
 
-type filter_primitive_attr = [ | `Height | `Result | `Width | `X | `Y ]
-
-type animation_event_attr = [ | `OnBegin | `OnEnd | `OnRepeat | `OnLoad ]
-
-type animation_attr_target_attr = [ | `AttributeType | `AttributeName ]
+type filter_primitive_attr = [ `Height | `Result | `Width | `X | `Y ]
+type animation_event_attr = [ `OnBegin | `OnEnd | `OnRepeat | `OnLoad ]
+type animation_attr_target_attr = [ `AttributeType | `AttributeName ]
 
 type animation_timing_attr =
-  [
-    | `Begin
-    | `Dur
-    | `End
-    | `Min
-    | `Max
-    | `Restart
-    | `RepeatCount
-    | `RepeatDur
-    | `Fill_Animation
-  ]
+  [ `Begin
+  | `Dur
+  | `End
+  | `Min
+  | `Max
+  | `Restart
+  | `RepeatCount
+  | `RepeatDur
+  | `Fill_Animation ]
 
 type animation_value_attr =
-  [ | `CalcMode | `Valuesanim | `KeyTimes | `KeySplines | `From | `To | `By
-  ]
+  [ `CalcMode | `Valuesanim | `KeyTimes | `KeySplines | `From | `To | `By ]
 
-type animation_addition_attr = [ | `Additive | `Accumulate ]
+type animation_addition_attr = [ `Additive | `Accumulate ]
 
 type presentation_attr =
-  [
-    | `Alignment_Baseline
-    | `Baseline_Shift
-    | `Clip
-    | `Clip_Path
-    | `Clip_Rule
-    | `Color
-    | `Color_Interpolation
-    | `Color_interpolation_filters
-    | `Color_profile
-    | `Color_rendering
-    | `Cursor
-    | `Direction
-    | `Display
-    | `Dominant_Baseline
-    | `Enable_background
-    | `Fill
-    | `Fill_opacity
-    | `Fill_rule
-    | `Filter
-    | `Flood_Color
-    | `Flood_Opacity
-    | `Font_Family
-    | `Font_Size
-    | `Font_Size_Adjust
-    | `Font_Stretch
-    | `Font_Style
-    | `Font_Variant
-    | `Font_Weight
-    | `Glyph_Orientation_Horizontal
-    | `Glyph_Orientation_Vertical
-    | `Image_Rendering
-    | `Kerning
-    | `Letter_Spacing
-    | `Lighting_Color
-    | `Marker_End
-    | `Marker_Mid
-    | `Marker_Start
-    | `Mask
-    | `Opacity
-    | `Overflow
-    | `Paint_Order
-    | `Pointer_Events
-    | `Shape_Rendering
-    | `Stop_Color
-    | `Stop_Opacity
-    | `Stroke
-    | `Stroke_Dasharray
-    | `Stroke_Dashoffset
-    | `Stroke_Linecap
-    | `Stroke_Linejoin
-    | `Stroke_Miterlimit
-    | `Stroke_Opacity
-    | `Stroke_Width
-    | `Text_Anchor
-    | `Text_Decoration
-    | `Text_Overflow
-    | `Text_Rendering
-    | `Transform_Origin
-    | `Unicode_Bidi
-    | `Vector_Effect
-    | `Visibility
-    | `White_Space
-    | `Word_Spacing
-    | `Writing_Mode
-  ]
+  [ `Alignment_Baseline
+  | `Baseline_Shift
+  | `Clip
+  | `Clip_Path
+  | `Clip_Rule
+  | `Color
+  | `Color_Interpolation
+  | `Color_interpolation_filters
+  | `Color_profile
+  | `Color_rendering
+  | `Cursor
+  | `Direction
+  | `Display
+  | `Dominant_Baseline
+  | `Enable_background
+  | `Fill
+  | `Fill_opacity
+  | `Fill_rule
+  | `Filter
+  | `Flood_Color
+  | `Flood_Opacity
+  | `Font_Family
+  | `Font_Size
+  | `Font_Size_Adjust
+  | `Font_Stretch
+  | `Font_Style
+  | `Font_Variant
+  | `Font_Weight
+  | `Glyph_Orientation_Horizontal
+  | `Glyph_Orientation_Vertical
+  | `Image_Rendering
+  | `Kerning
+  | `Letter_Spacing
+  | `Lighting_Color
+  | `Marker_End
+  | `Marker_Mid
+  | `Marker_Start
+  | `Mask
+  | `Opacity
+  | `Overflow
+  | `Paint_Order
+  | `Pointer_Events
+  | `Shape_Rendering
+  | `Stop_Color
+  | `Stop_Opacity
+  | `Stroke
+  | `Stroke_Dasharray
+  | `Stroke_Dashoffset
+  | `Stroke_Linecap
+  | `Stroke_Linejoin
+  | `Stroke_Miterlimit
+  | `Stroke_Opacity
+  | `Stroke_Width
+  | `Text_Anchor
+  | `Text_Decoration
+  | `Text_Overflow
+  | `Text_Rendering
+  | `Transform_Origin
+  | `Unicode_Bidi
+  | `Vector_Effect
+  | `Visibility
+  | `White_Space
+  | `Word_Spacing
+  | `Writing_Mode ]
 
 type global_event_attr =
-  [
-    | `OnAbort
-    | `OnAuxClick
-    | `OnBeforeInput
-    | `OnBeforeMatch
-    | `OnBeforeToggle
-    | `OnBlur
-    | `OnCancel
-    | `OnCanPlay
-    | `OnCanPlayThrough
-    | `OnChange
-    | `OnClick
-    | `OnClose
-    | `OnContextLost
-    | `OnContextMenu
-    | `OnContextRestored
-    | `OnCopy
-    | `OnCueChange
-    | `OnCut
-    | `OnDblClick
-    | `OnDrag
-    | `OnDragEnd
-    | `OnDragEnter
-    | `OnDragLeave
-    | `OnDragOver
-    | `OnDragStart
-    | `OnDrop
-    | `OnDurationChange
-    | `OnEmptied
-    | `OnEnded
-    | `OnError
-    | `OnFocus
-    | `OnGotPointerCapture
-    | `OnInput
-    | `OnInvalid
-    | `OnKeyDown
-    | `OnKeyPress
-    | `OnKeyUp
-    | `OnLoad
-    | `OnLoadedData
-    | `OnLoadedMetaData
-    | `OnLoadStart
-    | `OnLostPointerCapture
-    | `OnMouseDown
-    | `OnMouseMove
-    | `OnMouseOut
-    | `OnMouseOver
-    | `OnMouseUp
-    | `OnMouseWheel
-    | `OnPaste
-    | `OnPause
-    | `OnPlay
-    | `OnPlaying
-    | `OnPointerCancel
-    | `OnPointerDown
-    | `OnPointerEnter
-    | `OnPointerLeave
-    | `OnPointerMove
-    | `OnPointerOut
-    | `OnPointerOver
-    | `OnPointerUp
-    | `OnProgress
-    | `OnRateChange
-    | `OnResize
-    | `OnScroll
-    | `OnScrollEnd
-    | `OnSecurityPolicyViolation
-    | `OnSeeked
-    | `OnSeeking
-    | `OnSelect
-    | `OnShow
-    | `OnStalled
-    | `OnSubmit
-    | `OnSuspend
-    | `OnTimeUpdate
-    | `OnToggle
-    | `OnTouchCancel
-    | `OnTouchEnd
-    | `OnTouchMove
-    | `OnTouchStart
-    | `OnVolumeChange
-    | `OnWaiting
-    | `OnWheel
-  ]
+  [ `OnAbort
+  | `OnAuxClick
+  | `OnBeforeInput
+  | `OnBeforeMatch
+  | `OnBeforeToggle
+  | `OnBlur
+  | `OnCancel
+  | `OnCanPlay
+  | `OnCanPlayThrough
+  | `OnChange
+  | `OnClick
+  | `OnClose
+  | `OnContextLost
+  | `OnContextMenu
+  | `OnContextRestored
+  | `OnCopy
+  | `OnCueChange
+  | `OnCut
+  | `OnDblClick
+  | `OnDrag
+  | `OnDragEnd
+  | `OnDragEnter
+  | `OnDragLeave
+  | `OnDragOver
+  | `OnDragStart
+  | `OnDrop
+  | `OnDurationChange
+  | `OnEmptied
+  | `OnEnded
+  | `OnError
+  | `OnFocus
+  | `OnGotPointerCapture
+  | `OnInput
+  | `OnInvalid
+  | `OnKeyDown
+  | `OnKeyPress
+  | `OnKeyUp
+  | `OnLoad
+  | `OnLoadedData
+  | `OnLoadedMetaData
+  | `OnLoadStart
+  | `OnLostPointerCapture
+  | `OnMouseDown
+  | `OnMouseMove
+  | `OnMouseOut
+  | `OnMouseOver
+  | `OnMouseUp
+  | `OnMouseWheel
+  | `OnPaste
+  | `OnPause
+  | `OnPlay
+  | `OnPlaying
+  | `OnPointerCancel
+  | `OnPointerDown
+  | `OnPointerEnter
+  | `OnPointerLeave
+  | `OnPointerMove
+  | `OnPointerOut
+  | `OnPointerOver
+  | `OnPointerUp
+  | `OnProgress
+  | `OnRateChange
+  | `OnResize
+  | `OnScroll
+  | `OnScrollEnd
+  | `OnSecurityPolicyViolation
+  | `OnSeeked
+  | `OnSeeking
+  | `OnSelect
+  | `OnShow
+  | `OnStalled
+  | `OnSubmit
+  | `OnSuspend
+  | `OnTimeUpdate
+  | `OnToggle
+  | `OnTouchCancel
+  | `OnTouchEnd
+  | `OnTouchMove
+  | `OnTouchStart
+  | `OnVolumeChange
+  | `OnWaiting
+  | `OnWheel ]
 
 type graphical_event_attr =
-  [
-    | `OnActivate
-    | `OnClick
-    | `OnFocusIn
-    | `OnFocusOut
-    | `OnLoad
-    | `OnMouseDown
-    | `OnMouseMove
-    | `OnMouseOut
-    | `OnMouseOver
-    | `OnMouseUp
-    | `OnTouchCancel
-    | `OnTouchEnd
-    | `OnTouchMove
-    | `OnTouchStart
-  ]
+  [ `OnActivate
+  | `OnClick
+  | `OnFocusIn
+  | `OnFocusOut
+  | `OnLoad
+  | `OnMouseDown
+  | `OnMouseMove
+  | `OnMouseOut
+  | `OnMouseOver
+  | `OnMouseUp
+  | `OnTouchCancel
+  | `OnTouchEnd
+  | `OnTouchMove
+  | `OnTouchStart ]
 
 type xlink_attr =
-  [
-    | `Xlink_href
-    | `Xlink_type
-    | `Xlink_role
-    | `Xlink_arcrole
-    | `Xlink_title
-    | `Xlink_show
-    | `Xlink_actuate
-  ]
+  [ `Xlink_href
+  | `Xlink_type
+  | `Xlink_role
+  | `Xlink_arcrole
+  | `Xlink_title
+  | `Xlink_show
+  | `Xlink_actuate ]
 
 (** {2 Generic data types} *)
 
 type iri = string
-(** An IRI reference is an Internationalized Resource Identifier with
-    an optional fragment identifier, as defined in Internationalized
-    Resource Identifiers [RFC3987]. An IRI reference serves as a reference
-    to a resource or (with a fragment identifier) to a secondary
-    resource. See References and the ‘defs’ element.
+(** An IRI reference is an Internationalized Resource Identifier with an
+    optional fragment identifier, as defined in Internationalized Resource
+    Identifiers [RFC3987]. An IRI reference serves as a reference to a resource
+    or (with a fragment identifier) to a secondary resource. See References and
+    the ‘defs’ element.
 
-    The attributes whose value is a bare URL, such as [href], use
-    [Xml.uri]. This type is left for the presentation attributes that
-    accept a funciri such as [url(#id)] or a keyword such as [none],
-    which are not URLs. *)
+    The attributes whose value is a bare URL, such as [href], use [Xml.uri].
+    This type is left for the presentation attributes that accept a funciri such
+    as [url(#id)] or a keyword such as [none], which are not URLs. *)
 
 (** {2 Units} *)
 
 (** SVG defines several units to measure time, length, angles. *)
 module Unit : sig
-  type 'a quantity = (float * 'a option)
+  type 'a quantity = float * 'a option
   type angle = [ `Deg | `Grad | `Rad ] quantity
-  type length = [ `Em | `Ex | `Px | `In | `Cm | `Mm | `Pt | `Pc | `Percent ] quantity
+
+  type length =
+    [ `Em | `Ex | `Px | `In | `Cm | `Mm | `Pt | `Pc | `Percent ] quantity
+
   type time = [ `S | `Ms ] quantity
   type frequency = [ `Hz | `KHz ] quantity
 end
@@ -399,34 +379,26 @@ open Unit
 
 type coord = length
 type number = float
-type number_optional_number = (number * (number option))
+type number_optional_number = number * number option
 type percentage = float
 type strings = string list
-
 type color = string
 
 (* ICC color profile specification *)
 type icccolor = string
 
 type paint_without_icc =
-  [ `None | `CurrentColor
-  | `Color of (color * icccolor option)
-  ]
+  [ `None | `CurrentColor | `Color of color * icccolor option ]
 
-type paint =
-  [ paint_without_icc
-  | `Icc of (iri * paint_without_icc option) ]
-
-type fill_rule =
-  [ `Nonzero
-  | `Evenodd ]
+type paint = [ paint_without_icc | `Icc of iri * paint_without_icc option ]
+type fill_rule = [ `Nonzero | `Evenodd ]
 
 (* Transformation *)
 type transform =
-  [ `Matrix of (float * float * float * float * float * float)
-  | `Translate of (float * (float option))
-  | `Scale of (float * (float option))
-  | `Rotate of (angle * ((float * float) option))
+  [ `Matrix of float * float * float * float * float * float
+  | `Translate of float * float option
+  | `Scale of float * float option
+  | `Rotate of angle * (float * float) option
   | `SkewX of angle
   | `SkewY of angle ]
 
@@ -434,1862 +406,1640 @@ type spacestrings = string list
 type commastrings = string list
 type semicolonstrings = string list
 type transforms = transform list
-type fourfloats = (float * float * float * float)
+type fourfloats = float * float * float * float
 type lengths = length list
 type numbers = float list
 type numbers_semicolon = float list
 type coords = (float * float) list
 type rotate = float list
-
-
 type pcdata = [ `PCDATA ]
-type txt = [ | `PCDATA ]
+type txt = [ `PCDATA ]
 
 (** {1 Element} *)
 
 (*-ELEMENTS-*)
-type svg = [ | `Svg ]
+type svg = [ `Svg ]
 
 (* star *)
 type svg_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type svg_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | document_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `ViewBox
-    | `PreserveAspectRatio
-    | `ZoomAndPan
-    | `Version
-    | `BaseProfile
-    | `ContentScriptType
-    | `ContentStyleType
-    | `X
-    | `Y
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | document_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `ViewBox
+  | `PreserveAspectRatio
+  | `ZoomAndPan
+  | `Version
+  | `BaseProfile
+  | `ContentScriptType
+  | `ContentStyleType
+  | `X
+  | `Y ]
 
-type g = [ | `G ]
+type g = [ `G ]
 
 (* star *)
 type g_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type g_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform ]
 
-type defs = [ | `Defs ]
+type defs = [ `Defs ]
 
 (* star *)
 type defs_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type defs_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform ]
 
-type desc = [ | `Desc ]
+type desc = [ `Desc ]
 
 (* unary *)
-type desc_content = [ | `PCDATA ]
-
-type desc_attr = [ | core_attr | global_event_attr | `Class | `Style ]
-
-type title = [ | `Title ]
+type desc_content = [ `PCDATA ]
+type desc_attr = [ core_attr | global_event_attr | `Class | `Style ]
+type title = [ `Title ]
 
 (* unary *)
-type title_content = [ | `PCDATA ]
-
+type title_content = [ `PCDATA ]
 type title_attr = desc_attr
-
-type symbol = [ | `Symbol ]
+type symbol = [ `Symbol ]
 
 (* star *)
 type symbol_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type symbol_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `PreserveAspectRatio
-    | `ViewBox
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `RefX
-    | `RefY
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `PreserveAspectRatio
+  | `ViewBox
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `RefX
+  | `RefY ]
 
-type use = [ | `Use ]
+type use = [ `Use ]
 
 (* star *)
 type use_content =
-  [
-    | animation_element
-    | descriptive_element
-    | `ClipPath
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | `ClipPath
+  | `Mask
+  | `Script
+  | `Style ]
 
 type use_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | conditional_processing_attr
-    | graphical_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `Xlink_href
-  ]
+  [ core_attr
+  | global_event_attr
+  | conditional_processing_attr
+  | graphical_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `Xlink_href ]
 
-type image = [ | `Image ]
+type image = [ `Image ]
 
 (* star *)
 type image_content =
-  [
-    | animation_element
-    | descriptive_element
-    | `ClipPath
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | `ClipPath
+  | `Mask
+  | `Script
+  | `Style ]
 
 type image_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | conditional_processing_attr
-    | graphical_event_attr
-    | xlink_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `PreserveAspectRatio
-    | `Transform
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `Xlink_href
-    | `Crossorigin
-    | `Decoding
-    | `Fetchpriority
-  ]
+  [ core_attr
+  | global_event_attr
+  | conditional_processing_attr
+  | graphical_event_attr
+  | xlink_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `PreserveAspectRatio
+  | `Transform
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `Xlink_href
+  | `Crossorigin
+  | `Decoding
+  | `Fetchpriority ]
 
-type switch = [ | `Switch ]
+type switch = [ `Switch ]
 
 (* star *)
 type switch_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | `A
-    | `ForeignObject
-    | `G
-    | `Image
-    | `Svg
-    | `Switch
-    | `Text
-    | `Use
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | `A
+  | `ForeignObject
+  | `G
+  | `Image
+  | `Svg
+  | `Switch
+  | `Text
+  | `Use ]
 
 type switch_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform ]
 
-type style = [ | `Style ]
+type style = [ `Style ]
 
 (* unary *)
-type style_content = [ | `PCDATA ]
-
-type style_attr = [ | core_attr | global_event_attr | `Title | `Media | `Type ]
-
-type path = [ | `Path ]
+type style_content = [ `PCDATA ]
+type style_attr = [ core_attr | global_event_attr | `Title | `Media | `Type ]
+type path = [ `Path ]
 
 (* star *)
 type path_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type path_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `D
-    | `PathLength
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `D
+  | `PathLength ]
 
-type rect = [ | `Rect ]
+type rect = [ `Rect ]
 
 (* star *)
 type rect_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type rect_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `Rx
-    | `Ry
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `Rx
+  | `Ry ]
 
-type circle = [ | `Circle ]
+type circle = [ `Circle ]
 
 (* star *)
 type circle_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type circle_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `R
-    | `Cx
-    | `Cy
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `R
+  | `Cx
+  | `Cy ]
 
-type ellipse = [ | `Ellipse ]
+type ellipse = [ `Ellipse ]
 
 (* star *)
 type ellipse_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type ellipse_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `Rx
-    | `Ry
-    | `Cx
-    | `Cy
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `Rx
+  | `Ry
+  | `Cx
+  | `Cy ]
 
-type line = [ | `Line ]
+type line = [ `Line ]
 
 (* star *)
 type line_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type line_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `X1
-    | `Y1
-    | `X2
-    | `Y2
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `X1
+  | `Y1
+  | `X2
+  | `Y2 ]
 
-type polyline = [ | `Polyline ]
+type polyline = [ `Polyline ]
 
 (* star *)
 type polyline_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type polyline_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `Points
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `Points ]
 
-type polygon = [ | `Polygon ]
+type polygon = [ `Polygon ]
 
 (* star *)
 type polygon_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | `Pattern
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | `Pattern
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Script
+  | `Style ]
 
 type polygon_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `Points
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `Points ]
 
-type text = [ | `Text ]
+type text = [ `Text ]
 
 (* star *)
 type text_content =
-  [
-    | animation_element
-    | descriptive_element
-    | gradient_element
-    | text_content_child_element
-    | `PCDATA
-    | `A
-    | `ClipPath
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-  ]
+  [ animation_element
+  | descriptive_element
+  | gradient_element
+  | text_content_child_element
+  | `PCDATA
+  | `A
+  | `ClipPath
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style ]
 
 type text_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Transform
-    | `LengthAdjust
-    | `X_list
-    | `Y_list
-    | `Dx_list
-    | `Dy_list
-    | `Rotate
-    | `TextLength
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Transform
+  | `LengthAdjust
+  | `X_list
+  | `Y_list
+  | `Dx_list
+  | `Dy_list
+  | `Rotate
+  | `TextLength ]
 
-type tspan = [ | `Tspan ]
+type tspan = [ `Tspan ]
 
 (* star *)
 type tspan_content =
-  [
-    | descriptive_element
-    | gradient_element
-    | `PCDATA
-    | `A
-    | `AltGlyph
-    | `Animate
-    | `AnimateColor
-    | `Pattern
-    | `Script
-    | `Set
-    | `Style
-    | `Tref
-    | `Tspan
-  ]
+  [ descriptive_element
+  | gradient_element
+  | `PCDATA
+  | `A
+  | `AltGlyph
+  | `Animate
+  | `AnimateColor
+  | `Pattern
+  | `Script
+  | `Set
+  | `Style
+  | `Tref
+  | `Tspan ]
 
 type tspan_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | conditional_processing_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X_list
-    | `Y_list
-    | `Dx_list
-    | `Dy_list
-    | `Rotate
-    | `TextLength
-    | `LengthAdjust
-  ]
+  [ core_attr
+  | global_event_attr
+  | conditional_processing_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `X_list
+  | `Y_list
+  | `Dx_list
+  | `Dy_list
+  | `Rotate
+  | `TextLength
+  | `LengthAdjust ]
 
-type tref = [ | `Tref ]
+type tref = [ `Tref ]
 
 (* star *)
-type tref_content =
-  [ | descriptive_element | `Animate | `AnimateColor | `Set
-  ]
+type tref_content = [ descriptive_element | `Animate | `AnimateColor | `Set ]
 
 type tref_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | graphical_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Xlink_href
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | graphical_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Xlink_href ]
 
-type textpath = [ | `TextPath ]
+type textpath = [ `TextPath ]
 
 (* star *)
 type textpath_content =
-  [
-    | descriptive_element
-    | gradient_element
-    | `PCDATA
-    | `A
-    | `AltGlyph
-    | `Animate
-    | `AnimateColor
-    | `Pattern
-    | `Script
-    | `Set
-    | `Style
-    | `Tref
-    | `Tspan
-  ]
+  [ descriptive_element
+  | gradient_element
+  | `PCDATA
+  | `A
+  | `AltGlyph
+  | `Animate
+  | `AnimateColor
+  | `Pattern
+  | `Script
+  | `Set
+  | `Style
+  | `Tref
+  | `Tspan ]
 
 type textpath_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | graphical_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Xlink_href
-    | `StartOffset
-    | `Method
-    | `Path
-    | `Side
-    | `Spacing
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | graphical_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Xlink_href
+  | `StartOffset
+  | `Method
+  | `Path
+  | `Side
+  | `Spacing ]
 
-type altglyph = [ | `AltGlyph ]
+type altglyph = [ `AltGlyph ]
 
 (* unary *)
-type altglyph_content = [ | `PCDATA ]
+type altglyph_content = [ `PCDATA ]
 
 type altglyph_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | graphical_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X_list
-    | `Y_list
-    | `Dx_list
-    | `Dy_list
-    | `GlyphRef
-    | `Format
-    | `Rotate
-    | `Xlink_href
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | graphical_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `X_list
+  | `Y_list
+  | `Dx_list
+  | `Dy_list
+  | `GlyphRef
+  | `Format
+  | `Rotate
+  | `Xlink_href ]
 
-type altglyphdef = [ | `AltGlyphDef ]
+type altglyphdef = [ `AltGlyphDef ]
 
 (* unary *)
 type altglyphdef_attr = [ | core_attr ]
-
-type altglyphitem = [ | `AltGlyphItem ]
-
-
-type altglyphitem_content = [ | `GlyphRef ]
-
+type altglyphitem = [ `AltGlyphItem ]
+type altglyphitem_content = [ `GlyphRef ]
 type altglyphitem_attr = [ | core_attr ]
-
-type glyphref = [ | `GlyphRef ]
+type glyphref = [ `GlyphRef ]
 
 (* nullary *)
 type glyphref_attr =
-  [
-    | core_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `X
-    | `Y
-    | `Dx
-    | `Dy
-    | `GlyphRef
-    | `Format
-    | `Xlink_href
-  ]
+  [ core_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `X
+  | `Y
+  | `Dx
+  | `Dy
+  | `GlyphRef
+  | `Format
+  | `Xlink_href ]
 
-type marker = [ | `Marker ]
+type marker = [ `Marker ]
 
 (* star *)
 type marker_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type marker_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `ViewBox
-    | `PreserveAspectRatio
-    | `RefX
-    | `RefY
-    | `MarkerUnits
-    | `MarkerWidth
-    | `MarkerHeight
-    | `Orient
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `ViewBox
+  | `PreserveAspectRatio
+  | `RefX
+  | `RefY
+  | `MarkerUnits
+  | `MarkerWidth
+  | `MarkerHeight
+  | `Orient ]
 
-type colorprofile = [ | `Color_Profile ]
+type colorprofile = [ `Color_Profile ]
 
 (* star *)
 type colorprofile_content = [ | descriptive_element ]
 
 type colorprofile_attr =
-  [
-    | core_attr
-    | xlink_attr
-    | `Local
-    | `Name
-    | `Rendering_Intent
-    | `Xlink_href
-  ]
+  [ core_attr | xlink_attr | `Local | `Name | `Rendering_Intent | `Xlink_href ]
 
-type lineargradient = [ | `Lineargradient ]
+type lineargradient = [ `Lineargradient ]
 
 (* star *)
 type lineargradient_content =
-  [ | descriptive_element | `Animate | `AnimateTransform | `Script
-    | `Set | `Stop
-  ]
+  [ descriptive_element | `Animate | `AnimateTransform | `Script | `Set | `Stop ]
 
 type lineargradient_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X1
-    | `Y1
-    | `X2
-    | `Y2
-    | `GradientUnits
-    | `GradientTransform
-    | `SpreadMethod
-    | `Xlink_href
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `X1
+  | `Y1
+  | `X2
+  | `Y2
+  | `GradientUnits
+  | `GradientTransform
+  | `SpreadMethod
+  | `Xlink_href ]
 
-type radialgradient = [ | `Radialgradient ]
+type radialgradient = [ `Radialgradient ]
 
 (* star *)
 type radialgradient_content =
-  [ | descriptive_element | `Animate | `AnimateTransform | `Script
-    | `Set | `Stop
-  ]
+  [ descriptive_element | `Animate | `AnimateTransform | `Script | `Set | `Stop ]
 
 type radialgradient_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Cx
-    | `Cy
-    | `R
-    | `Fx
-    | `Fy
-    | `Fr
-    | `GradientUnits
-    | `GradientTransform
-    | `SpreadMethod
-    | `Xlink_href
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Cx
+  | `Cy
+  | `R
+  | `Fx
+  | `Fy
+  | `Fr
+  | `GradientUnits
+  | `GradientTransform
+  | `SpreadMethod
+  | `Xlink_href ]
 
-type stop = [ | `Stop ]
+type stop = [ `Stop ]
 
 (* star *)
-type stop_content = [ | `Animate | `AnimateColor | `Script | `Set ]
+type stop_content = [ `Animate | `AnimateColor | `Script | `Set ]
 
 type stop_attr =
-  [ | core_attr | global_event_attr | presentation_attr | `Class | `Style
-    | `Offset
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `Offset ]
 
-type pattern = [ | `Pattern ]
+type pattern = [ `Pattern ]
 
 (* star *)
 type pattern_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type pattern_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `ViewBox
-    | `PreserveAspectRatio
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `PatternUnits
-    | `PatternContentUnits
-    | `PatternTransform
-    | `Xlink_href
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `ViewBox
+  | `PreserveAspectRatio
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `PatternUnits
+  | `PatternContentUnits
+  | `PatternTransform
+  | `Xlink_href ]
 
-type clippath = [ | `ClipPath ]
+type clippath = [ `ClipPath ]
 
 (* star *)
 type clippath_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `ClipPathUnits
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `ClipPathUnits ]
 
 type clippath_content =
-  [ | descriptive_element | animation_element | shape_element | `Script
-    | `Text | `Use
-  ]
+  [ descriptive_element
+  | animation_element
+  | shape_element
+  | `Script
+  | `Text
+  | `Use ]
 
-type mask = [ | `Mask ]
+type mask = [ `Mask ]
 
 type mask_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type mask_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `MaskUnits
-    | `MaskContentUnits
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `MaskUnits
+  | `MaskContentUnits ]
 
-type filter = [ | `Filter ]
+type filter = [ `Filter ]
 
 (* star *)
 type filter_content =
-  [ | descriptive_element | filter_primitive_element | `Animate | `Script
-    | `Set
-  ]
+  [ descriptive_element | filter_primitive_element | `Animate | `Script | `Set ]
 
 type filter_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | xlink_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `X
-    | `Y
-    | `Width
-    | `Height
-    | `FilterRes
-    | `FilterUnits
-    | `PrimitiveUnits
-    | `Xlink_href
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | xlink_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `X
+  | `Y
+  | `Width
+  | `Height
+  | `FilterRes
+  | `FilterUnits
+  | `PrimitiveUnits
+  | `Xlink_href ]
 
-type fedistantlight = [ | `FeDistantLight ]
+type fedistantlight = [ `FeDistantLight ]
 
 (* star *)
-type fedistantlight_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type fedistantlight_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type fedistantlight_attr =
-  [ | core_attr | global_event_attr | `Azimuth | `Elevation ]
+  [ core_attr | global_event_attr | `Azimuth | `Elevation ]
 
-type fepointlight = [ | `FePointLight ]
-
-(* star *)
-type fepointlight_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
-
-type fepointlight_attr = [ | core_attr | global_event_attr | `X | `Y | `Z ]
-
-type fespotlight = [ | `FeSpotLight ]
+type fepointlight = [ `FePointLight ]
 
 (* star *)
-type fespotlight_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type fepointlight_content = [ descriptive_element | `Animate | `Script | `Set ]
+type fepointlight_attr = [ core_attr | global_event_attr | `X | `Y | `Z ]
+type fespotlight = [ `FeSpotLight ]
+
+(* star *)
+type fespotlight_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type fespotlight_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | `X
-    | `Y
-    | `Z
-    | `PointsAtX
-    | `PointsAtY
-    | `PointsAtZ
-    | `SpecularExponent
-    | `LimitingConeAngle
-  ]
+  [ core_attr
+  | global_event_attr
+  | `X
+  | `Y
+  | `Z
+  | `PointsAtX
+  | `PointsAtY
+  | `PointsAtZ
+  | `SpecularExponent
+  | `LimitingConeAngle ]
 
-type feblend = [ | `FeBlend ]
+type feblend = [ `FeBlend ]
 
 (* star *)
-type feblend_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type feblend_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type feblend_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-    | `In2
-    | `Mode
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `In2
+  | `Mode ]
 
-type fecolormatrix = [ | `FeColorMatrix ]
+type fecolormatrix = [ `FeColorMatrix ]
 
 (* star *)
-type fecolormatrix_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type fecolormatrix_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type fecolormatrix_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `Typefecolor
-    | `Values
-    | `In
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `Typefecolor
+  | `Values
+  | `In ]
 
-type fecomponenttransfer = [ | `FeComponentTransfer ]
+type fecomponenttransfer = [ `FeComponentTransfer ]
 
 (* star *)
 type fecomponenttransfer_content =
-  [ | descriptive_element | `Animate | `FeFuncA | `FeFuncB | `FeFuncG
-    | `FeFuncR | `Script | `Set
-  ]
+  [ descriptive_element
+  | `Animate
+  | `FeFuncA
+  | `FeFuncB
+  | `FeFuncG
+  | `FeFuncR
+  | `Script
+  | `Set ]
 
 type fecomponenttransfer_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In ]
 
-type fefunca = [ | `FeFuncA ]
+type fefunca = [ `FeFuncA ]
 
 (* star *)
-type fefunca_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
-
-type fefunca_attr = [ | core_attr | global_event_attr | transfer_attr ]
-
-type fefuncg = [ | `FeFuncG ]
+type fefunca_content = [ descriptive_element | `Animate | `Script | `Set ]
+type fefunca_attr = [ core_attr | global_event_attr | transfer_attr ]
+type fefuncg = [ `FeFuncG ]
 
 (* star *)
-type fefuncg_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
-
-type fefuncg_attr = [ | core_attr | global_event_attr | transfer_attr ]
-
-type fefuncb = [ | `FeFuncB ]
+type fefuncg_content = [ descriptive_element | `Animate | `Script | `Set ]
+type fefuncg_attr = [ core_attr | global_event_attr | transfer_attr ]
+type fefuncb = [ `FeFuncB ]
 
 (* star *)
-type fefuncb_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
-
-type fefuncb_attr = [ | core_attr | global_event_attr | transfer_attr ]
-
-type fefuncr = [ | `FeFuncR ]
+type fefuncb_content = [ descriptive_element | `Animate | `Script | `Set ]
+type fefuncb_attr = [ core_attr | global_event_attr | transfer_attr ]
+type fefuncr = [ `FeFuncR ]
 
 (* star *)
-type fefuncr_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
-
-type fefuncr_attr = [ | core_attr | global_event_attr | transfer_attr ]
-
-type fecomposite = [ | `FeComposite ]
+type fefuncr_content = [ descriptive_element | `Animate | `Script | `Set ]
+type fefuncr_attr = [ core_attr | global_event_attr | transfer_attr ]
+type fecomposite = [ `FeComposite ]
 
 (* star *)
-type fecomposite_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type fecomposite_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type fecomposite_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-    | `In2
-    | `OperatorComposite
-    | `K1
-    | `K2
-    | `K3
-    | `K4
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `In2
+  | `OperatorComposite
+  | `K1
+  | `K2
+  | `K3
+  | `K4 ]
 
-type feconvolvematrix = [ | `FeConvolveMatrix ]
+type feconvolvematrix = [ `FeConvolveMatrix ]
 
 (* star *)
 type feconvolvematrix_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+  [ descriptive_element | `Animate | `Script | `Set ]
 
 type feconvolvematrix_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-    | `Order
-    | `KernelMatrix
-    | `Divisor
-    | `Bias
-    | `TargetX
-    | `TargetY
-    | `EdgeMode
-    | `KernelUnitLength
-    | `PreserveAlpha
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `Order
+  | `KernelMatrix
+  | `Divisor
+  | `Bias
+  | `TargetX
+  | `TargetY
+  | `EdgeMode
+  | `KernelUnitLength
+  | `PreserveAlpha ]
 
-type fediffuselighting = [ | `FeDiffuseLighting ]
+type fediffuselighting = [ `FeDiffuseLighting ]
 
 (* star *)
 type fediffuselighting_content =
-  [ | descriptive_element | light_source_element | `Animate
-    | `Script | `Set
-  ]
+  [ descriptive_element | light_source_element | `Animate | `Script | `Set ]
 
 (* XXX *)
 type fediffuselighting_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | filter_primitive_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `In
-    | `SurfaceScale
-    | `DiffuseConstant
-    | `KernelUnitLength
-  ]
+  [ core_attr
+  | global_event_attr
+  | filter_primitive_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `In
+  | `SurfaceScale
+  | `DiffuseConstant
+  | `KernelUnitLength ]
 
-type fedisplacementmap = [ | `FeDisplacementMap ]
+type fedisplacementmap = [ `FeDisplacementMap ]
 
 (* star *)
 type fedisplacementmap_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+  [ descriptive_element | `Animate | `Script | `Set ]
 
 type fedisplacementmap_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | filter_primitive_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `In
-    | `In2
-    | `Scale
-    | `XChannelSelector
-    | `YChannelSelector
-  ]
+  [ core_attr
+  | global_event_attr
+  | filter_primitive_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `In
+  | `In2
+  | `Scale
+  | `XChannelSelector
+  | `YChannelSelector ]
 
-type fedropshadow = [ | `FeDropShadow ]
+type fedropshadow = [ `FeDropShadow ]
 
 (* star *)
-type fedropshadow_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type fedropshadow_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type fedropshadow_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-    | `Dx
-    | `Dy
-    | `StdDeviation
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `Dx
+  | `Dy
+  | `StdDeviation ]
 
-type feflood = [ | `FeFlood ]
+type feflood = [ `FeFlood ]
 
 (* star *)
 type feflood_content =
-  [ | descriptive_element | `Animate | `AnimateColor | `Script
-    | `Set ]
+  [ descriptive_element | `Animate | `AnimateColor | `Script | `Set ]
 
 type feflood_attr =
-  [ | core_attr | global_event_attr | presentation_attr
-    | filter_primitive_attr | `Class | `Style
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style ]
 
-type fegaussianblur = [ | `FeGaussianBlur ]
+type fegaussianblur = [ `FeGaussianBlur ]
 
 (* star *)
 type fegaussianblur_content =
-  [ | descriptive_element | `Animate | `AnimateColor | `Script
-    | `Set ]
+  [ descriptive_element | `Animate | `AnimateColor | `Script | `Set ]
 
 type fegaussianblur_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-    | `StdDeviation
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `StdDeviation ]
 
-type feimage = [ | `FeImage ]
+type feimage = [ `FeImage ]
 
 (* star *)
 type feimage_content =
-  [ | descriptive_element | `Animate | `AnimateColor | `Script
-    | `Set ]
+  [ descriptive_element | `Animate | `AnimateColor | `Script | `Set ]
 
 type feimage_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | xlink_attr
-    | `Xlink_href
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `PreserveAspectRatio
-    | `Crossorigin
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | xlink_attr
+  | `Xlink_href
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `PreserveAspectRatio
+  | `Crossorigin ]
 
-type femerge = [ | `FeMerge ]
+type femerge = [ `FeMerge ]
 
 (* star *)
 type femerge_content =
-  [ | descriptive_element | `Animate | `FeMergeNode | `Script | `Set ]
+  [ descriptive_element | `Animate | `FeMergeNode | `Script | `Set ]
 
 type femerge_attr =
-  [ | core_attr | global_event_attr | presentation_attr
-    | filter_primitive_attr | `Class | `Style
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style ]
 
-type femergenode = [ | `FeMergeNode ]
-
-(* star *)
-type femergenode_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
-
-type femergenode_attr = [ | core_attr | global_event_attr | `In ]
-
-type femorphology = [ | `FeMorphology ]
+type femergenode = [ `FeMergeNode ]
 
 (* star *)
-type femorphology_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type femergenode_content = [ descriptive_element | `Animate | `Script | `Set ]
+type femergenode_attr = [ core_attr | global_event_attr | `In ]
+type femorphology = [ `FeMorphology ]
+
+(* star *)
+type femorphology_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type femorphology_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `OperatorMorphology
-    | `Class
-    | `Style
-    | `In
-    | `Radius
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `OperatorMorphology
+  | `Class
+  | `Style
+  | `In
+  | `Radius ]
 
-type feoffset = [ | `FeOffset ]
+type feoffset = [ `FeOffset ]
 
 (* star *)
-type feoffset_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type feoffset_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type feoffset_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `Dx
-    | `Dy
-    | `In
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `Dx
+  | `Dy
+  | `In ]
 
-type fespecularlighting = [ | `FeSpecularLighting ]
+type fespecularlighting = [ `FeSpecularLighting ]
 
 (* star *)
 type fespecularlighting_content =
-  [ | descriptive_element | light_source_element | `Animate
-    | `Script | `Set
-  ]
+  [ descriptive_element | light_source_element | `Animate | `Script | `Set ]
 
 (* XXX *)
 type fespecularlighting_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-    | `SurfaceScale
-    | `SpecularConstant
-    | `SpecularExponent
-    | `KernelUnitLength
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In
+  | `SurfaceScale
+  | `SpecularConstant
+  | `SpecularExponent
+  | `KernelUnitLength ]
 
-type fetile = [ | `FeTile ]
+type fetile = [ `FeTile ]
 
 (* star *)
-type fetile_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type fetile_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type fetile_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `In
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `In ]
 
-type feturbulence = [ | `FeTurbulence ]
+type feturbulence = [ `FeTurbulence ]
 
 (* star *)
-type feturbulence_content =
-  [ | descriptive_element | `Animate | `Script | `Set ]
+type feturbulence_content = [ descriptive_element | `Animate | `Script | `Set ]
 
 type feturbulence_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | presentation_attr
-    | filter_primitive_attr
-    | `Class
-    | `Style
-    | `BaseFrequency
-    | `NumOctaves
-    | `Seed
-    | `StitchTiles
-    | `TypeStitch
-  ]
+  [ core_attr
+  | global_event_attr
+  | presentation_attr
+  | filter_primitive_attr
+  | `Class
+  | `Style
+  | `BaseFrequency
+  | `NumOctaves
+  | `Seed
+  | `StitchTiles
+  | `TypeStitch ]
 
-type cursor = [ | `Cursor ]
+type cursor = [ `Cursor ]
 
 (* star *)
 type cursor_content = descriptive_element
 
 type cursor_attr =
-  [
-    | core_attr
-    | conditional_processing_attr
-    | xlink_attr
-    | `X
-    | `Y
-    | `ExternalResourcesRequired
-    | `Xlink_href
-  ]
+  [ core_attr
+  | conditional_processing_attr
+  | xlink_attr
+  | `X
+  | `Y
+  | `ExternalResourcesRequired
+  | `Xlink_href ]
 
-type a = [ | `A ]
+type a = [ `A ]
 
 (* star *)
 type a_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type a_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | conditional_processing_attr
-    | xlink_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `Xlink_href
-    | `Xlink_show
-    | `Xlink_actuate
-    | `Download
-    | `Hreflang
-    | `Ping
-    | `Referrerpolicy
-    | `Rel
-    | `Target
-    | `Type
-  ]
+  [ core_attr
+  | global_event_attr
+  | conditional_processing_attr
+  | xlink_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `Xlink_href
+  | `Xlink_show
+  | `Xlink_actuate
+  | `Download
+  | `Hreflang
+  | `Ping
+  | `Referrerpolicy
+  | `Rel
+  | `Target
+  | `Type ]
 
-type view = [ | `View ]
+type view = [ `View ]
 
 (* star *)
 type view_content = descriptive_element
 
 type view_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | `ExternalResourcesRequired
-    | `ViewBox
-    | `PreserveAspectRatio
-    | `ZoomAndPan
-    | `ViewTarget
-  ]
+  [ core_attr
+  | global_event_attr
+  | `ExternalResourcesRequired
+  | `ViewBox
+  | `PreserveAspectRatio
+  | `ZoomAndPan
+  | `ViewTarget ]
 
-type script = [ | `Script ]
+type script = [ `Script ]
 
 (* unary *)
-type script_content = [ | `PCDATA ]
+type script_content = [ `PCDATA ]
 
 type script_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | xlink_attr
-    | `ExternalResourcesRequired
-    | `Type
-    | `Xlink_href
-    | `Crossorigin
-  ]
+  [ core_attr
+  | global_event_attr
+  | xlink_attr
+  | `ExternalResourcesRequired
+  | `Type
+  | `Xlink_href
+  | `Crossorigin ]
 
-type animate = [ | `Animate ]
+type animate = [ `Animate ]
 
 (* star *)
 type animate_content = descriptive_element
 
 type animate_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | animation_event_attr
-    | xlink_attr
-    | animation_attr_target_attr
-    | animation_timing_attr
-    | animation_value_attr
-    | animation_addition_attr
-    | `ExternalResourcesRequired
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | animation_event_attr
+  | xlink_attr
+  | animation_attr_target_attr
+  | animation_timing_attr
+  | animation_value_attr
+  | animation_addition_attr
+  | `ExternalResourcesRequired ]
 
-type set = [ | `Set ]
+type set = [ `Set ]
 
 (* star *)
 type set_content = descriptive_element
 
 type set_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | conditional_processing_attr
-    | xlink_attr
-    | animation_event_attr
-    | animation_attr_target_attr
-    | animation_timing_attr
-    | `To
-    | `ExternalResourcesRequired
-  ]
+  [ core_attr
+  | global_event_attr
+  | conditional_processing_attr
+  | xlink_attr
+  | animation_event_attr
+  | animation_attr_target_attr
+  | animation_timing_attr
+  | `To
+  | `ExternalResourcesRequired ]
 
-type animatemotion = [ | `AnimateMotion ]
+type animatemotion = [ `AnimateMotion ]
 
 (* star *)
-type animatemotion_content = [ | descriptive_element | `Mpath ]
+type animatemotion_content = [ descriptive_element | `Mpath ]
 
 (* XXX *)
 type animatemotion_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | animation_event_attr
-    | xlink_attr
-    | animation_timing_attr
-    | animation_value_attr
-    | animation_addition_attr
-    | `ExternalResourcesRequired
-    | `Path
-    | `KeyPoints
-    | `Rotate
-    | `Origin
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | animation_event_attr
+  | xlink_attr
+  | animation_timing_attr
+  | animation_value_attr
+  | animation_addition_attr
+  | `ExternalResourcesRequired
+  | `Path
+  | `KeyPoints
+  | `Rotate
+  | `Origin ]
 
 (* XXX: rotate *)
-type mpath = [ | `Mpath ]
+type mpath = [ `Mpath ]
 
 (* star *)
 type mpath_content = descriptive_element
 
 type mpath_attr =
-  [ | core_attr | global_event_attr | xlink_attr
-    | `ExternalResourcesRequired | `Xlink_href
-  ]
+  [ core_attr
+  | global_event_attr
+  | xlink_attr
+  | `ExternalResourcesRequired
+  | `Xlink_href ]
 
-type animatecolor = [ | `AnimateColor ]
+type animatecolor = [ `AnimateColor ]
 
 (* star *)
 type animatecolor_content = descriptive_element
 
 type animatecolor_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | animation_event_attr
-    | xlink_attr
-    | animation_attr_target_attr
-    | animation_timing_attr
-    | animation_value_attr
-    | animation_addition_attr
-    | `ExternalResourcesRequired
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | animation_event_attr
+  | xlink_attr
+  | animation_attr_target_attr
+  | animation_timing_attr
+  | animation_value_attr
+  | animation_addition_attr
+  | `ExternalResourcesRequired ]
 
-type animatetransform = [ | `AnimateTransform ]
+type animatetransform = [ `AnimateTransform ]
 
 (* star *)
 type animatetransform_content = descriptive_element
 
 type animatetransform_attr =
-  [
-    | conditional_processing_attr
-    | core_attr
-    | global_event_attr
-    | animation_event_attr
-    | xlink_attr
-    | animation_attr_target_attr
-    | animation_timing_attr
-    | animation_value_attr
-    | animation_addition_attr
-    | `ExternalResourcesRequired
-    | `Typeanimatetransform
-  ]
+  [ conditional_processing_attr
+  | core_attr
+  | global_event_attr
+  | animation_event_attr
+  | xlink_attr
+  | animation_attr_target_attr
+  | animation_timing_attr
+  | animation_value_attr
+  | animation_addition_attr
+  | `ExternalResourcesRequired
+  | `Typeanimatetransform ]
 
-type font = [ | `Font ]
+type font = [ `Font ]
 
 (* star *)
 type font_attr =
-  [
-    | core_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `HorizOriginX
-    | `HorizOriginY
-    | `HorizAdvX
-    | `VertOriginX
-    | `VertOriginY
-    | `VertAdvY
-  ]
+  [ core_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `HorizOriginX
+  | `HorizOriginY
+  | `HorizAdvX
+  | `VertOriginX
+  | `VertOriginY
+  | `VertAdvY ]
 
 type font_content =
-  [
-    | descriptive_element
-    | `Font_Face
-    | `Glyph
-    | `Hkern
-    | `MissingGlyph
-    | `Vkern
-  ]
+  [ descriptive_element | `Font_Face | `Glyph | `Hkern | `MissingGlyph | `Vkern ]
 
-type glyph = [ | `Glyph ]
+type glyph = [ `Glyph ]
 
 (* star *)
 type glyph_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type glyph_attr =
-  [
-    | core_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `D
-    | `HorizAdvX
-    | `VertOriginX
-    | `VertOriginY
-    | `VertAdvY
-    | `Unicode
-    | `GlyphName
-    | `Orientation
-    | `ArabicForm
-    | `Lang
-  ]
+  [ core_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `D
+  | `HorizAdvX
+  | `VertOriginX
+  | `VertOriginY
+  | `VertAdvY
+  | `Unicode
+  | `GlyphName
+  | `Orientation
+  | `ArabicForm
+  | `Lang ]
 
-type missingglyph = [ | `MissingGlyph ]
+type missingglyph = [ `MissingGlyph ]
 
 (* star *)
 type missingglyph_content =
-  [
-    | animation_element
-    | descriptive_element
-    | shape_element
-    | structural_element
-    | gradient_element
-    | `A
-    | `AltGlyphDef
-    | `ClipPath
-    | `Color_Profile
-    | `Cursor
-    | `Filter
-    | `Font
-    | `Font_Face
-    | `ForeignObject
-    | `Image
-    | `Marker
-    | `Mask
-    | `Pattern
-    | `Script
-    | `Style
-    | `Switch
-    | `Text
-    | `View
-  ]
+  [ animation_element
+  | descriptive_element
+  | shape_element
+  | structural_element
+  | gradient_element
+  | `A
+  | `AltGlyphDef
+  | `ClipPath
+  | `Color_Profile
+  | `Cursor
+  | `Filter
+  | `Font
+  | `Font_Face
+  | `ForeignObject
+  | `Image
+  | `Marker
+  | `Mask
+  | `Pattern
+  | `Script
+  | `Style
+  | `Switch
+  | `Text
+  | `View ]
 
 type missingglyph_attr =
-  [
-    | core_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `D
-    | `HorizAdvX
-    | `VertOriginX
-    | `VertOriginY
-    | `VertAdvY
-  ]
+  [ core_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `D
+  | `HorizAdvX
+  | `VertOriginX
+  | `VertOriginY
+  | `VertAdvY ]
 
-type hkern = [ | `Hkern ]
+type hkern = [ `Hkern ]
 
 (* nullary *)
-type hkern_attr = [ | core_attr | `U1 | `G1 | `U2 | `G2 | `K ]
-
-type vkern = [ | `Vkern ]
-
-(* nullary *)
-type vkern_attr = [ | core_attr | `U1 | `G1 | `U2 | `G2 | `K ]
-
-type font_face = [ | `Font_Face ]
+type hkern_attr = [ core_attr | `U1 | `G1 | `U2 | `G2 | `K ]
+type vkern = [ `Vkern ]
 
 (* nullary *)
-type font_face_content = [ | descriptive_element | `Font_Face_Src ]
+type vkern_attr = [ core_attr | `U1 | `G1 | `U2 | `G2 | `K ]
+type font_face = [ `Font_Face ]
+
+(* nullary *)
+type font_face_content = [ descriptive_element | `Font_Face_Src ]
 
 type font_face_attr =
-  [
-    | core_attr
-    | `Font_Family
-    | `Font_Style
-    | `Font_Variant
-    | `Font_Weight
-    | `Font_Stretch
-    | `Font_Size
-    | `UnicodeRange
-    | `UnitsPerEm
-    | `Panose1
-    | `Stemv
-    | `Stemh
-    | `Slope
-    | `CapHeight
-    | `XHeight
-    | `AccentHeight
-    | `Ascent
-    | `Descent
-    | `Widths
-    | `Bbox
-    | `Ideographic
-    | `Alphabetic
-    | `Mathematical
-    | `Hanging
-    | `VIdeographic
-    | `VAlphabetic
-    | `VMathematical
-    | `VHanging
-    | `UnderlinePosition
-    | `UnderlineThickness
-    | `StrikethroughPosition
-    | `StrikethroughThickness
-    | `OverlinePosition
-    | `OverlineThickness
-  ]
+  [ core_attr
+  | `Font_Family
+  | `Font_Style
+  | `Font_Variant
+  | `Font_Weight
+  | `Font_Stretch
+  | `Font_Size
+  | `UnicodeRange
+  | `UnitsPerEm
+  | `Panose1
+  | `Stemv
+  | `Stemh
+  | `Slope
+  | `CapHeight
+  | `XHeight
+  | `AccentHeight
+  | `Ascent
+  | `Descent
+  | `Widths
+  | `Bbox
+  | `Ideographic
+  | `Alphabetic
+  | `Mathematical
+  | `Hanging
+  | `VIdeographic
+  | `VAlphabetic
+  | `VMathematical
+  | `VHanging
+  | `UnderlinePosition
+  | `UnderlineThickness
+  | `StrikethroughPosition
+  | `StrikethroughThickness
+  | `OverlinePosition
+  | `OverlineThickness ]
 
 (* star *)
-type font_face_src = [ | `Font_Face_Src ]
-
-type font_face_src_content = [ | `Font_Face_Name | `Font_Face_Uri ]
-
+type font_face_src = [ `Font_Face_Src ]
+type font_face_src_content = [ `Font_Face_Name | `Font_Face_Uri ]
 type font_face_src_attr = core_attr
 
 (* star *)
-type font_face_uri = [ | `Font_Face_Uri ]
-
-type font_face_uri_content = [ | `Font_Face_Format ]
-
-type font_face_uri_attr = [ | core_attr | xlink_attr | `Xlink_href ]
+type font_face_uri = [ `Font_Face_Uri ]
+type font_face_uri_content = [ `Font_Face_Format ]
+type font_face_uri_attr = [ core_attr | xlink_attr | `Xlink_href ]
 
 (* nullary *)
-type font_face_format = [ | `Font_Face_Format ]
-
-type font_face_format_attr = [ | core_attr | `String ]
+type font_face_format = [ `Font_Face_Format ]
+type font_face_format_attr = [ core_attr | `String ]
 
 (* nullary *)
-type font_face_name = [ | `Font_Face_Name ]
-
-type font_face_name_attr = [ | core_attr | `Name ]
-
-type metadata = [ | `Metadata ]
-
-type metadata_attr = [ | core_attr | global_event_attr ]
-
-type foreignobject = [ | `ForeignObject ]
+type font_face_name = [ `Font_Face_Name ]
+type font_face_name_attr = [ core_attr | `Name ]
+type metadata = [ `Metadata ]
+type metadata_attr = [ core_attr | global_event_attr ]
+type foreignobject = [ `ForeignObject ]
 
 type foreignobject_attr =
-  [
-    | core_attr
-    | global_event_attr
-    | conditional_processing_attr
-    | graphical_event_attr
-    | presentation_attr
-    | `Class
-    | `Style
-    | `ExternalResourcesRequired
-    | `Transform
-    | `X
-    | `Y
-    | `Width
-    | `Height
-  ]
+  [ core_attr
+  | global_event_attr
+  | conditional_processing_attr
+  | graphical_event_attr
+  | presentation_attr
+  | `Class
+  | `Style
+  | `ExternalResourcesRequired
+  | `Transform
+  | `X
+  | `Y
+  | `Width
+  | `Height ]
 
 type alignment_baseline =
   [ `After_edge
@@ -2323,8 +2073,7 @@ type dominant_baseline =
   | `Text_before_edge
   | `Text_bottom
   | `Text_top
-  | `Inherit
-  ]
+  | `Inherit ]
 
 type in_value =
   [ `SourceGraphic
@@ -2333,11 +2082,10 @@ type in_value =
   | `BackgroundAlpha
   | `FillPaint
   | `StrokePaint
-  | `Ref of string ] [@@reflect.total_variant]
+  | `Ref of string ]
+[@@reflect.total_variant]
 
-type offset =
-  [ `Number of number
-  | `Percentage of percentage ]
+type offset = [ `Number of number | `Percentage of percentage ]
 
 type big_variant =
   [ `A
@@ -2498,13 +2246,11 @@ type big_variant =
   | `WhenNotActive
   | `Wrap
   | `XML
-  | `Xor
-  ]
+  | `Xor ]
 
 (** {2 Deprecated} *)
 
-type animation = animate
-[@@ocaml.deprecated "Use animate instead"]
+type animation = animate [@@ocaml.deprecated "Use animate instead"]
 (** @deprecated Use animate instead *)
 
 type animation_content = animate_content

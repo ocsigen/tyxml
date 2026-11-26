@@ -15,12 +15,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA 02110-1301, USA.
-*)
+ *)
 
 let parse loc (language, element_name) attributes =
-  let (module Reflected) =
-    Namespace.get language in
-
+  let (module Reflected) = Namespace.get language in
   (* For prefix ["prefix"] and attribute names ["prefix-foo"], evaluates to
      [Some "foo"], otherwise evaluates to [None].
 
@@ -29,16 +27,12 @@ let parse loc (language, element_name) attributes =
   *)
   let parse_prefixed prefix name =
     let length = String.length prefix in
-
     let is_prefixed =
-      try String.sub name 0 length = prefix
-      with Invalid_argument _ -> false
+      try String.sub name 0 length = prefix with Invalid_argument _ -> false
     in
-
     if not is_prefixed then None
     else Some (String.sub name length (String.length name - length))
   in
-
   (* Markup.ml lowercases attribute names and does not apply the SVG attribute
      case adjustments of the HTML standard in the ["svg"] fragment context we
      parse SVG with. Many SVG attributes are camel case ("viewBox",
@@ -48,18 +42,15 @@ let parse loc (language, element_name) attributes =
   let restore_case tyxml_name =
     match language with
     | Common.Html -> tyxml_name
-    | Svg ->
-      if List.mem_assoc tyxml_name Reflected.attribute_parsers then tyxml_name
-      else
-        let lowercase = String.lowercase_ascii tyxml_name in
-        let same_name (name, _) =
-          String.lowercase_ascii name = lowercase
-        in
-        match Common.find same_name Reflected.attribute_parsers with
-        | Some (name, _) -> name
-        | None -> tyxml_name
+    | Svg -> (
+        if List.mem_assoc tyxml_name Reflected.attribute_parsers then tyxml_name
+        else
+          let lowercase = String.lowercase_ascii tyxml_name in
+          let same_name (name, _) = String.lowercase_ascii name = lowercase in
+          match Common.find same_name Reflected.attribute_parsers with
+          | Some (name, _) -> name
+          | None -> tyxml_name)
   in
-
   (* Applied to each attribute. Accumulates individually labeled attributes,
      such as img/src, in "labeled," and attributes passed in ~a in "regular." *)
   let parse_attribute (labeled, regular) ((_, local_name), value) =
@@ -67,32 +58,28 @@ let parse loc (language, element_name) attributes =
        to renamed attributes such as "a_input_max." Renaming will be accounted
        for later. *)
     let tyxml_name = restore_case (Name_convention.attrib local_name) in
-
     let test_labeled (e, a, _) = e = element_name && a = local_name in
     let test_blacklisted (a, _, _) = a = tyxml_name in
     let test_renamed (_, a, es) = a = local_name && List.mem element_name es in
-
     let unknown () =
       Common.error loc "Unknown attribute in %s element: %s"
         (Common.lang language) local_name
     in
-
     (* Check whether this attribute is individually labeled. Parse its argument
        and accumulate the attribute if so. *)
     match Common.find test_labeled Reflected.labeled_attributes with
     | Some (_, label, parser) ->
-      let e =
-        match parser language loc local_name value with
-        | None ->
-          Common.error loc
-            "Internal error: labeled attribute %s without an argument" label
-        | Some e -> e
-      in
-
-      (Labelled label, e)::labeled, regular
-
-    | None ->
-      (* The attribute is not individually labeled, so it is passed in ~a.
+        let e =
+          match parser language loc local_name value with
+          | None ->
+              Common.error loc
+                "Internal error: labeled attribute %s without an argument" label
+          | Some e -> e
+        in
+        ((Labelled label, e) :: labeled, regular)
+    | None -> (
+        if
+          (* The attribute is not individually labeled, so it is passed in ~a.
 
          First, check if the default TyXML name of this attribute collides with
          the TyXML name of a renamed attribute. For example, if the language is
@@ -101,78 +88,70 @@ let parse loc (language, element_name) attributes =
          *valid* value in TyXML. We want to avoid mapping "input-max" to
          "a_input_max", because "input-max" is invalid, and because
          "a_input_max" maps to "max" instead. *)
-      if List.exists test_blacklisted Reflected.renamed_attributes then
-        unknown ()
-      else
-        let parse_prefixed_attribute tag tyxml_name =
-          let parser =
-            try List.assoc tyxml_name Reflected.attribute_parsers
-            with Not_found ->
-              Common.error loc "Internal error: no parser for %s" tyxml_name
+          List.exists test_blacklisted Reflected.renamed_attributes
+        then unknown ()
+        else
+          let parse_prefixed_attribute tag tyxml_name =
+            let parser =
+              try List.assoc tyxml_name Reflected.attribute_parsers
+              with Not_found ->
+                Common.error loc "Internal error: no parser for %s" tyxml_name
+            in
+            let identifier = Common.make ~loc language tyxml_name in
+            let tag = Common.string loc tag in
+            let e =
+              match parser language loc local_name value with
+              | Some e' ->
+                  [%expr [%e identifier] [%e tag] [%e e']] [@metaloc loc]
+              | None ->
+                  Common.error loc "Internal error: no expression for %s"
+                    tyxml_name
+            in
+            (labeled, e :: regular)
           in
-
-          let identifier = Common.make ~loc language tyxml_name in
-          let tag = Common.string loc tag in
-
-          let e =
-            match parser language loc local_name value with
-            | Some e' -> [%expr [%e identifier] [%e tag] [%e e']] [@metaloc loc]
-            | None ->
-              Common.error loc "Internal error: no expression for %s"
-                tyxml_name
-          in
-
-          labeled, e::regular
-        in
-
-        (* Check if this is a "data-foo", "aria-foo", or unsafe attribute. Parse
+          (* Check if this is a "data-foo", "aria-foo", or unsafe attribute. Parse
            the attribute value, and accumulate it in the list of attributes passed
            in ~a. *)
-        match parse_prefixed "data-" local_name,
+          match
+            ( parse_prefixed "data-" local_name,
               parse_prefixed "aria-" local_name,
-              parse_prefixed "_" local_name
-        with
-        | Some tag, _, _ -> parse_prefixed_attribute tag "a_user_data"
-        | _, Some tag, _ -> parse_prefixed_attribute tag "a_aria"
-        | _, _, Some tag ->
-          let identifier = Common.make ~loc language "Unsafe.string_attrib" in
-          let tag = Common.string loc tag in
-          let value = match value with
-                      | Val s -> Common.string loc s
-                      | Antiquot v -> v in
-          labeled, [%expr [%e identifier] [%e tag] [%e value]] :: regular
-        | None, None, None ->
-          let tyxml_name =
-            match Common.find test_renamed Reflected.renamed_attributes with
-            | Some (name, _, _) -> name
-            | None -> tyxml_name
-          in
-
-          let parser =
-            try List.assoc tyxml_name Reflected.attribute_parsers
-            with Not_found -> unknown ()
-          in
-
-          let identifier = Common.make ~loc language tyxml_name in
-
-          let e =
-            match parser language loc local_name value with
-            | None -> identifier
-            | Some e' -> [%expr [%e identifier] [%e e']] [@metaloc loc]
-          in
-
-          labeled, e::regular
+              parse_prefixed "_" local_name )
+          with
+          | Some tag, _, _ -> parse_prefixed_attribute tag "a_user_data"
+          | _, Some tag, _ -> parse_prefixed_attribute tag "a_aria"
+          | _, _, Some tag ->
+              let identifier =
+                Common.make ~loc language "Unsafe.string_attrib"
+              in
+              let tag = Common.string loc tag in
+              let value =
+                match value with
+                | Val s -> Common.string loc s
+                | Antiquot v -> v
+              in
+              (labeled, [%expr [%e identifier] [%e tag] [%e value]] :: regular)
+          | None, None, None ->
+              let tyxml_name =
+                match Common.find test_renamed Reflected.renamed_attributes with
+                | Some (name, _, _) -> name
+                | None -> tyxml_name
+              in
+              let parser =
+                try List.assoc tyxml_name Reflected.attribute_parsers
+                with Not_found -> unknown ()
+              in
+              let identifier = Common.make ~loc language tyxml_name in
+              let e =
+                match parser language loc local_name value with
+                | None -> identifier
+                | Some e' -> [%expr [%e identifier] [%e e']] [@metaloc loc]
+              in
+              (labeled, e :: regular))
   in
-
-  let labeled, regular =
-    List.fold_left parse_attribute ([], []) attributes in
-
+  let labeled, regular = List.fold_left parse_attribute ([], []) attributes in
   (* If there are any attributes to pass in ~a, assemble them into a parse tree
      for a list, and prefix that with the ~a label. *)
   if regular = [] then List.rev labeled
   else
-    let regular =
-      Labelled "a",
-      Common.list loc (List.rev regular)
-    in
-    List.rev (regular::labeled)
+    let regular = (Labelled "a", Common.list loc (List.rev regular)) in
+    List.rev (regular :: labeled)

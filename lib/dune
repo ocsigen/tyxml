@@ -3,9 +3,12 @@
  (public_name tyxml.functor)
  (wrapped false)
  (modules_without_implementation
-  Xml_sigs Html_sigs Svg_sigs Html_types Svg_types)
+  Xml_sigs
+  Html_sigs
+  Svg_sigs
+  Html_types
+  Svg_types)
  (synopsis "Statically correct HTML and SVG documents (Functor version)")
  (libraries uutf re seq)
- (flags (:standard
-         -safe-string))
-)
+ (flags
+  (:standard -safe-string)))

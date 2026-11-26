@@ -1,7 +1,7 @@
 let answer_elem ~attrib s =
   Printf.printf "Original name: \t%s\nOCaml name: \t%s\nPoly variant: \t%s\n" s
-    ( if attrib then Tyxml_syntax.Name_convention.attrib s
-    else Tyxml_syntax.Name_convention.ident s )
+    (if attrib then Tyxml_syntax.Name_convention.attrib s
+     else Tyxml_syntax.Name_convention.ident s)
     (Tyxml_syntax.Name_convention.polyvar s)
 
 let spec =
