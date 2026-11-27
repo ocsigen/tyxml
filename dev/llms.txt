@@ -8,7 +8,6 @@
 - [TyXML Ppx syntax extension](tyxml/ppx.md)
 - [TyXML JSX syntax](tyxml/jsx.md)
 - [API reference](tyxml/api.md)
-- [OCaml Package Documentation](index.md)
 - [tyxml-jsx index](tyxml-jsx/index.md)
 - [tyxml-ppx index](tyxml-ppx/index.md)
 - [tyxml-syntax index](tyxml-syntax/index.md)
